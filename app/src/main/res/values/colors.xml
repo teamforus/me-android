@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#00bcd4</color>
+    <color name="colorPrimaryDark">#008ba3</color>
+    <color name="colorAccent">#8bc34a</color>
+    <color name="fab_background">@color/colorAccent</color>
+    <color name="fab_text">@color/white</color>
+    <color name="negative_button_background">#29434e</color>
+    <color name="negative_button_text">@color/white</color>
+    <color name="positive_button_background">@color/colorAccent</color>
+    <color name="positive_button_text">@color/white</color>
+    <color name="white">#FAFAFA</color>
+    <color name="greyText">#707070</color>
+</resources>
