@@ -21,16 +21,13 @@
         android:id="@+id/navigation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:elevation="@dimen/toolbar_elevation"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:elevation="8dp"
-        app:layout_constraintVertical_bias="1.0"
-        app:tabTextColor="@color/colorPrimary"
         app:tabSelectedTextColor="@color/colorAccent"
-        tools:targetApi="lollipop">
+        app:tabTextColor="@color/colorPrimary">
+
     </android.support.design.widget.TabLayout>
 
 </android.support.constraint.ConstraintLayout>

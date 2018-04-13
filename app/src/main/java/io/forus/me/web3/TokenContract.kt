@@ -78,10 +78,10 @@ class TokenContract(address:String) : BaseContract(address) {
         val encodedFunction = FunctionEncoder.encode(function)
 
         val transactionManager = RawTransactionManager(this.web3j, Web3Service.credentials)
-        val sentTransaction = transactionManager.sendTransaction(
+        val sentTransaction = transactionManager.sendTransaction (
                 this.gasPrice,
                 this.gasLimit,
-                to,
+                this.contractAddress,
                 encodedFunction,
                 BigInteger.ZERO
         )

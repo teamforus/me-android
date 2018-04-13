@@ -64,13 +64,10 @@ class SendWalletItemActivity : AppCompatActivity() {
                         val contract = TokenContract(transfer.item.address)
                         transactionResult = contract.transfer(result.text, transfer.value!!.toLong())
                     })
-                    // TODO this is now done on the main thread. Later, you want this to
-                    // be done on a seperate thread (just like this is designed here
-                    while (transactionResult == null) {
-                        Thread.sleep(500)
-                    }
                     if (!transactionResult!!) {
                         Toast.makeText(baseContext, "Error!", Toast.LENGTH_LONG).show()
+                    } else {
+                        Toast.makeText(baseContext, "Transactie gelukt. Het kan even duren voordat dit zichtbaar is", Toast.LENGTH_SHORT).show()
                     }
                     val intent = Intent()
                     intent.putExtra(WalletItemActivity.WALLET_ITEM_KEY, json)
