@@ -53,6 +53,7 @@ class WalletItemActivity : AppCompatActivity() {
             SEND_REQUEST -> {
                 when (resultCode) {
                     OK_RESULT -> {
+                        this.pager.setCurrentItem(WalletItemDetailPager.OVERVIEW_PAGE, false)
                         val address = intent!!.extras.getString(ADDRESS_KEY)
                         val walletItem = JsonHelper.toWalletItem(intent!!.extras.getString(WALLET_ITEM_KEY))
                         if (walletItem != null) {

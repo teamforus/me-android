@@ -9,6 +9,7 @@ import android.widget.ImageView
 import io.forus.me.R
 import io.forus.me.entities.base.EthereumItem
 import io.forus.me.entities.base.WalletItem
+import io.forus.me.helpers.JsonHelper
 import io.forus.me.helpers.QrHelper
 import io.forus.me.views.base.TitledFragment
 import kotlinx.android.synthetic.main.activity_wallet_item.*
@@ -18,7 +19,7 @@ import kotlinx.android.synthetic.main.activity_wallet_item.*
  */
 class WalletItemDetailFragment : TitledFragment() {
 
-    var walletItem: EthereumItem? = null
+    var walletItem: WalletItem? = null
 
     fun bindWalletItem(useView: View? = null, newWalletItem: WalletItem? = null) {
         if (newWalletItem != null) {
@@ -35,7 +36,7 @@ class WalletItemDetailFragment : TitledFragment() {
 
         val qrView:ImageView = view.findViewById(R.id.qrView)
         val bitmap = QrHelper.getQrBitmap(
-                walletItem!!.address,
+                JsonHelper.fromWalletItem(walletItem!!),
                 // TODO fix hardcoding
                 196,
                 ContextCompat.getColor(context!!, R.color.black),

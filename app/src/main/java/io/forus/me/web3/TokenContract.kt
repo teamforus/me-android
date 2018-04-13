@@ -76,16 +76,6 @@ class TokenContract(address:String) : BaseContract(address) {
                 listOf(TypeReference.create(Bool::class.java))
         )
         val encodedFunction = FunctionEncoder.encode(function)
-        /*val transaction = RawTransaction.createTransaction(
-                this.nonce,
-                this.gasPrice,
-                this.gasLimit,
-                this.contractAddress,
-                //BigInteger.valueOf(0L),
-                encodedFunction)*/
-        /*val rawSignature = TransactionEncoder.signMessage(transaction, Web3Service.credentials)
-        val signature = Numeric.toHexString(rawSignature)
-        val sentTransaction = web3j.ethSendRawTransaction(signature).sendAsync().get()*/
 
         val transactionManager = RawTransactionManager(this.web3j, Web3Service.credentials)
         val sentTransaction = transactionManager.sendTransaction(

@@ -39,19 +39,17 @@ class MeFragment : TitledFragment() {
         requestPermission()
         scanner.decodeContinuous(object : BarcodeCallback {
             override fun barcodeResult(result: BarcodeResult) {
-                /*
                 pauseScanner()
                 val item = EthereumItem.fromString(result.text)
                 if (item != null) {
                     qrListener.onQrResult(item)
                 } else {
                     qrListener.onQrError(QrListener.ErrorCode.INVALID_OBJECT)
-                }*/
-                Log.d("Scanner", result.text)
+                }
             }
 
             override fun possibleResultPoints(resultPoints: List<ResultPoint>) {
-                setMarkers(resultPoints)
+                //setMarkers(resultPoints)
             }
         })
         val button: ImageView = view.findViewById(R.id.myIdentitiesButton)
