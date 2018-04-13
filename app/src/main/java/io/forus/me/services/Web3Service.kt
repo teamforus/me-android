@@ -62,6 +62,7 @@ internal class Web3Service {
                         val file = File(walletFileDirectory, ".key")
                         if (file.exists()) {
                             _credentials = Credentials.create(Hex.toHexString(file.readBytes()))
+                            Log.d("Web3Service", "Loading configuration for account \"${this.account}\"")
                         }
                     }
                     if (_credentials == null) return null

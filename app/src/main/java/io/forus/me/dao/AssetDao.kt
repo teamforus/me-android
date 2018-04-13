@@ -15,7 +15,7 @@ interface AssetDao {
     fun delete(asset: Asset)
 
     @Query("SELECT * FROM `asset` WHERE `identity` = :arg0")
-    fun getAssets(identity:String): LiveData<List<Asset>>
+    fun getAssets(identity:String): List<Asset>
 
     @Query("SELECT * FROM `asset` WHERE `address` = :arg0 AND `identity` = :arg1")
     fun getAssetByAddressByIdentity(address:String, identity: String): Asset

@@ -2,7 +2,7 @@ package io.forus.me
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.Snackbar
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import io.forus.me.helpers.QrHelper
@@ -28,7 +28,10 @@ class AssignDelegatesActivity : AppCompatActivity() {
         json.put("address", Web3Service.account!!)
         json.put("type", "request_delegate")
 
-        qr_view.setImageBitmap(QrHelper.getQrBitmap(json))
+        qrView.setImageBitmap(QrHelper.getQrBitmap(json,
+                qrView.width,
+                ContextCompat.getColor(baseContext, R.color.black),
+                ContextCompat.getColor(baseContext, R.color.white)))
 
 
     }

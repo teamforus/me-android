@@ -18,7 +18,9 @@ class Record(
         name: String = "",
         var recordCategoryId: Int = RecordService.CategoryIdentifier.OTHER,
         identity:String = IdentityService.currentAddress,
-        @Ignore var value: String = "") : EthereumItem(address, name, identity) {
+        @Ignore var value: String = "",
+        var lastSync: Long? = null
+) : EthereumItem(address, name, identity) {
     val key:String
         get() = this.address
 

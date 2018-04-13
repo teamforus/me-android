@@ -22,7 +22,7 @@ class ThreadHelper {
         val WEB3_THREAD: String = "DATA_WEB3"
         private val threadMap: MutableMap<Any, DataThread> = mutableMapOf()
 
-        val executor = Executors.newFixedThreadPool(4)
+        private val executor = Executors.newFixedThreadPool(4)
         fun <T>await(callable: Callable<T>): T {
             val result = executor.submit(callable)
             val ret = result.get()

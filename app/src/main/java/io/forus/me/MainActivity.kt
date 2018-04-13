@@ -126,6 +126,7 @@ class MainActivity : AppCompatActivity(), MeFragment.QrListener {
                     is Token -> {
                         walletFragment.showTokens()
                         TokenService.addToken(result)
+                        walletFragment.addToken(result)
                     }
                     is Service -> {
                         walletFragment.showServices()

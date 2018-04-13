@@ -1,18 +1,23 @@
 <resources>
     <string name="accept">Accepteren</string>
+    <string name="account_qr_info">Dit is het adres van je identiteit. Laat mensen deze scannen als je eigendommen of validaties van deze persoon wil ontvangen.</string>
     <string name="add">Toevoegen</string>
     <string name="add_identity_help_1">De Me App gebruikt profielen, zodat jij je zaken simpel op orde kan houden. Je kan bijvoorbeeld een profiel puur voor overheidszaken houden, zoals paspoortgegevens. Daarnaast kun je dan een profiel aanmaken die je specifiek gebruikt voor internetaankopen.</string>
     <string name="add_identity_help_2">Profielen schermen ook gegevens af. Een gegeven in een profiel kan niet bekend worden in een ander profiel.</string>
     <string name="add_identity_title">Profiel toevoegen</string>
     <string name="alert_add_qr_text">De code bevat gegevens voor %s. Wil je deze aan je identiteit toevoegen?</string>
+    <string name="amount">Hoeveelheid</string>
     <string name="app_name">Me</string>
     <string name="assign_delegates_subtitle">Wijs delegaten aan</string>
     <string name="assign_delegates_title">Delegaten</string>
     <string name="cancel">Annuleren</string>
+    <string name="canceled">Geannuleerd</string>
     <string name="choose_name">Choose name</string>
     <string name="close">Sluiten</string>
     <string name="create">Aanmaken</string>
     <string name="decline">Weigeren</string>
+    <string name="description">Omschrijving</string>
+    <string name="description_hint">Omschrijving</string>
     <string name="do_later">Dit wil ik later doen</string>
     <string name="history">Geschiedenis</string>
     <string name="i_accept">Dit vind ik goed</string>
@@ -38,7 +43,13 @@
     <string name="records_title">Over mij</string>
     <string name="register_help_1">Om van je identiteit gebruik te kunnen maken, moet je je eerst registreren. Die gebruikt alleen een wachtwoord. De rest bepaald de applicatie zelf en hoef jij verder niks mee te doen. Simpel, toch?</string>
     <string name="register_help_2">Registreren gebeurt alleen op je telefoon. Hier hoef je geen internet verbinding voor te hebben. De gegevens die je maakt en gebruikt komen namelijk alleen op je telefoon en nergens anders: puur in jouw bezit.</string>
+    <string name="request">Opvragen</string>
+    <string name="request_button">Maak aanvraag</string>
     <string name="restore">Herstellen</string>
+    <string name="retrieve_wallet_item_title">Betaalverzoek</string>
+    <string name="send">Overmaken</string>
+    <string name="send_button">Scan adres</string>
+    <string name="send_wallet_item_title">Overdracht</string>
     <string name="set_at_least_one_delegate">Neem ten minste 1 delegaat om je gegevens terug te halen bij een verloren telefoon.</string>
     <string name="tab_tokens">Tokens</string>
     <string name="tab_assets">Assets</string>
@@ -47,6 +58,11 @@
     <string name="title_activity_records">RecordsActivity</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_login">LoginActivity</string>
+    <string name="token_amount_hint">Vul hier de hoeveelheid in</string>
+    <string name="token_request_info">Je kan van andere mensen geld vragen. Vul hier in hoeveel geld je van iemand wil vragen.</string>
+    <string name="token_request_instruction">Laat deze code scannen door de persoon van wie je dit wil ontvangen.</string>
+    <string name="token_send_info">Munteenheden kun je overschrijven naar andere gebruikers van de Me App.</string>
+    <string name="token_send_instruction">Laat deze code scannen om dit naar die persoon te sturen.</string>
     <string name="value_already_exists">%s is al in gebruik</string>
     <string name="value_cannot_be_empty">%s kan niet leeg zijn</string>
     <string name="welcome">Welcome to Me</string>
@@ -55,4 +71,6 @@
     <string name="title_activity_assign_delegates">AssignDelegatesActivity</string>
     <string name="title_activity_create_identity">CreateIdentityActivity</string>
     <string name="title_activity_identity_view">IdentityViewActivity</string>
+    <string name="title_activity_send_wallet_item">SendWalletItemActivity</string>
+    <string name="title_activity_retrieve_wallet_item">RetrieveWalletItemActivity</string>
 </resources>

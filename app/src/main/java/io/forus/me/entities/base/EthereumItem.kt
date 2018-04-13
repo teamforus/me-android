@@ -4,6 +4,7 @@ import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
 import android.graphics.Bitmap
+import android.graphics.Color
 import com.google.zxing.EncodeHintType
 import io.forus.me.helpers.JsonHelper
 import io.forus.me.helpers.QrHelper
@@ -22,9 +23,6 @@ abstract class EthereumItem(
 
     @PrimaryKey
     var id: Long? = null
-
-    val qrCode: Bitmap
-        get() = QrHelper.getQrBitmap(address)
 
     companion object {
         fun fromString(input: String): EthereumItem? {

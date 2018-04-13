@@ -1,8 +1,8 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 8,
-    "identityHash": "2a609907d6cbf46e42e5e9dc61ba0004",
+    "version": 9,
+    "identityHash": "e54b3541e02929a063c51b8815ff5ada",
     "entities": [
       {
         "tableName": "Asset",
@@ -88,13 +88,19 @@
       },
       {
         "tableName": "Record",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`recordCategoryId` INTEGER NOT NULL, `id` INTEGER, `address` TEXT NOT NULL, `name` TEXT NOT NULL, `identity` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`recordCategoryId` INTEGER NOT NULL, `lastSync` INTEGER, `id` INTEGER, `address` TEXT NOT NULL, `name` TEXT NOT NULL, `identity` TEXT NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "recordCategoryId",
             "columnName": "recordCategoryId",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "lastSync",
+            "columnName": "lastSync",
+            "affinity": "INTEGER",
+            "notNull": false
           },
           {
             "fieldPath": "id",
@@ -233,7 +239,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"2a609907d6cbf46e42e5e9dc61ba0004\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"e54b3541e02929a063c51b8815ff5ada\")"
     ]
   }
 }

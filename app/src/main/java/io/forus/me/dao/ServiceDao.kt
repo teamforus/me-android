@@ -15,7 +15,7 @@ interface ServiceDao {
     fun delete(service: Service)
 
     @Query("SELECT * FROM `service` WHERE `identity` = :arg0")
-    fun getServices(identity: String): LiveData<List<Service>>
+    fun getServices(identity: String): List<Service>
 
     @Query("SELECT * FROM `service` WHERE `address` = :arg0 AND `identity` = :arg1")
     fun getServiceByAddressByIdentity(address:String, identity: String): Service

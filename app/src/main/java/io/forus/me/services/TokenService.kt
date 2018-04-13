@@ -1,6 +1,7 @@
 package io.forus.me.services
 
 import android.arch.lifecycle.LiveData
+import android.arch.persistence.room.Database
 import io.forus.me.entities.Token
 import io.forus.me.helpers.ThreadHelper
 import io.forus.me.services.base.BaseService
@@ -25,8 +26,8 @@ class TokenService : BaseService() {
             return DatabaseService.database?.tokenDao()?.getTokenByAddressByIdentity(address, identity)
         }
 
-        fun startSyncing(token: Token) {
-
+        fun updateToken(token:Token) {
+            DatabaseService.inject.update(token)
         }
     }
 }

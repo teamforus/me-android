@@ -15,7 +15,7 @@ class AssetService : BaseService() {
             DatabaseService.inject.insert(asset)
         }
 
-        fun getAssetsByIdentity(identity:String): LiveData<List<Asset>>? {
+        fun getAssetsByIdentity(identity:String): List<Asset>? {
             return DatabaseService.database?.assetDao()?.getAssets(identity)
         }
 

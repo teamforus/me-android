@@ -2,17 +2,20 @@ package io.forus.me.views.wallet
 
 import android.os.Bundle
 import android.support.design.widget.TabLayout
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import io.forus.me.R
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
 import io.forus.me.entities.Asset
 import io.forus.me.entities.Service
 import io.forus.me.entities.Token
+import io.forus.me.helpers.ThreadHelper
+import io.forus.me.services.AssetService
+import io.forus.me.services.IdentityService
+import io.forus.me.services.ServiceService
+import io.forus.me.services.TokenService
 import io.forus.me.views.base.TitledFragment
+import kotlin.collections.emptyList
 
 class WalletFragment : TitledFragment() {
 
@@ -22,12 +25,18 @@ class WalletFragment : TitledFragment() {
     private lateinit var serviceFragment: ServiceFragment
     private lateinit var tokenFragment: TokenFragment
 
+    fun addToken(newToken:Token) {
+        this.tokenFragment.addItem(newToken)
+    }
+
     fun init(
-            tokens: List<Token>,
-            assets: List<Asset>,
-            services: List<Service>
+            assets: List<Asset>?,
+            services: List<Service>?,
+            tokens: List<Token>?
     ) {
-        this.setTokens(tokens)
+        this.setAssets(assets?:emptyList())
+        this.setServices(services?:emptyList())
+        this.setTokens(tokens?:emptyList())
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -45,6 +54,17 @@ class WalletFragment : TitledFragment() {
         pager.adapter = TitledFragmentPagerAdapter(childFragmentManager, pages)
         navigation.setupWithViewPager(pager)
         return view
+    }
+
+    override fun onResume() {
+        super.onResume()
+        ThreadHelper.dispense(ThreadHelper.MAIN_THREAD).postTask(Runnable {
+            this.init(
+                    AssetService.getAssetsByIdentity(IdentityService.currentAddress),
+                    ServiceService.getServicesByIdentity(IdentityService.currentAddress),
+                    TokenService.getTokensByIdentity(IdentityService.currentAddress)
+            )
+        })
     }
 
     fun notifyTokensChanged() {

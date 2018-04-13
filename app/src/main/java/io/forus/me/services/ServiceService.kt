@@ -15,7 +15,7 @@ class ServiceService : BaseService() {
             DatabaseService.inject.insert(service)
         }
 
-        fun getServicesByIdentity(identity:String): LiveData<List<Service>>? {
+        fun getServicesByIdentity(identity:String): List<Service>? {
             return DatabaseService.database?.serviceDao()?.getServices(identity)
         }
 

@@ -12,9 +12,15 @@ import io.forus.me.WalletItemActivity
 import io.forus.me.entities.base.WalletItem
 import io.forus.me.views.base.TitledFragment
 
-abstract class WalletPagerFragment<T: WalletItem> : TitledFragment(), WalletListAdapter.ItemSelectionListener<T> {
+abstract class WalletPagerFragment<T: WalletItem> : TitledFragment(), WalletListAdapter.ItemListener<T> {
 
-    lateinit var adapter: WalletListAdapter<T>
+    var adapter = WalletListAdapter(this.getLayoutResource(), this)//: WalletListAdapter<T>
+
+    fun addItem(newItem: T) {
+        val tmp = this.adapter.items.toMutableList()
+        tmp.add(newItem)
+        this.setItems(tmp.toList())
+    }
 
     abstract fun getLayoutResource(): Int
 
@@ -22,7 +28,6 @@ abstract class WalletPagerFragment<T: WalletItem> : TitledFragment(), WalletList
         val view = inflater.inflate(R.layout.wallet_items_fragment, container, false)
         val listView: RecyclerView = view.findViewById(R.id.wallet_list)
         listView.layoutManager = LinearLayoutManager(context)
-        adapter = WalletListAdapter(this.getLayoutResource(), this)
         listView.adapter = adapter
         return view
     }
@@ -35,7 +40,9 @@ abstract class WalletPagerFragment<T: WalletItem> : TitledFragment(), WalletList
 
     fun setItems(items: List<T>) {
         adapter.items = items
-        adapter.notifyDataSetChanged()
+        view?.post({
+            adapter.notifyDataSetChanged()
+        })
     }
 
 

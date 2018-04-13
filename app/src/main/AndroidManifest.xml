@@ -60,10 +60,18 @@
         <activity
             android:name=".IdentityViewActivity"
             android:label="@string/title_activity_identity_view"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
-        <activity android:name=".WalletItemActivity" />
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".WalletItemActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".SendWalletItemActivity"
+            android:label="@string/title_activity_send_wallet_item"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".RequestWalletItemActivity"
+            android:label="@string/title_activity_retrieve_wallet_item"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

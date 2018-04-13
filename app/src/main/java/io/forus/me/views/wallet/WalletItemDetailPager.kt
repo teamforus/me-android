@@ -13,7 +13,7 @@ class WalletItemDetailPager : ViewPager {
 
     companion object {
         val OVERVIEW_PAGE = 1
-        val RECEIVE_PAGE = 2
-        val SEND_PAGE = 0
+        val REQUEST_PAGE = 0
+        val SEND_PAGE = 2
     }
 }

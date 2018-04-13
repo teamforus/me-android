@@ -14,7 +14,7 @@ import io.forus.me.helpers.ThreadHelper
         Record::class,
         Service::class,
         Token::class
-        ), version = 8)
+        ), version = 9)
 abstract class DatabaseService: RoomDatabase() {
 
     abstract fun assetDao(): AssetDao

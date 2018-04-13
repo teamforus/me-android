@@ -11,11 +11,12 @@ import io.forus.me.R
 import io.forus.me.WalletItemActivity
 import io.forus.me.entities.Service
 import io.forus.me.views.base.TitledFragment
+import io.forus.me.web3.base.UpdateEvent
 
 /**
  * Created by martijn.doornik on 22/03/2018.
  */
-class ServiceFragment : TitledFragment(), WalletListAdapter.ItemSelectionListener<Service> {
+class ServiceFragment : TitledFragment(), WalletListAdapter.ItemListener<Service> {
 
     val adapter = WalletListAdapter(R.layout.service_list_item_view, this)
 
@@ -27,10 +28,22 @@ class ServiceFragment : TitledFragment(), WalletListAdapter.ItemSelectionListene
         return view
     }
 
+    override fun onItemAttach(newItem: Service) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onItemDetach(removedItem: Service) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun onItemSelect(selected: Service) {
         val intent = Intent(this.context, WalletItemActivity::class.java)
         intent.putExtra(WalletItemActivity.WALLET_ITEM_KEY, selected.toJson().toString())
         startActivity(intent)
+    }
+
+    override fun onItemUpdate(updateEvent: UpdateEvent, updatedItem: Service) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
 

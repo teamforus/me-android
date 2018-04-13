@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.Toast
 import com.journeyapps.barcodescanner.BarcodeCallback
 import io.forus.me.R
@@ -38,17 +39,19 @@ class MeFragment : TitledFragment() {
         requestPermission()
         scanner.decodeContinuous(object : BarcodeCallback {
             override fun barcodeResult(result: BarcodeResult) {
+                /*
                 pauseScanner()
                 val item = EthereumItem.fromString(result.text)
                 if (item != null) {
                     qrListener.onQrResult(item)
                 } else {
                     qrListener.onQrError(QrListener.ErrorCode.INVALID_OBJECT)
-                }
+                }*/
+                Log.d("Scanner", result.text)
             }
 
             override fun possibleResultPoints(resultPoints: List<ResultPoint>) {
-                // TODO show points on screen for fancy points Log.d("MeFragment", resultPoints.size.toString())
+                setMarkers(resultPoints)
             }
         })
         val button: ImageView = view.findViewById(R.id.myIdentitiesButton)
@@ -91,6 +94,24 @@ class MeFragment : TitledFragment() {
 
     fun resumeScanner() {
         scanner.resume()
+    }
+
+    fun setMarkers(resultPoints: List<ResultPoint>) {
+        if (this.view != null && this.context != null) {
+            val markerView: RelativeLayout? = view!!.findViewById(R.id.markerContainer)
+            if (markerView != null) {
+                markerView.removeAllViews()
+                val height = markerView.height
+                for (resultPoint in resultPoints) {
+                    val marker = ImageView(this.context!!)
+                    marker.setBackgroundColor(ContextCompat.getColor(this.context!!, R.color.red))
+                    val params = RelativeLayout.LayoutParams(10, 10)
+                    params.leftMargin = (resultPoint.x-5+110).toInt()
+                    params.topMargin = (resultPoint.y-5+(height/4)).toInt()
+                    markerView.addView(marker, params)
+                }
+            }
+        }
     }
 
     fun toIdentitiesView() {

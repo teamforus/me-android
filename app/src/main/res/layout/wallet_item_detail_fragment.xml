@@ -6,22 +6,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <Space
+        android:id="@+id/space"
+        android:layout_width="0dp"
+        android:layout_height="32dp"
+        app:layout_constraintBottom_toTopOf="@id/qrView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageView
-        android:id="@+id/qr_view"
+        android:id="@+id/qrView"
         android:layout_width="192dp"
         android:layout_height="192dp"
         android:layout_marginBottom="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        app:layout_constraintBottom_toTopOf="@+id/history_toolbar"
+        app:layout_constraintBottom_toTopOf="@+id/historyToolbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/space"
         app:srcCompat="@android:color/transparent" />
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/history_toolbar"
+        android:id="@+id/historyToolbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -31,15 +39,16 @@
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/qr_view"
+        app:layout_constraintTop_toBottomOf="@id/qrView"
         app:title="@string/history" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/history_list"
+        android:id="@+id/historyList"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/history_toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/historyToolbar" />
+
 </android.support.constraint.ConstraintLayout>

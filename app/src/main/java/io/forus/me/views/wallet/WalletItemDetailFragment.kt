@@ -1,6 +1,7 @@
 package io.forus.me.views.wallet
 
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +9,9 @@ import android.widget.ImageView
 import io.forus.me.R
 import io.forus.me.entities.base.EthereumItem
 import io.forus.me.entities.base.WalletItem
+import io.forus.me.helpers.QrHelper
 import io.forus.me.views.base.TitledFragment
+import kotlinx.android.synthetic.main.activity_wallet_item.*
 
 /**
  * Created by martijn.doornik on 30/03/2018.
@@ -30,8 +33,13 @@ class WalletItemDetailFragment : TitledFragment() {
             throw Exception("View or wallet item not set!")
         }
 
-        val qrView:ImageView = view.findViewById(R.id.qr_view)
-        val bitmap = walletItem!!.qrCode
+        val qrView:ImageView = view.findViewById(R.id.qrView)
+        val bitmap = QrHelper.getQrBitmap(
+                walletItem!!.address,
+                // TODO fix hardcoding
+                196,
+                ContextCompat.getColor(context!!, R.color.black),
+                ContextCompat.getColor(context!!, R.color.transparent))
         qrView.setImageBitmap(bitmap)
     }
 

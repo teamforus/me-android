@@ -2,6 +2,7 @@ package io.forus.me.helpers
 
 import io.forus.me.entities.*
 import io.forus.me.entities.base.EthereumItem
+import io.forus.me.entities.base.WalletItem
 import io.forus.me.services.RecordService
 import org.json.JSONObject
 
@@ -25,6 +26,34 @@ class JsonHelper {
     }
 
     companion object {
+
+        fun fromEthereumItem(item: EthereumItem): JSONObject {
+            val json:JSONObject
+            when (item) {
+                is WalletItem -> json = fromWalletItem(item)
+                is Record -> {
+                    json = JSONObject()
+                    json.put(Keys.KEY, item.key)
+                    json.put(Keys.TYPE, Keys.RECORD)
+
+                }
+                else -> json = JSONObject()
+            }
+            return json
+        }
+
+        fun fromWalletItem(item:WalletItem): JSONObject {
+            val json = JSONObject()
+            json.put(Keys.NAME, item.name)
+                json.put(Keys.ADDRESS, item.address)
+                when (item) {
+                    is Asset -> json.put(Keys.TYPE, Keys.ASSET)
+                    is Service -> json.put(Keys.TYPE, Keys.SERVICE)
+                    is Token -> json.put(Keys.TYPE, Keys.TOKEN)
+                }
+            return json
+
+        }
 
         fun toEthereumItem(dataString: String): EthereumItem? {
             try {
@@ -56,21 +85,12 @@ class JsonHelper {
             return null
         }
 
-        fun fromEthereumItem(item: EthereumItem): JSONObject {
-            val json = JSONObject()
-            json.put(Keys.NAME, item.name)
-            if (item is Record) {
-                json.put(Keys.KEY, item.key)
-                json.put(Keys.TYPE, Keys.RECORD)
-            } else {
-                json.put(Keys.ADDRESS, item.address)
-                when (item) {
-                    is Asset -> json.put(Keys.TYPE, Keys.ASSET)
-                    is Service -> json.put(Keys.TYPE, Keys.SERVICE)
-                    is Token -> json.put(Keys.TYPE, Keys.TOKEN)
-                }
+        fun toWalletItem(jsonString:String): WalletItem? {
+            val item = toEthereumItem(jsonString)
+            if (item is WalletItem) {
+                return item
             }
-            return json
+            return null
         }
     }
     class InvalidCategoryException(val givenId:Int): Exception()
