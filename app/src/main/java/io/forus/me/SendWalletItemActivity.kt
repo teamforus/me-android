@@ -64,12 +64,13 @@ class SendWalletItemActivity : AppCompatActivity() {
                         val contract = TokenContract(transfer.item.address)
                         transactionResult = contract.transfer(result.text, transfer.value!!.toLong())
                     })
+                    // TODO don't do this on the main thread preferably
+                    while (transactionResult == null) Thread.sleep(500)
                     if (!transactionResult!!) {
                         Toast.makeText(baseContext, "Error!", Toast.LENGTH_LONG).show()
                     } else {
                         Toast.makeText(baseContext, "Transactie gelukt. Het kan even duren voordat dit zichtbaar is", Toast.LENGTH_SHORT).show()
                     }
-                    val intent = Intent()
                     intent.putExtra(WalletItemActivity.WALLET_ITEM_KEY, json)
                     intent.putExtra(WalletItemActivity.ADDRESS_KEY, result.text)
                     setResult(WalletItemActivity.OK_RESULT, intent)
