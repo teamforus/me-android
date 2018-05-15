@@ -32,7 +32,7 @@
     <string name="name">Naam</string>
     <string name="navigation_qr">Me</string>
     <string name="navigation_records">Eigenschappen</string>
-    <string name="navigation_wallet">Eigendommen</string>
+    <string name="navigation_wallet">Wallet</string>
     <string name="overview">Overzicht</string>
     <string name="passphrase">Wachtwoord</string>
     <string name="passphrase_dont_want">Ik wil geen wachtwoord</string>
@@ -59,7 +59,7 @@
     <string name="sync_error">Synchronisatiefout</string>
     <string name="syncing">Synchroniseren…</string>
     <string name="tab_tokens">Tokens</string>
-    <string name="tab_assets">Assets</string>
+    <string name="tab_assets">Bezittingen</string>
     <string name="tab_vouchers">Vouchers</string>
     <string name="title_activity_wallet">WalletActivity</string>
     <string name="title_activity_records">RecordsActivity</string>

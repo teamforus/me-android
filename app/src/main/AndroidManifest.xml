@@ -72,7 +72,8 @@
             android:name=".RequestWalletItemActivity"
             android:label="@string/title_activity_retrieve_wallet_item"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".QrResultActivity" />
+        <activity android:name=".QrResultActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".SendTokenActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".RecordDetailActivity"
