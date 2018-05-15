@@ -40,12 +40,7 @@ class MeFragment : TitledFragment() {
         scanner.decodeContinuous(object : BarcodeCallback {
             override fun barcodeResult(result: BarcodeResult) {
                 pauseScanner()
-                val item = EthereumItem.fromString(result.text)
-                if (item != null) {
-                    qrListener.onQrResult(item)
-                } else {
-                    qrListener.onQrError(QrListener.ErrorCode.INVALID_OBJECT)
-                }
+                qrListener.onQrResult(result.text)
             }
 
             override fun possibleResultPoints(resultPoints: List<ResultPoint>) {
@@ -123,12 +118,6 @@ class MeFragment : TitledFragment() {
     }
 
     interface QrListener {
-        fun onQrError(code: Int)
-        fun onQrResult(result: EthereumItem)
-        class ErrorCode {
-            companion object {
-                val INVALID_OBJECT = 1
-            }
-        }
+        fun onQrResult(result:String)
     }
 }

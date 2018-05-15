@@ -14,11 +14,20 @@ interface AssetDao {
     @Delete
     fun delete(asset: Asset)
 
-    @Query("SELECT * FROM `asset` WHERE `identity` = :arg0")
+    @Query("SELECT * FROM `asset` WHERE `address` = :address")
+    fun getAsset(address: String): Asset
+
+    @Query("SELECT * FROM `asset` WHERE `identity` = :identity")
     fun getAssets(identity:String): List<Asset>
 
-    @Query("SELECT * FROM `asset` WHERE `address` = :arg0 AND `identity` = :arg1")
+    @Query("SELECT * FROM `asset` WHERE `identity` = :identity")
+    fun getAssetsLiveData(identity:String): LiveData<List<Asset>>
+
+    @Query("SELECT * FROM `asset` WHERE `address` = :address AND `identity` = :identity")
     fun getAssetByAddressByIdentity(address:String, identity: String): Asset
+
+    @Query("SELECT * FROM `asset` WHERE `address` = :address")
+    fun getLiveAsset(address: String): LiveData<Asset>
 
     @Insert
     fun insert(asset: Asset)

@@ -13,10 +13,10 @@ import android.widget.TextView
 import io.forus.me.R
 import io.forus.me.SendWalletItemActivity
 import io.forus.me.WalletItemActivity
-import io.forus.me.entities.Service
+import io.forus.me.entities.Asset
+import io.forus.me.entities.Voucher
 import io.forus.me.entities.Token
 import io.forus.me.entities.base.WalletItem
-import io.forus.me.helpers.JsonHelper
 import io.forus.me.helpers.TransferViewModel
 import io.forus.me.views.base.TitledFragment
 
@@ -34,7 +34,6 @@ class WalletItemSendFragment : TitledFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.wallet_item_send_fragment, container, false)
         this.amountField = view.findViewById(R.id.amountField)
-        amountField.addTextChangedListener(MaxAmountWatcher())
         this.descriptionField = view.findViewById(R.id.descriptionField)
         val nextButton: Button = view.findViewById(R.id.scanButton)
         nextButton.setOnClickListener({
@@ -49,9 +48,9 @@ class WalletItemSendFragment : TitledFragment() {
             val amount = amountField.text.toString().toFloat()
             val transfer = TransferViewModel(this.walletItem!!, description, amount)
             val json = transfer.toJson().toString()
-            val intent = Intent(this.context, SendWalletItemActivity::class.java)
-            intent.putExtra("data", json)
-            startActivityForResult(intent, WalletItemActivity.SEND_REQUEST)
+            val intent = Intent(this.activity, SendWalletItemActivity::class.java)
+            intent.putExtra(SendWalletItemActivity.RequestCode.TRANSFER_OBJECT, json)
+            startActivityForResult(intent, SendWalletItemActivity.RequestCode.SEND_REQUEST)
         }
     }
 
@@ -61,7 +60,7 @@ class WalletItemSendFragment : TitledFragment() {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            if (s != null && (walletItem is Token || walletItem is Service)) {
+            if (s != null && (walletItem is Token || walletItem is Voucher)) {
                 if (walletItem is Token) {
                     val input = s.toString().toFloatOrNull()
                     if (input != null && input > (walletItem!! as Token).value) {

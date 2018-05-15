@@ -16,7 +16,7 @@ class CreateAccountActivity : AppCompatActivity() {
             Web3Service.newAccount()
         })
         val intent = Intent()
-        setResult(MainActivity.ResultCode.OK, intent)
+        setResult(ResultCode.OK, intent)
         finish()
     }
 
@@ -27,6 +27,18 @@ class CreateAccountActivity : AppCompatActivity() {
 
     fun startRecover(view: View) {
 
+    }
+
+    class RequestCode {
+        companion object {
+            const val REQUEST_ACCOUNT = 201
+        }
+    }
+
+    class ResultCode {
+        companion object {
+            const val OK = 211
+        }
     }
 
 }

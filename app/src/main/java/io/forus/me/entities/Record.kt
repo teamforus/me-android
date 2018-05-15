@@ -25,9 +25,6 @@ class Record(
         get() = this.address
 
     override fun sync() : Boolean {
-        this.value = ThreadHelper.await(Callable {
-            Web3Service.HelloWorld.message
-        })
         return true
     }
 }

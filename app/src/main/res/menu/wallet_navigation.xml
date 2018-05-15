@@ -9,7 +9,7 @@
         android:id="@+id/tab_assets"
         />
     <item
-        android:title="@string/tab_services"
+        android:title="@string/tab_vouchers"
         android:id="@+id/tab_services"
         />
 </menu>

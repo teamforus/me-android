@@ -1,37 +1,31 @@
 package io.forus.me.web3
 
-import android.util.Log
 import io.forus.me.entities.Token
-import io.forus.me.helpers.ThreadHelper
 import io.forus.me.services.Web3Service
 import io.forus.me.web3.base.BaseContract
-import io.forus.me.web3.base.UpdateEvent
+import io.forus.me.web3.base.Transaction
 import org.web3j.abi.EventEncoder
 import org.web3j.abi.FunctionEncoder
 import org.web3j.abi.TypeReference
 import org.web3j.abi.datatypes.*
 import org.web3j.abi.datatypes.Function
-import org.web3j.crypto.RawTransaction
-import org.web3j.crypto.TransactionEncoder
+import org.web3j.abi.datatypes.generated.Uint8
 import org.web3j.protocol.core.DefaultBlockParameter
 import org.web3j.protocol.core.DefaultBlockParameterName
 import org.web3j.protocol.core.DefaultBlockParameterNumber
 import org.web3j.protocol.core.RemoteCall
 import org.web3j.protocol.core.methods.request.EthFilter
-import org.web3j.protocol.core.methods.request.Transaction
+import org.web3j.protocol.core.methods.response.EthBlock
 import org.web3j.tx.RawTransactionManager
-import org.web3j.utils.Numeric
 import rx.Observable
 import java.math.BigInteger
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-import java.util.*
 
 /**
  * Created by martijn.doornik on 04/04/2018.
  */
 class TokenContract(address:String) : BaseContract(address) {
     private val BALANCE_OF = "balanceOf"
+    private val DECIMALS = "decimals"
     private val TRANSFER = "transfer"
     private val TRANSFER_EVENT = "Transfer"
 
@@ -40,6 +34,15 @@ class TokenContract(address:String) : BaseContract(address) {
                 BALANCE_OF,
                 listOf(Address(address)),
                 listOf(TypeReference.create(Uint::class.java))
+        )
+        return super.executeRemoteCallSingleValueReturn(function)
+    }
+
+    fun getDecimals(): RemoteCall<Uint8> {
+        val function = Function(
+                DECIMALS,
+                listOf(),
+                listOf(TypeReference.create(Uint8::class.java))
         )
         return super.executeRemoteCallSingleValueReturn(function)
     }
@@ -65,7 +68,7 @@ class TokenContract(address:String) : BaseContract(address) {
             val values = extractEventParametersWithLog(event, log)
             val from = values.indexedValues[0].typeAsString
             val to = values.indexedValues[1].typeAsString
-            TokenContract.TransferEvent(from, to, log.blockNumber.toLong())
+            TokenContract.TransferEvent(from, to, log.transactionHash, log.blockNumber.toLong())
         }
     }
 
@@ -89,5 +92,5 @@ class TokenContract(address:String) : BaseContract(address) {
         return hash != null
     }
 
-    class TransferEvent(val from: String, val to:String, blockNumber: Long) : UpdateEvent(blockNumber)
+    class TransferEvent(val from: String, val to:String, hash: String, blockNumber: Long) : Transaction(hash, blockNumber)
 }

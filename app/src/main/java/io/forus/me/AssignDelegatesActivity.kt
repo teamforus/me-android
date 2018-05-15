@@ -32,8 +32,12 @@ class AssignDelegatesActivity : AppCompatActivity() {
                 qrView.width,
                 ContextCompat.getColor(baseContext, R.color.black),
                 ContextCompat.getColor(baseContext, R.color.white)))
+    }
 
-
+    class RequestCode {
+        companion object {
+            const val ASSIGN_DELEGATES = 401
+        }
     }
 
 }

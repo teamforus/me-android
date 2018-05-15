@@ -1,39 +1,34 @@
 package io.forus.me
 
+import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
+import android.view.MenuItem
 import android.view.View
+import android.widget.ImageView
+import android.widget.PopupMenu
 import android.widget.Toast
-import io.forus.me.entities.Service
+import io.forus.me.entities.Asset
 import io.forus.me.entities.Token
-import io.forus.me.entities.base.EthereumItem
+import io.forus.me.entities.Voucher
 import io.forus.me.entities.base.WalletItem
 import io.forus.me.helpers.JsonHelper
 import io.forus.me.helpers.ThreadHelper
-import io.forus.me.services.IdentityService
-import io.forus.me.services.ServiceService
+import io.forus.me.services.AssetService
 import io.forus.me.services.TokenService
+import io.forus.me.services.VoucherService
 import io.forus.me.views.wallet.*
+import java.util.concurrent.Callable
 
 /**
  * Created by martijn.doornik on 30/03/2018.
  */
-class WalletItemActivity : AppCompatActivity() {
-    companion object {
-        val CANCEL_RESULT: Int = 4
-        val OK_RESULT: Int = 3
+class WalletItemActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListener {
 
-        // Because we don't want another "ServiceService"
-        val RETRIEVE_REQUEST: Int = 2
-        val SEND_REQUEST: Int = 1
-
-        val ADDRESS_KEY = "address"
-        val WALLET_ITEM_KEY = "walletItem"
-    }
-
+    lateinit var item: WalletItem
     lateinit var pager: WalletItemDetailPager
     lateinit var pagerAdapter: TitledFragmentPagerAdapter
 
@@ -46,22 +41,22 @@ class WalletItemActivity : AppCompatActivity() {
         when (requestCode) {
             RETRIEVE_REQUEST -> {
                 when (resultCode) {
-                    OK_RESULT -> {}
-                    CANCEL_RESULT -> {}
+                    //OK_RESULT -> {}
+                    //CANCEL_RESULT -> {}
                 }
             }
-            SEND_REQUEST -> {
+            SendWalletItemActivity.RequestCode.SEND_REQUEST -> {
                 when (resultCode) {
-                    OK_RESULT -> {
+                    SendWalletItemActivity.ResultCode.SUCCESS_RESULT -> {
                         this.pager.setCurrentItem(WalletItemDetailPager.OVERVIEW_PAGE, false)
-                        val address = intent!!.extras.getString(ADDRESS_KEY)
-                        val walletItem = JsonHelper.toWalletItem(intent!!.extras.getString(WALLET_ITEM_KEY))
+                        val address = intent!!.extras.getString(SendWalletItemActivity.RequestCode.RECIPIENT)
+                        val walletItem = JsonHelper.toWalletItem(intent!!.extras.getString(SendWalletItemActivity.RequestCode.TRANSFER_OBJECT))
                         if (walletItem != null) {
                             // TODO Handle scanned result
                             Toast.makeText(this.baseContext, "//TODO Success!", Toast.LENGTH_LONG).show()
                         }
                     }
-                    CANCEL_RESULT -> {
+                    SendWalletItemActivity.ResultCode.CANCEL_RESULT -> {
                         this.onSendCanceled()
                     }
                 }
@@ -69,30 +64,38 @@ class WalletItemActivity : AppCompatActivity() {
         }
     }
 
+    fun onChange(walletItem: WalletItem) {
+        this.item = walletItem
+        refreshToolbar()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        this.setContentView(R.layout.loading)
         try {
-            if (!intent.hasExtra(WALLET_ITEM_KEY)) {
+            if (!intent.hasExtra(RequestCode.WALLET_ITEM_KEY)) {
                 throw NullPointerException()
             }
-            val item = EthereumItem.fromString(intent.getStringExtra(WALLET_ITEM_KEY)) as WalletItem? ?: throw NullPointerException()
-            ThreadHelper.dispense(ThreadHelper.MAIN_THREAD).postTask(Runnable {
-                if (item is Token) {
-                    val compare = TokenService.getTokenByAddressByIdentity(item.address, IdentityService.currentAddress)
-                    if (compare != null) {
-                        item.value = compare.value
-                    }
-                } else if (item is Service) {
-                    val compare = ServiceService.getServiceByAddressByIdentity(item.address, IdentityService.currentAddress)
-                    if (compare != null) {
-                        item.value = compare.value
-                    }
+            item = JsonHelper.toWalletItem(intent.getStringExtra(RequestCode.WALLET_ITEM_KEY)) ?: throw NullPointerException()
+            ThreadHelper.await(Callable{
+                when (item) {
+                    is Asset -> AssetService().getLiveItem(item.address).observe(this, LiveWalletItemObserver<Asset>(this))
+                    is Token -> TokenService().getLiveItem(item.address).observe(this, LiveWalletItemObserver<Token>(this))
+                    is Voucher -> VoucherService().getLiveItem(item.address).observe(this, LiveWalletItemObserver<Voucher>(this))
                 }
             })
             setContentView(R.layout.activity_wallet_item)
 
             val toolbar: Toolbar = findViewById(R.id.toolbar)
             toolbar.title = item.name
+
+            val optionsButton: ImageView = findViewById(R.id.optionsButton)
+            optionsButton.setOnClickListener {
+                val menu = PopupMenu(baseContext, optionsButton)
+                menu.setOnMenuItemClickListener(this)
+                menu.inflate(R.menu.wallet_item_options)
+                menu.show()
+            }
 
             val navigation: TabLayout = findViewById(R.id.navigation)
             pager = findViewById(R.id.pager)
@@ -111,12 +114,45 @@ class WalletItemActivity : AppCompatActivity() {
         }
     }
 
+    override fun onMenuItemClick(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            R.id.sync -> {
+
+            }
+        }
+        return false
+    }
+
     fun onSendCanceled() {
         (this.pager.getChildAt(WalletItemDetailPager.SEND_PAGE) as WalletItemSendFragment).onCancel()
 
     }
 
+    private fun refreshToolbar() {
+        val toolbar: Toolbar? = findViewById(R.id.toolbar)
+        if (toolbar != null) {
+            toolbar.title = item.name
+            toolbar.subtitle = item.amount
+        }
 
+    }
 
+    private inner class LiveWalletItemObserver<ITEM: WalletItem>(private val listener: WalletItemActivity): Observer<ITEM> {
+        override fun onChanged(t: ITEM?) {
+            if (t != null) {
+                listener.onChange(t)
+            }
+        }
 
+    }
+
+    companion object {
+        val RETRIEVE_REQUEST: Int = 2
+    }
+
+    class RequestCode {
+        companion object {
+            const val WALLET_ITEM_KEY = "walletItem"
+        }
+    }
 }

@@ -35,7 +35,7 @@
             android:id="@+id/tab_services"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tab_services" />
+            android:text="@string/tab_vouchers" />
     </android.support.design.widget.TabLayout>
 
 

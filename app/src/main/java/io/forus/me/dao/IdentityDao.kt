@@ -1,10 +1,7 @@
 package io.forus.me.dao
 
 import android.arch.lifecycle.LiveData
-import android.arch.persistence.room.Dao
-import android.arch.persistence.room.Delete
-import android.arch.persistence.room.Insert
-import android.arch.persistence.room.Query
+import android.arch.persistence.room.*
 import io.forus.me.entities.Identity
 
 /**
@@ -14,21 +11,33 @@ import io.forus.me.entities.Identity
 @Dao
 interface IdentityDao {
 
-    @Query("SELECT * FROM `identity` WHERE `id` = :arg0")
+    @Query("SELECT * FROM `identity` WHERE `address` = :address")
+    fun getIdentity(address:String): Identity
+
+    @Query("SELECT * FROM `identity` WHERE `id` = :identityId")
     fun getIdentityById(identityId: Long): Identity
 
     @Query("SELECT COUNT(*) FROM `identity`")
     fun getIdentityCount(): Int
 
-    @Query("SELECT COUNT(*) FROM `identity` WHERE `name` = :arg0")
+    @Query("SELECT COUNT(*) FROM `identity` WHERE `name` = :name")
     fun getIdentityCount(name:String): Int
 
     @Query("SELECT * FROM `Identity`")
-    fun getIdentities(): LiveData<List<Identity>>
+    fun getIdentityLiveData(): LiveData<List<Identity>>
+
+    @Query("SELECT * FROM `Identity`")
+    fun getIdentities(): List<Identity>
+
+    @Query("SELECT * FROM `identity` WHERE `address` = :address")
+    fun getLiveIdentity(address:String): LiveData<Identity>
 
     @Insert
     fun create(identity: Identity): Long
 
     @Delete
     fun delete(identity: Identity)
+
+    @Update
+    fun update(identity: Identity)
 }

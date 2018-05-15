@@ -16,6 +16,7 @@
     <string name="close">Sluiten</string>
     <string name="create">Aanmaken</string>
     <string name="decline">Weigeren</string>
+    <string name="delete">Verwijderen</string>
     <string name="description">Omschrijving</string>
     <string name="description_hint">Omschrijving</string>
     <string name="do_later">Dit wil ik later doen</string>
@@ -23,6 +24,7 @@
     <string name="i_accept">Dit vind ik goed</string>
     <string name="identity">Profiel</string>
     <string name="identities">Profielen</string>
+    <string name="invalid_code">Onjuiste code. Weet je zeker dat deze QR code correct is?</string>
     <string name="let_delegates_scan">Laat delegaten deze code scannen vanaf hun telefoon.</string>
     <string name="loading">Aan het laden…</string>
     <string name="logout">Log uit</string>
@@ -34,11 +36,13 @@
     <string name="overview">Overzicht</string>
     <string name="passphrase">Wachtwoord</string>
     <string name="passphrase_dont_want">Ik wil geen wachtwoord</string>
+    <string name="qr_result_record_category_selection_title">Records worden ingedeeld in categorieën. In welke categorie wil jij dat %s geplaats wordt?</string>
     <string name="record_personal">Persoonlijk</string>
     <string name="record_medical">Medisch</string>
     <string name="record_professional">Professioneel</string>
     <string name="record_relations">Relaties</string>
     <string name="record_licences">Licenties</string>
+    <string name="record_list_empty">Je hebt nog geen eigenschappen onder deze categorie.</string>
     <string name="record_other">Overig</string>
     <string name="records_title">Over mij</string>
     <string name="register_help_1">Om van je identiteit gebruik te kunnen maken, moet je je eerst registreren. Die gebruikt alleen een wachtwoord. De rest bepaald de applicatie zelf en hoef jij verder niks mee te doen. Simpel, toch?</string>
@@ -51,9 +55,12 @@
     <string name="send_button">Scan adres</string>
     <string name="send_wallet_item_title">Overdracht</string>
     <string name="set_at_least_one_delegate">Neem ten minste 1 delegaat om je gegevens terug te halen bij een verloren telefoon.</string>
+    <string name="sync">Synchroniseren</string>
+    <string name="sync_error">Synchronisatiefout</string>
+    <string name="syncing">Synchroniseren…</string>
     <string name="tab_tokens">Tokens</string>
     <string name="tab_assets">Assets</string>
-    <string name="tab_services">Services</string>
+    <string name="tab_vouchers">Vouchers</string>
     <string name="title_activity_wallet">WalletActivity</string>
     <string name="title_activity_records">RecordsActivity</string>
     <string name="title_activity_main">MainActivity</string>
@@ -63,6 +70,10 @@
     <string name="token_request_instruction">Laat deze code scannen door de persoon van wie je dit wil ontvangen.</string>
     <string name="token_send_info">Munteenheden kun je overschrijven naar andere gebruikers van de Me App.</string>
     <string name="token_send_instruction">Laat deze code scannen om dit naar die persoon te sturen.</string>
+    <string name="validation_add_subtitle">Persoonlijke validatie aanvragen</string>
+    <string name="validation_add_title">Validatie toevoegen</string>
+    <string name="validations_title">Validatoren</string>
+    <string name="validations_empty">Je hebt nog geen validaties ontvangen voor deze eigenschap.</string>
     <string name="value_already_exists">%s is al in gebruik</string>
     <string name="value_cannot_be_empty">%s kan niet leeg zijn</string>
     <string name="welcome">Welcome to Me</string>

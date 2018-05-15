@@ -10,19 +10,18 @@ import android.view.ViewGroup
 import io.forus.me.R
 import io.forus.me.WalletItemActivity
 import io.forus.me.entities.base.WalletItem
+import io.forus.me.services.base.EthereumItemService
 import io.forus.me.views.base.TitledFragment
 
-abstract class WalletPagerFragment<T: WalletItem> : TitledFragment(), WalletListAdapter.ItemListener<T> {
+abstract class WalletPagerFragment<T: WalletItem>(service: EthereumItemService<T>) : TitledFragment() {
 
-    var adapter = WalletListAdapter(this.getLayoutResource(), this)//: WalletListAdapter<T>
-
-    fun addItem(newItem: T) {
-        val tmp = this.adapter.items.toMutableList()
-        tmp.add(newItem)
-        this.setItems(tmp.toList())
-    }
+    var adapter = WalletListAdapter(this.getLayoutResource(), service, this)
 
     abstract fun getLayoutResource(): Int
+
+    fun notifyDataSetChanged() {
+        this.adapter.notifyDataSetChanged()
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.wallet_items_fragment, container, false)
@@ -32,19 +31,9 @@ abstract class WalletPagerFragment<T: WalletItem> : TitledFragment(), WalletList
         return view
     }
 
-    override fun onItemSelect(selected: T) {
+    fun onItemSelect(selected: T) {
         val intent = Intent(this.context, WalletItemActivity::class.java)
-        intent.putExtra(WalletItemActivity.WALLET_ITEM_KEY, selected.toJson().toString())
+        intent.putExtra(WalletItemActivity.RequestCode.WALLET_ITEM_KEY, selected.toJson().toString())
         startActivity(intent)
     }
-
-    fun setItems(items: List<T>) {
-        adapter.items = items
-        view?.post({
-            adapter.notifyDataSetChanged()
-        })
-    }
-
-
-
 }

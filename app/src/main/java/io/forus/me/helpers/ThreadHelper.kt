@@ -17,7 +17,7 @@ class ThreadHelper {
         val IDENTITY_THREAD: String = "DATA_IDENTITY"
         val MAIN_THREAD: String = "DATA_MAIN"
         val RECORD_THREAD: String = "DATA_RECORD"
-        val SERVICE_THREAD: String = "DATA_SERVICE"
+        val VOUCHER_THREAD: String = "DATA_SERVICE"
         val TOKEN_THREAD: String = "DATA_TOKEN"
         val WEB3_THREAD: String = "DATA_WEB3"
         private val threadMap: MutableMap<Any, DataThread> = mutableMapOf()

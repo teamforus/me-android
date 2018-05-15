@@ -5,12 +5,6 @@ import android.graphics.Color
 import com.google.zxing.EncodeHintType
 import net.glxn.qrgen.android.QRCode
 import org.json.JSONObject
-import android.opengl.ETC1.getHeight
-import android.opengl.ETC1.getWidth
-import com.google.zxing.BarcodeFormat
-import com.google.zxing.MultiFormatWriter
-import com.google.zxing.common.BitMatrix
-import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel
 
 
 /**
@@ -19,13 +13,6 @@ import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel
 class QrHelper {
 
     companion object {
-        /**
-         * Sadly, the QR Generator the app uses still leaves a little
-         * margin. NATIVE MARGIN is the amount the application crops
-         * after generating the QR
-         */
-        private val NATIVE_MARGIN: Int = Math.ceil(125*0.12).toInt()
-
 
         fun getQrBitmap(text:String, size:Int, onColor: Int = Color.BLACK, offColor:Int = Color.WHITE): Bitmap {
 
@@ -49,10 +36,10 @@ class QrHelper {
             var bitmap = QRCode.from(text)
                     .withHint(EncodeHintType.MARGIN, 0)
                     .withColor(onColor, offColor)
-                    .withErrorCorrection(ErrorCorrectionLevel.H)
+                    //.withErrorCorrection(ErrorCorrectionLevel.H)
                     .withSize(size, size).bitmap()
 
-            var margin = 4
+            /*var margin = 4
             if (size > 200) {
                 margin = 6
             }
@@ -61,7 +48,7 @@ class QrHelper {
                     margin,
                     margin,
                     bitmap.width - 2*margin,
-                    bitmap.height - 2*margin)
+                    bitmap.height - 2*margin)*/
             return bitmap
         }
 
