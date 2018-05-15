@@ -1,59 +1,83 @@
 package io.forus.me.views.wallet
 
+import android.annotation.SuppressLint
+import android.graphics.Bitmap
+import android.os.AsyncTask
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import io.forus.me.R
+import io.forus.me.entities.Token
 import io.forus.me.entities.base.WalletItem
+import io.forus.me.views.base.LiveDataAdapter
 import io.forus.me.helpers.QrHelper
-import io.forus.me.helpers.ThreadHelper
-import io.forus.me.web3.base.UpdateEvent
-import rx.Subscriber
+import io.forus.me.services.base.EthereumItemService
 
 /**
  * Created by martijn.doornik on 22/03/2018.
  */
-class WalletListAdapter<T : WalletItem>(private val resourceLayout: Int, private val listener: ItemListener<T>) : RecyclerView.Adapter<WalletListAdapter.WalletViewHolder>() {
-
-    private var _items: List<T> = emptyList()
-    var items: List<T>
-        get() {
-            return _items
-        }
-        set(newItems) {
-            val removedItems = this.items.filterNot { newItems.contains(it) }
-            for (item in removedItems) {
-                listener.onItemDetach(item)
-            }
-            val addedItems = newItems.filterNot { items.contains(it) }
-            _items = newItems
-            for (item in addedItems) {
-                listener.onItemAttach(item)
-            }
-        }
+class WalletListAdapter<T : WalletItem>(private val resourceLayout: Int, private val service: EthereumItemService<T>, private val listener: WalletPagerFragment<T>) : LiveDataAdapter<T, WalletListAdapter.WalletViewHolder>(listener, service) {
 
     override fun getItemCount(): Int {
         return items.size
     }
-
+    @SuppressLint("StaticFieldLeak")
     override fun onBindViewHolder(holder: WalletViewHolder, position: Int) {
-        if (holder.nameView != null) holder.nameView.text = items[position].name
+        if (holder.nameView != null) {
+            holder.nameView.text = items[position].name
+        }
         if (holder.qrView != null) {
             val onColor = ContextCompat.getColor(holder.itemView.context, R.color.black)
             val offColor = ContextCompat.getColor(holder.itemView.context, R.color.transparent)
             val size = holder.qrView.layoutParams.width
-            val bitmap = QrHelper.getQrBitmap(items[position].address, size, onColor, offColor)
-            holder.qrView.setImageBitmap(bitmap)
+            val task = object : AsyncTask<Any?, Any?, Bitmap>() {
+                override fun doInBackground(vararg params: Any?): Bitmap {
+                    return  QrHelper.getQrBitmap(
+                            if (items[position] is Token && (items[position] as Token).isEther) "Ether" // TODO Better name
+                            else items[position].address,
+                            size, onColor, offColor)
+                }
+
+                override fun onPostExecute(result: Bitmap) {
+                    super.onPostExecute(result)
+                    holder.qrView.setImageBitmap(result)
+                }
+            }
+            task.execute()
         }
-        if (holder.valueView != null) holder.valueView.text = items[position].amount
+        if (holder.valueView != null) {
+            if (!items[position].hasError) {
+                holder.valueView.text = items[position].amount
+            } else {
+                holder.valueView.text = holder.valueView.context.getText(R.string.sync_error)
+                holder.valueView.setTextColor(ContextCompat.getColor(holder.valueView.context, R.color.error))
+            }
+        }
+        if (items[position].hasError && holder.errorView != null) {
+            holder.errorView.visibility = View.VISIBLE
+        }
         holder.itemView.setOnClickListener({
             listener.onItemSelect(items[position])
         })
+        val task = object : AsyncTask<Any?, Any?, Boolean>() {
+            override fun doInBackground(vararg params: Any?): Boolean {
+                return items[position].sync()
+            }
+
+            override fun onPostExecute(result: Boolean) {
+                super.onPostExecute(result)
+                if (result) {
+                    service.update(items[position])
+                    notifyItemChanged(position)
+                }
+            }
+
+        }
+        task.execute()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WalletViewHolder {
@@ -65,31 +89,6 @@ class WalletListAdapter<T : WalletItem>(private val resourceLayout: Int, private
         val qrView: ImageView? = view.findViewById(R.id.qrView)
         val nameView: TextView? = view.findViewById(R.id.name_view)
         val valueView: TextView? = view.findViewById(R.id.value_view)
-    }
-
-    interface ItemListener<in T: WalletItem> {
-        fun onItemAttach(newItem:T)
-        fun onItemDetach(removedItem:T)
-        fun onItemSelect(selected:T)
-        fun onItemUpdate(updateEvent: UpdateEvent, updatedItem:T)
-    }
-
-    open class UpdateSubscriber<T:WalletItem, E: UpdateEvent>(private val listener: ItemListener<T>, private val item: T) : Subscriber<E>() {
-        override fun onError(e: Throwable?) {
-            Log.e("TokenSubscriber", e?.message)
-        }
-
-        override fun onCompleted() {
-        }
-
-        override fun onNext(updateEvent: E?) {
-            if (updateEvent != null) {
-                ThreadHelper.dispense(ThreadHelper.TOKEN_THREAD).postTask(
-                        Runnable {
-                            listener.onItemUpdate(updateEvent, this.item)
-                        })
-            }
-        }
-
+        val errorView: ImageView? = view.findViewById(R.id.errorIcon)
     }
 }

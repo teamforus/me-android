@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/backButton"
             android:layout_width="22dp"
             android:layout_height="22dp"
             android:layout_marginBottom="8dp"
@@ -45,11 +45,27 @@
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme"
             app:layout_constraintBottom_toTopOf="@id/navigation"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/optionsButton"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toEndOf="@+id/backButton"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.109" />
+
+        <ImageView
+            android:id="@+id/optionsButton"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:onClick="goBack"
+            android:tint="@color/white"
+            app:layout_constraintBottom_toTopOf="@+id/navigation"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/toolbar"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_options_black_24dp" />
 
         <android.support.design.widget.TabLayout
             android:id="@+id/navigation"

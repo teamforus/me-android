@@ -2,6 +2,7 @@ package io.forus.me.entities.base
 
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
+import android.arch.persistence.room.Ignore
 import android.arch.persistence.room.PrimaryKey
 import android.graphics.Bitmap
 import android.graphics.Color
@@ -23,6 +24,10 @@ abstract class EthereumItem(
 
     @PrimaryKey
     var id: Long? = null
+    var errorMessage: String = ""
+
+    val hasError: Boolean
+            get() = errorMessage.isNotEmpty()
 
     companion object {
         fun fromString(input: String): EthereumItem? {

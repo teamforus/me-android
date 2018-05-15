@@ -14,10 +14,19 @@ interface TokenDao {
     @Delete
     fun delete(token: Token)
 
-    @Query("SELECT * FROM `token` WHERE `identity` = :arg0")
+    @Query("SELECT * FROM `token` WHERE `address` = :address")
+    fun getLiveToken(address: String): LiveData<Token>
+
+    @Query("SELECT * FROM `token` WHERE `address` = :address")
+    fun getToken(address: String): Token
+
+    @Query("SELECT * FROM `token` WHERE `identity` = :identity")
     fun getTokens(identity: String): List<Token>
 
-    @Query("SELECT * FROM `token` WHERE `address` = :arg0 AND `identity` = :arg1")
+    @Query("SELECT * FROM `token` WHERE `identity` = :identity")
+    fun getTokensLiveData(identity: String): LiveData<List<Token>>
+
+    @Query("SELECT * FROM `token` WHERE `address` = :address AND `identity` = :identity")
     fun getTokenByAddressByIdentity(address:String, identity: String): Token
 
     @Insert

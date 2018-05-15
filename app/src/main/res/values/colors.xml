@@ -4,6 +4,7 @@
     <color name="colorPrimary">#00bcd4</color>
     <color name="colorPrimaryDark">#008ba3</color>
     <color name="colorAccent">#8bc34a</color>
+    <color name="error">@color/red</color>
     <color name="fab_background">@color/colorAccent</color>
     <color name="fab_text">@color/white</color>
     <color name="greyText">#707070</color>

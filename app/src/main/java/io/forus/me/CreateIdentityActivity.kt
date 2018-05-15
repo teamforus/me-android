@@ -62,16 +62,22 @@ class CreateIdentityActivity : AppCompatActivity() {
         }
     }
 
+    class RequestCode {
+        companion object {
+            const val REQUEST_IDENTITY = 301
+        }
+    }
+
     class ResultCode {
         companion object {
-            val CANCEL = 2
-            val CREATED = 1
+            const val CANCEL = 312
+            const val CREATED = 311
         }
     }
 
     class Result {
         companion object {
-            val IS_FIRST = "isFirst"
+            const val IS_FIRST = "isFirst"
         }
     }
 

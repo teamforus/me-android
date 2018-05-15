@@ -4,12 +4,45 @@ import android.arch.lifecycle.LiveData
 import android.content.Context
 import io.forus.me.entities.Identity
 import io.forus.me.helpers.ThreadHelper
+import io.forus.me.services.base.EthereumItemService
 import java.util.concurrent.Callable
 
 /**
  * Created by martijn.doornik on 23/02/2018.
  */
-class IdentityService {
+class IdentityService: EthereumItemService<Identity>() {
+
+    override fun add(item: Identity) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun delete(item: Identity) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+    override fun getItem(address: String): Identity {
+        return DatabaseService.inject.identityDao().getIdentity(address)
+    }
+
+    override fun getList(identity: String): List<Identity> {
+        return DatabaseService.inject.identityDao().getIdentities()
+    }
+
+    override fun getLiveData(identity: String): LiveData<List<Identity>> {
+        return DatabaseService.inject.identityDao().getIdentityLiveData()
+    }
+
+    override fun getLiveItem(address: String): LiveData<Identity> {
+        return DatabaseService.inject.identityDao().getLiveIdentity(address)
+    }
+
+    override fun getThread(): ThreadHelper.DataThread {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun update(item: Identity) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     companion object {
         private val PREFERENCE_NAME: String = "currentIdentity"
         private val PREFERENCE_KEY: String = "id"
@@ -37,7 +70,7 @@ class IdentityService {
         }
 
         fun getIdentities(): LiveData<List<Identity>>? {
-            return DatabaseService.database?.identityDao()?.getIdentities()
+            return DatabaseService.database?.identityDao()?.getIdentityLiveData()
         }
 
         fun getIdentityList(): List<Identity> {

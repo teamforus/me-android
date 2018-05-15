@@ -1,9 +1,9 @@
 package io.forus.me.helpers
 
+import android.util.Log
 import io.forus.me.entities.*
 import io.forus.me.entities.base.EthereumItem
 import io.forus.me.entities.base.WalletItem
-import io.forus.me.services.RecordService
 import org.json.JSONObject
 
 /**
@@ -12,17 +12,17 @@ import org.json.JSONObject
 class JsonHelper {
     class Keys {
         companion object {
-            val ADDRESS: String = "address"
-            val ASSET: String = "asset"
-            val CATEGORY: String = "category"
-            val NAME: String = "name"
-            val KEY: String = "key"
-            val RECORD: String = "record"
-            val SERVICE: String = "service"
-            val TOKEN: String = "token"
-            val TYPE: String = "type"
+            const val ADDRESS: String = "address"
+            const val ASSET: String = "asset"
+            const val CATEGORY: String = "category"
+            const val ETHER: String = "ether"
+            const val NAME: String = "name"
+            const val KEY: String = "key"
+            const val RECORD: String = "record"
+            const val TOKEN: String = "token"
+            const val TYPE: String = "type"
+            const val VOUCHER: String = "voucher"
         }
-
     }
 
     companion object {
@@ -35,7 +35,7 @@ class JsonHelper {
                     json = JSONObject()
                     json.put(Keys.KEY, item.key)
                     json.put(Keys.TYPE, Keys.RECORD)
-
+                    json.put(Keys.NAME, item.name)
                 }
                 else -> json = JSONObject()
             }
@@ -45,12 +45,12 @@ class JsonHelper {
         fun fromWalletItem(item:WalletItem): JSONObject {
             val json = JSONObject()
             json.put(Keys.NAME, item.name)
-                json.put(Keys.ADDRESS, item.address)
-                when (item) {
-                    is Asset -> json.put(Keys.TYPE, Keys.ASSET)
-                    is Service -> json.put(Keys.TYPE, Keys.SERVICE)
-                    is Token -> json.put(Keys.TYPE, Keys.TOKEN)
-                }
+            json.put(Keys.ADDRESS, item.address)
+            when (item) {
+                is Asset -> json.put(Keys.TYPE, Keys.ASSET)
+                is Token -> json.put(Keys.TYPE, if (!item.isEther) Keys.TOKEN else Keys.ETHER)
+                is Voucher -> json.put(Keys.TYPE, Keys.VOUCHER)
+            }
             return json
 
         }
@@ -62,26 +62,44 @@ class JsonHelper {
                 if (jsonObject.has(Keys.ADDRESS)) {
                     address = jsonObject.getString(Keys.ADDRESS)
                 }
-                val name: String = jsonObject.getString(Keys.NAME)
+                val name: String =
+                        if (jsonObject.has(Keys.NAME)) {
+                        jsonObject.getString(Keys.NAME) }
+                        else ""
                 val type: String = jsonObject.getString(Keys.TYPE)
                 when (type) {
                     Keys.ASSET -> {
                         return Asset(address!!, name)
                     }
+                    Keys.ETHER -> {
+                        return Token(Token.ETHER_ADDRESS, if (name.isEmpty()) "Ether" else name)
+                    }
                     Keys.RECORD -> {
                         val key:String = jsonObject.getString(Keys.KEY)
-                        val category = jsonObject.getInt(Keys.CATEGORY)
-                        if (! RecordService.CategoryIdentifier.list.contains(category)) throw InvalidCategoryException(category)
-                        return Record(key, name, category)
+                        /*val category = jsonObject.getInt(Keys.CATEGORY)
+                        return if (RecordService.CategoryIdentifier.list.contains(category))
+                            Record(key, name, category)
+                        else*/
+                        return Record(key, name)
                     }
-                    Keys.SERVICE -> {
-                        return Service(address!!, name)
+                    Keys.VOUCHER -> {
+                        return Voucher(address!!, name)
                     }
                     Keys.TOKEN -> {
                         return Token(address!!, name)
                     }
                 }
-            } catch (e: Exception) {}
+            } catch (e: Exception) {
+                Log.e("JsonHelper", e.localizedMessage)
+            }
+            return null
+        }
+
+        fun toRecord(jsonString: String): Record? {
+            val item = toEthereumItem(jsonString)
+            if (item is Record) {
+                return item
+            }
             return null
         }
 

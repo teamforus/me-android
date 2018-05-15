@@ -1,6 +1,5 @@
 package io.forus.me.views.record
 
-import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.Observer
 import android.support.v7.widget.RecyclerView
@@ -17,15 +16,16 @@ import io.forus.me.services.RecordService
 /**
  * Created by martijn.doornik on 03/04/2018.
  */
-class RecordRecyclerAdapter(category: RecordCategory, lifecycleOwner: LifecycleOwner) : RecyclerView.Adapter<RecordRecyclerAdapter.RecordViewHolder>() {
+class RecordAdapter(category: RecordCategory, private val recordsFragment: RecordsFragment, private val parentView: RecordCategoryAdapter.RecordCategoryViewHolder) : RecyclerView.Adapter<RecordAdapter.RecordViewHolder>() {
 
     private val recordData: LiveData<List<Record>>? = RecordService.getRecordsByCategoryByIdentity(category.id, IdentityService.currentAddress)
     private var records = emptyList<Record>()
 
     init {
-        recordData!!.observe(lifecycleOwner, Observer {
+        recordData!!.observe(recordsFragment, Observer {
             if (it != null) {
                 records = it
+                parentView.onRecordListChange()
                 notifyDataSetChanged()
             }
         })
@@ -38,7 +38,8 @@ class RecordRecyclerAdapter(category: RecordCategory, lifecycleOwner: LifecycleO
     override fun onBindViewHolder(holder: RecordViewHolder, position: Int) {
         records[position].sync()
         holder.nameView.text = records[position].name
-        holder.valueView.text = records[position].value
+        // TODO when syncing can be done :) holder.valueView.text = records[position].value
+        holder.view.setOnClickListener { this.recordsFragment.onRecordSelect(records[holder.adapterPosition]) }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecordViewHolder {
@@ -46,8 +47,9 @@ class RecordRecyclerAdapter(category: RecordCategory, lifecycleOwner: LifecycleO
         return RecordViewHolder(view)
     }
 
-    class RecordViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class RecordViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         val nameView: TextView = view.findViewById(R.id.nameView)
         val valueView: TextView = view.findViewById(R.id.valueView)
+
     }
 }

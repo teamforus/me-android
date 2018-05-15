@@ -14,8 +14,20 @@ interface RecordDao {
     @Delete
     fun delete(record: Record)
 
-    @Query("SELECT * FROM record WHERE `recordCategoryId` = :arg0 AND `identity` = :arg1")
+    @Query("SELECT * FROM record WHERE `address` = :address")
+    fun getLiveRecord(address: String): LiveData<Record>
+
+    @Query("SELECT * FROM record WHERE `address` = :address")
+    fun getRecord(address: String): Record
+
+    @Query("SELECT * FROM record WHERE `identity` = :identity")
+    fun getRecords(identity: String): List<Record>
+
+    @Query("SELECT * FROM record WHERE `recordCategoryId` = :category AND `identity` = :identity")
     fun getRecordsFromCategoryAndIdentity(category: Int, identity: String): LiveData<List<Record>>
+
+    @Query("SELECT * FROM record WHERE `identity` = :identity")
+    fun getRecordsLiveData(identity: String): LiveData<List<Record>>
 
     @Insert
     fun insert(record: Record)

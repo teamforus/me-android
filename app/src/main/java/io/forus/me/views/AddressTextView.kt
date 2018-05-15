@@ -23,7 +23,7 @@ class AddressTextView(context: Context, attributeSet: AttributeSet) : TextView(c
     }
 
     private val ready: Boolean
-            get() = this.address.length == 22
+            get() = this.address.length > 7
 
     fun setAddress(address:String) {
         this.address = address

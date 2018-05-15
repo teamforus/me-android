@@ -9,7 +9,7 @@ import io.forus.me.services.IdentityService
  * Created by martijn.doornik on 16/02/2018.
  */
 @Entity
-class Service(
+class Voucher(
         address:String = "",
         name: String = "",
         identity:String = IdentityService.currentAddress,

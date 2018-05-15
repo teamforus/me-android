@@ -1,8 +1,6 @@
 package io.forus.me.views.me
 
 import android.arch.lifecycle.LifecycleOwner
-import android.arch.lifecycle.LiveData
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -11,14 +9,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import io.forus.me.R
 import io.forus.me.entities.Identity
-import io.forus.me.helpers.LiveDataAdapter
+import io.forus.me.views.base.LiveDataAdapter
 import io.forus.me.services.IdentityService
 
 /**
  * Created by martijn.doornik on 27/03/2018.
  */
-class IdentityViewAdapter(activity: AppCompatActivity, data: LiveData<List<Identity>>)
-    : LiveDataAdapter<Identity, IdentityViewAdapter.IdentityViewHolder>(activity, data) {
+class IdentityViewAdapter(lifecycleOwner: LifecycleOwner, service: IdentityService)
+    : LiveDataAdapter<Identity, IdentityViewAdapter.IdentityViewHolder>(lifecycleOwner, service) {
 
     override fun onBindViewHolder(holder: IdentityViewHolder, position: Int) {
         holder.nameView.text = items[position].name

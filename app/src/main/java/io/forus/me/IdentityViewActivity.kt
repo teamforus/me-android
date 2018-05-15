@@ -59,13 +59,10 @@ class IdentityViewActivity : AppCompatActivity() {
                     )
                 })
             }
-            val identityData = ThreadHelper.await(Callable{
-                IdentityService.getIdentities()
-            })
             val list:RecyclerView = this.findViewById(R.id.identity_list)
             runOnUiThread({
                 list.layoutManager = LinearLayoutManager(this)
-                list.adapter = IdentityViewAdapter(this, identityData!!)
+                list.adapter = IdentityViewAdapter(this, IdentityService())
             })
         })
     }

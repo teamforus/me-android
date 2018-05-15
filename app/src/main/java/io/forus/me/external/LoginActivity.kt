@@ -40,7 +40,7 @@ class LoginActivity : Activity() {
         if (raw is Array<*>) {
             val items: List<EthereumItem> = MutableList<EthereumItem>(raw.size, {index: Int ->
                 // TODO fix hardcoding
-                Token("TestAddress", raw[index].toString(), "0x01234567890123456789", 7.0F)
+                Token("TestAddress", raw[index].toString(), "0x01234567890123456789", 123)
             })
             list = findViewById(R.id.external_login_attribute_container)
             list.layoutManager = LinearLayoutManager(this)
