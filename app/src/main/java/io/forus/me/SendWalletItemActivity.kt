@@ -1,35 +1,35 @@
 package io.forus.me
 
 import android.Manifest
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.content.res.Resources
 import android.os.Bundle
-import android.support.design.widget.CoordinatorLayout
+import android.support.constraint.ConstraintLayout
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
+import android.view.Gravity
 import android.view.View
-import android.widget.ImageView
-import android.widget.RelativeLayout
-import android.widget.TextView
-import android.widget.Toast
+import android.view.ViewGroup
+import android.widget.*
 import com.google.zxing.ResultPoint
 import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeResult
 import com.journeyapps.barcodescanner.BarcodeView
 import io.forus.me.entities.Asset
 import io.forus.me.entities.Token
-import io.forus.me.entities.base.EthereumItem
-import io.forus.me.helpers.QrHelper
-import io.forus.me.helpers.ThreadHelper
-import io.forus.me.helpers.TransferViewModel
-import io.forus.me.services.Web3Service
-import io.forus.me.views.me.MeFragment
-import io.forus.me.web3.TokenContract
+import io.forus.me.helpers.*
+import io.forus.me.helpers.DialogHelper.Companion.setOnCloseListener
 
 import kotlinx.android.synthetic.main.activity_send_wallet_item.*
+import android.view.WindowManager
+import android.widget.LinearLayout
+
+
+
+
 
 class SendWalletItemActivity : AppCompatActivity(), BarcodeCallback {
 
@@ -38,16 +38,32 @@ class SendWalletItemActivity : AppCompatActivity(), BarcodeCallback {
 
     override fun barcodeResult(result: BarcodeResult) {
         pauseScanner()
-        val intent = Intent(this,
-                when {
-                    viewModel.item is Asset -> SendTokenActivity::class.java
-                    viewModel.item is Token -> SendTokenActivity::class.java
-                    else -> SendTokenActivity::class.java
+        if (EthereumHelper.isAddressValid(result.text)) {
+            val intent = Intent(this,
+                    when {
+                        viewModel.item is Asset -> SendTokenActivity::class.java
+                        viewModel.item is Token -> SendTokenActivity::class.java
+                        else -> SendTokenActivity::class.java
+                    }
+            )
+            intent.putExtra(RequestCode.RECIPIENT, result.text)
+            intent.putExtra(RequestCode.TRANSFER_OBJECT, viewModel.toJson().toString())
+            startActivityForResult(intent, RequestCode.EXECUTE_SEND)
+        } else {
+            // TODO fix this dialog. The green button has gone a little under the screen.
+            val dialog = AlertDialog.Builder(this, R.style.AppTheme_Dialog).create()
+            val listener = object: DialogHelper.OnCloseListener(dialog) {
+                override fun onClose(dialog: DialogInterface?) {
+                    if (dialog != null) {
+                        dialog.dismiss()
+                        resumeScanner()
+                    }
                 }
-        )
-        intent.putExtra(RequestCode.RECIPIENT, result.text)
-        intent.putExtra(RequestCode.TRANSFER_OBJECT, viewModel.toJson().toString())
-        startActivityForResult(intent, RequestCode.EXECUTE_SEND)
+            }
+            DialogHelper.stylize(dialog, R.string.invalid_code_title, R.string.invalid_code_description, listener)
+            setOnCloseListener(dialog, listener)
+            dialog.show()
+        }
     }
 
     fun cancel(view:View) {

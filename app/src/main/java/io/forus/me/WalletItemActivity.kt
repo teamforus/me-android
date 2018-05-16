@@ -3,6 +3,7 @@ package io.forus.me
 import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.support.design.widget.TabLayout
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
@@ -117,7 +118,16 @@ class WalletItemActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListene
     override fun onMenuItemClick(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.sync -> {
-
+                this.item.sync()
+            }
+            R.id.delete -> {
+                this.setContentView(R.layout.loading)
+                when(this.item) {
+                    is Asset -> AssetService().delete(this.item as Asset)
+                    is Token -> TokenService().delete(this.item as Token)
+                    is Voucher -> VoucherService().delete(this.item as Voucher)
+                }
+                finish()
             }
         }
         return false

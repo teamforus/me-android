@@ -65,7 +65,6 @@ class MainActivity : AppCompatActivity(), MeFragment.QrListener, ViewPager.OnPag
                     this.walletFragment.showVouchers(true)
                 }
                 QrResultActivity.ResultCodes.CANCEL -> {
-
                 }
                 QrResultActivity.ResultCodes.ERROR -> {
                     Toast.makeText(baseContext, "Fout opgetreden bij verwerken van QR code. Probeer later nog eens.", Toast.LENGTH_SHORT).show()

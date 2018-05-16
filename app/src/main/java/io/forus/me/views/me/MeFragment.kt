@@ -56,6 +56,7 @@ class MeFragment : TitledFragment() {
         return view
     }
 
+
     override fun onPause() {
         super.onPause()
         scanner.pause()
