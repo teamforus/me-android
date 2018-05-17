@@ -34,17 +34,23 @@ class WalletListAdapter<T : WalletItem>(private val resourceLayout: Int, private
             val onColor = ContextCompat.getColor(holder.itemView.context, R.color.black)
             val offColor = ContextCompat.getColor(holder.itemView.context, R.color.transparent)
             val size = holder.qrView.layoutParams.width
-            val task = object : AsyncTask<Any?, Any?, Bitmap>() {
-                override fun doInBackground(vararg params: Any?): Bitmap {
-                    return  QrHelper.getQrBitmap(
-                            if (items[position] is Token && (items[position] as Token).isEther) "Ether" // TODO Better name
-                            else items[position].address,
-                            size, onColor, offColor)
+            val task = object : AsyncTask<Any?, Any?, Bitmap?>() {
+                override fun doInBackground(vararg params: Any?): Bitmap? {
+                    return if (position < itemCount) {
+                        QrHelper.getQrBitmap(
+                                if (items[position] is Token && (items[position] as Token).isEther) "Ether" // TODO Better name
+                                else items[position].address,
+                                size, onColor, offColor)
+                    } else {
+                        null
+                    }
                 }
 
-                override fun onPostExecute(result: Bitmap) {
+                override fun onPostExecute(result: Bitmap?) {
                     super.onPostExecute(result)
-                    holder.qrView.setImageBitmap(result)
+                    if (result != null) {
+                        holder.qrView.setImageBitmap(result)
+                    }
                 }
             }
             task.execute()
@@ -65,7 +71,9 @@ class WalletListAdapter<T : WalletItem>(private val resourceLayout: Int, private
         })
         val task = object : AsyncTask<Any?, Any?, Boolean>() {
             override fun doInBackground(vararg params: Any?): Boolean {
-                return items[position].sync()
+                return if (position < itemCount) {
+                    items[position].sync()
+                } else { false }
             }
 
             override fun onPostExecute(result: Boolean) {

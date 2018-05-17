@@ -24,7 +24,8 @@
     <string name="i_accept">Dit vind ik goed</string>
     <string name="identity">Profiel</string>
     <string name="identities">Profielen</string>
-    <string name="invalid_code">Onjuiste code. Weet je zeker dat deze QR code correct is?</string>
+    <string name="invalid_code_title">Onjuiste code</string>
+    <string name="invalid_code_description">Onjuiste code. Weet je zeker dat deze QR code correct is?</string>
     <string name="let_delegates_scan">Laat delegaten deze code scannen vanaf hun telefoon.</string>
     <string name="loading">Aan het laden…</string>
     <string name="logout">Log uit</string>
@@ -32,7 +33,7 @@
     <string name="name">Naam</string>
     <string name="navigation_qr">Me</string>
     <string name="navigation_records">Eigenschappen</string>
-    <string name="navigation_wallet">Wallet</string>
+    <string name="navigation_wallet">Eigendommen</string>
     <string name="overview">Overzicht</string>
     <string name="passphrase">Wachtwoord</string>
     <string name="passphrase_dont_want">Ik wil geen wachtwoord</string>
@@ -58,8 +59,8 @@
     <string name="sync">Synchroniseren</string>
     <string name="sync_error">Synchronisatiefout</string>
     <string name="syncing">Synchroniseren…</string>
-    <string name="tab_tokens">Tokens</string>
-    <string name="tab_assets">Bezittingen</string>
+    <string name="tab_tokens">Valuta</string>
+    <string name="tab_assets">Bezit</string>
     <string name="tab_vouchers">Vouchers</string>
     <string name="title_activity_wallet">WalletActivity</string>
     <string name="title_activity_records">RecordsActivity</string>
@@ -70,6 +71,7 @@
     <string name="token_request_instruction">Laat deze code scannen door de persoon van wie je dit wil ontvangen.</string>
     <string name="token_send_info">Munteenheden kun je overschrijven naar andere gebruikers van de Me App.</string>
     <string name="token_send_instruction">Laat deze code scannen om dit naar die persoon te sturen.</string>
+    <string name="try_again">Opnieuw proberen</string>
     <string name="validation_add_subtitle">Persoonlijke validatie aanvragen</string>
     <string name="validation_add_title">Validatie toevoegen</string>
     <string name="validations_title">Validatoren</string>
