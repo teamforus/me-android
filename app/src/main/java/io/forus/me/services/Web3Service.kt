@@ -105,7 +105,10 @@ internal class Web3Service {
         }
 
         fun isInitialized(): Boolean {
-            return Configuration._directoryPrefix.isNotEmpty()
+            try {
+                return Configuration._directoryPrefix.isNotEmpty()
+            } catch (e:Exception) {}
+            return false
         }
 
         fun newAccount(): String {

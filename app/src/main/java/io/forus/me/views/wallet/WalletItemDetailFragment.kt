@@ -36,9 +36,9 @@ class WalletItemDetailFragment : TitledFragment() {
 
         val qrView:ImageView = view.findViewById(R.id.qrView)
         val bitmap = QrHelper.getQrBitmap(
+                this.requireContext(),
                 JsonHelper.fromWalletItem(walletItem!!),
-                // TODO fix hardcoding
-                196,
+                QrHelper.Sizes.LARGE,
                 ContextCompat.getColor(context!!, R.color.black),
                 ContextCompat.getColor(context!!, R.color.transparent))
         qrView.setImageBitmap(bitmap)

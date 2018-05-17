@@ -51,10 +51,11 @@ class IdentityViewActivity : AppCompatActivity() {
                 runOnUiThread({
                     qrView.setImageBitmap(QrHelper.
                             getQrBitmap(
+                                    this,
                                     Web3Service.account!!,
-                                    192,
+                                    QrHelper.Sizes.LARGE,
                                     ContextCompat.getColor(baseContext, R.color.black),
-                                    ContextCompat.getColor(baseContext, R.color.transparent)
+                                    ContextCompat.getColor(baseContext, R.color.white)
                             )
                     )
                 })

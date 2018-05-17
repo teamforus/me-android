@@ -1,5 +1,6 @@
 package io.forus.me.services
 
+import android.content.ComponentName
 import android.util.Log
 import io.forus.me.entities.Token
 import io.forus.me.services.base.WatcherService
@@ -11,6 +12,10 @@ import rx.Observable
  * Created by martijn.doornik on 01/05/2018.
  */
 class TokenTransactionWatcher : WatcherService<Token, TokenContract.TransferEvent>("TokenTransactionWatcher", TokenService()) {
+    companion object {
+        var componentName: ComponentName? = null
+    }
+
     override fun onAdded(item: Token): Observable<TokenContract.TransferEvent> {
         val contract = TokenContract(item.address)
         return contract.getTransferObservable(item)
