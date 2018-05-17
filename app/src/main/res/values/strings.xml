@@ -31,9 +31,9 @@
     <string name="logout">Log uit</string>
     <string name="my_qr_title">Mijn QR-code</string>
     <string name="name">Naam</string>
-    <string name="navigation_qr">Me</string>
+    <string name="navigation_qr">QR-scanner</string>
     <string name="navigation_records">Eigenschappen</string>
-    <string name="navigation_wallet">Eigendommen</string>
+    <string name="navigation_wallet">Eigendom</string>
     <string name="overview">Overzicht</string>
     <string name="passphrase">Wachtwoord</string>
     <string name="passphrase_dont_want">Ik wil geen wachtwoord</string>
