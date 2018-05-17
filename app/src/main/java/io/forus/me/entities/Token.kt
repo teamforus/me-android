@@ -28,8 +28,8 @@ open class Token(
 
     override fun sync(): Boolean {
         var changed = false
-        if (!isEther) {
-            try {
+        try {
+            if (!isEther) {
                 val contract = TokenContract(this.address)
                 val balance = contract.getBalance(Web3Service.account!!).send().value.toLong()
                 var decimals = this.decimals
@@ -45,26 +45,25 @@ open class Token(
                     changed = true
                     this.decimals = decimals
                 }
-            } catch (e: Exception) {
-                val message = e.message ?: "Error with no message" // TODO fix hardcoding
-                if (this.errorMessage != message) {
-                    changed = true
-                    this.errorMessage = message
-                }
-            }
-        } else {
-            val balanceBigInt = Web3Service.getEther()
-            if (balanceBigInt != null) {
-                val balance = balanceBigInt.toLong()
-                if (balance != this.value) {
-                    this.value = balance
-                    changed = true
-                }
             } else {
-                this.errorMessage = "Error with no message" // TODO fix hardcoding
-                changed = true
-            }
+                val balanceBigInt = Web3Service.getEther()
+                if (balanceBigInt != null) {
+                    val balance = balanceBigInt.toLong()
+                    if (balance != this.value) {
+                        this.value = balance
+                        changed = true
+                    }
+                } else {
+                    throw Exception()
+                }
 
+            }
+        } catch (e: Exception) {
+            val message = e.message ?: "Error with no message" // TODO fix hardcoding
+            if (this.errorMessage != message) {
+                changed = true
+                this.errorMessage = message
+            }
         }
         return changed
     }

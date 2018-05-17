@@ -33,14 +33,14 @@ class WalletListAdapter<T : WalletItem>(private val resourceLayout: Int, private
         if (holder.qrView != null) {
             val onColor = ContextCompat.getColor(holder.itemView.context, R.color.black)
             val offColor = ContextCompat.getColor(holder.itemView.context, R.color.transparent)
-            val size = holder.qrView.layoutParams.width
             val task = object : AsyncTask<Any?, Any?, Bitmap?>() {
                 override fun doInBackground(vararg params: Any?): Bitmap? {
                     return if (position < itemCount) {
                         QrHelper.getQrBitmap(
+                                listener.requireContext(),
                                 if (items[position] is Token && (items[position] as Token).isEther) "Ether" // TODO Better name
                                 else items[position].address,
-                                size, onColor, offColor)
+                                QrHelper.Sizes.SMALL, onColor, offColor)
                     } else {
                         null
                     }

@@ -28,8 +28,10 @@ class RequestWalletItemActivity : AppCompatActivity() {
             val descriptionView: TextView = findViewById(R.id.descriptionText)
             descriptionView.text = transfer.description
             val qrView: ImageView = findViewById(R.id.qrView)
-            qrView.setImageBitmap(QrHelper.getQrBitmap(json,
-                    500,
+            qrView.setImageBitmap(QrHelper.getQrBitmap(
+                    this,
+                    json,
+                    QrHelper.Sizes.LARGE,
                     ContextCompat.getColor(baseContext, R.color.black),
                     ContextCompat.getColor(baseContext, R.color.white)))
 

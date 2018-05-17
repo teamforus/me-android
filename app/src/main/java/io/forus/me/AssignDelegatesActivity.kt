@@ -28,8 +28,10 @@ class AssignDelegatesActivity : AppCompatActivity() {
         json.put("address", Web3Service.account!!)
         json.put("type", "request_delegate")
 
-        qrView.setImageBitmap(QrHelper.getQrBitmap(json,
-                qrView.width,
+        qrView.setImageBitmap(QrHelper.getQrBitmap(
+                this,
+                json,
+                QrHelper.Sizes.LARGE,
                 ContextCompat.getColor(baseContext, R.color.black),
                 ContextCompat.getColor(baseContext, R.color.white)))
     }

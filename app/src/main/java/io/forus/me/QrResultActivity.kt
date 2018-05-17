@@ -94,7 +94,7 @@ class QrResultActivity : AppCompatActivity() {
         val task = @SuppressLint("StaticFieldLeak")
         object : AsyncTask<Any?, Any?, Bitmap>() {
             override fun doInBackground(vararg params: Any?): Bitmap {
-                return QrHelper.getQrBitmap(item.toJson(), 192)
+                return QrHelper.getQrBitmap(baseContext, item.toJson(), QrHelper.Sizes.LARGE)
             }
 
             override fun onPostExecute(result: Bitmap) {

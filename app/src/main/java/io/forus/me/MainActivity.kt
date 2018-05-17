@@ -1,6 +1,5 @@
 package io.forus.me
 
-import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -8,11 +7,6 @@ import android.support.design.widget.TabLayout
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
-import io.forus.me.entities.Asset
-import io.forus.me.entities.Record
-import io.forus.me.entities.Voucher
-import io.forus.me.entities.Token
-import io.forus.me.entities.base.EthereumItem
 import io.forus.me.helpers.ThreadHelper
 import io.forus.me.services.*
 import io.forus.me.views.main.MainPager
@@ -21,12 +15,12 @@ import io.forus.me.views.me.MeFragment
 import io.forus.me.views.record.RecordsFragment
 import io.forus.me.views.wallet.WalletFragment
 
-import kotlinx.android.synthetic.main.activity_qr_result.*
 import java.util.concurrent.Callable
 
 
 class MainActivity : AppCompatActivity(), MeFragment.QrListener, ViewPager.OnPageChangeListener {
 
+    private var initialized: Boolean = false
     private lateinit var mainPager: MainPager
     private lateinit var meFragment: MeFragment
     private lateinit var navigation: TabLayout
@@ -80,13 +74,13 @@ class MainActivity : AppCompatActivity(), MeFragment.QrListener, ViewPager.OnPag
     }
 
     private fun initMainView() {
-        val serviceIntent = Intent(this, TokenTransactionWatcher::class.java)
-        this.startService(serviceIntent)
+        if (TokenTransactionWatcher.componentName == null) {
+            val serviceIntent = Intent(this, TokenTransactionWatcher::class.java)
+            TokenTransactionWatcher.componentName = this.startService(serviceIntent)
+        }
         setContentView(R.layout.activity_main)
-        this.mainPager = findViewById(R.id.main_pager)
-        //this.mainPager.setPageTransformer(false, MainTransformer())
-        //this.mainPager.addOnPageChangeListener(this)
 
+        mainPager = findViewById(R.id.main_pager)
         meFragment = MeFragment().with(this).also { it.title = resources.getString(R.string.navigation_qr) }
         walletFragment = WalletFragment().also { it.title = resources.getString(R.string.navigation_wallet) }
         recordsFragment = RecordsFragment().also { it.title = resources.getString(R.string.navigation_records) }
@@ -109,6 +103,7 @@ class MainActivity : AppCompatActivity(), MeFragment.QrListener, ViewPager.OnPag
             }
             //navigation.getTabAt(i)!!.icon!!.setTint(resources.getColor(R.color.colorPrimary, theme))
         }
+        initialized = true
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -142,11 +137,27 @@ class MainActivity : AppCompatActivity(), MeFragment.QrListener, ViewPager.OnPag
 
     override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
 
+    override fun onResume() {
+        super.onResume()
+        if (initialized && !this::mainPager.isInitialized) {
+            initMainView()
+        }
+    }
+
     override fun onQrResult(result: String) {
         meFragment.pauseScanner()
         val intent = Intent(this, QrResultActivity::class.java)
         intent.putExtra(QrResultActivity.RESULT, result)
         startActivityForResult(intent, QrResultActivity.RequestCodes.NEW_RESULT)
+    }
+
+    override fun onSaveInstanceState(outState: android.os.Bundle?) {
+        super.onSaveInstanceState(outState)
+        if (outState != null) {
+            outState.putBoolean(BundleKeys.INITIALIZED, this.initialized)
+            if (this::mainPager.isInitialized)
+                    outState.putInt(BundleKeys.CURRENT_PAGE, mainPager.currentItem)
+        }
     }
 
     private fun requireLogin(): Boolean {
@@ -165,5 +176,24 @@ class MainActivity : AppCompatActivity(), MeFragment.QrListener, ViewPager.OnPag
             return false
         }
         return true
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+        super.onRestoreInstanceState(savedInstanceState)
+        if (savedInstanceState != null) {
+            val initialized = savedInstanceState.getBoolean(BundleKeys.INITIALIZED)
+            if (initialized && !this::mainPager.isInitialized) {
+                initMainView()
+                val currentPage = savedInstanceState.getInt(BundleKeys.CURRENT_PAGE)
+                this.mainPager.currentItem = currentPage
+            }
+        }
+    }
+
+    class BundleKeys {
+        companion object {
+            const val CURRENT_PAGE = "currentPage"
+            const val INITIALIZED = "initialized"
+        }
     }
 }

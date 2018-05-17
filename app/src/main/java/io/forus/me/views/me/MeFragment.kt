@@ -29,24 +29,26 @@ import kotlinx.android.synthetic.main.my_qr_view.*
 /**
  * Created by martijn.doornik on 15/03/2018.
  */
-class MeFragment : TitledFragment() {
+class MeFragment : TitledFragment(), BarcodeCallback {
+
     private lateinit var qrListener: QrListener
     private lateinit var scanner: BarcodeView
 
+    override fun barcodeResult(result: BarcodeResult?) {
+        if (result != null) {
+            pauseScanner()
+            qrListener.onQrResult(result.text)
+        }
+    }
+
+    private fun initScanner() {
+        this.scanner = view!!.findViewById(R.id.qrScanner)
+        requestPermission()
+        scanner.decodeContinuous(this)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.me_fragment, container, false)
-        this.scanner = view.findViewById(R.id.qrScanner)
-        requestPermission()
-        scanner.decodeContinuous(object : BarcodeCallback {
-            override fun barcodeResult(result: BarcodeResult) {
-                pauseScanner()
-                qrListener.onQrResult(result.text)
-            }
-
-            override fun possibleResultPoints(resultPoints: List<ResultPoint>) {
-                //setMarkers(resultPoints)
-            }
-        })
         val button: ImageView = view.findViewById(R.id.myIdentitiesButton)
         button.setOnClickListener {
             if (it == myIdentitiesButton) {
@@ -73,12 +75,29 @@ class MeFragment : TitledFragment() {
 
     override fun onResume() {
         super.onResume()
-        scanner.resume()
+        requireScanner()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putBoolean(BundleKeys.INITIALIZED, this::scanner.isInitialized)
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        if (savedInstanceState != null
+                && savedInstanceState.containsKey(BundleKeys.INITIALIZED)
+                && savedInstanceState.getBoolean(BundleKeys.INITIALIZED)) {
+            initScanner()
+        }
     }
 
     fun pauseScanner() {
-        scanner.pause()
+        if (this::scanner.isInitialized)
+            scanner.pause()
     }
+
+    override fun possibleResultPoints(resultPoints: MutableList<ResultPoint>?) {}
 
     private fun requestPermission() {
         if (ContextCompat.checkSelfPermission(this.requireContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
@@ -86,8 +105,16 @@ class MeFragment : TitledFragment() {
         }
     }
 
+    private fun requireScanner() {
+        if (!this::scanner.isInitialized && view != null) {
+            initScanner()
+        }
+    }
+
     fun resumeScanner() {
-        scanner.resume()
+        requireScanner()
+        if (this::scanner.isInitialized)
+                scanner.resume()
     }
 
     fun setMarkers(resultPoints: List<ResultPoint>) {
@@ -116,6 +143,12 @@ class MeFragment : TitledFragment() {
     fun with(listener: QrListener): MeFragment {
         this.qrListener = listener
         return this
+    }
+
+    class BundleKeys {
+        companion object {
+            const val INITIALIZED = "initialized"
+        }
     }
 
     interface QrListener {
