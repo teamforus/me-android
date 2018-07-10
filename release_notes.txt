@@ -1,0 +1,22 @@
+commit 8ef7860d203fc1f6cac16d576390b36aafe1aabf
+Author: Russian Hacker <pp@initflow.com>
+Date:   Fri Jul 6 14:56:20 2018 +0300
+
+    __
+
+diff --git a/.gitlab-ci.yml b/.gitlab-ci.yml
+index 2dbd3d7..2692631 100644
+--- a/.gitlab-ci.yml
++++ b/.gitlab-ci.yml
+@@ -15,8 +15,10 @@ cache:
+ 
+ telegram:
+   stage: telegram
++  only:
++  - master
+   script:
+-  - ./gradlew  assembleDebug -Pmodule=presentation
++  - ./gradlew  assembleDebug -Pmodule=presentation --debug
+   -  git log -p -1  > release_notes.txt
+   - /bin/bash telegram.sh -t ${TELEGRAM_TOKEN} -c ${TELEGRAM_CHAT_ID} -f release_notes.txt "Build comments"
+   - /bin/bash telegram.sh -t ${TELEGRAM_TOKEN} -c ${TELEGRAM_CHAT_ID} -f app/build/outputs/apk/debug/app-debug.apk

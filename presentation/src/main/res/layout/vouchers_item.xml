@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:id="@+id/root"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+   <LinearLayout
+       android:orientation="vertical"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+
+
+       <LinearLayout
+           android:orientation="vertical"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+
+           <io.forus.me.android.presentation.view.component.text.TextView
+               android:id="@+id/type"
+               android:layout_margin="@dimen/activity_horizontal_margin"
+               style="@style/Body2Left"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               tools:text="Ethereum Wallet"
+               />
+
+           <View
+               android:background="@color/border_color"
+               android:layout_width="match_parent"
+               android:layout_height="1dp"/>
+
+
+           <RelativeLayout
+               android:layout_margin="@dimen/activity_horizontal_margin"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+
+
+               <LinearLayout
+                   android:layout_marginRight="50dp"
+                   android:orientation="vertical"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content">
+
+                   <io.forus.me.android.presentation.view.component.text.TextView
+                       android:id="@+id/name"
+                       style="@style/Title9"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       tools:text="2,568396"
+                       app:type="medium"
+                       />
+
+                   <io.forus.me.android.presentation.view.component.text.TextView
+                       android:id="@+id/currency_name"
+                       style="@style/Overline4"
+                       android:layout_marginTop="@dimen/activity_horizontal_margin_small"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:textAllCaps="true"
+                       tools:text="ETH"/>
+
+
+               </LinearLayout>
+
+               <io.forus.me.android.presentation.view.component.images.AutoLoadImageView
+                   android:id="@+id/logo"
+                   android:layout_alignParentRight="true"
+                   android:layout_centerVertical="true"
+                   android:layout_width="55dp"
+                   android:layout_height="55dp" />
+
+           </RelativeLayout>
+
+           <io.forus.me.android.presentation.view.screens.vouchers.transactions.card.TransactionsCard
+               android:id="@+id/transactions_card"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+
+           </io.forus.me.android.presentation.view.screens.vouchers.transactions.card.TransactionsCard>
+       </LinearLayout>
+
+
+   </LinearLayout>
+
+
+</android.support.v4.widget.NestedScrollView>
