@@ -1,0 +1,26 @@
+image: jangrewe/gitlab-ci-android
+
+stages:
+- telegram
+
+before_script:
+- export GRADLE_USER_HOME=$(pwd)/.gradle
+- chmod +x ./gradlew
+
+cache:
+  key: ${CI_PROJECT_ID}
+  paths:
+  - .gradle/
+
+
+telegram:
+  stage: telegram
+#  only:
+#  - master
+  script:
+  - cd presentation
+  - ../gradlew  assembleDebug
+  - cd ..
+  -  git log -p -1  > release_notes.txt
+  - /bin/bash telegram.sh -t ${TELEGRAM_TOKEN} -c ${TELEGRAM_CHAT_ID} -f release_notes.txt "Build comments"
+  - /bin/bash telegram.sh -t ${TELEGRAM_TOKEN} -c ${TELEGRAM_CHAT_ID} -f presentation/build/outputs/apk/debug/presentation-debug.apk
