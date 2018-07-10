@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+
+    <declare-styleable name="CustomEditTextAttrs">
+        <attr name="validationRegex" format="string"/>
+        <attr name="validationError" format="string"/>
+    </declare-styleable>
+
+
+
+    <declare-styleable name="CustomTextViewAttrs">
+        <attr name="type" format="string"/>
+    </declare-styleable>
+
+
+    <declare-styleable name="CustomButtonAttrs">
+        <attr name="reverse" format="boolean"/>
+    </declare-styleable>
+
+</resources>

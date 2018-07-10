@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:layout_marginTop="110dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/ic_me_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+        <io.forus.me.android.presentation.view.component.text.TextView
+            android:layout_marginTop="38dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/welcome"
+            android:textSize="36sp"
+            android:textColor="#de000000"
+            app:type="bold" />
+
+        <io.forus.me.android.presentation.view.component.text.TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textSize="17sp"
+            android:textColor="#3e4a59"
+            android:lineSpacingExtra="1sp"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/set_up_your_identity"
+            app:type="bold"
+            />
+
+        <io.forus.me.android.presentation.view.component.buttons.Button
+            android:id="@+id/create_account"
+            android:layout_marginTop="39dp"
+            android:text="@string/create_account"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <io.forus.me.android.presentation.view.component.buttons.Button
+            android:id="@+id/restore_account"
+            android:layout_marginTop="24dp"
+            android:text="@string/restore_account"
+            app:reverse="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</ScrollView>
