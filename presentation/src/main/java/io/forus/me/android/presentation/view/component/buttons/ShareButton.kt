@@ -24,10 +24,6 @@ class ShareButton : FrameLayout {
 
     private lateinit var  mContainer : LinearLayout
 
-    private  var pin : String = "";
-
-    private val tvList: MutableList<TextView> = mutableListOf()
-
     constructor(context: Context) : super(context) {
         initNonStyle(context, null)
     }
