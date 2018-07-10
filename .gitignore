@@ -70,21 +70,4 @@ fastlane/readme.md
 old_forus
 
 .idea/codeStyles/
-LICENSE
-README.md
-buildsystem/
-data/.gitignore
-data/build.gradle
-data/proguard-rules.pro
-data/schemas/
-data/src/
-domain/build.gradle
-domain/src/
-presentation/.gitignore
-presentation/build.gradle
-presentation/libs/
-presentation/proguard-rules.pro
-presentation/src/
-release_notes.txt
-sendBuilds.sh
-telegram.sh
+.idea
