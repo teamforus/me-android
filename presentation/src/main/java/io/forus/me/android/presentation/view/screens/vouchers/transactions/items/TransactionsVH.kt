@@ -9,21 +9,24 @@ import io.forus.me.android.presentation.helpers.inflate
 import kotlinx.android.synthetic.main.vouchers_transcations_list_item.view.*
 
 
-class TransactionsVH(parent: ViewGroup, private val clickListener: ((Transaction) -> Unit)?) : RecyclerView.ViewHolder(parent.inflate(R.layout.vouchers_transcations_list_item)) {
+class TransactionsVH(parent: ViewGroup, private val clickListener: ((Transaction) -> Unit)?)
+    : RecyclerView.ViewHolder(parent.inflate(R.layout.vouchers_transcations_list_item)) {
     init {
 
     }
 
     fun render(item: Transaction) = with(itemView) {
 
-        type.text = item.type.name
+        subtitle1.text = item.title
+        overline1.text = item.type.name
 
-        value.text = item.value.format()
-        title.text = item.title
+        subtitle2.text = item.value.format()
+        overline2.text = item.currency.name
+
+        if(!item.currency.logoUrl.isEmpty()) logo.setImageUrl(item.currency.logoUrl)
         
         root.setOnClickListener {
             clickListener?.invoke(item)
         }
-
     }
 }
