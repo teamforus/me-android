@@ -228,6 +228,12 @@
     <item name="android:lineSpacingExtra">6.9sp</item>
   </style>
 
+  <style name="Subtitle1">
+    <item name="android:textSize">17.1sp</item>
+    <item name="android:textColor">@color/forus_blue</item>
+    <item name="android:lineSpacingExtra">6.9sp</item>
+  </style>
+
   <style name="ShareButtonBody">
     <item name="android:textSize">15sp</item>
     <item name="android:textColor">@color/body_1_87</item>
