@@ -15,7 +15,14 @@ import io.forus.me.android.presentation.view.component.FontType
 
 class Button : Button {
 
-    private var reverse = false
+    private var reverse : Boolean = false
+
+    var active : Boolean = true
+        set(value) {
+            field = value
+            initFont()
+            initBackground()
+        }
 
     constructor(context: Context) : super(context) {
         initNonStyle(context, null)
@@ -56,16 +63,15 @@ class Button : Button {
     }
 
     private fun initFont(){
-        setTextColor(if (reverse) ContextCompat.getColor(context, R.color.colorAccent) else Color.WHITE)
-        this.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 16f);
+        setTextColor(if (!active) ContextCompat.getColor(context, R.color.body_1_38) else (if (reverse) ContextCompat.getColor(context, R.color.colorAccent) else Color.WHITE))
+        setTextSize(TypedValue.COMPLEX_UNIT_DIP, 16f);
         val fontType = FontType.Bold
 
         typeface = FontCache.getTypeface(fontType.getFontPath(), context);
     }
 
     private fun initBackground(){
-
-        this.setBackgroundResource(if (!reverse)  R.drawable.button_main_raund else R.drawable.button_main_raund_reverse)
+        setBackgroundResource(if (!reverse && active)  R.drawable.button_main_raund else R.drawable.button_main_raund_reverse)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             this.stateListAnimator = null
         }
