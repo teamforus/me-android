@@ -211,14 +211,32 @@
     <item name="android:textColor">@color/overline4</item>
   </style>
 
-    <style name="Overline2">
-        <item name="android:textSize">13sp</item>
-        <item name="android:lineSpacingExtra">3sp</item>
-        <item name="android:textColor">@color/overline2</item>
-    </style>
+  <style name="Overline2">
+      <item name="android:textSize">13sp</item>
+      <item name="android:lineSpacingExtra">3sp</item>
+      <item name="android:textColor">@color/overline2</item>
+  </style>
 
-    <style name="Headline6">
-        <item name="android:textSize">20.1sp</item>
-        <item name="android:textColor">@color/body_1_87</item>
-    </style>
+  <style name="Headline6">
+      <item name="android:textSize">20.1sp</item>
+      <item name="android:textColor">@color/body_1_87</item>
+  </style>
+
+  <style name="Subtitle">
+    <item name="android:textSize">17.1sp</item>
+    <item name="android:textColor">@color/body_1_87</item>
+    <item name="android:lineSpacingExtra">6.9sp</item>
+  </style>
+
+  <style name="Subtitle1">
+    <item name="android:textSize">17.1sp</item>
+    <item name="android:textColor">@color/forus_blue</item>
+    <item name="android:lineSpacingExtra">6.9sp</item>
+  </style>
+
+  <style name="ShareButtonBody">
+    <item name="android:textSize">15sp</item>
+    <item name="android:textColor">@color/body_1_87</item>
+    <item name="android:lineSpacingExtra">13sp</item>
+  </style>
 </resources>

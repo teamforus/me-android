@@ -64,10 +64,10 @@ class VoucherFragment : LRFragment<VoucherModel, VoucherView, VoucherPresenter>(
     override fun render(vs: LRViewState<VoucherModel>) {
         super.render(vs)
 
-
-        type.text = vs.model.item?.getValidString()
         name.text = vs.model.item?.name
-        currency_name.text = vs.model.item?.value.format()
+        type.text = "Valid til ${vs.model.item?.validDays} days"
+        value.text = "${vs.model.item?.currency?.name} ${vs.model.item?.value.format()}"
+        logo.setImageUrl(vs.model.item?.logo)
 
         transactions_card.setTransactions(vs.model.transactions)
     }
