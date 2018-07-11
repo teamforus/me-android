@@ -1,12 +1,15 @@
 package io.forus.me.android.presentation.internal
 
 import android.content.Context
+import com.gigawatt.android.data.net.sign.RecordsService
 import com.gigawatt.android.data.net.sign.SignService
 import io.forus.me.android.data.entity.database.DaoSession
 import io.forus.me.android.data.net.MeServiceFactory
 import io.forus.me.android.data.repository.account.datasource.local.AccountLocalDataSource
 import io.forus.me.android.data.repository.account.datasource.remote.AccountRemoteDataSource
 import io.forus.me.android.data.repository.records.RecordsRepository
+import io.forus.me.android.data.repository.records.datasource.RecordsDataSource
+import io.forus.me.android.data.repository.records.datasource.remote.RecordsRemoteDataSource
 import io.forus.me.android.data.repository.web3.datasource.Web3DataSource
 import io.forus.me.android.data.repository.web3.datasource.local.Web3LocalDataSource
 import io.forus.me.android.domain.repository.account.AccountRepository
@@ -71,7 +74,12 @@ class Injection private constructor() {
 
 
     val recordsRepository: RecordsRepository by lazy {
-        return@lazy io.forus.me.android.data.repository.records.RecordsRepository()
+        return@lazy io.forus.me.android.data.repository.records.RecordsRepository(recordRemoteDataSource)
+    }
+
+
+    private val recordRemoteDataSource: RecordsDataSource by lazy {
+        return@lazy RecordsRemoteDataSource(MeServiceFactory.getInstance().createRetrofitService(RecordsService::class.java, SignService.Service.SERVICE_ENDPOINT))
     }
 
 }

@@ -1,9 +1,5 @@
 package io.forus.me.android.domain.models.records
 
-import com.sun.org.apache.xpath.internal.operations.Bool
-import io.forus.me.android.domain.models.currency.Currency
-import java.util.*
-
 class Record {
 
 
@@ -15,12 +11,12 @@ class Record {
 
     val validated: Boolean = false
 
-    lateinit var type: RecordType
+    var category: RecordCategory
 
-    constructor(id: String, title: String, value: String, type: RecordType) {
+    constructor(id: String, title: String, value: String, category: RecordCategory) {
         this.id = id
         this.title = title
         this.value = value
-        this.type = type
+        this.category = category
     }
 }
