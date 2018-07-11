@@ -5,30 +5,33 @@
 
     android:id="@+id/container"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:gravity="center_vertical">
+    android:layout_height="58dp"
+    android:orientation="horizontal">
 
     <RelativeLayout
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginTop="5dp"
+        android:layout_height="match_parent"
         android:background="@color/gallery">
     </RelativeLayout>
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/text_input_layout"
+        android:layout_marginTop="4dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:hintTextAppearance="@style/EmailFieldError">
 
-        <android.support.v7.widget.AppCompatEditText
+        <EditText
             android:id="@+id/text_edit"
             style="@style/EmailFieldText"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:paddingLeft="32dp"
-            android:paddingStart="32dp"
+            android:layout_height="50dp"
+            android:paddingTop="0dp"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingStart="@dimen/activity_horizontal_margin"
             android:gravity="center_vertical"
             android:textColorHighlight="@color/textColor"
             tools:text="test@test.com" />

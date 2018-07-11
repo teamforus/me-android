@@ -1,22 +1,30 @@
 package io.forus.me.android.presentation.view.component.editors
 
 import android.content.Context
+import android.support.design.widget.TextInputLayout
 import android.support.v7.widget.AppCompatEditText
 import android.text.Editable
 import android.util.AttributeSet
+import android.view.LayoutInflater
+import android.widget.FrameLayout
+import android.widget.RelativeLayout
 import io.forus.me.android.presentation.R
 import java.util.regex.Pattern
 
-class EditText : AppCompatEditText {
+class EditText : FrameLayout{
 
-    private var  validationPattern : Pattern? = null
+    var hint: String? = ""
     var validationError: String? = null
-
     var validationRegex: String? = ""
         set(value) {
             field = value ?: ""
             validationPattern = Pattern.compile(if (field.isNullOrEmpty()) ".*" else validationRegex)
         }
+
+    private lateinit var  mContainer : RelativeLayout
+    private lateinit var  mTextEdit : AppCompatEditText
+    private lateinit var  mTextInputLayout : TextInputLayout
+    private var  validationPattern : Pattern? = null
 
     constructor(context: Context) : super(context) {}
 
@@ -31,7 +39,14 @@ class EditText : AppCompatEditText {
     private fun init(context: Context, attrs: AttributeSet) {
         initAttrs(context, attrs)
 
-        this.addTextChangedListener(object: android.text.TextWatcher {
+        val inflater = LayoutInflater.from(context)
+        val mRootView = inflater.inflate(R.layout.view_email_field, this)
+        mContainer = mRootView.findViewById(R.id.container)
+        mTextEdit = mContainer.findViewById(R.id.text_edit)
+        mTextInputLayout = mContainer.findViewById(R.id.text_input_layout)
+        mTextInputLayout.hint = hint
+        mTextInputLayout.isHintAnimationEnabled = true
+        mTextEdit.addTextChangedListener(object: android.text.TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
             }
 
@@ -45,29 +60,37 @@ class EditText : AppCompatEditText {
     }
 
     private fun initAttrs(context: Context, attrs: AttributeSet){
-        val ta = context.obtainStyledAttributes(attrs, R.styleable.CustomEditTextAttrs, 0, 0)
-        validationRegex = ta.getString(R.styleable.CustomEditTextAttrs_validationRegex)
-        validationError = ta.getString(R.styleable.CustomEditTextAttrs_validationError)
-    }
-
-    private fun isValid() : Boolean{
-        return validationPattern == null || validationPattern!!.matcher(text).matches()
-    }
-
-    public fun validate() : Boolean {
-        return validate(this.text.toString())
+        val ta = context.obtainStyledAttributes(attrs, R.styleable.CustomEditFieldAttrs, 0, 0)
+        hint = ta.getString(R.styleable.CustomEditFieldAttrs_hint)
+        validationRegex = ta.getString(R.styleable.CustomEditFieldAttrs_validationRegex)
+        validationError = ta.getString(R.styleable.CustomEditFieldAttrs_validationError)
+        ta.recycle()
     }
 
     private fun validate(text: String) : Boolean {
         val isValid =  isValid()
-        error = if (!isValid) {
-            validationError ?: null
-        } else {
-            null
-        }
+        mTextInputLayout.error = if(!isValid) validationError else ""
 
         return isValid
     }
 
+    private fun isValid() : Boolean{
+        return validationPattern == null || validationPattern!!.matcher(mTextEdit.text).matches()
+    }
 
+    fun validate() : Boolean {
+        return validate(this.mTextEdit.text.toString())
+    }
+
+    fun getText(): String {
+        return mTextEdit.text.toString()
+    }
+
+    fun setError(error: String){
+        mTextInputLayout.error = error
+    }
+
+    fun setTextChangedListener(listener : android.text.TextWatcher) {
+        mTextEdit.addTextChangedListener(listener)
+    }
 }

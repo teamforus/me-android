@@ -3,15 +3,10 @@
 
 
 
-    <declare-styleable name="CustomEditTextAttrs">
+    <declare-styleable name="CustomEditFieldAttrs">
+        <attr name="hint" format="string"/>
         <attr name="validationRegex" format="string"/>
         <attr name="validationError" format="string"/>
-    </declare-styleable>
-
-    <declare-styleable name="CustomEmailFieldAttrs">
-        <attr name="email_hint" format="string"/>
-        <attr name="email_validationRegex" format="string"/>
-        <attr name="email_validationError" format="string"/>
     </declare-styleable>
 
     <declare-styleable name="CustomTextViewAttrs">

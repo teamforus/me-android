@@ -19,24 +19,24 @@
         android:paddingRight="27dp"
         android:paddingEnd="27dp"/>
 
-    <io.forus.me.android.presentation.view.component.editors.EmailField
+    <io.forus.me.android.presentation.view.component.editors.EditText
         android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="54dp"
-        app:email_hint="E-mail"
-        app:email_validationError="@string/email_is_invalid"
-        app:email_validationRegex="@string/email_validation_regex" />
+        app:hint="E-mail"
+        app:validationError="@string/email_is_invalid"
+        app:validationRegex="@string/email_validation_regex" />
 
 
-    <io.forus.me.android.presentation.view.component.editors.EmailField
+    <io.forus.me.android.presentation.view.component.editors.EditText
         android:id="@+id/email_repeat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="11dp"
-        app:email_hint="Repeate Email"
-        app:email_validationError="@string/email_is_invalid"
-        app:email_validationRegex="@string/email_validation_regex" />
+        app:hint="Repeate Email"
+        app:validationError="@string/email_is_invalid"
+        app:validationRegex="@string/email_validation_regex" />
 
     <io.forus.me.android.presentation.view.component.buttons.Button
         android:id="@+id/restore"
