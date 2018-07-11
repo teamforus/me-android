@@ -16,6 +16,7 @@ import io.forus.me.android.presentation.view.activity.ToolbarActivity
 import io.forus.me.android.presentation.view.adapters.MainViewPagerAdapter
 import io.forus.me.android.presentation.view.fragment.BaseFragment
 import io.forus.me.android.presentation.view.screens.property.PropertyFragment
+import io.forus.me.android.presentation.view.screens.records.categories.RecordCategoriesFragment
 import io.forus.me.android.presentation.view.screens.records.list.RecordsFragment
 import kotlinx.android.synthetic.main.dashboard_activity.*
 import java.util.logging.Handler
@@ -66,7 +67,7 @@ class DashboardActivity : ToolbarActivity() {
             titles.add("")
             fragments.add(PropertyFragment.newIntent())
             titles.add("")
-            fragments.add(RecordsFragment.newIntent())
+            fragments.add(RecordCategoriesFragment.newIntent())
             titles.add("")
 
             adapter = MainViewPagerAdapter(supportFragmentManager, applicationContext, fragments, titles)

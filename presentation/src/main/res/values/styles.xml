@@ -239,4 +239,21 @@
     <item name="android:textColor">@color/body_1_87</item>
     <item name="android:lineSpacingExtra">13sp</item>
   </style>
+
+  <style name="EditTextField">
+    <item name="android:textSize">16.1sp</item>
+    <item name="android:textColor">@color/body_1_87</item>
+    <item name="android:textColorHint">@color/tf_metal</item>
+    <item name="android:lineSpacingExtra">0sp</item>
+  </style>
+
+  <style name="EditTextHint" parent="@android:style/TextAppearance">
+    <item name="android:textSize">12.1sp</item>
+    <item name="android:textColor">@color/forus_blue</item>
+  </style>
+
+  <style name="EditTextError" parent="@android:style/TextAppearance">
+    <item name="android:textSize">12.1sp</item>
+    <item name="android:textColor">@color/error_email</item>
+  </style>
 </resources>

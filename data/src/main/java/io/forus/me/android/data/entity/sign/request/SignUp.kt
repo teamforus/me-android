@@ -16,7 +16,7 @@ class SignUp : Serializable{
     @Expose
     var pinCode: String? = null
 
-    @SerializedName("type")
+    @SerializedName("category")
     @Expose
     var type: String = "personal"
 

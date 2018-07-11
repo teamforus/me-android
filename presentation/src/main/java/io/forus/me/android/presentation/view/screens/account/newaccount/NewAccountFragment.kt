@@ -56,7 +56,7 @@ class NewAccountFragment : LRFragment<NewAccountModel, NewAccountView, NewAccoun
         register.setOnClickListener {
             if (viewIsValid) {
                 registerAction.onNext(NewAccountRequest(
-                        email = email.text.toString()))
+                        email = email.getText()))
 //                        lastname = lastName.text.toString(),
 //                        bsn = bsn.text.toString(),
 //                        email = email.text.toString(),
@@ -84,6 +84,7 @@ class NewAccountFragment : LRFragment<NewAccountModel, NewAccountView, NewAccoun
     }
 
     fun closeScreen() {
+        navigator.navigateToDashboard(activity)
         activity?.finish()
     }
 

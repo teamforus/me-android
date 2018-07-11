@@ -62,7 +62,10 @@ public class AccountLocalDataSource implements AccountDataSource {
 
     @Override
     public void saveToken(@NotNull String token) {
-
+        tokenDao.deleteAll();
+        Token dbToken = new Token();
+        dbToken.setToken(token);
+        tokenDao.save(dbToken);
     }
 
     @Override
