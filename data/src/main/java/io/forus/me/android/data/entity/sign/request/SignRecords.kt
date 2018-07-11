@@ -10,7 +10,7 @@ class SignRecords: Serializable {
         this.email = email
     }
 
-    @SerializedName("email")
+    @SerializedName("primary_email")
     @Expose
     var email: String? = null
 }

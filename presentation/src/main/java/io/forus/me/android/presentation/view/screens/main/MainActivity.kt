@@ -20,8 +20,14 @@ class MainActivity : BaseActivity() {
        // Injection.instance.accountRepository.requestDelegatesQRAddress()
 
 
-       // navigateToWelcomeScreen()
-        navigateToDashboard()
+        //TODO REQUEST FROM REPOSITORY
+        if (Injection.instance.accountLocalDataSource.isLogin()) {
+
+            navigateToDashboard()
+        } else {
+
+            navigateToWelcomeScreen()
+        }
     }
 
 

@@ -84,6 +84,7 @@ class NewAccountFragment : LRFragment<NewAccountModel, NewAccountView, NewAccoun
     }
 
     fun closeScreen() {
+        navigator.navigateToDashboard(activity)
         activity?.finish()
     }
 

@@ -17,7 +17,7 @@ public class AccountRemoteDataSource(private val signService: SignService): Acco
 
     override fun createUser(model: NewAccountRequest): Observable<SignUpResult> {
         val signUp = SignUp()
-        signUp.pinCode = "666666"
+        signUp.pinCode = "6666"
         signUp.records = SignRecords(model.email)
 
         return signService.signup(signUp)
