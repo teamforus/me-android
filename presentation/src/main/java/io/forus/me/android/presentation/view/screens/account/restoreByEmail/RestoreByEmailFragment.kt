@@ -1,15 +1,14 @@
 package io.forus.me.android.presentation.view.screens.account.restoreByEmail
 
 import android.os.Bundle
+import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LRFragment
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LoadRefreshPanel
-import io.forus.me.android.domain.models.account.NewAccountRequest
 import io.forus.me.android.domain.models.account.RestoreAccountByEmailRequest
-
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.internal.Injection
 import io.reactivex.Observable
@@ -26,9 +25,9 @@ class RestoreByEmailFragment : LRFragment<RestoreByEmailModel, RestoreByEmailVie
         get() {
             var validation = email.validate() && email_repeat.validate()
             if (validation) {
-                if (email.text.toString() != email_repeat.text.toString()) {
+                if (email.getText() != email_repeat.getText()) {
                     validation = false
-                    email_repeat.error = "Email should be the same"
+                    email_repeat.setError("Email should be the same")
                 }
             }
             return  validation
@@ -60,14 +59,27 @@ class RestoreByEmailFragment : LRFragment<RestoreByEmailModel, RestoreByEmailVie
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        restore.active = false
 
-        email.setText("test@test.com")
-        email_repeat.setText("test@test.com")
+        val listener = object: android.text.TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+            }
 
-        register.setOnClickListener {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                restore.active = viewIsValid;
+            }
+        }
+
+        email.setTextChangedListener(listener)
+        email_repeat.setTextChangedListener(listener)
+
+        restore.setOnClickListener {
             if (viewIsValid) {
                 registerAction.onNext(RestoreAccountByEmailRequest(
-                        email = email.text.toString()))
+                        email = email.getText()))
             }
         }
     }
