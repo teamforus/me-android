@@ -2,6 +2,7 @@ package com.gigawatt.android.data.net.sign
 
 import com.gigawatt.android.data.net.sign.models.request.SignUp
 import com.gigawatt.android.data.net.sign.models.request.SignUpByEmail
+import io.forus.me.android.data.entity.records.response.CreateRecordResult
 import io.forus.me.android.data.entity.records.response.RecordCategory
 import io.forus.me.android.data.entity.sign.response.AccessToken
 import io.forus.me.android.data.entity.sign.response.IdentityPinResult
@@ -24,6 +25,7 @@ interface RecordsService {
     @GET("api/v1/identity/record-categories")
     fun getCategories() : Observable<List<RecordCategory>>
 
-
+    @POST("api/v1/identity/record")
+    fun createRecord() : Observable<CreateRecordResult>
 
 }

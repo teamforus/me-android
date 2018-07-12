@@ -5,6 +5,7 @@ import io.forus.me.android.domain.models.account.RequestDelegatesQrModel
 import io.forus.me.android.domain.models.account.RestoreAccountByEmailRequest
 import io.forus.me.android.domain.models.assets.Asset
 import io.forus.me.android.domain.models.common.Page
+import io.forus.me.android.domain.models.records.NewRecordRequest
 import io.forus.me.android.domain.models.records.Record
 import io.forus.me.android.domain.models.records.RecordCategory
 import io.forus.me.android.domain.models.vouchers.Transaction
@@ -18,5 +19,8 @@ interface RecordsRepository {
 
 
     fun getCategories(): Observable<List<RecordCategory>>
+
+
+    fun newRecord(model: NewRecordRequest) : Observable<NewRecordRequest>
 
 }

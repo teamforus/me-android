@@ -19,12 +19,12 @@ class MainActivity : BaseActivity() {
 
        // Injection.instance.accountRepository.requestDelegatesQRAddress()
 
-        this.navigator.navigateToAccountRestoreByEmail(this)
+        //this.navigator.navigateToAccountRestoreByEmail(this)
 
         //TODO REQUEST FROM REPOSITORY
 //        if (Injection.instance.accountLocalDataSource.isLogin()) {
 //
-//            navigateToDashboard()
+            navigateToDashboard()
 //        } else {
 //
 //            navigateToWelcomeScreen()
