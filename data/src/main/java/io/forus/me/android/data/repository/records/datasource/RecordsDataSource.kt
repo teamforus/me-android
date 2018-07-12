@@ -3,6 +3,7 @@ package io.forus.me.android.data.repository.records.datasource
 import io.forus.me.android.data.entity.database.RecordCategory
 import io.forus.me.android.data.entity.records.response.CreateRecordResult
 import io.forus.me.android.data.entity.sign.response.SignUpResult
+import io.forus.me.android.domain.models.records.NewRecordCategoryRequest
 import io.forus.me.android.domain.models.records.NewRecordRequest
 import io.reactivex.Observable
 
@@ -14,6 +15,8 @@ interface RecordsDataSource {
 
 
     fun createRecord(model: NewRecordRequest): Observable<CreateRecordResult>
+
+    fun createCategory(model: NewRecordCategoryRequest): Observable<Boolean>
 
 
 //
