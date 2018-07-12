@@ -33,7 +33,7 @@
         android:id="@+id/email_repeat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="11dp"
+        android:layout_marginTop="0dp"
         app:hint="Repeate Email"
         app:validationError="@string/email_is_invalid"
         app:validationRegex="@string/email_validation_regex" />

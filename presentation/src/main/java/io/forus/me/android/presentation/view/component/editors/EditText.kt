@@ -2,7 +2,7 @@ package io.forus.me.android.presentation.view.component.editors
 
 import android.content.Context
 import android.support.design.widget.TextInputLayout
-import android.support.v7.widget.AppCompatEditText
+import android.support.design.widget.TextInputEditText
 import android.text.Editable
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -22,7 +22,7 @@ class EditText : FrameLayout{
         }
 
     private lateinit var  mContainer : RelativeLayout
-    private lateinit var  mTextEdit : AppCompatEditText
+    private lateinit var  mTextEdit : TextInputEditText
     private lateinit var  mTextInputLayout : TextInputLayout
     private var  validationPattern : Pattern? = null
 
@@ -40,12 +40,13 @@ class EditText : FrameLayout{
         initAttrs(context, attrs)
 
         val inflater = LayoutInflater.from(context)
-        val mRootView = inflater.inflate(R.layout.view_email_field, this)
+        val mRootView = inflater.inflate(R.layout.view_edit_text, this)
         mContainer = mRootView.findViewById(R.id.container)
         mTextEdit = mContainer.findViewById(R.id.text_edit)
         mTextInputLayout = mContainer.findViewById(R.id.text_input_layout)
         mTextInputLayout.hint = hint
         mTextInputLayout.isHintAnimationEnabled = true
+        mTextInputLayout.isErrorEnabled = true
         mTextEdit.addTextChangedListener(object: android.text.TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
             }
