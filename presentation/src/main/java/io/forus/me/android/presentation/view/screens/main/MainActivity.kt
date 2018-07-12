@@ -22,13 +22,13 @@ class MainActivity : BaseActivity() {
         //this.navigator.navigateToAccountRestoreByEmail(this)
 
         //TODO REQUEST FROM REPOSITORY
-//        if (Injection.instance.accountLocalDataSource.isLogin()) {
-//
+        if (Injection.instance.accountLocalDataSource.isLogin()) {
+
             navigateToDashboard()
-//        } else {
-//
-//            navigateToWelcomeScreen()
-//        }
+        } else {
+
+            navigateToWelcomeScreen()
+        }
     }
 
 
