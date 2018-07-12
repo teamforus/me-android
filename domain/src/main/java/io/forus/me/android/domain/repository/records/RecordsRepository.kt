@@ -8,6 +8,7 @@ import io.forus.me.android.domain.models.common.Page
 import io.forus.me.android.domain.models.records.NewRecordRequest
 import io.forus.me.android.domain.models.records.Record
 import io.forus.me.android.domain.models.records.RecordCategory
+import io.forus.me.android.domain.models.records.RecordType
 import io.forus.me.android.domain.models.vouchers.Transaction
 import io.forus.me.android.domain.models.vouchers.Voucher
 import io.forus.me.android.domain.models.wallets.Wallet
@@ -15,10 +16,13 @@ import io.reactivex.Observable
 
 interface RecordsRepository {
 
-    fun getRecords(): Observable<List<Record>>
+    fun getRecordTypes(): Observable<List<RecordType>>
 
 
     fun getCategories(): Observable<List<RecordCategory>>
+
+
+    fun getRecords(): Observable<List<Record>>
 
 
     fun newRecord(model: NewRecordRequest) : Observable<NewRecordRequest>

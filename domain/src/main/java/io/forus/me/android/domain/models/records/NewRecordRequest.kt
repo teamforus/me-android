@@ -4,20 +4,20 @@ class NewRecordRequest {
 
 
 
-    constructor(title: String? = "", value: String? = "", validated: Boolean? = false, category: RecordCategory? = null) {
-        this.title = title
-        this.value = value
-        this.validated = validated
+    constructor(recordType: RecordType? = null, category: RecordCategory? = null, value: String? = "", order: Long? = 0) {
+        this.recordType = recordType;
         this.category = category
+        this.value = value
+        this.order = order
     }
 
     constructor()
 
-    var title: String? = null
+    var recordType: RecordType? = null
+
+    var category: RecordCategory? = null
 
     var value: String? = null
 
-    var validated: Boolean? = null
-
-    var category: RecordCategory? = null
+    var order: Long? = null
 }
