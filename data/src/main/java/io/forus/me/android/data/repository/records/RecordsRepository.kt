@@ -1,8 +1,10 @@
 package io.forus.me.android.data.repository.records
 
 import io.forus.me.android.data.repository.records.datasource.RecordsDataSource
+import io.forus.me.android.domain.models.records.NewRecordRequest
 import io.forus.me.android.domain.models.records.Record
 import io.forus.me.android.domain.models.records.RecordCategory
+import io.forus.me.android.domain.models.records.RecordType
 import io.reactivex.Observable
 import io.reactivex.Single
 
@@ -31,9 +33,21 @@ class RecordsRepository(private val recordsRemoteDataSource: RecordsDataSource) 
         return Single.just(records.toList()).toObservable()
     }
 
+    override fun getRecordTypes(): Observable<List<RecordType>> {
+        return recordsRemoteDataSource.getRecordTypes()
+    }
+
     override fun getCategories(): Observable<List<RecordCategory>> {
-        return recordsRemoteDataSource.getRecords().map {
+        return recordsRemoteDataSource.getRecordCategories().map {
             it.map { RecordCategory(it.id, it.name, it.order) }
         }
+    }
+
+    override fun newRecord(model: NewRecordRequest): Observable<NewRecordRequest> {
+        return recordsRemoteDataSource.createRecord(model)
+                .flatMap {
+
+                    Observable.just(model)
+                }
     }
 }

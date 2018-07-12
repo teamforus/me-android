@@ -17,8 +17,6 @@ class MainActivity : BaseActivity() {
         setContentView(io.forus.me.android.presentation.R.layout.activity_main)
 
 
-       // Injection.instance.accountRepository.requestDelegatesQRAddress()
-         //this.navigator.navigateToAccountRestoreByEmail(this)
 
         //TODO REQUEST FROM REPOSITORY
         if (Injection.instance.accountLocalDataSource.isLogin()) {
