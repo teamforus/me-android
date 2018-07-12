@@ -2,7 +2,7 @@ package io.forus.me.android.data.repository.records.datasource.remote
 
 import com.gigawatt.android.data.net.sign.RecordsService
 import io.forus.me.android.data.entity.database.RecordCategory
-import io.forus.me.android.data.entity.records.request.NewRecordCategoryRequest
+import io.forus.me.android.data.entity.records.request.CreateCategory
 import io.forus.me.android.data.entity.records.request.CreateRecord
 import io.forus.me.android.data.entity.records.response.Record
 import io.forus.me.android.data.repository.records.datasource.RecordsDataSource
@@ -35,18 +35,18 @@ class RecordsRemoteDataSource(private val recordsService: RecordsService): Recor
     }
 
     override fun getRecords(type: RecordType): Observable<List<Record>> {
-        return recordsService.listAllRecords(type.key);
+        return recordsService.listAllRecords(type.key)
     }
 
-    override fun createRecord(model: NewRecordRequest): Observable<io.forus.me.android.data.entity.records.response.CreateRecordResult> {
+    override fun createRecord(model: NewRecordRequest): Observable<Boolean> {
         val createRecord = CreateRecord(model.recordType?.key, model.category?.id, model.value, model.order)
-        return recordsService.createRecord(createRecord).map { io.forus.me.android.data.entity.records.response.CreateRecordResult(it.success) }
+        return recordsService.createRecord(model.recordType?.key ?: "", createRecord)
+                .map { true }
     }
 
     override fun createCategory(model: io.forus.me.android.domain.models.records.NewRecordCategoryRequest): Observable<Boolean> {
-        return recordsService.createCategory(NewRecordCategoryRequest(model.name, model.order)).map {
-            true
-        }
+        return recordsService.createCategory(CreateCategory(model.order, model.name))
+                .map { true }
     }
 
 

@@ -5,13 +5,13 @@ import com.google.gson.annotations.SerializedName;
 public class Success {
 
     @SerializedName("success")
-    private String success;
+    private Boolean success;
 
-    public String getSuccess() {
+    public Boolean getSuccess() {
         return success;
     }
 
-    public void setSuccess(String success) {
+    public void setSuccess(Boolean success) {
         this.success = success;
     }
 }
