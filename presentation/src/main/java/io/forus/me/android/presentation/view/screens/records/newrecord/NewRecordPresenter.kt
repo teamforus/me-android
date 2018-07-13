@@ -11,15 +11,20 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class NewRecordPresenter constructor(private val recordRepository: RecordsRepository) : LRPresenter<NewRecordRequest, NewRecordModel, NewRecordView>() {
+class NewRecordPresenter constructor(private val recordRepository: RecordsRepository) : LRPresenter<NewRecordModel, NewRecordModel, NewRecordView>() {
 
 
-    override fun initialModelSingle(): Single<NewRecordRequest> = Single.just(NewRecordRequest())
-            //.delay(1, TimeUnit.SECONDS)
-            .flatMap {  Single.just(it)  }
+    //TODO MAKE IT PARALLELS
+    override fun initialModelSingle(): Single<NewRecordModel> = Single.fromObservable(
+            recordRepository.getRecordTypes().flatMap {
+                val types = it
+                recordRepository.getCategories().map {
+                    NewRecordModel(types = types, categories = it)
+                }
+            })
 
 
-    override fun NewRecordModel.changeInitialModel(i: NewRecordRequest): NewRecordModel = copy(item = i)
+    override fun NewRecordModel.changeInitialModel(i: NewRecordModel): NewRecordModel = i.copy()
 
 
     override fun bindIntents() {

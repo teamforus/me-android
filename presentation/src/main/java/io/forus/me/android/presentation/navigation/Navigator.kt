@@ -6,6 +6,7 @@ import io.forus.me.android.presentation.view.screens.account.newaccount.NewAccou
 import io.forus.me.android.presentation.view.screens.account.pin.RestoreByPinActivity
 import io.forus.me.android.presentation.view.screens.account.restoreByEmail.RestoreByEmailActivity
 import io.forus.me.android.presentation.view.screens.dashboard.DashboardActivity
+import io.forus.me.android.presentation.view.screens.records.newrecord.NewRecordActivity
 import io.forus.me.android.presentation.view.screens.vouchers.item.VoucherActivity
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -73,4 +74,12 @@ constructor()//empty
             context.startActivity(intentToLaunch)
         }
     }
+
+    fun navigateToNewRecord(context: Context?, categoryId: String) {
+        if (context != null) {
+            val intentToLaunch = NewRecordActivity.getCallingIntent(context, categoryId)
+            context.startActivity(intentToLaunch)
+        }
+    }
+
 }

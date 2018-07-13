@@ -21,9 +21,10 @@ class MainActivity : BaseActivity() {
         //TODO REQUEST FROM REPOSITORY
         if (Injection.instance.accountLocalDataSource.isLogin()) {
 
-            navigateToDashboard()
-        } else {
 
+            navigator.navigateToNewRecord(this, "1")
+            //navigateToDashboard()
+        } else {
             navigateToWelcomeScreen()
         }
     }

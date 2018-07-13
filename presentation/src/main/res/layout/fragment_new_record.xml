@@ -15,46 +15,11 @@
 
         <io.forus.me.android.presentation.view.component.editors.EditText
             android:id="@+id/firstName"
-            android:visibility="gone"
             app:validationRegex="@string/not_empty_validation_regex"
             app:validationError="@string/not_empty_error"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-
-        <io.forus.me.android.presentation.view.component.editors.EditText
-            android:id="@+id/lastName"
-            android:visibility="gone"
-            app:validationRegex="@string/not_empty_validation_regex"
-            app:validationError="@string/not_empty_error"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-
-        <io.forus.me.android.presentation.view.component.editors.EditText
-            android:id="@+id/bsn"
-            android:visibility="gone"
-            app:validationRegex="@string/not_empty_validation_regex"
-            app:validationError="@string/not_empty_error"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-
-        <io.forus.me.android.presentation.view.component.editors.EditText
-            android:id="@+id/email"
-            app:validationRegex="@string/email_validation_regex"
-            app:validationError="@string/email_is_invalid"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-
-        <io.forus.me.android.presentation.view.component.editors.EditText
-            android:id="@+id/phone"
-            android:visibility="gone"
-            app:validationRegex="@string/not_empty_validation_regex"
-            app:validationError="@string/not_empty_error"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
 
 
 

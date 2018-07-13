@@ -10,6 +10,7 @@ import com.ocrv.ekasui.mrm.ui.loadRefresh.LoadRefreshPanel
 import io.forus.me.android.domain.models.records.NewRecordRequest
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.internal.Injection
+import io.forus.me.android.presentation.view.screens.vouchers.item.VoucherFragment
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_new_record.*
@@ -18,6 +19,16 @@ import kotlinx.android.synthetic.main.fragment_new_record.*
  * Fragment New Record Screen.
  */
 class NewRecordFragment : LRFragment<NewRecordModel, NewRecordView, NewRecordPresenter>(), NewRecordView  {
+
+    companion object {
+        private val ID_EXTRA = "ID_EXTRA"
+
+        fun newIntent(id: String): NewRecordFragment = NewRecordFragment().also {
+            val bundle = Bundle()
+            bundle.putSerializable(ID_EXTRA, id)
+            it.arguments = bundle
+        }
+    }
 
 
     private val viewIsValid: Boolean
