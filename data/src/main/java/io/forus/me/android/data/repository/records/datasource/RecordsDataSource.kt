@@ -1,10 +1,11 @@
 package io.forus.me.android.data.repository.records.datasource
 
-import io.forus.me.android.data.entity.database.RecordCategory
-import io.forus.me.android.domain.models.records.NewRecordCategoryRequest
+import io.forus.me.android.data.entity.common.Success
+import io.forus.me.android.data.entity.records.request.*
 import io.forus.me.android.data.entity.records.response.Record
-import io.forus.me.android.domain.models.records.NewRecordRequest
-import io.forus.me.android.domain.models.records.RecordType
+import io.forus.me.android.data.entity.records.response.RecordCategory
+import io.forus.me.android.data.entity.records.response.RecordType
+
 import io.reactivex.Observable
 
 
@@ -17,13 +18,35 @@ interface RecordsDataSource {
     fun getRecordCategories(): Observable<List<RecordCategory>>
 
 
+    fun createRecordCategory(createCategory: CreateCategory): Observable<Success>
+
+
+    fun retrieveRecordCategory(id: Long) : Observable<RecordCategory>
+
+
+    fun updateRecordCategory(id: Long, updateCategory: UpdateCategory) : Observable<Success>
+
+
+    fun deleteRecordCategory(id: Long) : Observable<Success>
+
+
+    fun sortRecordCategories(sortCategories: SortCategories) : Observable<Success>
+
+
     fun getRecords(type: RecordType): Observable<List<Record>>
 
 
-    fun createRecord(model: NewRecordRequest): Observable<Boolean>
+    fun createRecord(createRecord: CreateRecord): Observable<Success>
 
 
-    fun createCategory(model: NewRecordCategoryRequest): Observable<Boolean>
+    fun retrieveRecord(id: Long) : Observable<Record>
 
 
+    fun updateRecord(id: Long, updateRecord: UpdateRecord) : Observable<Success>
+
+
+    fun deleteRecord(id: Long) : Observable<Success>
+
+
+    fun sortRecords(sortRecords: SortRecords) : Observable<Success>
 }

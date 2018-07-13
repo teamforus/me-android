@@ -1,5 +1,7 @@
 package io.forus.me.android.data.repository.account.datasource.local;
 
+import com.gigawatt.android.data.net.sign.models.request.SignUp;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -11,7 +13,6 @@ import io.forus.me.android.data.entity.sign.response.IdentityPinResult;
 import io.forus.me.android.data.entity.sign.response.IdentityTokenResult;
 import io.forus.me.android.data.entity.sign.response.SignUpResult;
 import io.forus.me.android.data.repository.account.datasource.AccountDataSource;
-import io.forus.me.android.domain.models.account.NewAccountRequest;
 import io.reactivex.Observable;
 
 public class AccountLocalDataSource implements AccountDataSource {
@@ -25,7 +26,7 @@ public class AccountLocalDataSource implements AccountDataSource {
 
     @NotNull
     @Override
-    public Observable<SignUpResult> createUser(@NotNull NewAccountRequest model) {
+    public Observable<SignUpResult> createUser(@NotNull SignUp signUp) {
         return null;
     }
 

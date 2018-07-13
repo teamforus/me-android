@@ -1,53 +1,40 @@
 package io.forus.me.android.data.repository.records.datasource.remote
 
 import com.gigawatt.android.data.net.sign.RecordsService
-import io.forus.me.android.data.entity.database.RecordCategory
-import io.forus.me.android.data.entity.records.request.CreateCategory
-import io.forus.me.android.data.entity.records.request.CreateRecord
+import io.forus.me.android.data.entity.common.Success
+import io.forus.me.android.data.entity.records.request.*
 import io.forus.me.android.data.entity.records.response.Record
+import io.forus.me.android.data.entity.records.response.RecordCategory
+import io.forus.me.android.data.entity.records.response.RecordType
 import io.forus.me.android.data.repository.records.datasource.RecordsDataSource
-import io.forus.me.android.domain.models.records.NewRecordRequest
-import io.forus.me.android.domain.models.records.RecordType
 import io.reactivex.Observable
-import io.reactivex.Single
 
 
 class RecordsRemoteDataSource(private val recordsService: RecordsService): RecordsDataSource {
 
+    override fun getRecordTypes(): Observable<List<RecordType>> = recordsService.listAllTypes()
 
+    override fun getRecordCategories(): Observable<List<RecordCategory>> = recordsService.listAllCategories()
 
+    override fun createRecordCategory(createCategory: CreateCategory): Observable<Success> = recordsService.createCategory(createCategory)
 
-    override fun getRecordCategories(): Observable<List<RecordCategory>> = recordsService.listAllCategories().flatMap {
-            if (it.isNotEmpty())
-                Single.just(it.map { RecordCategory(it.id, it.name, it.order)}).toObservable()
-            else {
-                val general = io.forus.me.android.domain.models.records.NewRecordCategoryRequest("General", 0)
-                val medical =  io.forus.me.android.domain.models.records.NewRecordCategoryRequest("Medical", 1)
-                val personal =  io.forus.me.android.domain.models.records.NewRecordCategoryRequest("Personal", 2)
-                Observable.concat(createCategory(general), createCategory(medical), createCategory(personal)).flatMap {
-                    getRecordCategories()
-                }
-            }
-        }
+    override fun retrieveRecordCategory(id: Long) : Observable<RecordCategory> = recordsService.retrieveCategory(id)
 
-    override fun getRecordTypes(): Observable<List<RecordType>> = recordsService.listAllTypes().map {
-        it.map { RecordType(it.key, it.type, it.name) }
-    }
+    override fun updateRecordCategory(id: Long, updateCategory: UpdateCategory) : Observable<Success> = recordsService.updateCategory(id, updateCategory)
 
-    override fun getRecords(type: RecordType): Observable<List<Record>> {
-        return recordsService.listAllRecords(type.key)
-    }
+    override fun deleteRecordCategory(id: Long) : Observable<Success> = recordsService.deleteCategory(id)
 
-    override fun createRecord(model: NewRecordRequest): Observable<Boolean> {
-        val createRecord = CreateRecord(model.recordType?.key, model.category?.id, model.value, model.order)
-        return recordsService.createRecord(model.recordType?.key ?: "", createRecord)
-                .map { true }
-    }
+    override fun sortRecordCategories(sortCategories: SortCategories) : Observable<Success> = recordsService.sortCategories(sortCategories)
 
-    override fun createCategory(model: io.forus.me.android.domain.models.records.NewRecordCategoryRequest): Observable<Boolean> {
-        return recordsService.createCategory(CreateCategory(model.order, model.name))
-                .map { true }
-    }
+    override fun getRecords(type: RecordType): Observable<List<Record>> = recordsService.listAllRecords(type.key)
 
+    override fun createRecord(createRecord: CreateRecord): Observable<Success> = recordsService.createRecord(createRecord.key, createRecord)
 
+    override fun retrieveRecord(id: Long) : Observable<Record> = recordsService.retrieveRecord(id)
+
+    override fun updateRecord(id: Long, updateRecord: UpdateRecord) : Observable<Success> = recordsService.updateRecord(id, updateRecord)
+
+    override fun deleteRecord(id: Long) : Observable<Success> = recordsService.deleteRecord(id)
+
+    override fun sortRecords(sortRecords: SortRecords) : Observable<Success> = recordsService.sortRecords(sortRecords)
 }

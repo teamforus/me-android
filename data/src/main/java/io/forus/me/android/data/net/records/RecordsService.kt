@@ -30,7 +30,7 @@ interface RecordsService {
     fun listAllCategories() : Observable<List<RecordCategory>>
 
     @POST("api/v1/identity/record-categories")
-    fun createCategory(@Body model: CreateCategory) : Observable<Success>
+    fun createCategory(@Body createCategory: CreateCategory) : Observable<Success>
 
     @GET("api/v1/identity/record-categories/{id}")
     fun retrieveCategory(@Path("id") id: Long) : Observable<RecordCategory>
