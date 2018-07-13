@@ -67,26 +67,15 @@ class NewRecordPresenter constructor(private val recordRepository: RecordsReposi
 //        subscribeViewState(observable.scan(initialViewState, this::stateReducer).observeOn(AndroidSchedulers.mainThread()),MapView::render)
     }
 
-    override fun stateReducer(viewState: LRViewState<NewRecordModel>, change: PartialChange): LRViewState<NewRecordModel> {
+    override fun stateReducer(vs: LRViewState<NewRecordModel>, change: PartialChange): LRViewState<NewRecordModel> {
 
-        if (change !is NewRecordPartialChanges) return super.stateReducer(viewState, change)
+        if (change !is NewRecordPartialChanges) return super.stateReducer(vs, change)
 
         return when (change) {
-            is NewRecordPartialChanges.CreateRecordEnd -> viewState.copy(closeScreen = true, model = viewState.model.copy(sendingCreateRecord = false))
-            is NewRecordPartialChanges.CreateRecordStart -> viewState.copy(model = viewState.model.copy(sendingCreateRecord = true))
+            is NewRecordPartialChanges.CreateRecordEnd -> vs.copy(closeScreen = true, model = vs.model.copy(sendingCreateRecord = false))
+            is NewRecordPartialChanges.CreateRecordStart -> vs.copy(model = vs.model.copy(sendingCreateRecord = true))
 
         }
 
     }
-
-
-
-
-
-
-
-
-
-
-
 }

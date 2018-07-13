@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:text="PAGE THREE IN"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textSize="24dp"/>
+
+    <io.forus.me.android.presentation.view.component.editors.EditText
+        android:id="@+id/value"
+        app:validationRegex="@string/not_empty_validation_regex"
+        app:validationError="@string/not_empty_error"
+        app:hint="Value"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <io.forus.me.android.presentation.view.component.buttons.Button
+        android:id="@+id/register"
+        android:text="@string/create_account"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <io.forus.me.android.presentation.view.component.text.TextView
+        android:id="@+id/debug"
+        style="@style/Headline6"
+        app:type="medium"
+        android:textColor="@color/error"
+        android:paddingTop="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Error message here"
+        />
+
+</LinearLayout>

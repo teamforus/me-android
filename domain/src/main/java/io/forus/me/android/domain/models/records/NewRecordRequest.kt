@@ -2,22 +2,18 @@ package io.forus.me.android.domain.models.records
 
 class NewRecordRequest {
 
-
-
-    constructor(recordType: RecordType? = null, category: RecordCategory? = null, value: String? = "", order: Long? = 0) {
-        this.recordType = recordType;
+    constructor(recordType: RecordType, category: RecordCategory, value: String, order: Long) {
+        this.recordType = recordType
         this.category = category
         this.value = value
         this.order = order
     }
 
-    constructor()
+    var recordType: RecordType
 
-    var recordType: RecordType? = null
+    var category: RecordCategory
 
-    var category: RecordCategory? = null
+    var value: String
 
-    var value: String? = null
-
-    var order: Long? = null
+    var order: Long
 }
