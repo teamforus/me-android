@@ -32,8 +32,6 @@ class MainActivity : BaseActivity() {
         setContentView(io.forus.me.android.presentation.R.layout.activity_main)
 
 
-
-        //TODO REQUEST FROM REPOSITORY
         if (Injection.instance.accountLocalDataSource.isLogin()) {
             if (!systemServices.isDeviceSecure()) {
                 deviceSecurityAlert = systemServices.showDeviceSecurityAlert()
