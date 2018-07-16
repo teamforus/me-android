@@ -60,7 +60,9 @@ class RecordCategoriesFragment : LRFragment<RecordCategoriesModel, RecordCategor
         }
         recycler.layoutManager = LinearLayoutManager(context)
         recycler.adapter = adapter
-
+        recycler.addItemDecoration(FirstItemMarginDecoration(
+                resources.getDimension(R.dimen.categories_first_item_margin_top).toInt(),
+                resources.getDimension(R.dimen.categories_first_item_margin_bottom).toInt()))
     }
 
 
@@ -79,7 +81,5 @@ class RecordCategoriesFragment : LRFragment<RecordCategoriesModel, RecordCategor
 
 
     }
-
-
 }
 
