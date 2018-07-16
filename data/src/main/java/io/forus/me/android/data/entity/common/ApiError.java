@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Error {
+public class ApiError {
 
     @SerializedName("message")
     private String message;
@@ -33,12 +33,34 @@ public class Error {
         @SerializedName("name")
         private List<String> name;
 
+        @SerializedName("key")
+        private List<String> key;
+
+        @SerializedName("value")
+        private List<String> value;
+
         public List<String> getName() {
             return name;
         }
 
         public void setName(List<String> name) {
             this.name = name;
+        }
+
+        public List<String> getKey() {
+            return key;
+        }
+
+        public void setKey(List<String> key) {
+            this.key = key;
+        }
+
+        public List<String> getValue() {
+            return value;
+        }
+
+        public void setValue(List<String> value) {
+            this.value = value;
         }
     }
 }

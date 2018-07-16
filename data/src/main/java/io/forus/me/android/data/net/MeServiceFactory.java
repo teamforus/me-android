@@ -15,7 +15,6 @@ import okhttp3.HttpUrl;
 import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MeServiceFactory {
@@ -93,7 +92,7 @@ public class MeServiceFactory {
                 .baseUrl(endPoint)
 
                 .addConverterFactory(GsonConverterFactory.create(gson))
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addCallAdapterFactory(RxErrorHandlingCallAdapterFactory.create())
                 .client(httpClient.build())
                 .build();
 

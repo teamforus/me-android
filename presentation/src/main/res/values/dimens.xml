@@ -27,4 +27,8 @@
   <dimen name="card_radius">10dp</dimen>
   <dimen name="card_elevation_big">13dp</dimen>
   <dimen name="card_elevation_medium">5dp</dimen>
+
+  <!--Categories First Item -->
+  <dimen name="categories_first_item_margin_top">16dp</dimen>
+  <dimen name="categories_first_item_margin_bottom">8dp</dimen>
 </resources>
