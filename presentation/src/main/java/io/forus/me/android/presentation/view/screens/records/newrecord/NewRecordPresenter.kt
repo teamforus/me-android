@@ -4,24 +4,23 @@ import com.ocrv.ekasui.mrm.ui.loadRefresh.LRPartialChange
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LRPresenter
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
 import com.ocrv.ekasui.mrm.ui.loadRefresh.PartialChange
-import io.forus.me.android.domain.models.records.NewRecordRequest
+import io.forus.me.android.domain.models.records.RecordCategory
+import io.forus.me.android.domain.models.records.RecordType
 import io.forus.me.android.domain.repository.records.RecordsRepository
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 
 class NewRecordPresenter constructor(private val recordRepository: RecordsRepository) : LRPresenter<NewRecordModel, NewRecordModel, NewRecordView>() {
 
 
-    //TODO MAKE IT PARALLELS
-    override fun initialModelSingle(): Single<NewRecordModel> = Single.fromObservable(
-            recordRepository.getRecordTypes().flatMap {
-                val types = it
-                recordRepository.getCategories().map {
-                    NewRecordModel(types = types, categories = it)
-                }
-            })
+    override fun initialModelSingle(): Single<NewRecordModel> = Single.zip(
+            Single.fromObservable(recordRepository.getRecordTypes()),
+            Single.fromObservable(recordRepository.getCategories()),
+            BiFunction { types : List<RecordType>, categories: List<RecordCategory> -> NewRecordModel(types = types, categories = categories)}
+    )
 
 
     override fun NewRecordModel.changeInitialModel(i: NewRecordModel): NewRecordModel = i.copy()
@@ -41,7 +40,7 @@ class NewRecordPresenter constructor(private val recordRepository: RecordsReposi
                                         NewRecordPartialChanges.CreateRecordEnd(it)
                                     }
                                     .onErrorReturn {
-                                        LRPartialChange.LoadingError(it)
+                                        NewRecordPartialChanges.CreateRecordError(it)
                                     }
                                     .startWith(NewRecordPartialChanges.CreateRecordStart(it))
                         }
@@ -72,9 +71,9 @@ class NewRecordPresenter constructor(private val recordRepository: RecordsReposi
         if (change !is NewRecordPartialChanges) return super.stateReducer(vs, change)
 
         return when (change) {
-            is NewRecordPartialChanges.CreateRecordEnd -> vs.copy(closeScreen = true, model = vs.model.copy(sendingCreateRecord = false))
-            is NewRecordPartialChanges.CreateRecordStart -> vs.copy(model = vs.model.copy(sendingCreateRecord = true))
-
+            is NewRecordPartialChanges.CreateRecordEnd -> vs.copy(closeScreen = true, model = vs.model.copy(sendingCreateRecord = false, sendingCreateRecordError = null))
+            is NewRecordPartialChanges.CreateRecordStart -> vs.copy(model = vs.model.copy(sendingCreateRecord = true, sendingCreateRecordError = null))
+            is NewRecordPartialChanges.CreateRecordError -> vs.copy(model = vs.model.copy(sendingCreateRecord = false, sendingCreateRecordError = change.error))
         }
 
     }

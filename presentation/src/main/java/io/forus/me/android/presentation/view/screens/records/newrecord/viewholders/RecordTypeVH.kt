@@ -16,14 +16,9 @@ class RecordTypeVH(parent: ViewGroup, private val clickListener: ((RecordType) -
 
         debug.text = item.name
 
-        //        type.text = "Valid til ${item.validDays} days"
-//        name.text = item.name
-//        value.text = "${item.currency.name} ${item.value.format()}"
-//
-//        logo.setImageUrl(item.logo)
-//        root.setOnClickListener {
-//            clickListener?.invoke(item)
-//        }
+        root.setOnClickListener {
+            clickListener?.invoke(item)
+        }
 
     }
 }

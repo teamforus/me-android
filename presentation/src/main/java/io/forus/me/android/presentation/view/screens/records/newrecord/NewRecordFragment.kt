@@ -10,9 +10,12 @@ import android.view.ViewGroup
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LRFragment
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LoadRefreshPanel
+import io.forus.me.android.domain.exception.RetrofitException
+import io.forus.me.android.domain.exception.RetrofitExceptionMapper
 import io.forus.me.android.domain.models.records.NewRecordRequest
 import io.forus.me.android.domain.models.records.RecordCategory
 import io.forus.me.android.domain.models.records.RecordType
+import io.forus.me.android.domain.models.records.errors.NewRecordError
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.component.buttons.Button
@@ -23,7 +26,8 @@ import io.forus.me.android.presentation.view.screens.records.newrecord.adapters.
 import io.forus.me.android.presentation.view.screens.records.newrecord.adapters.RecordTypesAdapter
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.fragment_new_record.root
+import kotlinx.android.synthetic.main.fragment_new_record.*
+
 
 /**
  * Fragment New Record Screen.
@@ -48,16 +52,35 @@ class NewRecordFragment : LRFragment<NewRecordModel, NewRecordView, NewRecordPre
     private lateinit var rvCategories : RecyclerView
     private lateinit var rvTypes : RecyclerView
     private lateinit var tvValue: EditText
+    private lateinit var btnRegister: Button
+    private lateinit var tvError: TextView
 
     private lateinit var recordCategoriesAdapter: RecordCategoriesAdapter
     private lateinit var recordTypesAdapter: RecordTypesAdapter
 
-    var selectedCategory: RecordCategory? = null
-    var selectedType: RecordType? = null
+    private var selectedCategory: RecordCategory? = null
+    private var selectedType: RecordType? = null
+    private var sendingCreateRecord: Boolean = false
+
+    private var retrofitExceptionMapper: RetrofitExceptionMapper = Injection.instance.retrofitExceptionMapper
 
     private val viewIsValid: Boolean
         get() {
-            return selectedCategory!= null && selectedType!= null && tvValue.getText().isNotEmpty() && tvValue.validate()
+            var valid = false
+            if(sendingCreateRecord){
+                showError("Request in progress")
+            }
+            else if(selectedCategory == null){
+                showError("Please select category")
+            }
+            else if(selectedCategory == null){
+                showError("Please select type")
+            }
+            else if(tvValue.getText().isEmpty() || !tvValue.validate()){
+                showError("Value is not valid")
+            }
+            else valid = true
+            return valid
         }
 
 
@@ -112,18 +135,16 @@ class NewRecordFragment : LRFragment<NewRecordModel, NewRecordView, NewRecordPre
         rvTypes.adapter = recordTypesAdapter
 
         tvValue = viewSelectValue.findViewById(R.id.value)
-        val register: Button = viewSelectValue.findViewById(R.id.register)
-        val error: TextView = viewSelectValue.findViewById(R.id.debug)
-        register.setOnClickListener {
+        btnRegister = viewSelectValue.findViewById(R.id.register)
+        tvError = viewSelectValue.findViewById(R.id.error)
+
+        btnRegister.setOnClickListener {
             if (viewIsValid) {
-                error.text = ""
+                showError(null)
 
                 createRecordAction.onNext(NewRecordRequest(
                     selectedType as RecordType, selectedCategory as RecordCategory, tvValue.getText(), 0
                 ))
-            }
-            else{
-                error.text = "View is invalid"
             }
         }
     }
@@ -142,10 +163,22 @@ class NewRecordFragment : LRFragment<NewRecordModel, NewRecordView, NewRecordPre
         if (vs.closeScreen) {
             closeScreen()
         }
+
+        if(vs.model.sendingCreateRecordError != null){
+            val error: Throwable = vs.model.sendingCreateRecordError
+            val newRecordError: NewRecordError = retrofitExceptionMapper.mapToNewRecordError(error as RetrofitException)
+            showError(newRecordError.toString())
+        }
+
+        sendingCreateRecord = vs.model.sendingCreateRecord
     }
 
-    fun closeScreen() {
+    private fun closeScreen() {
         navigator.navigateToDashboard(activity)
         activity?.finish()
+    }
+
+    private fun showError(error: String?){
+        tvError.text = error
     }
 }

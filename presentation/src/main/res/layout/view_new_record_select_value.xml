@@ -29,7 +29,7 @@
         android:layout_height="wrap_content" />
 
     <io.forus.me.android.presentation.view.component.text.TextView
-        android:id="@+id/debug"
+        android:id="@+id/error"
         style="@style/Headline6"
         app:type="medium"
         android:textColor="@color/error"

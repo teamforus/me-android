@@ -7,6 +7,7 @@ import io.forus.me.android.domain.models.records.RecordType
 data class NewRecordModel(
         val item: NewRecordRequest? = null,
         val sendingCreateRecord: Boolean = false,
+        val sendingCreateRecordError: Throwable? = null,
         val types: List<RecordType> = emptyList(),
         val categories: List<RecordCategory> = emptyList()
 ) {

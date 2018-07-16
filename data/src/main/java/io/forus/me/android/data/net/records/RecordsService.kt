@@ -50,7 +50,7 @@ interface RecordsService {
     @GET("api/v1/identity/records")
     fun listAllRecords(@Query("type") type: String) : Observable<List<Record>>
 
-    @POST("api/v1/identity/record")
+    @POST("api/v1/identity/records")
     fun createRecord(@Query("type") type: String, @Body createRecord: CreateRecord) : Observable<Success>
 
     @GET("api/v1/identity/records/{id}")
