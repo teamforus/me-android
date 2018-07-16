@@ -46,7 +46,7 @@ class AndroidApplication : Application() {
 
 
         val keyStoreWrapper = KeyStoreWrapper(this)
-        val store = keyStoreWrapper.createAndroidKeyStoreAsymmetricKey(keyStoreAlias)
+        val store = keyStoreWrapper.getOrCreateAndroidKeyStoreAsymmetricKeyPair(keyStoreAlias)
 
 
         val helper = DaoMaster.DevOpenHelper(this, "main-db")

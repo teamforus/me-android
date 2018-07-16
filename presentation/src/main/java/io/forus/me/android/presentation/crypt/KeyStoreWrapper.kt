@@ -23,6 +23,11 @@ class KeyStoreWrapper(private val context: Context) {
 
     private val keyStore: KeyStore = createAndroidKeyStore()
 
+
+    fun getOrCreateAndroidKeyStoreAsymmetricKeyPair(alias: String): KeyPair = getAndroidKeyStoreAsymmetricKeyPair(alias)
+                ?:  createAndroidKeyStoreAsymmetricKey(alias)
+
+
     fun getAndroidKeyStoreAsymmetricKeyPair(alias: String): KeyPair? {
         val privateKey = keyStore.getKey(alias, null) as PrivateKey?
         val publicKey = keyStore.getCertificate(alias)?.publicKey
