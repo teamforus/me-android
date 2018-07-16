@@ -3,23 +3,17 @@ package io.forus.me.android.data.repository.account.datasource.remote
 import com.gigawatt.android.data.net.sign.SignService
 import com.gigawatt.android.data.net.sign.models.request.SignUp
 import com.gigawatt.android.data.net.sign.models.request.SignUpByEmail
-import io.forus.me.android.data.entity.sign.request.SignRecords
 import io.forus.me.android.data.entity.sign.response.AccessToken
 import io.forus.me.android.data.entity.sign.response.IdentityPinResult
 import io.forus.me.android.data.entity.sign.response.IdentityTokenResult
 import io.forus.me.android.data.entity.sign.response.SignUpResult
 import io.forus.me.android.data.repository.account.datasource.AccountDataSource
-import io.forus.me.android.domain.models.account.NewAccountRequest
 import io.reactivex.Observable
 
 public class AccountRemoteDataSource(private val signService: SignService): AccountDataSource {
 
 
-    override fun createUser(model: NewAccountRequest): Observable<SignUpResult> {
-        val signUp = SignUp()
-        signUp.pinCode = "6666"
-        signUp.records = SignRecords(model.email)
-
+    override fun createUser(signUp: SignUp): Observable<SignUpResult> {
         return signService.signup(signUp)
     }
 

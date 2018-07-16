@@ -4,6 +4,7 @@ import android.content.Context
 import com.gigawatt.android.data.net.sign.RecordsService
 import com.gigawatt.android.data.net.sign.SignService
 import io.forus.me.android.data.entity.database.DaoSession
+import io.forus.me.android.data.exception.RetrofitExceptionMapper
 import io.forus.me.android.data.net.MeServiceFactory
 import io.forus.me.android.data.repository.account.datasource.local.AccountLocalDataSource
 import io.forus.me.android.data.repository.account.datasource.remote.AccountRemoteDataSource
@@ -80,6 +81,10 @@ class Injection private constructor() {
 
     private val recordRemoteDataSource: RecordsDataSource by lazy {
         return@lazy RecordsRemoteDataSource(MeServiceFactory.getInstance().createRetrofitService(RecordsService::class.java, SignService.Service.SERVICE_ENDPOINT))
+    }
+
+    val retrofitExceptionMapper: RetrofitExceptionMapper by lazy {
+        return@lazy RetrofitExceptionMapper()
     }
 
 }

@@ -94,4 +94,6 @@ class EditText : FrameLayout{
     fun setTextChangedListener(listener : android.text.TextWatcher) {
         mTextEdit.addTextChangedListener(listener)
     }
+
+    fun getEditText() = mTextEdit
 }

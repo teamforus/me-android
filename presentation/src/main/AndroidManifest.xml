@@ -64,6 +64,12 @@
 
     </activity>
 
+    <activity
+        android:name=".view.screens.records.newrecord.NewRecordActivity"
+        android:label="@string/blank_string">
+
+    </activity>
+
   </application>
 
 </manifest>

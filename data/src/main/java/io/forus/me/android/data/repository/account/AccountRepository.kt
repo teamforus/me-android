@@ -1,5 +1,7 @@
 package io.forus.me.android.data.repository.account
 
+import com.gigawatt.android.data.net.sign.models.request.SignUp
+import io.forus.me.android.data.entity.sign.request.SignRecords
 import io.forus.me.android.data.repository.account.datasource.AccountDataSource
 import io.forus.me.android.domain.models.account.NewAccountRequest
 import io.forus.me.android.domain.models.account.RequestDelegatesPinModel
@@ -26,7 +28,11 @@ class AccountRepository(private val accountLocalDataSource: AccountDataSource,pr
 //    }
 
     override fun newUser(model: NewAccountRequest): Observable<NewAccountRequest> {
-       return accountRemoteDataSource.createUser(model)
+        val signUp = SignUp()
+        signUp.pinCode = "6666"
+        signUp.records = SignRecords(model.email)
+
+       return accountRemoteDataSource.createUser(signUp)
                 .flatMap {
                     accountLocalDataSource.saveToken(it.accessToken)
                     Observable.just(model)
