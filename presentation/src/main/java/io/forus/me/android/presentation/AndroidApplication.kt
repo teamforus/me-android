@@ -7,9 +7,9 @@ import android.support.multidex.MultiDex
 import io.forus.me.android.data.entity.database.DaoMaster
 import io.forus.me.android.data.entity.database.DaoSession
 import io.forus.me.android.data.net.MeServiceFactory
+import io.forus.me.android.presentation.crypt.KeyStoreWrapper
 import io.forus.me.android.presentation.internal.Injection
-import android.os.StrictMode.setThreadPolicy
-
+import java.security.interfaces.RSAKey
 
 
 //import com.squareup.leakcanary.LeakCanary
@@ -19,6 +19,7 @@ import android.os.StrictMode.setThreadPolicy
  */
 class AndroidApplication : Application() {
 
+    private val keyStoreAlias = "MAIN_KEY_STORE"
     private var me: AndroidApplication? = null
     private var daoSession : DaoSession? = null
 
@@ -42,8 +43,14 @@ class AndroidApplication : Application() {
 
 
     private fun initDatabase() {
+
+
+        val keyStoreWrapper = KeyStoreWrapper(this)
+        val store = keyStoreWrapper.createAndroidKeyStoreAsymmetricKey(keyStoreAlias)
+
+
         val helper = DaoMaster.DevOpenHelper(this, "main-db")
-        val db =  helper.getEncryptedWritableDb(getString(R.string.database_secrete_key))
+        val db =  helper.getEncryptedWritableDb((store.private as RSAKey).modulus.toString())
         daoSession = DaoMaster(db).newSession()
         Injection.instance.daoSession = daoSession
     }
