@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import io.forus.me.android.presentation.R
-import io.forus.me.android.presentation.view.activity.BaseActivity
 import io.forus.me.android.presentation.view.activity.ToolbarActivity
 
 /**
@@ -33,7 +32,7 @@ class NewRecordActivity : ToolbarActivity() {
         get() = R.layout.activity_toolbar
 
     override val toolbarTitle: String
-        get() = getString(R.string.new_record)
+        get() = getString(R.string.title_choose_category)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,5 +49,16 @@ class NewRecordActivity : ToolbarActivity() {
         }
     }
 
+    fun changeToolbarTitle(position: Int){
+        val title =
+        when (position) {
+            0 -> getString(R.string.title_choose_category)
+            1 -> getString(R.string.title_choose_type)
+            2 -> getString(R.string.title_choose_text)
+            else -> getString(R.string.title_new_record)
+        }
+        this.setToolbarTitle(title)
+
+    }
 
 }

@@ -7,17 +7,17 @@ import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.helpers.inflate
 import kotlinx.android.synthetic.main.select_type_list_item.view.*
 
-class RecordTypeVH(parent: ViewGroup, private val clickListener: ((RecordType) -> Unit)?) : RecyclerView.ViewHolder(parent.inflate(R.layout.select_type_list_item)) {
+class RecordTypeVH(parent: ViewGroup, private val clickListener: ((RecordType, Int) -> Unit)?) : RecyclerView.ViewHolder(parent.inflate(R.layout.select_type_list_item)) {
     init {
 
     }
 
-    fun render(item:  RecordType) = with(itemView) {
+    fun render(item:  RecordType, lastSelectedPosition: Int) = with(itemView) {
 
-        debug.text = item.name
-
+        rb_select_type.setChecked(lastSelectedPosition == adapterPosition)
+        tv_name.text = item.name
         root.setOnClickListener {
-            clickListener?.invoke(item)
+            clickListener?.invoke(item, adapterPosition)
         }
 
     }

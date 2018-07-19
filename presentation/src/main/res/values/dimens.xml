@@ -31,4 +31,8 @@
   <!--Categories First Item -->
   <dimen name="categories_first_item_margin_top">16dp</dimen>
   <dimen name="categories_first_item_margin_bottom">8dp</dimen>
+
+  <!--Categories Grid Layout -->
+  <dimen name="categories_grid_space_between_cells">16dp</dimen>
+
 </resources>

@@ -8,6 +8,8 @@ import io.forus.me.android.presentation.view.screens.records.newrecord.viewholde
 
 class RecordTypesAdapter(private val clickListener: ((RecordType) -> Unit)?): RecyclerView.Adapter<RecordTypeVH>() {
 
+    private var lastSelectedPosition: Int = -1
+
     var items: List<RecordType> = emptyList()
         set(value) {
             val old = field
@@ -25,10 +27,14 @@ class RecordTypesAdapter(private val clickListener: ((RecordType) -> Unit)?): Re
         setHasStableIds(true)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = RecordTypeVH(parent, clickListener)
-    override fun onBindViewHolder(holder: RecordTypeVH, position: Int) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = RecordTypeVH(parent) { recordType: RecordType, position: Int ->
+        lastSelectedPosition = position
+        //notifyDataSetChanged()
+        clickListener?.invoke(recordType)
+    }
 
-        holder.render(items[position])
+    override fun onBindViewHolder(holder: RecordTypeVH, position: Int) {
+        holder.render(items[position], lastSelectedPosition)
     }
     override fun getItemCount() = items.size
     override fun getItemId(position: Int) = position.toLong()

@@ -6,16 +6,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:text="PAGE ONE IN"
+    <io.forus.me.android.presentation.view.component.text.TextView
+        android:text="@string/choose_the_category_text"
+        style="@style/Body2Small"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#000000"
-        android:textSize="24dp"/>
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="30dp" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_category"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"/>
 
 </LinearLayout>

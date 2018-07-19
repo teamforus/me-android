@@ -1,6 +1,8 @@
 package io.forus.me.android.presentation.view.screens.records.newrecord
 
 import android.os.Bundle
+import android.support.v4.view.ViewPager
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -10,13 +12,12 @@ import com.jakewharton.rxbinding2.widget.RxTextView
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LRFragment
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LoadRefreshPanel
-import io.forus.me.android.domain.exception.RetrofitException
 import io.forus.me.android.domain.exception.RetrofitExceptionMapper
 import io.forus.me.android.domain.models.records.RecordCategory
 import io.forus.me.android.domain.models.records.RecordType
-import io.forus.me.android.domain.models.records.errors.NewRecordError
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.internal.Injection
+import io.forus.me.android.presentation.view.activity.ToolbarActivity
 import io.forus.me.android.presentation.view.screens.records.newrecord.adapters.NewRecordViewPagerAdapter
 import io.forus.me.android.presentation.view.screens.records.newrecord.adapters.RecordCategoriesAdapter
 import io.forus.me.android.presentation.view.screens.records.newrecord.adapters.RecordTypesAdapter
@@ -78,7 +79,7 @@ class NewRecordFragment : LRFragment<NewRecordModel, NewRecordView, NewRecordPre
     override fun selectType() = selectRecordType
 
 
-    override fun setValue() = RxTextView.textChanges(value.getEditText()).map {
+    override fun setValue() = RxTextView.textChanges(value).map {
         it.toString()
     }!!
 
@@ -86,6 +87,13 @@ class NewRecordFragment : LRFragment<NewRecordModel, NewRecordView, NewRecordPre
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         mRootView = inflater.inflate(R.layout.fragment_new_record, container, false)
+
+        recordCategoriesAdapter = RecordCategoriesAdapter {
+            selectRecordCategory.onNext(it)
+        }
+        recordTypesAdapter = RecordTypesAdapter {
+            selectRecordType.onNext(it)
+        }
 
         return mRootView
     }
@@ -95,17 +103,16 @@ class NewRecordFragment : LRFragment<NewRecordModel, NewRecordView, NewRecordPre
 
         main_view_pager.adapter = NewRecordViewPagerAdapter()
         main_view_pager.offscreenPageLimit = 3
+        main_view_pager.addOnPageChangeListener(object: ViewPager.OnPageChangeListener{
+            override fun onPageScrollStateChanged(state: Int) {}
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
+            override fun onPageSelected(position: Int) {
+                (activity as NewRecordActivity).changeToolbarTitle(position)
+            }
+        })
+        main_view_pager.currentItem = 0
 
-
-        recordCategoriesAdapter = RecordCategoriesAdapter {
-            selectRecordCategory.onNext(it)
-        }
-        recordTypesAdapter = RecordTypesAdapter {
-            selectRecordType.onNext(it)
-        }
-
-
-        recycler_category.layoutManager = LinearLayoutManager(context)
+        recycler_category.layoutManager = GridLayoutManager(context, 2)
         recycler_category.adapter = recordCategoriesAdapter
 
         recycler_type.layoutManager = LinearLayoutManager(context)

@@ -43,7 +43,6 @@
   <string name="valuta">Valuta</string>
   <string name="vouchers">Vouchers</string>
   <string name="voucher">Voucher</string>
-  <string name="new_record">New Record</string>
   <string name="bezit">Bezit</string>
   <string name="qr">Qr</string>
   <string name="records">Eigenschappen</string>
@@ -62,7 +61,7 @@
     </string>
 
 
-  <dimen name="pin_default_text_size">34sp</dimen>
+    <dimen name="pin_default_text_size">34sp</dimen>
   <dimen name="pin_default_button_size">60dp</dimen>
   <dimen name="pin_default_delete_button_size">24dp</dimen>
   <dimen name="pin_default_horizontal_spacing">32dp</dimen>
@@ -70,5 +69,16 @@
 
   <dimen name="pin_default_dot_diameter">8dp</dimen>
   <dimen name="pin_default_dot_spacing">8dp</dimen>
+
+  <!-- New record screen -->
+  <string name="title_new_record">New Record</string>
+  <string name="title_choose_category">Choose Category</string>
+  <string name="title_choose_type">Choose Type</string>
+  <string name="title_choose_text">Text</string>
+
+  <string name="choose_the_category_text">Select the category under which the new record type should be added.</string>
+  <string name="choose_the_type_text">Select the category under which the new record type should be added.</string>
+  <string name="choose_the_value_text">Select the category under which the new record type should be added.</string>
+  <string name="venue_text">Venue</string>
 
 </resources>
