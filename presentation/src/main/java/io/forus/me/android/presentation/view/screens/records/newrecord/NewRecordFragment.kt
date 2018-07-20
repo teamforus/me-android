@@ -17,9 +17,12 @@ import io.forus.me.android.domain.models.records.RecordCategory
 import io.forus.me.android.domain.models.records.RecordType
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.internal.Injection
+import io.forus.me.android.presentation.view.screens.records.newrecord.NewRecordView.Companion.NUM_PAGES
 import io.forus.me.android.presentation.view.screens.records.newrecord.adapters.NewRecordViewPagerAdapter
 import io.forus.me.android.presentation.view.screens.records.newrecord.adapters.RecordCategoriesAdapter
 import io.forus.me.android.presentation.view.screens.records.newrecord.adapters.RecordTypesAdapter
+import io.forus.me.android.presentation.view.screens.records.newrecord.viewholders.SelectedCategoryVH
+import io.forus.me.android.presentation.view.screens.records.newrecord.viewholders.SelectedTypeVH
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_new_record.*
@@ -49,6 +52,10 @@ class NewRecordFragment : LRFragment<NewRecordModel, NewRecordView, NewRecordPre
     private lateinit var recordCategoriesAdapter: RecordCategoriesAdapter
     private lateinit var recordTypesAdapter: RecordTypesAdapter
 
+    private lateinit var selectedCategoryVH: SelectedCategoryVH
+    private lateinit var selectedCategoryVH2: SelectedCategoryVH
+    private lateinit var selectedTypeVH: SelectedTypeVH
+
     private var retrofitExceptionMapper: RetrofitExceptionMapper = Injection.instance.retrofitExceptionMapper
 
 
@@ -65,7 +72,7 @@ class NewRecordFragment : LRFragment<NewRecordModel, NewRecordView, NewRecordPre
     }
 
     override fun onBackPressed(): Boolean {
-        if (main_view_pager.currentItem in (1..2)){
+        if (main_view_pager.currentItem > 0){
             previousStep.onNext(true)
             return false
         }
@@ -102,6 +109,10 @@ class NewRecordFragment : LRFragment<NewRecordModel, NewRecordView, NewRecordPre
             selectRecordType.onNext(it)
         }
 
+        selectedCategoryVH = SelectedCategoryVH(mRootView.findViewById(R.id.hat_item_category))
+        selectedCategoryVH2 = SelectedCategoryVH(mRootView.findViewById(R.id.hat_item_category_2))
+        selectedTypeVH = SelectedTypeVH(mRootView.findViewById(R.id.hat_item_type))
+
         return mRootView
     }
 
@@ -110,7 +121,7 @@ class NewRecordFragment : LRFragment<NewRecordModel, NewRecordView, NewRecordPre
 
         val newRecordViewPagerAdapter = NewRecordViewPagerAdapter()
         main_view_pager.adapter = newRecordViewPagerAdapter
-        main_view_pager.offscreenPageLimit = 3
+        main_view_pager.offscreenPageLimit = NUM_PAGES
         main_view_pager.currentItem = 0
         indicator.setViewPager(main_view_pager)
         newRecordViewPagerAdapter.registerDataSetObserver(indicator.dataSetObserver)
@@ -129,7 +140,7 @@ class NewRecordFragment : LRFragment<NewRecordModel, NewRecordView, NewRecordPre
         recycler_type.adapter = recordTypesAdapter
 
         btn_next.setOnClickListener {
-            if (main_view_pager.currentItem in (0..1)) nextStep.onNext(true) else submit.onNext(true)
+            if (main_view_pager.currentItem < NUM_PAGES - 1) nextStep.onNext(true) else submit.onNext(true)
         }
     }
 
@@ -150,8 +161,13 @@ class NewRecordFragment : LRFragment<NewRecordModel, NewRecordView, NewRecordPre
 
         main_view_pager.currentItem = vs.model.currentStep
         renderButton(vs.model.currentStep, vs.model.buttonIsActive)
-
-        //showError(vs.model.validationResult.message)
+        when(vs.model.currentStep){
+            1 -> if(vs.model.item.category != null) selectedCategoryVH2.render(vs.model.item.category!!)
+            2 -> {
+                if(vs.model.item.category != null) selectedCategoryVH.render(vs.model.item.category!!)
+                if(vs.model.item.recordType != null) selectedTypeVH.render(vs.model.item.recordType!!)
+            }
+        }
 
         if(vs.model.sendingCreateRecordError != null){
             val error: Throwable = vs.model.sendingCreateRecordError
@@ -172,10 +188,9 @@ class NewRecordFragment : LRFragment<NewRecordModel, NewRecordView, NewRecordPre
     }
 
     private fun renderButton(currentStep: Int, buttonIsActive: Boolean){
-        btn_next.text = resources.getString(if (currentStep in (0..1)) R.string.next_step else R.string.submit)
+        btn_next.text = resources.getString(if (currentStep < NUM_PAGES - 1) R.string.next_step else R.string.submit)
         btn_next.active = buttonIsActive
     }
-
 
     private fun showError(text: String){
         showToastMessage(text)

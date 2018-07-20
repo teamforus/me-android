@@ -16,8 +16,38 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="17dp" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:orientation="horizontal"
+        android:baselineAligned="false">
+
+        <include
+            android:id="@+id/hat_item_category_2"
+            layout="@layout/view_new_record_hat_item"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:layout_width="38dp"
+            android:layout_height="match_parent">
+        </LinearLayout>
+
+        <include
+            android:id="@+id/hat_item_type_2"
+            layout="@layout/view_new_record_hat_item"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_type"
+        android:layout_marginTop="7dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

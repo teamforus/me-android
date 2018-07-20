@@ -7,6 +7,9 @@ import io.forus.me.android.domain.models.records.RecordType
 import kotlinx.android.synthetic.main.view_new_record_select_value.*
 
 interface NewRecordView : LRView<NewRecordModel> {
+    companion object {
+        const val NUM_PAGES = 3
+    }
 
     fun onBackPressed(): Boolean
 

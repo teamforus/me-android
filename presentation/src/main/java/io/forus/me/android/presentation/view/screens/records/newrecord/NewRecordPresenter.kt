@@ -75,9 +75,6 @@ class NewRecordPresenter constructor(private val recordRepository: RecordsReposi
                         .observeOn(AndroidSchedulers.mainThread()),
                 NewRecordView::render)
 
-//        val observable = loadRefreshPartialChanges()
-//        val initialViewState = LRViewState(false, null, false, false, null, MapModel("", "" ))
-//        subscribeViewState(observable.scan(initialViewState, this::stateReducer).observeOn(AndroidSchedulers.mainThread()),MapView::render)
     }
 
     override fun stateReducer(vs: LRViewState<NewRecordModel>, change: PartialChange): LRViewState<NewRecordModel> {
@@ -92,8 +89,8 @@ class NewRecordPresenter constructor(private val recordRepository: RecordsReposi
             is NewRecordPartialChanges.SelectCategory -> result = vs.copy(model = vs.model.copy(item = vs.model.item.copy(category = change.category)))
             is NewRecordPartialChanges.SelectType -> result = vs.copy(model = vs.model.copy(item = vs.model.item.copy(recordType = change.type)))
             is NewRecordPartialChanges.SetValue -> result = vs.copy(model = vs.model.copy(item = vs.model.item.copy(value = change.value)))
-            is NewRecordPartialChanges.PreviousStep -> result = vs.copy(model = vs.model.copy(currentStep = vs.model.currentStep - (if (vs.model.currentStep in (1..2)) 1 else 0)))
-            is NewRecordPartialChanges.NextStep -> result = vs.copy(model = vs.model.copy(currentStep = vs.model.currentStep + (if (vs.model.currentStep in (0..1)) 1 else 0)))
+            is NewRecordPartialChanges.PreviousStep -> result = vs.copy(model = vs.model.copy(currentStep = vs.model.currentStep - (if (vs.model.currentStep < NewRecordView.NUM_PAGES && vs.model.currentStep > 0) 1 else 0)))
+            is NewRecordPartialChanges.NextStep -> result = vs.copy(model = vs.model.copy(currentStep = vs.model.currentStep + (if (vs.model.currentStep < NewRecordView.NUM_PAGES - 1 && vs.model.currentStep >= 0) 1 else 0)))
         }
 
 

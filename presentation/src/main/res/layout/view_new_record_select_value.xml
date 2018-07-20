@@ -22,6 +22,33 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="17dp" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:baselineAligned="false">
+
+            <include
+                android:id="@+id/hat_item_category"
+                layout="@layout/view_new_record_hat_item"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:layout_width="38dp"
+                android:layout_height="match_parent">
+            </LinearLayout>
+
+            <include
+                android:id="@+id/hat_item_type"
+                layout="@layout/view_new_record_hat_item"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
         <io.forus.me.android.presentation.view.component.text.TextView
             android:text="@string/venue_text"
             android:textSize="12.1sp"
