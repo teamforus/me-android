@@ -71,6 +71,7 @@ class Button : Button {
     }
 
     private fun initBackground(){
+        setEnabled(active)
         setBackgroundResource(if (!reverse && active)  R.drawable.button_main_raund else R.drawable.button_main_raund_reverse)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             this.stateListAnimator = null

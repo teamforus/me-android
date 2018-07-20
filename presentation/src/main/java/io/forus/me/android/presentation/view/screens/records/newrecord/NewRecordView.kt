@@ -8,15 +8,17 @@ import kotlinx.android.synthetic.main.view_new_record_select_value.*
 
 interface NewRecordView : LRView<NewRecordModel> {
 
-    fun createRecord(): io.reactivex.Observable<Boolean>
+    fun onBackPressed(): Boolean
+
+    fun previousStep(): io.reactivex.Observable<Boolean>
+
+    fun nextStep(): io.reactivex.Observable<Boolean>
+
+    fun submit(): io.reactivex.Observable<Boolean>
 
     fun selectCategory(): io.reactivex.Observable<RecordCategory>
 
     fun selectType(): io.reactivex.Observable<RecordType>
 
-
     fun setValue(): io.reactivex.Observable<String>
-
-
-
 }

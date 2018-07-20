@@ -22,6 +22,7 @@ ext {
   okHttpVersion = '2.5.0'
   androidAnnotationsVersion = '21.0.3'
   arrowVersion = '1.0.0'
+  circleIndicatorVersion = '1.2.2@aar'
 
   //Testing
   robolectricVersion = '3.1.1'
@@ -79,7 +80,7 @@ ext {
       glide:              "com.github.bumptech.glide:glide:$rootProject.glideVersion",
       glideProcessor:     "com.github.bumptech.glide:compiler:$rootProject.glideVersion",
 
-
+      circleIndicator:    "me.relex:circleindicator:$rootProject.circleIndicatorVersion",
   ]
 
   presentationTestDependencies = [

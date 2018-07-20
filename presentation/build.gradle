@@ -101,7 +101,7 @@ dependencies {
   implementation presentationDependencies.cardView
   implementation presentationDependencies.slidingUpPanel
   implementation presentationDependencies.glide
-
+  implementation presentationDependencies.circleIndicator
 
 
   compileOnly presentationDependencies.javaxAnnotation

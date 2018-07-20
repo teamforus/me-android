@@ -17,7 +17,9 @@ sealed class NewRecordPartialChanges : PartialChange {
 
     data class SelectType(val type: RecordType) : NewRecordPartialChanges()
 
-
     data class SetValue(val value: String) : NewRecordPartialChanges()
 
+    class PreviousStep() : NewRecordPartialChanges()
+
+    class NextStep() : NewRecordPartialChanges()
 }

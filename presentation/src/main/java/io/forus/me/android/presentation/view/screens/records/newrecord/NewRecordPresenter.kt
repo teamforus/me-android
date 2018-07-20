@@ -32,16 +32,20 @@ class NewRecordPresenter constructor(private val recordRepository: RecordsReposi
         var observable = Observable.merge(
 
                 loadRefreshPartialChanges(),
-                Observable.merge(
+                Observable.mergeArray(
                         intent { it.selectCategory() }
                                 .map {  NewRecordPartialChanges.SelectCategory(it) },
                         intent { it.selectType() }
                                 .map {  NewRecordPartialChanges.SelectType(it) },
                         intent { it.setValue() }
-                                .map {  NewRecordPartialChanges.SetValue(it) }
+                                .map {  NewRecordPartialChanges.SetValue(it) },
+                        intent { it.previousStep()}
+                                .map {  NewRecordPartialChanges.PreviousStep() },
+                        intent { it.nextStep() }
+                                .map {  NewRecordPartialChanges.NextStep() }
 
                 ),
-                intent { it.createRecord() }
+                intent { it.submit() }
                         .switchMap {
                             recordRepository.newRecord(request!!)
                                     .subscribeOn(Schedulers.io())
@@ -88,7 +92,8 @@ class NewRecordPresenter constructor(private val recordRepository: RecordsReposi
             is NewRecordPartialChanges.SelectCategory -> result = vs.copy(model = vs.model.copy(item = vs.model.item.copy(category = change.category)))
             is NewRecordPartialChanges.SelectType -> result = vs.copy(model = vs.model.copy(item = vs.model.item.copy(recordType = change.type)))
             is NewRecordPartialChanges.SetValue -> result = vs.copy(model = vs.model.copy(item = vs.model.item.copy(value = change.value)))
-
+            is NewRecordPartialChanges.PreviousStep -> result = vs.copy(model = vs.model.copy(currentStep = vs.model.currentStep - (if (vs.model.currentStep in (1..2)) 1 else 0)))
+            is NewRecordPartialChanges.NextStep -> result = vs.copy(model = vs.model.copy(currentStep = vs.model.currentStep + (if (vs.model.currentStep in (0..1)) 1 else 0)))
         }
 
 

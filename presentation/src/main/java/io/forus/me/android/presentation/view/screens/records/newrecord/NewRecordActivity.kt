@@ -23,7 +23,7 @@ class NewRecordActivity : ToolbarActivity() {
         }
     }
 
-
+    lateinit var fragment : NewRecordFragment
 
     override val toolbarType: ToolbarType
         get() = ToolbarType.Small
@@ -43,7 +43,7 @@ class NewRecordActivity : ToolbarActivity() {
                 categoryId = intent.getStringExtra(NewRecordActivity.ID_EXTRA)
             }
 
-            val fragment = NewRecordFragment.newIntent(categoryId)
+            fragment = NewRecordFragment.newIntent(categoryId)
 
             addFragment(R.id.fragmentContainer, fragment)
         }
@@ -61,4 +61,8 @@ class NewRecordActivity : ToolbarActivity() {
 
     }
 
+    override fun onBackPressed() {
+        if(fragment.onBackPressed())
+            super.onBackPressed()
+    }
 }

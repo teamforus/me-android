@@ -43,23 +43,6 @@
             android:gravity="top"
             android:inputType="textMultiLine" />
 
-        <io.forus.me.android.presentation.view.component.buttons.Button
-            android:id="@+id/register"
-            android:text="@string/create_account"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <io.forus.me.android.presentation.view.component.text.TextView
-            android:id="@+id/error"
-            style="@style/Headline6"
-            app:type="medium"
-            android:textColor="@color/error"
-            android:paddingTop="16dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="Error message here"
-            />
-
     </LinearLayout>
 
 

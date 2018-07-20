@@ -7,17 +7,16 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LRFragment
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LoadRefreshPanel
+import io.forus.me.android.domain.exception.RetrofitException
 import io.forus.me.android.domain.exception.RetrofitExceptionMapper
 import io.forus.me.android.domain.models.records.RecordCategory
 import io.forus.me.android.domain.models.records.RecordType
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.internal.Injection
-import io.forus.me.android.presentation.view.activity.ToolbarActivity
 import io.forus.me.android.presentation.view.screens.records.newrecord.adapters.NewRecordViewPagerAdapter
 import io.forus.me.android.presentation.view.screens.records.newrecord.adapters.RecordCategoriesAdapter
 import io.forus.me.android.presentation.view.screens.records.newrecord.adapters.RecordTypesAdapter
@@ -27,6 +26,7 @@ import kotlinx.android.synthetic.main.fragment_new_record.*
 import kotlinx.android.synthetic.main.view_new_record_select_category.*
 import kotlinx.android.synthetic.main.view_new_record_select_type.*
 import kotlinx.android.synthetic.main.view_new_record_select_value.*
+import java.lang.Exception
 
 
 /**
@@ -46,13 +46,10 @@ class NewRecordFragment : LRFragment<NewRecordModel, NewRecordView, NewRecordPre
 
     private lateinit var mRootView : View
 
-
-
     private lateinit var recordCategoriesAdapter: RecordCategoriesAdapter
     private lateinit var recordTypesAdapter: RecordTypesAdapter
 
     private var retrofitExceptionMapper: RetrofitExceptionMapper = Injection.instance.retrofitExceptionMapper
-
 
 
     override fun viewForSnackbar(): View = root
@@ -67,10 +64,22 @@ class NewRecordFragment : LRFragment<NewRecordModel, NewRecordView, NewRecordPre
         }
     }
 
+    override fun onBackPressed(): Boolean {
+        if (main_view_pager.currentItem in (1..2)){
+            previousStep.onNext(true)
+            return false
+        }
+        else return true
+    }
 
-    override fun createRecord() = RxView.clicks(register).map {
-        true
-    }!!
+    private val previousStep = PublishSubject.create<Boolean>()
+    override fun previousStep(): Observable<Boolean> = previousStep
+
+    private val nextStep = PublishSubject.create<Boolean>()
+    override fun nextStep(): Observable<Boolean> = nextStep
+
+    private val submit = PublishSubject.create<Boolean>()
+    override fun submit(): Observable<Boolean> = submit
 
     private val selectRecordCategory = PublishSubject.create<RecordCategory>()
     override fun selectCategory(): Observable<RecordCategory> = selectRecordCategory
@@ -78,11 +87,9 @@ class NewRecordFragment : LRFragment<NewRecordModel, NewRecordView, NewRecordPre
     private val selectRecordType = PublishSubject.create<RecordType>()
     override fun selectType() = selectRecordType
 
-
     override fun setValue() = RxTextView.textChanges(value).map {
         it.toString()
     }!!
-
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -101,8 +108,12 @@ class NewRecordFragment : LRFragment<NewRecordModel, NewRecordView, NewRecordPre
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        main_view_pager.adapter = NewRecordViewPagerAdapter()
+        val newRecordViewPagerAdapter = NewRecordViewPagerAdapter()
+        main_view_pager.adapter = newRecordViewPagerAdapter
         main_view_pager.offscreenPageLimit = 3
+        main_view_pager.currentItem = 0
+        indicator.setViewPager(main_view_pager)
+        newRecordViewPagerAdapter.registerDataSetObserver(indicator.dataSetObserver)
         main_view_pager.addOnPageChangeListener(object: ViewPager.OnPageChangeListener{
             override fun onPageScrollStateChanged(state: Int) {}
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
@@ -110,7 +121,6 @@ class NewRecordFragment : LRFragment<NewRecordModel, NewRecordView, NewRecordPre
                 (activity as NewRecordActivity).changeToolbarTitle(position)
             }
         })
-        main_view_pager.currentItem = 0
 
         recycler_category.layoutManager = GridLayoutManager(context, 2)
         recycler_category.adapter = recordCategoriesAdapter
@@ -118,7 +128,9 @@ class NewRecordFragment : LRFragment<NewRecordModel, NewRecordView, NewRecordPre
         recycler_type.layoutManager = LinearLayoutManager(context)
         recycler_type.adapter = recordTypesAdapter
 
-
+        btn_next.setOnClickListener {
+            if (main_view_pager.currentItem in (0..1)) nextStep.onNext(true) else submit.onNext(true)
+        }
     }
 
     override fun createPresenter() = NewRecordPresenter(
@@ -136,16 +148,21 @@ class NewRecordFragment : LRFragment<NewRecordModel, NewRecordView, NewRecordPre
             closeScreen()
         }
 
-
-        register.visibility = if (vs.model.validationResult.valid) View.VISIBLE else View.GONE
+        main_view_pager.currentItem = vs.model.currentStep
+        renderButton(vs.model.currentStep, vs.model.buttonIsActive)
 
         //showError(vs.model.validationResult.message)
 
-//        if(vs.model.sendingCreateRecordError != null){
-//            val error: Throwable = vs.model.sendingCreateRecordError
-//            val newRecordError: NewRecordError = retrofitExceptionMapper.mapToNewRecordError(error as RetrofitException)
-//            showError(newRecordError.toString())
-//        }
+        if(vs.model.sendingCreateRecordError != null){
+            val error: Throwable = vs.model.sendingCreateRecordError
+            if(error is RetrofitException && error.kind == RetrofitException.Kind.HTTP){
+                try {
+                    val newRecordError = retrofitExceptionMapper.mapToNewRecordError(error)
+                    showError(newRecordError.message)
+                }
+                catch (e: Exception){}
+            }
+        }
 
     }
 
@@ -154,7 +171,13 @@ class NewRecordFragment : LRFragment<NewRecordModel, NewRecordView, NewRecordPre
         activity?.finish()
     }
 
-    private fun showError(text: String?){
-        error.text = text
+    private fun renderButton(currentStep: Int, buttonIsActive: Boolean){
+        btn_next.text = resources.getString(if (currentStep in (0..1)) R.string.next_step else R.string.submit)
+        btn_next.active = buttonIsActive
+    }
+
+
+    private fun showError(text: String){
+        showToastMessage(text)
     }
 }

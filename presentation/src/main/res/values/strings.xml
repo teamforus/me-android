@@ -81,4 +81,7 @@
   <string name="choose_the_value_text">Select the category under which the new record type should be added.</string>
   <string name="venue_text">Venue</string>
 
+  <string name="next_step">NEXT STEP</string>
+  <string name="submit">SUBMIT</string>
+
 </resources>
