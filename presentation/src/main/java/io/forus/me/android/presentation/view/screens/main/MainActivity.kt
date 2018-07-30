@@ -33,12 +33,12 @@ class MainActivity : BaseActivity() {
 
 
         if (Injection.instance.accountLocalDataSource.isLogin()) {
-            if (!systemServices.isDeviceSecure()) {
-                deviceSecurityAlert = systemServices.showDeviceSecurityAlert()
-            } else {
-                navigateToDashboard()
-            }
-
+//            if (!systemServices.isDeviceSecure()) {
+//                deviceSecurityAlert = systemServices.showDeviceSecurityAlert()
+//            } else {
+//                navigateToDashboard()
+//            }
+            navigateToDashboard()
             //navigateToDashboard()
         } else {
             navigateToWelcomeScreen()

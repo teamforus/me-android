@@ -38,11 +38,9 @@ import java.lang.Exception
 class NewRecordFragment : LRFragment<NewRecordModel, NewRecordView, NewRecordPresenter>(), NewRecordView  {
 
     companion object {
-        private val ID_EXTRA = "ID_EXTRA"
 
-        fun newIntent(id: String): NewRecordFragment = NewRecordFragment().also {
+        fun newIntent(): NewRecordFragment = NewRecordFragment().also {
             val bundle = Bundle()
-            bundle.putSerializable(ID_EXTRA, id)
             it.arguments = bundle
         }
     }

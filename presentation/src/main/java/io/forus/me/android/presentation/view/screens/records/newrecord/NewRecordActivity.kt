@@ -14,11 +14,10 @@ class NewRecordActivity : ToolbarActivity() {
 
     companion object {
 
-        val ID_EXTRA = "ID_EXTRA"
 
-        fun getCallingIntent(context: Context, id: String): Intent {
+
+        fun getCallingIntent(context: Context ): Intent {
             val intent = Intent(context, NewRecordActivity::class.java)
-            intent.putExtra(ID_EXTRA, id)
             return intent
         }
     }
@@ -38,12 +37,9 @@ class NewRecordActivity : ToolbarActivity() {
         super.onCreate(savedInstanceState)
 
         if (savedInstanceState == null) {
-            var categoryId = "1"
-            if (intent.hasExtra(NewRecordActivity.ID_EXTRA)) {
-                categoryId = intent.getStringExtra(NewRecordActivity.ID_EXTRA)
-            }
 
-            fragment = NewRecordFragment.newIntent(categoryId)
+
+            fragment = NewRecordFragment.newIntent()
 
             addFragment(R.id.fragmentContainer, fragment)
         }

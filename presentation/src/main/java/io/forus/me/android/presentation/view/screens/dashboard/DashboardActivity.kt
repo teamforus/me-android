@@ -7,6 +7,9 @@ import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.ActionBarDrawerToggle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter
 import io.forus.me.android.presentation.R
@@ -26,6 +29,7 @@ class DashboardActivity : ToolbarActivity() {
 
     private var currentFragment: android.support.v4.app.Fragment? = null
     private var currentPagerPosition = 0
+    private var menu: Menu? = null
     private var navigationAdapter: AHBottomNavigationAdapter? = null
 
 
@@ -105,6 +109,16 @@ class DashboardActivity : ToolbarActivity() {
         get() = getString(R.string.blank_string)
 
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        this.menu = menu
+        return super.onCreateOptionsMenu(menu)
+
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return currentFragment?.onOptionsItemSelected(item) ?: false
+    }
+
 
     private fun showTab(position: Int, wasSelected: Boolean): Boolean {
         if (adapter == null)
@@ -128,7 +142,7 @@ class DashboardActivity : ToolbarActivity() {
         if (currentFragment != null ) {
             val castFragment = currentFragment!!
             when (castFragment){
-                is ToolbarListener -> initSubView(castFragment.subviewFragment, castFragment.pageTitle)
+                is ToolbarListener -> initSubView(castFragment.subviewFragment, castFragment.pageTitle, castFragment.menu)
 
             }
         }
@@ -155,10 +169,15 @@ class DashboardActivity : ToolbarActivity() {
         return true
     }
 
-    private fun initSubView(fragment: BaseFragment?, title: String) {
-
+    private fun initSubView(fragment: BaseFragment?, title: String, menu: Int?) {
+        if (menu != null) {
+            menuInflater.inflate(menu!!, this.menu);
+        } else {
+            menuInflater.inflate(R.menu.empty, this.menu)
+        }
         setToolbarTitle(title)
         if (fragment != null) {
+
             val fragmentManager = supportFragmentManager
             fragmentManager.beginTransaction()
                     .replace(R.id.subview, fragment)

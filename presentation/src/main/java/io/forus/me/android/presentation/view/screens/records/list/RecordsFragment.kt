@@ -32,6 +32,9 @@ class RecordsFragment : LRFragment<RecordsModel, RecordsView, RecordsPresenter>(
     override val pageTitle: String
         get() = getString(R.string.records)
 
+    override val menu: Int?
+        get() = null
+
     private lateinit var adapter: RecordsAdapter
 
     override fun getTitle(): String = getString(R.string.valuta)

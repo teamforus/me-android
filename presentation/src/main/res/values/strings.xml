@@ -83,5 +83,6 @@
 
   <string name="next_step">NEXT STEP</string>
   <string name="submit">SUBMIT</string>
+    <string name="add_record">Add record</string>
 
 </resources>

@@ -38,6 +38,9 @@ class PropertyFragment : BaseFragment(), ToolbarListener {
     override val pageTitle: String
         get() = getString(R.string.property)
 
+    override val menu: Int?
+        get() = null
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

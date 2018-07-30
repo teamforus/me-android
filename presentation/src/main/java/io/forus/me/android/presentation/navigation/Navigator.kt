@@ -75,9 +75,9 @@ constructor()//empty
         }
     }
 
-    fun navigateToNewRecord(context: Context?, categoryId: String) {
+    fun navigateToNewRecord(context: Context?) {
         if (context != null) {
-            val intentToLaunch = NewRecordActivity.getCallingIntent(context, categoryId)
+            val intentToLaunch = NewRecordActivity.getCallingIntent(context)
             context.startActivity(intentToLaunch)
         }
     }

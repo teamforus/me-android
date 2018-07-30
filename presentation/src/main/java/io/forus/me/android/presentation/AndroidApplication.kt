@@ -44,13 +44,14 @@ class AndroidApplication : Application() {
 
     private fun initDatabase() {
 
-
+//
         val keyStoreWrapper = KeyStoreWrapper(this)
-        val store = keyStoreWrapper.getOrCreateAndroidKeyStoreAsymmetricKeyPair(keyStoreAlias)
+//        val store = keyStoreWrapper.getOrCreateAndroidKeyStoreAsymmetricKeyPair(keyStoreAlias)
 
 
         val helper = DaoMaster.DevOpenHelper(this, "main-db")
-        val db =  helper.getEncryptedWritableDb((store.private as RSAKey).modulus.toString())
+      //  val db =  helper.getEncryptedWritableDb((store.private as RSAKey).modulus.toString())
+        val db =  helper.getEncryptedWritableDb("djawdjawiodjawiodjawidjaw1273682193782193")
         daoSession = DaoMaster(db).newSession()
         Injection.instance.daoSession = daoSession
     }
