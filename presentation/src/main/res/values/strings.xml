@@ -46,7 +46,7 @@
   <string name="bezit">Bezit</string>
   <string name="qr">Qr</string>
   <string name="records">Eigenschappen</string>
-  <string name="vindaag">Vindaag</string>
+  <string name="transactieoverzicht">Transactieoverzicht</string>
   <string name="restore_by_email">Restore by email</string>
   <string name="account_restore_description">Please enter your e-mail address in order to receive your login details.</string>
 

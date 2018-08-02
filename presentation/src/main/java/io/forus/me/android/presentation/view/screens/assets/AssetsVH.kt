@@ -20,6 +20,7 @@ class AssetsVH(parent: ViewGroup) : RecyclerView.ViewHolder(parent.inflate(R.lay
         type.text = item.type.name
         name.text = item.name
         description.text = item.description
+        logo.setImageUrl(item.logoUrl)
 
     }
 }

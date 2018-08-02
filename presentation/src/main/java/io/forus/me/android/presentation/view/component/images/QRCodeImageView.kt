@@ -32,6 +32,7 @@ class QRCodeImageView : AutoLoadImageView {
 
 
 
+
         var bitmap = QRCode.from(text)
                 .withHint(EncodeHintType.MARGIN, 0)
                 .withColor(onColor, offColor)

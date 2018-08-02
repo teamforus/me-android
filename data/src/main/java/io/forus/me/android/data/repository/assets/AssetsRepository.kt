@@ -12,11 +12,8 @@ class AssetsRepository() : io.forus.me.android.domain.repository.assets.AssetsRe
     override fun getAssets(): Observable<List<Asset>> {
         val wallets : MutableList<Asset> = mutableListOf()
 
-        for (i in 1..100){
-            wallets.add(Asset("Groningen", "9712 CP Groningen", Type("KANTOOR")))
-            wallets.add(Asset("Mercedes G-class", "9731 EU", Type("KFS")))
-
-        }
+        wallets.add(Asset("Amsterdam", "1097AS Amsterdam", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFNzSV5SVK7J-HTveWEuPlQgiu1YyEUqOzF_ygG4eUZnqr6Wfe",Type("Аppartement")))
+        wallets.add(Asset("Fiat multipla", "9731 EU", "http://autoveilingalbergen.nl/wp-content/uploads/2016/07/placeholder-auto-icon.png",Type("Auto")))
 
         return Single.just(wallets).toObservable().
                 map {

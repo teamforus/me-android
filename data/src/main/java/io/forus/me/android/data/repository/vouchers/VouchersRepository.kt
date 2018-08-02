@@ -12,11 +12,8 @@ class VouchersRepository : io.forus.me.android.domain.repository.vouchers.Vouche
     private val vouchers: MutableList<Voucher> by lazy {
         val vouchers : MutableList<Voucher> = mutableListOf()
 
-        for (i in 1..100){
-            vouchers.add(Voucher(i.toString(), "Kindpacket", 2, Currency("€", "https://cdn.worldvectorlogo.com/logos/ethereum.svg"), 400f, "https://www.freelogodesign.org/Content/img/logo-ex-7.png"))
-            vouchers.add(Voucher("__${i.toString()}", "Kindpacket 2", 3, Currency("€", "https://cdn.worldvectorlogo.com/logos/ethereum.svg"), 35.555f, "https://www.freelogodesign.org/Content/img/logo-ex-7.png"))
+        vouchers.add(Voucher("1", "Kindpakket", 2, Currency("€", "https://cdn.worldvectorlogo.com/logos/ethereum.svg"), 400f, "https://freeiconshop.com/wp-content/uploads/edd/person-flat.png"))
 
-        }
         return@lazy vouchers
     }
 

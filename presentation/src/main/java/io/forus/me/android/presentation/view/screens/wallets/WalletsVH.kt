@@ -1,8 +1,6 @@
 package io.forus.me.android.presentation.view.screens.wallets
 
-import android.graphics.BitmapFactory
 import android.support.v7.widget.RecyclerView
-import android.view.View
 import android.view.ViewGroup
 import io.forus.me.android.domain.models.wallets.Wallet
 import io.forus.me.android.presentation.R
@@ -23,7 +21,7 @@ class WalletsVH(parent: ViewGroup) : RecyclerView.ViewHolder(parent.inflate(R.la
         value.text = item.balance.format()
 
         /// TODO change later
-        logo.setImageBitmap(BitmapFactory.decodeResource(resources, R.drawable.etherium_icon))
-        //logo.setImageUrl(item.currency?.logoUrl)
+        //logo.setImageBitmap(BitmapFactory.decodeResource(resources, R.drawable.etherium_icon))
+        logo.setImageUrl(item.logoUrl)
     }
 }

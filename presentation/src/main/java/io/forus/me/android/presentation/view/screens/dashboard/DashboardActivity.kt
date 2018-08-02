@@ -170,6 +170,7 @@ class DashboardActivity : ToolbarActivity() {
     }
 
     private fun initSubView(fragment: BaseFragment?, title: String, menu: Int?) {
+        this.menu?.clear()
         if (menu != null) {
             menuInflater.inflate(menu!!, this.menu);
         } else {

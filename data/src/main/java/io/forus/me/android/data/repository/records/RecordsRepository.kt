@@ -20,23 +20,6 @@ class RecordsRepository(private val recordsRemoteDataSource: RecordsDataSource) 
             categories.add(RecordCategory(i.toLong()*100, "Professional$i", i.toLong()*100))
         }
         return Single.just(categories.toList()).toObservable()
-
-
-//        return recordsRemoteDataSource.getRecordCategories()
-//                .flatMap {
-//                    if (it.isNotEmpty()) {
-//                        Single.just(it.map {
-//                            RecordCategory(it.id, it.name ?: "noname", it.order)
-//                        }).toObservable()
-//                    } else {
-//                        val general = io.forus.me.android.domain.models.records.NewRecordCategoryRequest("General", 0)
-//                        val medical = io.forus.me.android.domain.models.records.NewRecordCategoryRequest("Medical", 1)
-//                        val personal = io.forus.me.android.domain.models.records.NewRecordCategoryRequest("Personal", 2)
-//                        Observable.concat(newCategory(general), newCategory(medical), newCategory(personal)).flatMap {
-//                            getCategories()
-//                        }
-//                    }
-//                }
     }
 
     override fun newCategory(model: NewRecordCategoryRequest): Observable<Boolean> {
