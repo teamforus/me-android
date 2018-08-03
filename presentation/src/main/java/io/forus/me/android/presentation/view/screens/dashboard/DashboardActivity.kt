@@ -54,7 +54,17 @@ class DashboardActivity : ToolbarActivity() {
 
     private fun initUI(){
 
-        bottom_navigation.setOnTabSelectedListener { position, wasSelected -> showTab(position, wasSelected) }
+        bottom_navigation.setOnTabSelectedListener ( object: AHBottomNavigation.OnTabSelectedListener {
+            var lastPosition: Int = 0;
+            override fun onTabSelected(position: Int, wasSelected: Boolean): Boolean {
+               var result =   showTab(position, lastPosition, wasSelected)
+               this.lastPosition = position
+
+               return result
+            }
+        } )
+
+    //    bottom_navigation.setOnTabSelectedListener { position, wasSelected -> showTab(position, wasSelected) }
         bottom_navigation.setOnNavigationPositionListener({ y ->  })
         bottom_navigation.accentColor = getCustomColor(R.color.colorAccent)
 
@@ -78,7 +88,7 @@ class DashboardActivity : ToolbarActivity() {
             view_pager.adapter = adapter
 
             view_pager.offscreenPageLimit = 5;
-            selectTab(currentPagerPosition)
+            selectTab(currentPagerPosition, 0)
         }
 
 
@@ -90,15 +100,15 @@ class DashboardActivity : ToolbarActivity() {
 
 
         (android.os.Handler()).postDelayed({
-            showTab(0, false)
+            showTab(0, 0,false)
         },500)
 
     }
 
-    private fun selectTab(currentPagerPosition: Int) {
+    private fun selectTab(currentPagerPosition: Int, oldPosition: Int) {
         bottom_navigation.setCurrentItem(currentPagerPosition, false)
         try {
-            showTab(currentPagerPosition, false)
+            showTab(currentPagerPosition, oldPosition, false)
         } catch (e: Exception) {
 
         }
@@ -120,7 +130,14 @@ class DashboardActivity : ToolbarActivity() {
     }
 
 
-    private fun showTab(position: Int, wasSelected: Boolean): Boolean {
+    private fun showTab(position: Int, oldPosition: Int, wasSelected: Boolean): Boolean {
+
+        if (position == 1) {
+            view_pager.setCurrentItem(oldPosition, false)
+            return false
+
+        }
+
         if (adapter == null)
             return false
 

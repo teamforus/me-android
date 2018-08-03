@@ -14,11 +14,13 @@ class RecordsRepository(private val recordsRemoteDataSource: RecordsDataSource) 
 
     override fun getCategories(): Observable<List<RecordCategory>> {
         val categories : MutableList<RecordCategory> = mutableListOf()
-        for (i in 0..6) {
-            categories.add(RecordCategory(i.toLong(), "Persoonlijk$i", i.toLong(), "https://emojipedia-us.s3.amazonaws.com/thumbs/120/apple/129/thinking-face_1f914.png"))
-            categories.add(RecordCategory(i.toLong()*10, "Medisch$i", i.toLong()*10, "https://emojipedia-us.s3.amazonaws.com/thumbs/120/apple/129/syringe_1f489.png"))
-            categories.add(RecordCategory(i.toLong()*100, "Professional$i", i.toLong()*100))
-        }
+        categories.add(RecordCategory(1, "Persoonlijk", 1, "https://emojipedia-us.s3.amazonaws.com/thumbs/120/apple/129/thinking-face_1f914.png"))
+        categories.add(RecordCategory(2, "Medish", 2, "https://emojipedia-us.s3.amazonaws.com/thumbs/120/apple/129/syringe_1f489.png"))
+        categories.add(RecordCategory(3, "Zakelijk", 3, "https://emojipedia-us.s3.amazonaws.com/thumbs/120/apple/129/syringe_1f489.png"))
+        categories.add(RecordCategory(4, "Relaties", 4, "https://emojipedia-us.s3.amazonaws.com/thumbs/120/apple/129/syringe_1f489.png"))
+        categories.add(RecordCategory(5, "Certificaten", 5, "https://emojipedia-us.s3.amazonaws.com/thumbs/120/apple/129/syringe_1f489.png"))
+        categories.add(RecordCategory(6, "Anderen", 6,"https://emojipedia-us.s3.amazonaws.com/thumbs/120/apple/129/syringe_1f489.png"))
+
         return Single.just(categories.toList()).toObservable()
     }
 
