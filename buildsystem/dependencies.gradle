@@ -50,6 +50,7 @@ ext {
 
   //Development
   leakCanaryVersion = '1.3.1'
+  qrReaderVersion='2.0.3@aar'
 
 
   presentationDependencies = [
@@ -81,6 +82,7 @@ ext {
       glideProcessor:     "com.github.bumptech.glide:compiler:$rootProject.glideVersion",
 
       circleIndicator:    "me.relex:circleindicator:$rootProject.circleIndicatorVersion",
+      qrReader:           "com.dlazaro66.qrcodereaderview:qrcodereaderview:${rootProject.qrReaderVersion}",
   ]
 
   presentationTestDependencies = [

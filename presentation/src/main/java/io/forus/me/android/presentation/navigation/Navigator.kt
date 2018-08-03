@@ -6,6 +6,7 @@ import io.forus.me.android.presentation.view.screens.account.newaccount.NewAccou
 import io.forus.me.android.presentation.view.screens.account.pin.RestoreByPinActivity
 import io.forus.me.android.presentation.view.screens.account.restoreByEmail.RestoreByEmailActivity
 import io.forus.me.android.presentation.view.screens.dashboard.DashboardActivity
+import io.forus.me.android.presentation.view.screens.qr.QrScannerActivity
 import io.forus.me.android.presentation.view.screens.records.newrecord.NewRecordActivity
 import io.forus.me.android.presentation.view.screens.vouchers.item.VoucherActivity
 import javax.inject.Inject
@@ -45,6 +46,13 @@ constructor()//empty
         }
     }
 
+
+    fun navigateToQrScanner(context: Context?) {
+        if (context != null) {
+            val intentToLaunch = QrScannerActivity.getCallingIntent(context)
+            context.startActivity(intentToLaunch)
+        }
+    }
 
     fun navigateToAccountNew(context: Context?) {
         if (context != null) {

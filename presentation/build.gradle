@@ -114,4 +114,7 @@ dependencies {
 
   //Development
   implementation developmentDependencies.leakCanary
+  implementation (presentationDependencies.qrReader){
+    transitive = true
+  }
 }

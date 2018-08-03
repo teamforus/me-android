@@ -1,14 +1,10 @@
 package io.forus.me.android.presentation.view.screens.dashboard
 
-import android.app.Fragment
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter
@@ -20,9 +16,7 @@ import io.forus.me.android.presentation.view.adapters.MainViewPagerAdapter
 import io.forus.me.android.presentation.view.fragment.BaseFragment
 import io.forus.me.android.presentation.view.screens.property.PropertyFragment
 import io.forus.me.android.presentation.view.screens.records.categories.RecordCategoriesFragment
-import io.forus.me.android.presentation.view.screens.records.list.RecordsFragment
 import kotlinx.android.synthetic.main.dashboard_activity.*
-import java.util.logging.Handler
 
 
 class DashboardActivity : ToolbarActivity() {
@@ -134,6 +128,7 @@ class DashboardActivity : ToolbarActivity() {
 
         if (position == 1) {
             view_pager.setCurrentItem(oldPosition, false)
+            this.navigator.navigateToQrScanner(this)
             return false
 
         }
