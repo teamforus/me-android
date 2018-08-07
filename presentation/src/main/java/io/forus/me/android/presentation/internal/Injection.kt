@@ -10,6 +10,7 @@ import io.forus.me.android.data.repository.account.datasource.local.AccountLocal
 import io.forus.me.android.data.repository.account.datasource.remote.AccountRemoteDataSource
 import io.forus.me.android.data.repository.records.RecordsRepository
 import io.forus.me.android.data.repository.records.datasource.RecordsDataSource
+import io.forus.me.android.data.repository.records.datasource.mock.RecordsMockDataSource
 import io.forus.me.android.data.repository.records.datasource.remote.RecordsRemoteDataSource
 import io.forus.me.android.data.repository.web3.datasource.Web3DataSource
 import io.forus.me.android.data.repository.web3.datasource.local.Web3LocalDataSource
@@ -75,9 +76,12 @@ class Injection private constructor() {
 
 
     val recordsRepository: RecordsRepository by lazy {
-        return@lazy io.forus.me.android.data.repository.records.RecordsRepository(recordRemoteDataSource)
+        return@lazy io.forus.me.android.data.repository.records.RecordsRepository(recordsMockDataSource, recordRemoteDataSource)
     }
 
+    private val recordsMockDataSource: RecordsMockDataSource by lazy{
+        return@lazy RecordsMockDataSource()
+    }
 
     private val recordRemoteDataSource: RecordsDataSource by lazy {
         return@lazy RecordsRemoteDataSource(MeServiceFactory.getInstance().createRetrofitService(RecordsService::class.java, SignService.Service.SERVICE_ENDPOINT))

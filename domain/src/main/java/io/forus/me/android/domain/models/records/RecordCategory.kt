@@ -1,9 +1,8 @@
 package io.forus.me.android.domain.models.records
 
-import io.forus.me.android.domain.models.currency.Currency
-import java.util.*
+import java.io.Serializable
 
-class RecordCategory {
+class RecordCategory : Serializable{
 
 
 

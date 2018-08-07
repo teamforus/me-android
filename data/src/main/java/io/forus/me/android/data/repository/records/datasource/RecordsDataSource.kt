@@ -33,7 +33,7 @@ interface RecordsDataSource {
     fun sortRecordCategories(sortCategories: SortCategories) : Observable<Success>
 
 
-    fun getRecords(type: RecordType): Observable<List<Record>>
+    fun getRecords(type: String): Observable<List<Record>>
 
 
     fun createRecord(createRecord: CreateRecord): Observable<Success>

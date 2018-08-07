@@ -15,15 +15,12 @@ class RecordsVH(parent: ViewGroup, private val clickListener: ((Record) -> Unit)
     }
 
     fun render(item:  Record) = with(itemView) {
+        type.text = item.key
+        value.text = item.value
 
-//        category.text = "Valid til ${item.validDays} days"
-//        name.text = item.name
-//        value.text = "${item.currency.name} ${item.value.format()}"
-//
-//        logo.setImageUrl(item.logo)
-//        root.setOnClickListener {
-//            clickListener?.invoke(item)
-//        }
+        root.setOnClickListener {
+            clickListener?.invoke(item)
+        }
 
     }
 }

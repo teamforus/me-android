@@ -1,12 +1,14 @@
 package io.forus.me.android.presentation.navigation
 
 import android.content.Context
+import io.forus.me.android.domain.models.records.RecordCategory
 import io.forus.me.android.presentation.view.screens.account.assigndelegates.AssignDelegatesAccountActivity
 import io.forus.me.android.presentation.view.screens.account.newaccount.NewAccountActivity
 import io.forus.me.android.presentation.view.screens.account.pin.RestoreByPinActivity
 import io.forus.me.android.presentation.view.screens.account.restoreByEmail.RestoreByEmailActivity
 import io.forus.me.android.presentation.view.screens.dashboard.DashboardActivity
 import io.forus.me.android.presentation.view.screens.qr.QrScannerActivity
+import io.forus.me.android.presentation.view.screens.records.list.RecordsActivity
 import io.forus.me.android.presentation.view.screens.records.newrecord.NewRecordActivity
 import io.forus.me.android.presentation.view.screens.vouchers.item.VoucherActivity
 import javax.inject.Inject
@@ -90,4 +92,10 @@ constructor()//empty
         }
     }
 
+    fun navigateToRecordsList(context: Context?, recordCategory: RecordCategory) {
+        if (context != null) {
+            val intentToLaunch = RecordsActivity.getCallingIntent(context, recordCategory)
+            context.startActivity(intentToLaunch)
+        }
+    }
 }

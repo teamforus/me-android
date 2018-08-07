@@ -2,7 +2,10 @@ package io.forus.me.android.presentation.view.screens.records.categories
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.view.*
+import android.view.LayoutInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LRFragment
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LoadRefreshPanel
@@ -58,7 +61,7 @@ class RecordCategoriesFragment : LRFragment<RecordCategoriesModel, RecordCategor
 
         adapter = RecordCategoriesAdapter()
         adapter.clickListener = { item ->
-            //navigator.navigateToRecord(activity, item.id)
+            navigator.navigateToRecordsList(activity, item)
         }
         recycler.layoutManager = LinearLayoutManager(context)
         recycler.adapter = adapter

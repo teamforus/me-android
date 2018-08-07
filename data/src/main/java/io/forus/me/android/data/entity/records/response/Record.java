@@ -83,4 +83,17 @@ public class Record {
     public void setValidations(List<String> validations) {
         this.validations = validations;
     }
+
+    public Record() {
+    }
+
+    public Record(Long id, String value, Long order, String key, Long recordCategoryId, Boolean valid, List<String> validations) {
+        this.id = id;
+        this.value = value;
+        this.order = order;
+        this.key = key;
+        this.recordCategoryId = recordCategoryId;
+        this.valid = valid;
+        this.validations = validations;
+    }
 }
