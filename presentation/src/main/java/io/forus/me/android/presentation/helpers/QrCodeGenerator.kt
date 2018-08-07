@@ -8,7 +8,8 @@ import net.glxn.qrgen.android.QRCode
 object QrCodeGenerator {
 
     fun getRecordQrCode(uuid: String, width: Int, height: Int): Single<Bitmap> {
-        val bitmap = QRCode.from(uuid).withSize(width, height).bitmap()
-        return Single.just(bitmap)
+        return Single.fromCallable {
+            QRCode.from(uuid).withSize(width, height).bitmap()
+        }
     }
 }

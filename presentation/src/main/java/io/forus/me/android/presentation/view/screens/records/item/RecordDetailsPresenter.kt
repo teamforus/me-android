@@ -10,18 +10,24 @@ import io.forus.me.android.presentation.helpers.QrCodeGenerator
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.functions.BiFunction
 import io.reactivex.subjects.PublishSubject
 
-class RecordDetailsPresenter constructor(private val recordId: Long, private val recordsRepository: RecordsRepository) : LRPresenter<Record, RecordDetailsModel, RecordDetailsView>() {
+class RecordDetailsPresenter constructor(private val recordId: Long, private val recordsRepository: RecordsRepository) : LRPresenter<RecordDetailsModel, RecordDetailsModel, RecordDetailsView>() {
 
 
-    override fun initialModelSingle(): Single<Record> =
-            Single.fromObservable(recordsRepository.getRecord(recordId))
+    override fun initialModelSingle(): Single<RecordDetailsModel> = Single.zip(
+            Single.fromObservable(recordsRepository.getRecord(recordId)),
+            Single.fromObservable(recordsRepository.getRecord(recordId)),
+            BiFunction { record : Record, uuid: Record ->
+                // TODO implement API method to get uuid
+                RecordDetailsModel(record, "9f60767cb70abc69cc577e4bbc7f7423aff0098aad6751e42f1ba81b5dd8dcfa")
+            }
+    )
 
 
-    override fun RecordDetailsModel.changeInitialModel(i: Record): RecordDetailsModel = copy(item = i).also {
-        val uuid: String = "9f60767cb70abc69cc577e4bbc7f7423aff0098aad6751e42f1ba81b5dd8dcfa"
-        QrCodeGenerator.getRecordQrCode(uuid, 240, 240).subscribe{t: Bitmap? ->  if(t!= null) qrCodeLoaded.onNext(t)}
+    override fun RecordDetailsModel.changeInitialModel(i: RecordDetailsModel): RecordDetailsModel = copy(item = i.item).also {
+        if(i.uuid != null && i.uuid.isNotEmpty()) QrCodeGenerator.getRecordQrCode(i.uuid, 240, 240).subscribe{t: Bitmap? ->  if(t!= null) qrCodeLoaded.onNext(t)}
     }
 
     private val qrCodeLoaded = PublishSubject.create<Bitmap>()
@@ -56,7 +62,7 @@ class RecordDetailsPresenter constructor(private val recordId: Long, private val
         if (change !is RecordDetailsPartialChanges) return super.stateReducer(vs, change)
 
         return when (change) {
-            is RecordDetailsPartialChanges.QrCodeLoaded -> vs.copy(closeScreen = true, model = vs.model.copy(qrCode = change.bitmap))
+            is RecordDetailsPartialChanges.QrCodeLoaded -> vs.copy(model = vs.model.copy(qrCode = change.bitmap))
         }
 
     }
