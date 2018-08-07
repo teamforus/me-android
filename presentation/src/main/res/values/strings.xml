@@ -81,4 +81,7 @@
     <string name="submit">SUBMIT</string>
     <string name="add_record">Add record</string>
 
+    <string name="title_record_detail">Record detail</string>
+    <string name="record_detail_scan_qr">Scan deze QR-Code met een ander apparaat waar u al op aangemeld bent</string>
+
 </resources>

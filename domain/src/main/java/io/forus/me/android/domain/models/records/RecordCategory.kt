@@ -1,8 +1,6 @@
 package io.forus.me.android.domain.models.records
 
-import java.io.Serializable
-
-class RecordCategory : Serializable{
+class RecordCategory{
 
 
 

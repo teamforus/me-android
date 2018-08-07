@@ -12,16 +12,16 @@ class RecordsActivity : ToolbarActivity() {
 
     companion object {
 
-        val ID_EXTRA = "CATEGORY_EXTRA"
+        val CATEGORY_ID_EXTRA = "CATEGORY_ID_EXTRA"
+        val CATEGORY_NAME_EXTRA = "CATEGORY_NAME_EXTRA"
 
         fun getCallingIntent(context: Context, recordCategory: RecordCategory): Intent {
             val intent = Intent(context, RecordsActivity::class.java)
-            intent.putExtra(ID_EXTRA, recordCategory)
+            intent.putExtra(CATEGORY_ID_EXTRA, recordCategory.id)
+            intent.putExtra(CATEGORY_NAME_EXTRA, recordCategory.name)
             return intent
         }
     }
-
-    lateinit var recordCategory: RecordCategory
 
     lateinit var fragment : RecordsFragment
 
@@ -38,10 +38,11 @@ class RecordsActivity : ToolbarActivity() {
         super.onCreate(savedInstanceState)
 
         if (savedInstanceState == null) {
-            recordCategory = intent.getSerializableExtra(ID_EXTRA) as RecordCategory
-            setToolbarTitle(recordCategory.name)
+            val recordCategoryId = intent.getLongExtra(CATEGORY_ID_EXTRA, 0)
+            val recordCategoryName = intent.getStringExtra(CATEGORY_NAME_EXTRA)
 
-            fragment = RecordsFragment.newIntent(recordCategory)
+            setToolbarTitle(recordCategoryName)
+            fragment = RecordsFragment.newIntent(recordCategoryId)
             addFragment(R.id.fragmentContainer, fragment)
         }
     }

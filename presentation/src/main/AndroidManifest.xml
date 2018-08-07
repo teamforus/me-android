@@ -55,6 +55,9 @@
         <activity
             android:name=".view.screens.records.list.RecordsActivity"
             android:label=""></activity>
+        <activity
+            android:name=".view.screens.records.item.RecordDetailsActivity"
+            android:label=""></activity>
     </application>
 
 </manifest>

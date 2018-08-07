@@ -1,6 +1,6 @@
 package io.forus.me.android.domain.models.records
 
-class Record {
+class Record{
 
     var id: Long = 0
 

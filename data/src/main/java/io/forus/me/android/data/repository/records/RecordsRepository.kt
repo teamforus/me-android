@@ -5,6 +5,7 @@ import io.forus.me.android.data.repository.records.datasource.mock.RecordsMockDa
 import io.forus.me.android.domain.models.records.*
 import io.reactivex.Observable
 import io.reactivex.Single
+import java.util.concurrent.TimeUnit
 
 class RecordsRepository(private val recordsMockDataSource: RecordsMockDataSource, private val recordsRemoteDataSource: RecordsDataSource) : io.forus.me.android.domain.repository.records.RecordsRepository {
 
@@ -28,9 +29,12 @@ class RecordsRepository(private val recordsMockDataSource: RecordsMockDataSource
                 .map{ RecordCategory(it.id, it.name, it.order, it.logo ?:"")}
     }
 
-    override fun getRecords(recordCategory: RecordCategory): Observable<List<Record>> {
-        return recordsMockDataSource.getRecords(recordCategory.name)
-                .map{ it.map { Record(it.id, it.value, it.order, it.key, it.recordCategoryId, it.valid, it.validations)}}
+    override fun getRecords(recordCategoryId: Long): Observable<List<Record>> {
+        return getCategory(recordCategoryId).flatMap {
+            recordsMockDataSource.getRecords(it.name)
+                    .map{ it.map { Record(it.id, it.value, it.order, it.key, it.recordCategoryId, it.valid, it.validations)}}
+                    .delay(300, TimeUnit.MILLISECONDS)
+        }
     }
 
     override fun newRecord(model: NewRecordRequest): Observable<NewRecordRequest> {
@@ -44,5 +48,6 @@ class RecordsRepository(private val recordsMockDataSource: RecordsMockDataSource
     override fun getRecord(id: Long): Observable<Record> {
         return recordsMockDataSource.retrieveRecord(id)
                 .map{ Record(it.id, it.value, it.order, it.key, it.recordCategoryId, it.valid, it.validations)}
+                .delay(300, TimeUnit.MILLISECONDS)
     }
 }

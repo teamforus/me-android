@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="16dp">
+
+            <io.forus.me.android.presentation.view.component.text.TextView
+                android:id="@+id/type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14.1sp"
+                android:textColor="@color/body1_60"
+                android:lineSpacingExtra="7.9sp"
+                tools:text="E-mail" />
+
+            <io.forus.me.android.presentation.view.component.text.TextView
+                android:id="@+id/value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16.1sp"
+                android:textColor="@color/body_1_87"
+                android:lineSpacingExtra="7.9sp"
+                android:layout_marginTop="2dp"
+                tools:text="darkvaticanshadow@forus.io" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/secondary200"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <io.forus.me.android.presentation.view.component.images.AutoLoadImageView
+                android:id="@+id/qr_code"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="26dp"
+                android:layout_width="240dp"
+                android:layout_height="240dp" />
+
+            <io.forus.me.android.presentation.view.component.text.TextView
+                android:layout_marginLeft="17dp"
+                android:layout_marginRight="17dp"
+                android:layout_marginBottom="23dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textColor="@color/body1_60"
+                android:lineSpacingExtra="3sp"
+                android:gravity="center"
+                android:text="@string/record_detail_scan_qr" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_centerVertical="true"
+        android:paddingBottom="200dp"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+</RelativeLayout>
