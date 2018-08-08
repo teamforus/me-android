@@ -8,20 +8,20 @@ class Record{
 
     var order: Long = 0
 
-    var key: String = ""
+    var recordType: RecordType
 
-    var recordCategoryId: Long = 0
+    var recordCategory: RecordCategory
 
     var valid: Boolean = false
 
     var validations: List<String> = emptyList()
 
-    constructor(id: Long, value: String, order: Long, key: String, recordCategoryId: Long, valid: Boolean, validations: List<String>) {
+    constructor(id: Long, value: String, order: Long, recordType: RecordType, recordCategory: RecordCategory, valid: Boolean, validations: List<String>) {
         this.id = id
         this.value = value
         this.order = order
-        this.key = key
-        this.recordCategoryId = recordCategoryId
+        this.recordType = recordType
+        this.recordCategory = recordCategory
         this.valid = valid
         this.validations = validations
     }

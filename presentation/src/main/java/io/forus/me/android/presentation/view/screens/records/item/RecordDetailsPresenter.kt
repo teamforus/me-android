@@ -18,16 +18,18 @@ class RecordDetailsPresenter constructor(private val recordId: Long, private val
 
     override fun initialModelSingle(): Single<RecordDetailsModel> = Single.zip(
             Single.fromObservable(recordsRepository.getRecord(recordId)),
-            Single.fromObservable(recordsRepository.getRecord(recordId)),
-            BiFunction { record : Record, uuid: Record ->
-                // TODO implement API method to get uuid
-                RecordDetailsModel(record, "9f60767cb70abc69cc577e4bbc7f7423aff0098aad6751e42f1ba81b5dd8dcfa")
+            Single.fromObservable(recordsRepository.getRecordUuid(recordId)),
+            BiFunction { record : Record, uuid: String ->
+                RecordDetailsModel(record, uuid)
             }
     )
 
 
-    override fun RecordDetailsModel.changeInitialModel(i: RecordDetailsModel): RecordDetailsModel = copy(item = i.item).also {
-        if(i.uuid != null && i.uuid.isNotEmpty()) QrCodeGenerator.getRecordQrCode(i.uuid, 240, 240).subscribe{t: Bitmap? ->  if(t!= null) qrCodeLoaded.onNext(t)}
+    override fun RecordDetailsModel.changeInitialModel(i: RecordDetailsModel): RecordDetailsModel = copy(item = i.item, uuid = i.uuid).also {
+        if(i.uuid != null && i.uuid.isNotEmpty()) {
+            QrCodeGenerator.getRecordQrCode(i.uuid, 300, 300)
+                    .observeOn(AndroidSchedulers.mainThread()).subscribe { t: Bitmap? -> if (t != null) qrCodeLoaded.onNext(t) }
+        }
     }
 
     private val qrCodeLoaded = PublishSubject.create<Bitmap>()

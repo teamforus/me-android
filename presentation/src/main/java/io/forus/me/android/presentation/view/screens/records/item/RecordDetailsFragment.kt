@@ -63,11 +63,9 @@ class RecordDetailsFragment : LRFragment<RecordDetailsModel, RecordDetailsView, 
         progressBar.visibility = if (vs.loading) View.VISIBLE else View.INVISIBLE
 
         val record = vs.model.item
-        type.text = record?.key
+        type.text = record?.recordType?.name
         value.text = record?.value
 
         if(vs.model.qrCode != null) qr_code.setImageBitmap(vs.model.qrCode)
     }
-
-
 }

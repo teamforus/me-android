@@ -15,7 +15,7 @@ class RecordCategoriesVH(parent: ViewGroup, private val clickListener: ((RecordC
 
     fun render(item:  RecordCategory) = with(itemView) {
 
-        num_records.text = "${item.order} eigenschappen"
+        num_records.text = "${item.size} eigenschappen"
         name.text = item.name
 
         if(item.logo.isNotEmpty()) logo.setImageUrl(item.logo)
