@@ -150,7 +150,7 @@ class NewRecordFragment : LRFragment<NewRecordModel, NewRecordView, NewRecordPre
     override fun render(vs: LRViewState<NewRecordModel>) {
         super.render(vs)
 
-        progressBar.visibility = if (vs.loading) View.VISIBLE else View.INVISIBLE
+        progressBar.visibility = if (vs.loading || vs.model.sendingCreateRecord) View.VISIBLE else View.INVISIBLE
 
         recordCategoriesAdapter.items = vs.model.categories
         recordTypesAdapter.items = vs.model.types

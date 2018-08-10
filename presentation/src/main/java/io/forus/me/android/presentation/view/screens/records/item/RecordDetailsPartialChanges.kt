@@ -5,5 +5,8 @@ import com.ocrv.ekasui.mrm.ui.loadRefresh.PartialChange
 
 sealed class RecordDetailsPartialChanges : PartialChange {
 
-    data class QrCodeLoaded(val bitmap: Bitmap) : RecordDetailsPartialChanges()
+    data class CreateQrCodeStart(val uuid: String) : RecordDetailsPartialChanges()
+
+    data class CreateQrCodeEnd(val bitmap: Bitmap?) : RecordDetailsPartialChanges()
+
 }

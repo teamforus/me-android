@@ -65,7 +65,7 @@ class RecordsRepository(private val recordsMockDataSource: RecordsMockDataSource
         return recordsMockDataSource.createRecord(createRecord)
                 .flatMap {
                     Observable.just(model)
-                }
+                }.delay(300, TimeUnit.MILLISECONDS)
     }
 
     override fun getRecord(recordId: Long): Observable<Record> {

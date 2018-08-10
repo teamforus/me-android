@@ -60,7 +60,7 @@ class RecordDetailsFragment : LRFragment<RecordDetailsModel, RecordDetailsView, 
     override fun render(vs: LRViewState<RecordDetailsModel>) {
         super.render(vs)
 
-        progressBar.visibility = if (vs.loading) View.VISIBLE else View.INVISIBLE
+        progressBar.visibility = if (vs.loading || vs.model.creatingQrCode) View.VISIBLE else View.INVISIBLE
 
         val record = vs.model.item
         type.text = record?.recordType?.name

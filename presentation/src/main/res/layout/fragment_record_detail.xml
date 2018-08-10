@@ -47,14 +47,26 @@
             android:orientation="vertical"
             android:gravity="center">
 
-            <io.forus.me.android.presentation.view.component.images.AutoLoadImageView
-                android:id="@+id/qr_code"
+            <RelativeLayout
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
                 android:layout_marginTop="40dp"
                 android:layout_marginBottom="26dp"
                 android:layout_width="300dp"
-                android:layout_height="300dp" />
+                android:layout_height="300dp" >
+
+                <io.forus.me.android.presentation.view.component.images.AutoLoadImageView
+                    android:id="@+id/qr_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_centerVertical="true"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
 
             <io.forus.me.android.presentation.view.component.text.TextView
                 android:layout_marginLeft="17dp"
@@ -71,14 +83,5 @@
         </LinearLayout>
 
     </LinearLayout>
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_centerVertical="true"
-        android:paddingBottom="200dp"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
 
 </RelativeLayout>
