@@ -24,32 +24,7 @@
         app:titleEnabled="false">
 
 
-        <LinearLayout
-            android:paddingTop="60dp"
-            app:layout_collapseMode="parallax"
-            app:layout_collapseParallaxMultiplier="0.0"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
 
-
-
-            <io.forus.me.android.presentation.view.component.text.TextView
-                android:paddingTop="10dp"
-                android:paddingBottom="28dp"
-                android:layout_marginLeft="18dp"
-                android:id="@+id/toolbar_title"
-                app:layout_scrollFlags="scroll|snap"
-                tools:text="Title"
-                style="@style/Header4Left"
-                app:type="medium"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-
-
-
-        </LinearLayout>
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar_view"
@@ -60,7 +35,34 @@
             android:layout_height="wrap_content" >
 
 
+
+
         </android.support.v7.widget.Toolbar>
+
+
+        <io.forus.me.android.presentation.view.component.images.AutoLoadImageView
+            android:id="@+id/profile_button"
+            android:layout_width="@dimen/a11y_min_touch_target"
+            android:layout_height="@dimen/a11y_min_touch_target"
+            android:layout_gravity="center_vertical|start"
+            android:contentDescription="@{context.getString(viewModel.profileContentDesc)}"
+            android:foreground="?selectableItemBackground"
+            android:onClick="@{() -> viewModel.onProfileClicked()}"
+            android:padding="@dimen/spacing_micro" />
+
+
+        <io.forus.me.android.presentation.view.component.text.TextView
+            android:id="@+id/toolbar_title"
+            android:paddingTop="24dp"
+            android:paddingBottom="24dp"
+            app:layout_scrollFlags="scroll|snap"
+            tools:text="Title"
+            style="@style/Header6"
+            android:gravity="center"
+            app:type="medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
 
     </android.support.design.widget.CollapsingToolbarLayout>
 

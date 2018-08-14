@@ -34,4 +34,10 @@
     <!--Categories Grid Layout -->
     <dimen name="categories_grid_space_between_cells">16dp</dimen>
 
+
+
+    <dimen name="a11y_min_touch_target">48dp</dimen>
+
+    <dimen name="spacing_normal">8dp</dimen>
+    <dimen name="spacing_micro">4dp</dimen>
 </resources>

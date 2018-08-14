@@ -6,6 +6,11 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'org.greenrobot.greendao'
 
 android {
+
+  dataBinding {
+    enabled = true
+  }
+
   def globalConfiguration = rootProject.extensions.getByName("ext")
 
   compileSdkVersion globalConfiguration.getAt("androidCompileSdkVersion")
