@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<io.forus.me.android.presentation.view.component.card.CommonCard android:layout_marginTop="@dimen/activity_horizontal_margin"
+<io.forus.me.android.presentation.view.component.card.CommonCard
     app:cardCornerRadius="@dimen/card_radius"
     android:id="@+id/root"
     android:layout_marginLeft="@dimen/activity_horizontal_margin_small"
     android:layout_marginRight="@dimen/activity_horizontal_margin_small"
+    android:layout_marginTop="8dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
@@ -14,64 +15,40 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <RelativeLayout
-        android:padding="@dimen/activity_horizontal_margin"
-        android:background="@color/brightBackground"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
+        android:layout_height="match_parent"
+        android:background="@color/brightBackground">
 
         <LinearLayout
-            android:layout_marginRight="60dp"
+            android:layout_margin="16dp"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <io.forus.me.android.presentation.view.component.text.TextView
-                android:id="@+id/name"
-                android:paddingTop="@dimen/activity_horizontal_margin_small"
-                style="@style/CardTitle4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="Kindpakket"
-                app:type="medium"
-                />
-
-            <io.forus.me.android.presentation.view.component.text.TextView
                 android:id="@+id/type"
-                android:layout_marginTop="3dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="13sp"
                 android:textColor="@color/slate"
                 android:lineSpacingExtra="3sp"
-                tools:text=" 10 dagen geldig"
+                tools:text="E-mail"
                 />
 
 
             <io.forus.me.android.presentation.view.component.text.TextView
                 android:id="@+id/value"
-                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20.1sp"
-                android:textColor="@color/darkGrey_Text_1"
-                tools:text="€ 456,66"
-                app:type="bold"
+                android:textColor="@color/body_1_87"
+                tools:text="jamal@forus.io"
+                app:type="medium"
                 />
-
 
         </LinearLayout>
 
-
-        <io.forus.me.android.presentation.view.component.images.AutoLoadImageView
-            android:layout_marginTop="8dp"
-            android:id="@+id/logo"
-            android:layout_alignParentRight="true"
-            android:layout_width="55dp"
-            android:layout_height="55dp" />
-
-
     </RelativeLayout>
-
 
 </io.forus.me.android.presentation.view.component.card.CommonCard>

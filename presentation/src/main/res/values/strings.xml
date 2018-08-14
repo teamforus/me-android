@@ -1,88 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">Me</string>
-  <string name="blank_string"> </string>
-  <string name="url"></string>
+    <string name="app_name">Me</string>
+    <string name="blank_string"> </string>
+    <string name="url"></string>
 
 
+    <string name="refreshing_error_text">Ошибка обновления</string>
+    <string name="create_account">Create account</string>
+    <string name="restore_account">Restore account</string>
 
-  <string name="refreshing_error_text">Ошибка обновления</string>
-  <string name="create_account">Create account</string>
-  <string name="restore_account">Restore account</string>
+    <string name="error_text">Error</string>
+    <string name="retry_text">Retry</string>
 
-  <string name="error_text">Error</string>
-  <string name="retry_text">Retry</string>
-
-  <string name="exception_message_generic">There was an application error</string>
-  <string name="exception_message_no_connection">There is no internet connection</string>
-  <string name="exception_message_user_not_found">Cannot retrieve user data. Check your internet connection</string>
-
+    <string name="exception_message_generic">There was an application error</string>
+    <string name="exception_message_no_connection">There is no internet connection</string>
+    <string name="exception_message_user_not_found">Cannot retrieve user data. Check your internet connection</string>
 
 
-
-  <string name="not_empty_validation_regex">^(.*)$</string>
-  <string name="not_empty_error">Field is empty</string>
-  <string name="email_validation_regex">^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$</string>
-  <string name="email_is_invalid">Field is invalid</string>
-
+    <string name="not_empty_validation_regex">^(.*)$</string>
+    <string name="not_empty_error">Field is empty</string>
+    <string name="email_validation_regex">^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$</string>
+    <string name="email_is_invalid">Field is invalid</string>
 
 
-  <string name="property">Eigendom</string>
+    <string name="property">Eigendom</string>
 
 
-  <string name="navigation_drawer_open">Open navigation </string>
-  <string name="navigation_drawer_close">Close navigation </string>
-  <string name="lorem_ipsum">Lorem ipsum dolor sit amet, etiam pede, porttitor lacus nibh interdum maecenas mauris venenatis, nam vel ut massa. Wisi mollis magna eleifend massa ante consectetuer, elementum quisque viverra id in et. Eget semper, vel fames enim suspendisse libero. Ultricies quisque ornare amet luctus. Fusce et eu mus massa, voluptatem in sollicitudin sed, nisi nulla felis justo cras volutpat, justo mauris, at scelerisque felis volutpat. Felis libero, maecenas orci turpis sodales, ac augue ipsum rutrum quam. Libero ad lacinia, erat eget, vel mattis dignissim duis do in, class mauris dolore nec. Hendrerit quis sit cursus at dictumst, amet mattis. Praesent elementum netus dis tempor eros vitae. Leo metus, tortor fugiat lectus enim rhoncus. Quis tincidunt dui et risus tempor eget, posuere lectus pede ornare viverra mus consectetuer, nonummy neque ipsum et, mauris aliquam nulla elit lacus risus at. Nulla quis lobortis at orci ornare nibh. Arcu lorem libero felis, sagittis nec ut curabitur dapibus dictum. Lectus id, aliquam dapibus porttitor, eleifend pellentesque nam. Lacus arcu eget suspendisse quis dictumst, nunc lobortis sit, dignissim varius ut hac aut risus, a ligula consequat quis urna, laoreet eu imperdiet ac massa nullam. Ultrices mi pharetra quis eu sodales, amet in integer, lobortis lectus suscipit turpis quam placerat sagittis, maecenas pede at porttitor platea a. At duis ad eos neque, fringilla ut nunc, ligula facilisis donec. Velit quam magna augue non lacus, erat cras. Congue dolor libero arcu, natoque in amet commodo iaculis blandit, sed rutrum. Ullamcorper duis pretium in, dictumst ipsum donec. Mollis tellus est, morbi fermentum mauris elit velit pharetra duis, et lorem ullamcorper pellentesque. Eleifend dis, donec id erat cum eros elit. Elit in libero sed nec suspendisse eros, ac purus consequat, ullamco magna est vitae, auctor in odio et, vel donec consectetuer sed cras a vitae. Tortor nulla nullam mattis. Auctor nibh. Vel dui justo et, a elit sapien diam et, parturient aliquam sociosqu per eget pede et. Vehicula nunc quis volutpat at nec, non vestibulum fusce id quam, orci molestie condimentum. Faucibus varius convallis consequat at sed tempor, dignissim consectetuer, eu sit rhoncus et mi nullam, elementum quia, pede dignissim consectetuer dapibus. Eros et tristique, vestibulum lacus. Felis amet. Sagittis ornare in nisl libero mauris, ac ultrices dui felis curae sit at, pellentesque id, consectetuer at pretium, dui in eu. Nibh amet placerat malesuada, placerat tempus felis tellus suscipit, pede sed dolor ullamcorper tincidunt sit nascetur, quis tortor. Mi ante nobis quam lacinia eleifend, integer nulla aliquam blandit nunc. Vehicula curabitur cubilia. Nulla ut convallis nunc, metus aliquam sed dolor velit ac. Penatibus id in vitae, nec ante at aliquam mollis, fermentum turpis vivamus, dignissim et sit sapien pellentesque cras. Pellentesque curabitur wisi ante, placerat nulla. Duis ac proin id sem varius sem, vestibulum non sagittis, urna habitasse risus. Quam aliquam morbi nulla leo, integer alias, egestas sociis aliquet amet eu wisi, ridiculus molestie magna tincidunt nunc eros, nam eu interdum nulla nesciunt quam diam. Vitae curabitur aenean est sapien vitae sodales, wisi justo at, nunc voluptate vestibulum, lectus cras libero quam fusce, ac tellus nibh erat in primis neque. Ac donec torquent, amet amet ac pede, vel at mauris non donec et. Condimentum quia ut ante, sunt accumsan magnis ut luctus urna duis. Etiam amet in porttitor augue, eros varius luctus quis, quam sollicitudin libero blandit, odio nec ultricies diam. Eu a massa nec lorem, suspendisse lectus nunc, est litora, ultricies sagittis integer ligula dolor nec ac, dui adipiscing sit eleifend mi duis nunc. Mus morbi non, dui turpis. Vivamus ac, in proin dolor, magna magna, mus justo ipsum ante erat. Vestibulum urna a, nibh sociis sodales rhoncus urna amet cursus. Amet molestie id, ante sed vestibulum, eleifend vulputate. Maecenas etiam vestibulum, in amet neque. Felis tortor sollicitudin sodales, non eros per et suscipit, consequat tempor donec nunc nulla elit, duis vel turpis pellentesque diam turpis, dicta sem dis repudiandae morbi ac lorem. Ut pellentesque felis sed convallis sem, wisi suspendisse est mauris adipiscing, habitant sit feugiat dolorem, praesent libero maecenas dolor, metus pretium eget curabitur integer id morbi. Quam blandit diam cursus tristique, interdum tempus nulla arcu ut non, ligula mauris, interdum ac interdum. Tellus dolor convallis fermentum, ac pede ipsum volutpat, donec amet. Optio tellus vivamus, justo rutrum quam diam.</string>
-  <string name="welcome">Welkom bij Me</string>
-  <string name="set_up_your_identity">Stel uw identiteit in</string>
-  <string name="login">Anmelden</string>
-  <string name="scan_deze_qr_code_met_een_ander_apparaat_waar_u_al_op_aangemeld_bent">Scan deze QR-Code met een ander apparaat waar u al op aangemeld bent</string>
-  <string name="login_via_de_qr_code">login via de qr code</string>
-  <string name="inloggen_met_pincode">Inloggen met pincode</string>
-  <string name="inloggen_via_email">Inloggen via email</string>
-  <string name="valuta">Valuta</string>
-  <string name="vouchers">Vouchers</string>
-  <string name="voucher">Voucher</string>
-  <string name="bezit">Bezit</string>
-  <string name="qr">Qr</string>
-  <string name="records">Eigenschappen</string>
-  <string name="transactieoverzicht">Transactieoverzicht</string>
-  <string name="restore_by_email">Restore by email</string>
-  <string name="account_restore_description">Please enter your e-mail address in order to receive your login details.</string>
+    <string name="navigation_drawer_open">Open navigation </string>
+    <string name="navigation_drawer_close">Close navigation </string>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, etiam pede, porttitor lacus nibh interdum maecenas mauris venenatis, nam vel ut massa. Wisi mollis magna eleifend massa ante consectetuer, elementum quisque viverra id in et. Eget semper, vel fames enim suspendisse libero. Ultricies quisque ornare amet luctus. Fusce et eu mus massa, voluptatem in sollicitudin sed, nisi nulla felis justo cras volutpat, justo mauris, at scelerisque felis volutpat. Felis libero, maecenas orci turpis sodales, ac augue ipsum rutrum quam. Libero ad lacinia, erat eget, vel mattis dignissim duis do in, class mauris dolore nec. Hendrerit quis sit cursus at dictumst, amet mattis. Praesent elementum netus dis tempor eros vitae. Leo metus, tortor fugiat lectus enim rhoncus. Quis tincidunt dui et risus tempor eget, posuere lectus pede ornare viverra mus consectetuer, nonummy neque ipsum et, mauris aliquam nulla elit lacus risus at. Nulla quis lobortis at orci ornare nibh. Arcu lorem libero felis, sagittis nec ut curabitur dapibus dictum. Lectus id, aliquam dapibus porttitor, eleifend pellentesque nam. Lacus arcu eget suspendisse quis dictumst, nunc lobortis sit, dignissim varius ut hac aut risus, a ligula consequat quis urna, laoreet eu imperdiet ac massa nullam. Ultrices mi pharetra quis eu sodales, amet in integer, lobortis lectus suscipit turpis quam placerat sagittis, maecenas pede at porttitor platea a. At duis ad eos neque, fringilla ut nunc, ligula facilisis donec. Velit quam magna augue non lacus, erat cras. Congue dolor libero arcu, natoque in amet commodo iaculis blandit, sed rutrum. Ullamcorper duis pretium in, dictumst ipsum donec. Mollis tellus est, morbi fermentum mauris elit velit pharetra duis, et lorem ullamcorper pellentesque. Eleifend dis, donec id erat cum eros elit. Elit in libero sed nec suspendisse eros, ac purus consequat, ullamco magna est vitae, auctor in odio et, vel donec consectetuer sed cras a vitae. Tortor nulla nullam mattis. Auctor nibh. Vel dui justo et, a elit sapien diam et, parturient aliquam sociosqu per eget pede et. Vehicula nunc quis volutpat at nec, non vestibulum fusce id quam, orci molestie condimentum. Faucibus varius convallis consequat at sed tempor, dignissim consectetuer, eu sit rhoncus et mi nullam, elementum quia, pede dignissim consectetuer dapibus. Eros et tristique, vestibulum lacus. Felis amet. Sagittis ornare in nisl libero mauris, ac ultrices dui felis curae sit at, pellentesque id, consectetuer at pretium, dui in eu. Nibh amet placerat malesuada, placerat tempus felis tellus suscipit, pede sed dolor ullamcorper tincidunt sit nascetur, quis tortor. Mi ante nobis quam lacinia eleifend, integer nulla aliquam blandit nunc. Vehicula curabitur cubilia. Nulla ut convallis nunc, metus aliquam sed dolor velit ac. Penatibus id in vitae, nec ante at aliquam mollis, fermentum turpis vivamus, dignissim et sit sapien pellentesque cras. Pellentesque curabitur wisi ante, placerat nulla. Duis ac proin id sem varius sem, vestibulum non sagittis, urna habitasse risus. Quam aliquam morbi nulla leo, integer alias, egestas sociis aliquet amet eu wisi, ridiculus molestie magna tincidunt nunc eros, nam eu interdum nulla nesciunt quam diam. Vitae curabitur aenean est sapien vitae sodales, wisi justo at, nunc voluptate vestibulum, lectus cras libero quam fusce, ac tellus nibh erat in primis neque. Ac donec torquent, amet amet ac pede, vel at mauris non donec et. Condimentum quia ut ante, sunt accumsan magnis ut luctus urna duis. Etiam amet in porttitor augue, eros varius luctus quis, quam sollicitudin libero blandit, odio nec ultricies diam. Eu a massa nec lorem, suspendisse lectus nunc, est litora, ultricies sagittis integer ligula dolor nec ac, dui adipiscing sit eleifend mi duis nunc. Mus morbi non, dui turpis. Vivamus ac, in proin dolor, magna magna, mus justo ipsum ante erat. Vestibulum urna a, nibh sociis sodales rhoncus urna amet cursus. Amet molestie id, ante sed vestibulum, eleifend vulputate. Maecenas etiam vestibulum, in amet neque. Felis tortor sollicitudin sodales, non eros per et suscipit, consequat tempor donec nunc nulla elit, duis vel turpis pellentesque diam turpis, dicta sem dis repudiandae morbi ac lorem. Ut pellentesque felis sed convallis sem, wisi suspendisse est mauris adipiscing, habitant sit feugiat dolorem, praesent libero maecenas dolor, metus pretium eget curabitur integer id morbi. Quam blandit diam cursus tristique, interdum tempus nulla arcu ut non, ligula mauris, interdum ac interdum. Tellus dolor convallis fermentum, ac pede ipsum volutpat, donec amet. Optio tellus vivamus, justo rutrum quam diam.</string>
+    <string name="welcome">Welkom bij Me</string>
+    <string name="set_up_your_identity">Stel uw identiteit in</string>
+    <string name="login">Anmelden</string>
+    <string name="scan_deze_qr_code_met_een_ander_apparaat_waar_u_al_op_aangemeld_bent">Scan deze QR-Code met een ander apparaat waar u al op aangemeld bent</string>
+    <string name="login_via_de_qr_code">login via de qr code</string>
+    <string name="inloggen_met_pincode">Inloggen met pincode</string>
+    <string name="inloggen_via_email">Inloggen via email</string>
+    <string name="valuta">Valuta</string>
+    <string name="vouchers">Vouchers</string>
+    <string name="voucher">Voucher</string>
+    <string name="bezit">Bezit</string>
+    <string name="qr">Qr</string>
+    <string name="records">Eigenschappen</string>
+    <string name="transactieoverzicht">Transactieoverzicht</string>
+    <string name="restore_by_email">Restore by email</string>
+    <string name="account_restore_description">Please enter your e-mail address in order to receive your login details.</string>
 
 
-  <!--Lock Check strings -->
-  <string name="lock_exit">Exit</string>
-  <string name="lock_settings">Settings</string>
-  <string name="lock_title">Lock Screen</string>
-  <string name="lock_body">
+    <!--Lock Check strings -->
+    <string name="lock_exit">Exit</string>
+    <string name="lock_settings">Settings</string>
+    <string name="lock_title">Lock Screen</string>
+    <string name="lock_body">
         Secure lock screen hasn\'t set up. To continue working with this app,
         please got to Settings and set a lock screen method.
     </string>
 
 
     <dimen name="pin_default_text_size">34sp</dimen>
-  <dimen name="pin_default_button_size">60dp</dimen>
-  <dimen name="pin_default_delete_button_size">24dp</dimen>
-  <dimen name="pin_default_horizontal_spacing">32dp</dimen>
-  <dimen name="pin_default_vertical_spacing">0dp</dimen>
+    <dimen name="pin_default_button_size">60dp</dimen>
+    <dimen name="pin_default_delete_button_size">24dp</dimen>
+    <dimen name="pin_default_horizontal_spacing">32dp</dimen>
+    <dimen name="pin_default_vertical_spacing">0dp</dimen>
 
-  <dimen name="pin_default_dot_diameter">8dp</dimen>
-  <dimen name="pin_default_dot_spacing">8dp</dimen>
+    <dimen name="pin_default_dot_diameter">8dp</dimen>
+    <dimen name="pin_default_dot_spacing">8dp</dimen>
 
-  <!-- New record screen -->
-  <string name="title_new_record">New Record</string>
-  <string name="title_choose_category">Choose Category</string>
-  <string name="title_choose_type">Choose Type</string>
-  <string name="title_choose_text">Text</string>
+    <!-- New record screen -->
+    <string name="title_new_record">New Record</string>
+    <string name="title_choose_category">Choose Category</string>
+    <string name="title_choose_type">Choose Type</string>
+    <string name="title_choose_text">Text</string>
 
-  <string name="choose_the_category_text">Select the category under which the new record type should be added.</string>
-  <string name="choose_the_type_text">Select the category under which the new record type should be added.</string>
-  <string name="choose_the_value_text">Select the category under which the new record type should be added.</string>
-  <string name="venue_text">Venue</string>
+    <string name="choose_the_category_text">Select the category under which the new record type should be added.</string>
+    <string name="choose_the_type_text">Select the category under which the new record type should be added.</string>
+    <string name="choose_the_value_text">Select the category under which the new record type should be added.</string>
+    <string name="venue_text">Venue</string>
 
-  <string name="next_step">NEXT STEP</string>
-  <string name="submit">SUBMIT</string>
+    <string name="next_step">NEXT STEP</string>
+    <string name="submit">SUBMIT</string>
     <string name="add_record">Add record</string>
+
+    <string name="title_record_detail">Record detail</string>
+    <string name="record_detail_scan_qr">Scan deze QR-Code met een ander apparaat waar u al op aangemeld bent</string>
 
 </resources>

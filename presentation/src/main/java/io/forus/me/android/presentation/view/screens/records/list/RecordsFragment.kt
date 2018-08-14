@@ -9,35 +9,28 @@ import com.ocrv.ekasui.mrm.ui.loadRefresh.LRFragment
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LoadRefreshPanel
 import io.forus.me.android.presentation.R
-import io.forus.me.android.presentation.interfaces.FragmentListener
-import io.forus.me.android.presentation.interfaces.ToolbarListener
 import io.forus.me.android.presentation.internal.Injection
-import io.forus.me.android.presentation.view.fragment.BaseFragment
 import io.reactivex.Observable
-import kotlinx.android.synthetic.main.fragment_recycler.*
+import kotlinx.android.synthetic.main.fragment_records_recycler.*
 
 /**
  * Fragment Records Delegates Screen.
  */
-class RecordsFragment : LRFragment<RecordsModel, RecordsView, RecordsPresenter>(), RecordsView, FragmentListener, ToolbarListener {
+class RecordsFragment : LRFragment<RecordsModel, RecordsView, RecordsPresenter>(), RecordsView{
 
     companion object {
-        fun newIntent(): RecordsFragment {
-            return RecordsFragment()
+        private val CATEGORY_ID_EXTRA = "CATEGORY_ID_EXTRA";
+
+        fun newIntent(recordCategoryId: Long): RecordsFragment = RecordsFragment().also {
+            val bundle = Bundle()
+            bundle.putSerializable(CATEGORY_ID_EXTRA, recordCategoryId)
+            it.arguments = bundle
         }
     }
 
-    override val subviewFragment: BaseFragment?
-        get() = null
-    override val pageTitle: String
-        get() = getString(R.string.records)
-
-    override val menu: Int?
-        get() = null
+    private var recordCategoryId: Long = 0
 
     private lateinit var adapter: RecordsAdapter
-
-    override fun getTitle(): String = getString(R.string.valuta)
 
     override fun viewForSnackbar(): View = root
 
@@ -51,23 +44,29 @@ class RecordsFragment : LRFragment<RecordsModel, RecordsView, RecordsPresenter>(
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
-            = inflater.inflate(R.layout.fragment_recycler, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        val view = inflater.inflate(R.layout.fragment_records_recycler, container, false)
+        val bundle = this.arguments
+        if (bundle != null) {
+            recordCategoryId = bundle.getLong(CATEGORY_ID_EXTRA)
+        }
+        return view
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         adapter = RecordsAdapter()
         adapter.clickListener = { item ->
-            //navigator.navigateToRecord(activity, item.id)
+            navigator.navigateToRecordDetails(activity, item)
         }
         recycler.layoutManager = LinearLayoutManager(context)
         recycler.adapter = adapter
-
     }
 
 
     override fun createPresenter() = RecordsPresenter(
+            recordCategoryId,
             Injection.instance.recordsRepository
     )
 
@@ -75,14 +74,9 @@ class RecordsFragment : LRFragment<RecordsModel, RecordsView, RecordsPresenter>(
     override fun render(vs: LRViewState<RecordsModel>) {
         super.render(vs)
 
+        progressBar.visibility = if (vs.loading) View.VISIBLE else View.INVISIBLE
 
         adapter.records = vs.model.items
-
-
-
-
     }
-
-
 }
 

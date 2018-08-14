@@ -3,9 +3,7 @@ package io.forus.me.android.data.repository.records.datasource.remote
 import com.gigawatt.android.data.net.sign.RecordsService
 import io.forus.me.android.data.entity.common.Success
 import io.forus.me.android.data.entity.records.request.*
-import io.forus.me.android.data.entity.records.response.Record
-import io.forus.me.android.data.entity.records.response.RecordCategory
-import io.forus.me.android.data.entity.records.response.RecordType
+import io.forus.me.android.data.entity.records.response.*
 import io.forus.me.android.data.repository.records.datasource.RecordsDataSource
 import io.reactivex.Observable
 
@@ -26,7 +24,7 @@ class RecordsRemoteDataSource(private val recordsService: RecordsService): Recor
 
     override fun sortRecordCategories(sortCategories: SortCategories) : Observable<Success> = recordsService.sortCategories(sortCategories)
 
-    override fun getRecords(type: RecordType): Observable<List<Record>> = recordsService.listAllRecords(type.key)
+    override fun getRecords(type: String): Observable<List<Record>> = recordsService.listAllRecords(type)
 
     override fun createRecord(createRecord: CreateRecord): Observable<Success> = recordsService.createRecord(createRecord.key, createRecord)
 
@@ -37,4 +35,12 @@ class RecordsRemoteDataSource(private val recordsService: RecordsService): Recor
     override fun deleteRecord(id: Long) : Observable<Success> = recordsService.deleteRecord(id)
 
     override fun sortRecords(sortRecords: SortRecords) : Observable<Success> = recordsService.sortRecords(sortRecords)
+
+    override fun createValidationToken(recordId: Long): Observable<ValidationToken> = recordsService.createValidationToken(recordId)
+
+    override fun readValidation(uuid: String): Observable<Validation> = recordsService.readValidation(uuid)
+
+    override fun approveValidation(uuid: String): Observable<Success> = recordsService.approveValidation(uuid)
+
+    override fun declineValidation(uuid: String): Observable<Success> = recordsService.declineValidation(uuid)
 }

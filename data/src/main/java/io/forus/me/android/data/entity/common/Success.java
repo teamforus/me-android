@@ -7,6 +7,12 @@ public class Success {
     @SerializedName("success")
     private Boolean success;
 
+    public Success() { }
+
+    public Success(Boolean success) {
+        this.success = success;
+    }
+
     public Boolean getSuccess() {
         return success;
     }

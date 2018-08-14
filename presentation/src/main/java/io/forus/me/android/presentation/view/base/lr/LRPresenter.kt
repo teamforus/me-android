@@ -5,6 +5,7 @@ import android.util.Log
 import com.hannesdorfmann.mosby3.mvi.MviBasePresenter
 import io.reactivex.Observable
 import io.reactivex.Single
+import io.reactivex.schedulers.Schedulers
 
 abstract class LRPresenter<I, M, V : LRView<M>> : MviBasePresenter<V, LRViewState<M>>() {
 
@@ -26,6 +27,7 @@ abstract class LRPresenter<I, M, V : LRView<M>> : MviBasePresenter<V, LRViewStat
                     .switchMap {
                         initialModelSingle()
                                 .toObservable()
+                                .subscribeOn(Schedulers.io())
                                 .map<LRPartialChange> { LRPartialChange.InitialModelLoaded(it) }
                                 .onErrorReturn {
                                     it.printStackTrace()
@@ -37,6 +39,7 @@ abstract class LRPresenter<I, M, V : LRView<M>> : MviBasePresenter<V, LRViewStat
                     .switchMap {
                         initialModelSingle()
                                 .toObservable()
+                                .subscribeOn(Schedulers.io())
                                 .map<LRPartialChange> { LRPartialChange.InitialModelLoaded(it) }
                                 .onErrorReturn { LRPartialChange.RefreshError(it) }
                                 .startWith(LRPartialChange.RefreshStarted)
@@ -45,6 +48,7 @@ abstract class LRPresenter<I, M, V : LRView<M>> : MviBasePresenter<V, LRViewStat
                     .switchMap {
                         initialModelSingle()
                                 .toObservable()
+                                .subscribeOn(Schedulers.io())
                                 .map<LRPartialChange> { LRPartialChange.InitialModelLoaded(it) }
                                 .onErrorReturn { LRPartialChange.RefreshError(it) }
                                 .startWith(LRPartialChange.RefreshStarted)

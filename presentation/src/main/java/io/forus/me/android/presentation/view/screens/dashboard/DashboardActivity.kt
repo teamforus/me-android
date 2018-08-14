@@ -10,7 +10,6 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.interfaces.ToolbarListener
-
 import io.forus.me.android.presentation.view.activity.ToolbarActivity
 import io.forus.me.android.presentation.view.adapters.MainViewPagerAdapter
 import io.forus.me.android.presentation.view.fragment.BaseFragment
@@ -25,7 +24,6 @@ class DashboardActivity : ToolbarActivity() {
     private var currentPagerPosition = 0
     private var menu: Menu? = null
     private var navigationAdapter: AHBottomNavigationAdapter? = null
-
 
     companion object {
         fun getCallingIntent(context: Context): Intent {
@@ -203,8 +201,4 @@ class DashboardActivity : ToolbarActivity() {
         }
 
     }
-
-
-
-
 }

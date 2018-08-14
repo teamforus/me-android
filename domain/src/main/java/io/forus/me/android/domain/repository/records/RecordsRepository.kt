@@ -11,17 +11,20 @@ interface RecordsRepository {
     fun getCategories(): Observable<List<RecordCategory>>
 
 
-    fun newCategory(model: NewRecordCategoryRequest): Observable<Boolean>
+    fun newCategory(newRecordCategoryRequest: NewRecordCategoryRequest): Observable<Boolean>
 
 
-    fun getCategory(id: Long): Observable<RecordCategory>
+    fun getCategory(categoryId: Long): Observable<RecordCategory>
 
 
-    fun getRecords(): Observable<List<Record>>
+    fun getRecords(recordCategoryId: Long): Observable<List<Record>>
 
 
     fun newRecord(model: NewRecordRequest) : Observable<NewRecordRequest>
 
 
-    fun getRecord(id: Long): Observable<Record>
+    fun getRecord(recordId: Long): Observable<Record>
+
+
+    fun getRecordUuid(recordId: Long): Observable<String>
 }
