@@ -4,17 +4,14 @@ package io.forus.me.android.presentation.view.screens.vouchers.item
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import io.forus.me.android.presentation.R
-import io.forus.me.android.presentation.interfaces.SlidingToolbarFragmentActionListener
 
-import io.forus.me.android.presentation.view.activity.ToolbarActivity
-import kotlinx.android.synthetic.main.activity_toolbar_sliding_panel.*
+import io.forus.me.android.presentation.view.activity.CommonActivity
 
 /**
  * Main application screen. This is the app entry point.
  */
-class VoucherActivity : ToolbarActivity() {
+class VoucherActivity : CommonActivity() {
 
 
     companion object {
@@ -28,14 +25,11 @@ class VoucherActivity : ToolbarActivity() {
         }
     }
 
-    override val toolbarType: ToolbarType
-        get() = ToolbarType.Small
 
     override val viewID: Int
         get() = R.layout.activity_toolbar
 
-    override val toolbarTitle: String
-        get() = getString(R.string.voucher)
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

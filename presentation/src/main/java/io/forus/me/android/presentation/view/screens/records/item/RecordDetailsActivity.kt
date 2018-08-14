@@ -5,9 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import io.forus.me.android.domain.models.records.Record
 import io.forus.me.android.presentation.R
-import io.forus.me.android.presentation.view.activity.ToolbarActivity
+import io.forus.me.android.presentation.view.activity.CommonActivity
 
-class RecordDetailsActivity : ToolbarActivity() {
+class RecordDetailsActivity : CommonActivity() {
 
 
     companion object {
@@ -24,14 +24,11 @@ class RecordDetailsActivity : ToolbarActivity() {
 
     lateinit var fragment : RecordDetailsFragment
 
-    override val toolbarType: ToolbarType
-        get() = ToolbarType.Small
 
     override val viewID: Int
         get() = R.layout.activity_toolbar
 
-    override val toolbarTitle: String
-        get() = getString(R.string.title_record_detail)
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

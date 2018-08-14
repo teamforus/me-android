@@ -3,14 +3,13 @@ package io.forus.me.android.presentation.view.screens.dashboard
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.ActionBarDrawerToggle
 import android.view.Menu
 import android.view.MenuItem
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.interfaces.ToolbarListener
-import io.forus.me.android.presentation.view.activity.ToolbarActivity
+import io.forus.me.android.presentation.view.activity.CommonActivity
 import io.forus.me.android.presentation.view.adapters.MainViewPagerAdapter
 import io.forus.me.android.presentation.view.fragment.BaseFragment
 import io.forus.me.android.presentation.view.screens.property.PropertyFragment
@@ -18,7 +17,7 @@ import io.forus.me.android.presentation.view.screens.records.categories.RecordCa
 import kotlinx.android.synthetic.main.dashboard_activity.*
 
 
-class DashboardActivity : ToolbarActivity() {
+class DashboardActivity : CommonActivity() {
 
     private var currentFragment: android.support.v4.app.Fragment? = null
     private var currentPagerPosition = 0
@@ -85,10 +84,6 @@ class DashboardActivity : ToolbarActivity() {
 
 
 
-        val toggle = ActionBarDrawerToggle(this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
-        drawer_layout.setDrawerListener(toggle)
-        toggle.isDrawerIndicatorEnabled = true
-        toggle.syncState()
 
 
         (android.os.Handler()).postDelayed({
@@ -107,8 +102,8 @@ class DashboardActivity : ToolbarActivity() {
 
     }
 
-    override val toolbarTitle: String
-        get() = getString(R.string.blank_string)
+//    override val toolbarTitle: String
+//        get() = getString(R.string.blank_string)
 
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -186,7 +181,6 @@ class DashboardActivity : ToolbarActivity() {
         } else {
             menuInflater.inflate(R.menu.empty, this.menu)
         }
-        setToolbarTitle(title)
         if (fragment != null) {
 
             val fragmentManager = supportFragmentManager

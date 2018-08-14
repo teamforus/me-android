@@ -15,6 +15,7 @@ import io.forus.me.android.presentation.R.layout.account_assign_delegates_fragme
 import io.forus.me.android.presentation.interfaces.SlidingToolbarFragmentActionListener
 import io.forus.me.android.presentation.interfaces.SlidingToolbarFragmentListener
 import io.forus.me.android.presentation.internal.Injection
+import io.forus.me.android.presentation.view.base.ToolbarLRFragment
 import io.forus.me.android.presentation.view.fragment.BaseFragment
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.account_assign_delegates_fragment.*
@@ -22,7 +23,7 @@ import kotlinx.android.synthetic.main.account_assign_delegates_fragment.*
 /**
  * Fragment Assign Delegates Screen.
  */
-class AssignDelegatesAccountFragment : LRFragment<AssignDelegatesModel, AssignDelegatesView, AssignDeligatesPresenter>(), AssignDelegatesView, SlidingToolbarFragmentListener  {
+class AssignDelegatesAccountFragment : ToolbarLRFragment<AssignDelegatesModel, AssignDelegatesView, AssignDeligatesPresenter>(), AssignDelegatesView, SlidingToolbarFragmentListener  {
 
 
     override fun viewForSnackbar(): View = root
@@ -30,6 +31,8 @@ class AssignDelegatesAccountFragment : LRFragment<AssignDelegatesModel, AssignDe
     private  var qrFragment: QrFragment =  QrFragment.newIntent()
     var slidingToolbarFragmentActionListener : SlidingToolbarFragmentActionListener? = null
 
+    override val toolbarTitle: String
+        get() = getString(R.string.login)
 
     override fun loadRefreshPanel() = object : LoadRefreshPanel {
         override fun retryClicks(): Observable<Any> = Observable.never()
