@@ -71,7 +71,7 @@ public class PinLockAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             }
 
             if (mCustomizationOptionsBundle != null) {
-                // holder.mNumberButton.setTextColor(mCustomizationOptionsBundle.getTextColor());
+                holder.mNumberButton.setTextColor(mCustomizationOptionsBundle.getTextColor());
                 if (mCustomizationOptionsBundle.getButtonBackgroundDrawable() != null) {
                     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
                         holder.mNumberButton.setBackgroundDrawable(

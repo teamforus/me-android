@@ -17,7 +17,7 @@ public class AccountRemoteDataSource(private val signService: SignService): Acco
         return signService.signup(signUp)
     }
 
-    override fun saveToken(token: String) {
+    override fun saveIdentity(token: String, pin: String) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

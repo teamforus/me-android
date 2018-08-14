@@ -22,7 +22,7 @@ interface AccountDataSource {
 
     fun getAuthCode() : Observable<IdentityPinResult>
 
-    fun saveToken(token: String)
+    fun saveIdentity(token: String, pin: String)
 
     fun isLogin() : Boolean
 

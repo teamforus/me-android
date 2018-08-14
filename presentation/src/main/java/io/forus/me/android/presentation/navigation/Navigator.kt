@@ -6,6 +6,7 @@ import io.forus.me.android.domain.models.records.RecordCategory
 import io.forus.me.android.presentation.view.screens.account.assigndelegates.AssignDelegatesAccountActivity
 import io.forus.me.android.presentation.view.screens.account.newaccount.NewAccountActivity
 import io.forus.me.android.presentation.view.screens.account.pin.RestoreByPinActivity
+import io.forus.me.android.presentation.view.screens.account.pin.create.NewPinActivity
 import io.forus.me.android.presentation.view.screens.account.restoreByEmail.RestoreByEmailActivity
 import io.forus.me.android.presentation.view.screens.dashboard.DashboardActivity
 import io.forus.me.android.presentation.view.screens.qr.QrScannerActivity
@@ -60,6 +61,13 @@ constructor()//empty
     fun navigateToAccountNew(context: Context?) {
         if (context != null) {
             val intentToLaunch = NewAccountActivity.getCallingIntent(context)
+            context.startActivity(intentToLaunch)
+        }
+    }
+
+    fun navigateToPinNew(context: Context?, accessToken: String){
+        if (context != null) {
+            val intentToLaunch = NewPinActivity.getCallingIntent(context, accessToken)
             context.startActivity(intentToLaunch)
         }
     }

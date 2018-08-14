@@ -4,12 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.jakewharton.rxbinding2.widget.RxTextView
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LRFragment
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LoadRefreshPanel
 import io.forus.me.android.domain.models.account.NewAccountRequest
-
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.internal.Injection
 import io.reactivex.Observable
@@ -66,7 +64,6 @@ class NewAccountFragment : LRFragment<NewAccountModel, NewAccountView, NewAccoun
     }
 
 
-
     override fun createPresenter() = NewAccountPresenter(
             Injection.instance.accountRepository
     )
@@ -75,19 +72,18 @@ class NewAccountFragment : LRFragment<NewAccountModel, NewAccountView, NewAccoun
     override fun render(vs: LRViewState<NewAccountModel>) {
         super.render(vs)
 
-        if (vs.closeScreen) {
-            closeScreen()
+        progressBar.visibility = if (vs.loading || vs.model.sendingRegistration) View.VISIBLE else View.INVISIBLE
+
+        if(vs.model.sendingRegistrationError != null) showToastMessage("Account already in use")
+
+        if (vs.closeScreen && vs.model.accessToken != null) {
+            closeScreen(vs.model.accessToken)
         }
-
-
-
     }
 
-    fun closeScreen() {
-        navigator.navigateToDashboard(activity)
+    fun closeScreen(accessToken: String) {
+        navigator.navigateToPinNew(activity, accessToken)
         activity?.finish()
     }
-
-
 }
 

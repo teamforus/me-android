@@ -38,6 +38,9 @@
             android:name=".view.screens.account.newaccount.NewAccountActivity"
             android:label="@string/blank_string"></activity>
         <activity
+            android:name=".view.screens.account.pin.create.NewPinActivity"
+            android:label="@string/blank_string"></activity>
+        <activity
             android:name=".view.screens.dashboard.DashboardActivity"
             android:label="@string/blank_string"></activity>
         <activity
