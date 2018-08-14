@@ -1,21 +1,17 @@
 package io.forus.me.android.presentation.view.screens.account.assigndelegates
 
-import android.app.Fragment
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRFragment
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LoadRefreshPanel
 
-import io.forus.me.android.domain.repository.account.AccountRepository
 import io.forus.me.android.presentation.R
-import io.forus.me.android.presentation.R.layout.account_assign_delegates_fragment
 import io.forus.me.android.presentation.interfaces.SlidingToolbarFragmentActionListener
 import io.forus.me.android.presentation.interfaces.SlidingToolbarFragmentListener
 import io.forus.me.android.presentation.internal.Injection
-import io.forus.me.android.presentation.view.base.ToolbarLRFragment
+import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.forus.me.android.presentation.view.fragment.BaseFragment
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.account_assign_delegates_fragment.*

@@ -10,13 +10,14 @@ import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LoadRefreshPanel
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.internal.Injection
+import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.fragment_records_recycler.*
 
 /**
  * Fragment Records Delegates Screen.
  */
-class RecordsFragment : LRFragment<RecordsModel, RecordsView, RecordsPresenter>(), RecordsView{
+class RecordsFragment : ToolbarLRFragment<RecordsModel, RecordsView, RecordsPresenter>(), RecordsView{
 
     companion object {
         private val CATEGORY_ID_EXTRA = "CATEGORY_ID_EXTRA";
@@ -27,6 +28,12 @@ class RecordsFragment : LRFragment<RecordsModel, RecordsView, RecordsPresenter>(
             it.arguments = bundle
         }
     }
+
+    override val allowBack: Boolean
+        get() = true
+
+    override val toolbarTitle: String
+        get() = getString(R.string.records)
 
     private var recordCategoryId: Long = 0
 

@@ -38,8 +38,8 @@ class MainActivity : BaseActivity() {
 //            } else {
 //                navigateToDashboard()
 //            }
-            navigateToWelcomeScreen()
-            //navigateToDashboard()
+           // navigateToWelcomeScreen()
+            navigateToDashboard()
             //navigateToDashboard()
         } else {
             navigateToWelcomeScreen()

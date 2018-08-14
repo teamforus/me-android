@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import io.forus.me.android.presentation.R
-import io.forus.me.android.presentation.interfaces.ToolbarListener
 import io.forus.me.android.presentation.view.adapters.MainViewPagerAdapter
 import io.forus.me.android.presentation.view.fragment.BaseFragment
 import io.forus.me.android.presentation.view.fragment.TabLayoutFragment
@@ -21,9 +20,9 @@ import io.forus.me.android.presentation.view.screens.wallets.WalletsFragment
 /**
  * Fragment Welcome Screen.
  */
-class PropertyFragment : BaseFragment(), ToolbarListener {
+class PropertyFragment : BaseFragment() {
 
-    private val randomTitle = Random().nextInt(1000).toString();
+    private val randomTitle = Random().nextInt(1000).toString()
     private var tabLayout: TabLayoutFragment? = null
 
     companion object {
@@ -35,32 +34,20 @@ class PropertyFragment : BaseFragment(), ToolbarListener {
         return R.layout.property_fragment
     }
 
-    override val pageTitle: String
+    override val allowBack: Boolean
+        get() = false
+
+    override val toolbarTitle: String
         get() = getString(R.string.property)
 
-    override val menu: Int?
+
+    val menu: Int?
         get() = null
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return super.onCreateView(inflater, container, savedInstanceState)
-
-
-    }
-
-
-
-
-
-
 
 
     override fun initUI() {
+
+        super.initUI()
 
         tabLayout = TabLayoutFragment.newIntent()
 

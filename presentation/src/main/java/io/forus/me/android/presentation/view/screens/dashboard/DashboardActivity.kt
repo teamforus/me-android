@@ -8,7 +8,6 @@ import android.view.MenuItem
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter
 import io.forus.me.android.presentation.R
-import io.forus.me.android.presentation.interfaces.ToolbarListener
 import io.forus.me.android.presentation.view.activity.CommonActivity
 import io.forus.me.android.presentation.view.adapters.MainViewPagerAdapter
 import io.forus.me.android.presentation.view.fragment.BaseFragment
@@ -102,9 +101,6 @@ class DashboardActivity : CommonActivity() {
 
     }
 
-//    override val toolbarTitle: String
-//        get() = getString(R.string.blank_string)
-
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         this.menu = menu
@@ -144,55 +140,8 @@ class DashboardActivity : CommonActivity() {
         view_pager.setCurrentItem(position, false)
         currentFragment = adapter?.currentFragment
 
-        if (currentFragment != null ) {
-            val castFragment = currentFragment!!
-            when (castFragment){
-                is ToolbarListener -> initSubView(castFragment.subviewFragment, castFragment.pageTitle, castFragment.menu)
-
-            }
-        }
-
-//        if (currentFragment != null)
-//            currentFragment.willBeDisplayed()
-
-       // sliding_tabs.setVisibility(if (currentFragment.hideTabLayout()) View.GONE else View.VISIBLE)
-
-//        if (!currentFragment.initNewToolbar()) {
-//            currentFragment.setToolbarTitle(toolbar)
-//            // toolbar.setTitle("Ass");
-//            supportActionBar.setTitle(toolbar.title)
-//        }
-//
-//        if (currentFragment is TabLayoutHelper.TabLayoutListener) {
-//            (currentFragment as TabLayoutHelper.TabLayoutListener).setTabLayout(tabs)
-//            (currentFragment as TabLayoutHelper.TabLayoutListener).initViewPager()
-//        } else {
-//            tabs.setVisibility(View.GONE)
-//        }
-
 
         return true
     }
 
-    private fun initSubView(fragment: BaseFragment?, title: String, menu: Int?) {
-        this.menu?.clear()
-        if (menu != null) {
-            menuInflater.inflate(menu!!, this.menu);
-        } else {
-            menuInflater.inflate(R.menu.empty, this.menu)
-        }
-        if (fragment != null) {
-
-            val fragmentManager = supportFragmentManager
-            fragmentManager.beginTransaction()
-                    .replace(R.id.subview, fragment)
-                    .commit()
-        } else {
-            val fragmentManager = supportFragmentManager
-            fragmentManager.beginTransaction()
-                    .remove(fragmentManager.findFragmentById(R.id.subview))
-                    .commit()
-        }
-
-    }
 }

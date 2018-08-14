@@ -1,4 +1,4 @@
-package io.forus.me.android.presentation.view.base
+package io.forus.me.android.presentation.view.fragment
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -13,7 +13,6 @@ import com.ocrv.ekasui.mrm.ui.loadRefresh.LRView
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LoadRefreshPanel
 import io.forus.me.android.presentation.helpers.Converter
-import io.forus.me.android.presentation.interfaces.ToolbarListener
 import io.reactivex.Observable
 
 abstract class ToolbarLRFragment<M, V : LRView<M>, P : MviBasePresenter<V, LRViewState<M>>> : LRFragment<M,V,P>() {
@@ -21,6 +20,11 @@ abstract class ToolbarLRFragment<M, V : LRView<M>, P : MviBasePresenter<V, LRVie
 
     protected val toolbar: Toolbar
         get() = toolbar_view
+
+
+    protected open val allowBack: Boolean
+        get() = false
+
 
     protected open val toolbarTitle: String
         get() = ""
@@ -68,8 +72,10 @@ abstract class ToolbarLRFragment<M, V : LRView<M>, P : MviBasePresenter<V, LRVie
 //                final Drawable upArrow = getResources().getDrawable(R.drawable.);
 //                upArrow.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP);
 
-        _activity.supportActionBar?.setHomeButtonEnabled(true)
-        _activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        if (allowBack) {
+            _activity.supportActionBar?.setHomeButtonEnabled(true)
+            _activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        }
     }
 
     override fun viewForSnackbar(): View {
