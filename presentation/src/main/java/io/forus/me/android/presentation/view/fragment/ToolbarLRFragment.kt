@@ -64,6 +64,8 @@ abstract class ToolbarLRFragment<M, V : LRView<M>, P : MviBasePresenter<V, LRVie
 
         }
 
+
+
     }
 
     private fun setActionBarActivity( _activity: AppCompatActivity){

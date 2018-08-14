@@ -109,7 +109,7 @@ abstract class BaseFragment : Fragment(), FragmentListener {
 
         }
 
-        initSubView();
+        initSubView()
     }
 
 

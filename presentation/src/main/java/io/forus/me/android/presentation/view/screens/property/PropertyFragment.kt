@@ -46,9 +46,6 @@ class PropertyFragment : BaseFragment() {
 
 
     override fun initUI() {
-
-        super.initUI()
-
         tabLayout = TabLayoutFragment.newIntent()
 
         val fragments = ArrayList<Fragment>()
@@ -65,11 +62,16 @@ class PropertyFragment : BaseFragment() {
 
         val adapter = MainViewPagerAdapter(childFragmentManager, activity?.applicationContext, fragments, titles)
         viewpager.adapter = adapter
-        viewpager.offscreenPageLimit = 5;
+        viewpager.offscreenPageLimit = 5
         tabLayout?.setupWithViewPager(viewpager)
+
+
+        super.initUI()
     }
 
     override val subviewFragment: BaseFragment?
-        get() = tabLayout
+        get()  {
+            return tabLayout
+        }
 }
 
