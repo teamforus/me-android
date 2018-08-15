@@ -10,11 +10,12 @@ import com.ocrv.ekasui.mrm.ui.loadRefresh.LoadRefreshPanel
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.component.pinlock.PinLockListener
+import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.account_create_pin_fragment.*
 
-class NewPinFragment : LRFragment<NewPinModel, NewPinView, NewPinPresenter>(), NewPinView {
+class NewPinFragment : ToolbarLRFragment<NewPinModel, NewPinView, NewPinPresenter>(), NewPinView {
 
     companion object {
         private val ACCESS_TOKEN_EXTRA = "ACCESS_TOKEN_EXTRA";
@@ -27,7 +28,6 @@ class NewPinFragment : LRFragment<NewPinModel, NewPinView, NewPinPresenter>(), N
     }
 
     private lateinit var accessToken: String
-
 
     override fun viewForSnackbar(): View = root
 
@@ -100,10 +100,6 @@ class NewPinFragment : LRFragment<NewPinModel, NewPinView, NewPinPresenter>(), N
                 pin_lock_view.resetPinLockView()
                 pin_lock_view.setErrorAnimation()
             }
-            NewPinModel.State.CREATING_IDENTITY -> {
-                pin_lock_view.visibility = View.INVISIBLE
-                indicator_dots.visibility = View.INVISIBLE
-            }
         }
 
         if (vs.closeScreen) {
@@ -112,7 +108,7 @@ class NewPinFragment : LRFragment<NewPinModel, NewPinView, NewPinPresenter>(), N
     }
 
     private fun changeHeaders(title: String, subtitle: String, error: Boolean){
-        (activity as NewPinActivity).changeToolbarTitle(title)
+        setToolbarTitle(title)
         if(!subtitle_action.text.equals(subtitle)) subtitle_action.text = subtitle
         subtitle_action.setTextColor(if(error) resources.getColor(R.color.error) else resources.getColor(R.color.body_1_87))
     }

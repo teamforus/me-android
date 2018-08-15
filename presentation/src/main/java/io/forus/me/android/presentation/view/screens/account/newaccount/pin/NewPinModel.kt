@@ -11,8 +11,11 @@ data class NewPinModel(
         CREATE, CONFIRM, PASS_NOT_MATCH, CREATING_IDENTITY, CREATING_IDENTITY_ERROR,
     }
 
+    fun changeState(newState: State = this.state, passcode: String? = this.passcode): NewPinModel = copy(prevState = state, state = newState, passcode = passcode)
+
     val valid: Boolean
         get() {
             return passcode != null && passcode.length == 4 && access_token != null && access_token.isNotEmpty()
         }
+
 }

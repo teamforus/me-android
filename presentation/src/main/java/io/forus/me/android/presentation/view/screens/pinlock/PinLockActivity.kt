@@ -4,9 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import io.forus.me.android.presentation.R
-import io.forus.me.android.presentation.view.activity.ToolbarActivity
+import io.forus.me.android.presentation.view.activity.CommonActivity
 
-class PinLockActivity : ToolbarActivity() {
+class PinLockActivity : CommonActivity() {
 
 
     companion object {
@@ -21,14 +21,8 @@ class PinLockActivity : ToolbarActivity() {
 
     private lateinit var navigationIntent: Intent
 
-    override val toolbarType: ToolbarType
-        get() = ToolbarType.Small
-
     override val viewID: Int
         get() = R.layout.activity_toolbar
-
-    override val toolbarTitle: String
-        get() = resources.getString(R.string.title_confirm_passcode)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

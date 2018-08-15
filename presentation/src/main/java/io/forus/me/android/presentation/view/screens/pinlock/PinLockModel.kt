@@ -8,4 +8,6 @@ data class PinLockModel(
     enum class State {
         CONFIRM, CHECKING, WRONG_PIN, SUCCESS
     }
+
+    fun changeState(newState: State = this.state): PinLockModel = copy(prevState = state, state = newState)
 }

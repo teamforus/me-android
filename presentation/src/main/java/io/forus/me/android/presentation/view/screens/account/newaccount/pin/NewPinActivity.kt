@@ -4,9 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import io.forus.me.android.presentation.R
-import io.forus.me.android.presentation.view.activity.ToolbarActivity
+import io.forus.me.android.presentation.view.activity.CommonActivity
 
-class NewPinActivity : ToolbarActivity() {
+class NewPinActivity : CommonActivity() {
 
 
     companion object {
@@ -19,14 +19,9 @@ class NewPinActivity : ToolbarActivity() {
         }
     }
 
-    override val toolbarType: ToolbarType
-        get() = ToolbarType.Small
-
     override val viewID: Int
         get() = R.layout.activity_toolbar
 
-    override val toolbarTitle: String
-        get() = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,9 +30,5 @@ class NewPinActivity : ToolbarActivity() {
             val fragment = NewPinFragment.newIntent(intent.getStringExtra(ACCESS_TOKEN_EXTRA))
             addFragment(R.id.fragmentContainer, fragment)
         }
-    }
-
-    fun changeToolbarTitle(title: String){
-        this.setToolbarTitle(title)
     }
 }

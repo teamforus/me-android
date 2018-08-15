@@ -71,28 +71,27 @@ class NewPinPresenter constructor(private val accountRepository: AccountReposito
         return when (change) {
             is NewPinPartialChanges.PinOnComplete -> {
                 when(vs.model.state){
-                    NewPinModel.State.CREATE -> vs.copy(model = vs.model.copy(passcode = change.passcode, prevState = vs.model.state, state = NewPinModel.State.CONFIRM))
+                    NewPinModel.State.CREATE -> vs.copy(model = vs.model.changeState(NewPinModel.State.CONFIRM, change.passcode))
                     NewPinModel.State.CONFIRM -> {
                         if(vs.model.passcode.equals(change.passcode) && vs.model.valid){
                             createIdentity.onNext(Identity(vs.model.access_token!!, vs.model.passcode!!))
-                            vs.copy(model = vs.model.copy(prevState = vs.model.state, state = NewPinModel.State.CREATING_IDENTITY))
+                            vs.copy(model = vs.model.changeState(NewPinModel.State.CREATING_IDENTITY))
                         }
                         else{
-                            vs.copy(model = vs.model.copy(prevState = vs.model.state, state = NewPinModel.State.PASS_NOT_MATCH))
+                            vs.copy(model = vs.model.changeState(NewPinModel.State.PASS_NOT_MATCH))
                         }
                     }
-                    else -> { vs.copy(model = vs.model.copy(prevState = vs.model.state))}
+                    else -> { vs.copy(model = vs.model.changeState())}
                 }
             }
             is NewPinPartialChanges.PinOnChange -> {
                 when(vs.model.state){
-                    NewPinModel.State.PASS_NOT_MATCH -> vs.copy(model = vs.model.copy(passcode = null, prevState = vs.model.state, state = NewPinModel.State.CREATE))
-                    else -> { vs.copy(model = vs.model.copy(prevState = vs.model.state))}
+                    NewPinModel.State.PASS_NOT_MATCH -> vs.copy(model = vs.model.changeState(NewPinModel.State.CREATE, null))
+                    else -> { vs.copy(model = vs.model.changeState())}
                 }
-
             }
 
-            is NewPinPartialChanges.CreateIdentityError -> vs.copy(model = vs.model.copy(prevState = vs.model.state, state = NewPinModel.State.CREATING_IDENTITY_ERROR))
+            is NewPinPartialChanges.CreateIdentityError -> vs.copy(model = vs.model.changeState(NewPinModel.State.CREATING_IDENTITY_ERROR))
             is NewPinPartialChanges.CreateIdentityEnd -> vs.copy(closeScreen = true)
         }
     }

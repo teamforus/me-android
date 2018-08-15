@@ -75,7 +75,7 @@ class PinLockFragment : LRFragment<PinLockModel, PinLockView, PinLockPresenter>(
         indicator_dots.visibility = when (vs.model.state) { PinLockModel.State.CHECKING, PinLockModel.State.SUCCESS -> View.INVISIBLE else  -> View.VISIBLE}
 
         when(vs.model.state){
-            PinLockModel.State.CONFIRM -> changeHeaders("", false)
+            PinLockModel.State.CONFIRM -> changeHeaders(resources.getString(R.string.subtitle_pinlock_confirm), false)
             PinLockModel.State.CHECKING -> changeHeaders(resources.getString(R.string.subtitle_pinlock_checking), false)
             PinLockModel.State.WRONG_PIN -> changeHeaders(resources.getString(R.string.subtitle_pinlock_error), true)
         }

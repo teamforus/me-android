@@ -86,20 +86,20 @@ class PinLockPresenter constructor(private val accountRepository: AccountReposit
                 when(vs.model.state){
                     PinLockModel.State.CONFIRM -> {
                         checkPin.onNext(change.passcode)
-                        vs.copy(model = vs.model.copy(prevState = vs.model.state, state = PinLockModel.State.CHECKING))
+                        vs.copy(model = vs.model.changeState(PinLockModel.State.CHECKING))
                     }
-                    else -> { vs.copy(model = vs.model.copy(prevState = vs.model.state))}
+                    else -> { vs.copy(model = vs.model.changeState(vs.model.state))}
                 }
             }
             is PinLockPartialChanges.PinOnChange -> {
                 when(vs.model.state){
-                    PinLockModel.State.WRONG_PIN -> vs.copy(model = vs.model.copy(prevState = vs.model.state, state = PinLockModel.State.CONFIRM))
-                    else -> { vs.copy(model = vs.model.copy(prevState = vs.model.state))}
+                    PinLockModel.State.WRONG_PIN -> vs.copy(model = vs.model.changeState(PinLockModel.State.CONFIRM))
+                    else -> { vs.copy(model = vs.model.changeState())}
                 }
             }
 
-            is PinLockPartialChanges.CheckPinError -> vs.copy(model = vs.model.copy(prevState = vs.model.state, state = PinLockModel.State.WRONG_PIN))
-            is PinLockPartialChanges.CheckPinSuccess -> vs.copy(closeScreen = true, model = vs.model.copy(prevState = vs.model.state, state = PinLockModel.State.SUCCESS))
+            is PinLockPartialChanges.CheckPinError -> vs.copy(model = vs.model.changeState(PinLockModel.State.WRONG_PIN))
+            is PinLockPartialChanges.CheckPinSuccess -> vs.copy(closeScreen = true, model = vs.model.changeState(PinLockModel.State.SUCCESS))
             is PinLockPartialChanges.Exit -> vs.copy(closeScreen = true)
         }
     }

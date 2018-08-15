@@ -92,7 +92,7 @@
     <string name="subtitle_create_identity">Creating identity</string>
     <string name="subtitle_create_identity_error">Something went wrong :(</string>
 
-    <string name="title_pinlock_confirm">Confirm your identity</string>
+    <string name="subtitle_pinlock_confirm">Confirm your identity</string>
     <string name="subtitle_pinlock_checking">Checking</string>
     <string name="subtitle_pinlock_error">Wrong passcode</string>
 
