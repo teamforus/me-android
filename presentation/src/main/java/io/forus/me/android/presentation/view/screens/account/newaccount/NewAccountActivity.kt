@@ -28,6 +28,4 @@ class NewAccountActivity : BaseActivity() {
             addFragment(R.id.fragmentContainer, NewAccountFragment())
         }
     }
-
-
 }

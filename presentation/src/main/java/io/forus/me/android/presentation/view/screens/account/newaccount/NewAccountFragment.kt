@@ -10,6 +10,7 @@ import com.ocrv.ekasui.mrm.ui.loadRefresh.LoadRefreshPanel
 import io.forus.me.android.domain.models.account.NewAccountRequest
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.internal.Injection
+import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.account_new_fragment.*
@@ -17,7 +18,7 @@ import kotlinx.android.synthetic.main.account_new_fragment.*
 /**
  * Fragment New User Account Screen.
  */
-class NewAccountFragment : LRFragment<NewAccountModel, NewAccountView, NewAccountPresenter>(), NewAccountView  {
+class NewAccountFragment : ToolbarLRFragment<NewAccountModel, NewAccountView, NewAccountPresenter>(), NewAccountView  {
 
 
     private val viewIsValid: Boolean
@@ -27,6 +28,9 @@ class NewAccountFragment : LRFragment<NewAccountModel, NewAccountView, NewAccoun
 
 
     override fun viewForSnackbar(): View = root
+
+    override val toolbarTitle: String
+        get() = getString(R.string.new_account_title)
 
     override fun loadRefreshPanel() = object : LoadRefreshPanel {
         override fun retryClicks(): Observable<Any> = Observable.never()
@@ -40,9 +44,6 @@ class NewAccountFragment : LRFragment<NewAccountModel, NewAccountView, NewAccoun
 
 
     private val registerAction = PublishSubject.create<NewAccountRequest>()
-
-
-
     override fun register() = registerAction
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
@@ -54,11 +55,13 @@ class NewAccountFragment : LRFragment<NewAccountModel, NewAccountView, NewAccoun
         register.setOnClickListener {
             if (viewIsValid) {
                 registerAction.onNext(NewAccountRequest(
-                        email = email.getText()))
-//                        lastname = lastName.text.toString(),
-//                        bsn = bsn.text.toString(),
-//                        email = email.text.toString(),
-//                        phoneNumber = phone.text.toString()))
+                        firstname = firstName.getText(),
+                        lastname = lastName.getText(),
+                        bsn = bsn.getText(),
+                        phoneNumber = phone.getText(),
+                        email = email.getText()
+                        )
+                )
             }
         }
     }
@@ -67,7 +70,6 @@ class NewAccountFragment : LRFragment<NewAccountModel, NewAccountView, NewAccoun
     override fun createPresenter() = NewAccountPresenter(
             Injection.instance.accountRepository
     )
-
 
     override fun render(vs: LRViewState<NewAccountModel>) {
         super.render(vs)
