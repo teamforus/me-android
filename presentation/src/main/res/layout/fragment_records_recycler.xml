@@ -9,18 +9,30 @@
     android:layout_height="match_parent"
     android:background="@color/secondary200">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler"
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_centerVertical="true"
-        android:paddingBottom="200dp"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+
+
+            <include layout="@layout/toolbar_view"/>
+
+        <com.ocrv.ekasui.mrm.ui.loadRefresh.LRPanelImpl
+            android:id="@+id/lr_panel"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </com.ocrv.ekasui.mrm.ui.loadRefresh.LRPanelImpl>
+
+
+
+    </android.support.design.widget.CoordinatorLayout>
+
 
 
 </RelativeLayout>

@@ -6,14 +6,12 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRFragment
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LoadRefreshPanel
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.interfaces.FragmentListener
-import io.forus.me.android.presentation.interfaces.ToolbarListener
 import io.forus.me.android.presentation.internal.Injection
-import io.forus.me.android.presentation.view.fragment.BaseFragment
+import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.records_category_recycler.*
 
@@ -21,7 +19,7 @@ import kotlinx.android.synthetic.main.records_category_recycler.*
 /**
  * Fragment Records Delegates Screen.
  */
-class RecordCategoriesFragment : LRFragment<RecordCategoriesModel, RecordCategoriesView, RecordCategoriesPresenter>(), RecordCategoriesView, FragmentListener, ToolbarListener {
+class RecordCategoriesFragment : ToolbarLRFragment<RecordCategoriesModel, RecordCategoriesView, RecordCategoriesPresenter>(), RecordCategoriesView, FragmentListener {
 
     companion object {
         fun newIntent(): RecordCategoriesFragment {
@@ -29,13 +27,14 @@ class RecordCategoriesFragment : LRFragment<RecordCategoriesModel, RecordCategor
         }
     }
 
-    override val subviewFragment: BaseFragment?
-        get() = null
-    override val pageTitle: String
+    override val toolbarTitle: String
         get() = getString(R.string.records)
 
-    override val menu: Int?
-        get() = R.menu.category_records
+
+    override val allowBack: Boolean
+        get() = false
+
+
 
     private lateinit var adapter: RecordCategoriesAdapter
 

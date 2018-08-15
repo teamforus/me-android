@@ -8,13 +8,13 @@ import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.interfaces.SlidingToolbarFragmentActionListener
 
-import io.forus.me.android.presentation.view.activity.ToolbarActivity
+import io.forus.me.android.presentation.view.activity.CommonActivity
 import kotlinx.android.synthetic.main.activity_toolbar_sliding_panel.*
 
 /**
  * Main application screen. This is the app entry point.
  */
-class AssignDelegatesAccountActivity : ToolbarActivity() {
+class AssignDelegatesAccountActivity : CommonActivity() {
 
 
     companion object {
@@ -26,8 +26,7 @@ class AssignDelegatesAccountActivity : ToolbarActivity() {
     override val viewID: Int
         get() = R.layout.activity_toolbar_sliding_panel
 
-    override val toolbarTitle: String
-        get() = getString(R.string.login)
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
