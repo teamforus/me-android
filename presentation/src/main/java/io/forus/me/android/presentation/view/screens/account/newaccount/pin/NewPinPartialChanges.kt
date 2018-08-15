@@ -1,4 +1,4 @@
-package io.forus.me.android.presentation.view.screens.account.pin.create
+package io.forus.me.android.presentation.view.screens.account.newaccount.pin
 
 import com.ocrv.ekasui.mrm.ui.loadRefresh.PartialChange
 

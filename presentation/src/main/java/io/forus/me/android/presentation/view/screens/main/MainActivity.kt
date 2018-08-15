@@ -7,7 +7,6 @@ import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import io.forus.me.android.presentation.internal.Injection
-
 import io.forus.me.android.presentation.view.activity.BaseActivity
 
 /**
@@ -32,17 +31,25 @@ class MainActivity : BaseActivity() {
         setContentView(io.forus.me.android.presentation.R.layout.activity_main)
 
 
-        if (Injection.instance.accountLocalDataSource.isLogin()) {
-//            if (!systemServices.isDeviceSecure()) {
-//                deviceSecurityAlert = systemServices.showDeviceSecurityAlert()
-//            } else {
-//                navigateToDashboard()
-//            }
+        if(Injection.instance.databaseHelper.exists()){
             navigateToDashboard()
-            //navigateToDashboard()
-        } else {
+        }
+        else {
             navigateToWelcomeScreen()
         }
+
+
+//        if (Injection.instance.accountLocalDataSource.isLogin()) {
+////            if (!systemServices.isDeviceSecure()) {
+////                deviceSecurityAlert = systemServices.showDeviceSecurityAlert()
+////            } else {
+////                navigateToDashboard()
+////            }
+//            navigateToDashboard()
+//            //navigateToDashboard()
+//        } else {
+//            navigateToWelcomeScreen()
+//        }
     }
 
     override fun onStop() {
@@ -63,7 +70,7 @@ class MainActivity : BaseActivity() {
      */
     private fun navigateToDashboard() {
 
-        this.navigator.navigateToDashboard(this)
+        this.navigator.navigateToDashboard(this, true)
         finish()
     }
 

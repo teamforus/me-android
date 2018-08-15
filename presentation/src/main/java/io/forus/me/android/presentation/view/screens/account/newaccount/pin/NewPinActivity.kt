@@ -1,4 +1,4 @@
-package io.forus.me.android.presentation.view.screens.account.pin.create
+package io.forus.me.android.presentation.view.screens.account.newaccount.pin
 
 import android.content.Context
 import android.content.Intent

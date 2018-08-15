@@ -29,6 +29,9 @@
             android:name=".view.screens.welcome.WelcomeActivity"
             android:label="@string/app_name"></activity>
         <activity
+            android:name=".view.screens.pinlock.PinLockActivity"
+            android:label="@string/blank_string"></activity>
+        <activity
             android:name=".view.screens.qr.QrScannerActivity"
             android:label="@string/blank_string"></activity>
         <activity
@@ -38,7 +41,7 @@
             android:name=".view.screens.account.newaccount.NewAccountActivity"
             android:label="@string/blank_string"></activity>
         <activity
-            android:name=".view.screens.account.pin.create.NewPinActivity"
+            android:name=".view.screens.account.newaccount.pin.NewPinActivity"
             android:label="@string/blank_string"></activity>
         <activity
             android:name=".view.screens.dashboard.DashboardActivity"

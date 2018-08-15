@@ -1,4 +1,4 @@
-package io.forus.me.android.presentation.view.screens.account.pin.create
+package io.forus.me.android.presentation.view.screens.account.newaccount.pin
 
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LRPresenter
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
@@ -27,10 +27,10 @@ class NewPinPresenter constructor(private val accountRepository: AccountReposito
                 loadRefreshPartialChanges(),
 
                 intent { it.pinOnComplete() }
-                        .map {  NewPinPartialChanges.PinOnComplete(it) },
+                        .map { NewPinPartialChanges.PinOnComplete(it) },
 
                 intent { it.pinOnChange() }
-                        .map {  NewPinPartialChanges.PinOnChange(it) },
+                        .map { NewPinPartialChanges.PinOnChange(it) },
 
                 intent { createIdentity() }
                         .switchMap {

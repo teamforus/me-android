@@ -8,7 +8,7 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import java.util.concurrent.TimeUnit
 
-class AccountRepository(private val accountLocalDataSource: AccountDataSource,private val accountRemoteDataSource: AccountDataSource) : io.forus.me.android.domain.repository.account.AccountRepository {
+class AccountRepository(private val accountLocalDataSource: AccountDataSource, private val accountRemoteDataSource: AccountDataSource) : io.forus.me.android.domain.repository.account.AccountRepository {
 
     override fun requestDelegatesQRAddress(): Observable<RequestDelegatesQrModel> {
         return accountRemoteDataSource.requestDelegatesQRAddress()
@@ -17,14 +17,7 @@ class AccountRepository(private val accountLocalDataSource: AccountDataSource,pr
 
                     RequestDelegatesQrModel(it.authToken)
                 }
-     //   return Observable.just(RequestDelegatesQrModel("ADDRESS"))//accountLocalDataSource.requestDelegatesQRAddress().map { x: String -> RequestDelegatesQrModel(x) }
     }
-
-//    override fun createAccount(): Observable<String> {
-//        return accountLocalDataSource.createAccount().map {
-//            it.address
-//        }
-//    }
 
     override fun newUser(model: NewAccountRequest): Observable<String> {
         val signUp = SignUp()
@@ -54,9 +47,17 @@ class AccountRepository(private val accountLocalDataSource: AccountDataSource,pr
     }
 
     override fun createIdentity(identity: Identity): Observable<Boolean> {
-        return Single.fromCallable {
-                accountLocalDataSource.saveIdentity(identity.accessToken, identity.pin)
-            true
-            }.toObservable().delay(1000, TimeUnit.MILLISECONDS)
+        return Single.just(accountLocalDataSource.saveIdentity(identity.accessToken, identity.pin)).toObservable()
+                .delay(1000, TimeUnit.MILLISECONDS)
+    }
+
+    override fun unlockIdentity(pin: String): Observable<Boolean> {
+        return Single.just(accountLocalDataSource.unlockIdentity(pin)).toObservable()
+                .delay(700, TimeUnit.MILLISECONDS)
+    }
+
+    override fun exitIdentity(): Observable<Boolean> {
+        return Single.fromCallable {accountLocalDataSource.logout(); true }.toObservable()
+                .delay(100, TimeUnit.MILLISECONDS)
     }
 }

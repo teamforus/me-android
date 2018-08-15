@@ -19,4 +19,10 @@ interface AccountRepository {
 
     fun createIdentity(identity: Identity): Observable<Boolean>
 
+
+    fun unlockIdentity(pin: String): Observable<Boolean>
+
+
+    fun exitIdentity(): Observable<Boolean>
+
 }

@@ -1,4 +1,4 @@
-package io.forus.me.android.presentation.view.screens.account.pin.create
+package io.forus.me.android.presentation.view.screens.account.newaccount.pin
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,7 +14,7 @@ import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.account_create_pin_fragment.*
 
-class NewPinFragment : LRFragment<NewPinModel, NewPinView, NewPinPresenter>(), NewPinView  {
+class NewPinFragment : LRFragment<NewPinModel, NewPinView, NewPinPresenter>(), NewPinView {
 
     companion object {
         private val ACCESS_TOKEN_EXTRA = "ACCESS_TOKEN_EXTRA";
@@ -118,7 +118,7 @@ class NewPinFragment : LRFragment<NewPinModel, NewPinView, NewPinPresenter>(), N
     }
 
     private fun closeScreen() {
-        navigator.navigateToDashboard(activity)
+        navigator.navigateToDashboard(activity, false)
         activity?.finish()
     }
 }

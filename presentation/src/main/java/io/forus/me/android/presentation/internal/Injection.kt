@@ -9,7 +9,6 @@ import io.forus.me.android.data.net.MeServiceFactory
 import io.forus.me.android.data.repository.account.datasource.local.AccountLocalDataSource
 import io.forus.me.android.data.repository.account.datasource.remote.AccountRemoteDataSource
 import io.forus.me.android.data.repository.records.RecordsRepository
-import io.forus.me.android.data.repository.records.datasource.RecordsDataSource
 import io.forus.me.android.data.repository.records.datasource.mock.RecordsMockDataSource
 import io.forus.me.android.data.repository.records.datasource.remote.RecordsRemoteDataSource
 import io.forus.me.android.data.repository.web3.datasource.Web3DataSource
@@ -18,6 +17,7 @@ import io.forus.me.android.domain.repository.account.AccountRepository
 import io.forus.me.android.domain.repository.assets.AssetsRepository
 import io.forus.me.android.domain.repository.vouchers.VouchersRepository
 import io.forus.me.android.domain.repository.wallets.WalletsRepository
+import io.forus.me.android.presentation.DatabaseHelper
 
 class Injection private constructor() {
 
@@ -34,9 +34,10 @@ class Injection private constructor() {
 
     var daoSession: DaoSession? = null
         set(value) {
-            if (field == null) {
-                field = value
-            }
+            field = value
+            accountLocalDataSource.updateDao(daoSession)
+            accountRemoteDataSource.updateService()
+            recordRemoteDataSource.updateService()
         }
 
     var applicationContext: Context? = null
@@ -46,16 +47,20 @@ class Injection private constructor() {
             }
         }
 
+    val databaseHelper: DatabaseHelper by lazy {
+        return@lazy DatabaseHelper(applicationContext!!)
+    }
+
     val accountRepository: AccountRepository by lazy {
             return@lazy io.forus.me.android.data.repository.account.AccountRepository(accountLocalDataSource, accountRemoteDataSource)
     }
 
     private val accountRemoteDataSource: AccountRemoteDataSource by lazy {
-        return@lazy AccountRemoteDataSource(MeServiceFactory.getInstance().createRetrofitService(SignService::class.java, SignService.Service.SERVICE_ENDPOINT))
+        return@lazy AccountRemoteDataSource{ MeServiceFactory.getInstance().createRetrofitService(SignService::class.java, SignService.Service.SERVICE_ENDPOINT) }
     }
 
     public val accountLocalDataSource: AccountLocalDataSource by lazy {
-        return@lazy AccountLocalDataSource(daoSession!!.tokenDao)
+        return@lazy AccountLocalDataSource(daoSession?.tokenDao)
     }
 
     private val web3LocalDataSource: Web3DataSource by lazy {
@@ -83,8 +88,8 @@ class Injection private constructor() {
         return@lazy RecordsMockDataSource()
     }
 
-    private val recordRemoteDataSource: RecordsDataSource by lazy {
-        return@lazy RecordsRemoteDataSource(MeServiceFactory.getInstance().createRetrofitService(RecordsService::class.java, SignService.Service.SERVICE_ENDPOINT))
+    private val recordRemoteDataSource: RecordsRemoteDataSource by lazy {
+        return@lazy RecordsRemoteDataSource{MeServiceFactory.getInstance().createRetrofitService(RecordsService::class.java, SignService.Service.SERVICE_ENDPOINT)}
     }
 
     val retrofitExceptionMapper: RetrofitExceptionMapper by lazy {
