@@ -183,7 +183,7 @@ class NewRecordFragment : LRFragment<NewRecordModel, NewRecordView, NewRecordPre
     }
 
     private fun closeScreen() {
-        navigator.navigateToDashboard(activity)
+        navigator.navigateToDashboard(activity, false)
         activity?.finish()
     }
 

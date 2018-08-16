@@ -6,8 +6,10 @@ import io.forus.me.android.domain.models.records.RecordCategory
 import io.forus.me.android.presentation.view.screens.account.assigndelegates.AssignDelegatesAccountActivity
 import io.forus.me.android.presentation.view.screens.account.newaccount.NewAccountActivity
 import io.forus.me.android.presentation.view.screens.account.pin.RestoreByPinActivity
+import io.forus.me.android.presentation.view.screens.account.newaccount.pin.NewPinActivity
 import io.forus.me.android.presentation.view.screens.account.restoreByEmail.RestoreByEmailActivity
 import io.forus.me.android.presentation.view.screens.dashboard.DashboardActivity
+import io.forus.me.android.presentation.view.screens.pinlock.PinLockActivity
 import io.forus.me.android.presentation.view.screens.qr.QrScannerActivity
 import io.forus.me.android.presentation.view.screens.records.item.RecordDetailsActivity
 import io.forus.me.android.presentation.view.screens.records.list.RecordsActivity
@@ -25,11 +27,14 @@ class Navigator @Inject
 constructor()//empty
 {
 
-
-    fun navigateToDashboard(context: Context?) {
+    fun navigateToDashboard(context: Context?, locked: Boolean) {
         if (context != null) {
             val intentToLaunch = DashboardActivity.getCallingIntent(context)
-            context.startActivity(intentToLaunch)
+            if(locked){
+                val lockIntent = PinLockActivity.getCallingIntent(context, intentToLaunch)
+                context.startActivity(lockIntent)
+            }
+            else context.startActivity(intentToLaunch)
         }
     }
 
@@ -60,6 +65,13 @@ constructor()//empty
     fun navigateToAccountNew(context: Context?) {
         if (context != null) {
             val intentToLaunch = NewAccountActivity.getCallingIntent(context)
+            context.startActivity(intentToLaunch)
+        }
+    }
+
+    fun navigateToPinNew(context: Context?, accessToken: String){
+        if (context != null) {
+            val intentToLaunch = NewPinActivity.getCallingIntent(context, accessToken)
             context.startActivity(intentToLaunch)
         }
     }

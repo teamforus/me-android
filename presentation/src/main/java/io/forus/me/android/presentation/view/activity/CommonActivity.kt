@@ -17,23 +17,23 @@ import io.forus.me.android.presentation.R.id.toolbar
 import io.forus.me.android.presentation.helpers.Converter
 
 
-abstract class ToolbarActivity : BaseActivity() {
+abstract class CommonActivity : BaseActivity() {
 
 
 
-    protected val toolbar: Toolbar
-        get() = toolbar_view
-
-    protected open val toolbarTitle: String
-        get() = ""
+//    protected val toolbar: Toolbar
+//        get() = toolbar_view
+//
+//    protected open val toolbarTitle: String
+//        get() = ""
 
 
     protected open val viewID: Int
         get() = 0
 
 
-    protected open val toolbarType: ToolbarType
-        get() = ToolbarType.Regular
+//    protected open val toolbarType: ToolbarType
+//        get() = ToolbarType.Regular
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,26 +43,11 @@ abstract class ToolbarActivity : BaseActivity() {
         initUI()
     }
 
-    protected fun setToolbarTitle(title: String){
-        toolbar_title.text = title
 
-    }
 
 
     private fun initUI() {
 
-
-        setToolbarTitle(toolbarTitle)
-        if (toolbarType == ToolbarType.Small){
-            toolbar_title.setPadding(toolbar_title.paddingLeft, Converter.convertDpToPixel(5f, this), toolbar_title.paddingRight, 0)
-        }
-        setSupportActionBar(toolbar)
-
-        //        final Drawable upArrow = getResources().getDrawable(R.drawable.);
-        //        upArrow.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP);
-
-        supportActionBar?.setHomeButtonEnabled(true)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
     }
 
@@ -88,10 +73,6 @@ abstract class ToolbarActivity : BaseActivity() {
         return ContextCompat.getColor(this, color)
     }
 
-
-     enum class ToolbarType {
-        Regular, Small
-    }
 
 
 

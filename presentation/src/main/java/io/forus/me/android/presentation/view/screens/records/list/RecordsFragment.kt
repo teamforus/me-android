@@ -10,13 +10,14 @@ import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LoadRefreshPanel
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.internal.Injection
+import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.fragment_records_recycler.*
 
 /**
  * Fragment Records Delegates Screen.
  */
-class RecordsFragment : LRFragment<RecordsModel, RecordsView, RecordsPresenter>(), RecordsView{
+class RecordsFragment : ToolbarLRFragment<RecordsModel, RecordsView, RecordsPresenter>(), RecordsView{
 
     companion object {
         private val CATEGORY_ID_EXTRA = "CATEGORY_ID_EXTRA";
@@ -28,21 +29,19 @@ class RecordsFragment : LRFragment<RecordsModel, RecordsView, RecordsPresenter>(
         }
     }
 
+    override val allowBack: Boolean
+        get() = true
+
+    override val toolbarTitle: String
+        get() = getString(R.string.records)
+
     private var recordCategoryId: Long = 0
 
     private lateinit var adapter: RecordsAdapter
 
     override fun viewForSnackbar(): View = root
 
-    override fun loadRefreshPanel() = object : LoadRefreshPanel {
-        override fun retryClicks(): Observable<Any> = Observable.never()
-
-        override fun refreshes(): Observable<Any> = Observable.never()
-
-        override fun render(vs: LRViewState<*>) {
-
-        }
-    }
+    override fun loadRefreshPanel() = lr_panel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val view = inflater.inflate(R.layout.fragment_records_recycler, container, false)
@@ -73,8 +72,6 @@ class RecordsFragment : LRFragment<RecordsModel, RecordsView, RecordsPresenter>(
 
     override fun render(vs: LRViewState<RecordsModel>) {
         super.render(vs)
-
-        progressBar.visibility = if (vs.loading) View.VISIBLE else View.INVISIBLE
 
         adapter.records = vs.model.items
     }

@@ -5,7 +5,7 @@
     <string name="url"></string>
 
 
-    <string name="refreshing_error_text">Ошибка обновления</string>
+    <string name="refreshing_error_text">Refresh error</string>
     <string name="create_account">Create account</string>
     <string name="restore_account">Restore account</string>
 
@@ -21,7 +21,7 @@
     <string name="not_empty_error">Field is empty</string>
     <string name="email_validation_regex">^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$</string>
     <string name="email_is_invalid">Field is invalid</string>
-
+    <string name="required_asterisk"><![CDATA[ <sup><small>*</small></sup> ]]></string>
 
     <string name="property">Eigendom</string>
 
@@ -83,5 +83,24 @@
 
     <string name="title_record_detail">Record detail</string>
     <string name="record_detail_scan_qr">Scan deze QR-Code met een ander apparaat waar u al op aangemeld bent</string>
+
+    <!-- New account screen -->
+    <string name="new_account_title">New profiel</string>
+    <string name="new_account_subtitle">Please provide your e-mail and information below. For registration primary email address is required. </string>
+    <string name="new_account_error_already_in_use">"Account already in use"</string>
+
+    <!-- New passcode screen -->
+    <string name="title_create_passcode">Create Passcode</string>
+    <string name="title_confirm_passcode">Confirm Passcode</string>
+    <string name="title_create_identity">Please wait</string>
+    <string name="subtitle_create_passcode">Maak een 4cijferige pincode aan</string>
+    <string name="subtitle_create_passcode_not_match">Passwordes don\'t match. Please try again</string>
+    <string name="subtitle_create_identity">Creating identity</string>
+    <string name="subtitle_create_identity_error">Something went wrong :(</string>
+
+    <!-- Confirm pinlock screen -->
+    <string name="subtitle_pinlock_confirm">Confirm your identity</string>
+    <string name="subtitle_pinlock_checking">Checking</string>
+    <string name="subtitle_pinlock_error">Wrong passcode</string>
 
 </resources>

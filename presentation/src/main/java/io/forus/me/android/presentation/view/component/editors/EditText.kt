@@ -4,6 +4,8 @@ import android.content.Context
 import android.support.design.widget.TextInputLayout
 import android.support.design.widget.TextInputEditText
 import android.text.Editable
+import android.text.Html
+import android.text.TextUtils
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
@@ -14,6 +16,7 @@ import java.util.regex.Pattern
 class EditText : FrameLayout{
 
     var hint: String? = ""
+    var required: Boolean = false
     var validationError: String? = null
     var validationRegex: String? = ""
         set(value) {
@@ -44,7 +47,7 @@ class EditText : FrameLayout{
         mContainer = mRootView.findViewById(R.id.container)
         mTextEdit = mContainer.findViewById(R.id.text_edit)
         mTextInputLayout = mContainer.findViewById(R.id.text_input_layout)
-        mTextInputLayout.hint = hint
+        mTextInputLayout.hint = if(required) TextUtils.concat(hint, Html.fromHtml(getContext().getString(R.string.required_asterisk))) else hint
         mTextInputLayout.isHintAnimationEnabled = true
         mTextInputLayout.isErrorEnabled = true
         mTextEdit.addTextChangedListener(object: android.text.TextWatcher {
@@ -63,6 +66,7 @@ class EditText : FrameLayout{
     private fun initAttrs(context: Context, attrs: AttributeSet){
         val ta = context.obtainStyledAttributes(attrs, R.styleable.CustomEditFieldAttrs, 0, 0)
         hint = ta.getString(R.styleable.CustomEditFieldAttrs_hint)
+        required = ta.getBoolean(R.styleable.CustomEditFieldAttrs_required, false)
         validationRegex = ta.getString(R.styleable.CustomEditFieldAttrs_validationRegex)
         validationError = ta.getString(R.styleable.CustomEditFieldAttrs_validationError)
         ta.recycle()

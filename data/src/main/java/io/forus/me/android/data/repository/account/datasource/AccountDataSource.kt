@@ -22,13 +22,16 @@ interface AccountDataSource {
 
     fun getAuthCode() : Observable<IdentityPinResult>
 
-    fun saveToken(token: String)
+
+    fun saveIdentity(token: String, pin: String): Boolean
+
+
+    fun unlockIdentity(pin: String): Boolean
+
 
     fun isLogin() : Boolean
 
 
     fun logout()
 
-//
-//    fun createAccount(): Observable<org.web3j.crypto.Credentials>
 }

@@ -98,6 +98,13 @@
         <item name="android:textColor">@color/body_1_87</item>
     </style>
 
+    <style name="Header6">
+        <item name="android:textSize">20.1sp</item>
+        <item name="android:letterSpacing" tools:targetApi="lollipop">0.01</item>
+        <item name="android:textColor">@color/body_1_87</item>
+    </style>
+
+
     <style name="LargeTitleStyle">
         <item name="android:textSize">34sp</item>
         <item name="android:fontFamily" tools:targetApi="jelly_bean">sans-serif</item>

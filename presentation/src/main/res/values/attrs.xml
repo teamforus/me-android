@@ -5,6 +5,7 @@
 
     <declare-styleable name="CustomEditFieldAttrs">
         <attr name="hint" format="string"/>
+        <attr name="required" format="boolean"/>
         <attr name="validationRegex" format="string"/>
         <attr name="validationError" format="string"/>
     </declare-styleable>

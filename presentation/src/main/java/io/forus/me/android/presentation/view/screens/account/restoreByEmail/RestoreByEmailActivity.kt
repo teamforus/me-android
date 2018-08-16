@@ -6,13 +6,12 @@ import android.content.Intent
 import android.os.Bundle
 import io.forus.me.android.presentation.R
 
-import io.forus.me.android.presentation.view.activity.BaseActivity
-import io.forus.me.android.presentation.view.activity.ToolbarActivity
+import io.forus.me.android.presentation.view.activity.CommonActivity
 
 /**
  * Main application screen. This is the app entry point.
  */
-class RestoreByEmailActivity : ToolbarActivity() {
+class RestoreByEmailActivity : CommonActivity() {
 
 
     companion object {
@@ -24,8 +23,8 @@ class RestoreByEmailActivity : ToolbarActivity() {
     override val viewID: Int
         get() = R.layout.activity_toolbar
 
-    override val toolbarTitle: String
-        get() = getString(R.string.inloggen_via_email)
+//    override val toolbarTitle: String
+//        get() = getString(R.string.inloggen_via_email)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
