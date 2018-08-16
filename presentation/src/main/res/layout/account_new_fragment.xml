@@ -47,7 +47,8 @@
 
                 <io.forus.me.android.presentation.view.component.editors.EditText
                     android:id="@+id/email"
-                    app:hint="E-mail*\u00B2"
+                    app:hint="E-mail"
+                    app:required="true"
                     app:validationRegex="@string/email_validation_regex"
                     app:validationError="@string/email_is_invalid"
                     android:layout_width="match_parent"
@@ -93,7 +94,7 @@
         </ScrollView>
 
         <RelativeLayout
-            android:id="@+id/register2"
+            android:id="@+id/rl_register"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_alignParentBottom="true"

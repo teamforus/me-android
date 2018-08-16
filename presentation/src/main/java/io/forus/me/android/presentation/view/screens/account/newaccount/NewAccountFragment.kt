@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRFragment
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LoadRefreshPanel
+import io.forus.me.android.domain.exception.RetrofitException
 import io.forus.me.android.domain.models.account.NewAccountRequest
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.internal.Injection
@@ -76,7 +76,13 @@ class NewAccountFragment : ToolbarLRFragment<NewAccountModel, NewAccountView, Ne
 
         progressBar.visibility = if (vs.loading || vs.model.sendingRegistration) View.VISIBLE else View.INVISIBLE
 
-        if(vs.model.sendingRegistrationError != null) showToastMessage("Account already in use")
+        if(vs.model.sendingRegistrationError != null) {
+            val error: Throwable = vs.model.sendingRegistrationError
+            showToastMessage(resources.getString(
+                    if(error is RetrofitException && error.kind == RetrofitException.Kind.HTTP) R.string.new_account_error_already_in_use
+                    else R.string.error_text)
+            )
+        }
 
         if (vs.closeScreen && vs.model.accessToken != null) {
             closeScreen(vs.model.accessToken)

@@ -5,7 +5,7 @@
     <string name="url"></string>
 
 
-    <string name="refreshing_error_text">Ошибка обновления</string>
+    <string name="refreshing_error_text">Refresh error</string>
     <string name="create_account">Create account</string>
     <string name="restore_account">Restore account</string>
 
@@ -21,7 +21,7 @@
     <string name="not_empty_error">Field is empty</string>
     <string name="email_validation_regex">^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$</string>
     <string name="email_is_invalid">Field is invalid</string>
-
+    <string name="required_asterisk"><![CDATA[ <sup><small>*</small></sup> ]]></string>
 
     <string name="property">Eigendom</string>
 
@@ -87,6 +87,7 @@
     <!-- New account screen -->
     <string name="new_account_title">New profiel</string>
     <string name="new_account_subtitle">Please provide your e-mail and information below. For registration primary email address is required. </string>
+    <string name="new_account_error_already_in_use">"Account already in use"</string>
 
     <!-- New passcode screen -->
     <string name="title_create_passcode">Create Passcode</string>

@@ -63,7 +63,7 @@ class NewAccountPresenter constructor(private val accountRepository: AccountRepo
 
         return when (change) {
             is NewAccountPartialChanges.RegisterEnd -> viewState.copy(closeScreen = true, model = viewState.model.copy(sendingRegistration = false, accessToken = change.accessToken))
-            is NewAccountPartialChanges.RegisterStart -> viewState.copy(model = viewState.model.copy(sendingRegistration = true))
+            is NewAccountPartialChanges.RegisterStart -> viewState.copy(model = viewState.model.copy(sendingRegistration = true, sendingRegistrationError = null))
             is NewAccountPartialChanges.RegisterError -> viewState.copy(model = viewState.model.copy(sendingRegistration = false, sendingRegistrationError = change.error))
         }
 
