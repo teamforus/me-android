@@ -66,15 +66,12 @@ abstract class BaseFragment : Fragment(), FragmentListener {
 
 
     private fun setActionBarActivity( _activity: AppCompatActivity){
-        _activity.setSupportActionBar(toolbar)
 //
 //                final Drawable upArrow = getResources().getDrawable(R.drawable.);
 //                upArrow.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP);
 
-        if (allowBack) {
-            _activity.supportActionBar?.setHomeButtonEnabled(true)
-            _activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        }
+        _activity.setSupportActionBar(toolbar)
+        FragmentHelper.setHomeIconToolbar(_activity, toolbar, profile_button,allowBack)
     }
 
     /**
