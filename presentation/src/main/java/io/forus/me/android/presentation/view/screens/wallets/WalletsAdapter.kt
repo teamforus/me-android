@@ -26,7 +26,9 @@ class WalletsAdapter() : RecyclerView.Adapter<WalletsVH>() {
         setHasStableIds(true)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = WalletsVH(parent)
+    var clickListener: ((Wallet) -> Unit)? = null
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = WalletsVH(parent, clickListener)
     override fun onBindViewHolder(holder: WalletsVH, position: Int) {
 
         holder.render(wallets[position])

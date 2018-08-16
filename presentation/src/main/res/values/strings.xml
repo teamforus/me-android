@@ -103,4 +103,12 @@
     <string name="subtitle_pinlock_checking">Checking</string>
     <string name="subtitle_pinlock_error">Wrong passcode</string>
 
+    <!-- Wallet details screen -->
+    <string name="wallet_title_info">Wallet info</string>
+    <string name="wallet_current_balance">Current Balance</string>
+    <string name="wallet_send">Zend</string>
+    <string name="wallet_receive">Wraag</string>
+    <string name="wallet_transactions_title">Transactieoverzicht</string>
+    <string name="wallet_transactions_see_all">See all</string>
+
 </resources>

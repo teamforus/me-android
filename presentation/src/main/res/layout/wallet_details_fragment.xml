@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:id="@+id/root"
+    android:background="@color/colorPrimary"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/toolbar_view"/>
+
+    <com.ocrv.ekasui.mrm.ui.loadRefresh.LRPanelImpl
+        android:id="@+id/lr_panel"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="17dp"
+                android:layout_marginRight="17dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <io.forus.me.android.presentation.view.component.text.TextView
+                        android:id="@+id/tv_balance_crypto"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAllCaps="true"
+                        style="@style/Headline4"
+                        app:type="medium"
+                        tools:text="10.987056 ETH"/>
+
+                    <RelativeLayout
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/circle_empty">
+
+                        <io.forus.me.android.presentation.view.component.images.AutoLoadImageView
+                            android:id="@+id/iv_logo"
+                            android:layout_gravity="center_vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                <io.forus.me.android.presentation.view.component.text.TextView
+                    android:layout_marginTop="3dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Overline2"
+                    app:type="medium"
+                    android:text="@string/wallet_current_balance" />
+
+                <io.forus.me.android.presentation.view.component.text.TextView
+                    android:id="@+id/tv_balance_fiat"
+                    android:layout_marginTop="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Subtitle2"
+                    tools:text="~ 1 234,98€;    1 567,5$" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="16dp"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:layout_width="152dp"
+                        android:layout_height="36dp"
+                        android:layout_weight="1"
+                        android:layout_marginRight="11dp"
+                        android:text="@string/wallet_send"
+                        android:background="#f1f1f1"/>
+
+                    <Button
+                        android:layout_width="152dp"
+                        android:layout_height="36dp"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="11dp"
+                        android:text="@string/wallet_receive"
+                        android:background="#f1f1f1"/>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:background="@color/secondary200"
+                android:layout_marginTop="18dp"
+                android:layout_marginBottom="32dp"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_marginLeft="17dp"
+                android:layout_marginRight="17dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="25dp">
+
+                    <io.forus.me.android.presentation.view.component.text.TextView
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/Headline6"
+                        app:type="medium"
+                        android:text="@string/wallet_transactions_title" />
+
+                    <io.forus.me.android.presentation.view.component.text.TextView
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/Overline2"
+                        android:textColor="@color/forus_blue"
+                        android:text="@string/wallet_transactions_see_all" />
+
+                </RelativeLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </com.ocrv.ekasui.mrm.ui.loadRefresh.LRPanelImpl>
+
+</android.support.design.widget.CoordinatorLayout>

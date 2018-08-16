@@ -1,21 +1,21 @@
-package io.forus.me.android.presentation.view.screens.records.item
+package io.forus.me.android.presentation.view.screens.wallets.item
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import io.forus.me.android.domain.models.records.Record
+import io.forus.me.android.domain.models.wallets.Wallet
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.view.activity.CommonActivity
 
-class RecordDetailsActivity : CommonActivity() {
+class WalletDetailsActivity : CommonActivity() {
 
 
     companion object {
-        private val RECORD_ID_EXTRA = "RECORD_ID_EXTRA"
+        private val WALLET_ID_EXTRA = "WALLET_ID_EXTRA"
 
-        fun getCallingIntent(context: Context, record: Record): Intent {
-            val intent = Intent(context, RecordDetailsActivity::class.java)
-            intent.putExtra(RECORD_ID_EXTRA, record.id)
+        fun getCallingIntent(context: Context, wallet: Wallet): Intent {
+            val intent = Intent(context, WalletDetailsActivity::class.java)
+            intent.putExtra(WALLET_ID_EXTRA, wallet.id)
             return intent
         }
     }
@@ -27,7 +27,7 @@ class RecordDetailsActivity : CommonActivity() {
         super.onCreate(savedInstanceState)
 
         if (savedInstanceState == null) {
-            val fragment = RecordDetailsFragment.newIntent(intent.getLongExtra(RECORD_ID_EXTRA, -1))
+            val fragment = WalletDetailsFragment.newIntent(intent.getLongExtra(WALLET_ID_EXTRA, -1))
             addFragment(R.id.fragmentContainer, fragment)
         }
     }

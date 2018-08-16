@@ -105,7 +105,7 @@
            android:layout_height="wrap_content"/>
 
 
-       <io.forus.me.android.presentation.view.screens.vouchers.transactions.card.TransactionsCard
+       <io.forus.me.android.presentation.view.screens.vouchers.item.transactions.card.TransactionsCard
            android:id="@+id/transactions_card"
            android:layout_width="match_parent"
            android:layout_height="wrap_content" />

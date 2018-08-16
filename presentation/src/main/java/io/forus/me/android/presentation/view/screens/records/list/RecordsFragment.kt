@@ -49,13 +49,13 @@ class RecordsFragment : ToolbarLRFragment<RecordsModel, RecordsView, RecordsPres
         if (bundle != null) {
             recordCategoryId = bundle.getLong(CATEGORY_ID_EXTRA)
         }
+        adapter = RecordsAdapter()
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = RecordsAdapter()
         adapter.clickListener = { item ->
             navigator.navigateToRecordDetails(activity, item)
         }

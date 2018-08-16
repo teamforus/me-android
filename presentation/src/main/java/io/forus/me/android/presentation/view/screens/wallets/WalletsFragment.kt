@@ -45,6 +45,9 @@ class WalletsFragment : LRFragment<WalletsModel, WalletsView, WalletsPresenter>(
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val view = inflater.inflate(R.layout.fragment_recycler, container, false)
         adapter = WalletsAdapter()
+        adapter.clickListener = { item ->
+            navigator.navigateToWallet(activity, item)
+        }
 
         return view
     }

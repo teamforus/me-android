@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
  <io.forus.me.android.presentation.view.component.card.CommonCard
+    android:id="@+id/root"
     android:layout_marginTop="@dimen/activity_horizontal_margin"
     app:cardCornerRadius="@dimen/card_radius"
     android:layout_marginLeft="@dimen/activity_horizontal_margin_small"
@@ -21,7 +22,7 @@
 
 
      <io.forus.me.android.presentation.view.component.text.TextView
-         android:id="@+id/name"
+         android:id="@+id/tv_name"
          android:layout_margin="@dimen/activity_horizontal_margin"
          style="@style/Body2Left"
          android:layout_width="wrap_content"
@@ -48,7 +49,7 @@
             android:layout_height="wrap_content">
 
             <io.forus.me.android.presentation.view.component.text.TextView
-                android:id="@+id/value"
+                android:id="@+id/tv_value"
                 style="@style/CardTitle4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -57,7 +58,7 @@
                 />
 
             <io.forus.me.android.presentation.view.component.text.TextView
-                android:id="@+id/currency_name"
+                android:id="@+id/tv_currency_name"
                 style="@style/Overline4"
                 android:layout_marginTop="@dimen/activity_horizontal_margin_small"
                 android:layout_width="wrap_content"
@@ -68,13 +69,20 @@
 
         </LinearLayout>
 
-        <io.forus.me.android.presentation.view.component.images.AutoLoadImageView
-            android:id="@+id/logo"
-            android:src="@drawable/circle_empty"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
+        <RelativeLayout
             android:layout_width="55dp"
-            android:layout_height="55dp" />
+            android:layout_height="55dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/circle_empty">
+
+            <io.forus.me.android.presentation.view.component.images.AutoLoadImageView
+                android:id="@+id/iv_logo"
+                android:layout_gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </RelativeLayout>
 
     </RelativeLayout>
    </LinearLayout>

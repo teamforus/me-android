@@ -1,4 +1,4 @@
-package io.forus.me.android.presentation.view.screens.transactions.transactions.items
+package io.forus.me.android.presentation.view.screens.vouchers.item.transactions.items
 
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
