@@ -117,7 +117,7 @@ class NewRecordFragment : LRFragment<NewRecordModel, NewRecordView, NewRecordPre
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val newRecordViewPagerAdapter = NewRecordViewPagerAdapter()
+        val newRecordViewPagerAdapter = NewRecordViewPagerAdapter(NUM_PAGES)
         main_view_pager.adapter = newRecordViewPagerAdapter
         main_view_pager.offscreenPageLimit = NUM_PAGES
         main_view_pager.currentItem = 0

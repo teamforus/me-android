@@ -8,7 +8,7 @@ import kotlinx.android.synthetic.main.view_new_record_select_value.*
 
 interface NewRecordView : LRView<NewRecordModel> {
     companion object {
-        const val NUM_PAGES = 3
+        const val NUM_PAGES = 4
     }
 
     fun onBackPressed(): Boolean
