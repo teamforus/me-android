@@ -17,6 +17,7 @@
 
     <declare-styleable name="CustomButtonAttrs">
         <attr name="reverse" format="boolean"/>
+        <attr name="textSize" format="float"/>
     </declare-styleable>
 
 
