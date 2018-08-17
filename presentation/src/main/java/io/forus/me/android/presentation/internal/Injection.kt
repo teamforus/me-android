@@ -9,6 +9,7 @@ import io.forus.me.android.data.net.MeServiceFactory
 import io.forus.me.android.data.repository.account.datasource.local.AccountLocalDataSource
 import io.forus.me.android.data.repository.account.datasource.remote.AccountRemoteDataSource
 import io.forus.me.android.data.repository.records.RecordsRepository
+import io.forus.me.android.data.repository.records.ValidationRepository
 import io.forus.me.android.data.repository.records.datasource.mock.RecordsMockDataSource
 import io.forus.me.android.data.repository.records.datasource.remote.RecordsRemoteDataSource
 import io.forus.me.android.data.repository.web3.datasource.Web3DataSource
@@ -94,6 +95,10 @@ class Injection private constructor() {
 
     val retrofitExceptionMapper: RetrofitExceptionMapper by lazy {
         return@lazy RetrofitExceptionMapper()
+    }
+
+    val validationRepository: ValidationRepository by lazy {
+        return@lazy ValidationRepository()
     }
 
 }
