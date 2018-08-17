@@ -6,21 +6,27 @@ import com.ocrv.ekasui.mrm.ui.loadRefresh.PartialChange
 import io.forus.me.android.domain.models.records.NewRecordRequest
 import io.forus.me.android.domain.models.records.RecordCategory
 import io.forus.me.android.domain.models.records.RecordType
+import io.forus.me.android.domain.models.records.Validator
 import io.forus.me.android.domain.repository.records.RecordsRepository
+import io.forus.me.android.domain.repository.records.ValidationRepository
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.BiFunction
+import io.reactivex.functions.Function3
 import io.reactivex.schedulers.Schedulers
 
-class NewRecordPresenter constructor(private val recordRepository: RecordsRepository) : LRPresenter<NewRecordModel, NewRecordModel, NewRecordView>() {
+class NewRecordPresenter constructor(private val recordRepository: RecordsRepository, private val validationRepository: ValidationRepository) : LRPresenter<NewRecordModel, NewRecordModel, NewRecordView>() {
 
     var request: NewRecordRequest? = null;
 
     override fun initialModelSingle(): Single<NewRecordModel> = Single.zip(
             Single.fromObservable(recordRepository.getRecordTypes()),
             Single.fromObservable(recordRepository.getCategories()),
-            BiFunction { types : List<RecordType>, categories: List<RecordCategory> -> NewRecordModel(types = types, categories = categories)}
+            Single.fromObservable(validationRepository.getValidators()),
+            Function3 { types : List<RecordType>, categories: List<RecordCategory>, validators: List<Validator> ->
+                NewRecordModel(types = types, categories = categories, validators = validators)
+            }
     )
 
 
@@ -40,10 +46,14 @@ class NewRecordPresenter constructor(private val recordRepository: RecordsReposi
                         intent { it.setValue() }
                                 .map {  NewRecordPartialChanges.SetValue(it) },
                         intent { it.previousStep()}
-                                .map {  NewRecordPartialChanges.PreviousStep() },
+                                .map {  NewRecordPartialChanges.PreviousStep() }
+
+                ),
+                Observable.merge(
+                    intent { it.selectValidator()}
+                            .map {  NewRecordPartialChanges.SelectValidator(it) },
                         intent { it.nextStep() }
                                 .map {  NewRecordPartialChanges.NextStep() }
-
                 ),
                 intent { it.submit() }
                         .switchMap {
@@ -89,6 +99,7 @@ class NewRecordPresenter constructor(private val recordRepository: RecordsReposi
             is NewRecordPartialChanges.SelectCategory -> result = vs.copy(model = vs.model.copy(item = vs.model.item.copy(category = change.category)))
             is NewRecordPartialChanges.SelectType -> result = vs.copy(model = vs.model.copy(item = vs.model.item.copy(recordType = change.type)))
             is NewRecordPartialChanges.SetValue -> result = vs.copy(model = vs.model.copy(item = vs.model.item.copy(value = change.value)))
+            is NewRecordPartialChanges.SelectValidator -> result = vs.copy(model = vs.model.copy(item = vs.model.item.copy(validator = change.validator)))
             is NewRecordPartialChanges.PreviousStep -> result = vs.copy(model = vs.model.copy(currentStep = vs.model.currentStep - (if (vs.model.currentStep < NewRecordView.NUM_PAGES && vs.model.currentStep > 0) 1 else 0)))
             is NewRecordPartialChanges.NextStep -> result = vs.copy(model = vs.model.copy(currentStep = vs.model.currentStep + (if (vs.model.currentStep < NewRecordView.NUM_PAGES - 1 && vs.model.currentStep >= 0) 1 else 0)))
         }

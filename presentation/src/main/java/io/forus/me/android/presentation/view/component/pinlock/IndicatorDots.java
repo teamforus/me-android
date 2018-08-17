@@ -88,7 +88,7 @@ public class IndicatorDots extends LinearLayout {
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        // If the indicator type is not fixed
+        // If the indicator validator is not fixed
         if (mIndicatorType != 0) {
             ViewGroup.LayoutParams params = this.getLayoutParams();
             params.height = mDotDiameter;

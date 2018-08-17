@@ -4,14 +4,15 @@ import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import io.forus.me.android.domain.models.records.RecordType
+import io.forus.me.android.domain.models.records.Validator
 import io.forus.me.android.presentation.view.screens.records.newrecord.viewholders.RecordTypeVH
 import io.forus.me.android.presentation.view.screens.records.newrecord.viewholders.RecordValidatorVH
 
-class RecordValidatorAdapter(private val clickListener: ((RecordType) -> Unit)?): RecyclerView.Adapter<RecordValidatorVH>() {
+class RecordValidatorAdapter(private val clickListener: ((Validator) -> Unit)?): RecyclerView.Adapter<RecordValidatorVH>() {
 
     private var lastSelectedPosition: Int = -1
 
-    var items: List<RecordType> = emptyList()
+    var items: List<Validator> = emptyList()
         set(value) {
             val old = field
             field = value
@@ -28,13 +29,13 @@ class RecordValidatorAdapter(private val clickListener: ((RecordType) -> Unit)?)
         setHasStableIds(true)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = RecordValidatorVH(parent) { recordType: RecordType, position: Int ->
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = RecordValidatorVH(parent) { validator: Validator, position: Int ->
         lastSelectedPosition = position
         //notifyDataSetChanged()
-        clickListener?.invoke(recordType)
+        clickListener?.invoke(validator)
     }
 
-    override fun onBindViewHolder(holder: RecordTypeVH, position: Int) {
+    override fun onBindViewHolder(holder: RecordValidatorVH, position: Int) {
         holder.render(items[position], lastSelectedPosition)
     }
     override fun getItemCount() = items.size
