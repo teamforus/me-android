@@ -17,9 +17,9 @@
             android:layout_height="match_parent">
 
                 <io.forus.me.android.presentation.view.component.buttons.Button
-                    android:id="@+id/register"
+                    android:id="@+id/btn_new_record"
                     app:textSize="14.0"
-                    android:text="Add record"
+                    android:text="@string/add_record"
                     android:layout_marginTop="6dp"
                     android:layout_width="134dp"
                     android:layout_height="36dp" />
