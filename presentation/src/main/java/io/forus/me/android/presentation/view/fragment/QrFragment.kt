@@ -1,12 +1,11 @@
-package io.forus.me.android.presentation.view.screens.account.assigndelegates
+package io.forus.me.android.presentation.view.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import io.forus.me.android.presentation.R
-import io.forus.me.android.presentation.view.fragment.BaseFragment
-import kotlinx.android.synthetic.main.account_assign_delegates_qr_fragment.*
+import kotlinx.android.synthetic.main.popup_qr_fragment.*
 
 
 class QrFragment : BaseFragment() {
@@ -27,7 +26,7 @@ class QrFragment : BaseFragment() {
         }
     }
     override fun getLayoutID(): Int {
-        return R.layout.account_assign_delegates_qr_fragment
+        return R.layout.popup_qr_fragment
     }
 
 

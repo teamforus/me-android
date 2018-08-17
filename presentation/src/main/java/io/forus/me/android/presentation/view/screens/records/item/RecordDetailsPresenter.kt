@@ -11,7 +11,6 @@ import io.forus.me.android.presentation.helpers.QrCodeGenerator
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.functions.BiFunction
 import io.reactivex.functions.Function3
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
@@ -29,7 +28,7 @@ class RecordDetailsPresenter constructor(private val recordId: Long, private val
     )
 
 
-    override fun RecordDetailsModel.changeInitialModel(i: RecordDetailsModel): RecordDetailsModel = copy(item = i.item, uuid = i.uuid).also {
+    override fun RecordDetailsModel.changeInitialModel(i: RecordDetailsModel): RecordDetailsModel = copy(item = i.item, uuid = i.uuid, validators = i.validators).also {
         if(i.uuid != null && i.uuid.isNotEmpty()) {
             loadQrCode.onNext(i.uuid)
         }

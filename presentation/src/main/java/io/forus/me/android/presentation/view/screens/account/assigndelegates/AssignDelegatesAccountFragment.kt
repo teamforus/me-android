@@ -13,6 +13,7 @@ import io.forus.me.android.presentation.interfaces.SlidingToolbarFragmentListene
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.forus.me.android.presentation.view.fragment.BaseFragment
+import io.forus.me.android.presentation.view.fragment.QrFragment
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.account_assign_delegates_fragment.*
 
