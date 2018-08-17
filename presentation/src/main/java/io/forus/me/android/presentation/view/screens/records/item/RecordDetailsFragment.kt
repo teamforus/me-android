@@ -1,6 +1,7 @@
 package io.forus.me.android.presentation.view.screens.records.item
 
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,6 +33,8 @@ class RecordDetailsFragment : ToolbarLRFragment<RecordDetailsModel, RecordDetail
 
     private var recordId: Long = 0
 
+    private lateinit var adapter: ValidatorsAdapter
+
     override fun viewForSnackbar(): View = root
 
     override fun loadRefreshPanel() = object : LoadRefreshPanel {
@@ -50,16 +53,26 @@ class RecordDetailsFragment : ToolbarLRFragment<RecordDetailsModel, RecordDetail
         if (bundle != null) {
             recordId = bundle.getLong(RECORD_ID_EXTRA)
         }
+
+        adapter = ValidatorsAdapter()
+        adapter.clickListener = { item ->
+
+        }
+
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        recycler.layoutManager = LinearLayoutManager(context)
+        recycler.adapter = adapter
     }
 
     override fun createPresenter() = RecordDetailsPresenter(
             recordId,
-            Injection.instance.recordsRepository
+            Injection.instance.recordsRepository,
+            Injection.instance.validationRepository
     )
 
     override fun render(vs: LRViewState<RecordDetailsModel>) {

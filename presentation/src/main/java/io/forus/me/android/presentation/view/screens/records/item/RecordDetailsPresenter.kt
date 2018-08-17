@@ -4,23 +4,27 @@ import com.ocrv.ekasui.mrm.ui.loadRefresh.LRPresenter
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
 import com.ocrv.ekasui.mrm.ui.loadRefresh.PartialChange
 import io.forus.me.android.domain.models.records.Record
+import io.forus.me.android.domain.models.records.Validator
 import io.forus.me.android.domain.repository.records.RecordsRepository
+import io.forus.me.android.domain.repository.records.ValidationRepository
 import io.forus.me.android.presentation.helpers.QrCodeGenerator
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.BiFunction
+import io.reactivex.functions.Function3
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 
-class RecordDetailsPresenter constructor(private val recordId: Long, private val recordsRepository: RecordsRepository) : LRPresenter<RecordDetailsModel, RecordDetailsModel, RecordDetailsView>() {
+class RecordDetailsPresenter constructor(private val recordId: Long, private val recordsRepository: RecordsRepository, private val validationRepository: ValidationRepository) : LRPresenter<RecordDetailsModel, RecordDetailsModel, RecordDetailsView>() {
 
 
     override fun initialModelSingle(): Single<RecordDetailsModel> = Single.zip(
             Single.fromObservable(recordsRepository.getRecord(recordId)),
             Single.fromObservable(recordsRepository.getRecordUuid(recordId)),
-            BiFunction { record : Record, uuid: String ->
-                RecordDetailsModel(record, uuid)
+            Single.fromObservable(validationRepository.getValidators()),
+            Function3 { record : Record, uuid: String, validators: List<Validator> ->
+                RecordDetailsModel(item = record, uuid = uuid, validators = validators)
             }
     )
 
