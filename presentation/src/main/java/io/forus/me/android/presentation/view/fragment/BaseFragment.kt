@@ -122,7 +122,7 @@ abstract class BaseFragment : Fragment(), FragmentListener {
         return 0;
     }
     //  /**
-    //   * Gets a component for dependency injection by its type.
+    //   * Gets a component for dependency injection by its validator.
     //   */
     //  @SuppressWarnings("unchecked")
     //  protected <C> C getComponent(Class<C> componentType) {
