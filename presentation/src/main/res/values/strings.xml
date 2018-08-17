@@ -82,6 +82,7 @@
     <string name="add_record">Add record</string>
 
     <string name="title_record_detail">Record detail</string>
+    <string name="title_record_detail_validators">Validators</string>
     <string name="record_detail_scan_qr">Scan deze QR-Code met een ander apparaat waar u al op aangemeld bent</string>
 
     <!-- New account screen -->
