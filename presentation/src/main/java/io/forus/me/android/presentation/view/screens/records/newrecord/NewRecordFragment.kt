@@ -30,6 +30,7 @@ import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_new_record.*
 import kotlinx.android.synthetic.main.view_new_record_select_category.*
 import kotlinx.android.synthetic.main.view_new_record_select_type.*
+import kotlinx.android.synthetic.main.view_new_record_select_validator.*
 import kotlinx.android.synthetic.main.view_new_record_select_value.*
 import java.lang.Exception
 
@@ -55,7 +56,9 @@ class NewRecordFragment : LRFragment<NewRecordModel, NewRecordView, NewRecordPre
 
     private lateinit var selectedCategoryVH: SelectedCategoryVH
     private lateinit var selectedCategoryVH2: SelectedCategoryVH
+    private lateinit var selectedCategoryVH3: SelectedCategoryVH
     private lateinit var selectedTypeVH: SelectedTypeVH
+    private lateinit var selectedTypeVH3: SelectedTypeVH
 
     private var retrofitExceptionMapper: RetrofitExceptionMapper = Injection.instance.retrofitExceptionMapper
 
@@ -120,7 +123,9 @@ class NewRecordFragment : LRFragment<NewRecordModel, NewRecordView, NewRecordPre
 
         selectedCategoryVH = SelectedCategoryVH(mRootView.findViewById(R.id.hat_item_category))
         selectedCategoryVH2 = SelectedCategoryVH(mRootView.findViewById(R.id.hat_item_category_2))
+        selectedCategoryVH3 = SelectedCategoryVH(mRootView.findViewById(R.id.hat_item_category_3))
         selectedTypeVH = SelectedTypeVH(mRootView.findViewById(R.id.hat_item_type))
+        selectedTypeVH3 = SelectedTypeVH(mRootView.findViewById(R.id.hat_item_type_3))
 
         return mRootView
     }
@@ -147,6 +152,11 @@ class NewRecordFragment : LRFragment<NewRecordModel, NewRecordView, NewRecordPre
 
         recycler_type.layoutManager = LinearLayoutManager(context)
         recycler_type.adapter = recordTypesAdapter
+
+
+
+        recycler_validators.layoutManager = LinearLayoutManager(context)
+        recycler_validators.adapter = recordValidatorAdapter
 
         btn_next.setOnClickListener {
             if (main_view_pager.currentItem < NUM_PAGES - 1) nextStep.onNext(true) else submit.onNext(true)
@@ -179,6 +189,10 @@ class NewRecordFragment : LRFragment<NewRecordModel, NewRecordView, NewRecordPre
             2 -> {
                 if(vs.model.item.category != null) selectedCategoryVH.render(vs.model.item.category!!)
                 if(vs.model.item.recordType != null) selectedTypeVH.render(vs.model.item.recordType!!)
+            }
+            3 -> {
+                if(vs.model.item.category != null) selectedCategoryVH3.render(vs.model.item.category!!)
+                if(vs.model.item.recordType != null) selectedTypeVH3.render(vs.model.item.recordType!!)
             }
         }
 

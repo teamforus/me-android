@@ -23,13 +23,20 @@
             android:layout_marginBottom="17dp" />
 
         <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:baselineAligned="false">
 
             <include
-                android:id="@+id/hat_item_category"
+                android:id="@+id/hat_item_category_3"
                 layout="@layout/view_new_record_hat_item"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -41,13 +48,24 @@
             </LinearLayout>
 
             <include
-                android:id="@+id/hat_item_type"
+                android:id="@+id/hat_item_type_3"
                 layout="@layout/view_new_record_hat_item"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
         </LinearLayout>
+
+
+        <include
+            android:id="@+id/hat_item_category_3"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:layout_marginBottom="@dimen/activity_horizontal_margin"
+            layout="@layout/view_new_record_hat_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_validators"
@@ -56,7 +74,6 @@
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"/>
 
-=
 
     </LinearLayout>
 

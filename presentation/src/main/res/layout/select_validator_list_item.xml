@@ -1,55 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<io.forus.me.android.presentation.view.component.card.CommonCard
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
 
     android:id="@+id/root"
     android:orientation="vertical"
+    android:background="@color/brightBackground"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="4dp"
-    android:clickable="true"
-    android:focusable="true"
+    android:layout_height="wrap_content">
 
-    app:cardCornerRadius="5dp"
-    app:cardElevation="5dp"
-    app:cardUseCompatPadding="false">
 
-    <LinearLayout
-        android:id="@+id/bg"
-        android:background="@color/alabaster"
-        android:orientation="vertical"
+    <RelativeLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="@dimen/activity_horizontal_margin">
 
-        <RelativeLayout
+        <io.forus.me.android.presentation.view.component.images.AutoLoadImageView
+            android:id="@+id/iv_icon"
+            android:layout_alignParentStart="true"
             android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_height="40dp" />
+
+
+        <LinearLayout
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/circle_empty">
+            android:orientation="vertical"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/iv_icon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-            <io.forus.me.android.presentation.view.component.images.AutoLoadImageView
-                android:id="@+id/iv_logo"
-                android:layout_gravity="center_vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+            <io.forus.me.android.presentation.view.component.text.TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/body_1_87"
+                android:textSize="17.1sp"
+                android:lineSpacingExtra="6.9sp"
+                app:type="medium"
+                tools:text="jamal@forus.io" />
 
-        </RelativeLayout>
+            <io.forus.me.android.presentation.view.component.text.TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14.1sp"
+                android:textColor="@color/body1_60"
+                android:letterSpacing="0.02"
+                android:lineSpacingExtra="5.9sp"
+                tools:text="Open DigiD app"
+                />
 
-        <io.forus.me.android.presentation.view.component.text.TextView
-            android:id="@+id/tv_name"
-            android:textSize="17.1sp"
-            android:textColor="@color/body_1_87"
-            android:lineSpacingExtra="7.9sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="16dp"
-            tools:text="Subtitle" />
+        </LinearLayout>
 
-    </LinearLayout>
 
-</io.forus.me.android.presentation.view.component.card.CommonCard>
+    </RelativeLayout>
+
+
+    <View
+        android:background="@color/alto"
+        android:layout_marginLeft="56dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+</LinearLayout>
