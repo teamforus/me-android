@@ -6,10 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
+import io.forus.me.android.domain.models.records.Validator
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.interfaces.SlidingToolbarFragmentActionListener
 import io.forus.me.android.presentation.interfaces.SlidingToolbarFragmentListener
 import io.forus.me.android.presentation.internal.Injection
+import io.forus.me.android.presentation.view.adapters.RVListAdapter
 import io.forus.me.android.presentation.view.fragment.BaseFragment
 import io.forus.me.android.presentation.view.fragment.QrFragment
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
@@ -35,7 +37,7 @@ class RecordDetailsFragment : ToolbarLRFragment<RecordDetailsModel, RecordDetail
 
     private var recordId: Long = 0
 
-    private lateinit var adapter: ValidatorsAdapter
+    private lateinit var adapter: RVListAdapter<Validator, ValidatorVH>
 
     private  var qrFragment: QrFragment =  QrFragment.newIntent()
     var slidingToolbarFragmentActionListener : SlidingToolbarFragmentActionListener? = null
@@ -51,10 +53,7 @@ class RecordDetailsFragment : ToolbarLRFragment<RecordDetailsModel, RecordDetail
             recordId = bundle.getLong(RECORD_ID_EXTRA)
         }
 
-        adapter = ValidatorsAdapter()
-        adapter.clickListener = { item ->
-
-        }
+        adapter = RVListAdapter(ValidatorVH.create) { item -> showToastMessage(item.name)}
 
         return view
     }
@@ -82,7 +81,7 @@ class RecordDetailsFragment : ToolbarLRFragment<RecordDetailsModel, RecordDetail
         val record = vs.model.item
         type.text = record?.recordType?.name
         value.text = record?.value
-        adapter.validators = vs.model.validators
+        adapter.items = vs.model.validators
 
         if (vs.model.uuid != null && vs.model.uuid.isNotEmpty())
             qrFragment.qrText = vs.model.uuid

@@ -1,14 +1,15 @@
-package io.forus.me.android.presentation.view.screens.records.item
+package io.forus.me.android.presentation.view.adapters
 
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
-import io.forus.me.android.domain.models.records.Validator
 
-class ValidatorsAdapter() : RecyclerView.Adapter<ValidatorVH>() {
+class RVListAdapter<Item, VH: RVViewHolder<Item>>(
+        private val createVH: (ViewGroup) -> VH,
+        private val clickListener: ((Item) -> Unit)?
+) : RecyclerView.Adapter<VH>() {
 
-
-    var validators: List<Validator> = emptyList()
+    var items: List<Item> = emptyList()
         set(value) {
             val old = field
             field = value
@@ -21,18 +22,19 @@ class ValidatorsAdapter() : RecyclerView.Adapter<ValidatorVH>() {
             notifyDataSetChanged()
         }
 
-    
+
     init {
         setHasStableIds(true)
     }
 
-    var clickListener: ((Validator) -> Unit)? = null
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ValidatorVH(parent, clickListener)
-    override fun onBindViewHolder(holder: ValidatorVH, position: Int) {
-
-        holder.render(validators[position])
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = createVH(parent).also {
+        it.clickListener = clickListener
     }
-    override fun getItemCount() = validators.size
+
+    override fun onBindViewHolder(holder: VH, position: Int) {
+
+        holder.render(items[position])
+    }
+    override fun getItemCount() = items.size
     override fun getItemId(position: Int) = position.toLong()
 }
