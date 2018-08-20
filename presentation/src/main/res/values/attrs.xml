@@ -17,6 +17,7 @@
 
     <declare-styleable name="CustomButtonAttrs">
         <attr name="reverse" format="boolean"/>
+        <attr name="textSize" format="float"/>
     </declare-styleable>
 
 
@@ -50,5 +51,9 @@
 
     </declare-styleable>
 
+    <declare-styleable name="QRCodeImageView">
+        <attr name="onColor" format="integer"/>
+        <attr name="offColor" format="integer"/>
+    </declare-styleable>
 
 </resources>

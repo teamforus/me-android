@@ -3,6 +3,7 @@ package io.forus.me.android.presentation.view.screens.records.newrecord
 import io.forus.me.android.domain.models.records.NewRecordRequest
 import io.forus.me.android.domain.models.records.RecordCategory
 import io.forus.me.android.domain.models.records.RecordType
+import io.forus.me.android.domain.models.records.Validator
 import io.forus.me.android.presentation.models.ValidationResult
 
 data class NewRecordModel(
@@ -11,7 +12,8 @@ data class NewRecordModel(
         val sendingCreateRecord: Boolean = false,
         val sendingCreateRecordError: Throwable? = null,
         val types: List<RecordType> = emptyList(),
-        val categories: List<RecordCategory> = emptyList()
+        val categories: List<RecordCategory> = emptyList(),
+        val validators: List<Validator> = emptyList()
 ) {
 
     val buttonIsActive: Boolean
@@ -33,7 +35,7 @@ data class NewRecordModel(
             when {
                 sendingCreateRecord -> error =  ("Request in progress")
                 item.category == null -> error = ("Please select category")
-                item.recordType == null -> error =  ("Please select type")
+                item.recordType == null -> error =  ("Please select validator")
                 item.value.isEmpty() -> error =  ("Value is not valid")
                 else -> valid = true
             }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
 
@@ -7,80 +8,104 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginBottom="60dp">
 
-        <LinearLayout
+        <include layout="@layout/toolbar_view"/>
+
+        <com.ocrv.ekasui.mrm.ui.loadRefresh.LRPanelImpl
+            android:id="@+id/lr_panel"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_margin="16dp">
+            android:layout_height="match_parent">
 
-            <io.forus.me.android.presentation.view.component.text.TextView
-                android:id="@+id/type"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14.1sp"
-                android:textColor="@color/body1_60"
-                android:lineSpacingExtra="7.9sp"
-                tools:text="E-mail" />
+            <LinearLayout
+                android:background="@color/colorPrimary"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <io.forus.me.android.presentation.view.component.text.TextView
-                android:id="@+id/value"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="16.1sp"
-                android:textColor="@color/body_1_87"
-                android:lineSpacingExtra="7.9sp"
-                android:layout_marginTop="2dp"
-                tools:text="darkvaticanshadow@forus.io" />
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/secondary200"
-            android:orientation="vertical"
-            android:gravity="center">
-
-            <RelativeLayout
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_marginTop="40dp"
-                android:layout_marginBottom="26dp"
-                android:layout_width="300dp"
-                android:layout_height="300dp" >
-
-                <io.forus.me.android.presentation.view.component.images.AutoLoadImageView
-                    android:id="@+id/qr_code"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_margin="16dp">
 
-                <ProgressBar
-                    android:id="@+id/progressBar"
-                    android:layout_centerVertical="true"
-                    style="?android:attr/progressBarStyle"
+                    <io.forus.me.android.presentation.view.component.text.TextView
+                        android:id="@+id/type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14.1sp"
+                        android:textColor="@color/body1_60"
+                        android:lineSpacingExtra="7.9sp"
+                        tools:text="E-mail" />
+
+                    <io.forus.me.android.presentation.view.component.text.TextView
+                        android:id="@+id/value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16.1sp"
+                        android:textColor="@color/body_1_87"
+                        android:lineSpacingExtra="7.9sp"
+                        android:layout_marginTop="2dp"
+                        tools:text="darkvaticanshadow@forus.io" />
+
+                </LinearLayout>
+
+                <View
+                    android:background="@color/silver"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </RelativeLayout>
+                    android:layout_height="5dp"/>
 
-            <io.forus.me.android.presentation.view.component.text.TextView
-                android:layout_marginLeft="17dp"
-                android:layout_marginRight="17dp"
-                android:layout_marginBottom="23dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:textColor="@color/body1_60"
-                android:lineSpacingExtra="3sp"
-                android:gravity="center"
-                android:text="@string/record_detail_scan_qr" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-        </LinearLayout>
+                    <io.forus.me.android.presentation.view.component.text.TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
+                        app:type="medium"
+                        android:textSize="20.1sp"
+                        android:textColor="@color/body_1_87"
+                        android:text="@string/title_record_detail_validators" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </com.ocrv.ekasui.mrm.ui.loadRefresh.LRPanelImpl>
+
+    </android.support.design.widget.CoordinatorLayout>
+
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:background="@color/IconBase"
+        android:layout_width="match_parent"
+        android:gravity="center_horizontal"
+        android:layout_height="wrap_content">
+
+        <io.forus.me.android.presentation.view.component.buttons.Button
+            android:id="@+id/btn_show_qr"
+            app:textSize="14.0"
+            android:text="@string/button_show_qr"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="13dp"
+            android:layout_marginBottom="11dp"
+            android:layout_width="328dp"
+            android:layout_height="36dp" />
 
     </LinearLayout>
 

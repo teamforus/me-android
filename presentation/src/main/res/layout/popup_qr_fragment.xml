@@ -24,7 +24,9 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"
         android:layout_width="270dp"
-        android:layout_height="270dp" />
+        android:layout_height="270dp"
+        app:onColor="@android:color/black"
+        app:offColor="@android:color/white"/>
 
 
 </LinearLayout>

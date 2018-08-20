@@ -21,10 +21,12 @@ class RecordsFragment : ToolbarLRFragment<RecordsModel, RecordsView, RecordsPres
 
     companion object {
         private val CATEGORY_ID_EXTRA = "CATEGORY_ID_EXTRA";
+        private val CATEGORY_NAME_EXTRA = "CATEGORY_NAME_EXTRA";
 
-        fun newIntent(recordCategoryId: Long): RecordsFragment = RecordsFragment().also {
+        fun newIntent(recordCategoryId: Long, recordCategoryName: String): RecordsFragment = RecordsFragment().also {
             val bundle = Bundle()
             bundle.putSerializable(CATEGORY_ID_EXTRA, recordCategoryId)
+            bundle.putString(CATEGORY_NAME_EXTRA, recordCategoryName)
             it.arguments = bundle
         }
     }
@@ -36,6 +38,7 @@ class RecordsFragment : ToolbarLRFragment<RecordsModel, RecordsView, RecordsPres
         get() = getString(R.string.records)
 
     private var recordCategoryId: Long = 0
+    private var recordCategoryName: String = ""
 
     private lateinit var adapter: RecordsAdapter
 
@@ -48,14 +51,17 @@ class RecordsFragment : ToolbarLRFragment<RecordsModel, RecordsView, RecordsPres
         val bundle = this.arguments
         if (bundle != null) {
             recordCategoryId = bundle.getLong(CATEGORY_ID_EXTRA)
+            recordCategoryName = bundle.getString(CATEGORY_NAME_EXTRA)
         }
-        adapter = RecordsAdapter()
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setToolbarTitle(recordCategoryName)
+
+        adapter = RecordsAdapter()
         adapter.clickListener = { item ->
             navigator.navigateToRecordDetails(activity, item)
         }

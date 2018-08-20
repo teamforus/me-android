@@ -16,6 +16,7 @@
         <include android:id="@+id/page_one" layout="@layout/view_new_record_select_category" />
         <include android:id="@+id/page_two" layout="@layout/view_new_record_select_type" />
         <include android:id="@+id/page_tree" layout="@layout/view_new_record_select_value" />
+        <include android:id="@+id/page_four" layout="@layout/view_new_record_select_validator" />
 
     </io.forus.me.android.presentation.view.component.viewpager.NonSwipeableViewPager>
 

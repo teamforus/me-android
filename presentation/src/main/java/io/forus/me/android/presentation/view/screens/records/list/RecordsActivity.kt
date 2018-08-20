@@ -38,7 +38,7 @@ class RecordsActivity : CommonActivity() {
             val recordCategoryId = intent.getLongExtra(CATEGORY_ID_EXTRA, 0)
             val recordCategoryName = intent.getStringExtra(CATEGORY_NAME_EXTRA)
 
-            fragment = RecordsFragment.newIntent(recordCategoryId)
+            fragment = RecordsFragment.newIntent(recordCategoryId, recordCategoryName)
             addFragment(R.id.fragmentContainer, fragment)
         }
     }

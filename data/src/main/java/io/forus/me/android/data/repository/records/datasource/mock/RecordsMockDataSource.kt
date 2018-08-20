@@ -31,12 +31,12 @@ class RecordsMockDataSource() : RecordsDataSource{
         types.add(RecordType("base_salary", "number", "Base salary"))
         types.add(RecordType("bsn", "number", "BSN"))
 
-        categories.add(RecordCategory(1, "Persoonlijk", 1, "https://emojipedia-us.s3.amazonaws.com/thumbs/120/apple/129/thinking-face_1f914.png"))
-        categories.add(RecordCategory(2, "Medish", 2, "https://vk.com/doc51841847_471254526?hash=18138fdd497b77a929&dl=700dcd9987bdc61121"))
-        categories.add(RecordCategory(3, "Zakelijk", 3, "https://emojipedia-us.s3.amazonaws.com/thumbs/120/apple/129/money-bag_1f4b0.png"))
-        categories.add(RecordCategory(4, "Relaties", 4, "https://emojipedia-us.s3.amazonaws.com/thumbs/120/apple/129/man-and-woman-holding-hands_1f46b.png"))
-        categories.add(RecordCategory(5, "Certificaten", 5, "https://emojipedia-us.s3.amazonaws.com/thumbs/120/apple/129/bookmark_1f516.png"))
-        categories.add(RecordCategory(6, "Anderen", 6,"https://emojipedia-us.s3.amazonaws.com/thumbs/120/apple/129/clipboard_1f4cb.png"))
+        categories.add(RecordCategory(1, "Persoonlijk", 1, "https://test.platform.forus.io/assets/category-icons/persoonlijk.png"))
+        categories.add(RecordCategory(2, "Medical", 2, "https://test.platform.forus.io/assets/category-icons/medical.png"))
+        categories.add(RecordCategory(3, "Zakelijk", 3, "https://test.platform.forus.io/assets/category-icons/zakelijk.png"))
+        categories.add(RecordCategory(4, "Relaties", 4, "https://test.platform.forus.io/assets/category-icons/relaties.png"))
+        categories.add(RecordCategory(5, "Certificaten", 5, "https://test.platform.forus.io/assets/category-icons/certificaten.png"))
+        categories.add(RecordCategory(6, "Anderen", 6,"https://test.platform.forus.io/assets/category-icons/anderen.png"))
 
         var counter2: Long = 0
         for(category in categories){

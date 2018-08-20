@@ -64,6 +64,10 @@ class RecordCategoriesFragment : ToolbarLRFragment<RecordCategoriesModel, Record
         }
         recycler.layoutManager = LinearLayoutManager(context)
         recycler.adapter = adapter
+
+        btn_new_record.setOnClickListener{
+            this.navigator.navigateToNewRecord(activity)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
