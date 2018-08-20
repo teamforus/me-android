@@ -56,7 +56,7 @@ class WalletDetailsFragment : ToolbarLRFragment<WalletDetailsModel, WalletDetail
 
         val item = vs.model.item
         tv_balance_crypto.text = if(item != null) ""+item.balance.format()+" "+item.currency?.name else ""
-        tv_balance_fiat.text = "~ ?€;    ?\$"
+        tv_balance_fiat.text = "?"
         iv_logo.setImageUrl(item?.logoUrl)
     }
 }
