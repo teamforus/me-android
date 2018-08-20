@@ -12,13 +12,13 @@ class QrFragment : BaseFragment() {
 
     public var qrText : String = ""
     set(value) {
-        field = value
-
-        if (qrImage != null) {
-            qrImage.setQRText(value)
+        if(field != value){
+            field = value
+            if (qrImage != null) {
+                qrImage.setQRText(value)
+            }
         }
     }
-
 
     companion object {
         fun newIntent(): QrFragment {
@@ -32,18 +32,11 @@ class QrFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return super.onCreateView(inflater, container, savedInstanceState)
-
     }
-
-
-
-
 
     override fun initUI() {
 
