@@ -42,18 +42,6 @@ class NewRecordActivity : CommonActivity() {
         }
     }
 
-    fun changeToolbarTitle(position: Int){
-        val title =
-        when (position) {
-            0 -> getString(R.string.title_choose_category)
-            1 -> getString(R.string.title_choose_type)
-            2 -> getString(R.string.title_choose_text)
-            else -> getString(R.string.title_new_record)
-        }
-//        this.setToolbarTitle(title)
-
-    }
-
     override fun onBackPressed() {
         if(fragment.onBackPressed())
             super.onBackPressed()

@@ -71,10 +71,12 @@
     <string name="title_choose_category">Choose Category</string>
     <string name="title_choose_type">Choose Type</string>
     <string name="title_choose_text">Text</string>
+    <string name="title_choose_validators">Validators</string>
 
     <string name="choose_the_category_text">Select the category under which the new record type should be added.</string>
-    <string name="choose_the_type_text">Select the category under which the new record type should be added.</string>
-    <string name="choose_the_value_text">Select the category under which the new record type should be added.</string>
+    <string name="choose_the_type_text">Select the type under which the new record type should be added.</string>
+    <string name="choose_the_value_text">Enter the value of the record.</string>
+    <string name="choose_validators_text">Select the validators, yours the new record type should be verify.</string>
     <string name="venue_text">Venue</string>
 
     <string name="next_step">NEXT STEP</string>

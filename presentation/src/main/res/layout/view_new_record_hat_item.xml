@@ -24,6 +24,7 @@
         android:layout_height="wrap_content">
 
         <RelativeLayout
+            android:id="@+id/rl_image"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="4dp"

@@ -15,7 +15,7 @@
         android:layout_marginRight="16dp">
 
         <io.forus.me.android.presentation.view.component.text.TextView
-            android:text="@string/choose_the_value_text"
+            android:text="@string/choose_validators_text"
             style="@style/Body2Small"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -58,21 +58,24 @@
 
 
         <include
-            android:id="@+id/hat_item_category_3"
+            android:id="@+id/hat_item_value_3"
             android:layout_marginTop="@dimen/activity_horizontal_margin"
             android:layout_marginBottom="@dimen/activity_horizontal_margin"
             layout="@layout/view_new_record_hat_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
+        <View
+            android:background="@color/secondary200"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"/>
 
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_validators"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_validators"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"/>
 
 
     </LinearLayout>

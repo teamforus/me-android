@@ -53,7 +53,7 @@ class AccountRepository(private val accountLocalDataSource: AccountDataSource, p
 
     override fun unlockIdentity(pin: String): Observable<Boolean> {
         return Single.just(accountLocalDataSource.unlockIdentity(pin)).toObservable()
-                .delay(100, TimeUnit.MILLISECONDS)
+                //.delay(100, TimeUnit.MILLISECONDS)
     }
 
     override fun exitIdentity(): Observable<Boolean> {

@@ -25,7 +25,7 @@
         android:baselineAligned="false">
 
         <include
-            android:id="@+id/hat_item_category_2"
+            android:id="@+id/hat_item_category_1"
             layout="@layout/view_new_record_hat_item"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
         </LinearLayout>
 
         <include
-            android:id="@+id/hat_item_type_2"
+            android:id="@+id/hat_item_type_1"
             layout="@layout/view_new_record_hat_item"
             android:layout_width="0dp"
             android:layout_height="0dp"
