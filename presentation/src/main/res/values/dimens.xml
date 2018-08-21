@@ -1,34 +1,43 @@
 <resources>
-  <!-- Default screen margins, per the Android Design guidelines. -->
-  <dimen name="activity_horizontal_margin">16dp</dimen>
-  <dimen name="activity_horizontal_margin_small">8dp</dimen>
-  <dimen name="activity_vertical_margin">16dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_horizontal_margin_small">8dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
 
-  <!--User Header stuff-->
-  <dimen name="header_text_size">26sp</dimen>
-  <dimen name="header_margin">5dp</dimen>
-  <dimen name="iv_cover_height">140dp</dimen>
+    <!--User Header stuff-->
+    <dimen name="header_text_size">26sp</dimen>
+    <dimen name="header_margin">5dp</dimen>
+    <dimen name="iv_cover_height">140dp</dimen>
 
-  <!--Listview rows stuff-->
-  <dimen name="lv_row_padding">5dp</dimen>
-  <dimen name="lv_row_text_size">20sp</dimen>
-  <dimen name="lv_row_icon_width">50dp</dimen>
-  <dimen name="lv_row_icon_padding">5dp</dimen>
-
-
-  <dimen name="screen_margin">-24dp</dimen>
+    <!--Listview rows stuff-->
+    <dimen name="lv_row_padding">5dp</dimen>
+    <dimen name="lv_row_text_size">20sp</dimen>
+    <dimen name="lv_row_icon_width">50dp</dimen>
+    <dimen name="lv_row_icon_padding">5dp</dimen>
 
 
-  <dimen name="toolbar_height">177dp</dimen>
+    <dimen name="screen_margin">-24dp</dimen>
+
+
+    <dimen name="toolbar_height">177dp</dimen>
+
+
+    <!--Card -->
+    <dimen name="card_radius">10dp</dimen>
+    <dimen name="card_elevation_big">13dp</dimen>
+    <dimen name="card_elevation_medium">5dp</dimen>
+
+    <!--Categories First Item -->
+    <dimen name="categories_first_item_margin_top">16dp</dimen>
+    <dimen name="categories_first_item_margin_bottom">8dp</dimen>
+
+    <!--Categories Grid Layout -->
+    <dimen name="categories_grid_space_between_cells">16dp</dimen>
 
 
 
-  <!--Card -->
-  <dimen name="card_radius">10dp</dimen>
-  <dimen name="card_elevation_big">13dp</dimen>
-  <dimen name="card_elevation_medium">5dp</dimen>
+    <dimen name="a11y_min_touch_target">36dp</dimen>
 
-  <!--Categories First Item -->
-  <dimen name="categories_first_item_margin_top">16dp</dimen>
-  <dimen name="categories_first_item_margin_bottom">8dp</dimen>
+    <dimen name="spacing_normal">8dp</dimen>
+    <dimen name="spacing_micro">4dp</dimen>
 </resources>

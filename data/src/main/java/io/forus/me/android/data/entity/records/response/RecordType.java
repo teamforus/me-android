@@ -13,6 +13,14 @@ public class RecordType {
     @SerializedName("name")
     private String name;
 
+    public RecordType() { }
+
+    public RecordType(String key, String type, String name) {
+        this.key = key;
+        this.type = type;
+        this.name = name;
+    }
+
     public String getKey() {
         return key;
     }

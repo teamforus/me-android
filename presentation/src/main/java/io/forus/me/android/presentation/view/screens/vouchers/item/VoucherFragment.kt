@@ -65,9 +65,11 @@ class VoucherFragment : LRFragment<VoucherModel, VoucherView, VoucherPresenter>(
         super.render(vs)
 
         name.text = vs.model.item?.name
-        type.text = "Valid til ${vs.model.item?.validDays} days"
+        type.text = vs.model.item?.getValidString()
         value.text = "${vs.model.item?.currency?.name} ${vs.model.item?.value.format()}"
-        logo.setImageUrl(vs.model.item?.logo)
+        logo.setImageUrl("https://image.flaticon.com/icons/png/512/107/107072.png")
+
+
 
         transactions_card.setTransactions(vs.model.transactions)
     }

@@ -13,9 +13,10 @@
 
 
 
-        <android.support.design.widget.CoordinatorLayout
+        <RelativeLayout
             android:background="@color/brightBackground"
             android:fitsSystemWindows="true"
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:id="@+id/main_content"
             android:layout_height="match_parent">
@@ -26,35 +27,21 @@
                 android:id="@+id/view_pager"
                 android:background="@color/windowsBackground"
                 android:fillViewport="true"
-                android:layout_marginTop="@dimen/screen_margin"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-            <!--<android.support.v4.widget.NestedScrollView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:fillViewport="true"-->
-                <!--android:layout_marginTop="-24dp"-->
-                <!--android:visibility="gone"-->
-                <!--app:layout_behavior="@string/appbar_scrolling_view_behavior">-->
 
-
-
-
-
-
-            <!--</android.support.v4.widget.NestedScrollView>-->
 
 
             <com.aurelhubert.ahbottomnavigation.AHBottomNavigation
                 android:id="@+id/bottom_navigation"
+                android:layout_alignParentBottom="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 app:selectedBackgroundVisible="false" />
 
-            <include layout="@layout/toolbar_view"/>
 
 
 
@@ -62,19 +49,9 @@
 
 
 
-        </android.support.design.widget.CoordinatorLayout>
+        </RelativeLayout>
 
 
     </RelativeLayout>
-    <!-- Navigation Drawer -->
-    <android.support.design.widget.NavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:fitsSystemWindows="true"
-        app:headerLayout="@layout/nav_header"
-        app:menu="@menu/drawer_actions" />
-
 
 </android.support.v4.widget.DrawerLayout>

@@ -16,7 +16,7 @@ class VouchersVH(parent: ViewGroup, private val clickListener: ((Voucher) -> Uni
 
     fun render(item:  Voucher) = with(itemView) {
 
-        type.text = "Valid til ${item.validDays} days"
+        type.text = item.getValidString()
         name.text = item.name
         value.text = "${item.currency.name} ${item.value.format()}"
 

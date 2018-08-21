@@ -30,6 +30,6 @@ class Voucher {
 
 
     fun getValidString() : String {
-        return "Valid til ${validDays} days"
+        return "Nog $validDays dagen geldig Valid"
     }
 }

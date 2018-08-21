@@ -43,15 +43,15 @@ class AssetsFragment : LRFragment<AssetsModel, AssetsView, AssetsPresenter>(), A
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
-            = inflater.inflate(R.layout.fragment_recycler, container, false)
+            = inflater.inflate(R.layout.fragment_recycler, container, false).also {
+        adapter = AssetsAdapter()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = AssetsAdapter()
         recycler.layoutManager = LinearLayoutManager(context)
         recycler.adapter = adapter
-
     }
 
 

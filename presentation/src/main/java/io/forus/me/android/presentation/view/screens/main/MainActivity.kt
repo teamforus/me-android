@@ -1,9 +1,12 @@
 package io.forus.me.android.presentation.view.screens.main
 
 
+import android.app.KeyguardManager
+import android.content.Context
+import android.os.Build
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import io.forus.me.android.presentation.internal.Injection
-
 import io.forus.me.android.presentation.view.activity.BaseActivity
 
 /**
@@ -11,24 +14,48 @@ import io.forus.me.android.presentation.view.activity.BaseActivity
  */
 class MainActivity : BaseActivity() {
 
+    private  val  keyguardManager: KeyguardManager
+        get() {
+            return this.getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
+        }
+
+    private var deviceSecurityAlert: AlertDialog? = null
+
+
+    fun isDeviceSecure(): Boolean {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) keyguardManager.isDeviceSecure else keyguardManager.isKeyguardSecure
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(io.forus.me.android.presentation.R.layout.activity_main)
 
 
-
-        //TODO REQUEST FROM REPOSITORY
-        if (Injection.instance.accountLocalDataSource.isLogin()) {
-
-
-            navigator.navigateToNewRecord(this, "1")
-            //navigateToDashboard()
-        } else {
+        if(Injection.instance.databaseHelper.exists()){
+            navigateToDashboard()
+        }
+        else {
             navigateToWelcomeScreen()
         }
+
+
+//        if (Injection.instance.accountLocalDataSource.isLogin()) {
+////            if (!systemServices.isDeviceSecure()) {
+////                deviceSecurityAlert = systemServices.showDeviceSecurityAlert()
+////            } else {
+////                navigateToDashboard()
+////            }
+//            navigateToDashboard()
+//            //navigateToDashboard()
+//        } else {
+//            navigateToWelcomeScreen()
+//        }
     }
 
+    override fun onStop() {
+        super.onStop()
+        deviceSecurityAlert?.dismiss()
+    }
 
     /**
      * Goes to the welcome screen.
@@ -43,7 +70,8 @@ class MainActivity : BaseActivity() {
      */
     private fun navigateToDashboard() {
 
-        this.navigator.navigateToDashboard(this)
+        this.navigator.navigateToDashboard(this, true)
         finish()
     }
+
 }

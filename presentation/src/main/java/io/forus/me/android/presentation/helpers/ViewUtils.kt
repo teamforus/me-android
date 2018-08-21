@@ -24,7 +24,7 @@ fun ViewAnimator.showIfNotYet(child: Int) {
 
 
 fun ImageView.loadUrl(url: String) {
-    //Picasso.with(context).initData(url).into(this)
+    //Picasso.with(context).initData(logoUrl).into(this)
 }
 
 fun TextView.setTextAppearanceC(@StyleRes textAppearance: Int)

@@ -5,24 +5,33 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import android.util.AttributeSet
 import net.glxn.qrgen.android.QRCode
-import android.widget.ImageView
 import com.google.zxing.EncodeHintType
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel
+import io.forus.me.android.presentation.R
 
 class QRCodeImageView : AutoLoadImageView {
 
-    constructor(context: Context) : super(context) {}
+    var onColor = Color.WHITE
+    var offColor = Color.BLACK
 
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {}
+    constructor(context: Context) : super(context) { initUI(context, null) }
 
-    constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle) {}
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) { initUI(context, attrs) }
 
+    constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle) { initUI(context, attrs) }
+
+    private fun initUI(context: Context, attrs: AttributeSet?) {
+        val ta = context.obtainStyledAttributes(attrs, R.styleable.QRCodeImageView, 0, 0)
+        onColor = ta.getColor(R.styleable.QRCodeImageView_onColor, onColor)
+        offColor = ta.getColor(R.styleable.QRCodeImageView_offColor, offColor)
+        ta.recycle()
+    }
 
     fun setQRText(text: String) {
         this.setImageBitmap(getQrBitmap(text,
                 this.width,
-                Color.WHITE,
-                Color.BLACK))
+                onColor,
+                offColor))
     }
 
 
@@ -32,8 +41,9 @@ class QRCodeImageView : AutoLoadImageView {
 
 
 
+
         var bitmap = QRCode.from(text)
-                .withHint(EncodeHintType.MARGIN, 0)
+                //.withHint(EncodeHintType.MARGIN, 0)
                 .withColor(onColor, offColor)
                 .withErrorCorrection(ErrorCorrectionLevel.H)
                 .withSize(size, size).bitmap()

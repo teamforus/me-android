@@ -1,33 +1,27 @@
 package io.forus.me.android.presentation.view.screens.dashboard
 
-import android.app.Fragment
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
-import android.support.v7.app.ActionBarDrawerToggle
+import android.view.Menu
+import android.view.MenuItem
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter
 import io.forus.me.android.presentation.R
-import io.forus.me.android.presentation.interfaces.ToolbarListener
-
-import io.forus.me.android.presentation.view.activity.ToolbarActivity
+import io.forus.me.android.presentation.view.activity.CommonActivity
 import io.forus.me.android.presentation.view.adapters.MainViewPagerAdapter
 import io.forus.me.android.presentation.view.fragment.BaseFragment
 import io.forus.me.android.presentation.view.screens.property.PropertyFragment
 import io.forus.me.android.presentation.view.screens.records.categories.RecordCategoriesFragment
-import io.forus.me.android.presentation.view.screens.records.list.RecordsFragment
 import kotlinx.android.synthetic.main.dashboard_activity.*
-import java.util.logging.Handler
 
 
-class DashboardActivity : ToolbarActivity() {
+class DashboardActivity : CommonActivity() {
 
     private var currentFragment: android.support.v4.app.Fragment? = null
     private var currentPagerPosition = 0
+    private var menu: Menu? = null
     private var navigationAdapter: AHBottomNavigationAdapter? = null
-
 
     companion object {
         fun getCallingIntent(context: Context): Intent {
@@ -50,7 +44,17 @@ class DashboardActivity : ToolbarActivity() {
 
     private fun initUI(){
 
-        bottom_navigation.setOnTabSelectedListener { position, wasSelected -> showTab(position, wasSelected) }
+        bottom_navigation.setOnTabSelectedListener ( object: AHBottomNavigation.OnTabSelectedListener {
+            var lastPosition: Int = 0;
+            override fun onTabSelected(position: Int, wasSelected: Boolean): Boolean {
+               var result =   showTab(position, lastPosition, wasSelected)
+               this.lastPosition = position
+
+               return result
+            }
+        } )
+
+    //    bottom_navigation.setOnTabSelectedListener { position, wasSelected -> showTab(position, wasSelected) }
         bottom_navigation.setOnNavigationPositionListener({ y ->  })
         bottom_navigation.accentColor = getCustomColor(R.color.colorAccent)
 
@@ -74,39 +78,50 @@ class DashboardActivity : ToolbarActivity() {
             view_pager.adapter = adapter
 
             view_pager.offscreenPageLimit = 5;
-            selectTab(currentPagerPosition)
+            selectTab(currentPagerPosition, 0)
         }
 
 
 
-        val toggle = ActionBarDrawerToggle(this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
-        drawer_layout.setDrawerListener(toggle)
-        toggle.isDrawerIndicatorEnabled = true
-        toggle.syncState()
 
 
         (android.os.Handler()).postDelayed({
-            showTab(0, false)
+            showTab(0, 0,false)
         },500)
 
     }
 
-    private fun selectTab(currentPagerPosition: Int) {
+    private fun selectTab(currentPagerPosition: Int, oldPosition: Int) {
         bottom_navigation.setCurrentItem(currentPagerPosition, false)
         try {
-            showTab(currentPagerPosition, false)
+            showTab(currentPagerPosition, oldPosition, false)
         } catch (e: Exception) {
 
         }
 
     }
 
-    override val toolbarTitle: String
-        get() = getString(R.string.blank_string)
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        this.menu = menu
+        return super.onCreateOptionsMenu(menu)
+
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return currentFragment?.onOptionsItemSelected(item) ?: false
+    }
 
 
+    private fun showTab(position: Int, oldPosition: Int, wasSelected: Boolean): Boolean {
 
-    private fun showTab(position: Int, wasSelected: Boolean): Boolean {
+        if (position == 1) {
+            view_pager.setCurrentItem(oldPosition, false)
+            this.navigator.navigateToQrScanner(this)
+            return false
+
+        }
+
         if (adapter == null)
             return false
 
@@ -125,54 +140,8 @@ class DashboardActivity : ToolbarActivity() {
         view_pager.setCurrentItem(position, false)
         currentFragment = adapter?.currentFragment
 
-        if (currentFragment != null ) {
-            val castFragment = currentFragment!!
-            when (castFragment){
-                is ToolbarListener -> initSubView(castFragment.subviewFragment, castFragment.pageTitle)
-
-            }
-        }
-
-//        if (currentFragment != null)
-//            currentFragment.willBeDisplayed()
-
-       // sliding_tabs.setVisibility(if (currentFragment.hideTabLayout()) View.GONE else View.VISIBLE)
-
-//        if (!currentFragment.initNewToolbar()) {
-//            currentFragment.setToolbarTitle(toolbar)
-//            // toolbar.setTitle("Ass");
-//            supportActionBar.setTitle(toolbar.title)
-//        }
-//
-//        if (currentFragment is TabLayoutHelper.TabLayoutListener) {
-//            (currentFragment as TabLayoutHelper.TabLayoutListener).setTabLayout(tabs)
-//            (currentFragment as TabLayoutHelper.TabLayoutListener).initViewPager()
-//        } else {
-//            tabs.setVisibility(View.GONE)
-//        }
-
 
         return true
     }
-
-    private fun initSubView(fragment: BaseFragment?, title: String) {
-
-        setToolbarTitle(title)
-        if (fragment != null) {
-            val fragmentManager = supportFragmentManager
-            fragmentManager.beginTransaction()
-                    .replace(R.id.subview, fragment)
-                    .commit()
-        } else {
-            val fragmentManager = supportFragmentManager
-            fragmentManager.beginTransaction()
-                    .remove(fragmentManager.findFragmentById(R.id.subview))
-                    .commit()
-        }
-
-    }
-
-
-
 
 }

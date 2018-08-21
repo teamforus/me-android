@@ -2,74 +2,71 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="io.forus.me.android.presentation">
 
-  <uses-permission android:name="android.permission.INTERNET" />
-  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
-  <application
-      android:allowBackup="true"
-      android:name=".AndroidApplication"
-      android:icon="@drawable/ic_launcher"
-      android:label="@string/app_name"
-      android:theme="@style/AppTheme">
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
 
-    <activity
-        android:name="io.forus.me.android.presentation.view.screens.main.MainActivity"
-        android:label="@string/app_name">
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN" />
-        <category android:name="android.intent.category.LAUNCHER" />
-      </intent-filter>
-    </activity>
+    <application
+        android:name=".AndroidApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".view.screens.main.MainActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-     <activity
-        android:name="io.forus.me.android.presentation.view.screens.welcome.WelcomeActivity"
-        android:label="@string/app_name">
-
-     </activity>
-
-    <activity
-        android:name=".view.screens.account.restoreByEmail.RestoreByEmailActivity"
-        android:label="@string/blank_string">
-
-    </activity>
-
-
-      <activity
-          android:name=".view.screens.account.newaccount.NewAccountActivity"
-          android:label="@string/blank_string">
-
-      </activity>
-
-    <activity
-        android:name=".view.screens.dashboard.DashboardActivity"
-        android:label="@string/blank_string">
-
-    </activity>
-
-    <activity
-        android:name=".view.screens.account.assigndelegates.AssignDelegatesAccountActivity"
-        android:label="@string/blank_string">
-
-    </activity>
-
-    <activity
-        android:name=".view.screens.vouchers.item.VoucherActivity"
-        android:label="@string/blank_string">
-
-    </activity>
-
-    <activity
-        android:name=".view.screens.account.pin.RestoreByPinActivity"
-        android:label="@string/blank_string">
-
-    </activity>
-
-    <activity
-        android:name=".view.screens.records.newrecord.NewRecordActivity"
-        android:label="@string/blank_string">
-
-    </activity>
-
-  </application>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".view.screens.welcome.WelcomeActivity"
+            android:label="@string/app_name"></activity>
+        <activity
+            android:name=".view.screens.pinlock.PinLockActivity"
+            android:label="@string/blank_string"></activity>
+        <activity
+            android:name=".view.screens.qr.QrScannerActivity"
+            android:label="@string/blank_string"></activity>
+        <activity
+            android:name=".view.screens.account.restoreByEmail.RestoreByEmailActivity"
+            android:label="@string/blank_string"></activity>
+        <activity
+            android:name=".view.screens.account.newaccount.NewAccountActivity"
+            android:label="@string/blank_string"></activity>
+        <activity
+            android:name=".view.screens.account.newaccount.pin.NewPinActivity"
+            android:label="@string/blank_string"></activity>
+        <activity
+            android:name=".view.screens.dashboard.DashboardActivity"
+            android:label="@string/blank_string"></activity>
+        <activity
+            android:name=".view.screens.account.assigndelegates.AssignDelegatesAccountActivity"
+            android:label="@string/blank_string"></activity>
+        <activity
+            android:name=".view.screens.vouchers.item.VoucherActivity"
+            android:label="@string/blank_string"></activity>
+        <activity
+            android:name=".view.screens.account.pin.RestoreByPinActivity"
+            android:label="@string/blank_string"></activity>
+        <activity
+            android:name=".view.screens.records.newrecord.NewRecordActivity"
+            android:label="@string/blank_string"></activity>
+        <activity
+            android:name=".view.screens.records.list.RecordsActivity"
+            android:label=""></activity>
+        <activity
+            android:name=".view.screens.records.item.RecordDetailsActivity"
+            android:label=""></activity>
+        <activity
+            android:name=".view.screens.wallets.item.WalletDetailsActivity"
+            android:label=""></activity>
+    </application>
 
 </manifest>

@@ -1,265 +1,298 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-  <!-- Base application theme. -->
-  <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-    <item name="colorPrimary">@color/colorPrimary</item>
-    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-    <item name="colorAccent">@color/colorAccent</item>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
 
-    <item name="colorButtonNormal">@color/colorAccent</item>
+        <item name="colorButtonNormal">@color/colorAccent</item>
 
-    <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
 
-  </style>
+    </style>
 
-  <style name="AppTheme.ProgressBar">
-    <item name="android:layout_width">wrap_content</item>
-    <item name="android:layout_height">wrap_content</item>
-    <item name="android:layout_centerInParent">true</item>
-    <item name="android:layout_gravity">center</item>
-    <item name="android:visibility">visible</item>
-  </style>
-
-
-
-  <style name="AppTheme.Button" parent="@style/Widget.AppCompat.Button.Borderless">
-
-  </style>
-
-  <style name="AppTheme.TextViewHeader">
-    <item name="android:layout_width">match_parent</item>
-    <item name="android:layout_height">wrap_content</item>
-    <item name="android:layout_marginBottom">@dimen/header_margin</item>
-    <item name="android:textSize">@dimen/header_text_size</item>
-    <item name="android:textStyle">bold</item>
-    <item name="android:gravity">center</item>
-    <item name="android:background">@android:color/background_light</item>
-  </style>
-
-  <style name="AppTheme.TextViewTitle">
-    <item name="android:layout_width">match_parent</item>
-    <item name="android:layout_height">wrap_content</item>
-    <item name="android:layout_marginTop">@dimen/header_margin</item>
-    <item name="android:textStyle">bold</item>
-  </style>
+    <style name="AppTheme.ProgressBar">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:visibility">visible</item>
+    </style>
 
 
-  <style name="AppTabLayout" parent="Widget.Design.TabLayout">
-    <item name="tabIndicatorColor">@color/colorAccent</item>
-    <item name="tabIndicatorHeight">2dp</item>
-    <item name="tabPaddingStart">6dp</item>
-    <item name="tabPaddingEnd">6dp</item>
-    <item name="tabBackground">@color/colorPrimary</item>
-    <item name="tabTextAppearance">@style/AppTabTextAppearance</item>
-    <item name="tabSelectedTextColor">@color/colorAccent</item>
-    <item name="android:background">@color/colorPrimary</item>
+    <style name="AppTheme.Button" parent="@style/Widget.AppCompat.Button.Borderless">
+
+    </style>
+
+    <style name="AppTheme.TextViewHeader">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">@dimen/header_margin</item>
+        <item name="android:textSize">@dimen/header_text_size</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@android:color/background_light</item>
+    </style>
+
+    <style name="AppTheme.TextViewTitle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/header_margin</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 
 
-  </style>
-
-  <!-- for text -->
-  <style name="AppTabTextAppearance" parent="TextAppearance.Design.Tab">
-    <item name="android:textSize">14sp</item>
-    <item name="android:textColor">@color/textColor</item>
-    <item name="textAllCaps">true</item>
-  </style>
-
-
-  <style name="ToolbarStyle" parent="ThemeOverlay.AppCompat.Light">
-    <!-- Поставим нужный нам цвет -->
-    <item name="android:background">@color/colorPrimary</item>
-    <item name="android:titleTextStyle">@style/ActionBar.TitleTextStyle</item>
-    <item name="colorControlNormal">@color/textColor</item>
-
-  </style>
-
-  <style name="ActionBar.TitleTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
-    <item name="android:textColor">@color/textColor</item>
-    <item name="android:textStyle">bold</item>
-  </style>
+    <style name="AppTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabIndicatorColor">@color/colorAccent</item>
+        <item name="tabIndicatorHeight">2dp</item>
+        <item name="tabPaddingStart">6dp</item>
+        <item name="tabPaddingEnd">6dp</item>
+        <item name="tabBackground">@color/colorPrimary</item>
+        <item name="tabTextAppearance">@style/AppTabTextAppearance</item>
+        <item name="tabSelectedTextColor">@color/colorAccent</item>
+        <item name="android:background">@color/colorPrimary</item>
 
 
+    </style>
+
+    <!-- for text -->
+    <style name="AppTabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/textColor</item>
+        <item name="textAllCaps">true</item>
+    </style>
 
 
-  <!--generated style-->
-  <style name="TopHeaderBlackLeft">
-    <item name="android:textSize">36sp</item>
-    <item name="android:letterSpacing" tools:targetApi="lollipop">0.01</item>
-    <item name="android:textColor">@color/body_1_87</item>
-  </style>
-  <style name="TopHeader">
-    <item name="android:gravity">center_horizontal</item>
-    <item name="android:textSize">36sp</item>
-    <item name="android:letterSpacing" tools:targetApi="lollipop">0.01</item>
-    <item name="android:textColor">@color/top_title</item>
-  </style>
-  <style name="Header4Left">
-    <item name="android:textSize">34.1sp</item>
-    <item name="android:letterSpacing" tools:targetApi="lollipop">0.01</item>
-    <item name="android:textColor">@color/body_1_87</item>
-  </style>
-  <style name="LargeTitleStyle">
-    <item name="android:textSize">34sp</item>
-    <item name="android:fontFamily" tools:targetApi="jelly_bean">sans-serif</item>
-    <item name="android:textStyle">normal</item>
-    <item name="android:lineSpacingExtra">7sp</item>
-    <item name="android:textColor">#171f24</item>
-  </style>
-  <style name="Title1Style">
-    <item name="android:gravity">center_horizontal</item>
-    <item name="android:textSize">28sp</item>
-    <item name="android:fontFamily" tools:targetApi="jelly_bean">sans-serif</item>
-    <item name="android:textStyle">normal</item>
-    <item name="android:lineSpacingExtra">6sp</item>
-    <item name="android:textColor">#171f24</item>
-  </style>
-  <style name="BodyStyle">
-    <item name="android:textSize">17sp</item>
-    <item name="android:fontFamily" tools:targetApi="jelly_bean">sans-serif</item>
-    <item name="android:textStyle">normal</item>
-    <item name="android:lineSpacingExtra">5sp</item>
-    <item name="android:textColor">#171f24</item>
-  </style>
-  <style name="Body1">
-    <item name="android:gravity">center_horizontal</item>
-    <item name="android:textSize">16.1sp</item>
-    <item name="android:letterSpacing" tools:targetApi="lollipop">0.03</item>
-    <item name="android:lineSpacingExtra">11.9sp</item>
-    <item name="android:textColor">@color/body1_60</item>
-  </style>
-  <style name="Body2">
-    <item name="android:textSize">14.1sp</item>
-    <item name="android:letterSpacing" tools:targetApi="lollipop">0.02</item>
-    <item name="android:lineSpacingExtra">5.9sp</item>
-    <item name="android:textColor">@color/body1_60</item>
-  </style>
-  <style name="CalloutStyle">
-    <item name="android:textSize">16sp</item>
-    <item name="android:fontFamily" tools:targetApi="jelly_bean">sans-serif</item>
-    <item name="android:textStyle">normal</item>
-    <item name="android:lineSpacingExtra">5sp</item>
-    <item name="android:textColor">#171f24</item>
-  </style>
-  <style name="Button">
-    <item name="android:gravity">center_horizontal</item>
-    <item name="android:textSize">14.1sp</item>
-    <item name="android:letterSpacing" tools:targetApi="lollipop">0.07</item>
-    <item name="android:lineSpacingExtra">1.9sp</item>
-    <item name="android:textColor">@color/secondary200</item>
-  </style>
-  <style name="TextStyle">
-    <item name="android:gravity">center_horizontal</item>
-    <item name="android:textSize">14.1sp</item>
-    <item name="android:letterSpacing" tools:targetApi="lollipop">0.07</item>
-    <item name="android:lineSpacingExtra">1.9sp</item>
-    <item name="android:textColor">@color/forus_blue</item>
-  </style>
-  <style name="Body2Left">
-    <item name="android:textSize">14.1sp</item>
-    <item name="android:letterSpacing" tools:targetApi="lollipop">0.02</item>
-    <item name="android:lineSpacingExtra">5.9sp</item>
-    <item name="android:textColor">@color/forus_blue</item>
-  </style>
-  <style name="ButtonTextEnabledLeft">
-    <item name="android:gravity">end</item>
-    <item name="android:textSize">13sp</item>
-    <item name="android:letterSpacing" tools:targetApi="lollipop">0.08</item>
-    <item name="android:lineSpacingExtra">3sp</item>
-    <item name="android:textColor">#305dfb</item>
-  </style>
-  <style name="ButtonCenterBlue">
-    <item name="android:gravity">center_horizontal</item>
-    <item name="android:textSize">13sp</item>
-    <item name="android:letterSpacing" tools:targetApi="lollipop">0.08</item>
-    <item name="android:lineSpacingExtra">3sp</item>
-    <item name="android:textColor">@color/forus_blue</item>
-  </style>
-  <style name="TextStyle2">
-    <item name="android:gravity">center_horizontal</item>
-    <item name="android:textSize">13sp</item>
-    <item name="android:letterSpacing" tools:targetApi="lollipop">0.08</item>
-    <item name="android:lineSpacingExtra">3sp</item>
-    <item name="android:textColor">@color/secondary200</item>
-  </style>
-  <style name="BackToCaption">
-    <item name="android:textSize">12.1sp</item>
-    <item name="android:letterSpacing" tools:targetApi="lollipop">0.03</item>
-    <item name="android:lineSpacingExtra">3.9sp</item>
-    <item name="android:textColor">@color/body_1_87</item>
-  </style>
+    <style name="ToolbarStyle" parent="ThemeOverlay.AppCompat.Light">
+        <!-- Поставим нужный нам цвет -->
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:titleTextStyle">@style/ActionBar.TitleTextStyle</item>
+        <item name="colorControlNormal">@color/textColor</item>
 
-  <style name="Body2Small">
-    <item name="android:textSize">14.1sp</item>
-    <item name="android:letterSpacing" tools:targetApi="lollipop">0.02</item>
-    <item name="android:lineSpacingExtra">5.9sp</item>
-    <item name="android:textColor">@color/body_1</item>
-  </style>
+    </style>
+
+    <style name="ActionBar.TitleTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/textColor</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 
 
-  <style name="Title9Dot">
-    <item name="android:textSize">28sp</item>
-    <item name="android:textColor">@color/forus_blue</item>
-  </style>
-  <style name="Title9">
-    <item name="android:textSize">28sp</item>
-    <item name="android:letterSpacing" tools:targetApi="lollipop">0.01</item>
-    <item name="android:textColor">@color/forus_blue</item>
-  </style>
+    <!--generated style-->
+    <style name="TopHeaderBlackLeft">
+        <item name="android:textSize">36sp</item>
+        <item name="android:letterSpacing" tools:targetApi="lollipop">0.01</item>
+        <item name="android:textColor">@color/body_1_87</item>
+    </style>
 
-  <style name="CardTitle4">
-    <item name="android:textSize">24.1sp</item>
-    <item name="android:textColor">@color/body_1_87</item>
-  </style>
+    <style name="TopHeader">
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textSize">36sp</item>
+        <item name="android:letterSpacing" tools:targetApi="lollipop">0.01</item>
+        <item name="android:textColor">@color/top_title</item>
+    </style>
 
-  <style name="Overline4">
-    <item name="android:textSize">12sp</item>
-    <item name="android:lineSpacingExtra">3sp</item>
-    <item name="android:textColor">@color/overline4</item>
-  </style>
+    <style name="Header4Left">
+        <item name="android:textSize">34.1sp</item>
+        <item name="android:letterSpacing" tools:targetApi="lollipop">0.01</item>
+        <item name="android:textColor">@color/body_1_87</item>
+    </style>
 
-  <style name="Overline2">
-      <item name="android:textSize">13sp</item>
-      <item name="android:lineSpacingExtra">3sp</item>
-      <item name="android:textColor">@color/overline2</item>
-  </style>
+    <style name="Header6">
+        <item name="android:textSize">20.1sp</item>
+        <item name="android:letterSpacing" tools:targetApi="lollipop">0.01</item>
+        <item name="android:textColor">@color/body_1_87</item>
+    </style>
 
-  <style name="Headline6">
-      <item name="android:textSize">20.1sp</item>
-      <item name="android:textColor">@color/body_1_87</item>
-  </style>
 
-  <style name="Subtitle">
-    <item name="android:textSize">17.1sp</item>
-    <item name="android:textColor">@color/body_1_87</item>
-    <item name="android:lineSpacingExtra">6.9sp</item>
-  </style>
+    <style name="LargeTitleStyle">
+        <item name="android:textSize">34sp</item>
+        <item name="android:fontFamily" tools:targetApi="jelly_bean">sans-serif</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:lineSpacingExtra">7sp</item>
+        <item name="android:textColor">#171f24</item>
+    </style>
 
-  <style name="Subtitle1">
-    <item name="android:textSize">17.1sp</item>
-    <item name="android:textColor">@color/forus_blue</item>
-    <item name="android:lineSpacingExtra">6.9sp</item>
-  </style>
+    <style name="Title1Style">
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:fontFamily" tools:targetApi="jelly_bean">sans-serif</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:lineSpacingExtra">6sp</item>
+        <item name="android:textColor">#171f24</item>
+    </style>
 
-  <style name="ShareButtonBody">
-    <item name="android:textSize">15sp</item>
-    <item name="android:textColor">@color/body_1_87</item>
-    <item name="android:lineSpacingExtra">13sp</item>
-  </style>
+    <style name="BodyStyle">
+        <item name="android:textSize">17sp</item>
+        <item name="android:fontFamily" tools:targetApi="jelly_bean">sans-serif</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:lineSpacingExtra">5sp</item>
+        <item name="android:textColor">#171f24</item>
+    </style>
 
-  <style name="EditTextField">
-    <item name="android:textSize">16.1sp</item>
-    <item name="android:textColor">@color/body_1_87</item>
-    <item name="android:textColorHint">@color/tf_metal</item>
-    <item name="android:lineSpacingExtra">0sp</item>
-  </style>
+    <style name="Body1">
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textSize">16.1sp</item>
+        <item name="android:letterSpacing" tools:targetApi="lollipop">0.03</item>
+        <item name="android:lineSpacingExtra">11.9sp</item>
+        <item name="android:textColor">@color/body1_60</item>
+    </style>
 
-  <style name="EditTextHint" parent="@android:style/TextAppearance">
-    <item name="android:textSize">12.1sp</item>
-    <item name="android:textColor">@color/forus_blue</item>
-  </style>
+    <style name="Body2">
+        <item name="android:textSize">14.1sp</item>
+        <item name="android:letterSpacing" tools:targetApi="lollipop">0.02</item>
+        <item name="android:lineSpacingExtra">5.9sp</item>
+        <item name="android:textColor">@color/body1_60</item>
+    </style>
 
-  <style name="EditTextError" parent="@android:style/TextAppearance">
-    <item name="android:textSize">12.1sp</item>
-    <item name="android:textColor">@color/error_email</item>
-  </style>
+    <style name="CalloutStyle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily" tools:targetApi="jelly_bean">sans-serif</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:lineSpacingExtra">5sp</item>
+        <item name="android:textColor">#171f24</item>
+    </style>
+
+    <style name="Button">
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textSize">14.1sp</item>
+        <item name="android:letterSpacing" tools:targetApi="lollipop">0.07</item>
+        <item name="android:lineSpacingExtra">1.9sp</item>
+        <item name="android:textColor">@color/secondary200</item>
+    </style>
+
+    <style name="TextStyle">
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textSize">14.1sp</item>
+        <item name="android:letterSpacing" tools:targetApi="lollipop">0.07</item>
+        <item name="android:lineSpacingExtra">1.9sp</item>
+        <item name="android:textColor">@color/forus_blue</item>
+    </style>
+
+    <style name="Body2Left">
+        <item name="android:textSize">14.1sp</item>
+        <item name="android:letterSpacing" tools:targetApi="lollipop">0.02</item>
+        <item name="android:lineSpacingExtra">5.9sp</item>
+        <item name="android:textColor">@color/forus_blue</item>
+    </style>
+
+    <style name="ButtonTextEnabledLeft">
+        <item name="android:gravity">end</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:letterSpacing" tools:targetApi="lollipop">0.08</item>
+        <item name="android:lineSpacingExtra">3sp</item>
+        <item name="android:textColor">#305dfb</item>
+    </style>
+
+    <style name="ButtonCenterBlue">
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:letterSpacing" tools:targetApi="lollipop">0.08</item>
+        <item name="android:lineSpacingExtra">3sp</item>
+        <item name="android:textColor">@color/forus_blue</item>
+    </style>
+
+    <style name="TextStyle2">
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:letterSpacing" tools:targetApi="lollipop">0.08</item>
+        <item name="android:lineSpacingExtra">3sp</item>
+        <item name="android:textColor">@color/secondary200</item>
+    </style>
+
+    <style name="BackToCaption">
+        <item name="android:textSize">12.1sp</item>
+        <item name="android:letterSpacing" tools:targetApi="lollipop">0.03</item>
+        <item name="android:lineSpacingExtra">3.9sp</item>
+        <item name="android:textColor">@color/body_1_87</item>
+    </style>
+
+    <style name="Body2Small">
+        <item name="android:textSize">14.1sp</item>
+        <item name="android:letterSpacing" tools:targetApi="lollipop">0.02</item>
+        <item name="android:lineSpacingExtra">5.9sp</item>
+        <item name="android:textColor">@color/body_1</item>
+    </style>
+
+
+    <style name="Title9Dot">
+        <item name="android:textSize">28sp</item>
+        <item name="android:textColor">@color/forus_blue</item>
+    </style>
+
+    <style name="Title9">
+        <item name="android:textSize">28sp</item>
+        <item name="android:letterSpacing" tools:targetApi="lollipop">0.01</item>
+        <item name="android:textColor">@color/forus_blue</item>
+    </style>
+
+    <style name="CardTitle4">
+        <item name="android:textSize">24.1sp</item>
+        <item name="android:textColor">@color/body_1_87</item>
+    </style>
+
+    <style name="Overline4">
+        <item name="android:textSize">12sp</item>
+        <item name="android:lineSpacingExtra">3sp</item>
+        <item name="android:textColor">@color/overline4</item>
+    </style>
+
+    <style name="Overline2">
+        <item name="android:textSize">13sp</item>
+        <item name="android:lineSpacingExtra">3sp</item>
+        <item name="android:textColor">@color/overline2</item>
+    </style>
+
+    <style name="Headline4">
+        <item name="android:textSize">34.1sp</item>
+        <item name="android:textColor">@color/forus_blue</item>
+        <item name="android:lineSpacingExtra">5.9sp</item>
+    </style>
+
+    <style name="Headline6">
+        <item name="android:textSize">20.1sp</item>
+        <item name="android:textColor">@color/body_1_87</item>
+    </style>
+
+    <style name="Subtitle">
+        <item name="android:textSize">17.1sp</item>
+        <item name="android:textColor">@color/body_1_87</item>
+        <item name="android:lineSpacingExtra">6.9sp</item>
+    </style>
+
+    <style name="Subtitle1">
+        <item name="android:textSize">17.1sp</item>
+        <item name="android:textColor">@color/forus_blue</item>
+        <item name="android:lineSpacingExtra">6.9sp</item>
+    </style>
+
+    <style name="Subtitle2">
+        <item name="android:textSize">14.1sp</item>
+        <item name="android:textColor">@color/body1_60</item>
+        <item name="android:lineSpacingExtra">9.9sp</item>
+    </style>
+
+    <style name="ShareButtonBody">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/body_1_87</item>
+        <item name="android:lineSpacingExtra">13sp</item>
+    </style>
+
+    <style name="EditTextField">
+        <item name="android:textSize">16.1sp</item>
+        <item name="android:textColor">@color/body_1_87</item>
+        <item name="android:textColorHint">@color/tf_metal</item>
+        <item name="android:lineSpacingExtra">0sp</item>
+    </style>
+
+    <style name="EditTextHint" parent="@android:style/TextAppearance">
+        <item name="android:textSize">12.1sp</item>
+        <item name="android:textColor">@color/forus_blue</item>
+    </style>
+
+    <style name="EditTextError" parent="@android:style/TextAppearance">
+        <item name="android:textSize">12.1sp</item>
+        <item name="android:textColor">@color/error_email</item>
+    </style>
+
 </resources>

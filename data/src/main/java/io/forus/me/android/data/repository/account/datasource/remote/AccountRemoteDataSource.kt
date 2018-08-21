@@ -8,16 +8,20 @@ import io.forus.me.android.data.entity.sign.response.IdentityPinResult
 import io.forus.me.android.data.entity.sign.response.IdentityTokenResult
 import io.forus.me.android.data.entity.sign.response.SignUpResult
 import io.forus.me.android.data.repository.account.datasource.AccountDataSource
+import io.forus.me.android.data.repository.datasource.RemoteDataSource
 import io.reactivex.Observable
 
-public class AccountRemoteDataSource(private val signService: SignService): AccountDataSource {
-
+public class AccountRemoteDataSource(f: () -> SignService): AccountDataSource, RemoteDataSource<SignService>(f) {
 
     override fun createUser(signUp: SignUp): Observable<SignUpResult> {
-        return signService.signup(signUp)
+        return service.signup(signUp)
     }
 
-    override fun saveToken(token: String) {
+    override fun saveIdentity(token: String, pin: String): Boolean {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override  fun unlockIdentity(pin: String): Boolean{
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
@@ -30,16 +34,15 @@ public class AccountRemoteDataSource(private val signService: SignService): Acco
     }
 
     override fun requestDelegatesQRAddress(): Observable<IdentityTokenResult> {
-        return signService.identityToken()
+        return service.identityToken()
     }
 
     override fun getAuthCode(): Observable<IdentityPinResult> {
-        return signService.authCode()
+        return service.authCode()
     }
 
     override fun requestNewUserByEmail(email: String): Observable<AccessToken> {
         val signUp = SignUpByEmail(email)
-
-        return signService.requestNewUserByEmail(signUp)
+        return service.requestNewUserByEmail(signUp)
     }
 }

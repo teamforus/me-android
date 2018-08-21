@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:id="@+id/root"
+    android:orientation="vertical"
+    android:background="@color/brightBackground"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/activity_horizontal_margin">
+
+        <io.forus.me.android.presentation.view.component.images.AutoLoadImageView
+            android:id="@+id/iv_icon"
+            android:layout_alignParentStart="true"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+
+
+        <LinearLayout
+            android:layout_marginLeft="16dp"
+            android:orientation="vertical"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/iv_icon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <io.forus.me.android.presentation.view.component.text.TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/body_1_87"
+                android:textSize="17.1sp"
+                android:lineSpacingExtra="6.9sp"
+                app:type="medium"
+                tools:text="jamal@forus.io" />
+
+            <io.forus.me.android.presentation.view.component.text.TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14.1sp"
+                android:textColor="@color/body1_60"
+                android:letterSpacing="0.02"
+                android:lineSpacingExtra="5.9sp"
+                tools:text="Open DigiD app"
+                />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+    <View
+        android:background="@color/alto"
+        android:layout_marginLeft="56dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+</LinearLayout>

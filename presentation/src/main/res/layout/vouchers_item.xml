@@ -91,11 +91,6 @@
 
        </RelativeLayout>
 
-       <io.forus.me.android.presentation.view.component.buttons.ShareButton
-           app:sb_text="Split in smaller amount"
-           app:sb_icon="@drawable/ic_baseline_crop_free_24px"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"/>
 
        <io.forus.me.android.presentation.view.component.buttons.ShareButton
            app:sb_text="Email to me"
@@ -103,7 +98,14 @@
            android:layout_width="match_parent"
            android:layout_height="wrap_content"/>
 
-       <io.forus.me.android.presentation.view.screens.vouchers.transactions.card.TransactionsCard
+       <io.forus.me.android.presentation.view.component.buttons.ShareButton
+           app:sb_text="Info"
+           app:sb_icon="@drawable/ic_baseline_crop_free_24px"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"/>
+
+
+       <io.forus.me.android.presentation.view.screens.vouchers.item.transactions.card.TransactionsCard
            android:id="@+id/transactions_card"
            android:layout_width="match_parent"
            android:layout_height="wrap_content" />
