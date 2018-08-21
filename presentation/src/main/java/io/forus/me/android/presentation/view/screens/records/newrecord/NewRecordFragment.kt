@@ -220,7 +220,7 @@ class NewRecordFragment : ToolbarLRFragment<NewRecordModel, NewRecordView, NewRe
     }
 
     private fun closeScreen() {
-        navigator.navigateToDashboard(activity, false)
+        //navigator.navigateToDashboard(activity, false)
         activity?.finish()
     }
 

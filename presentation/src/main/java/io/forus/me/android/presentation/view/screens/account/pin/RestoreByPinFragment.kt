@@ -50,17 +50,12 @@ class RestoreByPinFragment : LRFragment<RestoreByPinModel, RestoreByPinView, Res
 
 
         if (vs.model.item != null) {
-            pin_view.setPin(vs.model.item.pin)
+            pin_view.setPin(vs.model.item.authCode)
             pin_view.visibility = View.VISIBLE
         }
         else
             pin_view.visibility = View.INVISIBLE
 
-
-
-
     }
-
-
 }
 

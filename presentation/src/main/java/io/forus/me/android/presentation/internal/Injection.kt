@@ -90,7 +90,7 @@ class Injection private constructor() {
     }
 
     private val recordRemoteDataSource: RecordsRemoteDataSource by lazy {
-        return@lazy RecordsRemoteDataSource{MeServiceFactory.getInstance().createRetrofitService(RecordsService::class.java, SignService.Service.SERVICE_ENDPOINT)}
+        return@lazy RecordsRemoteDataSource{MeServiceFactory.getInstance().createRetrofitService(RecordsService::class.java, RecordsService.Service.SERVICE_ENDPOINT)}
     }
 
     val retrofitExceptionMapper: RetrofitExceptionMapper by lazy {

@@ -42,7 +42,7 @@ class AccountRepository(private val accountLocalDataSource: AccountDataSource, p
     override fun getLoginPin(): Observable<RequestDelegatesPinModel> {
         return accountRemoteDataSource.getAuthCode()
                 .map {
-                    RequestDelegatesPinModel(it.authCode)
+                    RequestDelegatesPinModel(it.accessToken, it.authCode)
                 }
     }
 
