@@ -8,10 +8,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler"
+    <com.ocrv.ekasui.mrm.ui.loadRefresh.LRPanelImpl
+        android:id="@+id/lr_panel"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+        android:layout_height="wrap_content">
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </com.ocrv.ekasui.mrm.ui.loadRefresh.LRPanelImpl>
 
 </RelativeLayout>

@@ -32,15 +32,7 @@ class VouchersFragment : LRFragment<VouchersModel, VouchersView, VouchersPresent
 
     override fun viewForSnackbar(): View = root
 
-    override fun loadRefreshPanel() = object : LoadRefreshPanel {
-        override fun retryClicks(): Observable<Any> = Observable.never()
-
-        override fun refreshes(): Observable<Any> = Observable.never()
-
-        override fun render(vs: LRViewState<*>) {
-
-        }
-    }
+    override fun loadRefreshPanel() = lr_panel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
             = inflater.inflate(R.layout.fragment_recycler, container, false).also {

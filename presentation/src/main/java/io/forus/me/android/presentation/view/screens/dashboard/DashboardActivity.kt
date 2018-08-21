@@ -3,6 +3,7 @@ package io.forus.me.android.presentation.view.screens.dashboard
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.view.Menu
 import android.view.MenuItem
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
@@ -64,12 +65,12 @@ class DashboardActivity : CommonActivity() {
 
         if (adapter == null) {
 
-            val fragments = ArrayList<android.support.v4.app.Fragment>();
+            val fragments = ArrayList<android.support.v4.app.Fragment?>();
             val titles = ArrayList<String>();
 
             fragments.add(PropertyFragment.newIntent())
             titles.add("")
-            fragments.add(PropertyFragment.newIntent())
+            fragments.add(Fragment())
             titles.add("")
             fragments.add(RecordCategoriesFragment.newIntent())
             titles.add("")
@@ -77,7 +78,7 @@ class DashboardActivity : CommonActivity() {
             adapter = MainViewPagerAdapter(supportFragmentManager, applicationContext, fragments, titles)
             view_pager.adapter = adapter
 
-            view_pager.offscreenPageLimit = 5;
+            view_pager.offscreenPageLimit = 3;
             selectTab(currentPagerPosition, 0)
         }
 
