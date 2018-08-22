@@ -1,14 +1,14 @@
-package io.forus.me.android.presentation.view.screens.records.item
+package io.forus.me.android.presentation.view.screens.vouchers.item.transactions.items
 
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
-import io.forus.me.android.domain.models.records.Validator
+import io.forus.me.android.domain.models.vouchers.Transaction
 
-class ValidatorsAdapter() : RecyclerView.Adapter<ValidatorVH>() {
+class TransactionsAdapter() : RecyclerView.Adapter<TransactionsVH>() {
 
 
-    var validators: List<Validator> = emptyList()
+    var transactions: List<Transaction> = emptyList()
         set(value) {
             val old = field
             field = value
@@ -26,13 +26,13 @@ class ValidatorsAdapter() : RecyclerView.Adapter<ValidatorVH>() {
         setHasStableIds(true)
     }
 
-    var clickListener: ((Validator) -> Unit)? = null
+    var clickListener: ((Transaction) -> Unit)? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ValidatorVH(parent, clickListener)
-    override fun onBindViewHolder(holder: ValidatorVH, position: Int) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = TransactionsVH(parent, clickListener)
+    override fun onBindViewHolder(holder: TransactionsVH, position: Int) {
 
-        holder.render(validators[position])
+        holder.render(transactions[position])
     }
-    override fun getItemCount() = validators.size
+    override fun getItemCount() = transactions.size
     override fun getItemId(position: Int) = position.toLong()
 }

@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.records_category_recycler.*
 /**
  * Fragment Records Delegates Screen.
  */
-class RecordCategoriesFragment : ToolbarLRFragment<RecordCategoriesModel, RecordCategoriesView, RecordCategoriesPresenter>(), RecordCategoriesView, FragmentListener {
+class RecordCategoriesFragment : ToolbarLRFragment<RecordCategoriesModel, RecordCategoriesView, RecordCategoriesPresenter>(), RecordCategoriesView{
 
     companion object {
         fun newIntent(): RecordCategoriesFragment {
@@ -35,30 +35,20 @@ class RecordCategoriesFragment : ToolbarLRFragment<RecordCategoriesModel, Record
         get() = false
 
 
-
     private lateinit var adapter: RecordCategoriesAdapter
-
-    override fun getTitle(): String = getString(R.string.valuta)
 
     override fun viewForSnackbar(): View = root
 
-    override fun loadRefreshPanel() = object : LoadRefreshPanel {
-        override fun retryClicks(): Observable<Any> = Observable.never()
-
-        override fun refreshes(): Observable<Any> = Observable.never()
-
-        override fun render(vs: LRViewState<*>) {
-
-        }
-    }
+    override fun loadRefreshPanel() = lr_panel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
-            = inflater.inflate(R.layout.records_category_recycler, container, false)
+            = inflater.inflate(R.layout.records_category_recycler, container, false).also {
+        adapter = RecordCategoriesAdapter()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = RecordCategoriesAdapter()
         adapter.clickListener = { item ->
             navigator.navigateToRecordsList(activity, item)
         }
@@ -87,12 +77,7 @@ class RecordCategoriesFragment : ToolbarLRFragment<RecordCategoriesModel, Record
     override fun render(vs: LRViewState<RecordCategoriesModel>) {
         super.render(vs)
 
-
         adapter.items = vs.model.items
-
-
-
-
     }
 }
 

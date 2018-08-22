@@ -1,4 +1,4 @@
-package io.forus.me.android.presentation.view.screens.vouchers.transactions.card
+package io.forus.me.android.presentation.view.screens.vouchers.item.transactions.card
 
 import android.content.Context
 import android.support.v7.widget.LinearLayoutManager
@@ -9,7 +9,7 @@ import android.widget.FrameLayout
 import io.forus.me.android.domain.models.vouchers.Transaction
 
 import io.forus.me.android.presentation.R
-import io.forus.me.android.presentation.view.screens.transactions.transactions.items.TransactionsAdapter
+import io.forus.me.android.presentation.view.screens.vouchers.item.transactions.items.TransactionsAdapter
 import kotlinx.android.synthetic.main.vouchers_transactions_view_card.view.*
 
 

@@ -3,6 +3,7 @@ package io.forus.me.android.presentation.navigation
 import android.content.Context
 import io.forus.me.android.domain.models.records.Record
 import io.forus.me.android.domain.models.records.RecordCategory
+import io.forus.me.android.domain.models.wallets.Wallet
 import io.forus.me.android.presentation.view.screens.account.assigndelegates.AssignDelegatesAccountActivity
 import io.forus.me.android.presentation.view.screens.account.newaccount.NewAccountActivity
 import io.forus.me.android.presentation.view.screens.account.pin.RestoreByPinActivity
@@ -15,6 +16,7 @@ import io.forus.me.android.presentation.view.screens.records.item.RecordDetailsA
 import io.forus.me.android.presentation.view.screens.records.list.RecordsActivity
 import io.forus.me.android.presentation.view.screens.records.newrecord.NewRecordActivity
 import io.forus.me.android.presentation.view.screens.vouchers.item.VoucherActivity
+import io.forus.me.android.presentation.view.screens.wallets.item.WalletDetailsActivity
 import io.forus.me.android.presentation.view.screens.welcome.WelcomeActivity
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -90,6 +92,12 @@ constructor()//empty
         }
     }
 
+    fun navigateToWallet(context: Context?, wallet: Wallet) {
+        if (context != null) {
+            val intentToLaunch = WalletDetailsActivity.getCallingIntent(context, wallet)
+            context.startActivity(intentToLaunch)
+        }
+    }
 
     fun navigateToVoucher(context: Context?, id: String) {
         if (context != null) {

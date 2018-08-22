@@ -64,6 +64,9 @@
         <activity
             android:name=".view.screens.records.item.RecordDetailsActivity"
             android:label=""></activity>
+        <activity
+            android:name=".view.screens.wallets.item.WalletDetailsActivity"
+            android:label=""></activity>
     </application>
 
 </manifest>

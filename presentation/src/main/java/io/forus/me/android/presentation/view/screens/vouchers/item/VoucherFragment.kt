@@ -4,21 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRFragment
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LoadRefreshPanel
 
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.helpers.format
-import io.forus.me.android.presentation.interfaces.FragmentListener
 import io.forus.me.android.presentation.internal.Injection
-import io.reactivex.Observable
-import kotlinx.android.synthetic.main.vouchers_item.*
+import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
+import kotlinx.android.synthetic.main.vouchers_details.*
 
 /**
  * Fragment Assign Delegates Screen.
  */
-class VoucherFragment : LRFragment<VoucherModel, VoucherView, VoucherPresenter>(), VoucherView, FragmentListener {
+class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPresenter>(), VoucherView{
 
     companion object {
         private val ID_EXTRA = "ID_EXTRA"
@@ -30,28 +27,21 @@ class VoucherFragment : LRFragment<VoucherModel, VoucherView, VoucherPresenter>(
         }
     }
 
+    override val toolbarTitle: String
+        get() = getString(R.string.voucher)
 
-    override fun getTitle(): String = getString(R.string.valuta)
+    override val allowBack: Boolean
+        get() = true
 
     override fun viewForSnackbar(): View = root
 
-    override fun loadRefreshPanel() = object : LoadRefreshPanel {
-        override fun retryClicks(): Observable<Any> = Observable.never()
-
-        override fun refreshes(): Observable<Any> = Observable.never()
-
-        override fun render(vs: LRViewState<*>) {
-
-        }
-    }
+    override fun loadRefreshPanel() = lr_panel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
-            = inflater.inflate(R.layout.vouchers_item, container, false)
+            = inflater.inflate(R.layout.vouchers_details, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
     }
 
 

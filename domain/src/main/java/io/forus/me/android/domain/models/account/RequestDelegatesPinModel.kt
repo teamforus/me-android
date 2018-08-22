@@ -1,7 +1,6 @@
 package io.forus.me.android.domain.models.account
 
 class RequestDelegatesPinModel(
-        val pin:String = ""
-) {
-
-}
+        val accessToken: String,
+        val authCode: String
+)

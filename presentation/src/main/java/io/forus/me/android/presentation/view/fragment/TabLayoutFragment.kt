@@ -14,7 +14,6 @@ import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.adapters.ViewPagerAdapter
 import io.forus.me.android.presentation.view.fragment.BaseFragment
 import io.forus.me.android.presentation.view.screens.account.assigndelegates.AssignDelegatesAccountActivity
-import kotlinx.android.synthetic.main.property_fragment.*
 import kotlinx.android.synthetic.main.tab_layout.*
 import kotlinx.android.synthetic.main.welcome_fragment.*
 import java.util.*

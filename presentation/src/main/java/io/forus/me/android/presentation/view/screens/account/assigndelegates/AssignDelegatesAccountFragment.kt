@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LoadRefreshPanel
+import io.forus.me.android.domain.models.account.RequestDelegatesQrModel
 
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.interfaces.SlidingToolbarFragmentActionListener
@@ -14,19 +15,19 @@ import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.forus.me.android.presentation.view.fragment.BaseFragment
 import io.forus.me.android.presentation.view.fragment.QrFragment
+import io.forus.me.android.presentation.view.screens.account.pin.RestoreByPinFragment
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.account_assign_delegates_fragment.*
 
 /**
  * Fragment Assign Delegates Screen.
  */
-class AssignDelegatesAccountFragment : ToolbarLRFragment<AssignDelegatesModel, AssignDelegatesView, AssignDeligatesPresenter>(), AssignDelegatesView, SlidingToolbarFragmentListener  {
+class AssignDelegatesAccountFragment : ToolbarLRFragment<AssignDelegatesModel, AssignDelegatesView, AssignDeligatesPresenter>(), AssignDelegatesView{
 
 
     override fun viewForSnackbar(): View = root
 
-    private  var qrFragment: QrFragment =  QrFragment.newIntent()
-    var slidingToolbarFragmentActionListener : SlidingToolbarFragmentActionListener? = null
+    var qrText: String = ""
 
     override val toolbarTitle: String
         get() = getString(R.string.login)
@@ -52,11 +53,12 @@ class AssignDelegatesAccountFragment : ToolbarLRFragment<AssignDelegatesModel, A
         }
 
         via_pin.setOnClickListener {
-            navigator.navigateToAccountRestoreByPin(activity)
+            (activity as? AssignDelegatesAccountActivity)?.showPopupPinFragment()
+            //navigator.navigateToAccountRestoreByPin(activity)
         }
 
         show_qr_panel.setOnClickListener {
-            slidingToolbarFragmentActionListener?.openPanel()
+            (activity as? AssignDelegatesAccountActivity)?.showPopupQRFragment(qrText)
         }
     }
 
@@ -70,22 +72,10 @@ class AssignDelegatesAccountFragment : ToolbarLRFragment<AssignDelegatesModel, A
         super.render(vs)
 
 
-        if (vs.model.item != null)
-            qrFragment.qrText = vs.model.item.address
-
+        if (vs.model.item != null){
+            qrText = vs.model.item.address
+        }
 
     }
-
-
-    override fun getSlidingFragment(): BaseFragment {
-        return  qrFragment
-    }
-
-    override fun getSlidingPanelTitle(): String {
-        return "QR code"
-    }
-
-
-
 }
 
