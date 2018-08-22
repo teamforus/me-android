@@ -9,6 +9,9 @@ class RecordCategory{
     var name: String
 
     var logo: String
+    get() {
+        return "https://test.platform.forus.io/assets/category-icons/${name.toLowerCase()}.png"
+    }
 
     var order: Long
 
