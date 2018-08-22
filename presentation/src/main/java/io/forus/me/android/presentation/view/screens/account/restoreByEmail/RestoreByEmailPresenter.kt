@@ -1,45 +1,67 @@
 package io.forus.me.android.presentation.view.screens.account.restoreByEmail
 
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRPartialChange
+import com.gigawatt.android.data.net.sign.RecordsService
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LRPresenter
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
 import com.ocrv.ekasui.mrm.ui.loadRefresh.PartialChange
-import io.forus.me.android.domain.models.account.RestoreAccountByEmailRequest
+import io.forus.me.android.data.net.MeServiceFactory
+import io.forus.me.android.data.repository.account.datasource.remote.CheckActivationDataSource
 import io.forus.me.android.domain.repository.account.AccountRepository
+import io.forus.me.android.presentation.models.DisposableHolder
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import io.reactivex.subjects.PublishSubject
+import java.util.concurrent.TimeUnit
 
 
-class RestoreByEmailPresenter constructor(private val accountRepository: AccountRepository) : LRPresenter<RestoreAccountByEmailRequest, RestoreByEmailModel, RestoreByEmailView>() {
+class RestoreByEmailPresenter constructor(private val disposableHolder: DisposableHolder, private val accountRepository: AccountRepository) : LRPresenter<Unit, RestoreByEmailModel, RestoreByEmailView>() {
+
+    private val CHECK_ACTIVATION_DELAY = 1000L
+
+    override fun initialModelSingle(): Single<Unit> = Single.just(Unit)
 
 
-    override fun initialModelSingle(): Single<RestoreAccountByEmailRequest> = Single.just(RestoreAccountByEmailRequest())
-            //.delay(1, TimeUnit.SECONDS)
-            .flatMap {  Single.just(it)  }
+    override fun RestoreByEmailModel.changeInitialModel(i: Unit): RestoreByEmailModel = copy()
 
+    private fun startCheckingActivation(accessToken: String){
+        val checkActivationDataSource = CheckActivationDataSource(
+                MeServiceFactory.getInstance().createRetrofitService(RecordsService::class.java, RecordsService.Service.SERVICE_ENDPOINT, accessToken))
 
-    override fun RestoreByEmailModel.changeInitialModel(i: RestoreAccountByEmailRequest): RestoreByEmailModel = copy(item = i)
+        disposableHolder.add(checkActivationDataSource.checkActivation()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .retryWhen{throwables -> throwables.delay(CHECK_ACTIVATION_DELAY, TimeUnit.MILLISECONDS)}
+                .repeatWhen{observable -> observable.delay(CHECK_ACTIVATION_DELAY, TimeUnit.MILLISECONDS)}
+                .takeUntil{it == true}
+                .subscribe { isActivated ->
+                    if(isActivated) activationComplete.onNext(Unit)
+                })
+    }
 
+    private val activationComplete = PublishSubject.create<Unit>()
+    fun activationComplete(): Observable<Unit> = activationComplete
 
     override fun bindIntents() {
 
-        var observable = Observable.merge(
+        val observable = Observable.merge(
 
                 loadRefreshPartialChanges(),
+                intent { activationComplete() }.map { RestoreByEmailPartialChanges.RestoreIdentity() },
                 intent { it.register() }
                         .switchMap {
-                            accountRepository.loginByEmail(it.email)
+                            accountRepository.restoreByEmail(it)
                                     .subscribeOn(Schedulers.io())
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .map<PartialChange> {
-                                        RestoreByEmailPartialChanges.RegisterEnd(it)
+                                        startCheckingActivation(it.accessToken)
+                                        RestoreByEmailPartialChanges.RestoreByEmailRequestEnd(it)
                                     }
                                     .onErrorReturn {
-                                        LRPartialChange.LoadingError(it)
+                                        RestoreByEmailPartialChanges.RestoreByEmailRequestError(it)
                                     }
-                                    .startWith(RestoreByEmailPartialChanges.RegisterStart(it))
+                                    .startWith(RestoreByEmailPartialChanges.RestoreByEmailRequestStart())
 
                         }
         );
@@ -58,32 +80,17 @@ class RestoreByEmailPresenter constructor(private val accountRepository: Account
                 observable.scan(initialViewState, this::stateReducer)
                         .observeOn(AndroidSchedulers.mainThread()),
                 RestoreByEmailView::render)
-
-//        val observable = loadRefreshPartialChanges()
-//        val initialViewState = LRViewState(false, null, false, false, null, MapModel("", "" ))
-//        subscribeViewState(observable.scan(initialViewState, this::stateReducer).observeOn(AndroidSchedulers.mainThread()),MapView::render)
     }
 
-    override fun stateReducer(viewState: LRViewState<RestoreByEmailModel>, change: PartialChange): LRViewState<RestoreByEmailModel> {
+    override fun stateReducer(vs: LRViewState<RestoreByEmailModel>, change: PartialChange): LRViewState<RestoreByEmailModel> {
 
-        if (change !is RestoreByEmailPartialChanges) return super.stateReducer(viewState, change)
+        if (change !is RestoreByEmailPartialChanges) return super.stateReducer(vs, change)
 
         return when (change) {
-            is RestoreByEmailPartialChanges.RegisterEnd -> viewState.copy(closeScreen = true, model = viewState.model.copy(sendingRegistration = false))
-            is RestoreByEmailPartialChanges.RegisterStart -> viewState.copy(model = viewState.model.copy(sendingRegistration = true))
-
+            is RestoreByEmailPartialChanges.RestoreByEmailRequestStart -> vs.copy(model = vs.model.copy(sendingRestoreByEmail = true, sendingRestoreByEmailError = null))
+            is RestoreByEmailPartialChanges.RestoreByEmailRequestEnd -> vs.copy(model = vs.model.copy(sendingRestoreByEmail = true, item = change.requestDelegatesEmailModel))
+            is RestoreByEmailPartialChanges.RestoreByEmailRequestError -> vs.copy(model = vs.model.copy(sendingRestoreByEmail = false, sendingRestoreByEmailError = change.error))
+            is RestoreByEmailPartialChanges.RestoreIdentity -> vs.copy(closeScreen = true, model = vs.model.copy(isEmailConfirmed = true))
         }
-
     }
-
-
-
-
-
-
-
-
-
-
-
 }

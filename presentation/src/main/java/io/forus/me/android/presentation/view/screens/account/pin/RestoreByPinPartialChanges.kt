@@ -5,6 +5,6 @@ import com.ocrv.ekasui.mrm.ui.loadRefresh.PartialChange
 
 sealed class RestoreByPinPartialChanges : PartialChange {
 
-
+    class RestoreIdentity() : RestoreByPinPartialChanges()
 
 }

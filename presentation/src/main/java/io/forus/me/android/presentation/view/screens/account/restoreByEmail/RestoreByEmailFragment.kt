@@ -1,25 +1,29 @@
 package io.forus.me.android.presentation.view.screens.account.restoreByEmail
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRFragment
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LoadRefreshPanel
-import io.forus.me.android.domain.models.account.RestoreAccountByEmailRequest
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.internal.Injection
+import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.account_restore_email_fragment.*
+import android.view.inputmethod.InputMethodManager
+import io.forus.me.android.presentation.models.DisposableHolder
+
 
 /**
  * Fragment New User Account Screen.
  */
-class RestoreByEmailFragment : LRFragment<RestoreByEmailModel, RestoreByEmailView, RestoreByEmailPresenter>(), RestoreByEmailView  {
+class RestoreByEmailFragment : ToolbarLRFragment<RestoreByEmailModel, RestoreByEmailView, RestoreByEmailPresenter>(), RestoreByEmailView  {
 
+    val disposableHolder = DisposableHolder()
 
     private val viewIsValid: Boolean
         get() {
@@ -27,11 +31,17 @@ class RestoreByEmailFragment : LRFragment<RestoreByEmailModel, RestoreByEmailVie
             if (validation) {
                 if (email.getText() != email_repeat.getText()) {
                     validation = false
-                    email_repeat.setError("Email should be the same")
+                    email_repeat.setError("Emails should be the same")
                 }
             }
             return  validation
         }
+
+    override val toolbarTitle: String
+        get() = getString(R.string.login)
+
+    override val allowBack: Boolean
+        get() = true
 
 
     override fun viewForSnackbar(): View = root
@@ -46,11 +56,7 @@ class RestoreByEmailFragment : LRFragment<RestoreByEmailModel, RestoreByEmailVie
         }
     }
 
-
-    private val registerAction = PublishSubject.create<RestoreAccountByEmailRequest>()
-
-
-
+    private val registerAction = PublishSubject.create<String>()
     override fun register() = registerAction
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
@@ -78,15 +84,18 @@ class RestoreByEmailFragment : LRFragment<RestoreByEmailModel, RestoreByEmailVie
 
         restore.setOnClickListener {
             if (viewIsValid) {
-                registerAction.onNext(RestoreAccountByEmailRequest(
-                        email = email.getText()))
+                registerAction.onNext(email.getText())
             }
         }
     }
 
-
+    override fun onDetach() {
+        super.onDetach()
+        disposableHolder.disposeAll()
+    }
 
     override fun createPresenter() = RestoreByEmailPresenter(
+            disposableHolder,
             Injection.instance.accountRepository
     )
 
@@ -94,18 +103,38 @@ class RestoreByEmailFragment : LRFragment<RestoreByEmailModel, RestoreByEmailVie
     override fun render(vs: LRViewState<RestoreByEmailModel>) {
         super.render(vs)
 
-        if (vs.closeScreen) {
-            closeScreen()
+        restore.visibility = if(vs.model.sendingRestoreByEmail == true) View.INVISIBLE else View.VISIBLE
+        email_description.visibility = if(vs.model.sendingRestoreByEmail == true) View.VISIBLE else View.INVISIBLE
+
+        if(vs.model.sendingRestoreByEmail == true){
+            hideSoftKeyboard()
         }
 
+        if(vs.model.sendingRestoreByEmailError != null){
+            email_repeat.setError("Identity not found")
+        }
 
-
+        if (vs.closeScreen && vs.model.isEmailConfirmed && vs.model.item?.accessToken != null) {
+            closeScreen(vs.model.item.accessToken)
+        }
     }
 
-    fun closeScreen() {
+    fun closeScreen(accessToken: String) {
+        navigator.navigateToPinNew(activity, accessToken)
         activity?.finish()
     }
 
+    fun hideSoftKeyboard() {
+        try {
+            val view = activity?.getCurrentFocus()
+            if (view != null) {
+                val inputManager = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                inputManager.hideSoftInputFromWindow(view.getWindowToken(), 0)
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
 
+    }
 }
 

@@ -2,7 +2,7 @@ package io.forus.me.android.data.repository.account.datasource.remote
 
 import com.gigawatt.android.data.net.sign.SignService
 import com.gigawatt.android.data.net.sign.models.request.SignUp
-import com.gigawatt.android.data.net.sign.models.request.SignUpByEmail
+import io.forus.me.android.data.entity.sign.request.RestoreByEmail
 import io.forus.me.android.data.entity.sign.response.AccessToken
 import io.forus.me.android.data.entity.sign.response.IdentityPinResult
 import io.forus.me.android.data.entity.sign.response.IdentityTokenResult
@@ -33,16 +33,16 @@ public class AccountRemoteDataSource(f: () -> SignService): AccountDataSource, R
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun requestDelegatesQRAddress(): Observable<IdentityTokenResult> {
-        return service.identityToken()
+    override fun restoreByQrToken(): Observable<IdentityTokenResult> {
+        return service.restoreByQrToken()
     }
 
-    override fun getAuthCode(): Observable<IdentityPinResult> {
-        return service.authCode()
+    override fun restoreByPinCode(): Observable<IdentityPinResult> {
+        return service.restoreByPinCode()
     }
 
-    override fun requestNewUserByEmail(email: String): Observable<AccessToken> {
-        val signUp = SignUpByEmail(email)
-        return service.requestNewUserByEmail(signUp)
+    override fun restoreByEmail(email: String): Observable<AccessToken> {
+        val signUp = RestoreByEmail(email)
+        return service.restoreByEmail(signUp)
     }
 }

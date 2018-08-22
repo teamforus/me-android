@@ -10,15 +10,6 @@ import java.util.concurrent.TimeUnit
 
 class AccountRepository(private val accountLocalDataSource: AccountDataSource, private val accountRemoteDataSource: AccountDataSource) : io.forus.me.android.domain.repository.account.AccountRepository {
 
-    override fun requestDelegatesQRAddress(): Observable<RequestDelegatesQrModel> {
-        return accountRemoteDataSource.requestDelegatesQRAddress()
-                .map {
-                    accountLocalDataSource.saveIdentity(it.accessToken, "6666")
-
-                    RequestDelegatesQrModel(it.authToken)
-                }
-    }
-
     override fun newUser(model: NewAccountRequest): Observable<String> {
         val signUp = SignUp()
         signUp.pinCode = "6666"
@@ -31,16 +22,22 @@ class AccountRepository(private val accountLocalDataSource: AccountDataSource, p
 
     }
 
-    override fun loginByEmail(email: String): Observable<RestoreAccountByEmailRequest> {
-        return accountRemoteDataSource.requestNewUserByEmail(email)
+    override fun restoreByEmail(email: String): Observable<RequestDelegatesEmailModel> {
+        return accountRemoteDataSource.restoreByEmail(email)
                 .map {
-                    accountLocalDataSource.saveIdentity(it.accessToken, "6666")
-                    RestoreAccountByEmailRequest(it.accessToken)
+                    RequestDelegatesEmailModel(it.accessToken)
                 }
     }
 
-    override fun getLoginPin(): Observable<RequestDelegatesPinModel> {
-        return accountRemoteDataSource.getAuthCode()
+    override fun restoreByQrToken(): Observable<RequestDelegatesQrModel> {
+        return accountRemoteDataSource.restoreByQrToken()
+                .map {
+                    RequestDelegatesQrModel(it.accessToken, it.authToken)
+                }
+    }
+
+    override fun restoreByPinCode(): Observable<RequestDelegatesPinModel> {
+        return accountRemoteDataSource.restoreByPinCode()
                 .map {
                     RequestDelegatesPinModel(it.accessToken, it.authCode)
                 }

@@ -4,6 +4,6 @@ import io.forus.me.android.domain.models.account.RequestDelegatesPinModel
 import io.forus.me.android.domain.models.account.RequestDelegatesQrModel
 
 data class RestoreByPinModel(
-        val item: RequestDelegatesPinModel? = null
-        ) {
-}
+        val item: RequestDelegatesPinModel? = null,
+        val isPinConfirmed: Boolean = false
+)

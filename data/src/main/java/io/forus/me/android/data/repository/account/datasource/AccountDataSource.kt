@@ -14,13 +14,13 @@ interface AccountDataSource {
     fun createUser(signUp: SignUp): Observable<SignUpResult>
 
 
-    fun requestDelegatesQRAddress() : Observable<IdentityTokenResult>
+    fun restoreByQrToken() : Observable<IdentityTokenResult>
 
 
-    fun requestNewUserByEmail(email: String) : Observable<AccessToken>
+    fun restoreByEmail(email: String) : Observable<AccessToken>
 
 
-    fun getAuthCode() : Observable<IdentityPinResult>
+    fun restoreByPinCode() : Observable<IdentityPinResult>
 
 
     fun saveIdentity(token: String, pin: String): Boolean

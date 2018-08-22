@@ -38,8 +38,11 @@ public class MeServiceFactory {
     }
 
 
+    public <T> T createRetrofitService(final Class<T> clazz, final String endPoint){
+        return createRetrofitService(clazz, endPoint, null);
+    }
 
-    public <T> T createRetrofitService(final Class<T> clazz, final String endPoint) {
+    public <T> T createRetrofitService(final Class<T> clazz, final String endPoint, final String customAccessToken) {
 
         okhttp3.OkHttpClient.Builder httpClient = new okhttp3.OkHttpClient.Builder();
 
@@ -54,10 +57,10 @@ public class MeServiceFactory {
                     .newBuilder()
                     .build();
 
-            String token =  accountLocalDataSource.getTokenString();
+            String token =  customAccessToken!= null ? customAccessToken : accountLocalDataSource.getTokenString();
             Request request = original.newBuilder()
                     .url(url)
-                    .header("Authorization", token == null || token.isEmpty() ? "" :  "Bearer " + accountLocalDataSource.getTokenString() )
+                    .header("Authorization", token == null || token.isEmpty() ? "" :  "Bearer " + token )
                     .header("Content-Type", "application/json")
                     .header("Accept", "application/json")
                   //  .header("Origin", Constants.INSTANCE.getBASE_SERVICE_ENDPOINT())

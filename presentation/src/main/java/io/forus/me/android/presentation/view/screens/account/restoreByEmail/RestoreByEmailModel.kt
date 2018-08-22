@@ -1,10 +1,11 @@
 package io.forus.me.android.presentation.view.screens.account.restoreByEmail;
 
-import io.forus.me.android.domain.models.account.RestoreAccountByEmailRequest
+import io.forus.me.android.domain.models.account.RequestDelegatesEmailModel
 
 
 data class RestoreByEmailModel(
-        val item: RestoreAccountByEmailRequest = RestoreAccountByEmailRequest(),
-        val sendingRegistration: Boolean = false
-        ) {
-}
+        val item: RequestDelegatesEmailModel? = null,
+        val sendingRestoreByEmail: Boolean? = null,
+        val sendingRestoreByEmailError: Throwable? = null,
+        val isEmailConfirmed: Boolean = false
+)

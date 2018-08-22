@@ -6,16 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LoadRefreshPanel
-import io.forus.me.android.domain.models.account.RequestDelegatesQrModel
-
 import io.forus.me.android.presentation.R
-import io.forus.me.android.presentation.interfaces.SlidingToolbarFragmentActionListener
-import io.forus.me.android.presentation.interfaces.SlidingToolbarFragmentListener
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
-import io.forus.me.android.presentation.view.fragment.BaseFragment
-import io.forus.me.android.presentation.view.fragment.QrFragment
-import io.forus.me.android.presentation.view.screens.account.pin.RestoreByPinFragment
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.account_assign_delegates_fragment.*
 
@@ -31,6 +24,9 @@ class AssignDelegatesAccountFragment : ToolbarLRFragment<AssignDelegatesModel, A
 
     override val toolbarTitle: String
         get() = getString(R.string.login)
+
+    override val allowBack: Boolean
+        get() = true
 
     override fun loadRefreshPanel() = object : LoadRefreshPanel {
         override fun retryClicks(): Observable<Any> = Observable.never()
@@ -54,7 +50,6 @@ class AssignDelegatesAccountFragment : ToolbarLRFragment<AssignDelegatesModel, A
 
         via_pin.setOnClickListener {
             (activity as? AssignDelegatesAccountActivity)?.showPopupPinFragment()
-            //navigator.navigateToAccountRestoreByPin(activity)
         }
 
         show_qr_panel.setOnClickListener {
@@ -73,7 +68,7 @@ class AssignDelegatesAccountFragment : ToolbarLRFragment<AssignDelegatesModel, A
 
 
         if (vs.model.item != null){
-            qrText = vs.model.item.address
+            qrText = vs.model.item.accessToken
         }
 
     }

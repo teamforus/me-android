@@ -6,7 +6,6 @@ import io.forus.me.android.domain.models.records.RecordCategory
 import io.forus.me.android.domain.models.wallets.Wallet
 import io.forus.me.android.presentation.view.screens.account.assigndelegates.AssignDelegatesAccountActivity
 import io.forus.me.android.presentation.view.screens.account.newaccount.NewAccountActivity
-import io.forus.me.android.presentation.view.screens.account.pin.RestoreByPinActivity
 import io.forus.me.android.presentation.view.screens.account.newaccount.pin.NewPinActivity
 import io.forus.me.android.presentation.view.screens.account.restoreByEmail.RestoreByEmailActivity
 import io.forus.me.android.presentation.view.screens.dashboard.DashboardActivity
@@ -81,13 +80,6 @@ constructor()//empty
     fun navigateToAccountRestoreByEmail(context: Context?) {
         if (context != null) {
             val intentToLaunch = RestoreByEmailActivity.getCallingIntent(context)
-            context.startActivity(intentToLaunch)
-        }
-    }
-
-    fun navigateToAccountRestoreByPin(context: Context?) {
-        if (context != null) {
-            val intentToLaunch = RestoreByPinActivity.getCallingIntent(context)
             context.startActivity(intentToLaunch)
         }
     }

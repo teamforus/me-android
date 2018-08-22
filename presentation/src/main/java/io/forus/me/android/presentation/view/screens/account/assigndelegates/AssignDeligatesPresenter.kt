@@ -12,7 +12,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 class AssignDeligatesPresenter constructor(val accountRepository: AccountRepository) : LRPresenter<RequestDelegatesQrModel, AssignDelegatesModel, AssignDelegatesView>() {
 
 
-    override fun initialModelSingle(): Single<RequestDelegatesQrModel> = Single.fromObservable(accountRepository.requestDelegatesQRAddress())
+    override fun initialModelSingle(): Single<RequestDelegatesQrModel> = Single.fromObservable(accountRepository.restoreByQrToken())
             //.delay(1, TimeUnit.SECONDS)
 
 
