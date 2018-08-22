@@ -17,19 +17,27 @@ class RecordsRepository(private val recordsMockDataSource: RecordsMockDataSource
     }
 
     override fun getCategories(): Observable<List<RecordCategory>> {
-        return recordsMockDataSource.getRecordCategories().flatMap {
-            val list: ArrayList<RecordCategory> = ArrayList()
-            it.forEach{
-                recordsMockDataSource.getRecords(it.name).blockingSubscribe{records ->
-                    list.add(RecordCategory(it.id, it.name, it.order, it.logo ?:"", records.size.toLong()))
-                }
-            }
-            Observable.just(list).delay(300, TimeUnit.MILLISECONDS)
-        }
 
-//        return recordsMockDataSource.getRecordCategories()
-//                .map{ it.map { RecordCategory(it.id, it.name, it.order, it.logo ?:"")} }
-//                .delay(500, TimeUnit.MILLISECONDS)
+            return recordsRemoteDataSource.getRecordCategories()
+                .flatMap {
+                    if (it.isNotEmpty()) {
+                        Single.just(it.map {
+                            RecordCategory(it.id, it.name ?: "noname", it.order)
+                        }).toObservable()
+                    } else {
+//                        val general = io.forus.me.android.domain.models.records.NewRecordCategoryRequest("General", 0)
+//                        val medical = io.forus.me.android.domain.models.records.NewRecordCategoryRequest("Medical", 1)
+                        val personal = io.forus.me.android.domain.models.records.NewRecordCategoryRequest("Personal", 0)
+                        newCategory(personal).flatMap {
+                            getCategories()
+                        }
+//                Observable.concat(newCategory(general), newCategory(medical), newCategory(personal)).flatMap {
+//                            getCategories()
+//                        }
+                    }
+                }
+
+
     }
 
     override fun newCategory(newRecordCategoryRequest: NewRecordCategoryRequest): Observable<Boolean> {
