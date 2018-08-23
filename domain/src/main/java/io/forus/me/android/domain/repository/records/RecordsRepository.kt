@@ -17,6 +17,9 @@ interface RecordsRepository {
     fun getCategory(categoryId: Long): Observable<RecordCategory>
 
 
+    fun getRecordsCount(recordCategoryId: Long): Observable<Long>
+
+
     fun getRecords(recordCategoryId: Long): Observable<List<Record>>
 
 

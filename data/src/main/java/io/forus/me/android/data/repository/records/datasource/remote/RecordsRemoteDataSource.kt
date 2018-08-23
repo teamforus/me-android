@@ -25,7 +25,9 @@ class RecordsRemoteDataSource(f: () -> RecordsService): RecordsDataSource, Remot
 
     override fun sortRecordCategories(sortCategories: SortCategories) : Observable<Success> = service.sortCategories(sortCategories)
 
-    override fun getRecords(type: String): Observable<List<Record>> = service.listAllRecords(type)
+    override fun getRecords(categoryId: Long): Observable<List<Record>> = service.listAllRecords(null, categoryId)
+
+    override fun getRecords(type: String): Observable<List<Record>> = service.listAllRecords(type, null)
 
     override fun createRecord(createRecord: CreateRecord): Observable<Success> = service.createRecord(createRecord.key, createRecord)
 

@@ -31,6 +31,9 @@ interface RecordsDataSource {
     fun sortRecordCategories(sortCategories: SortCategories) : Observable<Success>
 
 
+    fun getRecords(categoryId: Long): Observable<List<Record>>
+
+
     fun getRecords(type: String): Observable<List<Record>>
 
 
