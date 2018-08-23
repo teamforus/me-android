@@ -1,10 +1,10 @@
-package io.forus.me.android.presentation.models
+package io.forus.me.android.presentation.helpers.reactivex
 
 import io.reactivex.disposables.Disposable
 
 class DisposableHolder{
 
-    val disposables: MutableList<Disposable> = mutableListOf()
+    private val disposables: MutableList<Disposable> = mutableListOf()
 
     fun add(disposable: Disposable){
         disposables.add(disposable)

@@ -50,4 +50,15 @@ abstract class BaseActivity : AppCompatActivity() {
                 .replace(containerViewId, fragment)
                 .commit()
     }
+
+    protected fun removeFragment(containerViewId: Int) {
+
+        val fragment = supportFragmentManager.findFragmentById(containerViewId)
+        if(fragment != null){
+            supportFragmentManager
+                    .beginTransaction()
+                    .remove(fragment)
+                    .commit()
+        }
+    }
 }

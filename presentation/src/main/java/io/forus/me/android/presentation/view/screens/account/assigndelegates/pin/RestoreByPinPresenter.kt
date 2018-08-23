@@ -1,46 +1,24 @@
-package io.forus.me.android.presentation.view.screens.account.pin
+package io.forus.me.android.presentation.view.screens.account.assigndelegates.pin
 
-import com.gigawatt.android.data.net.sign.RecordsService
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LRPresenter
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
 import com.ocrv.ekasui.mrm.ui.loadRefresh.PartialChange
-import io.forus.me.android.data.net.MeServiceFactory
-import io.forus.me.android.data.repository.account.datasource.remote.CheckActivationDataSource
 import io.forus.me.android.domain.models.account.RequestDelegatesPinModel
 import io.forus.me.android.domain.repository.account.AccountRepository
-import io.forus.me.android.presentation.models.DisposableHolder
+import io.forus.me.android.presentation.helpers.reactivex.AccessTokenChecker
+import io.forus.me.android.presentation.helpers.reactivex.DisposableHolder
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
-import java.util.concurrent.TimeUnit
 
 
-class RestoreByPinPresenter constructor(private val disposableHolder: DisposableHolder, private val accountRepository: AccountRepository) : LRPresenter<RequestDelegatesPinModel, RestoreByPinModel, RestoreByPinView>() {
-
-    private val CHECK_ACTIVATION_DELAY = 1000L
+class RestoreByPinPresenter constructor(private val disposableHolder: DisposableHolder, private val accessTokenChecker: AccessTokenChecker, private val accountRepository: AccountRepository) : LRPresenter<RequestDelegatesPinModel, RestoreByPinModel, RestoreByPinView>() {
 
     override fun initialModelSingle(): Single<RequestDelegatesPinModel> = Single.fromObservable(accountRepository.restoreByPinCode())
 
     override fun RestoreByPinModel.changeInitialModel(i: RequestDelegatesPinModel): RestoreByPinModel = copy(item = i).also {
-        startCheckingActivation(i.accessToken)
-    }
-
-    private fun startCheckingActivation(accessToken: String){
-        val checkActivationDataSource = CheckActivationDataSource(
-                MeServiceFactory.getInstance().createRetrofitService(RecordsService::class.java, RecordsService.Service.SERVICE_ENDPOINT, accessToken))
-
-        disposableHolder.add(checkActivationDataSource.checkActivation()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .retryWhen{throwables -> throwables.delay(CHECK_ACTIVATION_DELAY,TimeUnit.MILLISECONDS)}
-                .repeatWhen{observable -> observable.delay(CHECK_ACTIVATION_DELAY, TimeUnit.MILLISECONDS)}
-                .takeUntil{it == true}
-                .subscribe { isActivated ->
-                    if(isActivated) activationComplete.onNext(Unit)
-                })
-
+        disposableHolder.add(accessTokenChecker.startCheckingActivation(i.accessToken, activationComplete))
     }
 
     private val activationComplete = PublishSubject.create<Unit>()

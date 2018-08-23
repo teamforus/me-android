@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LoadRefreshPanel
 import io.forus.me.android.presentation.R
-import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.account_assign_delegates_fragment.*
@@ -15,12 +14,10 @@ import kotlinx.android.synthetic.main.account_assign_delegates_fragment.*
 /**
  * Fragment Assign Delegates Screen.
  */
-class AssignDelegatesAccountFragment : ToolbarLRFragment<AssignDelegatesModel, AssignDelegatesView, AssignDeligatesPresenter>(), AssignDelegatesView{
+class AssignDelegatesAccountFragment : ToolbarLRFragment<Unit, AssignDelegatesView, AssignDeligatesPresenter>(), AssignDelegatesView{
 
 
     override fun viewForSnackbar(): View = root
-
-    var qrText: String = ""
 
     override val toolbarTitle: String
         get() = getString(R.string.login)
@@ -53,24 +50,10 @@ class AssignDelegatesAccountFragment : ToolbarLRFragment<AssignDelegatesModel, A
         }
 
         show_qr_panel.setOnClickListener {
-            (activity as? AssignDelegatesAccountActivity)?.showPopupQRFragment(qrText)
+            (activity as? AssignDelegatesAccountActivity)?.showPopupQRFragment()
         }
     }
 
-
-    override fun createPresenter() = AssignDeligatesPresenter(
-            Injection.instance.accountRepository
-    )
-
-
-    override fun render(vs: LRViewState<AssignDelegatesModel>) {
-        super.render(vs)
-
-
-        if (vs.model.item != null){
-            qrText = vs.model.item.accessToken
-        }
-
-    }
+    override fun createPresenter() = AssignDeligatesPresenter()
 }
 

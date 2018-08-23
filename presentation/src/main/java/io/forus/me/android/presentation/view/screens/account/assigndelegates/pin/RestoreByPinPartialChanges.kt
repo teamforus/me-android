@@ -1,4 +1,4 @@
-package io.forus.me.android.presentation.view.screens.account.pin
+package io.forus.me.android.presentation.view.screens.account.assigndelegates.pin
 
 
 import com.ocrv.ekasui.mrm.ui.loadRefresh.PartialChange

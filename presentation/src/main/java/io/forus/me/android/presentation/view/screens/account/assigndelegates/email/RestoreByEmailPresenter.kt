@@ -1,44 +1,24 @@
-package io.forus.me.android.presentation.view.screens.account.restoreByEmail
+package io.forus.me.android.presentation.view.screens.account.assigndelegates.email
 
-import com.gigawatt.android.data.net.sign.RecordsService
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LRPresenter
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
 import com.ocrv.ekasui.mrm.ui.loadRefresh.PartialChange
-import io.forus.me.android.data.net.MeServiceFactory
-import io.forus.me.android.data.repository.account.datasource.remote.CheckActivationDataSource
 import io.forus.me.android.domain.repository.account.AccountRepository
-import io.forus.me.android.presentation.models.DisposableHolder
+import io.forus.me.android.presentation.helpers.reactivex.AccessTokenChecker
+import io.forus.me.android.presentation.helpers.reactivex.DisposableHolder
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
-import java.util.concurrent.TimeUnit
 
 
-class RestoreByEmailPresenter constructor(private val disposableHolder: DisposableHolder, private val accountRepository: AccountRepository) : LRPresenter<Unit, RestoreByEmailModel, RestoreByEmailView>() {
-
-    private val CHECK_ACTIVATION_DELAY = 1000L
+class RestoreByEmailPresenter constructor(private val disposableHolder: DisposableHolder, private val accessTokenChecker: AccessTokenChecker, private val accountRepository: AccountRepository) : LRPresenter<Unit, RestoreByEmailModel, RestoreByEmailView>() {
 
     override fun initialModelSingle(): Single<Unit> = Single.just(Unit)
 
 
     override fun RestoreByEmailModel.changeInitialModel(i: Unit): RestoreByEmailModel = copy()
-
-    private fun startCheckingActivation(accessToken: String){
-        val checkActivationDataSource = CheckActivationDataSource(
-                MeServiceFactory.getInstance().createRetrofitService(RecordsService::class.java, RecordsService.Service.SERVICE_ENDPOINT, accessToken))
-
-        disposableHolder.add(checkActivationDataSource.checkActivation()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .retryWhen{throwables -> throwables.delay(CHECK_ACTIVATION_DELAY, TimeUnit.MILLISECONDS)}
-                .repeatWhen{observable -> observable.delay(CHECK_ACTIVATION_DELAY, TimeUnit.MILLISECONDS)}
-                .takeUntil{it == true}
-                .subscribe { isActivated ->
-                    if(isActivated) activationComplete.onNext(Unit)
-                })
-    }
 
     private val activationComplete = PublishSubject.create<Unit>()
     fun activationComplete(): Observable<Unit> = activationComplete
@@ -55,7 +35,7 @@ class RestoreByEmailPresenter constructor(private val disposableHolder: Disposab
                                     .subscribeOn(Schedulers.io())
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .map<PartialChange> {
-                                        startCheckingActivation(it.accessToken)
+                                        disposableHolder.add(accessTokenChecker.startCheckingActivation(it.accessToken, activationComplete))
                                         RestoreByEmailPartialChanges.RestoreByEmailRequestEnd(it)
                                     }
                                     .onErrorReturn {

@@ -1,4 +1,4 @@
-package io.forus.me.android.presentation.view.screens.account.restoreByEmail
+package io.forus.me.android.presentation.view.screens.account.assigndelegates.email
 
 import android.content.Context
 import android.os.Bundle
@@ -6,16 +6,16 @@ import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LoadRefreshPanel
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.internal.Injection
+import io.forus.me.android.presentation.helpers.reactivex.DisposableHolder
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.account_restore_email_fragment.*
-import android.view.inputmethod.InputMethodManager
-import io.forus.me.android.presentation.models.DisposableHolder
 
 
 /**
@@ -96,6 +96,7 @@ class RestoreByEmailFragment : ToolbarLRFragment<RestoreByEmailModel, RestoreByE
 
     override fun createPresenter() = RestoreByEmailPresenter(
             disposableHolder,
+            Injection.instance.accessTokenChecker,
             Injection.instance.accountRepository
     )
 

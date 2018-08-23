@@ -1,4 +1,4 @@
-package io.forus.me.android.presentation.view.screens.account.restoreByEmail
+package io.forus.me.android.presentation.view.screens.account.assigndelegates.email
 
 
 import com.ocrv.ekasui.mrm.ui.loadRefresh.PartialChange

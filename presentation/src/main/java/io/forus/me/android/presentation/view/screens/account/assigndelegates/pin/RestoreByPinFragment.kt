@@ -1,4 +1,4 @@
-package io.forus.me.android.presentation.view.screens.account.pin
+package io.forus.me.android.presentation.view.screens.account.assigndelegates.pin
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LoadRefreshPanel
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.internal.Injection
-import io.forus.me.android.presentation.models.DisposableHolder
+import io.forus.me.android.presentation.helpers.reactivex.DisposableHolder
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.account_restore_pin_fragment.*
 
@@ -46,6 +46,7 @@ class RestoreByPinFragment : LRFragment<RestoreByPinModel, RestoreByPinView, Res
 
     override fun createPresenter() = RestoreByPinPresenter(
             disposableHolder,
+            Injection.instance.accessTokenChecker,
             Injection.instance.accountRepository
     )
 
