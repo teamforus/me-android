@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit
 class RecordsRepository(private val recordsMockDataSource: RecordsMockDataSource, private val recordsRemoteDataSource: RecordsDataSource) : io.forus.me.android.domain.repository.records.RecordsRepository {
 
     override fun getRecordTypes(): Observable<List<RecordType>> {
-        return recordsMockDataSource.getRecordTypes()
+        return recordsRemoteDataSource.getRecordTypes()
                 .map { it.map { RecordType(it.key, it.type, it.name) }}
     }
 
@@ -46,7 +46,7 @@ class RecordsRepository(private val recordsMockDataSource: RecordsMockDataSource
     }
 
     override fun getCategory(categoryId: Long): Observable<RecordCategory> {
-        return recordsMockDataSource.retrieveRecordCategory(categoryId)
+        return recordsRemoteDataSource.retrieveRecordCategory(categoryId)
                 .map{ RecordCategory(it.id, it.name, it.order, it.logo ?:"")}
     }
 
