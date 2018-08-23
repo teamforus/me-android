@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
 
@@ -9,10 +9,10 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp">
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin">
 
         <io.forus.me.android.presentation.view.component.text.TextView
             android:text="@string/choose_validators_text"
@@ -70,16 +70,15 @@
             android:layout_width="match_parent"
             android:layout_height="2dp"/>
 
+    </LinearLayout>
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_validators"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"/>
-
-
-    </LinearLayout>
+            android:layout_height="match_parent"/>
 
 
 
-</RelativeLayout>
+
+
+</LinearLayout>
