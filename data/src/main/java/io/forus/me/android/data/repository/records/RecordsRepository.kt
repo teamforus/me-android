@@ -8,8 +8,11 @@ import io.reactivex.Single
 import io.reactivex.functions.BiFunction
 import java.util.*
 import java.util.concurrent.TimeUnit
+import kotlin.collections.ArrayList
 
 class RecordsRepository(private val recordsMockDataSource: RecordsMockDataSource, private val recordsRemoteDataSource: RecordsDataSource) : io.forus.me.android.domain.repository.records.RecordsRepository {
+
+    private val defaultCategoryNames: List<String> = listOf("Persoonlijk", "Medical", "Zakelijk", "Relaties", "Certificaten", "Anderen")
 
     override fun getRecordTypes(): Observable<List<RecordType>> {
         return recordsMockDataSource.getRecordTypes()
@@ -19,25 +22,36 @@ class RecordsRepository(private val recordsMockDataSource: RecordsMockDataSource
     override fun getCategories(): Observable<List<RecordCategory>> {
 
             return recordsRemoteDataSource.getRecordCategories()
-                .flatMap {
-                    if (it.isNotEmpty()) {
-                        Single.just(it.map {
-                            RecordCategory(it.id, it.name ?: "noname", it.order)
-                        }).toObservable()
-                    } else {
-//                        val general = io.forus.me.android.domain.models.records.NewRecordCategoryRequest("General", 0)
-//                        val medical = io.forus.me.android.domain.models.records.NewRecordCategoryRequest("Medical", 1)
-                        val personal = io.forus.me.android.domain.models.records.NewRecordCategoryRequest("Personal", 0)
-                        newCategory(personal).flatMap {
-                            getCategories()
+                .flatMap { categories ->
+                    val result: MutableList<RecordCategory> = mutableListOf()
+                    val newCategoryNames: MutableList<String> = mutableListOf()
+                    defaultCategoryNames.forEach{ name ->
+                        if(!categories.map{it.name}.contains(name)){
+                            newCategoryNames.add(name)
                         }
-//                Observable.concat(newCategory(general), newCategory(medical), newCategory(personal)).flatMap {
-//                            getCategories()
-//                        }
                     }
+                    if(newCategoryNames.isNotEmpty()){
+                        newCategoryNames.forEach {
+                            newCategory(NewRecordCategoryRequest(it, 0)).blockingSubscribe()
+                        }
+                        recordsRemoteDataSource.getRecordCategories().map { newCategories ->
+                            newCategories.forEach{
+                                getRecordsCount(it.id).blockingSubscribe{recordsCount ->
+                                    result.add(RecordCategory(it.id, it.name, it.order, recordsCount))
+                                }
+                            }
+                            Observable.just(result)
+                        }
+                    }
+                    else{
+                        categories.forEach{
+                            getRecordsCount(it.id).blockingSubscribe{recordsCount ->
+                                result.add(RecordCategory(it.id, it.name, it.order, recordsCount))
+                            }
+                        }
+                    }
+                    Observable.just(result)
                 }
-
-
     }
 
     override fun newCategory(newRecordCategoryRequest: NewRecordCategoryRequest): Observable<Boolean> {
@@ -47,7 +61,11 @@ class RecordsRepository(private val recordsMockDataSource: RecordsMockDataSource
 
     override fun getCategory(categoryId: Long): Observable<RecordCategory> {
         return recordsMockDataSource.retrieveRecordCategory(categoryId)
-                .map{ RecordCategory(it.id, it.name, it.order, it.logo ?:"")}
+                .map{ RecordCategory(it.id, it.name, it.order)}
+    }
+
+    override fun getRecordsCount(recordCategoryId: Long): Observable<Long> {
+        return recordsRemoteDataSource.getRecords(recordCategoryId).map {it.size.toLong()}
     }
 
     override fun getRecords(recordCategoryId: Long): Observable<List<Record>> {
@@ -55,7 +73,7 @@ class RecordsRepository(private val recordsMockDataSource: RecordsMockDataSource
                 Single.fromObservable(getCategory(recordCategoryId)),
                 Single.fromObservable(getRecordTypes()),
                 BiFunction { category : RecordCategory, types: List<RecordType> ->
-                    recordsMockDataSource.getRecords(category.name)
+                    recordsRemoteDataSource.getRecords(recordCategoryId)
                         .map{ list ->
                             list.map {
                                 val type = types.find { type -> type.key.equals(it.key) }
@@ -65,7 +83,7 @@ class RecordsRepository(private val recordsMockDataSource: RecordsMockDataSource
                 }
         ).flatMapObservable {
             it
-        }.delay(300, TimeUnit.MILLISECONDS)
+        }
     }
 
     override fun newRecord(model: NewRecordRequest): Observable<NewRecordRequest> {

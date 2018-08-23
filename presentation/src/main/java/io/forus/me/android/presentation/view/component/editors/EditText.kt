@@ -91,6 +91,11 @@ class EditText : FrameLayout{
         return mTextEdit.text.toString()
     }
 
+    fun getTextOrNullIfBlank(): String? {
+        val text = mTextEdit.text.toString()
+        return if(text.isBlank()) null else text
+    }
+
     fun setError(error: String){
         mTextInputLayout.error = error
     }

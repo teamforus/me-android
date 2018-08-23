@@ -13,12 +13,12 @@ class AccountRepository(private val accountLocalDataSource: AccountDataSource, p
     override fun newUser(model: NewAccountRequest): Observable<String> {
         val signUp = SignUp()
         signUp.pinCode = "6666"
-        signUp.records = SignRecords(model.email)
+        signUp.records = SignRecords(model.email, model.firstname, model.lastname, model.bsn, model.phoneNumber)
 
        return accountRemoteDataSource.createUser(signUp)
                 .flatMap {
                     Observable.just(it.accessToken)
-                }.delay(300, TimeUnit.MILLISECONDS)
+                }.delay(100, TimeUnit.MILLISECONDS)
 
     }
 
