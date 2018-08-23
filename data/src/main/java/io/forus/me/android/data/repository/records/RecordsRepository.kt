@@ -59,7 +59,7 @@ class RecordsRepository(private val recordsMockDataSource: RecordsMockDataSource
 
     override fun getCategory(categoryId: Long): Observable<RecordCategory> {
         return recordsRemoteDataSource.retrieveRecordCategory(categoryId)
-                .map{ RecordCategory(it.id, it.name, it.order, it.logo ?:"")}
+                .map{ RecordCategory(it.id, it.name, it.order)}
     }
 
     override fun getRecordsCount(recordCategoryId: Long): Observable<Long> {
