@@ -1,4 +1,4 @@
-package io.forus.me.android.presentation.view.screens.account.pin
+package io.forus.me.android.presentation.view.screens.account.assigndelegates.email
 
 
 import android.content.Context
@@ -11,12 +11,12 @@ import io.forus.me.android.presentation.view.activity.CommonActivity
 /**
  * Main application screen. This is the app entry point.
  */
-class RestoreByPinActivity : CommonActivity() {
+class RestoreByEmailActivity : CommonActivity() {
 
 
     companion object {
         fun getCallingIntent(context: Context): Intent {
-            return Intent(context, RestoreByPinActivity::class.java)
+            return Intent(context, RestoreByEmailActivity::class.java)
         }
     }
 
@@ -24,13 +24,14 @@ class RestoreByPinActivity : CommonActivity() {
         get() = R.layout.activity_toolbar
 
 //    override val toolbarTitle: String
-//        get() = getString(R.string.inloggen_met_pincode)
+//        get() = getString(R.string.inloggen_via_email)
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         if (savedInstanceState == null) {
-            addFragment(R.id.fragmentContainer, RestoreByPinFragment())
+            addFragment(R.id.fragmentContainer, RestoreByEmailFragment())
         }
     }
 

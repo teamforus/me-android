@@ -35,7 +35,7 @@
             android:name=".view.screens.qr.QrScannerActivity"
             android:label="@string/blank_string"></activity>
         <activity
-            android:name=".view.screens.account.restoreByEmail.RestoreByEmailActivity"
+            android:name="io.forus.me.android.presentation.view.screens.account.assigndelegates.email.RestoreByEmailActivity"
             android:label="@string/blank_string"></activity>
         <activity
             android:name=".view.screens.account.newaccount.NewAccountActivity"
@@ -51,9 +51,6 @@
             android:label="@string/blank_string"></activity>
         <activity
             android:name=".view.screens.vouchers.item.VoucherActivity"
-            android:label="@string/blank_string"></activity>
-        <activity
-            android:name=".view.screens.account.pin.RestoreByPinActivity"
             android:label="@string/blank_string"></activity>
         <activity
             android:name=".view.screens.records.newrecord.NewRecordActivity"

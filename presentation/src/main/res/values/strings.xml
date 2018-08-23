@@ -33,9 +33,6 @@
     <string name="set_up_your_identity">Stel uw identiteit in</string>
     <string name="login">Anmelden</string>
     <string name="scan_deze_qr_code_met_een_ander_apparaat_waar_u_al_op_aangemeld_bent">Scan deze QR-Code met een ander apparaat waar u al op aangemeld bent</string>
-    <string name="login_via_de_qr_code">login via de qr code</string>
-    <string name="inloggen_met_pincode">Inloggen met pincode</string>
-    <string name="inloggen_via_email">Inloggen via email</string>
     <string name="valuta">Valuta</string>
     <string name="vouchers">Vouchers</string>
     <string name="voucher">Voucher</string>
@@ -43,8 +40,7 @@
     <string name="qr">Qr</string>
     <string name="records">Eigenschappen</string>
     <string name="transactieoverzicht">Transactieoverzicht</string>
-    <string name="restore_by_email">Restore by email</string>
-    <string name="account_restore_description">Please enter your e-mail address in order to receive your login details.</string>
+
 
 
     <!--Lock Check strings -->
@@ -116,5 +112,18 @@
     <string name="wallet_receive">Wraag</string>
     <string name="wallet_transactions_title">Transactieoverzicht</string>
     <string name="wallet_transactions_see_all">See all</string>
+
+    <!-- Restore identity -->
+    <string name="login_via_de_qr_code">login via de qr code</string>
+    <string name="inloggen_met_pincode">Inloggen met pincode</string>
+    <string name="inloggen_via_email">Inloggen via email</string>
+    <string name="restore_by_email">Restore by email</string>
+    <string name="account_restore_description">Please enter your e-mail address in order to receive your login details.</string>
+    <string name="btn_continue">CONTINUE</string>
+    <string name="pincode_not_confirmed">PIN is not confirmed</string>
+    <string name="pincode_description">Vul deze pincode in uw profeil in</string>
+    <string name="email_description">Check your email and confirm identity</string>
+
+
 
 </resources>

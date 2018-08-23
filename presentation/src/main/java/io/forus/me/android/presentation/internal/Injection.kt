@@ -19,6 +19,7 @@ import io.forus.me.android.domain.repository.assets.AssetsRepository
 import io.forus.me.android.domain.repository.vouchers.VouchersRepository
 import io.forus.me.android.domain.repository.wallets.WalletsRepository
 import io.forus.me.android.presentation.DatabaseHelper
+import io.forus.me.android.presentation.helpers.reactivex.AccessTokenChecker
 
 class Injection private constructor() {
 
@@ -99,6 +100,10 @@ class Injection private constructor() {
 
     val validationRepository: ValidationRepository by lazy {
         return@lazy ValidationRepository()
+    }
+
+    val accessTokenChecker: AccessTokenChecker by lazy {
+        return@lazy AccessTokenChecker()
     }
 
 }

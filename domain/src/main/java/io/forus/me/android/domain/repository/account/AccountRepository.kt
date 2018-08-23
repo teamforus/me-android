@@ -5,16 +5,16 @@ import io.reactivex.Observable
 
 interface AccountRepository {
 
-    fun requestDelegatesQRAddress(): Observable<RequestDelegatesQrModel>
-
-
     fun newUser(model: NewAccountRequest) : Observable<String>
 
 
-    fun loginByEmail(email: String) : Observable<RestoreAccountByEmailRequest>
+    fun restoreByEmail(email: String) : Observable<RequestDelegatesEmailModel>
 
 
-    fun getLoginPin() : Observable<RequestDelegatesPinModel>
+    fun restoreByQrToken(): Observable<RequestDelegatesQrModel>
+
+
+    fun restoreByPinCode() : Observable<RequestDelegatesPinModel>
 
 
     fun createIdentity(identity: Identity): Observable<Boolean>
