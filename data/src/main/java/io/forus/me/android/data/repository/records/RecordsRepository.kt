@@ -6,22 +6,20 @@ import io.forus.me.android.domain.models.records.*
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
-import java.util.*
 import java.util.concurrent.TimeUnit
-import kotlin.collections.ArrayList
 
 class RecordsRepository(private val recordsMockDataSource: RecordsMockDataSource, private val recordsRemoteDataSource: RecordsDataSource) : io.forus.me.android.domain.repository.records.RecordsRepository {
 
     private val defaultCategoryNames: List<String> = listOf("Persoonlijk", "Medical", "Zakelijk", "Relaties", "Certificaten", "Anderen")
 
     override fun getRecordTypes(): Observable<List<RecordType>> {
-        return recordsMockDataSource.getRecordTypes()
+        return recordsRemoteDataSource.getRecordTypes()
                 .map { it.map { RecordType(it.key, it.type, it.name) }}
     }
 
     override fun getCategories(): Observable<List<RecordCategory>> {
 
-            return recordsRemoteDataSource.getRecordCategories()
+        return recordsRemoteDataSource.getRecordCategories()
                 .flatMap { categories ->
                     val result: MutableList<RecordCategory> = mutableListOf()
                     val newCategoryNames: MutableList<String> = mutableListOf()
@@ -60,8 +58,8 @@ class RecordsRepository(private val recordsMockDataSource: RecordsMockDataSource
     }
 
     override fun getCategory(categoryId: Long): Observable<RecordCategory> {
-        return recordsMockDataSource.retrieveRecordCategory(categoryId)
-                .map{ RecordCategory(it.id, it.name, it.order)}
+        return recordsRemoteDataSource.retrieveRecordCategory(categoryId)
+                .map{ RecordCategory(it.id, it.name, it.order, it.logo ?:"")}
     }
 
     override fun getRecordsCount(recordCategoryId: Long): Observable<Long> {
@@ -74,12 +72,12 @@ class RecordsRepository(private val recordsMockDataSource: RecordsMockDataSource
                 Single.fromObservable(getRecordTypes()),
                 BiFunction { category : RecordCategory, types: List<RecordType> ->
                     recordsRemoteDataSource.getRecords(recordCategoryId)
-                        .map{ list ->
-                            list.map {
-                                val type = types.find { type -> type.key.equals(it.key) }
-                                Record(it.id, it.value, it.order, type!!, category, it.valid, it.validations)
+                            .map{ list ->
+                                list.map {
+                                    val type = types.find { type -> type.key.equals(it.key) }
+                                    Record(it.id, it.value, it.order, type!!, category, it.valid, it.validations)
+                                }
                             }
-                        }
                 }
         ).flatMapObservable {
             it
