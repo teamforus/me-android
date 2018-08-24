@@ -39,7 +39,7 @@ class RecordsRemoteDataSource(f: () -> RecordsService): RecordsDataSource, Remot
 
     override fun sortRecords(sortRecords: SortRecords) : Observable<Success> = service.sortRecords(sortRecords)
 
-    override fun createValidationToken(recordId: Long): Observable<ValidationToken> = service.createValidationToken(recordId)
+    override fun createValidationToken(recordId: Long): Observable<ValidationToken> = service.createValidationToken(CreateValidationToken(recordId))
 
     override fun readValidation(uuid: String): Observable<Validation> = service.readValidation(uuid)
 

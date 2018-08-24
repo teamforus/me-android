@@ -32,14 +32,7 @@ class RecordsRepository(private val recordsMockDataSource: RecordsMockDataSource
                         newCategoryNames.forEach {
                             newCategory(NewRecordCategoryRequest(it, 0)).blockingSubscribe()
                         }
-                        recordsRemoteDataSource.getRecordCategories().map { newCategories ->
-                            newCategories.forEach{
-                                getRecordsCount(it.id).blockingSubscribe{recordsCount ->
-                                    result.add(RecordCategory(it.id, it.name, it.order, recordsCount))
-                                }
-                            }
-                            Observable.just(result)
-                        }
+                getCategories()
                     }
                     else{
                         categories.forEach{
@@ -47,8 +40,8 @@ class RecordsRepository(private val recordsMockDataSource: RecordsMockDataSource
                                 result.add(RecordCategory(it.id, it.name, it.order, recordsCount))
                             }
                         }
+                        Observable.just(result)
                     }
-                    Observable.just(result)
                 }
     }
 
@@ -75,7 +68,7 @@ class RecordsRepository(private val recordsMockDataSource: RecordsMockDataSource
                             .map{ list ->
                                 list.map {
                                     val type = types.find { type -> type.key.equals(it.key) }
-                                    Record(it.id, it.value, it.order, type!!, category, it.valid, it.validations)
+                                    Record(it.id, it.value, it.order, type!!, category, it.valid ?: false, it.validations)
                                 }
                             }
                 }
@@ -86,30 +79,31 @@ class RecordsRepository(private val recordsMockDataSource: RecordsMockDataSource
 
     override fun newRecord(model: NewRecordRequest): Observable<NewRecordRequest> {
         val createRecord = io.forus.me.android.data.entity.records.request.CreateRecord(model.recordType?.key, model.category?.id, model.value, model.order)
-        return recordsMockDataSource.createRecord(createRecord)
+        return recordsRemoteDataSource.createRecord(createRecord)
                 .flatMap {
                     Observable.just(model)
-                }.delay(300, TimeUnit.MILLISECONDS)
+                }
+                .delay(100, TimeUnit.MILLISECONDS)
     }
 
     override fun getRecord(recordId: Long): Observable<Record> {
         return Single.zip(
-                Single.fromObservable(recordsMockDataSource.retrieveRecord(recordId)),
+                Single.fromObservable(recordsRemoteDataSource.retrieveRecord(recordId)),
                 Single.fromObservable(getRecordTypes()),
                 BiFunction { record : io.forus.me.android.data.entity.records.response.Record, types: List<RecordType> ->
                     getCategory(record.recordCategoryId)
                             .map {
                                 val type = types.find { type -> type.key.equals(record.key) }
-                                Record(record.id, record.value, record.order, type!!, it, record.valid, record.validations)
+                                Record(record.id, record.value, record.order, type!!, it, record.valid ?: false, record.validations)
                             }
                 }
         ).flatMapObservable {
             it
-        }.delay(300, TimeUnit.MILLISECONDS)
+        }
     }
 
     override fun getRecordUuid(recordId: Long): Observable<String> {
-        return recordsMockDataSource.createValidationToken(recordId)
+        return recordsRemoteDataSource.createValidationToken(recordId)
                 .map { it.uuid }
     }
 }

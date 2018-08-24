@@ -67,7 +67,7 @@ interface RecordsService {
     // Validations
 
     @POST("api/v1/identity/record-validations")
-    fun createValidationToken(@Body record_id: Long) : Observable<ValidationToken>
+    fun createValidationToken(@Body createValidationToken: CreateValidationToken) : Observable<ValidationToken>
 
     @GET("api/v1/identity/record-validations/{uuid}")
     fun readValidation(@Path("uuid") uuid: String) : Observable<Validation>
