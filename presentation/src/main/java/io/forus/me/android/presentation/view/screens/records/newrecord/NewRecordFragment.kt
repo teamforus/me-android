@@ -103,7 +103,6 @@ class NewRecordFragment : ToolbarLRFragment<NewRecordModel, NewRecordView, NewRe
     private val selectRecordCategory = PublishSubject.create<RecordCategory>()
     override fun selectCategory(): Observable<RecordCategory> = selectRecordCategory
 
-
     private val selectValidator = PublishSubject.create<Validator>()
     override fun selectValidator(): Observable<Validator> = selectValidator
 

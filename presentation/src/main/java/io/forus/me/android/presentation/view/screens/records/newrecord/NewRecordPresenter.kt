@@ -99,7 +99,7 @@ class NewRecordPresenter constructor(private val recordRepository: RecordsReposi
             is NewRecordPartialChanges.SelectCategory -> result = vs.copy(model = vs.model.copy(item = vs.model.item.copy(category = change.category)))
             is NewRecordPartialChanges.SelectType -> result = vs.copy(model = vs.model.copy(item = vs.model.item.copy(recordType = change.type)))
             is NewRecordPartialChanges.SetValue -> result = vs.copy(model = vs.model.copy(item = vs.model.item.copy(value = change.value)))
-            is NewRecordPartialChanges.SelectValidator -> result = vs.copy(model = vs.model.copy(item = vs.model.item.copy(validator = change.validator)))
+            is NewRecordPartialChanges.SelectValidator -> result = vs.copy(model = vs.model.copy(item = vs.model.item.selectValidator(change.validator)))
             is NewRecordPartialChanges.PreviousStep -> result = vs.copy(model = vs.model.copy(currentStep = vs.model.currentStep - (if (vs.model.currentStep < NewRecordView.NUM_PAGES && vs.model.currentStep > 0) 1 else 0)))
             is NewRecordPartialChanges.NextStep -> result = vs.copy(model = vs.model.copy(currentStep = vs.model.currentStep + (if (vs.model.currentStep < NewRecordView.NUM_PAGES - 1 && vs.model.currentStep >= 0) 1 else 0)))
         }

@@ -13,9 +13,9 @@ class RecordValidatorVH(parent: ViewGroup, private val clickListener: ((Validato
 
     }
 
-    fun render(item: Validator, lastSelectedPosition: Int) = with(itemView) {
+    fun render(item: Validator, isChecked: Boolean) = with(itemView) {
 
-        root.setBackgroundResource(if (lastSelectedPosition == adapterPosition) R.color.alto else R.color.transparent)
+        checkBox.isChecked = isChecked
         tv_name.text = item.name
         tv_title.text = item.title
         root.setOnClickListener {

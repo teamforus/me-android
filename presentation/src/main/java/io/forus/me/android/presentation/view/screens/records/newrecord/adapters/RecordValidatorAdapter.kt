@@ -10,8 +10,7 @@ import io.forus.me.android.presentation.view.screens.records.newrecord.viewholde
 
 class RecordValidatorAdapter(private val clickListener: ((Validator) -> Unit)?): RecyclerView.Adapter<RecordValidatorVH>() {
 
-    private var lastSelectedPosition: Int = -1
-
+    var checkedStatus = BooleanArray(0)
     var items: List<Validator> = emptyList()
         set(value) {
             val old = field
@@ -23,6 +22,8 @@ class RecordValidatorAdapter(private val clickListener: ((Validator) -> Unit)?):
                 override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) = old[oldItemPosition] == field[newItemPosition]
             }).dispatchUpdatesTo(this)
             notifyDataSetChanged()
+
+            if(field.size != checkedStatus.size) checkedStatus = BooleanArray(field.size)
         }
 
     init {
@@ -30,13 +31,12 @@ class RecordValidatorAdapter(private val clickListener: ((Validator) -> Unit)?):
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = RecordValidatorVH(parent) { validator: Validator, position: Int ->
-        lastSelectedPosition = position
-        //notifyDataSetChanged()
+        checkedStatus[position] = !checkedStatus[position]
         clickListener?.invoke(validator)
     }
 
     override fun onBindViewHolder(holder: RecordValidatorVH, position: Int) {
-        holder.render(items[position], lastSelectedPosition)
+        holder.render(items[position], checkedStatus[position])
     }
     override fun getItemCount() = items.size
     override fun getItemId(position: Int) = position.toLong()
