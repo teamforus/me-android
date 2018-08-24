@@ -83,7 +83,7 @@ class Injection private constructor() {
 
 
     val recordsRepository: RecordsRepository by lazy {
-        return@lazy io.forus.me.android.data.repository.records.RecordsRepository(recordsMockDataSource, recordRemoteDataSource)
+        return@lazy io.forus.me.android.data.repository.records.RecordsRepository(recordRemoteDataSource)
     }
 
     private val recordsMockDataSource: RecordsMockDataSource by lazy{

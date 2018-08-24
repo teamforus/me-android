@@ -17,7 +17,7 @@ import io.forus.me.android.presentation.view.fragment.QrFragment
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import kotlinx.android.synthetic.main.fragment_record_detail.*
 
-class RecordDetailsFragment : ToolbarLRFragment<RecordDetailsModel, RecordDetailsView, RecordDetailsPresenter>(), RecordDetailsView, SlidingToolbarFragmentListener {
+class RecordDetailsFragment : ToolbarLRFragment<RecordDetailsModel, RecordDetailsView, RecordDetailsPresenter>(), RecordDetailsView{
 
     companion object {
         private val RECORD_ID_EXTRA = "RECORD_ID_EXTRA";
@@ -29,18 +29,15 @@ class RecordDetailsFragment : ToolbarLRFragment<RecordDetailsModel, RecordDetail
         }
     }
 
+    private var recordId: Long = 0
+    private lateinit var adapter: RVListAdapter<Validator, ValidatorVH>
+
+
     override val allowBack: Boolean
         get() = true
 
     override val toolbarTitle: String
         get() = getString(R.string.title_record_detail)
-
-    private var recordId: Long = 0
-
-    private lateinit var adapter: RVListAdapter<Validator, ValidatorVH>
-
-    private  var qrFragment: QrFragment =  QrFragment.newIntent()
-    var slidingToolbarFragmentActionListener : SlidingToolbarFragmentActionListener? = null
 
     override fun viewForSnackbar(): View = root
 
@@ -62,7 +59,7 @@ class RecordDetailsFragment : ToolbarLRFragment<RecordDetailsModel, RecordDetail
         super.onViewCreated(view, savedInstanceState)
 
         btn_show_qr.setOnClickListener {
-            slidingToolbarFragmentActionListener?.openPanel()
+            (activity as? RecordDetailsActivity)?.showPopupQRFragment(recordId)
         }
 
         recycler.layoutManager = LinearLayoutManager(context)
@@ -82,16 +79,5 @@ class RecordDetailsFragment : ToolbarLRFragment<RecordDetailsModel, RecordDetail
         type.text = record?.recordType?.name
         value.text = record?.value
         adapter.items = vs.model.validators
-
-        if (vs.model.uuid != null && vs.model.uuid.isNotEmpty())
-            qrFragment.qrText = vs.model.uuid
-    }
-
-    override fun getSlidingFragment(): BaseFragment {
-        return  qrFragment
-    }
-
-    override fun getSlidingPanelTitle(): String {
-        return "QR code"
     }
 }

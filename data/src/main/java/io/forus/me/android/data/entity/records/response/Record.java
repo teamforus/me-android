@@ -25,7 +25,7 @@ public class Record {
     private Boolean valid;
 
     @SerializedName("validations")
-    private List<String> validations;
+    private List<Validation> validations;
 
 
     public Long getId() {
@@ -76,18 +76,18 @@ public class Record {
         this.valid = valid;
     }
 
-    public List<String> getValidations() {
+    public List<Validation> getValidations() {
         return validations;
     }
 
-    public void setValidations(List<String> validations) {
+    public void setValidations(List<Validation> validations) {
         this.validations = validations;
     }
 
     public Record() {
     }
 
-    public Record(Long id, String value, Long order, String key, Long recordCategoryId, Boolean valid, List<String> validations) {
+    public Record(Long id, String value, Long order, String key, Long recordCategoryId, Boolean valid, List<Validation> validations) {
         this.id = id;
         this.value = value;
         this.order = order;

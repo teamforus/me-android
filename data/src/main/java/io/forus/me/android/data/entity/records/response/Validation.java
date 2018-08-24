@@ -2,9 +2,11 @@ package io.forus.me.android.data.entity.records.response;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
+
 public class Validation {
 
-    enum State {
+    public enum State {
         pending, approved, declined
     }
 
@@ -12,7 +14,13 @@ public class Validation {
     private State state;
 
     @SerializedName("identity_address")
-    private Boolean identityAddress;
+    private String identityAddress;
+
+    @SerializedName("created_at")
+    private Date createdAt;
+
+    @SerializedName("updated_at")
+    private Date updatedAt;
 
     @SerializedName("uuid")
     private String uuid;
@@ -28,9 +36,11 @@ public class Validation {
 
     public Validation() { }
 
-    public Validation(State state, Boolean identityAddress, String uuid, String value, String key, String name) {
+    public Validation(State state, String identityAddress, Date createdAt, Date updatedAt, String uuid, String value, String key, String name) {
         this.state = state;
         this.identityAddress = identityAddress;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
         this.uuid = uuid;
         this.value = value;
         this.key = key;
@@ -45,12 +55,28 @@ public class Validation {
         this.state = state;
     }
 
-    public Boolean getIdentityAddress() {
+    public String getIdentityAddress() {
         return identityAddress;
     }
 
-    public void setIdentityAddress(Boolean identityAddress) {
+    public void setIdentityAddress(String identityAddress) {
         this.identityAddress = identityAddress;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     public String getUuid() {

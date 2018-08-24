@@ -8,7 +8,7 @@ import io.reactivex.Single
 import io.reactivex.functions.BiFunction
 import java.util.concurrent.TimeUnit
 
-class RecordsRepository(private val recordsMockDataSource: RecordsMockDataSource, private val recordsRemoteDataSource: RecordsDataSource) : io.forus.me.android.domain.repository.records.RecordsRepository {
+class RecordsRepository(private val recordsRemoteDataSource: RecordsDataSource) : io.forus.me.android.domain.repository.records.RecordsRepository {
 
     private val defaultCategoryNames: List<String> = listOf("Persoonlijk", "Medical", "Zakelijk", "Relaties", "Certificaten", "Anderen")
 
@@ -21,7 +21,6 @@ class RecordsRepository(private val recordsMockDataSource: RecordsMockDataSource
 
         return recordsRemoteDataSource.getRecordCategories()
                 .flatMap { categories ->
-                    val result: MutableList<RecordCategory> = mutableListOf()
                     val newCategoryNames: MutableList<String> = mutableListOf()
                     defaultCategoryNames.forEach{ name ->
                         if(!categories.map{it.name}.contains(name)){
@@ -35,14 +34,22 @@ class RecordsRepository(private val recordsMockDataSource: RecordsMockDataSource
                 getCategories()
                     }
                     else{
-                        categories.forEach{
-                            getRecordsCount(it.id).blockingSubscribe{recordsCount ->
-                                result.add(RecordCategory(it.id, it.name, it.order, recordsCount))
-                            }
-                        }
-                        Observable.just(result)
+                        Observable.just(categories.map { RecordCategory(it.id, it.name, it.order, 0) }
+                        )
                     }
                 }
+    }
+
+    override fun getCategoriesWithRecordCount(): Observable<List<RecordCategory>> {
+        return getCategories().flatMap { categories ->
+            val result: MutableList<RecordCategory> = mutableListOf()
+            categories.forEach{
+                getRecordsCount(it.id).blockingSubscribe{recordsCount ->
+                    result.add(RecordCategory(it.id, it.name, it.order, recordsCount))
+                }
+            }
+            Observable.just(result)
+        }
     }
 
     override fun newCategory(newRecordCategoryRequest: NewRecordCategoryRequest): Observable<Boolean> {
@@ -68,7 +75,8 @@ class RecordsRepository(private val recordsMockDataSource: RecordsMockDataSource
                             .map{ list ->
                                 list.map {
                                     val type = types.find { type -> type.key.equals(it.key) }
-                                    Record(it.id, it.value, it.order, type!!, category, it.valid ?: false, it.validations)
+                                    Record(it.id, it.value, it.order, type!!, category, it.valid ?: false,
+                                            it.validations.map { Validation(Validation.State.valueOf(it.state.toString()), it.identityAddress!!, it.createdAt, it.updatedAt, it.uuid, it.value, it.key, it.name) })
                                 }
                             }
                 }
@@ -94,7 +102,8 @@ class RecordsRepository(private val recordsMockDataSource: RecordsMockDataSource
                     getCategory(record.recordCategoryId)
                             .map {
                                 val type = types.find { type -> type.key.equals(record.key) }
-                                Record(record.id, record.value, record.order, type!!, it, record.valid ?: false, record.validations)
+                                Record(record.id, record.value, record.order, type!!, it, record.valid ?: false,
+                                        record.validations.map { Validation(Validation.State.valueOf(it.state.toString()), it.identityAddress!!, it.createdAt, it.updatedAt, it.uuid, it.value, it.key, it.name) })
                             }
                 }
         ).flatMapObservable {
@@ -105,5 +114,14 @@ class RecordsRepository(private val recordsMockDataSource: RecordsMockDataSource
     override fun getRecordUuid(recordId: Long): Observable<String> {
         return recordsRemoteDataSource.createValidationToken(recordId)
                 .map { it.uuid }
+    }
+
+    override fun readValidation(uuid: String): Observable<Validation> {
+        return recordsRemoteDataSource.readValidation(uuid).map { Validation(Validation.State.valueOf(it.state.toString()), it.identityAddress!!, it.createdAt, it.updatedAt, it.uuid, it.value, it.key, it.name) }
+    }
+
+
+    override fun approveValidation(uuid: String): Observable<Boolean> {
+        return recordsRemoteDataSource.approveValidation(uuid).map { true }
     }
 }

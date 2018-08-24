@@ -19,7 +19,14 @@ class ValidatorVH(itemView: View) : RVViewHolder<Validator>(itemView) {
     override fun render(item: Validator) = with(itemView) {
         tv_name.text = item.name
         iv_icon.setImageUrl(item.imageUrl)
-        iv_verification.setImageDrawable(resources.getDrawable(R.drawable.ic_add_circle_outline))
+        iv_verification.setImageDrawable(resources.getDrawable(
+                when(item.status){
+                    Validator.Status.none -> R.drawable.ic_add_circle_outline
+                    Validator.Status.pending -> R.drawable.ic_watch_later
+                    Validator.Status.approved -> R.drawable.ic_verified_user
+                    Validator.Status.declined -> R.drawable.ic_close
+                }
+        ))
 
         root.setOnClickListener {
             clickListener?.invoke(item)

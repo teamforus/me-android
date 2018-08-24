@@ -11,6 +11,9 @@ interface RecordsRepository {
     fun getCategories(): Observable<List<RecordCategory>>
 
 
+    fun getCategoriesWithRecordCount(): Observable<List<RecordCategory>>
+
+
     fun newCategory(newRecordCategoryRequest: NewRecordCategoryRequest): Observable<Boolean>
 
 
@@ -30,4 +33,10 @@ interface RecordsRepository {
 
 
     fun getRecordUuid(recordId: Long): Observable<String>
+
+
+    fun readValidation(uuid: String): Observable<Validation>
+
+
+    fun approveValidation(uuid: String): Observable<Boolean>
 }
