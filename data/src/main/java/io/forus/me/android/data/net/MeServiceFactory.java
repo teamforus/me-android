@@ -8,6 +8,8 @@ import com.google.gson.GsonBuilder;
 
 import java.util.concurrent.TimeUnit;
 
+import io.forus.me.android.data.entity.serializers.SignRecordsTypeAdapter;
+import io.forus.me.android.data.entity.sign.request.SignRecords;
 import io.forus.me.android.data.repository.account.datasource.local.AccountLocalDataSource;
 import io.forus.me.android.domain.converters.BooleanSerializer;
 import io.forus.me.android.domain.converters.DoubleSerializer;
@@ -80,6 +82,7 @@ public class MeServiceFactory {
                 .setDateFormat("yyyy-MM-dd HH:mm:ss")
                 .registerTypeAdapter(Boolean.class,new BooleanSerializer())
                 .registerTypeAdapter(Double.class,new DoubleSerializer())
+                .registerTypeAdapter(SignRecords.class, new SignRecordsTypeAdapter())
                 .enableComplexMapKeySerialization()
                 .serializeNulls()
                 .setLenient()
