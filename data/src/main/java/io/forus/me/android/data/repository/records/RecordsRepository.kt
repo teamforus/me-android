@@ -76,7 +76,7 @@ class RecordsRepository(private val recordsRemoteDataSource: RecordsDataSource) 
                                 list.map {
                                     val type = types.find { type -> type.key.equals(it.key) }
                                     Record(it.id, it.value, it.order, type!!, category, it.valid ?: false,
-                                            it.validations.map { Validation(Validation.State.valueOf(it.state.toString()), it.identityAddress!!, it.createdAt, it.updatedAt, it.uuid, it.value, it.key, it.name) })
+                                            it.validations.map { Validation(Validation.State.valueOf(it.state.toString()), it.identityAddress, it.createdAt, it.updatedAt, it.uuid, it.value, it.key, it.name) })
                                 }
                             }
                 }
@@ -103,7 +103,7 @@ class RecordsRepository(private val recordsRemoteDataSource: RecordsDataSource) 
                             .map {
                                 val type = types.find { type -> type.key.equals(record.key) }
                                 Record(record.id, record.value, record.order, type!!, it, record.valid ?: false,
-                                        record.validations.map { Validation(Validation.State.valueOf(it.state.toString()), it.identityAddress!!, it.createdAt, it.updatedAt, it.uuid, it.value, it.key, it.name) })
+                                        record.validations.map { Validation(Validation.State.valueOf(it.state.toString()), it.identityAddress, it.createdAt, it.updatedAt, it.uuid, it.value, it.key, it.name) })
                             }
                 }
         ).flatMapObservable {
@@ -117,9 +117,8 @@ class RecordsRepository(private val recordsRemoteDataSource: RecordsDataSource) 
     }
 
     override fun readValidation(uuid: String): Observable<Validation> {
-        return recordsRemoteDataSource.readValidation(uuid).map { Validation(Validation.State.valueOf(it.state.toString()), it.identityAddress!!, it.createdAt, it.updatedAt, it.uuid, it.value, it.key, it.name) }
+        return recordsRemoteDataSource.readValidation(uuid).map { Validation(Validation.State.valueOf(it.state.toString()), it.identityAddress, it.createdAt, it.updatedAt, it.uuid, it.value, it.key, it.name) }
     }
-
 
     override fun approveValidation(uuid: String): Observable<Boolean> {
         return recordsRemoteDataSource.approveValidation(uuid).map { true }

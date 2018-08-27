@@ -1,6 +1,9 @@
 package com.gigawatt.android.data.net.sign
 
 import com.gigawatt.android.data.net.sign.models.request.SignUp
+import io.forus.me.android.data.entity.common.Success
+import io.forus.me.android.data.entity.sign.request.AuthorizeCode
+import io.forus.me.android.data.entity.sign.request.AuthorizeToken
 import io.forus.me.android.data.entity.sign.request.RestoreByEmail
 import io.forus.me.android.data.entity.sign.response.AccessToken
 import io.forus.me.android.data.entity.sign.response.IdentityPinResult
@@ -34,5 +37,13 @@ interface SignService {
 
     @POST("api/v1/identity/proxy/email")
     fun restoreByEmail(@Body restore: RestoreByEmail) : Observable<AccessToken>
+
+
+    @POST("api/v1/identity/proxy/authorize/code")
+    fun authorizeCode(@Body authorizeCode: AuthorizeCode): Observable<Success>
+
+
+    @POST("api/v1/identity/proxy/authorize/token")
+    fun authorizeToken(@Body authorizeToken: AuthorizeToken): Observable<Success>
 
 }

@@ -43,6 +43,14 @@ class AccountRepository(private val accountLocalDataSource: AccountDataSource, p
                 }
     }
 
+    override fun authorizeCode(code: String): Observable<Boolean> {
+        return  accountRemoteDataSource.authorizeCode(code)
+    }
+
+    override fun authorizeToken(token: String): Observable<Boolean> {
+        return accountRemoteDataSource.authorizeToken(token)
+    }
+
     override fun createIdentity(identity: Identity): Observable<Boolean> {
         return Single.just(accountLocalDataSource.saveIdentity(identity.accessToken, identity.pin)).toObservable()
                 .delay(100, TimeUnit.MILLISECONDS)

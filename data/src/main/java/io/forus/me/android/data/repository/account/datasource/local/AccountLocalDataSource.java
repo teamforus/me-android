@@ -99,4 +99,15 @@ public class AccountLocalDataSource implements AccountDataSource, LocalDataSourc
         DatabaseManager.Companion.getInstance().delete();
     }
 
+    @NotNull
+    @Override
+    public Observable<Boolean> authorizeCode(@NotNull String code) {
+        return null;
+    }
+
+    @NotNull
+    @Override
+    public Observable<Boolean> authorizeToken(@NotNull String token) {
+        return null;
+    }
 }

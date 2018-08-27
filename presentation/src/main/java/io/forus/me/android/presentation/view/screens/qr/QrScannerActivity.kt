@@ -21,7 +21,12 @@ import android.support.design.widget.Snackbar
 import android.support.v4.view.accessibility.AccessibilityEventCompat.setAction
 import android.view.View
 import android.view.ViewGroup
+import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.component.qr.PointsOverlayView
+import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import java.util.*
 
 
 class QrScannerActivity : Activity(), QRCodeReaderView.OnQRCodeReadListener {
@@ -35,6 +40,13 @@ class QrScannerActivity : Activity(), QRCodeReaderView.OnQRCodeReadListener {
     private var flashlightCheckBox: CheckBox? = null
     private var enableDecodingCheckBox: CheckBox? = null
     private var pointsOverlayView: PointsOverlayView? = null
+    private var qrDecoder: QrDecoder = Injection.instance.qrDecoder
+
+    private var decodingInProgress: Boolean = false
+        set(value) {
+            field = value
+            qrCodeReaderView?.setQRDecodingEnabled(!value)
+        }
 
     companion object {
         fun getCallingIntent(context: Context): Intent {
@@ -61,13 +73,13 @@ class QrScannerActivity : Activity(), QRCodeReaderView.OnQRCodeReadListener {
     override fun onResume() {
         super.onResume()
 
-        qrCodeReaderView?.startCamera()
+        qrCodeReaderView?.setQRDecodingEnabled(true)
     }
 
     override fun onPause() {
         super.onPause()
 
-        qrCodeReaderView?.stopCamera()
+        qrCodeReaderView?.setQRDecodingEnabled(false)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>,
@@ -89,8 +101,39 @@ class QrScannerActivity : Activity(), QRCodeReaderView.OnQRCodeReadListener {
     // "text" : the text encoded in QR
     // "points" : points where QR control points are placed
     override fun onQRCodeRead(text: String, points: Array<PointF>) {
-        resultTextView?.setText(text)
-        pointsOverlayView?.setPoints(points)
+
+        var decodingOperation: Single<Unit>? = null
+
+        synchronized(decodingInProgress){
+            if(!decodingInProgress){
+
+                //resultTextView?.setText(text)
+                pointsOverlayView?.setPoints(points)
+                decodingInProgress = true
+
+                decodingOperation = qrDecoder.decode(text)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .map{
+                            when(it){
+                                is QrDecoderResult.ValidationApproved -> resultTextView?.text = "Validation approved"
+                                is QrDecoderResult.IdentityRestored -> resultTextView?.text = "Identity restored"
+                                is QrDecoderResult.UnknownQr -> resultTextView?.text = "Unknown QR"
+                                is QrDecoderResult.UnexpectedError -> showError("Unexpected error ("+it.error.message+")")
+                            }
+                        }
+                        .onErrorReturn {
+                            showError("Error while decoding QR ($it)")
+                        }
+                        .doFinally { decodingInProgress = false }
+            }
+        }
+
+        decodingOperation?.subscribe()
+    }
+
+    private fun showError(message: String){
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
     private fun requestCameraPermission() {

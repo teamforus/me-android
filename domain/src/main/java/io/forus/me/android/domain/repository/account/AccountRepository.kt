@@ -17,6 +17,12 @@ interface AccountRepository {
     fun restoreByPinCode() : Observable<RequestDelegatesPinModel>
 
 
+    fun authorizeCode(code: String): Observable<Boolean>
+
+
+    fun authorizeToken(token: String): Observable<Boolean>
+
+
     fun createIdentity(identity: Identity): Observable<Boolean>
 
 

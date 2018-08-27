@@ -23,6 +23,12 @@ interface AccountDataSource {
     fun restoreByPinCode() : Observable<IdentityPinResult>
 
 
+    fun authorizeCode(code: String): Observable<Boolean>
+
+
+    fun authorizeToken(token: String): Observable<Boolean>
+
+
     fun saveIdentity(token: String, pin: String): Boolean
 
 

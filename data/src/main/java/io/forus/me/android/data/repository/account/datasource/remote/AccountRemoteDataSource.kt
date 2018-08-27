@@ -2,6 +2,8 @@ package io.forus.me.android.data.repository.account.datasource.remote
 
 import com.gigawatt.android.data.net.sign.SignService
 import com.gigawatt.android.data.net.sign.models.request.SignUp
+import io.forus.me.android.data.entity.sign.request.AuthorizeCode
+import io.forus.me.android.data.entity.sign.request.AuthorizeToken
 import io.forus.me.android.data.entity.sign.request.RestoreByEmail
 import io.forus.me.android.data.entity.sign.response.AccessToken
 import io.forus.me.android.data.entity.sign.response.IdentityPinResult
@@ -39,6 +41,14 @@ public class AccountRemoteDataSource(f: () -> SignService): AccountDataSource, R
 
     override fun restoreByPinCode(): Observable<IdentityPinResult> {
         return service.restoreByPinCode()
+    }
+
+    override fun authorizeCode(code: String): Observable<Boolean> {
+        return service.authorizeCode(AuthorizeCode(code)).map { it.success }
+    }
+
+    override fun authorizeToken(token: String): Observable<Boolean> {
+        return service.authorizeToken(AuthorizeToken(token)).map { it.success }
     }
 
     override fun restoreByEmail(email: String): Observable<AccessToken> {

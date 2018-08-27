@@ -13,7 +13,7 @@ class Validation {
     var state: State
 
     @SerializedName("identity_address")
-    var identityAddress: String
+    var identityAddress: String? = null
 
     @SerializedName("created_at")
     var createdAt: Date? = null
@@ -33,7 +33,7 @@ class Validation {
     @SerializedName("name")
     var name: String? = null
 
-    constructor(state: State, identityAddress: String, createdAt: Date?, updatedAt: Date?, uuid: String?, value: String?, key: String?, name: String?) {
+    constructor(state: State, identityAddress: String?, createdAt: Date?, updatedAt: Date?, uuid: String?, value: String?, key: String?, name: String?) {
         this.state = state
         this.identityAddress = identityAddress
         this.createdAt = createdAt

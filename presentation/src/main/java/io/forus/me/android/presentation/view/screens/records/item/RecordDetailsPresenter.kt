@@ -20,7 +20,7 @@ class RecordDetailsPresenter constructor(private val recordId: Long, private val
             Single.fromObservable(validationRepository.getValidators()),
             BiFunction { record : Record, validators: List<Validator> ->
                 val allValidations = mutableListOf<Validator>()
-                allValidations.addAll(record.validations.map { Validator(-1, it.identityAddress, "", Validation.p2pIcon, Validator.Status.approved) }.distinctBy { it.name })
+                allValidations.addAll(record.validations.map { Validator(-1, it.identityAddress ?: "???", "", Validation.p2pIcon, Validator.Status.approved) }.distinctBy { it.name })
                 allValidations.addAll(validators)
                 RecordDetailsModel(item = record, validators = allValidations)
             }
