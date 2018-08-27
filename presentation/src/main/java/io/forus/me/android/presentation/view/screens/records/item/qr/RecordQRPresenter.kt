@@ -25,7 +25,7 @@ class RecordQRPresenter constructor(private val recordId: Long, private val disp
                 .repeatWhen{observable -> observable.delay(1000, TimeUnit.MILLISECONDS)}
                 .takeUntil{it.state != Validation.State.pending}
                 .subscribe {
-                    validationComplete.onNext(Unit)
+                    if(it.state != Validation.State.pending) validationComplete.onNext(Unit)
                 })
     }
 

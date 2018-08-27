@@ -5,22 +5,25 @@ import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
 import com.ocrv.ekasui.mrm.ui.loadRefresh.PartialChange
 import io.forus.me.android.domain.models.records.Record
 import io.forus.me.android.domain.models.records.Validation
-import io.forus.me.android.domain.models.records.Validator
+import io.forus.me.android.domain.models.validators.SimpleValidator
 import io.forus.me.android.domain.repository.records.RecordsRepository
-import io.forus.me.android.domain.repository.records.ValidationRepository
+import io.forus.me.android.domain.repository.validators.ValidatorsRepository
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.BiFunction
 
-class RecordDetailsPresenter constructor(private val recordId: Long, private val recordsRepository: RecordsRepository, private val validationRepository: ValidationRepository) : LRPresenter<RecordDetailsModel, RecordDetailsModel, RecordDetailsView>() {
+class RecordDetailsPresenter constructor(private val recordId: Long, private val recordsRepository: RecordsRepository, private val validatorsRepository: ValidatorsRepository) : LRPresenter<RecordDetailsModel, RecordDetailsModel, RecordDetailsView>() {
 
 
     override fun initialModelSingle(): Single<RecordDetailsModel> = Single.zip(
             Single.fromObservable(recordsRepository.getRecord(recordId)),
-            Single.fromObservable(validationRepository.getValidators()),
-            BiFunction { record : Record, validators: List<Validator> ->
-                val allValidations = mutableListOf<Validator>()
-                allValidations.addAll(record.validations.map { Validator(-1, it.identityAddress ?: "???", "", Validation.p2pIcon, Validator.Status.approved) }.distinctBy { it.name })
+            Single.fromObservable(validatorsRepository.getValidators()),
+            BiFunction { record : Record, validators: List<SimpleValidator> ->
+                val allValidations = mutableListOf<SimpleValidator>()
+                allValidations.addAll(record.validations.map {
+                    SimpleValidator(-1, it.identityAddress
+                            ?: "???", "", Validation.p2pIcon, SimpleValidator.Status.approved)
+                }.distinctBy { it.name })
                 allValidations.addAll(validators)
                 RecordDetailsModel(item = record, validators = allValidations)
             }

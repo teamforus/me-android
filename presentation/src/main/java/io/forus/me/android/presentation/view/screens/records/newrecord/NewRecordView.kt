@@ -1,11 +1,9 @@
 package io.forus.me.android.presentation.view.screens.records.newrecord
 
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LRView
-import io.forus.me.android.domain.models.records.NewRecordRequest
 import io.forus.me.android.domain.models.records.RecordCategory
 import io.forus.me.android.domain.models.records.RecordType
-import io.forus.me.android.domain.models.records.Validator
-import kotlinx.android.synthetic.main.view_new_record_select_value.*
+import io.forus.me.android.domain.models.validators.SimpleValidator
 
 interface NewRecordView : LRView<NewRecordModel> {
     companion object {
@@ -24,7 +22,7 @@ interface NewRecordView : LRView<NewRecordModel> {
 
     fun selectType(): io.reactivex.Observable<RecordType>
 
-    fun selectValidator(): io.reactivex.Observable<Validator>
+    fun selectValidator(): io.reactivex.Observable<SimpleValidator>
 
     fun setValue(): io.reactivex.Observable<String>
 }

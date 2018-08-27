@@ -6,14 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
-import io.forus.me.android.domain.models.records.Validator
+import io.forus.me.android.domain.models.validators.SimpleValidator
 import io.forus.me.android.presentation.R
-import io.forus.me.android.presentation.interfaces.SlidingToolbarFragmentActionListener
-import io.forus.me.android.presentation.interfaces.SlidingToolbarFragmentListener
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.adapters.RVListAdapter
-import io.forus.me.android.presentation.view.fragment.BaseFragment
-import io.forus.me.android.presentation.view.fragment.QrFragment
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import kotlinx.android.synthetic.main.fragment_record_detail.*
 
@@ -30,7 +26,7 @@ class RecordDetailsFragment : ToolbarLRFragment<RecordDetailsModel, RecordDetail
     }
 
     private var recordId: Long = 0
-    private lateinit var adapter: RVListAdapter<Validator, ValidatorVH>
+    private lateinit var adapter: RVListAdapter<SimpleValidator, ValidatorVH>
 
 
     override val allowBack: Boolean
@@ -69,7 +65,7 @@ class RecordDetailsFragment : ToolbarLRFragment<RecordDetailsModel, RecordDetail
     override fun createPresenter() = RecordDetailsPresenter(
             recordId,
             Injection.instance.recordsRepository,
-            Injection.instance.validationRepository
+            Injection.instance.validatorsRepository
     )
 
     override fun render(vs: LRViewState<RecordDetailsModel>) {

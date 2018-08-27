@@ -3,7 +3,7 @@ package io.forus.me.android.presentation.view.screens.records.newrecord
 import io.forus.me.android.domain.models.records.NewRecordRequest
 import io.forus.me.android.domain.models.records.RecordCategory
 import io.forus.me.android.domain.models.records.RecordType
-import io.forus.me.android.domain.models.records.Validator
+import io.forus.me.android.domain.models.validators.SimpleValidator
 import io.forus.me.android.presentation.models.ValidationResult
 
 data class NewRecordModel(
@@ -13,7 +13,7 @@ data class NewRecordModel(
         val sendingCreateRecordError: Throwable? = null,
         val types: List<RecordType> = emptyList(),
         val categories: List<RecordCategory> = emptyList(),
-        val validators: List<Validator> = emptyList()
+        val validators: List<SimpleValidator> = emptyList()
 ) {
 
     val buttonIsActive: Boolean

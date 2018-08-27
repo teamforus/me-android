@@ -6,12 +6,14 @@ import com.gigawatt.android.data.net.sign.SignService
 import io.forus.me.android.data.entity.database.DaoSession
 import io.forus.me.android.data.exception.RetrofitExceptionMapper
 import io.forus.me.android.data.net.MeServiceFactory
+import io.forus.me.android.data.net.validators.ValidatorsService
 import io.forus.me.android.data.repository.account.datasource.local.AccountLocalDataSource
 import io.forus.me.android.data.repository.account.datasource.remote.AccountRemoteDataSource
 import io.forus.me.android.data.repository.records.RecordsRepository
-import io.forus.me.android.data.repository.records.ValidationRepository
+import io.forus.me.android.data.repository.validators.ValidatorsRepository
 import io.forus.me.android.data.repository.records.datasource.mock.RecordsMockDataSource
 import io.forus.me.android.data.repository.records.datasource.remote.RecordsRemoteDataSource
+import io.forus.me.android.data.repository.validators.datasource.remote.ValidatorsRemoteDataSource
 import io.forus.me.android.data.repository.web3.datasource.Web3DataSource
 import io.forus.me.android.data.repository.web3.datasource.local.Web3LocalDataSource
 import io.forus.me.android.domain.repository.account.AccountRepository
@@ -99,8 +101,12 @@ class Injection private constructor() {
         return@lazy RetrofitExceptionMapper()
     }
 
-    val validationRepository: ValidationRepository by lazy {
-        return@lazy ValidationRepository()
+    private val validatorsRemoteDataSource: ValidatorsRemoteDataSource by lazy {
+        return@lazy ValidatorsRemoteDataSource{MeServiceFactory.getInstance().createRetrofitService(ValidatorsService::class.java, ValidatorsService.Service.SERVICE_ENDPOINT)}
+    }
+
+    val validatorsRepository: ValidatorsRepository by lazy {
+        return@lazy ValidatorsRepository(validatorsRemoteDataSource)
     }
 
     val accessTokenChecker: AccessTokenChecker by lazy {

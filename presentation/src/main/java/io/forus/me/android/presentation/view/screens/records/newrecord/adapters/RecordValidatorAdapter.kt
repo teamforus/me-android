@@ -3,15 +3,13 @@ package io.forus.me.android.presentation.view.screens.records.newrecord.adapters
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
-import io.forus.me.android.domain.models.records.RecordType
-import io.forus.me.android.domain.models.records.Validator
-import io.forus.me.android.presentation.view.screens.records.newrecord.viewholders.RecordTypeVH
+import io.forus.me.android.domain.models.validators.SimpleValidator
 import io.forus.me.android.presentation.view.screens.records.newrecord.viewholders.RecordValidatorVH
 
-class RecordValidatorAdapter(private val clickListener: ((Validator) -> Unit)?): RecyclerView.Adapter<RecordValidatorVH>() {
+class RecordValidatorAdapter(private val clickListener: ((SimpleValidator) -> Unit)?): RecyclerView.Adapter<RecordValidatorVH>() {
 
     var checkedStatus = BooleanArray(0)
-    var items: List<Validator> = emptyList()
+    var items: List<SimpleValidator> = emptyList()
         set(value) {
             val old = field
             field = value
@@ -30,7 +28,7 @@ class RecordValidatorAdapter(private val clickListener: ((Validator) -> Unit)?):
         setHasStableIds(true)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = RecordValidatorVH(parent) { validator: Validator, position: Int ->
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = RecordValidatorVH(parent) { validator: SimpleValidator, position: Int ->
         checkedStatus[position] = !checkedStatus[position]
         clickListener?.invoke(validator)
     }

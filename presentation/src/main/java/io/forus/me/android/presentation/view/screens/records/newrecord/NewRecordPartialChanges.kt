@@ -4,7 +4,7 @@ import com.ocrv.ekasui.mrm.ui.loadRefresh.PartialChange
 import io.forus.me.android.domain.models.records.NewRecordRequest
 import io.forus.me.android.domain.models.records.RecordCategory
 import io.forus.me.android.domain.models.records.RecordType
-import io.forus.me.android.domain.models.records.Validator
+import io.forus.me.android.domain.models.validators.SimpleValidator
 
 sealed class NewRecordPartialChanges : PartialChange {
 
@@ -16,7 +16,7 @@ sealed class NewRecordPartialChanges : PartialChange {
 
     data class SelectCategory(val category: RecordCategory) : NewRecordPartialChanges()
 
-    data class SelectValidator(val validator: Validator) : NewRecordPartialChanges()
+    data class SelectValidator(val validator: SimpleValidator) : NewRecordPartialChanges()
 
     data class SelectType(val type: RecordType) : NewRecordPartialChanges()
 

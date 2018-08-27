@@ -1,6 +1,6 @@
-package io.forus.me.android.domain.models.records
+package io.forus.me.android.domain.models.validators
 
-class Validator{
+class SimpleValidator{
 
     enum class Status {
         none, pending, approved, declined

@@ -8,14 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.jakewharton.rxbinding2.widget.RxTextView
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRFragment
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LoadRefreshPanel
 import io.forus.me.android.domain.exception.RetrofitException
 import io.forus.me.android.domain.exception.RetrofitExceptionMapper
 import io.forus.me.android.domain.models.records.RecordCategory
 import io.forus.me.android.domain.models.records.RecordType
-import io.forus.me.android.domain.models.records.Validator
+import io.forus.me.android.domain.models.validators.SimpleValidator
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
@@ -103,8 +102,8 @@ class NewRecordFragment : ToolbarLRFragment<NewRecordModel, NewRecordView, NewRe
     private val selectRecordCategory = PublishSubject.create<RecordCategory>()
     override fun selectCategory(): Observable<RecordCategory> = selectRecordCategory
 
-    private val selectValidator = PublishSubject.create<Validator>()
-    override fun selectValidator(): Observable<Validator> = selectValidator
+    private val selectValidator = PublishSubject.create<SimpleValidator>()
+    override fun selectValidator(): Observable<SimpleValidator> = selectValidator
 
     private val selectRecordType = PublishSubject.create<RecordType>()
     override fun selectType() = selectRecordType
@@ -173,7 +172,7 @@ class NewRecordFragment : ToolbarLRFragment<NewRecordModel, NewRecordView, NewRe
 
     override fun createPresenter() = NewRecordPresenter(
             Injection.instance.recordsRepository,
-            Injection.instance.validationRepository
+            Injection.instance.validatorsRepository
     )
 
 
