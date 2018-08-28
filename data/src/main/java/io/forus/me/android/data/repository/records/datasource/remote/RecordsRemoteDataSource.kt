@@ -29,7 +29,7 @@ class RecordsRemoteDataSource(f: () -> RecordsService): RecordsDataSource, Remot
 
     override fun getRecords(type: String): Observable<List<Record>> = service.listAllRecords(type, null)
 
-    override fun createRecord(createRecord: CreateRecord): Observable<Success> = service.createRecord(createRecord.key, createRecord)
+    override fun createRecord(createRecord: CreateRecord): Observable<Record> = service.createRecord(createRecord.key, createRecord)
 
     override fun retrieveRecord(id: Long) : Observable<Record> = service.retrieveRecord(id)
 

@@ -18,6 +18,10 @@ class ValidatorVH(itemView: View) : RVViewHolder<SimpleValidator>(itemView) {
 
     override fun render(item: SimpleValidator) = with(itemView) {
         tv_name.text = item.name
+
+        tv_title.visibility = if(item.title.isBlank()) View.INVISIBLE else View.VISIBLE
+        tv_title.text = item.title
+
         iv_icon.setImageUrl(item.imageUrl)
         iv_verification.setImageDrawable(resources.getDrawable(
                 when(item.status){

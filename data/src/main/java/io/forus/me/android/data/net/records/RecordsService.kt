@@ -49,7 +49,7 @@ interface RecordsService {
     fun listAllRecords(@Query("type") type: String?, @Query("record_category_id") categoryId: Long?) : Observable<List<Record>>
 
     @POST("api/v1/identity/records")
-    fun createRecord(@Query("type") type: String, @Body createRecord: CreateRecord) : Observable<Success>
+    fun createRecord(@Query("type") type: String, @Body createRecord: CreateRecord) : Observable<Record>
 
     @GET("api/v1/identity/records/{id}")
     fun retrieveRecord(@Path("id") id: Long) : Observable<Record>

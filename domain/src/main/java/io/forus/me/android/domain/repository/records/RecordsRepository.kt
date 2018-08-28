@@ -26,7 +26,7 @@ interface RecordsRepository {
     fun getRecords(recordCategoryId: Long): Observable<List<Record>>
 
 
-    fun newRecord(model: NewRecordRequest) : Observable<NewRecordRequest>
+    fun newRecord(model: NewRecordRequest) : Observable<CreateRecordResponse>
 
 
     fun getRecord(recordId: Long): Observable<Record>

@@ -84,6 +84,7 @@
     <string name="title_record_detail_validators">Validators</string>
     <string name="record_detail_scan_qr">Scan deze QR-Code met een ander apparaat waar u al op aangemeld bent</string>
     <string name="button_show_qr">Show QR</string>
+    <string name="validation_request_error">Error while sending validation request</string>
 
     <!-- New account screen -->
     <string name="new_account_title">New profiel</string>

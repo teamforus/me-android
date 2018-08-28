@@ -37,7 +37,7 @@ interface RecordsDataSource {
     fun getRecords(type: String): Observable<List<Record>>
 
 
-    fun createRecord(createRecord: CreateRecord): Observable<Success>
+    fun createRecord(createRecord: CreateRecord): Observable<Record>
 
 
     fun retrieveRecord(id: Long) : Observable<Record>

@@ -31,10 +31,9 @@ class NewRecordPresenter constructor(private val recordRepository: RecordsReposi
 
     override fun NewRecordModel.changeInitialModel(i: NewRecordModel): NewRecordModel = i.copy()
 
-
     override fun bindIntents() {
 
-        var observable = Observable.merge(
+        val observable = Observable.merge(
 
                 loadRefreshPartialChanges(),
                 Observable.mergeArray(
@@ -44,29 +43,34 @@ class NewRecordPresenter constructor(private val recordRepository: RecordsReposi
                                 .map {  NewRecordPartialChanges.SelectType(it) },
                         intent { it.setValue() }
                                 .map {  NewRecordPartialChanges.SetValue(it) },
+                        intent { it.selectValidator()}
+                                .map {  NewRecordPartialChanges.SelectValidator(it) },
                         intent { it.previousStep()}
-                                .map {  NewRecordPartialChanges.PreviousStep() }
-
-                ),
-                Observable.merge(
-                    intent { it.selectValidator()}
-                            .map {  NewRecordPartialChanges.SelectValidator(it) },
+                                .map {  NewRecordPartialChanges.PreviousStep() },
                         intent { it.nextStep() }
-                                .map {  NewRecordPartialChanges.NextStep() }
-                ),
-                intent { it.submit() }
-                        .switchMap {
-                            recordRepository.newRecord(request!!)
-                                    .subscribeOn(Schedulers.io())
-                                    .observeOn(AndroidSchedulers.mainThread())
-                                    .map<PartialChange> {
-                                        NewRecordPartialChanges.CreateRecordEnd(it)
-                                    }
-                                    .onErrorReturn {
-                                        NewRecordPartialChanges.CreateRecordError(it)
-                                    }
-                                    .startWith(NewRecordPartialChanges.CreateRecordStart(request!!))
-                        }
+                                .map {  NewRecordPartialChanges.NextStep() },
+
+                        intent { it.submit() }
+                                .switchMap {
+                                    recordRepository.newRecord(request!!)
+                                            .subscribeOn(Schedulers.io())
+                                            .observeOn(AndroidSchedulers.mainThread())
+                                            .switchMap<PartialChange> { createRecordResponse ->
+                                                validatorsRepository.requestValidations(createRecordResponse.id, request!!.validators.map { it.id })
+                                                        .subscribeOn(Schedulers.io())
+                                                        .observeOn(AndroidSchedulers.mainThread())
+                                                        .map {
+                                                            NewRecordPartialChanges.CreateRecordEnd(createRecordResponse)
+                                                        }
+
+                                            }
+                                            .onErrorReturn {
+                                                NewRecordPartialChanges.CreateRecordError(it)
+                                            }
+                                            .startWith(NewRecordPartialChanges.CreateRecordStart(request!!))
+                                }
+
+                )
         );
 
 

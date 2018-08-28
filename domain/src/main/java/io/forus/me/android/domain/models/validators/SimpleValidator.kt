@@ -8,6 +8,8 @@ class SimpleValidator{
 
     var id: Long
 
+    var organizationId: Long
+
     var name: String
 
     var title: String
@@ -16,8 +18,9 @@ class SimpleValidator{
 
     var status: Status
 
-    constructor(id: Long, name: String, title: String, imageUrl: String, status: Status = Status.none) {
+    constructor(id: Long, organizationId: Long, name: String, title: String, imageUrl: String, status: Status = Status.none) {
         this.id = id
+        this.organizationId = organizationId
         this.name = name
         this.title = title
         this.imageUrl = imageUrl

@@ -85,12 +85,10 @@ class RecordsRepository(private val recordsRemoteDataSource: RecordsDataSource) 
         }
     }
 
-    override fun newRecord(model: NewRecordRequest): Observable<NewRecordRequest> {
+    override fun newRecord(model: NewRecordRequest): Observable<CreateRecordResponse> {
         val createRecord = io.forus.me.android.data.entity.records.request.CreateRecord(model.recordType?.key, model.category?.id, model.value, model.order)
         return recordsRemoteDataSource.createRecord(createRecord)
-                .flatMap {
-                    Observable.just(model)
-                }
+                .map{ CreateRecordResponse(it.id, it.value, it.order)}
                 .delay(100, TimeUnit.MILLISECONDS)
     }
 

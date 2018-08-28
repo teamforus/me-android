@@ -17,6 +17,8 @@ class RecordValidatorVH(parent: ViewGroup, private val clickListener: ((SimpleVa
         checkBox.isChecked = isChecked
         tv_name.text = item.name
         tv_title.text = item.title
+        iv_icon.setImageUrl(item.imageUrl)
+
         root.setOnClickListener {
             clickListener?.invoke(item, adapterPosition)
         }

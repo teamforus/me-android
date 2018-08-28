@@ -5,5 +5,13 @@ import io.forus.me.android.domain.models.validators.SimpleValidator
 
 data class RecordDetailsModel(
         val item: Record? = null,
-        val validators: List<SimpleValidator> = emptyList()
+        val validators: List<SimpleValidator> = emptyList(),
+        val requestValidationError: Throwable? = null
 )
+{
+    fun changeStatus(validatorId: Long) : RecordDetailsModel {
+        val item = validators.find { it.id == validatorId }
+        item?.status = SimpleValidator.Status.approved
+        return copy()
+    }
+}

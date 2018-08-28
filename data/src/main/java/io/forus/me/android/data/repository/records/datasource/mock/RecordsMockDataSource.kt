@@ -90,9 +90,10 @@ class RecordsMockDataSource() : RecordsDataSource{
         return Single.just(records.toList().filter{it -> it.recordCategoryId == categories.find { it2 -> it2.name == type }?.id}).toObservable()
     }
 
-    override fun createRecord(createRecord: CreateRecord): Observable<Success> {
-        records.add(Record(recordCreateCounter++, createRecord.value, recordCreateCounter, createRecord.key, createRecord.recordCategoryId, false, emptyList()))
-        return Single.just(Success(true)).toObservable()
+    override fun createRecord(createRecord: CreateRecord): Observable<Record> {
+        val record = Record(recordCreateCounter++, createRecord.value, recordCreateCounter, createRecord.key, createRecord.recordCategoryId, false, emptyList())
+        records.add(record)
+        return Single.just(record).toObservable()
     }
 
     override fun retrieveRecord(id: Long): Observable<Record> {

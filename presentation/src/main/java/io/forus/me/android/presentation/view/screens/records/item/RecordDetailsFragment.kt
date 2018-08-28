@@ -11,6 +11,8 @@ import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.adapters.RVListAdapter
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
+import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_record_detail.*
 
 class RecordDetailsFragment : ToolbarLRFragment<RecordDetailsModel, RecordDetailsView, RecordDetailsPresenter>(), RecordDetailsView{
@@ -28,6 +30,8 @@ class RecordDetailsFragment : ToolbarLRFragment<RecordDetailsModel, RecordDetail
     private var recordId: Long = 0
     private lateinit var adapter: RVListAdapter<SimpleValidator, ValidatorVH>
 
+    private val requestValidation = PublishSubject.create<Long>()
+    override fun requestValidation(): Observable<Long> = requestValidation
 
     override val allowBack: Boolean
         get() = true
@@ -46,7 +50,9 @@ class RecordDetailsFragment : ToolbarLRFragment<RecordDetailsModel, RecordDetail
             recordId = bundle.getLong(RECORD_ID_EXTRA)
         }
 
-        adapter = RVListAdapter(ValidatorVH.create) { item -> showToastMessage(item.name)}
+        adapter = RVListAdapter(ValidatorVH.create) {
+            if(it.status == SimpleValidator.Status.none) requestValidation.onNext(it.id)
+        }
 
         return view
     }
@@ -75,5 +81,9 @@ class RecordDetailsFragment : ToolbarLRFragment<RecordDetailsModel, RecordDetail
         type.text = record?.recordType?.name
         value.text = record?.value
         adapter.items = vs.model.validators
+
+        if(vs.model.requestValidationError != null){
+            showToastMessage(resources.getString(R.string.validation_request_error))
+        }
     }
 }
