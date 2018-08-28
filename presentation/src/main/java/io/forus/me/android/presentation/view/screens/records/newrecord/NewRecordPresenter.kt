@@ -56,12 +56,15 @@ class NewRecordPresenter constructor(private val recordRepository: RecordsReposi
                                             .subscribeOn(Schedulers.io())
                                             .observeOn(AndroidSchedulers.mainThread())
                                             .switchMap<PartialChange> { createRecordResponse ->
-                                                validatorsRepository.requestValidations(createRecordResponse.id, request!!.validators.map { it.id })
-                                                        .subscribeOn(Schedulers.io())
-                                                        .observeOn(AndroidSchedulers.mainThread())
-                                                        .map {
-                                                            NewRecordPartialChanges.CreateRecordEnd(createRecordResponse)
-                                                        }
+                                                if(request!!.validators.isNotEmpty()) {
+                                                    validatorsRepository.requestValidations(createRecordResponse.id, request!!.validators.map { it.id })
+                                                            .subscribeOn(Schedulers.io())
+                                                            .observeOn(AndroidSchedulers.mainThread())
+                                                            .map {
+                                                                NewRecordPartialChanges.CreateRecordEnd(createRecordResponse)
+                                                            }
+                                                }
+                                                else Observable.just(NewRecordPartialChanges.CreateRecordEnd(createRecordResponse))
 
                                             }
                                             .onErrorReturn {

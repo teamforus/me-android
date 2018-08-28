@@ -34,6 +34,9 @@ interface RecordsDataSource {
     fun getRecords(categoryId: Long): Observable<List<Record>>
 
 
+    fun getRecords(): Observable<List<Record>>
+
+
     fun getRecords(type: String): Observable<List<Record>>
 
 

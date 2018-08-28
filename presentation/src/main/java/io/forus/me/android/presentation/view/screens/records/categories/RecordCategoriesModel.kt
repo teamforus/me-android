@@ -5,6 +5,7 @@ import io.forus.me.android.domain.models.records.Record
 import io.forus.me.android.domain.models.records.RecordCategory
 
 data class RecordCategoriesModel(
-        val items: List<RecordCategory> = emptyList()
+        //val items: List<RecordCategory> = emptyList()
+        val items: List<Record> = emptyList()
         ) {
 }

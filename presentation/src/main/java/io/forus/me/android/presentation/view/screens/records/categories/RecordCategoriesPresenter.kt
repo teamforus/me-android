@@ -10,12 +10,15 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 
 
-class RecordCategoriesPresenter constructor(val recordsRepository: RecordsRepository) : LRPresenter<List<RecordCategory>, RecordCategoriesModel, RecordCategoriesView>() {
+class RecordCategoriesPresenter constructor(val recordsRepository: RecordsRepository) : LRPresenter<List<Record>, RecordCategoriesModel, RecordCategoriesView>() {
 
 
-    override fun initialModelSingle(): Single<List<RecordCategory>> = Single.fromObservable(recordsRepository.getCategoriesWithRecordCount())
+    override fun initialModelSingle(): Single<List<Record>> = Single.fromObservable(
+            //recordsRepository.getCategoriesWithRecordCount()
+            recordsRepository.getRecords()
+    )
 
-    override fun RecordCategoriesModel.changeInitialModel(i: List<RecordCategory>): RecordCategoriesModel = copy(items = i)
+    override fun RecordCategoriesModel.changeInitialModel(i: List<Record>): RecordCategoriesModel = copy(items = i)
 
 
     override fun bindIntents() {

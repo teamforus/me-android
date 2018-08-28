@@ -82,6 +82,10 @@ class RecordsMockDataSource() : RecordsDataSource{
         throw UnsupportedOperationException("Not implemented")
     }
 
+    override fun getRecords(): Observable<List<Record>> {
+        throw UnsupportedOperationException("Not implemented")
+    }
+
     override fun getRecords(categoryId: Long): Observable<List<Record>> {
         throw UnsupportedOperationException("Not implemented")
     }

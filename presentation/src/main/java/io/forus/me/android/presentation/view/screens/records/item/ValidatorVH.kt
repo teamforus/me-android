@@ -25,7 +25,7 @@ class ValidatorVH(itemView: View) : RVViewHolder<SimpleValidator>(itemView) {
         iv_icon.setImageUrl(item.imageUrl)
         iv_verification.setImageDrawable(resources.getDrawable(
                 when(item.status){
-                    SimpleValidator.Status.none -> R.drawable.ic_add_circle_outline
+                    SimpleValidator.Status.none -> R.drawable.ic_baseline_add_circle_outline
                     SimpleValidator.Status.pending -> R.drawable.ic_watch_later
                     SimpleValidator.Status.approved -> R.drawable.ic_verified_user
                     SimpleValidator.Status.declined -> R.drawable.ic_close

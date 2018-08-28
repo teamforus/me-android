@@ -12,13 +12,11 @@ import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.interfaces.FragmentListener
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
+import io.forus.me.android.presentation.view.screens.records.list.RecordsAdapter
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.records_category_recycler.*
 
 
-/**
- * Fragment Records Delegates Screen.
- */
 class RecordCategoriesFragment : ToolbarLRFragment<RecordCategoriesModel, RecordCategoriesView, RecordCategoriesPresenter>(), RecordCategoriesView{
 
     companion object {
@@ -35,7 +33,8 @@ class RecordCategoriesFragment : ToolbarLRFragment<RecordCategoriesModel, Record
         get() = false
 
 
-    private lateinit var adapter: RecordCategoriesAdapter
+    //private lateinit var adapter: RecordCategoriesAdapter
+    private lateinit var adapter: RecordsAdapter
 
     override fun viewForSnackbar(): View = root
 
@@ -43,14 +42,21 @@ class RecordCategoriesFragment : ToolbarLRFragment<RecordCategoriesModel, Record
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
             = inflater.inflate(R.layout.records_category_recycler, container, false).also {
-        adapter = RecordCategoriesAdapter()
+        //adapter = RecordCategoriesAdapter()
+        adapter = RecordsAdapter()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+//        adapter.clickListener = { item ->
+//            navigator.navigateToRecordsList(activity, item)
+//        }
+//        recycler.layoutManager = LinearLayoutManager(context)
+//        recycler.adapter = adapter
+
         adapter.clickListener = { item ->
-            navigator.navigateToRecordsList(activity, item)
+            navigator.navigateToRecordDetails(activity, item)
         }
         recycler.layoutManager = LinearLayoutManager(context)
         recycler.adapter = adapter
@@ -60,15 +66,15 @@ class RecordCategoriesFragment : ToolbarLRFragment<RecordCategoriesModel, Record
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
-            R.id.add_record -> {
-                this.navigator.navigateToNewRecord(activity)
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
+//    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+//        when (item?.itemId) {
+//            R.id.add_record -> {
+//                this.navigator.navigateToNewRecord(activity)
+//                return true
+//            }
+//        }
+//        return super.onOptionsItemSelected(item)
+//    }
 
     override fun createPresenter() = RecordCategoriesPresenter(
             Injection.instance.recordsRepository
@@ -77,7 +83,8 @@ class RecordCategoriesFragment : ToolbarLRFragment<RecordCategoriesModel, Record
     override fun render(vs: LRViewState<RecordCategoriesModel>) {
         super.render(vs)
 
-        adapter.items = vs.model.items
+        //adapter.items = vs.model.items
+        adapter.records = vs.model.items
     }
 }
 

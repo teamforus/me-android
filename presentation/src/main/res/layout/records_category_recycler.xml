@@ -1,49 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout android:id="@+id/root"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
 
-        <include layout="@layout/toolbar_view"/>
+        android:id="@+id/root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <com.ocrv.ekasui.mrm.ui.loadRefresh.LRPanelImpl
-            android:id="@+id/lr_panel"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginBottom="60dp">
 
-                <LinearLayout
+                <include layout="@layout/toolbar_view"/>
+
+                <com.ocrv.ekasui.mrm.ui.loadRefresh.LRPanelImpl
+                    android:id="@+id/lr_panel"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                        <LinearLayout
-                            android:background="#ffffff"
-                            android:paddingBottom="@dimen/activity_horizontal_margin"
-                            android:layout_width="match_parent"
-                            android:gravity="center_horizontal"
-                            android:layout_height="wrap_content">
-
-                                <io.forus.me.android.presentation.view.component.buttons.Button
-                                    android:id="@+id/btn_new_record"
-                                    app:textSize="14.0"
-                                    android:text="@string/add_record"
-                                    android:layout_marginTop="6dp"
-                                    android:layout_width="134dp"
-                                    android:layout_height="36dp" />
-
-                        </LinearLayout>
+                    android:layout_height="match_parent">
 
                         <android.support.v7.widget.RecyclerView
-                            app:layout_behavior="@string/appbar_scrolling_view_behavior"
                             android:id="@+id/recycler"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"/>
 
-                </LinearLayout>
+                </com.ocrv.ekasui.mrm.ui.loadRefresh.LRPanelImpl>
 
-        </com.ocrv.ekasui.mrm.ui.loadRefresh.LRPanelImpl>
+        </android.support.design.widget.CoordinatorLayout>
 
-</android.support.design.widget.CoordinatorLayout>
+        <RelativeLayout
+            android:id="@+id/btn_new_record"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="70dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/circle_blue">
+
+                <io.forus.me.android.presentation.view.component.images.AutoLoadImageView
+                    android:tint="@color/brightBackground"
+                    android:src="@drawable/ic_baseline_add_circle_outline"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerInParent="true" />
+
+        </RelativeLayout>
+
+</RelativeLayout>

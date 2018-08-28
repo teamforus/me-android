@@ -11,7 +11,7 @@ data class RecordDetailsModel(
 {
     fun changeStatus(validatorId: Long) : RecordDetailsModel {
         val item = validators.find { it.id == validatorId }
-        item?.status = SimpleValidator.Status.approved
+        item?.status = SimpleValidator.Status.pending
         return copy()
     }
 }

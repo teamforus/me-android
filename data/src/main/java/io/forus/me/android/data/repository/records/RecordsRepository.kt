@@ -1,12 +1,11 @@
 package io.forus.me.android.data.repository.records
 
 import io.forus.me.android.data.repository.records.datasource.RecordsDataSource
-import io.forus.me.android.data.repository.records.datasource.mock.RecordsMockDataSource
 import io.forus.me.android.domain.models.records.*
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
-import java.util.concurrent.TimeUnit
+import io.reactivex.functions.Function3
 
 class RecordsRepository(private val recordsRemoteDataSource: RecordsDataSource) : io.forus.me.android.domain.repository.records.RecordsRepository {
 
@@ -57,13 +56,30 @@ class RecordsRepository(private val recordsRemoteDataSource: RecordsDataSource) 
                 .map { true }
     }
 
-    override fun getCategory(categoryId: Long): Observable<RecordCategory> {
-        return recordsRemoteDataSource.retrieveRecordCategory(categoryId)
-                .map{ RecordCategory(it.id, it.name, it.order)}
+    override fun getCategory(categoryId: Long?): Observable<RecordCategory> {
+        return if(categoryId == null) Observable.just(RecordCategory(-1, "null category", 0))
+                else recordsRemoteDataSource.retrieveRecordCategory(categoryId).map{ RecordCategory(it.id, it.name, it.order)}
     }
 
     override fun getRecordsCount(recordCategoryId: Long): Observable<Long> {
         return recordsRemoteDataSource.getRecords(recordCategoryId).map {it.size.toLong()}
+    }
+
+    override fun getRecords(): Observable<List<Record>> {
+        return Single.zip(
+                Single.fromObservable(getCategories()),
+                Single.fromObservable(getRecordTypes()),
+                Single.fromObservable(recordsRemoteDataSource.getRecords()),
+                Function3 { categories: List<RecordCategory>, types: List<RecordType>, records: List<io.forus.me.android.data.entity.records.response.Record> ->
+                    records.map {
+                        val type = types.find { type -> type.key.equals(it.key) }
+                        var category: RecordCategory? = null
+                        if(it.recordCategoryId != null) category = categories.find { cat -> cat.id == it.recordCategoryId}
+                        Record(it.id, it.value, it.order, type!!, category, it.valid ?: false,
+                                it.validations.map { Validation(Validation.State.valueOf(it.state.toString()), it.identityAddress, it.createdAt, it.updatedAt, it.uuid, it.value, it.key, it.name) })
+                    }
+                }
+        ).toObservable()
     }
 
     override fun getRecords(recordCategoryId: Long): Observable<List<Record>> {
@@ -89,7 +105,7 @@ class RecordsRepository(private val recordsRemoteDataSource: RecordsDataSource) 
         val createRecord = io.forus.me.android.data.entity.records.request.CreateRecord(model.recordType?.key, model.category?.id, model.value, model.order)
         return recordsRemoteDataSource.createRecord(createRecord)
                 .map{ CreateRecordResponse(it.id, it.value, it.order)}
-                .delay(100, TimeUnit.MILLISECONDS)
+                //.delay(100, TimeUnit.MILLISECONDS)
     }
 
     override fun getRecord(recordId: Long): Observable<Record> {
@@ -97,9 +113,9 @@ class RecordsRepository(private val recordsRemoteDataSource: RecordsDataSource) 
                 Single.fromObservable(recordsRemoteDataSource.retrieveRecord(recordId)),
                 Single.fromObservable(getRecordTypes()),
                 BiFunction { record : io.forus.me.android.data.entity.records.response.Record, types: List<RecordType> ->
+                    val type = types.find { type -> type.key.equals(record.key) }
                     getCategory(record.recordCategoryId)
                             .map {
-                                val type = types.find { type -> type.key.equals(record.key) }
                                 Record(record.id, record.value, record.order, type!!, it, record.valid ?: false,
                                         record.validations.map { Validation(Validation.State.valueOf(it.state.toString()), it.identityAddress, it.createdAt, it.updatedAt, it.uuid, it.value, it.key, it.name) })
                             }
