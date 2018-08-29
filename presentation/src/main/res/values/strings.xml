@@ -125,6 +125,10 @@
     <string name="pincode_description">Vul deze pincode in uw profeil in</string>
     <string name="email_description">Check your email and confirm identity</string>
 
-
+    <!-- QR Scanner -->
+    <string name="qr_validation_approved">Validation approved</string>
+    <string name="qr_identity_restored">Identity restored</string>
+    <string name="qr_unknown_type">Unknown QR</string>
+    <string name="qr_unexpected_error">Unexpected error</string>
 
 </resources>

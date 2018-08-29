@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LRFragment
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LoadRefreshPanel
+import io.forus.me.android.domain.models.qr.QrCode
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.helpers.reactivex.DisposableHolder
 import io.forus.me.android.presentation.internal.Injection
@@ -33,7 +34,7 @@ class RecordQRFragment : LRFragment<RecordQRModel, RecordQRView, RecordQRPresent
             if(field != value){
                 field = value
                 if (qrImage != null) {
-                    qrImage.setQRText(value)
+                    qrImage.setQRText(QrCode(QrCode.Type.P2P_RECORD, value).toJson())
                 }
             }
         }
