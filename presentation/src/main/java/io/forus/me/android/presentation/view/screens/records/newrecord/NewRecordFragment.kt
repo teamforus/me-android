@@ -83,7 +83,7 @@ class NewRecordFragment : ToolbarLRFragment<NewRecordModel, NewRecordView, NewRe
     }
 
     override fun onBackPressed(): Boolean {
-        if (main_view_pager.currentItem > 0){
+        if (main_view_pager.currentItem > 1){
             previousStep.onNext(true)
             return false
         }

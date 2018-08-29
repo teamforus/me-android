@@ -6,11 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
-import io.forus.me.android.domain.models.validators.SimpleValidator
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.internal.Injection
-import io.forus.me.android.presentation.view.adapters.RVListAdapter
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
+import io.forus.me.android.presentation.view.screens.records.item.validators.ValidatorViewModel
+import io.forus.me.android.presentation.view.screens.records.item.validators.ValidatorsAdapter
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_record_detail.*
@@ -28,7 +28,7 @@ class RecordDetailsFragment : ToolbarLRFragment<RecordDetailsModel, RecordDetail
     }
 
     private var recordId: Long = 0
-    private lateinit var adapter: RVListAdapter<SimpleValidator, ValidatorVH>
+    private lateinit var adapter: ValidatorsAdapter
 
     private val requestValidation = PublishSubject.create<Long>()
     override fun requestValidation(): Observable<Long> = requestValidation
@@ -43,18 +43,17 @@ class RecordDetailsFragment : ToolbarLRFragment<RecordDetailsModel, RecordDetail
 
     override fun loadRefreshPanel() = lr_panel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val view = inflater.inflate(R.layout.fragment_record_detail, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?)
+        = inflater.inflate(R.layout.fragment_record_detail, container, false).also {
+
         val bundle = this.arguments
         if (bundle != null) {
             recordId = bundle.getLong(RECORD_ID_EXTRA)
         }
 
-        adapter = RVListAdapter(ValidatorVH.create) {
-            if(it.status == SimpleValidator.Status.none) requestValidation.onNext(it.id)
+        adapter = ValidatorsAdapter { item ->
+            if (item.status == ValidatorViewModel.Status.none && item.id != null) requestValidation.onNext(item.id!!)
         }
-
-        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

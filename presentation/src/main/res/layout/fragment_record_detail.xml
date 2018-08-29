@@ -59,29 +59,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="5dp"/>
 
-                <LinearLayout
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content"/>
 
-                    <io.forus.me.android.presentation.view.component.text.TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="16dp"
-                        android:paddingRight="16dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginBottom="16dp"
-                        app:type="medium"
-                        android:textSize="20.1sp"
-                        android:textColor="@color/body_1_87"
-                        android:text="@string/title_record_detail_validators" />
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/recycler"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
-
-                </LinearLayout>
 
             </LinearLayout>
 
