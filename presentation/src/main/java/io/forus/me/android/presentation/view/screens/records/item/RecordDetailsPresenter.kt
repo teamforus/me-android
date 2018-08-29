@@ -8,6 +8,7 @@ import io.forus.me.android.domain.models.records.Validation
 import io.forus.me.android.domain.models.validators.SimpleValidator
 import io.forus.me.android.domain.repository.records.RecordsRepository
 import io.forus.me.android.domain.repository.validators.ValidatorsRepository
+import io.forus.me.android.presentation.view.screens.records.item.validators.ValidatorViewModel
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.functions.Function3
@@ -23,11 +24,12 @@ class RecordDetailsPresenter constructor(private val recordId: Long, private val
             Single.fromObservable(validatorsRepository.getValidators(recordId)),
             Function3 { record : Record, validators: List<SimpleValidator>, activeValidators: List<SimpleValidator> ->
 
-                val p2pValidations = mutableListOf<SimpleValidator>()
-                val possibleValidators = mutableListOf<SimpleValidator>()
+                val allValidations = mutableListOf<ValidatorViewModel>()
+                val p2pValidations = mutableListOf<ValidatorViewModel>()
+                val possibleValidators = mutableListOf<ValidatorViewModel>()
 
                 record.validations.distinctBy { it.identityAddress }.forEach{
-                    p2pValidations.add(SimpleValidator(-1, -1, it.identityAddress ?: "?", "Peer-to-peer validation", Validation.p2pIcon, SimpleValidator.Status.approved))
+                    p2pValidations.add(ValidatorViewModel(-1, it.identityAddress ?: "?", "Peer-to-peer validation", Validation.p2pIcon))
                 }
 
                 validators.forEach{
@@ -38,13 +40,20 @@ class RecordDetailsPresenter constructor(private val recordId: Long, private val
                             break
                         }
                     }
-                    if(!requestExists) possibleValidators.add(it)
+                    if(!requestExists) possibleValidators.add(ValidatorViewModel(it))
                 }
 
-                val allValidations = mutableListOf<SimpleValidator>()
-                allValidations.addAll(p2pValidations)
-                allValidations.addAll(activeValidators)
-                allValidations.addAll(possibleValidators)
+                if(activeValidators.isNotEmpty() || possibleValidators.isNotEmpty()){
+                    allValidations.add(ValidatorViewModel("Validators"))
+                    allValidations.addAll(activeValidators.map { ValidatorViewModel(it) })
+                    allValidations.addAll(possibleValidators)
+                }
+
+                if(p2pValidations.isNotEmpty()){
+                    allValidations.add(ValidatorViewModel("Peer-to-peer validations"))
+                    allValidations.addAll(p2pValidations)
+                }
+
                 RecordDetailsModel(item = record, validators = allValidations)
             }
     )

@@ -116,10 +116,10 @@ class QrScannerActivity : Activity(), QRCodeReaderView.OnQRCodeReadListener {
                         .observeOn(AndroidSchedulers.mainThread())
                         .map{
                             when(it){
-                                is QrDecoderResult.ValidationApproved -> resultTextView?.text = "Validation approved"
-                                is QrDecoderResult.IdentityRestored -> resultTextView?.text = "Identity restored"
-                                is QrDecoderResult.UnknownQr -> resultTextView?.text = "Unknown QR"
-                                is QrDecoderResult.UnexpectedError -> showError("Unexpected error ("+it.error.message+")")
+                                is QrDecoderResult.ValidationApproved -> resultTextView?.text = resources.getString(R.string.qr_validation_approved)
+                                is QrDecoderResult.IdentityRestored -> resultTextView?.text = resources.getString(R.string.qr_identity_restored)
+                                is QrDecoderResult.UnknownQr -> resultTextView?.text = resources.getString(R.string.qr_unknown_type)
+                                is QrDecoderResult.UnexpectedError -> showError(resources.getString(R.string.qr_unexpected_error))
                             }
                         }
                         .onErrorReturn {

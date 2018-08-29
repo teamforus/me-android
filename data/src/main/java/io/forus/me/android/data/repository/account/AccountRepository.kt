@@ -12,7 +12,7 @@ class AccountRepository(private val accountLocalDataSource: AccountDataSource, p
 
     override fun newUser(model: NewAccountRequest): Observable<String> {
         val signUp = SignUp()
-        signUp.pinCode = "6666"
+        signUp.pinCode = "1111"
         signUp.records = SignRecords(model.email, model.firstname, model.lastname, model.bsn, model.phoneNumber)
 
        return accountRemoteDataSource.createUser(signUp)

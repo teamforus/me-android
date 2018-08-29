@@ -20,7 +20,7 @@ data class NewRecordModel(
         get() {
             var active = when {
                 sendingCreateRecord -> false
-                currentStep >= 0 && item.category == null -> false
+                //currentStep >= 0 && item.category == null -> false
                 currentStep >= 1 && item.recordType == null -> false
                 currentStep >= 2 && item.value.isEmpty() -> false
                 else -> true

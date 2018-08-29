@@ -29,7 +29,10 @@ class NewRecordPresenter constructor(private val recordRepository: RecordsReposi
     )
 
 
-    override fun NewRecordModel.changeInitialModel(i: NewRecordModel): NewRecordModel = i.copy()
+    override fun NewRecordModel.changeInitialModel(i: NewRecordModel): NewRecordModel{
+        val defaultCategory = i.categories.find{ it -> it.name == "Persoonlijk"}
+        return i.copy(currentStep = 1, item = i.item.copy(category = defaultCategory))
+    }
 
     override fun bindIntents() {
 
