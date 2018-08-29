@@ -5,7 +5,7 @@ import io.forus.me.android.domain.models.records.Record
 import io.forus.me.android.domain.models.records.RecordCategory
 import io.forus.me.android.domain.models.wallets.Wallet
 import io.forus.me.android.presentation.view.screens.account.assigndelegates.AssignDelegatesAccountActivity
-import io.forus.me.android.presentation.view.screens.account.newaccount.NewAccountActivity
+import io.forus.me.android.presentation.view.screens.account.newaccount.AccountActivity
 import io.forus.me.android.presentation.view.screens.account.newaccount.pin.NewPinActivity
 import io.forus.me.android.presentation.view.screens.account.assigndelegates.email.RestoreByEmailActivity
 import io.forus.me.android.presentation.view.screens.dashboard.DashboardActivity
@@ -65,7 +65,7 @@ constructor()//empty
 
     fun navigateToAccountNew(context: Context?) {
         if (context != null) {
-            val intentToLaunch = NewAccountActivity.getCallingIntent(context)
+            val intentToLaunch = AccountActivity.getCallingIntent(context)
             context.startActivity(intentToLaunch)
         }
     }
@@ -94,6 +94,13 @@ constructor()//empty
     fun navigateToVoucher(context: Context?, id: String) {
         if (context != null) {
             val intentToLaunch = VoucherActivity.getCallingIntent(context, id)
+            context.startActivity(intentToLaunch)
+        }
+    }
+
+    fun navigateToAccount(context: Context?) {
+        if (context != null) {
+            val intentToLaunch = AccountActivity.getCallingIntent(context)
             context.startActivity(intentToLaunch)
         }
     }

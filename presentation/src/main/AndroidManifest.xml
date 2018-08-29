@@ -56,6 +56,9 @@
             android:name=".view.screens.records.newrecord.NewRecordActivity"
             android:label="@string/blank_string"></activity>
         <activity
+            android:name=".view.screens.account.newaccount.AccountActivity"
+            android:label="@string/blank_string"></activity>
+        <activity
             android:name=".view.screens.records.list.RecordsActivity"
             android:label=""></activity>
         <activity

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:id="@+id/root"
+    android:background="@color/colorPrimary"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/toolbar_view"/>
+
+    <com.ocrv.ekasui.mrm.ui.loadRefresh.LRPanelImpl
+        android:id="@+id/lr_panel"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_marginRight="100dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <io.forus.me.android.presentation.view.component.text.TextView
+                            android:id="@+id/name"
+                            app:type="regular"
+                            android:paddingLeft="@dimen/activity_horizontal_margin"
+                            android:paddingRight="@dimen/activity_horizontal_margin"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="20sp"
+                            android:textColor="@color/body_1_87"
+                            tools:text="Adolph Nalevia Hollenbeck-Moore"
+                            />
+
+                        <io.forus.me.android.presentation.view.component.text.TextView
+                            android:id="@+id/email"
+                            style="@style/ArrowCaption"
+                            android:layout_marginTop="@dimen/activity_horizontal_margin_small"
+                            android:paddingLeft="@dimen/activity_horizontal_margin"
+                            android:paddingRight="@dimen/activity_horizontal_margin"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            tools:text="mail@mail.com"
+                            />
+
+                    </LinearLayout>
+
+
+                    <io.forus.me.android.presentation.view.component.images.AutoLoadImageView
+                        android:src="@drawable/circle_empty"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/activity_horizontal_margin"
+                        android:layout_centerVertical="true"
+                        android:layout_width="72dp"
+                        android:layout_height="72dp" />
+
+
+                </RelativeLayout>
+
+
+                <View
+                    android:layout_marginTop="19dp"
+                    android:background="@color/silver"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"/>
+
+
+                <io.forus.me.android.presentation.view.component.text.TextView
+                    style="@style/Header6"
+                    app:type="medium"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="26dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="App settings"
+                    />
+
+
+                <View
+                    android:layout_marginTop="18dp"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:background="@color/silver"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"/>
+
+
+                <com.ocrv.ekasui.mrm.ui.views.card.SettingsCard
+                    android:id="@+id/change_digits"
+                    app:valuecard_title="Change 4-digit passcode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </com.ocrv.ekasui.mrm.ui.views.card.SettingsCard>
+
+
+
+                <com.ocrv.ekasui.mrm.ui.views.card.SettingsCard
+                    android:id="@+id/logout_view"
+                    app:valuecard_title="Logout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </com.ocrv.ekasui.mrm.ui.views.card.SettingsCard>
+
+
+
+
+                <!--<io.forus.me.android.presentation.view.component.text.TextView-->
+                    <!--style="@style/Header6"-->
+                    <!--app:type="medium"-->
+                    <!--android:layout_marginLeft="@dimen/activity_horizontal_margin"-->
+                    <!--android:layout_marginTop="26dp"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="About"-->
+                    <!--/>-->
+
+
+                <!--<View-->
+                    <!--android:layout_marginTop="18dp"-->
+                    <!--android:layout_marginLeft="@dimen/activity_horizontal_margin"-->
+                    <!--android:background="@color/silver"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="1dp"/>-->
+
+
+
+
+            </LinearLayout>
+
+
+        </android.support.v4.widget.NestedScrollView>
+
+    </com.ocrv.ekasui.mrm.ui.loadRefresh.LRPanelImpl>
+
+</android.support.design.widget.CoordinatorLayout>

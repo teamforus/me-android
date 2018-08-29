@@ -65,4 +65,12 @@ class AccountRepository(private val accountLocalDataSource: AccountDataSource, p
         return Single.fromCallable {accountLocalDataSource.logout(); true }.toObservable()
                 .delay(100, TimeUnit.MILLISECONDS)
     }
+
+    override fun getAccount(): Observable<Account> {
+        val account = Account();
+        account.name = "Adolph Nalevia Hollenbeck-Moore"
+        account.email = "mail@mail.com"
+
+        return Single.just(account).toObservable()
+    }
 }

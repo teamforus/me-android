@@ -31,4 +31,6 @@ interface AccountRepository {
 
     fun exitIdentity(): Observable<Boolean>
 
+    fun getAccount(): Observable<Account>
+
 }

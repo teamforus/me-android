@@ -10,6 +10,17 @@
         <attr name="validationError" format="string"/>
     </declare-styleable>
 
+
+
+    <declare-styleable name="TitleValueCard">
+        <attr name="valuecard_title" format="string"/>
+        <attr name="valuecard_text" format="string"/>
+        <attr name="valuecard_hidedevider" format="boolean"/>
+        <attr name="valuecard_icon" format="reference"/>
+        <attr name="valuecard_darkbackground" format="boolean"/>
+    </declare-styleable>
+
+
     <declare-styleable name="CustomTextViewAttrs">
         <attr name="type" format="string"/>
     </declare-styleable>
