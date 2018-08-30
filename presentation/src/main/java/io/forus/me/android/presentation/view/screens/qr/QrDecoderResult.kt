@@ -6,6 +6,8 @@ sealed class QrDecoderResult {
 
     data class IdentityRestored(val success: Boolean) : QrDecoderResult()
 
+    data class VoucherScanned(val address: String) : QrDecoderResult()
+
     data class UnknownQr(val error: Throwable) : QrDecoderResult()
 
     data class UnexpectedError(val error: Throwable) : QrDecoderResult()

@@ -5,17 +5,13 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import io.forus.me.android.presentation.R
+import io.forus.me.android.presentation.view.activity.SlidingPanelActivity
+import io.forus.me.android.presentation.view.fragment.QrFragment
 
-import io.forus.me.android.presentation.view.activity.CommonActivity
 
-/**
- * Main application screen. This is the app entry point.
- */
-class VoucherActivity : CommonActivity() {
-
+class VoucherActivity : SlidingPanelActivity() {
 
     companion object {
-
          val ID_EXTRA = "ID_EXTRA"
 
         fun getCallingIntent(context: Context, id: String): Intent {
@@ -25,21 +21,18 @@ class VoucherActivity : CommonActivity() {
         }
     }
 
-
-    override val viewID: Int
-        get() = R.layout.activity_toolbar
-
-
+    private lateinit var fragment: VoucherFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         if (savedInstanceState == null) {
-            val fragment = VoucherFragment.newIntent(intent.getStringExtra(ID_EXTRA))
-
+            fragment = VoucherFragment.newIntent(intent.getStringExtra(ID_EXTRA))
             addFragment(R.id.fragmentContainer, fragment)
         }
     }
 
-
+    fun showPopupQRFragment(address: String){
+        addPopupFragment(QrFragment.newIntent(address), "QR code")
+    }
 }

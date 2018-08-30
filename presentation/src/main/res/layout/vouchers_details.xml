@@ -43,8 +43,7 @@
                         android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="110dp"
-                        android:paddingLeft="12dp"
-                        android:paddingStart="12dp">
+                        android:paddingStart="20dp">
 
                         <io.forus.me.android.presentation.view.component.text.TextView
                             android:id="@+id/name"
@@ -80,11 +79,10 @@
                         android:layout_height="105dp"
                         android:layout_marginTop="1dp"
                         android:background="@drawable/bg_card_surface2"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true">
+                        android:layout_alignParentEnd="true">
 
                         <io.forus.me.android.presentation.view.component.images.AutoLoadImageView
-                            android:id="@+id/logo"
+                            android:id="@+id/btn_qr"
                             android:layout_marginLeft="10dp"
                             android:layout_marginRight="40dp"
                             android:layout_marginTop="10dp"
@@ -98,12 +96,14 @@
 
 
                 <io.forus.me.android.presentation.view.component.buttons.ShareButton
+                    android:id="@+id/btn_email"
                     app:sb_text="Email to me"
                     app:sb_icon="@drawable/ic_baseline_crop_free_24px"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
                 <io.forus.me.android.presentation.view.component.buttons.ShareButton
+                    android:id="@+id/btn_info"
                     app:sb_text="Info"
                     app:sb_icon="@drawable/ic_baseline_crop_free_24px"
                     android:layout_width="match_parent"

@@ -118,6 +118,7 @@ class QrScannerActivity : Activity(), QRCodeReaderView.OnQRCodeReadListener {
                             when(it){
                                 is QrDecoderResult.ValidationApproved -> resultTextView?.text = resources.getString(R.string.qr_validation_approved)
                                 is QrDecoderResult.IdentityRestored -> resultTextView?.text = resources.getString(R.string.qr_identity_restored)
+                                is QrDecoderResult.VoucherScanned -> resultTextView?.text = "Voucher!"
                                 is QrDecoderResult.UnknownQr -> resultTextView?.text = resources.getString(R.string.qr_unknown_type)
                                 is QrDecoderResult.UnexpectedError -> showError(resources.getString(R.string.qr_unexpected_error))
                             }

@@ -9,31 +9,16 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 
 
-class VoucherPresenter constructor(private val vouchersRepository: VouchersRepository, private val id: String) : LRPresenter<VoucherModel, VoucherModel, VoucherView>() {
+class VoucherPresenter constructor(private val vouchersRepository: VouchersRepository, private val id: String) : LRPresenter<Voucher, VoucherModel, VoucherView>() {
 
 
-    override fun initialModelSingle(): Single<VoucherModel> = Single.fromObservable(vouchersRepository.getVoucher(id))
-            //.delay(1, TimeUnit.SECONDS)
-            .flatMap {
-                val voucher = it
-                Single.fromObservable( vouchersRepository.getTransactions(id)
-                        .map {
-                            VoucherModel(voucher, it.items)
-                        })
-            }
+    override fun initialModelSingle(): Single<Voucher> = Single.fromObservable(vouchersRepository.getVoucher(id))
 
-
-    override fun VoucherModel.changeInitialModel(i: VoucherModel): VoucherModel = i.copy()
-
+    override fun VoucherModel.changeInitialModel(i: Voucher): VoucherModel = copy(item = i)
 
     override fun bindIntents() {
 
-//        var observable = Observable.merge(
-//
-//                loadRefreshPartialChanges()
-//        );
-
-        var observable = loadRefreshPartialChanges();
+        val observable = loadRefreshPartialChanges();
 
 
         val initialViewState = LRViewState(
@@ -49,10 +34,6 @@ class VoucherPresenter constructor(private val vouchersRepository: VouchersRepos
                 observable.scan(initialViewState, this::stateReducer)
                         .observeOn(AndroidSchedulers.mainThread()),
                 VoucherView::render)
-
-//        val observable = loadRefreshPartialChanges()
-//        val initialViewState = LRViewState(false, null, false, false, null, MapModel("", "" ))
-//        subscribeViewState(observable.scan(initialViewState, this::stateReducer).observeOn(AndroidSchedulers.mainThread()),MapView::render)
     }
 
     override fun stateReducer(viewState: LRViewState<VoucherModel>, change: PartialChange): LRViewState<VoucherModel> {

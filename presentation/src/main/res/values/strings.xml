@@ -34,14 +34,9 @@
     <string name="login">Anmelden</string>
     <string name="scan_deze_qr_code_met_een_ander_apparaat_waar_u_al_op_aangemeld_bent">Scan deze QR-Code met een ander apparaat waar u al op aangemeld bent</string>
     <string name="valuta">Valuta</string>
-    <string name="vouchers">Vouchers</string>
-    <string name="voucher">Voucher</string>
     <string name="bezit">Bezit</string>
     <string name="qr">Qr</string>
     <string name="records">Eigenschappen</string>
-    <string name="transactieoverzicht">Transactieoverzicht</string>
-
-
 
     <!--Lock Check strings -->
     <string name="lock_exit">Exit</string>
@@ -130,5 +125,11 @@
     <string name="qr_identity_restored">Identity restored</string>
     <string name="qr_unknown_type">Unknown QR</string>
     <string name="qr_unexpected_error">Unexpected error</string>
+
+    <!-- Vouchers -->
+    <string name="vouchers">Vouchers</string>
+    <string name="voucher">Voucher</string>
+    <string name="transactieoverzicht">Transactieoverzicht</string>
+    <string name="vouchers_no_items">You have no vouchers yet</string>
 
 </resources>

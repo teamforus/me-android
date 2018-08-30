@@ -1,26 +1,30 @@
 package io.forus.me.android.domain.models.vouchers
 
 import io.forus.me.android.domain.models.currency.Currency
+import java.math.BigDecimal
 import java.util.*
 
 class Transaction {
 
-    var id: String = ""
+    var id: String
 
-    var title: String = ""
+    var organizationName: String
+
+    var currency: Currency
+
+    var amount: BigDecimal
+
+    var dateTime: String
 
     var type: Type = Type.Payed
 
-    var currency: Currency = Currency()
-
-    var value: Double  = 0f.toDouble()
-
-    constructor(id: String, title: String, type: Type, currency: Currency, value: Double) {
+    constructor(id: String, organizationName: String, currency: Currency, amount: BigDecimal, dateTime: String, type: Type = Type.Payed) {
         this.id = id
-        this.title = title
-        this.type = type
+        this.organizationName = organizationName
         this.currency = currency
-        this.value = value
+        this.amount = amount
+        this.dateTime = dateTime
+        this.type = type
     }
 
 
