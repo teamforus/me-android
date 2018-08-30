@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 public class MakeTransaction {
 
     @SerializedName("amount")
-    private Long amount;
+    private Float amount;
 
     @SerializedName("organization_id")
     private Long organizationId;
@@ -13,16 +13,16 @@ public class MakeTransaction {
     public MakeTransaction() {
     }
 
-    public MakeTransaction(Long amount, Long organizationId) {
+    public MakeTransaction(Float amount, Long organizationId) {
         this.amount = amount;
         this.organizationId = organizationId;
     }
 
-    public Long getAmount() {
+    public Float getAmount() {
         return amount;
     }
 
-    public void setAmount(Long amount) {
+    public void setAmount(Float amount) {
         this.amount = amount;
     }
 

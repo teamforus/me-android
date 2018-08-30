@@ -9,10 +9,10 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 
 
-class VoucherPresenter constructor(private val vouchersRepository: VouchersRepository, private val id: String) : LRPresenter<Voucher, VoucherModel, VoucherView>() {
+class VoucherPresenter constructor(private val vouchersRepository: VouchersRepository, private val address: String) : LRPresenter<Voucher, VoucherModel, VoucherView>() {
 
 
-    override fun initialModelSingle(): Single<Voucher> = Single.fromObservable(vouchersRepository.getVoucher(id))
+    override fun initialModelSingle(): Single<Voucher> = Single.fromObservable(vouchersRepository.getVoucher(address))
 
     override fun VoucherModel.changeInitialModel(i: Voucher): VoucherModel = copy(item = i)
 
@@ -36,24 +36,13 @@ class VoucherPresenter constructor(private val vouchersRepository: VouchersRepos
                 VoucherView::render)
     }
 
-    override fun stateReducer(viewState: LRViewState<VoucherModel>, change: PartialChange): LRViewState<VoucherModel> {
+    override fun stateReducer(vs: LRViewState<VoucherModel>, change: PartialChange): LRViewState<VoucherModel> {
 
-        if (change !is VoucherPartialChanges) return super.stateReducer(viewState, change)
+        if (change !is VoucherPartialChanges) return super.stateReducer(vs, change)
 
         return run {
-            super.stateReducer(viewState, change)
+            super.stateReducer(vs, change)
         }
 
     }
-
-
-
-
-
-
-
-
-
-
-
 }

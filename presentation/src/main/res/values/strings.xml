@@ -22,6 +22,8 @@
     <string name="email_validation_regex">^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$</string>
     <string name="email_is_invalid">Field is invalid</string>
     <string name="required_asterisk"><![CDATA[ <sup><small>*</small></sup> ]]></string>
+    <string name="decimal_validation_regex">/^(0|[1-9]\d*)(\.\d+)?$/</string>
+    <string name="decimal_validation_error">Not a valid number</string>
 
     <string name="property">Eigendom</string>
 
@@ -131,5 +133,6 @@
     <string name="voucher">Voucher</string>
     <string name="transactieoverzicht">Transactieoverzicht</string>
     <string name="vouchers_no_items">You have no vouchers yet</string>
+    <string name="vouchers_make_transaction">GENEREREN</string>
 
 </resources>

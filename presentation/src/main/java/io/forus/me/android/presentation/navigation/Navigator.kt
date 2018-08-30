@@ -15,6 +15,7 @@ import io.forus.me.android.presentation.view.screens.records.item.RecordDetailsA
 import io.forus.me.android.presentation.view.screens.records.list.RecordsActivity
 import io.forus.me.android.presentation.view.screens.records.newrecord.NewRecordActivity
 import io.forus.me.android.presentation.view.screens.vouchers.item.VoucherActivity
+import io.forus.me.android.presentation.view.screens.vouchers.provider.ProviderActivity
 import io.forus.me.android.presentation.view.screens.wallets.item.WalletDetailsActivity
 import io.forus.me.android.presentation.view.screens.welcome.WelcomeActivity
 import javax.inject.Inject
@@ -122,6 +123,13 @@ constructor()//empty
     fun navigateToRecordDetails(context: Context?, record: Record) {
         if (context != null) {
             val intentToLaunch = RecordDetailsActivity.getCallingIntent(context, record)
+            context.startActivity(intentToLaunch)
+        }
+    }
+
+    fun navigateToVoucherProvider(context: Context?, voucherAddress: String) {
+        if (context != null) {
+            val intentToLaunch = ProviderActivity.getCallingIntent(context, voucherAddress)
             context.startActivity(intentToLaunch)
         }
     }

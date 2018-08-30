@@ -16,22 +16,19 @@ import android.net.Uri
 import io.forus.me.android.domain.models.qr.QrCode
 
 
-/**
- * Fragment Assign Delegates Screen.
- */
 class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPresenter>(), VoucherView{
 
     companion object {
-        private val ID_EXTRA = "ID_EXTRA"
+        private val VOUCHER_ADDRESS_EXTRA = "VOUCHER_ADDRESS_EXTRA"
 
         fun newIntent(id: String): VoucherFragment = VoucherFragment().also {
             val bundle = Bundle()
-            bundle.putSerializable(ID_EXTRA, id)
+            bundle.putSerializable(VOUCHER_ADDRESS_EXTRA, id)
             it.arguments = bundle
         }
     }
 
-    private var address = ""
+    private lateinit var address: String
 
     override val toolbarTitle: String
         get() = getString(R.string.voucher)
@@ -44,7 +41,10 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPres
     override fun loadRefreshPanel() = lr_panel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
-            = inflater.inflate(R.layout.vouchers_details, container, false)
+            = inflater.inflate(R.layout.vouchers_details, container, false).also {
+
+        address = if (arguments == null) "" else arguments!!.getString(VOUCHER_ADDRESS_EXTRA, "")
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -63,14 +63,12 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPres
 
     override fun createPresenter() = VoucherPresenter(
             Injection.instance.vouchersRepository,
-            if (arguments == null) "" else arguments!!.getString(ID_EXTRA, "")
+            address
     )
 
 
     override fun render(vs: LRViewState<VoucherModel>) {
         super.render(vs)
-
-        address = vs.model.item?.address ?: ""
 
         name.text = vs.model.item?.name
         type.text = vs.model.item?.getValidString()
