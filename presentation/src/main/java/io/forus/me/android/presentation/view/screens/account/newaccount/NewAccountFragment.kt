@@ -27,6 +27,10 @@ class NewAccountFragment : ToolbarLRFragment<NewAccountModel, NewAccountView, Ne
         }
 
 
+    override val showAccount: Boolean
+        get() = false
+
+
     override fun viewForSnackbar(): View = root
 
     override val toolbarTitle: String

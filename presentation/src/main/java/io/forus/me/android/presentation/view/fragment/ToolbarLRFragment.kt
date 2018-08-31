@@ -22,6 +22,7 @@ abstract class ToolbarLRFragment<M, V : LRView<M>, P : MviBasePresenter<V, LRVie
         get() = toolbar_view
 
 
+
     open val showAccount: Boolean
         get() = true
 
