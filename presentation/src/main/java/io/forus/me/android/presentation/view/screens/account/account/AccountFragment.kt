@@ -58,6 +58,8 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
         name.text = vs.model.account?.name
         email.text = vs.model.account?.email
 
+        avatar.setImageDrawable(resources.getDrawable(R.drawable.ic_me_logo))
+
         if (vs.model.navigateToWelcome) {
             navigator.navigateToWelcomeScreen(activity)
         }

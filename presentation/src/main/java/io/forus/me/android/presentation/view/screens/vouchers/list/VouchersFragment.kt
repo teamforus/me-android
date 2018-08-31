@@ -60,7 +60,7 @@ class VouchersFragment : ToolbarLRFragment<VouchersModel, VouchersView, Vouchers
     override fun render(vs: LRViewState<VouchersModel>) {
         super.render(vs)
 
-        tv_no_vouchers.visibility = if(vs.model.items.isEmpty()) View.VISIBLE else View.INVISIBLE
+        tv_no_vouchers.visibility = if(vs.loading == false && vs.loadingError == null && vs.model.items.isEmpty()) View.VISIBLE else View.INVISIBLE
 
         adapter.vouchers = vs.model.items
     }

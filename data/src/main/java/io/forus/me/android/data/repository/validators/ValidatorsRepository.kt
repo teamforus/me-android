@@ -14,14 +14,14 @@ class ValidatorsRepository(private val validatorsDataSource: ValidatorsDataSourc
 
     override fun getValidators(): Observable<List<SimpleValidator>> {
         return validatorsDataSource.listAllValidators()
-                .map { it.map { SimpleValidator(it.id, it.organization.id, it.organization.name, it.email, it.organization.logo ?: SAMPLE_LOGO_URL) } }
+                .map { it.map { SimpleValidator(it.id, it.organization.id, it.organization.name, it.email, it.organization.logo?.sizes?.large ?: SAMPLE_LOGO_URL) } }
     }
 
     override fun getValidators(recordId: Long): Observable<List<SimpleValidator>> {
         return validatorsDataSource.listAllValidationRequests()
                 .map { it.filter{ it.recordId == recordId && it.validator?.id != null} }
                 .map { it.map { SimpleValidator(it.validator.id, it.validator.organization.id, it.validator.organization.name, it.validator.email,
-                        it.validator.organization?.logo ?: SAMPLE_LOGO_URL, SimpleValidator.Status.valueOf(it.state.toString()))}}
+                        it.validator.organization?.logo?.sizes?.large ?: SAMPLE_LOGO_URL, SimpleValidator.Status.valueOf(it.state.toString()))}}
     }
 
     override fun getValidator(validatorId: Long): Observable<SimpleValidator> {

@@ -31,14 +31,14 @@ public class Organization {
     private String btw;
 
     @SerializedName("logo")
-    private String logo;
+    private Logo logo;
 
     @SerializedName("product_categories")
     private List<ProductCategory> productCategories;
 
     public Organization() { }
 
-    public Organization(Long id, String identityAddress, String name, String iban, String email, String phone, String kvk, String btw, String logo, List<ProductCategory> productCategories) {
+    public Organization(Long id, String identityAddress, String name, String iban, String email, String phone, String kvk, String btw, Logo logo, List<ProductCategory> productCategories) {
         this.id = id;
         this.identityAddress = identityAddress;
         this.name = name;
@@ -115,11 +115,11 @@ public class Organization {
         this.btw = btw;
     }
 
-    public String getLogo() {
+    public Logo getLogo() {
         return logo;
     }
 
-    public void setLogo(String logo) {
+    public void setLogo(Logo logo) {
         this.logo = logo;
     }
 
