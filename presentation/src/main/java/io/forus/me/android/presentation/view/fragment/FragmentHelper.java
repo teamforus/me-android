@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import io.forus.me.android.presentation.internal.Injection;
 import io.forus.me.android.presentation.navigation.Navigator;
 
 public class FragmentHelper {

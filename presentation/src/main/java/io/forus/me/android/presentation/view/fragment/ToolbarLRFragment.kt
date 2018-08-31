@@ -22,6 +22,10 @@ abstract class ToolbarLRFragment<M, V : LRView<M>, P : MviBasePresenter<V, LRVie
         get() = toolbar_view
 
 
+    open val showAccount: Boolean
+        get() = true
+
+
     protected open val allowBack: Boolean
         get() = false
 
@@ -72,6 +76,9 @@ abstract class ToolbarLRFragment<M, V : LRView<M>, P : MviBasePresenter<V, LRVie
 
         _activity.setSupportActionBar(toolbar)
         FragmentHelper.setHomeIconToolbar(_activity, toolbar, profile_button, allowBack)
+
+        if (!showAccount)
+            profile_button.visibility = View.INVISIBLE
 
     }
 
