@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">#f7f7f7</color>
     <color name="colorAccent">#315EFD</color>
     
-    <color name="windowsBackground">#ffffff</color>
+    <color name="windowsBackground">#f4f4f4</color>
 
 
     <color name="rippleColor">#bababa</color>
