@@ -102,6 +102,7 @@
 
                 <com.ocrv.ekasui.mrm.ui.views.card.SettingsCard
                     android:id="@+id/change_digits"
+                    android:visibility="gone"
                     app:valuecard_title="Change 4-digit passcode"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
