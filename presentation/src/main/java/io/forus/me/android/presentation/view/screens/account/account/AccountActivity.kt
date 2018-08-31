@@ -7,11 +7,12 @@ import android.os.Bundle
 import io.forus.me.android.presentation.R
 
 import io.forus.me.android.presentation.view.activity.BaseActivity
+import io.forus.me.android.presentation.view.activity.CommonActivity
 
 /**
  * Main application screen. This is the app entry point.
  */
-class AccountActivity : BaseActivity() {
+class AccountActivity : CommonActivity() {
 
 
     companion object {
@@ -22,9 +23,11 @@ class AccountActivity : BaseActivity() {
         }
     }
 
+    override val viewID: Int
+        get() = R.layout.activity_layout
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_layout)
 
         if (savedInstanceState == null) {
             addFragment(R.id.fragmentContainer, AccountFragment())
