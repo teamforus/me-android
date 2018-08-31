@@ -26,7 +26,7 @@ class ValidatorsRepository(private val validatorsDataSource: ValidatorsDataSourc
 
     override fun getValidator(validatorId: Long): Observable<SimpleValidator> {
         return getValidators().flatMap {
-            val item: SimpleValidator? = it.find{ it -> it.id == validatorId}
+            val item: SimpleValidator? = it.find{ it.id == validatorId }
             if(item != null) Single.just(item).toObservable()
             else Observable.error(Exception("Not found"))
         }
