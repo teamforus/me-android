@@ -67,6 +67,9 @@
         <activity
             android:name=".view.screens.wallets.item.WalletDetailsActivity"
             android:label=""></activity>
+        <activity
+            android:name=".view.screens.vouchers.provider.ProviderActivity"
+            android:label=""></activity>
     </application>
 
 </manifest>

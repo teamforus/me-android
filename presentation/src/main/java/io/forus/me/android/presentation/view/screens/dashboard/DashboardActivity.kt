@@ -14,6 +14,7 @@ import io.forus.me.android.presentation.view.adapters.MainViewPagerAdapter
 import io.forus.me.android.presentation.view.fragment.BaseFragment
 import io.forus.me.android.presentation.view.screens.property.PropertyFragment
 import io.forus.me.android.presentation.view.screens.records.categories.RecordCategoriesFragment
+import io.forus.me.android.presentation.view.screens.vouchers.list.VouchersFragment
 import kotlinx.android.synthetic.main.dashboard_activity.*
 
 
@@ -68,7 +69,8 @@ class DashboardActivity : CommonActivity() {
             val fragments = ArrayList<android.support.v4.app.Fragment?>();
             val titles = ArrayList<String>();
 
-            fragments.add(PropertyFragment.newIntent())
+            //fragments.add(PropertyFragment.newIntent())
+            fragments.add(VouchersFragment.newIntent())
             titles.add("")
             fragments.add(Fragment())
             titles.add("")

@@ -22,6 +22,7 @@ import android.support.v4.view.accessibility.AccessibilityEventCompat.setAction
 import android.view.View
 import android.view.ViewGroup
 import io.forus.me.android.presentation.internal.Injection
+import io.forus.me.android.presentation.navigation.Navigator
 import io.forus.me.android.presentation.view.component.qr.PointsOverlayView
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -118,6 +119,10 @@ class QrScannerActivity : Activity(), QRCodeReaderView.OnQRCodeReadListener {
                             when(it){
                                 is QrDecoderResult.ValidationApproved -> resultTextView?.text = resources.getString(R.string.qr_validation_approved)
                                 is QrDecoderResult.IdentityRestored -> resultTextView?.text = resources.getString(R.string.qr_identity_restored)
+                                is QrDecoderResult.VoucherScanned -> {
+                                    resultTextView?.text = "Voucher (${it.address})"
+                                    Navigator().navigateToVoucherProvider(this, it.address)
+                                }
                                 is QrDecoderResult.UnknownQr -> resultTextView?.text = resources.getString(R.string.qr_unknown_type)
                                 is QrDecoderResult.UnexpectedError -> showError(resources.getString(R.string.qr_unexpected_error))
                             }
@@ -156,7 +161,7 @@ class QrScannerActivity : Activity(), QRCodeReaderView.OnQRCodeReadListener {
         enableDecodingCheckBox = content.findViewById(R.id.enable_decoding_checkbox)
         pointsOverlayView = content.findViewById(R.id.points_overlay_view)
 
-        qrCodeReaderView?.setAutofocusInterval(2000L)
+        qrCodeReaderView?.setAutofocusInterval(1500L)
         qrCodeReaderView?.setOnQRCodeReadListener(this)
         qrCodeReaderView?.setBackCamera()
         flashlightCheckBox?.setOnCheckedChangeListener { compoundButton, isChecked -> qrCodeReaderView?.setTorchEnabled(isChecked) }

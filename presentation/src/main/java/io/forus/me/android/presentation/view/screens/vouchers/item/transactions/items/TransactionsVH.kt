@@ -17,11 +17,11 @@ class TransactionsVH(parent: ViewGroup, private val clickListener: ((Transaction
 
     fun render(item: Transaction) = with(itemView) {
 
-        subtitle1.text = item.title
-        overline1.text = item.type.name
+        subtitle1.text = item.organizationName
+        overline1.text = item.dateTime
 
-        subtitle2.text = item.value.format()
-        overline2.text = item.currency.name
+        subtitle2.text = item.amount.toFloat().format(2)
+        overline2.text = "Payment"
 
         if(!item.currency.logoUrl.isEmpty()) logo.setImageUrl(item.currency.logoUrl)
         

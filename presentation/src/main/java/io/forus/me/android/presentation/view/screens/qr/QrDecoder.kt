@@ -6,10 +6,11 @@ import io.forus.me.android.domain.models.qr.QrCode
 import io.forus.me.android.domain.models.records.Validation
 import io.forus.me.android.domain.repository.account.AccountRepository
 import io.forus.me.android.domain.repository.records.RecordsRepository
+import io.forus.me.android.domain.repository.vouchers.VouchersRepository
 import io.reactivex.Observable
 import io.reactivex.Single
 
-class QrDecoder(private val accountRepository: AccountRepository, private val recordsRepository: RecordsRepository){
+class QrDecoder(private val accountRepository: AccountRepository, private val recordsRepository: RecordsRepository, private val vouchersRepository: VouchersRepository){
 
     private val gson = GsonBuilder().create()
 
@@ -20,7 +21,7 @@ class QrDecoder(private val accountRepository: AccountRepository, private val re
 
             return when(qr.type){
                 QrCode.Type.AUTH_TOKEN -> decodeRestoreIdentity(qr.value)
-                QrCode.Type.VOUCHER -> Single.just(QrDecoderResult.UnknownQr(UnsupportedOperationException("Not implemented")))
+                QrCode.Type.VOUCHER -> decodeScanVoucher(qr.value)
                 QrCode.Type.P2P_RECORD -> decodeApproveValidation(qr.value)
                 QrCode.Type.P2P_IDENTITY -> Single.just(QrDecoderResult.UnknownQr(UnsupportedOperationException("Not implemented")))
             }
@@ -65,5 +66,9 @@ class QrDecoder(private val accountRepository: AccountRepository, private val re
                     else QrDecoderResult.UnexpectedError(it)
                 }
         )
+    }
+
+    fun decodeScanVoucher(value: String): Single<QrDecoderResult> {
+        return Single.fromObservable(vouchersRepository.getVoucherAsProvider(value).map { QrDecoderResult.VoucherScanned(value) })
     }
 }

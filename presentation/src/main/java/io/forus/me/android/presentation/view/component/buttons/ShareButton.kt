@@ -9,6 +9,7 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import io.forus.me.android.presentation.R
+import kotlinx.android.synthetic.main.view_share_button.view.*
 
 
 class ShareButton : FrameLayout {
@@ -64,5 +65,9 @@ class ShareButton : FrameLayout {
         textView.setText(text)
 
         ta.recycle()
+    }
+
+    override fun setOnClickListener(l: OnClickListener?) {
+        container.setOnClickListener(l)
     }
 }
