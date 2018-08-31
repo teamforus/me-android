@@ -1,7 +1,6 @@
-package io.forus.me.android.presentation.view.screens.account.newaccount;
+package io.forus.me.android.presentation.view.screens.account.account;
 
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LRView
-import io.forus.me.android.domain.models.account.NewAccountRequest
 
 /**
  * Created by pavelpantuhov on 31.10.2017.

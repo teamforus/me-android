@@ -57,7 +57,7 @@ class Injection private constructor() {
     }
 
     val accountRepository: AccountRepository by lazy {
-            return@lazy io.forus.me.android.data.repository.account.AccountRepository(accountLocalDataSource, accountRemoteDataSource)
+            return@lazy io.forus.me.android.data.repository.account.AccountRepository(accountLocalDataSource, accountRemoteDataSource, recordsRepository)
     }
 
     private val accountRemoteDataSource: AccountRemoteDataSource by lazy {

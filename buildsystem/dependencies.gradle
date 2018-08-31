@@ -51,6 +51,7 @@ ext {
   //Development
   leakCanaryVersion = '1.3.1'
   qrReaderVersion='2.0.3@aar'
+  animoVersion='1.1.8'
 
 
   presentationDependencies = [
@@ -126,6 +127,7 @@ ext {
       web3j:              "org.web3j:core:${web3jVersion}",
       greendao:           "org.greenrobot:greendao:${greendaoVersion}",
 
+      annimon:            "com.annimon:stream:${animoVersion}",
       retrofithttpInspector: "com.squareup.okhttp3:logging-interceptor:$rootProject.httpInspectorVersion",
       retrofithttp        : "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion",
       retrofithttpConverter:  "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion",

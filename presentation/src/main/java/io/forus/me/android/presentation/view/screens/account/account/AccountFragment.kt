@@ -1,11 +1,10 @@
-package io.forus.me.android.presentation.view.screens.account.newaccount
+package io.forus.me.android.presentation.view.screens.account.account
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
-import io.forus.me.android.domain.models.account.NewAccountRequest
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment

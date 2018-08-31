@@ -1,8 +1,7 @@
-package io.forus.me.android.presentation.view.screens.account.newaccount
+package io.forus.me.android.presentation.view.screens.account.account
 
 
 import com.ocrv.ekasui.mrm.ui.loadRefresh.PartialChange
-import io.forus.me.android.domain.models.account.NewAccountRequest
 
 sealed class AccountPartialChanges : PartialChange {
 

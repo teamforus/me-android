@@ -4,8 +4,9 @@ import android.content.Context
 import io.forus.me.android.domain.models.records.Record
 import io.forus.me.android.domain.models.records.RecordCategory
 import io.forus.me.android.domain.models.wallets.Wallet
+import io.forus.me.android.presentation.view.screens.account.account.AccountActivity
 import io.forus.me.android.presentation.view.screens.account.assigndelegates.AssignDelegatesAccountActivity
-import io.forus.me.android.presentation.view.screens.account.newaccount.AccountActivity
+import io.forus.me.android.presentation.view.screens.account.newaccount.NewAccountActivity
 import io.forus.me.android.presentation.view.screens.account.newaccount.pin.NewPinActivity
 import io.forus.me.android.presentation.view.screens.account.assigndelegates.email.RestoreByEmailActivity
 import io.forus.me.android.presentation.view.screens.dashboard.DashboardActivity
@@ -65,7 +66,7 @@ constructor()//empty
 
     fun navigateToAccountNew(context: Context?) {
         if (context != null) {
-            val intentToLaunch = AccountActivity.getCallingIntent(context)
+            val intentToLaunch = NewAccountActivity.getCallingIntent(context)
             context.startActivity(intentToLaunch)
         }
     }

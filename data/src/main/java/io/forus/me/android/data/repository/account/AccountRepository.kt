@@ -3,12 +3,14 @@ package io.forus.me.android.data.repository.account
 import com.gigawatt.android.data.net.sign.models.request.SignUp
 import io.forus.me.android.data.entity.sign.request.SignRecords
 import io.forus.me.android.data.repository.account.datasource.AccountDataSource
+import io.forus.me.android.data.repository.records.RecordsRepository
 import io.forus.me.android.domain.models.account.*
 import io.reactivex.Observable
 import io.reactivex.Single
 import java.util.concurrent.TimeUnit
+import java.util.stream.Stream
 
-class AccountRepository(private val accountLocalDataSource: AccountDataSource, private val accountRemoteDataSource: AccountDataSource) : io.forus.me.android.domain.repository.account.AccountRepository {
+class AccountRepository(private val accountLocalDataSource: AccountDataSource, private val accountRemoteDataSource: AccountDataSource, private val recordsRepository: RecordsRepository) : io.forus.me.android.domain.repository.account.AccountRepository {
 
     override fun newUser(model: NewAccountRequest): Observable<String> {
         val signUp = SignUp()
@@ -67,10 +69,16 @@ class AccountRepository(private val accountLocalDataSource: AccountDataSource, p
     }
 
     override fun getAccount(): Observable<Account> {
-        val account = Account();
-        account.name = "Adolph Nalevia Hollenbeck-Moore"
-        account.email = "mail@mail.com"
+        return recordsRepository.getRecords().map {
 
-        return Single.just(account).toObservable()
+            val account = Account();
+            val email = com.annimon.stream.Stream.of(it).filter { x->x.recordType.key == "primary_email" }.findFirst()
+            val givanName = com.annimon.stream.Stream.of(it).filter { x->x.recordType.key == "given_name" }.findFirst()
+            val familyName = com.annimon.stream.Stream.of(it).filter { x->x.recordType.key == "family_name" }.findFirst()
+            account.name = (if (givanName.isPresent) "${givanName.get().value} " else "") + (if (familyName.isPresent) "${familyName.get().value}" else "")
+            account.email = if (email.isPresent) email.get().value else ""
+
+            account
+        }
     }
 }
