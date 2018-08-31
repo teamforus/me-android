@@ -54,6 +54,8 @@ class RecordDetailsPresenter constructor(private val recordId: Long, private val
                     allValidations.addAll(p2pValidations)
                 }
 
+                if(allValidations.isEmpty()) allValidations.add(ValidatorViewModel("You have no validations yet"))
+
                 RecordDetailsModel(item = record, validators = allValidations)
             }
     )

@@ -27,13 +27,13 @@ class RestoreByEmailFragment : ToolbarLRFragment<RestoreByEmailModel, RestoreByE
 
     private val viewIsValid: Boolean
         get() {
-            var validation = email.validate() && email_repeat.validate()
-            if (validation) {
-                if (email.getText() != email_repeat.getText()) {
-                    validation = false
-                    email_repeat.setError("Emails should be the same")
-                }
-            }
+            var validation = email.validate() //&& email_repeat.validate()
+//            if (validation) {
+//                if (email.getText() != email_repeat.getText()) {
+//                    validation = false
+//                    email_repeat.setError("Emails should be the same")
+//                }
+//            }
             return  validation
         }
 
@@ -80,7 +80,7 @@ class RestoreByEmailFragment : ToolbarLRFragment<RestoreByEmailModel, RestoreByE
         }
 
         email.setTextChangedListener(listener)
-        email_repeat.setTextChangedListener(listener)
+        //email_repeat.setTextChangedListener(listener)
 
         restore.setOnClickListener {
             if (viewIsValid) {
@@ -112,7 +112,7 @@ class RestoreByEmailFragment : ToolbarLRFragment<RestoreByEmailModel, RestoreByE
         }
 
         if(vs.model.sendingRestoreByEmailError != null){
-            email_repeat.setError("Identity not found")
+            email.setError("Identity not found")
         }
 
         if (vs.closeScreen && vs.model.isEmailConfirmed && vs.model.item?.accessToken != null) {

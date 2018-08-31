@@ -164,10 +164,6 @@ class NewRecordFragment : ToolbarLRFragment<NewRecordModel, NewRecordView, NewRe
 
         recycler_validators.layoutManager = LinearLayoutManager(context)
         recycler_validators.adapter = recordValidatorAdapter
-
-        btn_next.setOnClickListener {
-            if (main_view_pager.currentItem < NUM_PAGES - 1) nextStep.onNext(true) else submit.onNext(true)
-        }
     }
 
     override fun createPresenter() = NewRecordPresenter(
@@ -189,8 +185,10 @@ class NewRecordFragment : ToolbarLRFragment<NewRecordModel, NewRecordView, NewRe
             closeScreen()
         }
 
+        indicator.getChildAt(NUM_PAGES - 1)?.visibility = if(vs.model.validators.isEmpty()) View.INVISIBLE else View.VISIBLE
         main_view_pager.currentItem = vs.model.currentStep
-        renderButton(vs.model.currentStep, vs.model.buttonIsActive)
+        renderButton(vs.model.isFinalStep, vs.model.buttonIsActive)
+
         when(vs.model.currentStep){
             1 -> if(vs.model.item.category != null) selectedCategoryVH.render(vs.model.item.category!!)
             2 -> {
@@ -222,9 +220,13 @@ class NewRecordFragment : ToolbarLRFragment<NewRecordModel, NewRecordView, NewRe
         activity?.finish()
     }
 
-    private fun renderButton(currentStep: Int, buttonIsActive: Boolean){
-        btn_next.text = resources.getString(if (currentStep < NUM_PAGES - 1) R.string.next_step else R.string.submit)
+    private fun renderButton(isFinalStep: Boolean, buttonIsActive: Boolean){
+        btn_next.text = resources.getString(if (!isFinalStep) R.string.next_step else R.string.submit)
         btn_next.active = buttonIsActive
+
+        btn_next.setOnClickListener {
+            if (!isFinalStep) nextStep.onNext(true) else submit.onNext(true)
+        }
     }
 
     private fun showError(text: String){

@@ -52,9 +52,6 @@ class TransactionsCard : FrameLayout {
 
     fun setTransactions (transactions: List<Transaction>){
         adapter.transactions = transactions
+        title.text = resources.getText(if(transactions.isEmpty()) R.string.transactieoverzicht_empty else R.string.transactieoverzicht)
     }
-
-
-
-
 }

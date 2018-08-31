@@ -5,6 +5,7 @@ import io.forus.me.android.domain.models.records.RecordCategory
 import io.forus.me.android.domain.models.records.RecordType
 import io.forus.me.android.domain.models.validators.SimpleValidator
 import io.forus.me.android.presentation.models.ValidationResult
+import io.forus.me.android.presentation.view.screens.records.newrecord.NewRecordView.Companion.NUM_PAGES
 
 data class NewRecordModel(
         val item: NewRecordRequest = NewRecordRequest(),
@@ -15,6 +16,11 @@ data class NewRecordModel(
         val categories: List<RecordCategory> = emptyList(),
         val validators: List<SimpleValidator> = emptyList()
 ) {
+
+    val isFinalStep: Boolean
+        get() {
+            return if(validators.isNotEmpty()) (currentStep >= NUM_PAGES - 1) else (currentStep >= NUM_PAGES - 2)
+        }
 
     val buttonIsActive: Boolean
         get() {
