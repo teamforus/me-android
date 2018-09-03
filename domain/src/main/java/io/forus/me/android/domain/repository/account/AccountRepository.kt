@@ -29,7 +29,14 @@ interface AccountRepository {
     fun unlockIdentity(pin: String): Observable<Boolean>
 
 
+    fun checkPin(pin: String): Observable<Boolean>
+
+
+    fun changePin(oldPin: String, newPin: String): Observable<Boolean>
+
+
     fun exitIdentity(): Observable<Boolean>
+
 
     fun getAccount(): Observable<Account>
 

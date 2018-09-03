@@ -44,9 +44,12 @@ class Injection private constructor() {
         set(value) {
             field = value
             accountLocalDataSource.updateDao(daoSession)
-            accountRemoteDataSource.updateService()
-            recordRemoteDataSource.updateService()
         }
+
+    fun accessTokenUpdated(){
+        accountRemoteDataSource.updateService()
+        recordRemoteDataSource.updateService()
+    }
 
     var applicationContext: Context? = null
         set(value) {

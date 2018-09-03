@@ -60,12 +60,18 @@ class AccountRepository(private val accountLocalDataSource: AccountDataSource, p
 
     override fun unlockIdentity(pin: String): Observable<Boolean> {
         return Single.just(accountLocalDataSource.unlockIdentity(pin)).toObservable()
-                //.delay(100, TimeUnit.MILLISECONDS)
+    }
+
+    override fun checkPin(pin: String): Observable<Boolean> {
+        return Single.just(accountLocalDataSource.checkPin(pin)).toObservable()
+    }
+
+    override fun changePin(oldPin: String, newPin: String): Observable<Boolean> {
+        return Single.just(accountLocalDataSource.changePin(oldPin, newPin)).toObservable()
     }
 
     override fun exitIdentity(): Observable<Boolean> {
         return Single.fromCallable {accountLocalDataSource.logout(); true }.toObservable()
-                .delay(100, TimeUnit.MILLISECONDS)
     }
 
     override fun getAccount(): Observable<Account> {

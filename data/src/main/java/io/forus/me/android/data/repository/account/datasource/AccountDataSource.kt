@@ -39,6 +39,12 @@ interface AccountDataSource {
     fun isLogin() : Boolean
 
 
+    fun checkPin(pin: String): Boolean
+
+
+    fun changePin(oldPin: String, newPin: String): Boolean
+
+
     fun logout()
 
 //    fun getAccount(): Observable<Account>

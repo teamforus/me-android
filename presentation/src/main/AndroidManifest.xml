@@ -70,6 +70,9 @@
         <activity
             android:name=".view.screens.vouchers.provider.ProviderActivity"
             android:label=""></activity>
+        <activity
+            android:name=".view.screens.account.account.pin.ChangePinActivity"
+            android:label=""></activity>
     </application>
 
 </manifest>

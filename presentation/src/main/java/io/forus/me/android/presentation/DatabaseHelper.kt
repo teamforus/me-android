@@ -26,6 +26,10 @@ class DatabaseHelper(private val context: Context): Database{
             if(Injection.instance.daoSession != daoSession) Injection.instance.daoSession = daoSession
         }
 
+    override fun refresh() {
+        Injection.instance.accessTokenUpdated()
+    }
+
     override fun exists(): Boolean{
         val dbFile = context.getDatabasePath(DB_NAME)
         return dbFile.exists()
@@ -41,6 +45,18 @@ class DatabaseHelper(private val context: Context): Database{
             val helper = DaoMaster.DevOpenHelper(context, DB_NAME)
             db = helper.getEncryptedWritableDb((pin+SALT).SHA256())
             daoSession = DaoMaster(db).newSession()
+            true
+        }
+        catch (e: Exception){
+            false
+        }
+    }
+
+    override fun checkPin(pin: String): Boolean {
+        return try {
+            val helper = DaoMaster.DevOpenHelper(context, DB_NAME)
+            val db = helper.getEncryptedReadableDb((pin+SALT).SHA256())
+            db?.close()
             true
         }
         catch (e: Exception){

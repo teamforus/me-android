@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRFragment
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LoadRefreshPanel
 import io.forus.me.android.presentation.R
@@ -13,7 +12,7 @@ import io.forus.me.android.presentation.view.component.pinlock.PinLockListener
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.account_create_pin_fragment.*
+import kotlinx.android.synthetic.main.account_set_pin_fragment.*
 
 class NewPinFragment : ToolbarLRFragment<NewPinModel, NewPinView, NewPinPresenter>(), NewPinView {
 
@@ -51,7 +50,7 @@ class NewPinFragment : ToolbarLRFragment<NewPinModel, NewPinView, NewPinPresente
     override fun pinOnChange(): Observable<String> = pinOnChange
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val view = inflater.inflate(R.layout.account_create_pin_fragment, container, false)
+        val view = inflater.inflate(R.layout.account_set_pin_fragment, container, false)
         val bundle = this.arguments
         if (bundle != null) {
             accessToken = bundle.getString(ACCESS_TOKEN_EXTRA)

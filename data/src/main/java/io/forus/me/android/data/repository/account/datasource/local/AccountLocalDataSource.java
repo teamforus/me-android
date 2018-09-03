@@ -71,34 +71,6 @@ public class AccountLocalDataSource implements AccountDataSource, LocalDataSourc
         return null;
     }
 
-    @Override
-    public boolean saveIdentity(@NotNull String token, @NotNull String pin) {
-        Database db = DatabaseManager.Companion.getInstance();
-        db.delete();
-        boolean opened = db.open(pin);
-        if(!opened || tokenDao == null) return false;
-
-        Token dbToken = new Token();
-        dbToken.setToken(token);
-        tokenDao.save(dbToken);
-        return true;
-    }
-
-    public boolean unlockIdentity(@NotNull String pin){
-        Database db = DatabaseManager.Companion.getInstance();
-        return db.open(pin);
-    }
-
-    @Override
-    public boolean isLogin() {
-        return DatabaseManager.Companion.getInstance().isOpen() && getToken() != null;
-    }
-
-    @Override
-    public void logout() {
-        DatabaseManager.Companion.getInstance().delete();
-    }
-
     @NotNull
     @Override
     public Observable<Boolean> authorizeCode(@NotNull String code) {
@@ -109,5 +81,56 @@ public class AccountLocalDataSource implements AccountDataSource, LocalDataSourc
     @Override
     public Observable<Boolean> authorizeToken(@NotNull String token) {
         return null;
+    }
+
+    @Override
+    public boolean saveIdentity(@NotNull String token, @NotNull String pin) {
+        try {
+            Database db = DatabaseManager.Companion.getInstance();
+            db.delete();
+            boolean opened = db.open(pin);
+            if (!opened || tokenDao == null) return false;
+
+            Token dbToken = new Token();
+            dbToken.setToken(token);
+            tokenDao.save(dbToken);
+            db.refresh();
+            return true;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean unlockIdentity(@NotNull String pin){
+        Database db = DatabaseManager.Companion.getInstance();
+        boolean success = db.open(pin);
+        db.refresh();
+        return success;
+    }
+
+    @Override
+    public boolean isLogin() {
+        return DatabaseManager.Companion.getInstance().isOpen() && getToken() != null;
+    }
+
+    @Override
+    public boolean checkPin(@NotNull String pin) {
+        return DatabaseManager.Companion.getInstance().checkPin(pin);
+    }
+
+    @Override
+    public boolean changePin(@NotNull String oldPin, @NotNull String newPin) {
+        if(!checkPin(oldPin)) return false;
+        String token = getTokenString();
+        return saveIdentity(token, newPin);
+    }
+
+    @Override
+    public void logout() {
+        Database db = DatabaseManager.Companion.getInstance();
+        db.delete();
+        db.refresh();
     }
 }

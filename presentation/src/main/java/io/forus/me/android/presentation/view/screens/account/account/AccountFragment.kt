@@ -42,6 +42,10 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        change_digits.setOnClickListener {
+            navigator.navigateToChangePin(activity)
+        }
+
         logout_view.setOnClickListener {
             logout.onNext(true)
         }
