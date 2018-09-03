@@ -31,6 +31,9 @@ class WalletDetailsFragment : ToolbarLRFragment<WalletDetailsModel, WalletDetail
     override val toolbarTitle: String
         get() = getString(R.string.wallet_title_info)
 
+    override val allowBack: Boolean
+        get() = true
+
     override fun loadRefreshPanel(): LoadRefreshPanel = lr_panel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -55,8 +58,8 @@ class WalletDetailsFragment : ToolbarLRFragment<WalletDetailsModel, WalletDetail
         super.render(vs)
 
         val item = vs.model.item
-        tv_balance_crypto.text = if(item != null) ""+item.balance.format()+" "+item.currency?.name else ""
-        tv_balance_fiat.text = "?"
+        tv_balance_crypto.text = if(item != null) ""+item.balance.format(5)+" "+item.currency?.name else ""
+        tv_balance_fiat.text = resources.getString(R.string.wallet_balance_fiat, (item?.balance?.times(244.60)).format(2), (item?.balance?.times(281.60)).format(2))
         iv_logo.setImageUrl(item?.logoUrl)
     }
 }

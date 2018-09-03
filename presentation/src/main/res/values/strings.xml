@@ -22,6 +22,8 @@
     <string name="email_validation_regex">^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$</string>
     <string name="email_is_invalid">Field is invalid</string>
     <string name="required_asterisk"><![CDATA[ <sup><small>*</small></sup> ]]></string>
+    <string name="decimal_validation_regex">/^(0|[1-9]\d*)(\.\d+)?$/</string>
+    <string name="decimal_validation_error">Not a valid number</string>
 
     <string name="property">Eigendom</string>
 
@@ -33,19 +35,10 @@
     <string name="set_up_your_identity">Stel uw identiteit in</string>
     <string name="login">Anmelden</string>
     <string name="scan_deze_qr_code_met_een_ander_apparaat_waar_u_al_op_aangemeld_bent">Scan deze QR-Code met een ander apparaat waar u al op aangemeld bent</string>
-    <string name="login_via_de_qr_code">login via de qr code</string>
-    <string name="inloggen_met_pincode">Inloggen met pincode</string>
-    <string name="inloggen_via_email">Inloggen via email</string>
     <string name="valuta">Valuta</string>
-    <string name="vouchers">Vouchers</string>
-    <string name="voucher">Voucher</string>
     <string name="bezit">Bezit</string>
     <string name="qr">Qr</string>
     <string name="records">Eigenschappen</string>
-    <string name="transactieoverzicht">Transactieoverzicht</string>
-    <string name="restore_by_email">Restore by email</string>
-    <string name="account_restore_description">Please enter your e-mail address in order to receive your login details.</string>
-
 
     <!--Lock Check strings -->
     <string name="lock_exit">Exit</string>
@@ -71,10 +64,12 @@
     <string name="title_choose_category">Choose Category</string>
     <string name="title_choose_type">Choose Type</string>
     <string name="title_choose_text">Text</string>
+    <string name="title_choose_validators">Validators</string>
 
-    <string name="choose_the_category_text">Select the category under which the new record type should be added.</string>
-    <string name="choose_the_type_text">Select the category under which the new record type should be added.</string>
-    <string name="choose_the_value_text">Select the category under which the new record type should be added.</string>
+    <string name="choose_the_category_text">Select the category under which the new record should be added.</string>
+    <string name="choose_the_type_text">Select the type under which the new record should be added.</string>
+    <string name="choose_the_value_text">Enter the value of the record.</string>
+    <string name="choose_validators_text">Select the validators, yours the new record should be verify.</string>
     <string name="venue_text">Venue</string>
 
     <string name="next_step">NEXT STEP</string>
@@ -86,6 +81,10 @@
     <string name="title_record_detail_validators">Validators</string>
     <string name="record_detail_scan_qr">Scan deze QR-Code met een ander apparaat waar u al op aangemeld bent</string>
     <string name="button_show_qr">Show QR</string>
+    <string name="validation_request_error">Error while sending validation request</string>
+    <string name="validators_title_normal">Validators</string>
+    <string name="validators_title_p2p">Peer-to-peer validations</string>
+    <string name="validators_title_empty">You have no validations yet</string>
 
     <!-- New account screen -->
     <string name="new_account_title">New profiel</string>
@@ -109,9 +108,35 @@
     <!-- Wallet details screen -->
     <string name="wallet_title_info">Wallet info</string>
     <string name="wallet_current_balance">Current Balance</string>
+    <string name="wallet_balance_fiat">~ %1$s€;    %2$s$</string>
     <string name="wallet_send">Zend</string>
     <string name="wallet_receive">Wraag</string>
     <string name="wallet_transactions_title">Transactieoverzicht</string>
     <string name="wallet_transactions_see_all">See all</string>
+
+    <!-- Restore identity -->
+    <string name="login_via_de_qr_code">login via de qr code</string>
+    <string name="inloggen_met_pincode">Inloggen met pincode</string>
+    <string name="inloggen_via_email">Inloggen via email</string>
+    <string name="restore_by_email">Restore by email</string>
+    <string name="account_restore_description">Please enter your e-mail address in order to receive your login details.</string>
+    <string name="btn_continue">CONTINUE</string>
+    <string name="pincode_not_confirmed">PIN is not confirmed</string>
+    <string name="pincode_description">Vul deze pincode in uw profeil in</string>
+    <string name="email_description">The link was sent to your e-mail. Tap on it, wait for Success message and come back to Me.</string>
+
+    <!-- QR Scanner -->
+    <string name="qr_validation_approved">Validation approved</string>
+    <string name="qr_identity_restored">Identity restored</string>
+    <string name="qr_unknown_type">Unknown QR</string>
+    <string name="qr_unexpected_error">Unexpected error</string>
+
+    <!-- Vouchers -->
+    <string name="vouchers">Vouchers</string>
+    <string name="voucher">Voucher</string>
+    <string name="transactieoverzicht">Transactieoverzicht</string>
+    <string name="transactieoverzicht_empty">No transactions yet</string>
+    <string name="vouchers_no_items">You have no vouchers yet</string>
+    <string name="vouchers_make_transaction">GENEREREN</string>
 
 </resources>

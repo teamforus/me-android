@@ -6,12 +6,11 @@ import android.os.Bundle
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import io.forus.me.android.domain.models.records.Record
 import io.forus.me.android.presentation.R
-import io.forus.me.android.presentation.interfaces.SlidingToolbarFragmentActionListener
-import io.forus.me.android.presentation.view.activity.CommonActivity
-
+import io.forus.me.android.presentation.view.activity.SlidingPanelActivity
+import io.forus.me.android.presentation.view.screens.records.item.qr.RecordQRFragment
 import kotlinx.android.synthetic.main.activity_toolbar_sliding_panel.*
 
-class RecordDetailsActivity : CommonActivity() {
+class RecordDetailsActivity : SlidingPanelActivity() {
 
 
     companion object {
@@ -24,23 +23,23 @@ class RecordDetailsActivity : CommonActivity() {
         }
     }
 
-    override val viewID: Int
-        get() = R.layout.activity_toolbar_sliding_panel
+    private lateinit var fragment: RecordDetailsFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         if (savedInstanceState == null) {
-            val fragment = RecordDetailsFragment.newIntent(intent.getLongExtra(RECORD_ID_EXTRA, 0))
-            fragment.slidingToolbarFragmentActionListener = object : SlidingToolbarFragmentActionListener {
-                override fun openPanel() {
-                    sliding_layout.panelState = SlidingUpPanelLayout.PanelState.EXPANDED
-                }
-            }
+            fragment = RecordDetailsFragment.newIntent(intent.getLongExtra(RECORD_ID_EXTRA, 0))
             addFragment(R.id.fragmentContainer, fragment)
-
-            addFragment(R.id.fragmentPanelContainer, fragment.slidingFragment)
-            sliding_panel_title.text = fragment.slidingPanelTitle
         }
+    }
+
+    fun showPopupQRFragment(recordId: Long){
+        addPopupFragment(RecordQRFragment.newIntent(recordId), "QR code")
+    }
+
+    fun closeQRFragment(){
+        sliding_layout.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
+        fragment.refresh()
     }
 }

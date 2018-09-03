@@ -25,9 +25,13 @@ class RecordsRemoteDataSource(f: () -> RecordsService): RecordsDataSource, Remot
 
     override fun sortRecordCategories(sortCategories: SortCategories) : Observable<Success> = service.sortCategories(sortCategories)
 
-    override fun getRecords(type: String): Observable<List<Record>> = service.listAllRecords(type)
+    override fun getRecords(): Observable<List<Record>> = service.listAllRecords(null, null)
 
-    override fun createRecord(createRecord: CreateRecord): Observable<Success> = service.createRecord(createRecord.key, createRecord)
+    override fun getRecords(categoryId: Long): Observable<List<Record>> = service.listAllRecords(null, categoryId)
+
+    override fun getRecords(type: String): Observable<List<Record>> = service.listAllRecords(type, null)
+
+    override fun createRecord(createRecord: CreateRecord): Observable<Record> = service.createRecord(createRecord.key, createRecord)
 
     override fun retrieveRecord(id: Long) : Observable<Record> = service.retrieveRecord(id)
 
@@ -37,7 +41,7 @@ class RecordsRemoteDataSource(f: () -> RecordsService): RecordsDataSource, Remot
 
     override fun sortRecords(sortRecords: SortRecords) : Observable<Success> = service.sortRecords(sortRecords)
 
-    override fun createValidationToken(recordId: Long): Observable<ValidationToken> = service.createValidationToken(recordId)
+    override fun createValidationToken(recordId: Long): Observable<ValidationToken> = service.createValidationToken(CreateValidationToken(recordId))
 
     override fun readValidation(uuid: String): Observable<Validation> = service.readValidation(uuid)
 

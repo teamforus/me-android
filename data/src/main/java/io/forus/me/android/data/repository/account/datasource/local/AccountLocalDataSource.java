@@ -55,19 +55,19 @@ public class AccountLocalDataSource implements AccountDataSource, LocalDataSourc
 
     @NotNull
     @Override
-    public Observable<AccessToken> requestNewUserByEmail(@NotNull String email) {
+    public Observable<AccessToken> restoreByEmail(@NotNull String email) {
         return null;
     }
 
     @NotNull
     @Override
-    public Observable<IdentityPinResult> getAuthCode() {
+    public Observable<IdentityPinResult> restoreByPinCode() {
         return null;
     }
 
     @NotNull
     @Override
-    public Observable<IdentityTokenResult> requestDelegatesQRAddress() {
+    public Observable<IdentityTokenResult> restoreByQrToken() {
         return null;
     }
 
@@ -99,4 +99,15 @@ public class AccountLocalDataSource implements AccountDataSource, LocalDataSourc
         DatabaseManager.Companion.getInstance().delete();
     }
 
+    @NotNull
+    @Override
+    public Observable<Boolean> authorizeCode(@NotNull String code) {
+        return null;
+    }
+
+    @NotNull
+    @Override
+    public Observable<Boolean> authorizeToken(@NotNull String token) {
+        return null;
+    }
 }

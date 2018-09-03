@@ -27,6 +27,10 @@ class NewAccountFragment : ToolbarLRFragment<NewAccountModel, NewAccountView, Ne
         }
 
 
+    override val showAccount: Boolean
+        get() = false
+
+
     override fun viewForSnackbar(): View = root
 
     override val toolbarTitle: String
@@ -55,10 +59,10 @@ class NewAccountFragment : ToolbarLRFragment<NewAccountModel, NewAccountView, Ne
         register.setOnClickListener {
             if (viewIsValid) {
                 registerAction.onNext(NewAccountRequest(
-                        firstname = firstName.getText(),
-                        lastname = lastName.getText(),
-                        bsn = bsn.getText(),
-                        phoneNumber = phone.getText(),
+                        firstname = firstName.getTextOrNullIfBlank(),
+                        lastname = lastName.getTextOrNullIfBlank(),
+                        bsn = bsn.getTextOrNullIfBlank(),
+                        phoneNumber = phone.getTextOrNullIfBlank(),
                         email = email.getText()
                         )
                 )

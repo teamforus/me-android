@@ -18,7 +18,7 @@ class VouchersVH(parent: ViewGroup, private val clickListener: ((Voucher) -> Uni
 
         type.text = item.getValidString()
         name.text = item.name
-        value.text = "${item.currency.name} ${item.value.format()}"
+        value.text = "${item.currency.name} ${item.amount.toDouble().format(2)}"
 
         logo.setImageUrl(item.logo)
         root.setOnClickListener {

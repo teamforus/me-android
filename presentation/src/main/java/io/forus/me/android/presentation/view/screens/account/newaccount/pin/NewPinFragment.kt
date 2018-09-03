@@ -27,6 +27,9 @@ class NewPinFragment : ToolbarLRFragment<NewPinModel, NewPinView, NewPinPresente
         }
     }
 
+    override val showAccount: Boolean
+        get() = false
+
     private lateinit var accessToken: String
 
     override fun viewForSnackbar(): View = root

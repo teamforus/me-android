@@ -10,13 +10,13 @@ class Record{
 
     var recordType: RecordType
 
-    var recordCategory: RecordCategory
+    var recordCategory: RecordCategory?
 
     var valid: Boolean = false
 
-    var validations: List<String> = emptyList()
+    var validations: List<Validation> = emptyList()
 
-    constructor(id: Long, value: String, order: Long, recordType: RecordType, recordCategory: RecordCategory, valid: Boolean, validations: List<String>) {
+    constructor(id: Long, value: String, order: Long, recordType: RecordType, recordCategory: RecordCategory?, valid: Boolean, validations: List<Validation>) {
         this.id = id
         this.value = value
         this.order = order

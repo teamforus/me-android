@@ -11,6 +11,7 @@ import io.forus.me.android.presentation.R
 
 class QRCodeImageView : AutoLoadImageView {
 
+    var bitmapSize = 400
     var onColor = Color.WHITE
     var offColor = Color.BLACK
 
@@ -29,7 +30,7 @@ class QRCodeImageView : AutoLoadImageView {
 
     fun setQRText(text: String) {
         this.setImageBitmap(getQrBitmap(text,
-                this.width,
+                bitmapSize,
                 onColor,
                 offColor))
     }

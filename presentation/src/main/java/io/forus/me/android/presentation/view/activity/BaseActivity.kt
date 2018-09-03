@@ -41,8 +41,26 @@ abstract class BaseActivity : AppCompatActivity() {
                 .beginTransaction()
                 .add(containerViewId, fragment)
                 .commit()
-        //    final FragmentTransaction fragmentTransaction = this.getFragmentManager().beginTransaction();
-        //    fragmentTransaction.add(containerViewId, fragment);
-        //    fragmentTransaction.commit();
     }
+
+    protected fun replaceFragment(containerViewId: Int, fragment: android.support.v4.app.Fragment) {
+
+        supportFragmentManager
+                .beginTransaction()
+                .replace(containerViewId, fragment)
+                .commit()
+    }
+
+    protected fun removeFragment(containerViewId: Int) {
+
+        val fragment = supportFragmentManager.findFragmentById(containerViewId)
+        if(fragment != null){
+            supportFragmentManager
+                    .beginTransaction()
+                    .remove(fragment)
+                    .commit()
+        }
+    }
+
+
 }

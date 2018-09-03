@@ -6,13 +6,10 @@ import com.ocrv.ekasui.mrm.ui.loadRefresh.PartialChange
 import io.forus.me.android.domain.models.wallets.Transaction
 import io.forus.me.android.domain.models.wallets.Wallet
 import io.forus.me.android.domain.repository.wallets.WalletsRepository
-import io.forus.me.android.presentation.helpers.QrCodeGenerator
-
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.BiFunction
-import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 
 class WalletDetailsPresenter constructor(private val walletId: Long, private val walletsRepository: WalletsRepository) : LRPresenter<WalletDetailsModel, WalletDetailsModel, WalletDetailsView>() {
@@ -38,24 +35,26 @@ class WalletDetailsPresenter constructor(private val walletId: Long, private val
 
     override fun bindIntents() {
 
-        var observable = Observable.merge(
+        val observable = loadRefreshPartialChanges()
 
-                loadRefreshPartialChanges(),
-                intent { loadQrCode() }
-                        .switchMap {
-                            QrCodeGenerator.getRecordQrCode(it, 300, 300)
-                                    .toObservable()
-                                    .subscribeOn(Schedulers.computation())
-                                    .observeOn(AndroidSchedulers.mainThread())
-                                    .map<PartialChange>{
-                                        WalletDetailsPartialChanges.CreateQrCodeEnd(it)
-                                    }
-                                    .onErrorReturn {
-                                        WalletDetailsPartialChanges.CreateQrCodeEnd(null)
-                                    }
-                                    .startWith(WalletDetailsPartialChanges.CreateQrCodeStart(it))
-                        }
-        )
+//        var observable = Observable.merge(
+//
+//                loadRefreshPartialChanges(),
+//                intent { loadQrCode() }
+//                        .switchMap {
+//                            QrCodeGenerator.getRecordQrCode(it, 300, 300)
+//                                    .toObservable()
+//                                    .subscribeOn(Schedulers.computation())
+//                                    .observeOn(AndroidSchedulers.mainThread())
+//                                    .map<PartialChange>{
+//                                        WalletDetailsPartialChanges.CreateQrCodeEnd(it)
+//                                    }
+//                                    .onErrorReturn {
+//                                        WalletDetailsPartialChanges.CreateQrCodeEnd(null)
+//                                    }
+//                                    .startWith(WalletDetailsPartialChanges.CreateQrCodeStart(it))
+//                        }
+//        )
 
 
         val initialViewState = LRViewState(

@@ -7,6 +7,6 @@ import com.ocrv.ekasui.mrm.ui.loadRefresh.LRView
  */
 
 
-interface AssignDelegatesView : LRView<AssignDelegatesModel> {
+interface AssignDelegatesView : LRView<Unit> {
 
 }

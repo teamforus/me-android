@@ -8,22 +8,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.jakewharton.rxbinding2.widget.RxTextView
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRFragment
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LoadRefreshPanel
 import io.forus.me.android.domain.exception.RetrofitException
 import io.forus.me.android.domain.exception.RetrofitExceptionMapper
 import io.forus.me.android.domain.models.records.RecordCategory
 import io.forus.me.android.domain.models.records.RecordType
-import io.forus.me.android.domain.models.records.Validator
+import io.forus.me.android.domain.models.validators.SimpleValidator
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.internal.Injection
+import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.forus.me.android.presentation.view.screens.records.newrecord.NewRecordView.Companion.NUM_PAGES
 import io.forus.me.android.presentation.view.screens.records.newrecord.adapters.NewRecordViewPagerAdapter
 import io.forus.me.android.presentation.view.screens.records.newrecord.adapters.RecordCategoriesAdapter
 import io.forus.me.android.presentation.view.screens.records.newrecord.adapters.RecordTypesAdapter
 import io.forus.me.android.presentation.view.screens.records.newrecord.adapters.RecordValidatorAdapter
 import io.forus.me.android.presentation.view.screens.records.newrecord.viewholders.SelectedCategoryVH
+import io.forus.me.android.presentation.view.screens.records.newrecord.viewholders.SelectedTextVH
 import io.forus.me.android.presentation.view.screens.records.newrecord.viewholders.SelectedTypeVH
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
@@ -38,7 +39,7 @@ import java.lang.Exception
 /**
  * Fragment New Record Screen.
  */
-class NewRecordFragment : LRFragment<NewRecordModel, NewRecordView, NewRecordPresenter>(), NewRecordView  {
+class NewRecordFragment : ToolbarLRFragment<NewRecordModel, NewRecordView, NewRecordPresenter>(), NewRecordView  {
 
     companion object {
 
@@ -57,11 +58,17 @@ class NewRecordFragment : LRFragment<NewRecordModel, NewRecordView, NewRecordPre
     private lateinit var selectedCategoryVH: SelectedCategoryVH
     private lateinit var selectedCategoryVH2: SelectedCategoryVH
     private lateinit var selectedCategoryVH3: SelectedCategoryVH
-    private lateinit var selectedTypeVH: SelectedTypeVH
+    private lateinit var selectedTypeVH2: SelectedTypeVH
     private lateinit var selectedTypeVH3: SelectedTypeVH
+    private lateinit var selectedTextVH3: SelectedTextVH
 
     private var retrofitExceptionMapper: RetrofitExceptionMapper = Injection.instance.retrofitExceptionMapper
 
+    override val toolbarTitle: String
+        get() = getString(R.string.title_choose_category)
+
+    override val allowBack: Boolean
+        get() = true
 
     override fun viewForSnackbar(): View = root
 
@@ -76,7 +83,7 @@ class NewRecordFragment : LRFragment<NewRecordModel, NewRecordView, NewRecordPre
     }
 
     override fun onBackPressed(): Boolean {
-        if (main_view_pager.currentItem > 0){
+        if (main_view_pager.currentItem > 1){
             previousStep.onNext(true)
             return false
         }
@@ -95,9 +102,8 @@ class NewRecordFragment : LRFragment<NewRecordModel, NewRecordView, NewRecordPre
     private val selectRecordCategory = PublishSubject.create<RecordCategory>()
     override fun selectCategory(): Observable<RecordCategory> = selectRecordCategory
 
-
-    private val selectValidator = PublishSubject.create<Validator>()
-    override fun selectValidator(): Observable<Validator> = selectValidator
+    private val selectValidator = PublishSubject.create<SimpleValidator>()
+    override fun selectValidator(): Observable<SimpleValidator> = selectValidator
 
     private val selectRecordType = PublishSubject.create<RecordType>()
     override fun selectType() = selectRecordType
@@ -121,11 +127,12 @@ class NewRecordFragment : LRFragment<NewRecordModel, NewRecordView, NewRecordPre
             selectRecordType.onNext(it)
         }
 
-        selectedCategoryVH = SelectedCategoryVH(mRootView.findViewById(R.id.hat_item_category))
+        selectedCategoryVH = SelectedCategoryVH(mRootView.findViewById(R.id.hat_item_category_1))
         selectedCategoryVH2 = SelectedCategoryVH(mRootView.findViewById(R.id.hat_item_category_2))
         selectedCategoryVH3 = SelectedCategoryVH(mRootView.findViewById(R.id.hat_item_category_3))
-        selectedTypeVH = SelectedTypeVH(mRootView.findViewById(R.id.hat_item_type))
+        selectedTypeVH2 = SelectedTypeVH(mRootView.findViewById(R.id.hat_item_type_2))
         selectedTypeVH3 = SelectedTypeVH(mRootView.findViewById(R.id.hat_item_type_3))
+        selectedTextVH3 = SelectedTextVH(mRootView.findViewById(R.id.hat_item_value_3))
 
         return mRootView
     }
@@ -143,7 +150,7 @@ class NewRecordFragment : LRFragment<NewRecordModel, NewRecordView, NewRecordPre
             override fun onPageScrollStateChanged(state: Int) {}
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
             override fun onPageSelected(position: Int) {
-                (activity as NewRecordActivity).changeToolbarTitle(position)
+                changeToolbarTitle(position)
             }
         })
 
@@ -157,15 +164,11 @@ class NewRecordFragment : LRFragment<NewRecordModel, NewRecordView, NewRecordPre
 
         recycler_validators.layoutManager = LinearLayoutManager(context)
         recycler_validators.adapter = recordValidatorAdapter
-
-        btn_next.setOnClickListener {
-            if (main_view_pager.currentItem < NUM_PAGES - 1) nextStep.onNext(true) else submit.onNext(true)
-        }
     }
 
     override fun createPresenter() = NewRecordPresenter(
             Injection.instance.recordsRepository,
-            Injection.instance.validationRepository
+            Injection.instance.validatorsRepository
     )
 
 
@@ -182,17 +185,20 @@ class NewRecordFragment : LRFragment<NewRecordModel, NewRecordView, NewRecordPre
             closeScreen()
         }
 
+        indicator.getChildAt(NUM_PAGES - 1)?.visibility = if(vs.model.validators.isEmpty()) View.INVISIBLE else View.VISIBLE
         main_view_pager.currentItem = vs.model.currentStep
-        renderButton(vs.model.currentStep, vs.model.buttonIsActive)
+        renderButton(vs.model.isFinalStep, vs.model.buttonIsActive)
+
         when(vs.model.currentStep){
-            1 -> if(vs.model.item.category != null) selectedCategoryVH2.render(vs.model.item.category!!)
+            1 -> if(vs.model.item.category != null) selectedCategoryVH.render(vs.model.item.category!!)
             2 -> {
-                if(vs.model.item.category != null) selectedCategoryVH.render(vs.model.item.category!!)
-                if(vs.model.item.recordType != null) selectedTypeVH.render(vs.model.item.recordType!!)
+                if(vs.model.item.category != null) selectedCategoryVH2.render(vs.model.item.category!!)
+                if(vs.model.item.recordType != null) selectedTypeVH2.render(vs.model.item.recordType!!)
             }
             3 -> {
                 if(vs.model.item.category != null) selectedCategoryVH3.render(vs.model.item.category!!)
                 if(vs.model.item.recordType != null) selectedTypeVH3.render(vs.model.item.recordType!!)
+                selectedTextVH3.render(vs.model.item.value)
             }
         }
 
@@ -210,16 +216,32 @@ class NewRecordFragment : LRFragment<NewRecordModel, NewRecordView, NewRecordPre
     }
 
     private fun closeScreen() {
-        navigator.navigateToDashboard(activity, false)
+        //navigator.navigateToDashboard(activity, false)
         activity?.finish()
     }
 
-    private fun renderButton(currentStep: Int, buttonIsActive: Boolean){
-        btn_next.text = resources.getString(if (currentStep < NUM_PAGES - 1) R.string.next_step else R.string.submit)
+    private fun renderButton(isFinalStep: Boolean, buttonIsActive: Boolean){
+        btn_next.text = resources.getString(if (!isFinalStep) R.string.next_step else R.string.submit)
         btn_next.active = buttonIsActive
+
+        btn_next.setOnClickListener {
+            if (!isFinalStep) nextStep.onNext(true) else submit.onNext(true)
+        }
     }
 
     private fun showError(text: String){
         showToastMessage(text)
+    }
+
+    private fun changeToolbarTitle(position: Int){
+        val title =
+                when (position) {
+                    0 -> getString(R.string.title_choose_category)
+                    1 -> getString(R.string.title_choose_type)
+                    2 -> getString(R.string.title_choose_text)
+                    3 -> getString(R.string.title_choose_validators)
+                    else -> getString(R.string.title_new_record)
+                }
+        setToolbarTitle(title)
     }
 }

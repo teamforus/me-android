@@ -31,10 +31,16 @@ interface RecordsDataSource {
     fun sortRecordCategories(sortCategories: SortCategories) : Observable<Success>
 
 
+    fun getRecords(categoryId: Long): Observable<List<Record>>
+
+
+    fun getRecords(): Observable<List<Record>>
+
+
     fun getRecords(type: String): Observable<List<Record>>
 
 
-    fun createRecord(createRecord: CreateRecord): Observable<Success>
+    fun createRecord(createRecord: CreateRecord): Observable<Record>
 
 
     fun retrieveRecord(id: Long) : Observable<Record>

@@ -13,23 +13,12 @@ class VouchersPresenter constructor(val vouchersRepository: VouchersRepository) 
 
 
     override fun initialModelSingle(): Single<List<Voucher>> = Single.fromObservable(vouchersRepository.getVouchers())
-            //.delay(1, TimeUnit.SECONDS)
-            .map {
-                it
-            }
-
 
     override fun VouchersModel.changeInitialModel(i: List<Voucher>): VouchersModel = copy(items = i)
 
 
     override fun bindIntents() {
-
-//        var observable = Observable.merge(
-//
-//                loadRefreshPartialChanges()
-//        );
-
-        var observable = loadRefreshPartialChanges();
+        val observable = loadRefreshPartialChanges();
 
 
         val initialViewState = LRViewState(
@@ -46,9 +35,6 @@ class VouchersPresenter constructor(val vouchersRepository: VouchersRepository) 
                         .observeOn(AndroidSchedulers.mainThread()),
                 VouchersView::render)
 
-//        val observable = loadRefreshPartialChanges()
-//        val initialViewState = LRViewState(false, null, false, false, null, MapModel("", "" ))
-//        subscribeViewState(observable.scan(initialViewState, this::stateReducer).observeOn(AndroidSchedulers.mainThread()),MapView::render)
     }
 
     override fun stateReducer(viewState: LRViewState<VouchersModel>, change: PartialChange): LRViewState<VouchersModel> {

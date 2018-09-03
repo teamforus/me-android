@@ -7,18 +7,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <io.forus.me.android.presentation.view.component.viewpager.NonSwipeableViewPager
-        android:id="@+id/main_view_pager"
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="60dp">
 
-        <include android:id="@+id/page_one" layout="@layout/view_new_record_select_category" />
-        <include android:id="@+id/page_two" layout="@layout/view_new_record_select_type" />
-        <include android:id="@+id/page_tree" layout="@layout/view_new_record_select_value" />
-        <include android:id="@+id/page_four" layout="@layout/view_new_record_select_validator" />
+        <include layout="@layout/toolbar_view"/>
+
+        <io.forus.me.android.presentation.view.component.viewpager.NonSwipeableViewPager
+            android:id="@+id/main_view_pager"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include android:id="@+id/page_one" layout="@layout/view_new_record_select_category" />
+            <include android:id="@+id/page_two" layout="@layout/view_new_record_select_type" />
+            <include android:id="@+id/page_tree" layout="@layout/view_new_record_select_value" />
+            <include android:id="@+id/page_four" layout="@layout/view_new_record_select_validator" />
 
     </io.forus.me.android.presentation.view.component.viewpager.NonSwipeableViewPager>
+
+    </android.support.design.widget.CoordinatorLayout>
 
     <RelativeLayout
         android:background="@color/seashell"

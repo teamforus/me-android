@@ -10,27 +10,19 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 
 
-class RecordCategoriesPresenter constructor(val recordsRepository: RecordsRepository) : LRPresenter<List<RecordCategory>, RecordCategoriesModel, RecordCategoriesView>() {
+class RecordCategoriesPresenter constructor(val recordsRepository: RecordsRepository) : LRPresenter<List<Record>, RecordCategoriesModel, RecordCategoriesView>() {
 
 
-    override fun initialModelSingle(): Single<List<RecordCategory>> = Single.fromObservable(recordsRepository.getCategories())
-            //.delay(1, TimeUnit.SECONDS)
-            .map {
-                it
-            }
+    override fun initialModelSingle(): Single<List<Record>> = Single.fromObservable(
+            //recordsRepository.getCategoriesWithRecordCount()
+            recordsRepository.getRecords()
+    )
 
-
-    override fun RecordCategoriesModel.changeInitialModel(i: List<RecordCategory>): RecordCategoriesModel = copy(items = i)
+    override fun RecordCategoriesModel.changeInitialModel(i: List<Record>): RecordCategoriesModel = copy(items = i)
 
 
     override fun bindIntents() {
-
-//        var observable = Observable.merge(
-//
-//                loadRefreshPartialChanges()
-//        );
-
-        var observable = loadRefreshPartialChanges();
+        val observable = loadRefreshPartialChanges();
 
 
         val initialViewState = LRViewState(
@@ -46,10 +38,6 @@ class RecordCategoriesPresenter constructor(val recordsRepository: RecordsReposi
                 observable.scan(initialViewState, this::stateReducer)
                         .observeOn(AndroidSchedulers.mainThread()),
                 RecordCategoriesView::render)
-
-//        val observable = loadRefreshPartialChanges()
-//        val initialViewState = LRViewState(false, null, false, false, null, MapModel("", "" ))
-//        subscribeViewState(observable.scan(initialViewState, this::stateReducer).observeOn(AndroidSchedulers.mainThread()),MapView::render)
     }
 
     override fun stateReducer(viewState: LRViewState<RecordCategoriesModel>, change: PartialChange): LRViewState<RecordCategoriesModel> {

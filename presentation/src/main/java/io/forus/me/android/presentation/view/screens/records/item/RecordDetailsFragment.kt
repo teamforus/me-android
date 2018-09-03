@@ -6,18 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
-import io.forus.me.android.domain.models.records.Validator
 import io.forus.me.android.presentation.R
-import io.forus.me.android.presentation.interfaces.SlidingToolbarFragmentActionListener
-import io.forus.me.android.presentation.interfaces.SlidingToolbarFragmentListener
 import io.forus.me.android.presentation.internal.Injection
-import io.forus.me.android.presentation.view.adapters.RVListAdapter
-import io.forus.me.android.presentation.view.fragment.BaseFragment
-import io.forus.me.android.presentation.view.fragment.QrFragment
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
+import io.forus.me.android.presentation.view.screens.records.item.validators.ValidatorViewModel
+import io.forus.me.android.presentation.view.screens.records.item.validators.ValidatorsAdapter
+import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_record_detail.*
 
-class RecordDetailsFragment : ToolbarLRFragment<RecordDetailsModel, RecordDetailsView, RecordDetailsPresenter>(), RecordDetailsView, SlidingToolbarFragmentListener {
+class RecordDetailsFragment : ToolbarLRFragment<RecordDetailsModel, RecordDetailsView, RecordDetailsPresenter>(), RecordDetailsView{
 
     companion object {
         private val RECORD_ID_EXTRA = "RECORD_ID_EXTRA";
@@ -29,40 +27,40 @@ class RecordDetailsFragment : ToolbarLRFragment<RecordDetailsModel, RecordDetail
         }
     }
 
+    private var recordId: Long = 0
+    private lateinit var adapter: ValidatorsAdapter
+
+    private val requestValidation = PublishSubject.create<Long>()
+    override fun requestValidation(): Observable<Long> = requestValidation
+
     override val allowBack: Boolean
         get() = true
 
     override val toolbarTitle: String
         get() = getString(R.string.title_record_detail)
 
-    private var recordId: Long = 0
-
-    private lateinit var adapter: RVListAdapter<Validator, ValidatorVH>
-
-    private  var qrFragment: QrFragment =  QrFragment.newIntent()
-    var slidingToolbarFragmentActionListener : SlidingToolbarFragmentActionListener? = null
-
     override fun viewForSnackbar(): View = root
 
     override fun loadRefreshPanel() = lr_panel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val view = inflater.inflate(R.layout.fragment_record_detail, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?)
+        = inflater.inflate(R.layout.fragment_record_detail, container, false).also {
+
         val bundle = this.arguments
         if (bundle != null) {
             recordId = bundle.getLong(RECORD_ID_EXTRA)
         }
 
-        adapter = RVListAdapter(ValidatorVH.create) { item -> showToastMessage(item.name)}
-
-        return view
+        adapter = ValidatorsAdapter { item ->
+            if (item.status == ValidatorViewModel.Status.none && item.id != null) requestValidation.onNext(item.id!!)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         btn_show_qr.setOnClickListener {
-            slidingToolbarFragmentActionListener?.openPanel()
+            (activity as? RecordDetailsActivity)?.showPopupQRFragment(recordId)
         }
 
         recycler.layoutManager = LinearLayoutManager(context)
@@ -72,7 +70,7 @@ class RecordDetailsFragment : ToolbarLRFragment<RecordDetailsModel, RecordDetail
     override fun createPresenter() = RecordDetailsPresenter(
             recordId,
             Injection.instance.recordsRepository,
-            Injection.instance.validationRepository
+            Injection.instance.validatorsRepository
     )
 
     override fun render(vs: LRViewState<RecordDetailsModel>) {
@@ -83,15 +81,8 @@ class RecordDetailsFragment : ToolbarLRFragment<RecordDetailsModel, RecordDetail
         value.text = record?.value
         adapter.items = vs.model.validators
 
-        if (vs.model.uuid != null && vs.model.uuid.isNotEmpty())
-            qrFragment.qrText = vs.model.uuid
-    }
-
-    override fun getSlidingFragment(): BaseFragment {
-        return  qrFragment
-    }
-
-    override fun getSlidingPanelTitle(): String {
-        return "QR code"
+        if(vs.model.requestValidationError != null){
+            showToastMessage(resources.getString(R.string.validation_request_error))
+        }
     }
 }

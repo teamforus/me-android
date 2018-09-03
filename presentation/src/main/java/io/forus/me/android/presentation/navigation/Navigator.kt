@@ -4,11 +4,11 @@ import android.content.Context
 import io.forus.me.android.domain.models.records.Record
 import io.forus.me.android.domain.models.records.RecordCategory
 import io.forus.me.android.domain.models.wallets.Wallet
+import io.forus.me.android.presentation.view.screens.account.account.AccountActivity
 import io.forus.me.android.presentation.view.screens.account.assigndelegates.AssignDelegatesAccountActivity
 import io.forus.me.android.presentation.view.screens.account.newaccount.NewAccountActivity
-import io.forus.me.android.presentation.view.screens.account.pin.RestoreByPinActivity
 import io.forus.me.android.presentation.view.screens.account.newaccount.pin.NewPinActivity
-import io.forus.me.android.presentation.view.screens.account.restoreByEmail.RestoreByEmailActivity
+import io.forus.me.android.presentation.view.screens.account.assigndelegates.email.RestoreByEmailActivity
 import io.forus.me.android.presentation.view.screens.dashboard.DashboardActivity
 import io.forus.me.android.presentation.view.screens.pinlock.PinLockActivity
 import io.forus.me.android.presentation.view.screens.qr.QrScannerActivity
@@ -16,6 +16,7 @@ import io.forus.me.android.presentation.view.screens.records.item.RecordDetailsA
 import io.forus.me.android.presentation.view.screens.records.list.RecordsActivity
 import io.forus.me.android.presentation.view.screens.records.newrecord.NewRecordActivity
 import io.forus.me.android.presentation.view.screens.vouchers.item.VoucherActivity
+import io.forus.me.android.presentation.view.screens.vouchers.provider.ProviderActivity
 import io.forus.me.android.presentation.view.screens.wallets.item.WalletDetailsActivity
 import io.forus.me.android.presentation.view.screens.welcome.WelcomeActivity
 import javax.inject.Inject
@@ -85,13 +86,6 @@ constructor()//empty
         }
     }
 
-    fun navigateToAccountRestoreByPin(context: Context?) {
-        if (context != null) {
-            val intentToLaunch = RestoreByPinActivity.getCallingIntent(context)
-            context.startActivity(intentToLaunch)
-        }
-    }
-
     fun navigateToWallet(context: Context?, wallet: Wallet) {
         if (context != null) {
             val intentToLaunch = WalletDetailsActivity.getCallingIntent(context, wallet)
@@ -102,6 +96,13 @@ constructor()//empty
     fun navigateToVoucher(context: Context?, id: String) {
         if (context != null) {
             val intentToLaunch = VoucherActivity.getCallingIntent(context, id)
+            context.startActivity(intentToLaunch)
+        }
+    }
+
+    fun navigateToAccount(context: Context?) {
+        if (context != null) {
+            val intentToLaunch = AccountActivity.getCallingIntent(context)
             context.startActivity(intentToLaunch)
         }
     }
@@ -123,6 +124,13 @@ constructor()//empty
     fun navigateToRecordDetails(context: Context?, record: Record) {
         if (context != null) {
             val intentToLaunch = RecordDetailsActivity.getCallingIntent(context, record)
+            context.startActivity(intentToLaunch)
+        }
+    }
+
+    fun navigateToVoucherProvider(context: Context?, voucherAddress: String) {
+        if (context != null) {
+            val intentToLaunch = ProviderActivity.getCallingIntent(context, voucherAddress)
             context.startActivity(intentToLaunch)
         }
     }

@@ -46,10 +46,10 @@ interface RecordsService {
     // Records
 
     @GET("api/v1/identity/records")
-    fun listAllRecords(@Query("type") type: String) : Observable<List<Record>>
+    fun listAllRecords(@Query("type") type: String?, @Query("record_category_id") categoryId: Long?) : Observable<List<Record>>
 
     @POST("api/v1/identity/records")
-    fun createRecord(@Query("type") type: String, @Body createRecord: CreateRecord) : Observable<Success>
+    fun createRecord(@Query("type") type: String, @Body createRecord: CreateRecord) : Observable<Record>
 
     @GET("api/v1/identity/records/{id}")
     fun retrieveRecord(@Path("id") id: Long) : Observable<Record>
@@ -67,14 +67,14 @@ interface RecordsService {
     // Validations
 
     @POST("api/v1/identity/record-validations")
-    fun createValidationToken(@Body record_id: Long) : Observable<ValidationToken>
+    fun createValidationToken(@Body createValidationToken: CreateValidationToken) : Observable<ValidationToken>
 
     @GET("api/v1/identity/record-validations/{uuid}")
     fun readValidation(@Path("uuid") uuid: String) : Observable<Validation>
 
-    @GET("api/v1/identity/record-validations/{uuid}/approve")
+    @PATCH("api/v1/identity/record-validations/{uuid}/approve")
     fun approveValidation(@Path("uuid") uuid: String) : Observable<Success>
 
-    @GET("api/v1/identity/record-validations/{uuid}/decline")
+    @PATCH("api/v1/identity/record-validations/{uuid}/decline")
     fun declineValidation(@Path("uuid") uuid: String) : Observable<Success>
 }

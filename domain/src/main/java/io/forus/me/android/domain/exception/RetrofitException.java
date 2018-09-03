@@ -43,4 +43,6 @@ public abstract class RetrofitException extends RuntimeException{
      * @throws IOException if unable to convert the body to the specified {@code type}.
      */
     abstract public <T> T getErrorBodyAs(Class<T> type) throws IOException;
+
+    abstract public int getResponseCode();
 }

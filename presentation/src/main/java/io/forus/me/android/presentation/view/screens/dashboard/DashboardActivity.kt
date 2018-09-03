@@ -3,6 +3,7 @@ package io.forus.me.android.presentation.view.screens.dashboard
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.view.Menu
 import android.view.MenuItem
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
@@ -13,6 +14,7 @@ import io.forus.me.android.presentation.view.adapters.MainViewPagerAdapter
 import io.forus.me.android.presentation.view.fragment.BaseFragment
 import io.forus.me.android.presentation.view.screens.property.PropertyFragment
 import io.forus.me.android.presentation.view.screens.records.categories.RecordCategoriesFragment
+import io.forus.me.android.presentation.view.screens.vouchers.list.VouchersFragment
 import kotlinx.android.synthetic.main.dashboard_activity.*
 
 
@@ -64,12 +66,13 @@ class DashboardActivity : CommonActivity() {
 
         if (adapter == null) {
 
-            val fragments = ArrayList<android.support.v4.app.Fragment>();
+            val fragments = ArrayList<android.support.v4.app.Fragment?>();
             val titles = ArrayList<String>();
 
-            fragments.add(PropertyFragment.newIntent())
+            //fragments.add(PropertyFragment.newIntent())
+            fragments.add(VouchersFragment.newIntent())
             titles.add("")
-            fragments.add(PropertyFragment.newIntent())
+            fragments.add(Fragment())
             titles.add("")
             fragments.add(RecordCategoriesFragment.newIntent())
             titles.add("")
@@ -77,7 +80,7 @@ class DashboardActivity : CommonActivity() {
             adapter = MainViewPagerAdapter(supportFragmentManager, applicationContext, fragments, titles)
             view_pager.adapter = adapter
 
-            view_pager.offscreenPageLimit = 5;
+            view_pager.offscreenPageLimit = 3;
             selectTab(currentPagerPosition, 0)
         }
 

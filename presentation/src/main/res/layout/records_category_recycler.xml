@@ -1,46 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout android:id="@+id/root"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
 
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="60dp">
 
-        <include layout="@layout/toolbar_view"/>
+            <include layout="@layout/toolbar_view"/>
 
-        <LinearLayout
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            <com.ocrv.ekasui.mrm.ui.loadRefresh.LRPanelImpl
+                android:id="@+id/lr_panel"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-                <LinearLayout
-                    android:background="#ffffff"
-                    android:paddingBottom="@dimen/activity_horizontal_margin"
-                    android:layout_width="match_parent"
-                    android:gravity="center_horizontal"
-                    android:layout_height="wrap_content">
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
 
-                        <io.forus.me.android.presentation.view.component.buttons.Button
-                            android:id="@+id/btn_new_record"
-                            app:textSize="14.0"
-                            android:text="@string/add_record"
-                            android:layout_marginTop="6dp"
-                            android:layout_width="134dp"
-                            android:layout_height="36dp" />
+            </com.ocrv.ekasui.mrm.ui.loadRefresh.LRPanelImpl>
 
-                </LinearLayout>
+    </android.support.design.widget.CoordinatorLayout>
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/btn_new_record"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="70dp"
+        android:layout_marginEnd="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:height="100dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_baseline_add_circle_outline"
+        android:tint="@color/brightBackground"
+        app:fabSize="normal" />
 
-                <android.support.v7.widget.RecyclerView
-                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                    android:id="@+id/recycler"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-
-        </LinearLayout>
-
-
-
-</android.support.design.widget.CoordinatorLayout>
+</RelativeLayout>

@@ -64,4 +64,8 @@ public class RetrofitException extends io.forus.me.android.domain.exception.Retr
         Converter<ResponseBody, T> converter = retrofit.responseBodyConverter(type, new Annotation[0]);
         return converter.convert(response.errorBody());
     }
+
+    public int getResponseCode() {
+        return response != null ? response.code() : -1;
+    }
 }
