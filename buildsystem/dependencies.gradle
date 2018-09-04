@@ -53,6 +53,7 @@ ext {
   leakCanaryVersion = '1.3.1'
   qrReaderVersion='2.0.3@aar'
   animoVersion='1.1.8'
+  fabric='2.9.5@aar'
 
 
   presentationDependencies = [
@@ -86,6 +87,8 @@ ext {
       circleIndicator:    "me.relex:circleindicator:$rootProject.circleIndicatorVersion",
       qrReader:           "com.dlazaro66.qrcodereaderview:qrcodereaderview:${rootProject.qrReaderVersion}",
       materialDialogs:    "com.afollestad.material-dialogs:core:${rootProject.materialDialogs}",
+      fabric:             "com.crashlytics.sdk.android:crashlytics:${rootProject.fabric}"
+
   ]
 
   presentationTestDependencies = [

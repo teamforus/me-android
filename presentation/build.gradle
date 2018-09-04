@@ -4,6 +4,7 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'org.greenrobot.greendao'
+apply plugin: 'io.fabric'
 
 android {
 
@@ -113,6 +114,9 @@ dependencies {
   implementation presentationDependencies.circleIndicator
   implementation presentationDependencies.materialDialogs
 
+  implementation ('com.crashlytics.sdk.android:crashlytics:2.9.5@aar') {
+    transitive = true;
+  }
 
   compileOnly presentationDependencies.javaxAnnotation
 

@@ -6,6 +6,10 @@ import android.os.StrictMode
 import android.support.multidex.MultiDex
 import io.forus.me.android.data.net.MeServiceFactory
 import io.forus.me.android.presentation.internal.Injection
+import com.crashlytics.android.Crashlytics
+import io.fabric.sdk.android.Fabric
+
+
 
 
 //import com.squareup.leakcanary.LeakCanary
@@ -22,11 +26,15 @@ class AndroidApplication : Application() {
         this.initializeInjector()
         this.initializeLeakDetection()
         this.initRetrofit()
+        this.initFabric()
 
         this.me = this
 
     }
 
+    private fun initFabric() {
+        Fabric.with(this, Crashlytics())
+    }
     private fun initRetrofit() {
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
