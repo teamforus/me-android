@@ -13,7 +13,7 @@ cache:
   - .gradle/
 
 distribution:
-  stage: telegram
+  stage: distribution
   only:
   - development
   script:
