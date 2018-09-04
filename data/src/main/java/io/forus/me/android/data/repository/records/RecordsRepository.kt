@@ -137,4 +137,8 @@ class RecordsRepository(private val recordsRemoteDataSource: RecordsDataSource) 
     override fun approveValidation(uuid: String): Observable<Boolean> {
         return recordsRemoteDataSource.approveValidation(uuid).map { true }
     }
+
+    override fun declineValidation(uuid: String): Observable<Boolean> {
+        return recordsRemoteDataSource.declineValidation(uuid).map { true }
+    }
 }

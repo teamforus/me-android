@@ -111,6 +111,7 @@ dependencies {
   implementation presentationDependencies.slidingUpPanel
   implementation presentationDependencies.glide
   implementation presentationDependencies.circleIndicator
+  implementation presentationDependencies.materialDialogs
 
 
   compileOnly presentationDependencies.javaxAnnotation

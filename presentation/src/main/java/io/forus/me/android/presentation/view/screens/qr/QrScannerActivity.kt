@@ -1,36 +1,28 @@
 package io.forus.me.android.presentation.view.screens.qr
 
 import android.Manifest
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.PointF
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.ActivityCompat
+import android.support.v4.app.FragmentActivity
+import android.widget.CheckBox
 import android.widget.TextView
 import android.widget.Toast
-
 import com.dlazaro66.qrcodereaderview.QRCodeReaderView
-
 import io.forus.me.android.presentation.R
-import kotlinx.android.synthetic.main.activity_decoder.*
-import android.widget.CompoundButton
-import android.widget.CheckBox
-import android.support.design.widget.Snackbar
-import android.support.v4.view.accessibility.AccessibilityEventCompat.setAction
-import android.view.View
-import android.view.ViewGroup
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.navigation.Navigator
+import io.forus.me.android.presentation.qr.QrDecoderResult
 import io.forus.me.android.presentation.view.component.qr.PointsOverlayView
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
-import java.util.*
+import kotlinx.android.synthetic.main.activity_decoder.*
+import java.util.concurrent.atomic.AtomicBoolean
 
 
-class QrScannerActivity : Activity(), QRCodeReaderView.OnQRCodeReadListener {
+class QrScannerActivity : FragmentActivity(), QRCodeReaderView.OnQRCodeReadListener {
 
 
     private val MY_PERMISSION_REQUEST_CAMERA = 0
@@ -41,13 +33,12 @@ class QrScannerActivity : Activity(), QRCodeReaderView.OnQRCodeReadListener {
     private var flashlightCheckBox: CheckBox? = null
     private var enableDecodingCheckBox: CheckBox? = null
     private var pointsOverlayView: PointsOverlayView? = null
-    private var qrDecoder: QrDecoder = Injection.instance.qrDecoder
 
-    private var decodingInProgress: Boolean = false
-        set(value) {
-            field = value
-            qrCodeReaderView?.setQRDecodingEnabled(!value)
-        }
+    private var qrDecoder = Injection.instance.qrDecoder
+    private var qrActionProcessor = QrActionProcessor(this, Injection.instance.recordsRepository, Injection.instance.accountRepository, Injection.instance.vouchersRepository)
+
+    private var decodingInProgress = AtomicBoolean()
+    var reactivateDecoding = { decodingInProgress.set(false); qrCodeReaderView?.setQRDecodingEnabled(true); Unit }
 
     companion object {
         fun getCallingIntent(context: Context): Intent {
@@ -103,41 +94,68 @@ class QrScannerActivity : Activity(), QRCodeReaderView.OnQRCodeReadListener {
     // "points" : points where QR control points are placed
     override fun onQRCodeRead(text: String, points: Array<PointF>) {
 
-        var decodingOperation: Single<Unit>? = null
+        if(decodingInProgress.compareAndSet(false, true)){
 
-        synchronized(decodingInProgress){
-            if(!decodingInProgress){
+            qrCodeReaderView?.setQRDecodingEnabled(false)
+            pointsOverlayView?.setPoints(points)
 
-                //resultTextView?.setText(text)
-                pointsOverlayView?.setPoints(points)
-                decodingInProgress = true
-
-                decodingOperation = qrDecoder.decode(text)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .map{
-                            when(it){
-                                is QrDecoderResult.ValidationApproved -> resultTextView?.text = resources.getString(R.string.qr_validation_approved)
-                                is QrDecoderResult.IdentityRestored -> resultTextView?.text = resources.getString(R.string.qr_identity_restored)
-                                is QrDecoderResult.VoucherScanned -> {
-                                    resultTextView?.text = "Voucher (${it.address})"
-                                    Navigator().navigateToVoucherProvider(this, it.address)
-                                }
-                                is QrDecoderResult.UnknownQr -> resultTextView?.text = resources.getString(R.string.qr_unknown_type)
-                                is QrDecoderResult.UnexpectedError -> showError(resources.getString(R.string.qr_unexpected_error))
-                            }
-                        }
-                        .onErrorReturn {
-                            showError("Error while decoding QR ($it)")
-                        }
-                        .doFinally { decodingInProgress = false }
+            val result = qrDecoder.decode(text)
+            when(result){
+                is QrDecoderResult.ApproveValidation -> qrActionProcessor.approveValidation(result.uuid)
+                is QrDecoderResult.RestoreIdentity -> qrActionProcessor.restoreIdentity(result.token)
+                is QrDecoderResult.ScanVoucher -> qrActionProcessor.scanVoucher(result.address)
+                is QrDecoderResult.UnknownQr -> onResultUnknownQr()
             }
         }
-
-        decodingOperation?.subscribe()
     }
 
-    private fun showError(message: String){
+    fun onResultValidationApproved(){
+        showToastMessage(resources.getString(R.string.qr_validation_approved))
+        reactivateDecoding.invoke()
+    }
+
+    fun onResultValidationDeclined(){
+        showToastMessage(resources.getString(R.string.qr_validation_declined))
+        reactivateDecoding.invoke()
+    }
+
+    fun onResultValidationAlreadyDone(){
+        showToastMessage(resources.getString(R.string.qr_validation_already_done))
+        reactivateDecoding.invoke()
+    }
+
+    fun onResultIdentityRestored(){
+        showToastMessage(resources.getString(R.string.qr_identity_restored))
+        reactivateDecoding.invoke()
+    }
+
+    fun onResultTokenExpired(){
+        showToastMessage(resources.getString(R.string.qr_identity_expired))
+        reactivateDecoding.invoke()
+    }
+
+    fun onResultVoucherScanned(address: String){
+        showToastMessage(resources.getString(R.string.qr_voucher_scanned))
+        reactivateDecoding.invoke()
+        Navigator().navigateToVoucherProvider(this, address)
+    }
+
+    fun onResultVoucherAccessDenied(){
+        showToastMessage(resources.getString(R.string.qr_voucher_access_denied))
+        reactivateDecoding.invoke()
+    }
+
+    fun onResultUnexpectedError(){
+        showToastMessage(resources.getString(R.string.qr_unexpected_error))
+        reactivateDecoding.invoke()
+    }
+
+    private fun onResultUnknownQr(){
+        showToastMessage(resources.getString(R.string.qr_unknown_type))
+        reactivateDecoding.invoke()
+    }
+
+    private fun showToastMessage(message: String){
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 

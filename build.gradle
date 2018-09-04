@@ -26,6 +26,7 @@ allprojects {
     jcenter()
     maven { url "https://jitpack.io" }
     google()
+    maven { url "https://dl.bintray.com/drummer-aidan/maven/" }
   }
   ext {
     androidApplicationId = 'io.forus.me.android.presentation'

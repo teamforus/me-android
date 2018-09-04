@@ -24,7 +24,7 @@ import io.forus.me.android.domain.repository.assets.AssetsRepository
 import io.forus.me.android.domain.repository.vouchers.VouchersRepository
 import io.forus.me.android.domain.repository.wallets.WalletsRepository
 import io.forus.me.android.presentation.DatabaseHelper
-import io.forus.me.android.presentation.view.screens.qr.QrDecoder
+import io.forus.me.android.presentation.qr.QrDecoder
 import io.forus.me.android.presentation.helpers.reactivex.AccessTokenChecker
 
 class Injection private constructor() {
@@ -124,7 +124,7 @@ class Injection private constructor() {
     }
 
     val qrDecoder: QrDecoder by lazy {
-        return@lazy QrDecoder(accountRepository, recordsRepository, vouchersRepository)
+        return@lazy QrDecoder()
     }
 
 }

@@ -85,6 +85,8 @@
     <string name="validators_title_normal">Validators</string>
     <string name="validators_title_p2p">Peer-to-peer validations</string>
     <string name="validators_title_empty">You have no validations yet</string>
+    <string name="validation_approved">Validation approved</string>
+    <string name="validation_declined">Validation declined</string>
 
     <!-- New account screen -->
     <string name="new_account_title">New profiel</string>
@@ -127,9 +129,20 @@
 
     <!-- QR Scanner -->
     <string name="qr_validation_approved">Validation approved</string>
+    <string name="qr_validation_declined">Validation declined</string>
+    <string name="qr_validation_already_done">Already validated</string>
     <string name="qr_identity_restored">Identity restored</string>
+    <string name="qr_identity_expired">Validation token expired</string>
+    <string name="qr_voucher_scanned">Voucher scanned</string>
+    <string name="qr_voucher_access_denied">You are not eligible to scan this voucher</string>
     <string name="qr_unknown_type">Unknown QR</string>
     <string name="qr_unexpected_error">Unexpected error</string>
+    <string name="qr_popup_approve_validation_title">"Record validation"</string>
+    <string name="qr_popup_approve_validation_positive">Approve</string>
+    <string name="qr_popup_approve_validation_negative">Decline"</string>
+    <string name="qr_popup_restore_identity_title">Restore identity</string>
+    <string name="qr_popup_restore_identity_description">Allow access?</string>
+    <string name="qr_popup_restore_identity_positive">OK</string>
 
     <!-- Vouchers -->
     <string name="vouchers">Vouchers</string>

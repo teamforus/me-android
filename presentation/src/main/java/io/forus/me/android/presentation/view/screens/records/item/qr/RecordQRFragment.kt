@@ -8,6 +8,7 @@ import com.ocrv.ekasui.mrm.ui.loadRefresh.LRFragment
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
 import com.ocrv.ekasui.mrm.ui.loadRefresh.LoadRefreshPanel
 import io.forus.me.android.domain.models.qr.QrCode
+import io.forus.me.android.domain.models.records.Validation
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.helpers.reactivex.DisposableHolder
 import io.forus.me.android.presentation.internal.Injection
@@ -85,13 +86,13 @@ class RecordQRFragment : LRFragment<RecordQRModel, RecordQRView, RecordQRPresent
             qrText = vs.model.uuid
         }
 
-        if(vs.closeScreen && vs.model.isRecordValidated == true){
-            closeScreen()
+        if(vs.closeScreen && vs.model.recordValidatedState != null){
+            closeScreen(vs.model.recordValidatedState)
         }
     }
 
-    fun closeScreen() {
-        showToastMessage("Record successfully validated")
+    fun closeScreen(state: Validation.State) {
+        showToastMessage(resources.getString(if(state == Validation.State.approved) R.string.validation_approved else R.string.validation_declined))
         (activity as? RecordDetailsActivity)?.closeQRFragment()
     }
 }

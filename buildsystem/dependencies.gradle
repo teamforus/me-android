@@ -23,6 +23,7 @@ ext {
   androidAnnotationsVersion = '21.0.3'
   arrowVersion = '1.0.0'
   circleIndicatorVersion = '1.2.2@aar'
+  materialDialogs = '0.9.6.0'
 
   //Testing
   robolectricVersion = '3.1.1'
@@ -84,6 +85,7 @@ ext {
 
       circleIndicator:    "me.relex:circleindicator:$rootProject.circleIndicatorVersion",
       qrReader:           "com.dlazaro66.qrcodereaderview:qrcodereaderview:${rootProject.qrReaderVersion}",
+      materialDialogs:    "com.afollestad.material-dialogs:core:${rootProject.materialDialogs}",
   ]
 
   presentationTestDependencies = [
