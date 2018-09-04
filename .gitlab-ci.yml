@@ -1,7 +1,7 @@
 image: jangrewe/gitlab-ci-android
 
 stages:
-- telegram
+- distribution
 
 before_script:
 - export GRADLE_USER_HOME=$(pwd)/.gradle
@@ -12,8 +12,7 @@ cache:
   paths:
   - .gradle/
 
-
-telegram:
+distribution:
   stage: telegram
   only:
   - development
