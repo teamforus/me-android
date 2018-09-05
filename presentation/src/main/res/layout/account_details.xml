@@ -101,6 +101,15 @@
                     android:layout_height="1dp"/>
 
 
+                <com.ocrv.ekasui.mrm.ui.views.card.SettingsSwitchCard
+                    android:id="@+id/enable_pinlock"
+                    app:valuecard_title="Use pinlock"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </com.ocrv.ekasui.mrm.ui.views.card.SettingsSwitchCard>
+
+
                 <com.ocrv.ekasui.mrm.ui.views.card.SettingsCard
                     android:id="@+id/change_digits"
                     app:valuecard_title="Change 4-digit passcode"

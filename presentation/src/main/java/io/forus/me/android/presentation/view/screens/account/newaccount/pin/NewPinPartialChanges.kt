@@ -12,4 +12,6 @@ sealed class NewPinPartialChanges : PartialChange {
 
     data class CreateIdentityError(val void: Unit) : NewPinPartialChanges()
 
+    class SkipPin() : NewPinPartialChanges()
+
 }

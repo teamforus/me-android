@@ -65,12 +65,13 @@ class MainActivity : BaseActivity() {
         this.navigator.navigateToWelcomeScreen(this)
         finish()
     }
+
     /**
-     * Goes to the welcome screen.
+     * Goes to the dashboard screen.
      */
     private fun navigateToDashboard() {
-
-        this.navigator.navigateToDashboard(this, true)
+        val locked = !Injection.instance.databaseHelper.open("")
+        this.navigator.navigateToDashboard(this, locked)
         finish()
     }
 

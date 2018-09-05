@@ -49,6 +49,9 @@ class NewPinFragment : ToolbarLRFragment<NewPinModel, NewPinView, NewPinPresente
     private val pinOnChange = PublishSubject.create<String>()
     override fun pinOnChange(): Observable<String> = pinOnChange
 
+    private val skip = PublishSubject.create<Unit>()
+    override fun skip(): Observable<Unit> = skip
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val view = inflater.inflate(R.layout.account_set_pin_fragment, container, false)
         val bundle = this.arguments
@@ -67,13 +70,17 @@ class NewPinFragment : ToolbarLRFragment<NewPinModel, NewPinView, NewPinPresente
                 if(pin != null) pinOnComplete.onNext(pin)
             }
 
-            override fun onEmpty() {}
+            override fun onEmpty() {
+                pinOnChange.onNext("")
+            }
 
             override fun onPinChange(pinLength: Int, intermediatePin: String?) {
                 if(intermediatePin != null) pinOnChange.onNext(intermediatePin)
             }
 
         })
+
+        btn_skip.setOnClickListener { skip.onNext(Unit) }
     }
 
     override fun createPresenter() = NewPinPresenter(
@@ -87,6 +94,7 @@ class NewPinFragment : ToolbarLRFragment<NewPinModel, NewPinView, NewPinPresente
         progressBar.visibility = if (vs.loading || vs.model.state == NewPinModel.State.CREATING_IDENTITY) View.VISIBLE else View.INVISIBLE
         pin_lock_view.visibility = when (vs.model.state) { NewPinModel.State.CREATING_IDENTITY, NewPinModel.State.CREATING_IDENTITY_ERROR -> View.INVISIBLE else  -> View.VISIBLE}
         indicator_dots.visibility = when (vs.model.state) { NewPinModel.State.CREATING_IDENTITY, NewPinModel.State.CREATING_IDENTITY_ERROR -> View.INVISIBLE else  -> View.VISIBLE}
+        btn_skip.visibility = if(vs.model.skipEnabled) View.VISIBLE else View.INVISIBLE
 
         when(vs.model.state){
             NewPinModel.State.CREATE -> changeHeaders(resources.getString(R.string.title_create_passcode), resources.getString(R.string.subtitle_create_passcode), false)
@@ -101,6 +109,7 @@ class NewPinFragment : ToolbarLRFragment<NewPinModel, NewPinView, NewPinPresente
             NewPinModel.State.PASS_NOT_MATCH -> {
                 pin_lock_view.resetPinLockView()
                 pin_lock_view.setErrorAnimation()
+                pinOnChange.onNext("")
             }
         }
 

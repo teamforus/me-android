@@ -76,6 +76,16 @@
                 android:layout_height="wrap_content" />
         </RelativeLayout>
 
+        <io.forus.me.android.presentation.view.component.buttons.Button
+            android:id="@+id/btn_skip"
+            android:visibility="gone"
+            android:layout_gravity="end"
+            android:text="@string/pinlock_skip"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="15dp"
+            android:layout_width="70dp"
+            android:layout_height="40dp" />
+
     </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

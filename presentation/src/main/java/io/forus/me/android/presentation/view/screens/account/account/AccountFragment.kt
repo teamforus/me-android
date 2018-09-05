@@ -42,6 +42,10 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        enable_pinlock.setOnClickListener{
+            navigator.navigateToChangePin(activity)
+        }
+
         change_digits.setOnClickListener {
             navigator.navigateToChangePin(activity)
         }
@@ -61,6 +65,9 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
 
         name.text = vs.model.account?.name
         email.text = vs.model.account?.email
+
+        enable_pinlock.setChecked(vs.model.pinlockEnabled)
+        change_digits.visibility = if(vs.model.pinlockEnabled) View.VISIBLE else View.GONE
 
         avatar.setImageDrawable(resources.getDrawable(R.drawable.ic_me_logo))
 

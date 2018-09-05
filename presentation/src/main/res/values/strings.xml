@@ -91,6 +91,7 @@
     <string name="subtitle_create_passcode_not_match">Passwordes don\'t match. Please try again</string>
     <string name="subtitle_create_identity">Creating identity</string>
     <string name="subtitle_create_identity_error">Something went wrong :(</string>
+    <string name="pinlock_skip">Skip</string>
 
     <!-- Confirm pinlock screen -->
     <string name="subtitle_pinlock_confirm">Confirm your identity</string>

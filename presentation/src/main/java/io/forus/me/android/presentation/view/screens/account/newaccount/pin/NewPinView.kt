@@ -8,4 +8,6 @@ interface NewPinView : LRView<NewPinModel> {
 
     fun pinOnChange(): io.reactivex.Observable<String>
 
+    fun skip(): io.reactivex.Observable<Unit>
+
 }

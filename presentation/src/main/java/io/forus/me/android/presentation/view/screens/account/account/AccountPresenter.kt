@@ -8,14 +8,19 @@ import io.forus.me.android.domain.repository.account.AccountRepository
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 
 
 class AccountPresenter constructor(private val accountRepository: AccountRepository) : LRPresenter<AccountModel, AccountModel, AccountView>() {
 
 
-    override fun initialModelSingle(): Single<AccountModel> = Single.fromObservable(accountRepository.getAccount())
-            .flatMap {  Single.just(AccountModel(it))  }
+    override fun initialModelSingle(): Single<AccountModel> = Single.zip(
+            Single.fromObservable(accountRepository.getAccount()),
+            Single.fromObservable(accountRepository.checkPin("")),
+            BiFunction { account, pinIsEmpty ->
+                AccountModel(account, !pinIsEmpty)
+            })
 
 
     override fun AccountModel.changeInitialModel(i: AccountModel): AccountModel = i.copy()
