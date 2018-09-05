@@ -40,4 +40,14 @@
 
     <dimen name="spacing_normal">8dp</dimen>
     <dimen name="spacing_micro">4dp</dimen>
+
+    <!--PIN -->
+    <dimen name="pin_default_text_size">34sp</dimen>
+    <dimen name="pin_default_button_size">60dp</dimen>
+    <dimen name="pin_default_delete_button_size">24dp</dimen>
+    <dimen name="pin_default_horizontal_spacing">32dp</dimen>
+    <dimen name="pin_default_vertical_spacing">0dp</dimen>
+    <dimen name="pin_default_dot_diameter">8dp</dimen>
+    <dimen name="pin_default_dot_spacing">8dp</dimen>
+
 </resources>

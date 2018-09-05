@@ -72,7 +72,7 @@ class ProviderPresenter constructor(private val vouchersRepository: VouchersRepo
             is ProviderPartialChanges.MakeTransactionEnd -> vs.copy(closeScreen = true, model = vs.model.copy(sendingMakeTransaction = false, makeTransactionError = null))
             is ProviderPartialChanges.MakeTransactionStart -> vs.copy(model = vs.model.copy(sendingMakeTransaction = true, makeTransactionError = null))
             is ProviderPartialChanges.MakeTransactionError -> vs.copy(model = vs.model.copy(sendingMakeTransaction = false, makeTransactionError = change.error))
-            is ProviderPartialChanges.SetAmount -> vs.copy(model = vs.model.copy(selectedAmount = change.amount))
+            is ProviderPartialChanges.SetAmount -> vs.copy(model = vs.model.copy(selectedAmount = change.amount, makeTransactionError = null))
         }
     }
 }

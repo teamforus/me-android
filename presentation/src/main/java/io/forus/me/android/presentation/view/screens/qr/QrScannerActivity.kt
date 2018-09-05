@@ -15,7 +15,6 @@ import android.widget.Toast
 import com.dlazaro66.qrcodereaderview.QRCodeReaderView
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.internal.Injection
-import io.forus.me.android.presentation.navigation.Navigator
 import io.forus.me.android.presentation.qr.QrDecoderResult
 import io.forus.me.android.presentation.view.component.qr.PointsOverlayView
 import kotlinx.android.synthetic.main.activity_decoder.*
@@ -104,58 +103,12 @@ class QrScannerActivity : FragmentActivity(), QRCodeReaderView.OnQRCodeReadListe
                 is QrDecoderResult.ApproveValidation -> qrActionProcessor.approveValidation(result.uuid)
                 is QrDecoderResult.RestoreIdentity -> qrActionProcessor.restoreIdentity(result.token)
                 is QrDecoderResult.ScanVoucher -> qrActionProcessor.scanVoucher(result.address)
-                is QrDecoderResult.UnknownQr -> onResultUnknownQr()
+                is QrDecoderResult.UnknownQr -> qrActionProcessor.unknownQr()
             }
         }
     }
 
-    fun onResultValidationApproved(){
-        showToastMessage(resources.getString(R.string.qr_validation_approved))
-        reactivateDecoding.invoke()
-    }
-
-    fun onResultValidationDeclined(){
-        showToastMessage(resources.getString(R.string.qr_validation_declined))
-        reactivateDecoding.invoke()
-    }
-
-    fun onResultValidationAlreadyDone(){
-        showToastMessage(resources.getString(R.string.qr_validation_already_done))
-        reactivateDecoding.invoke()
-    }
-
-    fun onResultIdentityRestored(){
-        showToastMessage(resources.getString(R.string.qr_identity_restored))
-        reactivateDecoding.invoke()
-    }
-
-    fun onResultTokenExpired(){
-        showToastMessage(resources.getString(R.string.qr_identity_expired))
-        reactivateDecoding.invoke()
-    }
-
-    fun onResultVoucherScanned(address: String){
-        showToastMessage(resources.getString(R.string.qr_voucher_scanned))
-        reactivateDecoding.invoke()
-        Navigator().navigateToVoucherProvider(this, address)
-    }
-
-    fun onResultVoucherAccessDenied(){
-        showToastMessage(resources.getString(R.string.qr_voucher_access_denied))
-        reactivateDecoding.invoke()
-    }
-
-    fun onResultUnexpectedError(){
-        showToastMessage(resources.getString(R.string.qr_unexpected_error))
-        reactivateDecoding.invoke()
-    }
-
-    private fun onResultUnknownQr(){
-        showToastMessage(resources.getString(R.string.qr_unknown_type))
-        reactivateDecoding.invoke()
-    }
-
-    private fun showToastMessage(message: String){
+    fun showToastMessage(message: String){
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 

@@ -9,19 +9,15 @@ class RestoreIdentityDialog(private val context: Context,
                             private val positiveCallback: () -> Unit,
                             private val cancelListener: () -> Unit){
 
-    private val builder: MaterialDialog.Builder
-
-    init {
-        builder = MaterialDialog.Builder(context)
-                .title(context.resources.getString(R.string.qr_popup_restore_identity_title))
-                .content(context.resources.getString(R.string.qr_popup_restore_identity_description))
-                .positiveText(context.resources.getString(R.string.qr_popup_restore_identity_positive))
-                .onPositive { dialog, which -> positiveCallback.invoke() }
-                .cancelListener { cancelListener.invoke() }
-    }
+    private val dialog: MaterialDialog = MaterialDialog.Builder(context)
+            .title(context.resources.getString(R.string.qr_popup_restore_identity_title))
+            .content(context.resources.getString(R.string.qr_popup_restore_identity_description))
+            .positiveText(context.resources.getString(R.string.qr_popup_restore_identity_positive))
+            .onPositive { dialog, which -> positiveCallback.invoke() }
+            .cancelListener { cancelListener.invoke() }
+            .build()
 
     fun show(){
-        val dialog = builder.build()
         dialog.show()
     }
 }

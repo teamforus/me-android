@@ -80,6 +80,7 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
                     selectAmount.onNext(s.toString().toFloat())
                 }
                 catch(e: Exception){
+                    selectAmount.onNext(Float.NaN)
                     amount.setError(resources.getString(R.string.decimal_validation_error))
                 }
             }
@@ -112,7 +113,7 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
 
         btn_make.active = vs.model.buttonIsActive
 
-        if(vs.model.makeTransactionError != null) showToastMessage(vs.model.makeTransactionError.toString())
+        if(vs.model.makeTransactionError != null) showToastMessage(resources.getString(R.string.vouchers_make_transaction_failure))
 
         if(vs.closeScreen) closeScreen()
     }

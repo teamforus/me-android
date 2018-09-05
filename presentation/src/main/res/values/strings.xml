@@ -49,16 +49,6 @@
         please got to Settings and set a lock screen method.
     </string>
 
-
-    <dimen name="pin_default_text_size">34sp</dimen>
-    <dimen name="pin_default_button_size">60dp</dimen>
-    <dimen name="pin_default_delete_button_size">24dp</dimen>
-    <dimen name="pin_default_horizontal_spacing">32dp</dimen>
-    <dimen name="pin_default_vertical_spacing">0dp</dimen>
-
-    <dimen name="pin_default_dot_diameter">8dp</dimen>
-    <dimen name="pin_default_dot_spacing">8dp</dimen>
-
     <!-- New record screen -->
     <string name="title_new_record">New Record</string>
     <string name="title_choose_category">Choose Category</string>
@@ -134,6 +124,7 @@
     <string name="qr_identity_restored">Identity restored</string>
     <string name="qr_identity_expired">Validation token expired</string>
     <string name="qr_voucher_scanned">Voucher scanned</string>
+    <string name="qr_voucher_not_scanned">Voucher couldn\'t be scanned</string>
     <string name="qr_voucher_access_denied">You are not eligible to scan this voucher</string>
     <string name="qr_unknown_type">Unknown QR</string>
     <string name="qr_unexpected_error">Unexpected error</string>
@@ -151,5 +142,6 @@
     <string name="transactieoverzicht_empty">No transactions yet</string>
     <string name="vouchers_no_items">You have no vouchers yet</string>
     <string name="vouchers_make_transaction">GENEREREN</string>
+    <string name="vouchers_make_transaction_failure">Transaction failed</string>
 
 </resources>
