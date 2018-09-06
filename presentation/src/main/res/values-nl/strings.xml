@@ -57,8 +57,8 @@
     <string name="passcode_subtitle_create_not_match">Wachtwoorden komen niet overeen. Probeer het opnieuw</string>
     <string name="passcode_subtitle_create_identity">Identiteit creëren</string>
     <string name="passcode_subtitle_change_error">Er is iets fout gegaan :(</string>
-    <string name="passcode_create_skip">Skip</string>
-    <string name="passcode_changing">Changing passcode</string>
+    <string name="passcode_create_skip">Overspringen</string>
+    <string name="passcode_changing">Toegangscode wijzigen</string>
 
     <!-- Confirm pinlock screen -->
     <string name="passcode_subtitle_pinlock_confirm">Bevestig je identiteit</string>
@@ -75,10 +75,10 @@
     </string>
 
     <!-- Profile screen -->
-    <string name="profile_app_settings">App settings</string>
-    <string name="profile_use_pinlock">Use pinlock</string>
-    <string name="profile_change_4digit">Change 4-digit passcode</string>
-    <string name="profile_logout">Logout</string>
+    <string name="profile_app_settings">App instellingen</string>
+    <string name="profile_use_pinlock">Gebruik pinlock</string>
+    <string name="profile_change_4digit">4-cijferige toegangscode wijzigen</string>
+    <string name="profile_logout">Uitloggen</string>
 
     <!-- New record screen -->
     <string name="new_record_title">Nieuw record</string>
@@ -91,7 +91,7 @@
     <string name="new_record_choose_the_value_text">Voer de waarde van de record in</string>
     <string name="new_record_value_hint">Text Text Text</string>
     <string name="new_record_choose_validators_text">Selecteer de validators, de uwe de nieuwe record moet verifiëren</string>
-    <string name="new_record_venue_text">Venue</string>
+    <string name="new_record_value_text">Venue</string>
     <string name="new_record_next_step">VOLGENDE STAP</string>
     <string name="new_record_submit">SUBMIT</string>
 
@@ -101,8 +101,8 @@
     <string name="record_details_button_show_qr">Toon QR</string>
     <string name="record_details_scan_deze_qr">Scan deze QR-Code</string>
     <string name="record_details_validation_request_error">Fout tijdens het verzenden van validatieaanvraag</string>
-    <string name="record_details_validation_approved">Validation approved</string>
-    <string name="record_details_validation_declined">Validation declined</string>
+    <string name="record_details_validation_approved">Validatie goedgekeurd</string>
+    <string name="record_details_validation_declined">Validatie geweigerd</string>
 
     <!-- Wallet details screen -->
     <string name="wallet_title_info">Wallet informatie</string>
@@ -114,16 +114,16 @@
     <string name="wallet_transactions_see_all">Alles zien</string>
 
     <!-- QR Scanner -->
-    <string name="qr_on_off_flashlight">On/Off flashlight</string>
-    <string name="qr_on_off_decoding">On/Off QR decoding</string>
+    <string name="qr_on_off_flashlight">On/Off zaklamp</string>
+    <string name="qr_on_off_decoding">On/Off QR decodering</string>
     <string name="qr_validation_approved">Validatie goedgekeurd</string>
-    <string name="qr_validation_declined">Validation declined</string>
-    <string name="qr_validation_already_done">Already validated</string>
+    <string name="qr_validation_declined">Validatie geweigerd</string>
+    <string name="qr_validation_already_done">Al gevalideerd</string>
     <string name="qr_identity_restored">Identiteit hersteld</string>
-    <string name="qr_identity_expired">Validation token expired</string>
-    <string name="qr_voucher_scanned">Voucher scanned</string>
-    <string name="qr_voucher_not_scanned">Voucher couldn\'t be scanned</string>
-    <string name="qr_voucher_access_denied">You are not eligible to scan this voucher</string>
+    <string name="qr_identity_expired">Validatietoken is verlopen</string>
+    <string name="qr_voucher_scanned">Voucher gescand</string>
+    <string name="qr_voucher_not_scanned">Voucher kan niet worden gescand</string>
+    <string name="qr_voucher_access_denied">U komt niet in aanmerking om deze voucher te scannen</string>
     <string name="qr_unknown_type">Onbekende QR</string>
     <string name="qr_unexpected_error">Onverwachte fout</string>
     <string name="qr_popup_approve_validation_title">Record validation</string>
@@ -131,8 +131,8 @@
     <string name="qr_popup_approve_value">value</string>
     <string name="qr_popup_approve_validation_positive">Approve</string>
     <string name="qr_popup_approve_validation_negative">Decline"</string>
-    <string name="qr_popup_restore_identity_title">Restore identity</string>
-    <string name="qr_popup_restore_identity_description">Allow access?</string>
+    <string name="qr_popup_restore_identity_title">Herstel identiteit</string>
+    <string name="qr_popup_restore_identity_description">Toegang te verlenen?</string>
     <string name="qr_popup_restore_identity_positive">OK</string>
 
     <!-- Vouchers -->
@@ -141,7 +141,7 @@
     <string name="vouchers_transactions_empty">Nog geen transacties</string>
     <string name="vouchers_no_items">Je hebt nog geen vouchers</string>
     <string name="vouchers_make_transaction">GENEREREN</string>
-    <string name="vouchers_make_transaction_failure">Transaction failed</string>
-    <string name="vouchers_transaction_payment">Payment</string>
+    <string name="vouchers_make_transaction_failure">transactie mislukt</string>
+    <string name="vouchers_transaction_payment">Betaling</string>
 
 </resources>

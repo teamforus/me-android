@@ -50,7 +50,7 @@
         </LinearLayout>
 
         <io.forus.me.android.presentation.view.component.text.TextView
-            android:text="@string/new_record_venue_text"
+            android:text="@string/new_record_value_text"
             android:textSize="12.1sp"
             android:textColor="@color/body_1_87"
             android:layout_width="match_parent"
