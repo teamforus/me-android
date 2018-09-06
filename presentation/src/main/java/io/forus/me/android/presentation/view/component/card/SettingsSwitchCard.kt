@@ -1,17 +1,12 @@
-package com.ocrv.ekasui.mrm.ui.views.card
+package io.forus.me.android.presentation.view.component.card
 
 import android.content.Context
-import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
-import android.view.LayoutInflater
-import android.view.View
-import android.widget.FrameLayout
 import android.widget.Switch
-import android.widget.TextView
 import io.forus.me.android.presentation.R
 
 
-open class SettingsSwitchCard :  SettingsCard {
+open class SettingsSwitchCard : SettingsCard {
 
     var switcher: Switch? = null
         set(value) {

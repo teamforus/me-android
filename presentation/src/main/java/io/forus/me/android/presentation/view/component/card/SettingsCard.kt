@@ -1,4 +1,4 @@
-package com.ocrv.ekasui.mrm.ui.views.card
+package io.forus.me.android.presentation.view.component.card
 
 import android.content.Context
 import android.util.AttributeSet

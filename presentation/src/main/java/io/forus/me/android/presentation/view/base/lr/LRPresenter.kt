@@ -1,4 +1,4 @@
-package com.ocrv.ekasui.mrm.ui.loadRefresh
+package io.forus.me.android.presentation.view.base.lr
 
 import android.support.annotation.CallSuper
 import android.util.Log

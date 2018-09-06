@@ -10,7 +10,7 @@
 
     <include layout="@layout/toolbar_view"/>
 
-    <com.ocrv.ekasui.mrm.ui.loadRefresh.LRPanelImpl
+    <io.forus.me.android.presentation.view.base.lr.LRPanelImpl
         android:id="@+id/lr_panel"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_width="match_parent"
@@ -101,32 +101,32 @@
                     android:layout_height="1dp"/>
 
 
-                <com.ocrv.ekasui.mrm.ui.views.card.SettingsSwitchCard
+                <io.forus.me.android.presentation.view.component.card.SettingsSwitchCard
                     android:id="@+id/enable_pinlock"
                     app:valuecard_title="Use pinlock"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                </com.ocrv.ekasui.mrm.ui.views.card.SettingsSwitchCard>
+                </io.forus.me.android.presentation.view.component.card.SettingsSwitchCard>
 
 
-                <com.ocrv.ekasui.mrm.ui.views.card.SettingsCard
+                <io.forus.me.android.presentation.view.component.card.SettingsCard
                     android:id="@+id/change_digits"
                     app:valuecard_title="Change 4-digit passcode"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                </com.ocrv.ekasui.mrm.ui.views.card.SettingsCard>
+                </io.forus.me.android.presentation.view.component.card.SettingsCard>
 
 
 
-                <com.ocrv.ekasui.mrm.ui.views.card.SettingsCard
+                <io.forus.me.android.presentation.view.component.card.SettingsCard
                     android:id="@+id/logout_view"
                     app:valuecard_title="Logout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                </com.ocrv.ekasui.mrm.ui.views.card.SettingsCard>
+                </io.forus.me.android.presentation.view.component.card.SettingsCard>
 
 
 
@@ -157,6 +157,6 @@
 
         </android.support.v4.widget.NestedScrollView>
 
-    </com.ocrv.ekasui.mrm.ui.loadRefresh.LRPanelImpl>
+    </io.forus.me.android.presentation.view.base.lr.LRPanelImpl>
 
 </android.support.design.widget.CoordinatorLayout>

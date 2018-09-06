@@ -40,6 +40,6 @@ class RecordDetailsActivity : SlidingPanelActivity() {
 
     fun closeQRFragment(){
         sliding_layout.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
-        fragment.refresh()
+        fragment.updateModel()
     }
 }

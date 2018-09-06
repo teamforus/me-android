@@ -1,8 +1,8 @@
 package io.forus.me.android.presentation.view.screens.records.item.qr
 
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRPresenter
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
-import com.ocrv.ekasui.mrm.ui.loadRefresh.PartialChange
+import io.forus.me.android.presentation.view.base.lr.LRPresenter
+import io.forus.me.android.presentation.view.base.lr.LRViewState
+import io.forus.me.android.presentation.view.base.lr.PartialChange
 import io.forus.me.android.domain.models.records.Validation
 import io.forus.me.android.domain.repository.records.RecordsRepository
 import io.forus.me.android.presentation.helpers.reactivex.DisposableHolder

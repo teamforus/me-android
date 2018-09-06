@@ -1,7 +1,7 @@
 package io.forus.me.android.presentation.view.screens.account.assigndelegates
 
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRPresenter
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
+import io.forus.me.android.presentation.view.base.lr.LRPresenter
+import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 

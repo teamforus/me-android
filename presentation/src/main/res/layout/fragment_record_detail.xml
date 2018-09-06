@@ -15,7 +15,7 @@
 
         <include layout="@layout/toolbar_view"/>
 
-        <com.ocrv.ekasui.mrm.ui.loadRefresh.LRPanelImpl
+        <io.forus.me.android.presentation.view.base.lr.LRPanelImpl
             android:id="@+id/lr_panel"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_width="match_parent"
@@ -67,7 +67,7 @@
 
             </LinearLayout>
 
-        </com.ocrv.ekasui.mrm.ui.loadRefresh.LRPanelImpl>
+        </io.forus.me.android.presentation.view.base.lr.LRPanelImpl>
 
     </android.support.design.widget.CoordinatorLayout>
 

@@ -1,10 +1,9 @@
 package io.forus.me.android.presentation.view.screens.records.categories
 
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRPresenter
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
-import com.ocrv.ekasui.mrm.ui.loadRefresh.PartialChange
+import io.forus.me.android.presentation.view.base.lr.LRPresenter
+import io.forus.me.android.presentation.view.base.lr.LRViewState
+import io.forus.me.android.presentation.view.base.lr.PartialChange
 import io.forus.me.android.domain.models.records.Record
-import io.forus.me.android.domain.models.records.RecordCategory
 import io.forus.me.android.domain.repository.records.RecordsRepository
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers

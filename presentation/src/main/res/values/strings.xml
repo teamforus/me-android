@@ -92,6 +92,7 @@
     <string name="subtitle_create_identity">Creating identity</string>
     <string name="subtitle_create_identity_error">Something went wrong :(</string>
     <string name="pinlock_skip">Skip</string>
+    <string name="changing_passcoce">Changing passcode</string>
 
     <!-- Confirm pinlock screen -->
     <string name="subtitle_pinlock_confirm">Confirm your identity</string>

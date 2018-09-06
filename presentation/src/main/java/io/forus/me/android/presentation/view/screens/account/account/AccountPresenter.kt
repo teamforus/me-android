@@ -1,9 +1,9 @@
 package io.forus.me.android.presentation.view.screens.account.account
 
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRPartialChange
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRPresenter
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
-import com.ocrv.ekasui.mrm.ui.loadRefresh.PartialChange
+import io.forus.me.android.presentation.view.base.lr.LRPartialChange
+import io.forus.me.android.presentation.view.base.lr.LRPresenter
+import io.forus.me.android.presentation.view.base.lr.LRViewState
+import io.forus.me.android.presentation.view.base.lr.PartialChange
 import io.forus.me.android.domain.repository.account.AccountRepository
 import io.reactivex.Observable
 import io.reactivex.Single

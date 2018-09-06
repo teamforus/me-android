@@ -4,20 +4,28 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.internal.Injection
+import io.forus.me.android.presentation.models.ChangePinMode
+import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.account_details.*
+import android.app.Activity
+import android.content.Intent
+
+
+
 
 /**
- * Fragment New User Account Screen.
+ * Fragment User Account Screen.
  */
 class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPresenter>(), AccountView  {
 
-
+    companion object {
+        private const val REQUEST_CHANGE_PIN = 10001
+    }
 
     override val allowBack: Boolean
         get() = true
@@ -42,12 +50,8 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        enable_pinlock.setOnClickListener{
-            navigator.navigateToChangePin(activity)
-        }
-
         change_digits.setOnClickListener {
-            navigator.navigateToChangePin(activity)
+            navigator.navigateToChangePin(this, ChangePinMode.CHANGE_OLD, REQUEST_CHANGE_PIN)
         }
 
         logout_view.setOnClickListener {
@@ -68,6 +72,9 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
 
         enable_pinlock.setChecked(vs.model.pinlockEnabled)
         change_digits.visibility = if(vs.model.pinlockEnabled) View.VISIBLE else View.GONE
+        enable_pinlock.setOnClickListener{
+            navigator.navigateToChangePin(this, if(vs.model.pinlockEnabled) ChangePinMode.REMOVE_OLD else ChangePinMode.SET_NEW, REQUEST_CHANGE_PIN)
+        }
 
         avatar.setImageDrawable(resources.getDrawable(R.drawable.ic_me_logo))
 
@@ -77,5 +84,11 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
 
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CHANGE_PIN && resultCode == Activity.RESULT_OK){
+            updateModel()
+        }
+    }
 }
 

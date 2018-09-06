@@ -1,4 +1,4 @@
-package com.ocrv.ekasui.mrm.ui.loadRefresh
+package io.forus.me.android.presentation.view.base.lr
 
 import android.support.annotation.CallSuper
 import android.support.design.widget.Snackbar
@@ -7,13 +7,9 @@ import com.hannesdorfmann.mosby3.mvi.MviBasePresenter
 import com.hannesdorfmann.mosby3.mvi.MviFragment
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.ViewGroup
 import android.widget.Toast
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.helpers.OnCompleteListener
-import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.navigation.Navigator
 
 

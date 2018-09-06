@@ -1,13 +1,15 @@
 package io.forus.me.android.presentation.view.screens.account.account.pin
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LoadRefreshPanel
+import io.forus.me.android.presentation.view.base.lr.LRViewState
+import io.forus.me.android.presentation.view.base.lr.LoadRefreshPanel
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.internal.Injection
+import io.forus.me.android.presentation.models.ChangePinMode
 import io.forus.me.android.presentation.view.component.pinlock.PinLockListener
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.reactivex.Observable
@@ -17,8 +19,16 @@ import kotlinx.android.synthetic.main.account_set_pin_fragment.*
 class ChangePinFragment : ToolbarLRFragment<ChangePinModel, ChangePinView, ChangePinPresenter>(), ChangePinView {
 
     companion object {
-        fun newIntent(): ChangePinFragment = ChangePinFragment()
+        private val MODE_EXTRA = "MODE_EXTRA";
+
+        fun newIntent(mode: ChangePinMode): ChangePinFragment = ChangePinFragment().also {
+            val bundle = Bundle()
+            bundle.putString(MODE_EXTRA, mode.name)
+            it.arguments = bundle
+        }
     }
+
+    private lateinit var mode: ChangePinMode
 
     override val showAccount: Boolean
         get() = false
@@ -45,7 +55,13 @@ class ChangePinFragment : ToolbarLRFragment<ChangePinModel, ChangePinView, Chang
     override fun pinOnChange(): Observable<String> = pinOnChange
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?)
-        = inflater.inflate(R.layout.account_set_pin_fragment, container, false)
+        = inflater.inflate(R.layout.account_set_pin_fragment, container, false).also {
+
+        val bundle = this.arguments
+        if (bundle != null) {
+            mode = ChangePinMode.valueOf(bundle.getString(MODE_EXTRA))
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -66,6 +82,7 @@ class ChangePinFragment : ToolbarLRFragment<ChangePinModel, ChangePinView, Chang
     }
 
     override fun createPresenter() = ChangePinPresenter(
+            mode,
             Injection.instance.accountRepository
     )
 
@@ -83,7 +100,7 @@ class ChangePinFragment : ToolbarLRFragment<ChangePinModel, ChangePinView, Chang
             ChangePinModel.State.CREATE_NEW_PIN -> changeHeaders(resources.getString(R.string.title_create_passcode), resources.getString(R.string.subtitle_create_passcode), false)
             ChangePinModel.State.CONFIRM_NEW_PIN -> changeHeaders(resources.getString(R.string.title_confirm_passcode), resources.getString(R.string.subtitle_create_passcode), false)
             ChangePinModel.State.PASS_NOT_MATCH -> changeHeaders(resources.getString(R.string.title_create_passcode), resources.getString(R.string.subtitle_create_passcode_not_match), true)
-            ChangePinModel.State.CHANGING_PIN -> changeHeaders(resources.getString(R.string.title_create_identity), resources.getString(R.string.subtitle_create_identity), false)
+            ChangePinModel.State.CHANGING_PIN -> changeHeaders(resources.getString(R.string.title_create_identity), resources.getString(R.string.changing_passcoce), false)
             ChangePinModel.State.CHANGE_PIN_ERROR -> changeHeaders("", resources.getString(R.string.subtitle_create_identity_error), true)
         }
 
@@ -110,6 +127,7 @@ class ChangePinFragment : ToolbarLRFragment<ChangePinModel, ChangePinView, Chang
     }
 
     private fun closeScreen() {
+        activity?.setResult(Activity.RESULT_OK)
         activity?.finish()
     }
 }

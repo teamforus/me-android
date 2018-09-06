@@ -1,9 +1,12 @@
 package io.forus.me.android.presentation.navigation
 
+import android.app.Activity
 import android.content.Context
+import android.support.v4.app.Fragment
 import io.forus.me.android.domain.models.records.Record
 import io.forus.me.android.domain.models.records.RecordCategory
 import io.forus.me.android.domain.models.wallets.Wallet
+import io.forus.me.android.presentation.models.ChangePinMode
 import io.forus.me.android.presentation.view.screens.account.account.AccountActivity
 import io.forus.me.android.presentation.view.screens.account.account.pin.ChangePinActivity
 import io.forus.me.android.presentation.view.screens.account.assigndelegates.AssignDelegatesAccountActivity
@@ -136,10 +139,11 @@ constructor()//empty
         }
     }
 
-    fun navigateToChangePin(context: Context?){
+    fun navigateToChangePin(caller: Fragment, mode: ChangePinMode, requestCode: Int){
+        val context = caller.context
         if(context != null){
-            val intentToLaunch = ChangePinActivity.getCallingIntent(context)
-            context.startActivity(intentToLaunch)
+            val intentToLaunch = ChangePinActivity.getCallingIntent(context, mode)
+            caller.startActivityForResult(intentToLaunch, requestCode)
         }
     }
 }

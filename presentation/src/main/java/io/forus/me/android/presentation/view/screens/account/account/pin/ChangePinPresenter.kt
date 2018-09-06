@@ -1,21 +1,28 @@
 package io.forus.me.android.presentation.view.screens.account.account.pin
 
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRPresenter
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
-import com.ocrv.ekasui.mrm.ui.loadRefresh.PartialChange
+import io.forus.me.android.presentation.view.base.lr.LRPresenter
+import io.forus.me.android.presentation.view.base.lr.LRViewState
+import io.forus.me.android.presentation.view.base.lr.PartialChange
 import io.forus.me.android.domain.models.account.ChangePin
 import io.forus.me.android.domain.repository.account.AccountRepository
+import io.forus.me.android.presentation.models.ChangePinMode
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 
-class ChangePinPresenter constructor(private val accountRepository: AccountRepository) : LRPresenter<Unit, ChangePinModel, ChangePinView>() {
+class ChangePinPresenter constructor(private val mode: ChangePinMode, private val accountRepository: AccountRepository) : LRPresenter<Unit, ChangePinModel, ChangePinView>() {
 
     override fun initialModelSingle(): Single<Unit> = Single.just(Unit)
 
-    override fun ChangePinModel.changeInitialModel(i: Unit): ChangePinModel = copy()
+    override fun ChangePinModel.changeInitialModel(i: Unit): ChangePinModel{
+        val initialState = when(mode){
+            ChangePinMode.SET_NEW -> ChangePinModel.State.CREATE_NEW_PIN
+            ChangePinMode.REMOVE_OLD, ChangePinMode.CHANGE_OLD  -> ChangePinModel.State.CONFIRM_OLD_PIN
+        }
+        return copy(prevState = initialState, state = initialState)
+    }
 
     private val checkPin = PublishSubject.create<String>()
     private fun checkPin(): Observable<String> = checkPin
@@ -96,7 +103,7 @@ class ChangePinPresenter constructor(private val accountRepository: AccountRepos
                     ChangePinModel.State.CREATE_NEW_PIN -> vs.copy(model = vs.model.changeState(ChangePinModel.State.CONFIRM_NEW_PIN, passcodeNew = change.passcode))
                     ChangePinModel.State.CONFIRM_NEW_PIN -> {
                         if(vs.model.passcodeNew.equals(change.passcode) && vs.model.valid){
-                            changePin.onNext(ChangePin(vs.model.passcodeOld!!, vs.model.passcodeNew!!))
+                            changePin.onNext(ChangePin(vs.model.passcodeOld, vs.model.passcodeNew!!))
                             vs.copy(model = vs.model.changeState(ChangePinModel.State.CHANGING_PIN))
                         }
                         else{
@@ -114,7 +121,14 @@ class ChangePinPresenter constructor(private val accountRepository: AccountRepos
                 }
             }
             is ChangePinPartialChanges.CheckPinError -> vs.copy(model = vs.model.changeState(ChangePinModel.State.WRONG_OLD_PIN))
-            is ChangePinPartialChanges.CheckPinSuccess -> vs.copy(model = vs.model.changeState(ChangePinModel.State.CREATE_NEW_PIN))
+            is ChangePinPartialChanges.CheckPinSuccess -> {
+                if(mode == ChangePinMode.REMOVE_OLD) {
+                    changePin.onNext(ChangePin(vs.model.passcodeOld, ""))
+                    vs.copy(model = vs.model.changeState(ChangePinModel.State.CHANGING_PIN))
+                }
+                else vs.copy(model = vs.model.changeState(ChangePinModel.State.CREATE_NEW_PIN))
+            }
+
             is ChangePinPartialChanges.ChangePinError -> vs.copy(model = vs.model.changeState(ChangePinModel.State.CHANGE_PIN_ERROR))
             is ChangePinPartialChanges.ChangePinEnd -> vs.copy(closeScreen = true)
         }

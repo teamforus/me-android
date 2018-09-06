@@ -1,6 +1,6 @@
 package io.forus.me.android.presentation.view.screens.account.newaccount.pin
 
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRView
+import io.forus.me.android.presentation.view.base.lr.LRView
 
 interface NewPinView : LRView<NewPinModel> {
 

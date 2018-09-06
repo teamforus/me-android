@@ -1,6 +1,6 @@
 package io.forus.me.android.presentation.view.screens.pinlock
 
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRView
+import io.forus.me.android.presentation.view.base.lr.LRView
 
 interface PinLockView : LRView<PinLockModel> {
 
