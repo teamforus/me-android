@@ -47,6 +47,7 @@ interface AccountDataSource {
 
     fun logout()
 
-//    fun getAccount(): Observable<Account>
+
+    fun getCurrentToken(): String
 
 }

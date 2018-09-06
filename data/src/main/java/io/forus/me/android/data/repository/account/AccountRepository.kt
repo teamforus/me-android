@@ -3,6 +3,7 @@ package io.forus.me.android.data.repository.account
 import com.gigawatt.android.data.net.sign.models.request.SignUp
 import io.forus.me.android.data.entity.sign.request.SignRecords
 import io.forus.me.android.data.repository.account.datasource.AccountDataSource
+import io.forus.me.android.data.repository.account.datasource.remote.CheckActivationDataSource
 import io.forus.me.android.data.repository.records.RecordsRepository
 import io.forus.me.android.domain.models.account.*
 import io.reactivex.Observable
@@ -10,7 +11,10 @@ import io.reactivex.Single
 import java.util.concurrent.TimeUnit
 import java.util.stream.Stream
 
-class AccountRepository(private val accountLocalDataSource: AccountDataSource, private val accountRemoteDataSource: AccountDataSource, private val recordsRepository: RecordsRepository) : io.forus.me.android.domain.repository.account.AccountRepository {
+class AccountRepository(private val accountLocalDataSource: AccountDataSource,
+                        private val accountRemoteDataSource: AccountDataSource,
+                        private val checkActivationDataSource: CheckActivationDataSource,
+                        private val recordsRepository: RecordsRepository) : io.forus.me.android.domain.repository.account.AccountRepository {
 
     override fun newUser(model: NewAccountRequest): Observable<String> {
         val signUp = SignUp()
@@ -86,5 +90,9 @@ class AccountRepository(private val accountLocalDataSource: AccountDataSource, p
 
             account
         }
+    }
+
+    override fun checkCurrentToken(): Observable<Boolean>{
+        return checkActivationDataSource.checkActivation(accountLocalDataSource.getCurrentToken())
     }
 }

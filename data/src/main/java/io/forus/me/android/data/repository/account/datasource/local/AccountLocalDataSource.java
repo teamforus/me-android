@@ -133,4 +133,10 @@ public class AccountLocalDataSource implements AccountDataSource, LocalDataSourc
         db.delete();
         db.refresh();
     }
+
+    @NotNull
+    @Override
+    public String getCurrentToken() {
+        return getTokenString();
+    }
 }

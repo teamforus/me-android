@@ -43,6 +43,10 @@ public class AccountRemoteDataSource(f: () -> SignService): AccountDataSource, R
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
+    override fun getCurrentToken(): String {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun restoreByQrToken(): Observable<IdentityTokenResult> {
         return service.restoreByQrToken()
     }

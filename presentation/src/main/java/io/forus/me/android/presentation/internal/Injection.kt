@@ -10,6 +10,7 @@ import io.forus.me.android.data.net.validators.ValidatorsService
 import io.forus.me.android.data.net.vouchers.VouchersService
 import io.forus.me.android.data.repository.account.datasource.local.AccountLocalDataSource
 import io.forus.me.android.data.repository.account.datasource.remote.AccountRemoteDataSource
+import io.forus.me.android.data.repository.account.datasource.remote.CheckActivationDataSource
 import io.forus.me.android.data.repository.records.RecordsRepository
 import io.forus.me.android.data.repository.validators.ValidatorsRepository
 import io.forus.me.android.data.repository.records.datasource.mock.RecordsMockDataSource
@@ -63,7 +64,7 @@ class Injection private constructor() {
     }
 
     val accountRepository: AccountRepository by lazy {
-            return@lazy io.forus.me.android.data.repository.account.AccountRepository(accountLocalDataSource, accountRemoteDataSource, recordsRepository)
+        return@lazy io.forus.me.android.data.repository.account.AccountRepository(accountLocalDataSource, accountRemoteDataSource, checkActivationDataSource, recordsRepository)
     }
 
     private val accountRemoteDataSource: AccountRemoteDataSource by lazy {
@@ -72,6 +73,10 @@ class Injection private constructor() {
 
     public val accountLocalDataSource: AccountLocalDataSource by lazy {
         return@lazy AccountLocalDataSource(daoSession?.tokenDao)
+    }
+
+    private val checkActivationDataSource: CheckActivationDataSource by lazy {
+        return@lazy CheckActivationDataSource(MeServiceFactory.getInstance().createRetrofitService(SignService::class.java, SignService.Service.SERVICE_ENDPOINT))
     }
 
     private val web3LocalDataSource: Web3DataSource by lazy {

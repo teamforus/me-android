@@ -40,4 +40,7 @@ interface AccountRepository {
 
     fun getAccount(): Observable<Account>
 
+
+    fun checkCurrentToken(): Observable<Boolean>
+
 }

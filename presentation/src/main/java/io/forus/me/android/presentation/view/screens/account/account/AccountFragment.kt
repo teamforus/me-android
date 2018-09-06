@@ -80,6 +80,7 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
 
         if (vs.model.navigateToWelcome) {
             navigator.navigateToWelcomeScreen(activity)
+            activity?.finish()
         }
 
     }

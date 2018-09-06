@@ -9,12 +9,15 @@ import android.view.MenuItem
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter
 import io.forus.me.android.presentation.R
+import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.activity.CommonActivity
 import io.forus.me.android.presentation.view.adapters.MainViewPagerAdapter
-import io.forus.me.android.presentation.view.fragment.BaseFragment
-import io.forus.me.android.presentation.view.screens.property.PropertyFragment
 import io.forus.me.android.presentation.view.screens.records.categories.RecordCategoriesFragment
 import io.forus.me.android.presentation.view.screens.vouchers.list.VouchersFragment
+import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.dashboard_activity.*
 
 
@@ -24,6 +27,7 @@ class DashboardActivity : CommonActivity() {
     private var currentPagerPosition = 0
     private var menu: Menu? = null
     private var navigationAdapter: AHBottomNavigationAdapter? = null
+    private var checkLogin: Disposable? = null
 
     companion object {
         fun getCallingIntent(context: Context): Intent {
@@ -84,14 +88,27 @@ class DashboardActivity : CommonActivity() {
             selectTab(currentPagerPosition, 0)
         }
 
-
-
-
-
         (android.os.Handler()).postDelayed({
             showTab(0, 0,false)
         },500)
 
+        checkLogin()
+    }
+
+    private fun checkLogin(){
+        checkLogin = Single.fromObservable(Injection.instance.accountRepository.checkCurrentToken())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map {
+                    if(!it) logout()
+                }
+                .onErrorReturn {  }
+                .subscribe()
+    }
+
+    private fun logout(){
+        navigator.navigateToWelcomeScreen(this)
+        finish()
     }
 
     private fun selectTab(currentPagerPosition: Int, oldPosition: Int) {
@@ -147,4 +164,8 @@ class DashboardActivity : CommonActivity() {
         return true
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        checkLogin?.dispose()
+    }
 }
