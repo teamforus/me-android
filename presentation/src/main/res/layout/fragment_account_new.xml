@@ -53,16 +53,16 @@
                         android:id="@+id/email"
                         app:hint="E-mail"
                         app:required="true"
-                        app:validationRegex="@string/email_validation_regex"
-                        app:validationError="@string/email_is_invalid"
+                        app:validationRegex="@string/me_validation_regex_email"
+                        app:validationError="@string/me_validation_error_email_is_invalid"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
                     <io.forus.me.android.presentation.view.component.editors.EditText
                         android:id="@+id/firstName"
                         app:hint="Given Name"
-                        app:validationRegex="@string/not_empty_validation_regex"
-                        app:validationError="@string/not_empty_error"
+                        app:validationRegex="@string/me_validation_regex_not_empty"
+                        app:validationError="@string/me_validation_error_not_empty"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
@@ -70,8 +70,8 @@
                     <io.forus.me.android.presentation.view.component.editors.EditText
                         android:id="@+id/lastName"
                         app:hint="Family Name"
-                        app:validationRegex="@string/not_empty_validation_regex"
-                        app:validationError="@string/not_empty_error"
+                        app:validationRegex="@string/me_validation_regex_not_empty"
+                        app:validationError="@string/me_validation_error_not_empty"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
@@ -79,8 +79,8 @@
                     <io.forus.me.android.presentation.view.component.editors.EditText
                         android:id="@+id/bsn"
                         app:hint="BSN"
-                        app:validationRegex="@string/not_empty_validation_regex"
-                        app:validationError="@string/not_empty_error"
+                        app:validationRegex="@string/me_validation_regex_not_empty"
+                        app:validationError="@string/me_validation_error_not_empty"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
@@ -88,8 +88,8 @@
                     <io.forus.me.android.presentation.view.component.editors.EditText
                         android:id="@+id/phone"
                         app:hint="Phone number"
-                        app:validationRegex="@string/not_empty_validation_regex"
-                        app:validationError="@string/not_empty_error"
+                        app:validationRegex="@string/me_validation_regex_not_empty"
+                        app:validationError="@string/me_validation_error_not_empty"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
@@ -110,7 +110,7 @@
 
             <io.forus.me.android.presentation.view.component.buttons.Button
                 android:id="@+id/register"
-                android:text="@string/create_account"
+                android:text="@string/welcome_create_account"
                 android:layout_marginBottom="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />

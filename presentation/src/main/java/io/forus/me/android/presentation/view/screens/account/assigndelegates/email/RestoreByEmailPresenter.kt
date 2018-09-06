@@ -44,7 +44,7 @@ class RestoreByEmailPresenter constructor(private val disposableHolder: Disposab
                                     .startWith(RestoreByEmailPartialChanges.RestoreByEmailRequestStart())
 
                         }
-        );
+        )
 
 
         val initialViewState = LRViewState(

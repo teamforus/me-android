@@ -20,7 +20,7 @@ package io.forus.me.android.data.exception
  */
 class NetworkConnectionException : Exception {
 
-    constructor() : super() {}
+    constructor() : super()
 
-    constructor(cause: Throwable) : super(cause) {}
+    constructor(cause: Throwable) : super(cause)
 }

@@ -14,12 +14,12 @@ import io.forus.me.android.presentation.view.component.pinlock.PinLockListener
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.account_set_pin_fragment.*
+import kotlinx.android.synthetic.main.fragmnet_account_set_pin.*
 
 class ChangePinFragment : ToolbarLRFragment<ChangePinModel, ChangePinView, ChangePinPresenter>(), ChangePinView {
 
     companion object {
-        private val MODE_EXTRA = "MODE_EXTRA";
+        private val MODE_EXTRA = "MODE_EXTRA"
 
         fun newIntent(mode: ChangePinMode): ChangePinFragment = ChangePinFragment().also {
             val bundle = Bundle()
@@ -55,7 +55,7 @@ class ChangePinFragment : ToolbarLRFragment<ChangePinModel, ChangePinView, Chang
     override fun pinOnChange(): Observable<String> = pinOnChange
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?)
-        = inflater.inflate(R.layout.account_set_pin_fragment, container, false).also {
+        = inflater.inflate(R.layout.fragmnet_account_set_pin, container, false).also {
 
         val bundle = this.arguments
         if (bundle != null) {
@@ -94,14 +94,14 @@ class ChangePinFragment : ToolbarLRFragment<ChangePinModel, ChangePinView, Chang
         indicator_dots.visibility = when (vs.model.state) {ChangePinModel.State.CHECKING_OLD_PIN, ChangePinModel.State.CHANGING_PIN, ChangePinModel.State.CHANGE_PIN_ERROR -> View.INVISIBLE else  -> View.VISIBLE}
 
         when(vs.model.state){
-            ChangePinModel.State.CONFIRM_OLD_PIN -> changeHeaders(resources.getString(R.string.subtitle_pinlock_confirm), "", false)
-            ChangePinModel.State.CHECKING_OLD_PIN -> changeHeaders(resources.getString(R.string.subtitle_pinlock_checking), "", false)
-            ChangePinModel.State.WRONG_OLD_PIN -> changeHeaders(resources.getString(R.string.subtitle_pinlock_confirm), resources.getString(R.string.subtitle_pinlock_error), true)
-            ChangePinModel.State.CREATE_NEW_PIN -> changeHeaders(resources.getString(R.string.title_create_passcode), resources.getString(R.string.subtitle_create_passcode), false)
-            ChangePinModel.State.CONFIRM_NEW_PIN -> changeHeaders(resources.getString(R.string.title_confirm_passcode), resources.getString(R.string.subtitle_create_passcode), false)
-            ChangePinModel.State.PASS_NOT_MATCH -> changeHeaders(resources.getString(R.string.title_create_passcode), resources.getString(R.string.subtitle_create_passcode_not_match), true)
-            ChangePinModel.State.CHANGING_PIN -> changeHeaders(resources.getString(R.string.title_create_identity), resources.getString(R.string.changing_passcoce), false)
-            ChangePinModel.State.CHANGE_PIN_ERROR -> changeHeaders("", resources.getString(R.string.subtitle_create_identity_error), true)
+            ChangePinModel.State.CONFIRM_OLD_PIN -> changeHeaders(resources.getString(R.string.passcode_subtitle_pinlock_confirm), "", false)
+            ChangePinModel.State.CHECKING_OLD_PIN -> changeHeaders(resources.getString(R.string.passcode_subtitle_pinlock_checking), "", false)
+            ChangePinModel.State.WRONG_OLD_PIN -> changeHeaders(resources.getString(R.string.passcode_subtitle_pinlock_confirm), resources.getString(R.string.passcode_subtitle_pinlock_error), true)
+            ChangePinModel.State.CREATE_NEW_PIN -> changeHeaders(resources.getString(R.string.passcode_title_create), resources.getString(R.string.passcode_subtitle_create), false)
+            ChangePinModel.State.CONFIRM_NEW_PIN -> changeHeaders(resources.getString(R.string.passcode_title_confirm), resources.getString(R.string.passcode_subtitle_create), false)
+            ChangePinModel.State.PASS_NOT_MATCH -> changeHeaders(resources.getString(R.string.passcode_title_create), resources.getString(R.string.passcode_subtitle_create_not_match), true)
+            ChangePinModel.State.CHANGING_PIN -> changeHeaders(resources.getString(R.string.passcode_title_create_identity), resources.getString(R.string.passcode_changing), false)
+            ChangePinModel.State.CHANGE_PIN_ERROR -> changeHeaders("", resources.getString(R.string.passcode_subtitle_change_error), true)
         }
 
         if(vs.model.state != vs.model.prevState) when(vs.model.state){

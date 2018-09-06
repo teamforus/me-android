@@ -192,7 +192,7 @@ public class PinLockAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         public NumberViewHolder(final View itemView) {
             super(itemView);
-            mNumberButton = (Button) itemView.findViewById(R.id.button);
+            mNumberButton = itemView.findViewById(R.id.button);
             mNumberButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -210,8 +210,8 @@ public class PinLockAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         public DeleteViewHolder(final View itemView) {
             super(itemView);
-            mDeleteButton = (LinearLayout) itemView.findViewById(R.id.button);
-            mButtonImage = (ImageView) itemView.findViewById(R.id.buttonImage);
+            mDeleteButton = itemView.findViewById(R.id.button);
+            mButtonImage = itemView.findViewById(R.id.buttonImage);
 
             if (mCustomizationOptionsBundle.isShowDeleteButton() && mPinLength > 0) {
                 mDeleteButton.setOnClickListener(new View.OnClickListener() {

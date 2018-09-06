@@ -13,7 +13,7 @@ import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.account_new_fragment.*
+import kotlinx.android.synthetic.main.fragment_account_new.*
 
 /**
  * Fragment New User Account Screen.
@@ -51,7 +51,7 @@ class NewAccountFragment : ToolbarLRFragment<NewAccountModel, NewAccountView, Ne
     override fun register() = registerAction
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
-            = inflater.inflate(R.layout.account_new_fragment, container, false)
+            = inflater.inflate(R.layout.fragment_account_new, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -84,7 +84,7 @@ class NewAccountFragment : ToolbarLRFragment<NewAccountModel, NewAccountView, Ne
             val error: Throwable = vs.model.sendingRegistrationError
             showToastMessage(resources.getString(
                     if(error is RetrofitException && error.kind == RetrofitException.Kind.HTTP) R.string.new_account_error_already_in_use
-                    else R.string.error_text)
+                    else R.string.app_error_text)
             )
         }
 

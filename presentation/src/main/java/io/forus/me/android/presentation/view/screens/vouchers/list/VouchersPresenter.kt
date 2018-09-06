@@ -18,7 +18,7 @@ class VouchersPresenter constructor(val vouchersRepository: VouchersRepository) 
 
 
     override fun bindIntents() {
-        val observable = loadRefreshPartialChanges();
+        val observable = loadRefreshPartialChanges()
 
 
         val initialViewState = LRViewState(

@@ -6,9 +6,9 @@ sealed class ProviderPartialChanges : PartialChange {
 
     data class SetAmount(val amount: Float) : ProviderPartialChanges()
 
-    class MakeTransactionStart() : ProviderPartialChanges()
+    class MakeTransactionStart : ProviderPartialChanges()
 
-    class MakeTransactionEnd() : ProviderPartialChanges()
+    class MakeTransactionEnd : ProviderPartialChanges()
 
     data class MakeTransactionError(val error: Throwable) : ProviderPartialChanges()
 

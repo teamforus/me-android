@@ -19,7 +19,7 @@ buildscript {
     classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2'
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     classpath 'me.tatarka:gradle-retrolambda:3.2.3'
-    classpath 'io.fabric.tools:gradle:1.+'
+    classpath 'io.fabric.tools:gradle:1.25.4'
   }
 }
 

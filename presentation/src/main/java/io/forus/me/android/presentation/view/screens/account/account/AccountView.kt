@@ -1,4 +1,4 @@
-package io.forus.me.android.presentation.view.screens.account.account;
+package io.forus.me.android.presentation.view.screens.account.account
 
 import io.forus.me.android.presentation.view.base.lr.LRView
 

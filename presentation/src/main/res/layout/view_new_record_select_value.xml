@@ -15,7 +15,7 @@
         android:layout_marginRight="16dp">
 
         <io.forus.me.android.presentation.view.component.text.TextView
-            android:text="@string/choose_the_value_text"
+            android:text="@string/new_record_choose_the_value_text"
             style="@style/Body2Small"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
         </LinearLayout>
 
         <io.forus.me.android.presentation.view.component.text.TextView
-            android:text="@string/venue_text"
+            android:text="@string/new_record_venue_text"
             android:textSize="12.1sp"
             android:textColor="@color/body_1_87"
             android:layout_width="match_parent"
@@ -64,7 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="184dp"
             android:padding="16dp"
-            android:hint="Text Text Text"
+            android:hint="@string/new_record_value_hint"
             android:textSize="16.1sp"
             android:lineSpacingExtra="7.9sp"
             android:gravity="top"

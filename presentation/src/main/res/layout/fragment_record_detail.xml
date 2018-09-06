@@ -81,7 +81,7 @@
         <io.forus.me.android.presentation.view.component.buttons.Button
             android:id="@+id/btn_show_qr"
             app:textSize="14.0"
-            android:text="@string/button_show_qr"
+            android:text="@string/record_details_button_show_qr"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginTop="13dp"

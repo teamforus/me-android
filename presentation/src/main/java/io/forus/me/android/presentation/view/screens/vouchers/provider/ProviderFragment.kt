@@ -16,7 +16,7 @@ import io.forus.me.android.presentation.view.screens.vouchers.provider.categorie
 import io.forus.me.android.presentation.view.screens.vouchers.provider.organizations.OrganizationsAdapter
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.voucher_provider.*
+import kotlinx.android.synthetic.main.fragment_voucher_provider.*
 
 class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, ProviderPresenter>(), ProviderView{
 
@@ -35,7 +35,7 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
     private lateinit var categoriesAdapter: CategoriesAdapter
 
     override val toolbarTitle: String
-        get() = getString(R.string.voucher)
+        get() = getString(R.string.vouchers_item)
 
     override val allowBack: Boolean
         get() = true
@@ -51,7 +51,7 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
     override fun submit(): Observable<Boolean> = submit
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
-            = inflater.inflate(R.layout.voucher_provider, container, false).also {
+            = inflater.inflate(R.layout.fragment_voucher_provider, container, false).also {
 
         address = if (arguments == null) "" else arguments!!.getString(VOUCHER_ADDRESS_EXTRA, "")
 
@@ -81,7 +81,7 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
                 }
                 catch(e: Exception){
                     selectAmount.onNext(Float.NaN)
-                    amount.setError(resources.getString(R.string.decimal_validation_error))
+                    amount.setError(resources.getString(R.string.me_validation_error_decimal))
                 }
             }
         })

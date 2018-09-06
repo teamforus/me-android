@@ -1,4 +1,4 @@
-package io.forus.me.android.presentation.view.screens.account.assigndelegates.pin;
+package io.forus.me.android.presentation.view.screens.account.assigndelegates.pin
 
 import io.forus.me.android.presentation.view.base.lr.LRView
 
@@ -7,6 +7,4 @@ import io.forus.me.android.presentation.view.base.lr.LRView
  */
 
 
-interface RestoreByPinView : LRView<RestoreByPinModel> {
-
-}
+interface RestoreByPinView : LRView<RestoreByPinModel>

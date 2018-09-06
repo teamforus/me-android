@@ -65,7 +65,7 @@ class NewRecordFragment : ToolbarLRFragment<NewRecordModel, NewRecordView, NewRe
     private var retrofitExceptionMapper: RetrofitExceptionMapper = Injection.instance.retrofitExceptionMapper
 
     override val toolbarTitle: String
-        get() = getString(R.string.title_choose_category)
+        get() = getString(R.string.new_record_title_choose_category)
 
     override val allowBack: Boolean
         get() = true
@@ -221,7 +221,7 @@ class NewRecordFragment : ToolbarLRFragment<NewRecordModel, NewRecordView, NewRe
     }
 
     private fun renderButton(isFinalStep: Boolean, buttonIsActive: Boolean){
-        btn_next.text = resources.getString(if (!isFinalStep) R.string.next_step else R.string.submit)
+        btn_next.text = resources.getString(if (!isFinalStep) R.string.new_record_next_step else R.string.new_record_submit)
         btn_next.active = buttonIsActive
 
         btn_next.setOnClickListener {
@@ -236,11 +236,11 @@ class NewRecordFragment : ToolbarLRFragment<NewRecordModel, NewRecordView, NewRe
     private fun changeToolbarTitle(position: Int){
         val title =
                 when (position) {
-                    0 -> getString(R.string.title_choose_category)
-                    1 -> getString(R.string.title_choose_type)
-                    2 -> getString(R.string.title_choose_text)
-                    3 -> getString(R.string.title_choose_validators)
-                    else -> getString(R.string.title_new_record)
+                    0 -> getString(R.string.new_record_title_choose_category)
+                    1 -> getString(R.string.new_record_title_choose_type)
+                    2 -> getString(R.string.new_record_title_choose_text)
+                    3 -> getString(R.string.new_record_title_choose_validators)
+                    else -> getString(R.string.new_record_title)
                 }
         setToolbarTitle(title)
     }

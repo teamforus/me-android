@@ -6,7 +6,7 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 
 
-class AssignDeligatesPresenter constructor() : LRPresenter<Unit, Unit, AssignDelegatesView>() {
+class AssignDeligatesPresenter : LRPresenter<Unit, Unit, AssignDelegatesView>() {
 
 
     override fun initialModelSingle(): Single<Unit> = Single.just(Unit)
@@ -15,7 +15,7 @@ class AssignDeligatesPresenter constructor() : LRPresenter<Unit, Unit, AssignDel
 
     override fun bindIntents() {
 
-        val observable = loadRefreshPartialChanges();
+        val observable = loadRefreshPartialChanges()
 
         val initialViewState = LRViewState(
                 false,

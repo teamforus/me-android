@@ -43,7 +43,7 @@ public class SignRecordsTypeAdapter extends TypeAdapter<SignRecords> {
     }
 
     @Override
-    public SignRecords read(JsonReader in) throws IOException {
+    public SignRecords read(JsonReader in) {
         return null;
     }
 }

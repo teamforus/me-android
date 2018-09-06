@@ -5,9 +5,9 @@ import android.view.ViewGroup
 import io.forus.me.android.domain.models.vouchers.ProductCategory
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.helpers.inflate
-import kotlinx.android.synthetic.main.select_organization_list_item.view.*
+import kotlinx.android.synthetic.main.item_voucher_select_organization.view.*
 
-class CategoryVH(parent: ViewGroup) : RecyclerView.ViewHolder(parent.inflate(R.layout.product_category_list_item)) {
+class CategoryVH(parent: ViewGroup) : RecyclerView.ViewHolder(parent.inflate(R.layout.item_product_category)) {
     init {
 
     }

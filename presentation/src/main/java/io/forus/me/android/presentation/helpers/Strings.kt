@@ -35,15 +35,15 @@ object Strings {
 
 fun String?.capitalize() : String {
     if (this == null)
-        return "";
+        return ""
 
-    return Strings.capitalize(this) ?: "";
+    return Strings.capitalize(this) ?: ""
 }
 
 
 fun String?.toAppFloat() : Float? {
     if (this == null)
-        return null;
+        return null
     return this.toAppFloat()
 }
 

@@ -1,4 +1,4 @@
-package io.forus.me.android.presentation.view.screens.account.newaccount;
+package io.forus.me.android.presentation.view.screens.account.newaccount
 
 import io.forus.me.android.presentation.view.base.lr.LRView
 import io.forus.me.android.domain.models.account.NewAccountRequest

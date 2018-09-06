@@ -81,7 +81,7 @@ class AccountRepository(private val accountLocalDataSource: AccountDataSource,
     override fun getAccount(): Observable<Account> {
         return recordsRepository.getRecords().map {
 
-            val account = Account();
+            val account = Account()
             val email = com.annimon.stream.Stream.of(it).filter { x->x.recordType.key == "primary_email" }.findFirst()
             val givanName = com.annimon.stream.Stream.of(it).filter { x->x.recordType.key == "given_name" }.findFirst()
             val familyName = com.annimon.stream.Stream.of(it).filter { x->x.recordType.key == "family_name" }.findFirst()

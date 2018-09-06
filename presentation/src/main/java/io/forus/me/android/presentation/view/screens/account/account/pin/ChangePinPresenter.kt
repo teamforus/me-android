@@ -70,7 +70,7 @@ class ChangePinPresenter constructor(private val mode: ChangePinMode, private va
                                         ChangePinPartialChanges.ChangePinError(Unit)
                                     }
                         }
-        );
+        )
 
 
         val initialViewState = LRViewState(

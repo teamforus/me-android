@@ -11,7 +11,7 @@ import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.account_details.*
+import kotlinx.android.synthetic.main.fragment_account_details.*
 import android.app.Activity
 import android.content.Intent
 
@@ -44,7 +44,7 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
     override fun logout(): Observable<Boolean> = logout
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
-            = inflater.inflate(R.layout.account_details, container, false)
+            = inflater.inflate(R.layout.fragment_account_details, container, false)
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

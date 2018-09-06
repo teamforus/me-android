@@ -36,8 +36,7 @@
                         style="@style/Body2Small"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/account_restore_description"
-                        android:paddingRight="27dp"
+                        android:text="@string/restore_email_description"
                         android:paddingEnd="27dp"/>
 
                     <io.forus.me.android.presentation.view.component.editors.EditText
@@ -46,8 +45,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         app:hint="E-mail"
-                        app:validationError="@string/email_is_invalid"
-                        app:validationRegex="@string/email_validation_regex" />
+                        app:validationError="@string/me_validation_error_email_is_invalid"
+                        app:validationRegex="@string/me_validation_regex_email" />
 
 
                     <io.forus.me.android.presentation.view.component.editors.EditText
@@ -57,15 +56,15 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="0dp"
                         app:hint="Repeate Email"
-                        app:validationError="@string/email_is_invalid"
-                        app:validationRegex="@string/email_validation_regex" />
+                        app:validationError="@string/me_validation_error_email_is_invalid"
+                        app:validationRegex="@string/me_validation_regex_email" />
 
                     <io.forus.me.android.presentation.view.component.text.TextView
                         android:id="@+id/email_description"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/Body2"
-                        android:text="@string/email_description" />
+                        android:text="@string/restore_email_instructions" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -87,7 +86,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:text="@string/restore_by_email" />
+                android:text="@string/restore_inloggen_by_email" />
 
         </RelativeLayout>
 

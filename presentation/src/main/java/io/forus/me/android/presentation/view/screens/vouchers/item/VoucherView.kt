@@ -1,4 +1,4 @@
-package io.forus.me.android.presentation.view.screens.vouchers.item;
+package io.forus.me.android.presentation.view.screens.vouchers.item
 
 import io.forus.me.android.presentation.view.base.lr.LRView
 
@@ -7,6 +7,4 @@ import io.forus.me.android.presentation.view.base.lr.LRView
  */
 
 
-interface VoucherView : LRView<VoucherModel> {
-
-}
+interface VoucherView : LRView<VoucherModel>

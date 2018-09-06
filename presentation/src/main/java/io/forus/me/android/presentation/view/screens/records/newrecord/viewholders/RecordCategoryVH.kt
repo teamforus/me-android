@@ -5,9 +5,9 @@ import android.view.ViewGroup
 import io.forus.me.android.domain.models.records.RecordCategory
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.helpers.inflate
-import kotlinx.android.synthetic.main.select_category_list_item.view.*
+import kotlinx.android.synthetic.main.item_record_select_category.view.*
 
-class RecordCategoryVH(parent: ViewGroup, private val clickListener: ((RecordCategory, Int) -> Unit)?) : RecyclerView.ViewHolder(parent.inflate(R.layout.select_category_list_item)) {
+class RecordCategoryVH(parent: ViewGroup, private val clickListener: ((RecordCategory, Int) -> Unit)?) : RecyclerView.ViewHolder(parent.inflate(R.layout.item_record_select_category)) {
     init {
 
     }

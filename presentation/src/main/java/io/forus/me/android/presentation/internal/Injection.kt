@@ -71,7 +71,7 @@ class Injection private constructor() {
         return@lazy AccountRemoteDataSource{ MeServiceFactory.getInstance().createRetrofitService(SignService::class.java, SignService.Service.SERVICE_ENDPOINT) }
     }
 
-    public val accountLocalDataSource: AccountLocalDataSource by lazy {
+    val accountLocalDataSource: AccountLocalDataSource by lazy {
         return@lazy AccountLocalDataSource(daoSession?.tokenDao)
     }
 

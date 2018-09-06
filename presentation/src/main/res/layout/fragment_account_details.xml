@@ -89,7 +89,7 @@
                     android:layout_marginTop="26dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="App settings"
+                    android:text="@string/profile_app_settings"
                     />
 
 
@@ -103,7 +103,7 @@
 
                 <io.forus.me.android.presentation.view.component.card.SettingsSwitchCard
                     android:id="@+id/enable_pinlock"
-                    app:valuecard_title="Use pinlock"
+                    app:valuecard_title="@string/profile_use_pinlock"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -112,7 +112,7 @@
 
                 <io.forus.me.android.presentation.view.component.card.SettingsCard
                     android:id="@+id/change_digits"
-                    app:valuecard_title="Change 4-digit passcode"
+                    app:valuecard_title="@string/profile_change_4digit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -122,7 +122,7 @@
 
                 <io.forus.me.android.presentation.view.component.card.SettingsCard
                     android:id="@+id/logout_view"
-                    app:valuecard_title="Logout"
+                    app:valuecard_title="@string/profile_logout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 

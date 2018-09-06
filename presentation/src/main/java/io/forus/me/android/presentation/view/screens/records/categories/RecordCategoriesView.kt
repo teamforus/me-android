@@ -1,4 +1,4 @@
-package io.forus.me.android.presentation.view.screens.records.categories;
+package io.forus.me.android.presentation.view.screens.records.categories
 
 import io.forus.me.android.presentation.view.base.lr.LRView
 
@@ -7,6 +7,4 @@ import io.forus.me.android.presentation.view.base.lr.LRView
  */
 
 
-interface RecordCategoriesView : LRView<RecordCategoriesModel> {
-
-}
+interface RecordCategoriesView : LRView<RecordCategoriesModel>

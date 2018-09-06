@@ -21,7 +21,7 @@ class RecordCategoriesPresenter constructor(val recordsRepository: RecordsReposi
 
 
     override fun bindIntents() {
-        val observable = loadRefreshPartialChanges();
+        val observable = loadRefreshPartialChanges()
 
 
         val initialViewState = LRViewState(

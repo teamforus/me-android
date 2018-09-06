@@ -29,7 +29,7 @@ class WalletsPresenter constructor(val walletsRepository: WalletsRepository) : L
 //                loadRefreshPartialChanges()
 //        );
 
-        var observable = loadRefreshPartialChanges();
+        var observable = loadRefreshPartialChanges()
 
 
         val initialViewState = LRViewState(

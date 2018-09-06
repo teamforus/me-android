@@ -1,44 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- Application -->
     <string name="app_name">Me</string>
-    <string name="blank_string"> </string>
-    <string name="url"></string>
+    <string name="app_blank_string"> </string>
+    <string name="app_error_text">Error</string>
+    <string name="app_retry_text">Retry</string>
+    <string name="app_refreshing_error_text">Refresh error</string>
+    <string name="app_exception_message_generic">There was an application error</string>
+    <string name="app_exception_message_no_connection">There is no internet connection</string>
 
+    <!-- Common -->
+    <string name="me_scan_deze_qr">Scan deze QR-Code met een ander apparaat waar u al op aangemeld bent</string>
+    <string name="me_validation_regex_not_empty">^(.*)$</string>
+    <string name="me_validation_regex_email">^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$</string>
+    <string name="me_validation_regex_decimal">/^(0|[1-9]\d*)(\.\d+)?$/</string>
+    <string name="me_validation_required_asterisk"><![CDATA[ <sup><small>*</small></sup> ]]></string>
+    <string name="me_validation_error_not_empty">Field is empty</string>
+    <string name="me_validation_error_email_is_invalid">Field is invalid</string>
+    <string name="me_validation_error_decimal">Not a valid number</string>
 
-    <string name="refreshing_error_text">Refresh error</string>
-    <string name="create_account">Create account</string>
-    <string name="restore_account">Restore account</string>
+    <!-- Dashboard -->
+    <string name="dashboard_property">Eigendom</string>
+    <string name="dashboard_qr">Qr</string>
+    <string name="dashboard_records">Eigenschappen</string>
+    <string name="dashboard_vouchers">Vouchers</string>
+    <string name="dashboard_valuta">Valuta</string>
+    <string name="dashboard_bezit">Bezit</string>
 
-    <string name="error_text">Error</string>
-    <string name="retry_text">Retry</string>
+    <!-- Welcome screen -->
+    <string name="welcome_greeting">Welkom bij Me</string>
+    <string name="welcome_create_account">Create account</string>
+    <string name="welcome_restore_account">Restore account</string>
+    <string name="welcome_set_up_your_identity">Stel uw identiteit in</string>
 
-    <string name="exception_message_generic">There was an application error</string>
-    <string name="exception_message_no_connection">There is no internet connection</string>
-    <string name="exception_message_user_not_found">Cannot retrieve user data. Check your internet connection</string>
+    <!-- Restore identity -->
+    <string name="restore_login">Anmelden</string>
+    <string name="restore_login_via_de_qr_code">login via de qr code</string>
+    <string name="restore_inloggen_met_pincode">Inloggen met pincode</string>
+    <string name="restore_inloggen_via_email">Inloggen via email</string>
+    <string name="restore_inloggen_by_email">Restore by email</string>
+    <string name="restore_email_description">Please enter your e-mail address in order to receive your login details.</string>
+    <string name="restore_pincode_description">Vul deze pincode in uw profeil in</string>
+    <string name="restore_email_instructions">The link was sent to your e-mail. Tap on it, wait for Success message and come back to Me.</string>
 
+    <!-- New account screen -->
+    <string name="new_account_title">New profiel</string>
+    <string name="new_account_subtitle">Please provide your e-mail and information below. For registration primary email address is required. </string>
+    <string name="new_account_error_already_in_use">"Account already in use"</string>
 
-    <string name="not_empty_validation_regex">^(.*)$</string>
-    <string name="not_empty_error">Field is empty</string>
-    <string name="email_validation_regex">^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$</string>
-    <string name="email_is_invalid">Field is invalid</string>
-    <string name="required_asterisk"><![CDATA[ <sup><small>*</small></sup> ]]></string>
-    <string name="decimal_validation_regex">/^(0|[1-9]\d*)(\.\d+)?$/</string>
-    <string name="decimal_validation_error">Not a valid number</string>
+    <!-- New passcode screen -->
+    <string name="passcode_title_create">Create Passcode</string>
+    <string name="passcode_title_confirm">Confirm Passcode</string>
+    <string name="passcode_title_create_identity">Please wait</string>
+    <string name="passcode_subtitle_create">Maak een 4cijferige pincode aan</string>
+    <string name="passcode_subtitle_create_not_match">Passwordes don\'t match. Please try again</string>
+    <string name="passcode_subtitle_create_identity">Creating identity</string>
+    <string name="passcode_subtitle_change_error">Something went wrong :(</string>
+    <string name="passcode_create_skip">Skip</string>
+    <string name="passcode_changing">Changing passcode</string>
 
-    <string name="property">Eigendom</string>
-
-
-    <string name="navigation_drawer_open">Open navigation </string>
-    <string name="navigation_drawer_close">Close navigation </string>
-    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, etiam pede, porttitor lacus nibh interdum maecenas mauris venenatis, nam vel ut massa. Wisi mollis magna eleifend massa ante consectetuer, elementum quisque viverra id in et. Eget semper, vel fames enim suspendisse libero. Ultricies quisque ornare amet luctus. Fusce et eu mus massa, voluptatem in sollicitudin sed, nisi nulla felis justo cras volutpat, justo mauris, at scelerisque felis volutpat. Felis libero, maecenas orci turpis sodales, ac augue ipsum rutrum quam. Libero ad lacinia, erat eget, vel mattis dignissim duis do in, class mauris dolore nec. Hendrerit quis sit cursus at dictumst, amet mattis. Praesent elementum netus dis tempor eros vitae. Leo metus, tortor fugiat lectus enim rhoncus. Quis tincidunt dui et risus tempor eget, posuere lectus pede ornare viverra mus consectetuer, nonummy neque ipsum et, mauris aliquam nulla elit lacus risus at. Nulla quis lobortis at orci ornare nibh. Arcu lorem libero felis, sagittis nec ut curabitur dapibus dictum. Lectus id, aliquam dapibus porttitor, eleifend pellentesque nam. Lacus arcu eget suspendisse quis dictumst, nunc lobortis sit, dignissim varius ut hac aut risus, a ligula consequat quis urna, laoreet eu imperdiet ac massa nullam. Ultrices mi pharetra quis eu sodales, amet in integer, lobortis lectus suscipit turpis quam placerat sagittis, maecenas pede at porttitor platea a. At duis ad eos neque, fringilla ut nunc, ligula facilisis donec. Velit quam magna augue non lacus, erat cras. Congue dolor libero arcu, natoque in amet commodo iaculis blandit, sed rutrum. Ullamcorper duis pretium in, dictumst ipsum donec. Mollis tellus est, morbi fermentum mauris elit velit pharetra duis, et lorem ullamcorper pellentesque. Eleifend dis, donec id erat cum eros elit. Elit in libero sed nec suspendisse eros, ac purus consequat, ullamco magna est vitae, auctor in odio et, vel donec consectetuer sed cras a vitae. Tortor nulla nullam mattis. Auctor nibh. Vel dui justo et, a elit sapien diam et, parturient aliquam sociosqu per eget pede et. Vehicula nunc quis volutpat at nec, non vestibulum fusce id quam, orci molestie condimentum. Faucibus varius convallis consequat at sed tempor, dignissim consectetuer, eu sit rhoncus et mi nullam, elementum quia, pede dignissim consectetuer dapibus. Eros et tristique, vestibulum lacus. Felis amet. Sagittis ornare in nisl libero mauris, ac ultrices dui felis curae sit at, pellentesque id, consectetuer at pretium, dui in eu. Nibh amet placerat malesuada, placerat tempus felis tellus suscipit, pede sed dolor ullamcorper tincidunt sit nascetur, quis tortor. Mi ante nobis quam lacinia eleifend, integer nulla aliquam blandit nunc. Vehicula curabitur cubilia. Nulla ut convallis nunc, metus aliquam sed dolor velit ac. Penatibus id in vitae, nec ante at aliquam mollis, fermentum turpis vivamus, dignissim et sit sapien pellentesque cras. Pellentesque curabitur wisi ante, placerat nulla. Duis ac proin id sem varius sem, vestibulum non sagittis, urna habitasse risus. Quam aliquam morbi nulla leo, integer alias, egestas sociis aliquet amet eu wisi, ridiculus molestie magna tincidunt nunc eros, nam eu interdum nulla nesciunt quam diam. Vitae curabitur aenean est sapien vitae sodales, wisi justo at, nunc voluptate vestibulum, lectus cras libero quam fusce, ac tellus nibh erat in primis neque. Ac donec torquent, amet amet ac pede, vel at mauris non donec et. Condimentum quia ut ante, sunt accumsan magnis ut luctus urna duis. Etiam amet in porttitor augue, eros varius luctus quis, quam sollicitudin libero blandit, odio nec ultricies diam. Eu a massa nec lorem, suspendisse lectus nunc, est litora, ultricies sagittis integer ligula dolor nec ac, dui adipiscing sit eleifend mi duis nunc. Mus morbi non, dui turpis. Vivamus ac, in proin dolor, magna magna, mus justo ipsum ante erat. Vestibulum urna a, nibh sociis sodales rhoncus urna amet cursus. Amet molestie id, ante sed vestibulum, eleifend vulputate. Maecenas etiam vestibulum, in amet neque. Felis tortor sollicitudin sodales, non eros per et suscipit, consequat tempor donec nunc nulla elit, duis vel turpis pellentesque diam turpis, dicta sem dis repudiandae morbi ac lorem. Ut pellentesque felis sed convallis sem, wisi suspendisse est mauris adipiscing, habitant sit feugiat dolorem, praesent libero maecenas dolor, metus pretium eget curabitur integer id morbi. Quam blandit diam cursus tristique, interdum tempus nulla arcu ut non, ligula mauris, interdum ac interdum. Tellus dolor convallis fermentum, ac pede ipsum volutpat, donec amet. Optio tellus vivamus, justo rutrum quam diam.</string>
-    <string name="welcome">Welkom bij Me</string>
-    <string name="set_up_your_identity">Stel uw identiteit in</string>
-    <string name="login">Anmelden</string>
-    <string name="scan_deze_qr_code_met_een_ander_apparaat_waar_u_al_op_aangemeld_bent">Scan deze QR-Code met een ander apparaat waar u al op aangemeld bent</string>
-    <string name="valuta">Valuta</string>
-    <string name="bezit">Bezit</string>
-    <string name="qr">Qr</string>
-    <string name="records">Eigenschappen</string>
+    <!-- Confirm pinlock screen -->
+    <string name="passcode_subtitle_pinlock_confirm">Confirm your identity</string>
+    <string name="passcode_subtitle_pinlock_checking">Checking</string>
+    <string name="passcode_subtitle_pinlock_error">Wrong passcode</string>
 
     <!--Lock Check strings -->
     <string name="lock_exit">Exit</string>
@@ -49,55 +74,34 @@
         please got to Settings and set a lock screen method.
     </string>
 
+    <!-- Profile screen -->
+    <string name="profile_app_settings">App settings</string>
+    <string name="profile_use_pinlock">Use pinlock</string>
+    <string name="profile_change_4digit">Change 4-digit passcode</string>
+    <string name="profile_logout">Logout</string>
+
     <!-- New record screen -->
-    <string name="title_new_record">New Record</string>
-    <string name="title_choose_category">Choose Category</string>
-    <string name="title_choose_type">Choose Type</string>
-    <string name="title_choose_text">Text</string>
-    <string name="title_choose_validators">Validators</string>
-
-    <string name="choose_the_category_text">Select the category under which the new record should be added.</string>
-    <string name="choose_the_type_text">Select the type under which the new record should be added.</string>
-    <string name="choose_the_value_text">Enter the value of the record.</string>
-    <string name="choose_validators_text">Select the validators, yours the new record should be verify.</string>
-    <string name="venue_text">Venue</string>
-
-    <string name="next_step">NEXT STEP</string>
-    <string name="submit">SUBMIT</string>
-    <string name="add_record">Add record</string>
+    <string name="new_record_title">New Record</string>
+    <string name="new_record_title_choose_category">Choose Category</string>
+    <string name="new_record_title_choose_type">Choose Type</string>
+    <string name="new_record_title_choose_text">Text</string>
+    <string name="new_record_title_choose_validators">Validators</string>
+    <string name="new_record_choose_the_category_text">Select the category under which the new record should be added.</string>
+    <string name="new_record_choose_the_type_text">Select the type under which the new record should be added.</string>
+    <string name="new_record_choose_the_value_text">Enter the value of the record.</string>
+    <string name="new_record_value_hint">Text Text Text</string>
+    <string name="new_record_choose_validators_text">Select the validators, yours the new record should be verify.</string>
+    <string name="new_record_venue_text">Venue</string>
+    <string name="new_record_next_step">NEXT STEP</string>
+    <string name="new_record_submit">SUBMIT</string>
 
     <!-- Record details screen -->
-    <string name="title_record_detail">Record detail</string>
-    <string name="title_record_detail_validators">Validators</string>
-    <string name="record_detail_scan_qr">Scan deze QR-Code met een ander apparaat waar u al op aangemeld bent</string>
-    <string name="button_show_qr">Show QR</string>
-    <string name="validation_request_error">Error while sending validation request</string>
-    <string name="validators_title_normal">Validators</string>
-    <string name="validators_title_p2p">Peer-to-peer validations</string>
-    <string name="validators_title_empty">You have no validations yet</string>
-    <string name="validation_approved">Validation approved</string>
-    <string name="validation_declined">Validation declined</string>
-
-    <!-- New account screen -->
-    <string name="new_account_title">New profiel</string>
-    <string name="new_account_subtitle">Please provide your e-mail and information below. For registration primary email address is required. </string>
-    <string name="new_account_error_already_in_use">"Account already in use"</string>
-
-    <!-- New passcode screen -->
-    <string name="title_create_passcode">Create Passcode</string>
-    <string name="title_confirm_passcode">Confirm Passcode</string>
-    <string name="title_create_identity">Please wait</string>
-    <string name="subtitle_create_passcode">Maak een 4cijferige pincode aan</string>
-    <string name="subtitle_create_passcode_not_match">Passwordes don\'t match. Please try again</string>
-    <string name="subtitle_create_identity">Creating identity</string>
-    <string name="subtitle_create_identity_error">Something went wrong :(</string>
-    <string name="pinlock_skip">Skip</string>
-    <string name="changing_passcoce">Changing passcode</string>
-
-    <!-- Confirm pinlock screen -->
-    <string name="subtitle_pinlock_confirm">Confirm your identity</string>
-    <string name="subtitle_pinlock_checking">Checking</string>
-    <string name="subtitle_pinlock_error">Wrong passcode</string>
+    <string name="record_details_title">Record detail</string>
+    <string name="record_details_title_validators">Validators</string>
+    <string name="record_details_button_show_qr">Show QR</string>
+    <string name="record_details_validation_request_error">Error while sending validation request</string>
+    <string name="record_details_validation_approved">Validation approved</string>
+    <string name="record_details_validation_declined">Validation declined</string>
 
     <!-- Wallet details screen -->
     <string name="wallet_title_info">Wallet info</string>
@@ -108,18 +112,9 @@
     <string name="wallet_transactions_title">Transactieoverzicht</string>
     <string name="wallet_transactions_see_all">See all</string>
 
-    <!-- Restore identity -->
-    <string name="login_via_de_qr_code">login via de qr code</string>
-    <string name="inloggen_met_pincode">Inloggen met pincode</string>
-    <string name="inloggen_via_email">Inloggen via email</string>
-    <string name="restore_by_email">Restore by email</string>
-    <string name="account_restore_description">Please enter your e-mail address in order to receive your login details.</string>
-    <string name="btn_continue">CONTINUE</string>
-    <string name="pincode_not_confirmed">PIN is not confirmed</string>
-    <string name="pincode_description">Vul deze pincode in uw profeil in</string>
-    <string name="email_description">The link was sent to your e-mail. Tap on it, wait for Success message and come back to Me.</string>
-
     <!-- QR Scanner -->
+    <string name="qr_on_off_flashlight">On/Off flashlight"</string>
+    <string name="qr_on_off_decoding">On/Off QR decoding</string>
     <string name="qr_validation_approved">Validation approved</string>
     <string name="qr_validation_declined">Validation declined</string>
     <string name="qr_validation_already_done">Already validated</string>
@@ -131,6 +126,8 @@
     <string name="qr_unknown_type">Unknown QR</string>
     <string name="qr_unexpected_error">Unexpected error</string>
     <string name="qr_popup_approve_validation_title">"Record validation"</string>
+    <string name="qr_popup_approve_type">"type"</string>
+    <string name="qr_popup_approve_value">"value"</string>
     <string name="qr_popup_approve_validation_positive">Approve</string>
     <string name="qr_popup_approve_validation_negative">Decline"</string>
     <string name="qr_popup_restore_identity_title">Restore identity</string>
@@ -138,12 +135,12 @@
     <string name="qr_popup_restore_identity_positive">OK</string>
 
     <!-- Vouchers -->
-    <string name="vouchers">Vouchers</string>
-    <string name="voucher">Voucher</string>
-    <string name="transactieoverzicht">Transactieoverzicht</string>
-    <string name="transactieoverzicht_empty">No transactions yet</string>
+    <string name="vouchers_item">Voucher</string>
+    <string name="vouchers_transactions">Transactieoverzicht</string>
+    <string name="vouchers_transactions_empty">No transactions yet</string>
     <string name="vouchers_no_items">You have no vouchers yet</string>
     <string name="vouchers_make_transaction">GENEREREN</string>
     <string name="vouchers_make_transaction_failure">Transaction failed</string>
+    <string name="vouchers_transaction_payment">Payment</string>
 
 </resources>

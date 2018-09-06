@@ -21,6 +21,6 @@
         app:type="medium"
         android:textSize="20.1sp"
         android:textColor="@color/body_1_87"
-        tools:text="@string/title_record_detail_validators" />
+        tools:text="@string/record_details_title_validators" />
 
 </LinearLayout>

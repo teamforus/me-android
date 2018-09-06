@@ -24,7 +24,7 @@ class PinView : FrameLayout {
 
     private lateinit var  mContainer : LinearLayout
 
-    private  var pin : String = "";
+    private  var pin : String = ""
 
     private val tvList: MutableList<TextView> = mutableListOf()
 
@@ -52,7 +52,7 @@ class PinView : FrameLayout {
 
         val inflater = LayoutInflater.from(context)
         mRootView = inflater.inflate(R.layout.view_pin, this)
-        mContainer = mRootView.findViewById(R.id.container);
+        mContainer = mRootView.findViewById(R.id.container)
 
 
 
@@ -69,12 +69,12 @@ class PinView : FrameLayout {
     }
 
     fun setPin(pin: String){
-        var i = 0;
-        this.pin = pin;
+        var i = 0
+        this.pin = pin
         for (item in pin) {
             if (tvList.size > i)
                 tvList[i].text = item.toString()
-            i++;
+            i++
 
         }
     }
@@ -84,9 +84,9 @@ class PinView : FrameLayout {
         val lparams = LinearLayout.LayoutParams(
                 FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT)
 
-        lparams.setMargins(Converter.convertDpToPixel(10f, context), 0, Converter.convertDpToPixel(10f, context), 0);
+        lparams.setMargins(Converter.convertDpToPixel(10f, context), 0, Converter.convertDpToPixel(10f, context), 0)
 
-  //      lparams.gravity = Gravity.CENTER_VERTICAL
+        //      lparams.gravity = Gravity.CENTER_VERTICAL
 
         val tv = io.forus.me.android.presentation.view.component.text.TextView(context)
         tv.layoutParams = lparams
@@ -116,7 +116,7 @@ class PinView : FrameLayout {
         iv.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.grey_circle))
         iv
 
-        parent.addView(iv);
+        parent.addView(iv)
 
         mContainer.addView(parent)
     }

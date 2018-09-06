@@ -62,7 +62,7 @@ class ShareButton : FrameLayout {
         val imageView : ImageView = mContainer.findViewById(R.id.iv_icon)
         if(icon != null) imageView.setImageDrawable(icon)
         val textView : io.forus.me.android.presentation.view.component.text.TextView = mContainer.findViewById(R.id.tv_text)
-        textView.setText(text)
+        textView.text = text
 
         ta.recycle()
     }

@@ -1,4 +1,4 @@
-package io.forus.me.android.presentation.view.screens.records.list;
+package io.forus.me.android.presentation.view.screens.records.list
 
 import io.forus.me.android.presentation.view.base.lr.LRView
 
@@ -7,6 +7,4 @@ import io.forus.me.android.presentation.view.base.lr.LRView
  */
 
 
-interface RecordsView : LRView<RecordsModel> {
-
-}
+interface RecordsView : LRView<RecordsModel>

@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="8dp"
-            android:text="@string/error_text"
+            android:text="@string/app_error_text"
             android:textColor="@color/colorAccent"
             android:textSize="20sp" />
 
@@ -33,7 +33,7 @@
             android:id="@+id/LR_Retry_Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/retry_text" />
+            android:text="@string/app_retry_text" />
 
     </LinearLayout>
 

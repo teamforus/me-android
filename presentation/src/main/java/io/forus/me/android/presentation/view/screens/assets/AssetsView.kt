@@ -1,4 +1,4 @@
-package io.forus.me.android.presentation.view.screens.assets;
+package io.forus.me.android.presentation.view.screens.assets
 
 import io.forus.me.android.presentation.view.base.lr.LRView
 
@@ -7,6 +7,4 @@ import io.forus.me.android.presentation.view.base.lr.LRView
  */
 
 
-interface AssetsView : LRView<AssetsModel> {
-
-}
+interface AssetsView : LRView<AssetsModel>

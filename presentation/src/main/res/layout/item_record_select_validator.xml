@@ -25,7 +25,7 @@
 
 
         <LinearLayout
-            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
             android:orientation="vertical"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/iv_icon"
@@ -69,7 +69,7 @@
 
     <View
         android:background="@color/alto"
-        android:layout_marginLeft="56dp"
+        android:layout_marginStart="56dp"
         android:layout_width="match_parent"
         android:layout_height="1dp"/>
 

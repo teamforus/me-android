@@ -10,7 +10,7 @@ import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.helpers.format
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
-import kotlinx.android.synthetic.main.vouchers_details.*
+import kotlinx.android.synthetic.main.fragment_voucher.*
 import android.content.Intent
 import android.net.Uri
 import io.forus.me.android.domain.models.qr.QrCode
@@ -31,7 +31,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPres
     private lateinit var address: String
 
     override val toolbarTitle: String
-        get() = getString(R.string.voucher)
+        get() = getString(R.string.vouchers_item)
 
     override val allowBack: Boolean
         get() = true
@@ -41,7 +41,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPres
     override fun loadRefreshPanel() = lr_panel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
-            = inflater.inflate(R.layout.vouchers_details, container, false).also {
+            = inflater.inflate(R.layout.fragment_voucher, container, false).also {
 
         address = if (arguments == null) "" else arguments!!.getString(VOUCHER_ADDRESS_EXTRA, "")
     }

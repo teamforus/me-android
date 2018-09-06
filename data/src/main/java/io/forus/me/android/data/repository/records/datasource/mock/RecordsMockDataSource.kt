@@ -7,7 +7,7 @@ import io.forus.me.android.data.repository.records.datasource.RecordsDataSource
 import io.reactivex.Observable
 import io.reactivex.Single
 
-class RecordsMockDataSource() : RecordsDataSource{
+class RecordsMockDataSource : RecordsDataSource{
 
     val types: MutableList<RecordType> = mutableListOf()
     val categories : MutableList<RecordCategory> = mutableListOf()

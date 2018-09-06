@@ -6,11 +6,11 @@ import io.forus.me.android.domain.models.vouchers.Transaction
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.helpers.format
 import io.forus.me.android.presentation.helpers.inflate
-import kotlinx.android.synthetic.main.vouchers_transcations_list_item.view.*
+import kotlinx.android.synthetic.main.item_voucher_transcations_list.view.*
 
 
 class TransactionsVH(parent: ViewGroup, private val clickListener: ((Transaction) -> Unit)?)
-    : RecyclerView.ViewHolder(parent.inflate(R.layout.vouchers_transcations_list_item)) {
+    : RecyclerView.ViewHolder(parent.inflate(R.layout.item_voucher_transcations_list)) {
     init {
 
     }
@@ -21,7 +21,6 @@ class TransactionsVH(parent: ViewGroup, private val clickListener: ((Transaction
         overline1.text = item.dateTime
 
         subtitle2.text = item.amount.toFloat().format(2)
-        overline2.text = "Payment"
 
         if(!item.currency.logoUrl.isEmpty()) logo.setImageUrl(item.currency.logoUrl)
         

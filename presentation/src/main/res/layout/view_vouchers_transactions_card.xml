@@ -32,7 +32,7 @@
                 style="@style/Headline6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/transactieoverzicht" />
+                android:text="@string/vouchers_transactions" />
 
         </LinearLayout>
 

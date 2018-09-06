@@ -6,10 +6,10 @@ import io.forus.me.android.domain.models.wallets.Wallet
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.helpers.format
 import io.forus.me.android.presentation.helpers.inflate
-import kotlinx.android.synthetic.main.wallets_item.view.*
+import kotlinx.android.synthetic.main.item_wallets.view.*
 
 
-class WalletsVH(parent: ViewGroup, private val clickListener: ((Wallet) -> Unit)?) : RecyclerView.ViewHolder(parent.inflate(R.layout.wallets_item)) {
+class WalletsVH(parent: ViewGroup, private val clickListener: ((Wallet) -> Unit)?) : RecyclerView.ViewHolder(parent.inflate(R.layout.item_wallets)) {
     init {
 
     }

@@ -58,7 +58,7 @@ class PinLockPresenter constructor(private val accountRepository: AccountReposit
                                         PinLockPartialChanges.CheckPinError(Unit)
                                     }
                         }
-        );
+        )
 
 
         val initialViewState = LRViewState(

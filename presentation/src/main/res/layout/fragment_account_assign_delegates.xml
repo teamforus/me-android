@@ -52,7 +52,7 @@
                             android:textColor="@color/textColor"
                             android:letterSpacing="0.02"
                             android:lineSpacingExtra="5.9sp"
-                            android:text="@string/scan_deze_qr_code_met_een_ander_apparaat_waar_u_al_op_aangemeld_bent"
+                            android:text="@string/me_scan_deze_qr"
                             />
 
                         <ImageView
@@ -69,7 +69,7 @@
                     <io.forus.me.android.presentation.view.component.text.TextView
                         android:layout_gravity="right"
                         android:id="@+id/show_qr_panel"
-                        android:text="@string/login_via_de_qr_code"
+                        android:text="@string/restore_login_via_de_qr_code"
                         android:textColor="@color/colorAccent"
                         android:textAllCaps="true"
                         android:layout_width="wrap_content"
@@ -100,7 +100,7 @@
             <io.forus.me.android.presentation.view.component.buttons.Button
                 android:id="@+id/via_pin"
                 android:layout_marginTop="36dp"
-                android:text="@string/inloggen_met_pincode"
+                android:text="@string/restore_inloggen_met_pincode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -108,7 +108,7 @@
             <io.forus.me.android.presentation.view.component.buttons.Button
                 android:id="@+id/via_email"
                 android:layout_marginTop="18dp"
-                android:text="@string/inloggen_via_email"
+                android:text="@string/restore_inloggen_via_email"
                 app:reverse="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />

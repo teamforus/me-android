@@ -1,4 +1,4 @@
-package io.forus.me.android.presentation.view.screens.wallets;
+package io.forus.me.android.presentation.view.screens.wallets
 
 import io.forus.me.android.presentation.view.base.lr.LRView
 
@@ -7,6 +7,4 @@ import io.forus.me.android.presentation.view.base.lr.LRView
  */
 
 
-interface WalletsView : LRView<WalletsModel> {
-
-}
+interface WalletsView : LRView<WalletsModel>

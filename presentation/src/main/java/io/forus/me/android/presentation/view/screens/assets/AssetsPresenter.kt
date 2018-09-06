@@ -29,7 +29,7 @@ class AssetsPresenter constructor(val assetsRepository: AssetsRepository) : LRPr
 //                loadRefreshPartialChanges()
 //        );
 
-        var observable = loadRefreshPartialChanges();
+        var observable = loadRefreshPartialChanges()
 
 
         val initialViewState = LRViewState(

@@ -17,8 +17,8 @@ import kotlinx.android.synthetic.main.fragment_records_recycler.*
 class RecordsFragment : ToolbarLRFragment<RecordsModel, RecordsView, RecordsPresenter>(), RecordsView{
 
     companion object {
-        private val CATEGORY_ID_EXTRA = "CATEGORY_ID_EXTRA";
-        private val CATEGORY_NAME_EXTRA = "CATEGORY_NAME_EXTRA";
+        private val CATEGORY_ID_EXTRA = "CATEGORY_ID_EXTRA"
+        private val CATEGORY_NAME_EXTRA = "CATEGORY_NAME_EXTRA"
 
         fun newIntent(recordCategoryId: Long, recordCategoryName: String): RecordsFragment = RecordsFragment().also {
             val bundle = Bundle()
@@ -32,7 +32,7 @@ class RecordsFragment : ToolbarLRFragment<RecordsModel, RecordsView, RecordsPres
         get() = true
 
     override val toolbarTitle: String
-        get() = getString(R.string.records)
+        get() = getString(R.string.dashboard_records)
 
     private var recordCategoryId: Long = 0
     private var recordCategoryName: String = ""

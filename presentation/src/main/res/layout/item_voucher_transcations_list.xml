@@ -27,15 +27,15 @@
             android:layout_height="wrap_content"
             android:paddingTop="18dp"
             android:paddingBottom="18dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="16dp">
+            android:paddingStart="10dp"
+            android:paddingEnd="16dp">
 
             <io.forus.me.android.presentation.view.component.images.AutoLoadImageView
                 android:id="@+id/logo"
                 android:layout_gravity="center_vertical"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginEnd="20dp"
                 android:src="@drawable/circle_empty"/>
 
             <RelativeLayout
@@ -67,7 +67,6 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
                     android:orientation="vertical"
                     android:layout_width="wrap_content"
@@ -88,7 +87,7 @@
                         android:layout_marginTop="@dimen/activity_horizontal_margin_small"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:text="Overline2"/>
+                        android:text="@string/vouchers_transaction_payment"/>
 
                 </LinearLayout>
 
@@ -100,7 +99,6 @@
             android:background="@color/border_color"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginLeft="16dp"
             android:layout_marginStart="16dp"
             android:layout_alignBottom="@id/background"/>
     </RelativeLayout>

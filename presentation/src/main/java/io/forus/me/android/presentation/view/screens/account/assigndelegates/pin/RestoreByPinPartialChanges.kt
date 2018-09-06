@@ -5,6 +5,6 @@ import io.forus.me.android.presentation.view.base.lr.PartialChange
 
 sealed class RestoreByPinPartialChanges : PartialChange {
 
-    class RestoreIdentity() : RestoreByPinPartialChanges()
+    class RestoreIdentity : RestoreByPinPartialChanges()
 
 }

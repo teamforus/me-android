@@ -17,7 +17,7 @@ import io.reactivex.schedulers.Schedulers
 
 class NewRecordPresenter constructor(private val recordRepository: RecordsRepository, private val validatorsRepository: ValidatorsRepository) : LRPresenter<NewRecordModel, NewRecordModel, NewRecordView>() {
 
-    var request: NewRecordRequest? = null;
+    var request: NewRecordRequest? = null
 
     override fun initialModelSingle(): Single<NewRecordModel> = Single.zip(
             Single.fromObservable(recordRepository.getRecordTypes()),
@@ -77,7 +77,7 @@ class NewRecordPresenter constructor(private val recordRepository: RecordsReposi
                                 }
 
                 )
-        );
+        )
 
 
         val initialViewState = LRViewState(

@@ -13,7 +13,7 @@ import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.component.pinlock.PinLockListener
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.pinlock_fragment.*
+import kotlinx.android.synthetic.main.fragment_pinlock.*
 
 class PinLockFragment : LRFragment<PinLockModel, PinLockView, PinLockPresenter>(), PinLockView {
 
@@ -42,7 +42,7 @@ class PinLockFragment : LRFragment<PinLockModel, PinLockView, PinLockPresenter>(
     override fun exit(): Observable<Unit> = RxView.clicks(btn_exit).map { Unit }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        return inflater.inflate(R.layout.pinlock_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_pinlock, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -75,9 +75,9 @@ class PinLockFragment : LRFragment<PinLockModel, PinLockView, PinLockPresenter>(
         indicator_dots.visibility = when (vs.model.state) { PinLockModel.State.CHECKING, PinLockModel.State.SUCCESS -> View.INVISIBLE else  -> View.VISIBLE}
 
         when(vs.model.state){
-            PinLockModel.State.CONFIRM -> changeHeaders(resources.getString(R.string.subtitle_pinlock_confirm), false)
-            PinLockModel.State.CHECKING -> changeHeaders(resources.getString(R.string.subtitle_pinlock_checking), false)
-            PinLockModel.State.WRONG_PIN -> changeHeaders(resources.getString(R.string.subtitle_pinlock_error), true)
+            PinLockModel.State.CONFIRM -> changeHeaders(resources.getString(R.string.passcode_subtitle_pinlock_confirm), false)
+            PinLockModel.State.CHECKING -> changeHeaders(resources.getString(R.string.passcode_subtitle_pinlock_checking), false)
+            PinLockModel.State.WRONG_PIN -> changeHeaders(resources.getString(R.string.passcode_subtitle_pinlock_error), true)
         }
 
         if(vs.model.state != vs.model.prevState) when(vs.model.state){

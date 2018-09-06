@@ -43,7 +43,6 @@
                         android:layout_height="110dp">
 
                         <LinearLayout
-                            android:layout_marginRight="140dp"
                             android:layout_marginEnd="140dp"
                             android:orientation="vertical"
                             android:layout_width="match_parent"
@@ -88,8 +87,8 @@
 
                             <io.forus.me.android.presentation.view.component.images.AutoLoadImageView
                                 android:id="@+id/btn_qr"
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginRight="40dp"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="40dp"
                                 android:layout_marginTop="10dp"
                                 android:layout_marginBottom="10dp"
                                 android:layout_width="90dp"
@@ -109,8 +108,8 @@
                         <io.forus.me.android.presentation.view.component.editors.EditText
                             android:id="@+id/amount"
                             app:hint="Amount"
-                            app:validationRegex="@string/not_empty_validation_regex"
-                            app:validationError="@string/decimal_validation_error"
+                            app:validationRegex="@string/me_validation_regex_not_empty"
+                            app:validationError="@string/me_validation_error_decimal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
 

@@ -4,6 +4,6 @@ import io.forus.me.android.presentation.view.base.lr.PartialChange
 
 sealed class RestoreByQRPartialChanges : PartialChange {
 
-    class RestoreIdentity() : RestoreByQRPartialChanges()
+    class RestoreIdentity : RestoreByQRPartialChanges()
 
 }

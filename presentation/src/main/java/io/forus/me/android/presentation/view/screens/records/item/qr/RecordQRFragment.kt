@@ -14,12 +14,12 @@ import io.forus.me.android.presentation.helpers.reactivex.DisposableHolder
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.screens.records.item.RecordDetailsActivity
 import io.reactivex.Observable
-import kotlinx.android.synthetic.main.popup_qr_fragment.*
+import kotlinx.android.synthetic.main.fragment_popup_qr.*
 
 class RecordQRFragment : LRFragment<RecordQRModel, RecordQRView, RecordQRPresenter>(), RecordQRView {
 
     companion object {
-        private val RECORD_ID_EXTRA = "RECORD_ID_EXTRA";
+        private val RECORD_ID_EXTRA = "RECORD_ID_EXTRA"
 
         fun newIntent(recordId: Long): RecordQRFragment = RecordQRFragment().also {
             val bundle = Bundle()
@@ -56,15 +56,11 @@ class RecordQRFragment : LRFragment<RecordQRModel, RecordQRView, RecordQRPresent
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
-            = inflater.inflate(R.layout.popup_qr_fragment, container, false).also {
+            = inflater.inflate(R.layout.fragment_popup_qr, container, false).also {
         val bundle = this.arguments
         if (bundle != null) {
             recordId = bundle.getLong(RECORD_ID_EXTRA)
         }
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
     }
 
     override fun onDetach() {
@@ -92,7 +88,7 @@ class RecordQRFragment : LRFragment<RecordQRModel, RecordQRView, RecordQRPresent
     }
 
     fun closeScreen(state: Validation.State) {
-        showToastMessage(resources.getString(if(state == Validation.State.approved) R.string.validation_approved else R.string.validation_declined))
+        showToastMessage(resources.getString(if(state == Validation.State.approved) R.string.record_details_validation_approved else R.string.record_details_validation_declined))
         (activity as? RecordDetailsActivity)?.closeQRFragment()
     }
 }

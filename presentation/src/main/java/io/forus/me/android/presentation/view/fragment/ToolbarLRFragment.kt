@@ -50,7 +50,7 @@ abstract class ToolbarLRFragment<M, V : LRView<M>, P : MviBasePresenter<V, LRVie
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val result =  super.onCreateView(inflater, container, savedInstanceState)
-        return  result;
+        return  result
 
     }
 
@@ -89,30 +89,6 @@ abstract class ToolbarLRFragment<M, V : LRView<M>, P : MviBasePresenter<V, LRVie
 
     override fun loadRefreshPanel(): LoadRefreshPanel {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun retry(): Observable<Any> {
-        return super.retry()
-    }
-
-    override fun refresh(): Observable<Any> {
-        return super.refresh()
-    }
-
-    override fun updateData(): Observable<Any> {
-        return super.updateData()
-    }
-
-    override fun onResume() {
-        super.onResume()
-    }
-
-    override fun getScrollableView(): View? {
-        return super.getScrollableView()
-    }
-
-    override fun render(vs: LRViewState<M>) {
-        super.render(vs)
     }
 
 

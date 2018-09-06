@@ -1,4 +1,4 @@
-package io.forus.me.android.presentation.view.screens.account.assigndelegates;
+package io.forus.me.android.presentation.view.screens.account.assigndelegates
 
 import io.forus.me.android.presentation.view.base.lr.LRView
 
@@ -7,6 +7,4 @@ import io.forus.me.android.presentation.view.base.lr.LRView
  */
 
 
-interface AssignDelegatesView : LRView<Unit> {
-
-}
+interface AssignDelegatesView : LRView<Unit>

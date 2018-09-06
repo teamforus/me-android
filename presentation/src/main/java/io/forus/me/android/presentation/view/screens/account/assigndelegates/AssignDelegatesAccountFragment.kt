@@ -9,7 +9,7 @@ import io.forus.me.android.presentation.view.base.lr.LoadRefreshPanel
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.reactivex.Observable
-import kotlinx.android.synthetic.main.account_assign_delegates_fragment.*
+import kotlinx.android.synthetic.main.fragment_account_assign_delegates.*
 
 /**
  * Fragment Assign Delegates Screen.
@@ -20,7 +20,7 @@ class AssignDelegatesAccountFragment : ToolbarLRFragment<Unit, AssignDelegatesVi
     override fun viewForSnackbar(): View = root
 
     override val toolbarTitle: String
-        get() = getString(R.string.login)
+        get() = getString(R.string.restore_login)
 
     override val allowBack: Boolean
         get() = true
@@ -36,7 +36,7 @@ class AssignDelegatesAccountFragment : ToolbarLRFragment<Unit, AssignDelegatesVi
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
-            = inflater.inflate(R.layout.account_assign_delegates_fragment, container, false)
+            = inflater.inflate(R.layout.fragment_account_assign_delegates, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

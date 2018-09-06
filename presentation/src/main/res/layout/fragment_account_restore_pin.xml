@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/Body2"
-            android:text="@string/pincode_description" />
+            android:text="@string/restore_pincode_description" />
 
         <io.forus.me.android.presentation.view.component.pin.PinView
             android:id="@+id/pin_view"

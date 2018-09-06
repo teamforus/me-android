@@ -12,7 +12,7 @@ import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.helpers.reactivex.DisposableHolder
 import io.reactivex.Observable
-import kotlinx.android.synthetic.main.popup_qr_fragment.*
+import kotlinx.android.synthetic.main.fragment_popup_qr.*
 
 class RestoreByQRFragment : LRFragment<RestoreByQRModel, RestoreByQRView, RestoreByQRPresenter>(), RestoreByQRView  {
 
@@ -41,11 +41,7 @@ class RestoreByQRFragment : LRFragment<RestoreByQRModel, RestoreByQRView, Restor
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
-            = inflater.inflate(R.layout.popup_qr_fragment, container, false)
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
+            = inflater.inflate(R.layout.fragment_popup_qr, container, false)
 
     override fun onDetach() {
         super.onDetach()

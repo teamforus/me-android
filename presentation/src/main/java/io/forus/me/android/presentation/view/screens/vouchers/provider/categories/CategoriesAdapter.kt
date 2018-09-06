@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import io.forus.me.android.domain.models.vouchers.ProductCategory
 
-class CategoriesAdapter(): RecyclerView.Adapter<CategoryVH>() {
+class CategoriesAdapter : RecyclerView.Adapter<CategoryVH>() {
 
     private var lastSelectedPosition: Int = 0
 

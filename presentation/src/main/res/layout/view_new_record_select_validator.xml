@@ -15,7 +15,7 @@
         android:layout_marginRight="@dimen/activity_horizontal_margin">
 
         <io.forus.me.android.presentation.view.component.text.TextView
-            android:text="@string/choose_validators_text"
+            android:text="@string/new_record_choose_validators_text"
             style="@style/Body2Small"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import io.forus.me.android.domain.models.records.Record
 
-class RecordsAdapter() : RecyclerView.Adapter<RecordsVH>() {
+class RecordsAdapter : RecyclerView.Adapter<RecordsVH>() {
 
 
     var records: List<Record> = emptyList()

@@ -26,7 +26,7 @@ class WalletsFragment : LRFragment<WalletsModel, WalletsView, WalletsPresenter>(
 
     private lateinit var adapter: WalletsAdapter
 
-    override fun getTitle(): String = getString(R.string.valuta)
+    override fun getTitle(): String = getString(R.string.dashboard_valuta)
 
     override fun viewForSnackbar(): View = root
 

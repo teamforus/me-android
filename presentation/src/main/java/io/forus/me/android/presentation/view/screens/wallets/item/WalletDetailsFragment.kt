@@ -10,12 +10,12 @@ import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.helpers.format
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
-import kotlinx.android.synthetic.main.wallet_details_fragment.*
+import kotlinx.android.synthetic.main.fragment_wallet_details.*
 
 class WalletDetailsFragment : ToolbarLRFragment<WalletDetailsModel, WalletDetailsView, WalletDetailsPresenter>(), WalletDetailsView{
 
     companion object {
-        private val WALLET_ID_EXTRA = "WALLET_ID_EXTRA";
+        private val WALLET_ID_EXTRA = "WALLET_ID_EXTRA"
 
         fun newIntent(walletId: Long): WalletDetailsFragment = WalletDetailsFragment().also {
             val bundle = Bundle()
@@ -37,16 +37,12 @@ class WalletDetailsFragment : ToolbarLRFragment<WalletDetailsModel, WalletDetail
     override fun loadRefreshPanel(): LoadRefreshPanel = lr_panel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val view = inflater.inflate(R.layout.wallet_details_fragment, container, false)
+        val view = inflater.inflate(R.layout.fragment_wallet_details, container, false)
         val bundle = this.arguments
         if (bundle != null) {
             walletId = bundle.getLong(WALLET_ID_EXTRA)
         }
         return view
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
     }
 
     override fun createPresenter() = WalletDetailsPresenter(

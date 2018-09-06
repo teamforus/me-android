@@ -39,7 +39,7 @@ class NewAccountPresenter constructor(private val accountRepository: AccountRepo
                                     }
                                     .startWith(NewAccountPartialChanges.RegisterStart(it))
                         }
-        );
+        )
 
 
         val initialViewState = LRViewState(

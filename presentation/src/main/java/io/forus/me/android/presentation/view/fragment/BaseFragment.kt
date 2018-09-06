@@ -119,7 +119,7 @@ abstract class BaseFragment : Fragment(), FragmentListener {
      * Lifecycle init ui method.
      */
     protected open fun getLayoutID(): Int{
-        return 0;
+        return 0
     }
     //  /**
     //   * Gets a component for dependency injection by its validator.

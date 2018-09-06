@@ -17,7 +17,7 @@ import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.qr.QrDecoderResult
 import io.forus.me.android.presentation.view.component.qr.PointsOverlayView
-import kotlinx.android.synthetic.main.activity_decoder.*
+import kotlinx.android.synthetic.main.activity_qr_decoder.*
 import java.util.concurrent.atomic.AtomicBoolean
 
 
@@ -48,14 +48,14 @@ class QrScannerActivity : FragmentActivity(), QRCodeReaderView.OnQRCodeReadListe
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_decoder)
+        setContentView(R.layout.activity_qr_decoder)
 
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
                 == PackageManager.PERMISSION_GRANTED) {
-            initQRCodeReaderView();
+            initQRCodeReaderView()
         } else {
-            requestCameraPermission();
+            requestCameraPermission()
         }
 
     }
@@ -124,7 +124,7 @@ class QrScannerActivity : FragmentActivity(), QRCodeReaderView.OnQRCodeReadListe
     }
 
     private fun initQRCodeReaderView() {
-        val content = layoutInflater.inflate(R.layout.content_decoder, main_layout, true)
+        val content = layoutInflater.inflate(R.layout.activity_qr_decoder_content, main_layout, true)
 
         qrCodeReaderView = content.findViewById(R.id.qrdecoderview)
         resultTextView = content.findViewById(R.id.result_text_view)

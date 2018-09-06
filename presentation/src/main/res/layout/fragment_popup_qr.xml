@@ -11,11 +11,11 @@
 
     <io.forus.me.android.presentation.view.component.text.TextView
         style="@style/Body2Small"
-        android:layout_marginRight="25dp"
+        android:layout_marginEnd="25dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:type="regular"
-        android:text="@string/scan_deze_qr_code_met_een_ander_apparaat_waar_u_al_op_aangemeld_bent"
+        android:text="@string/me_scan_deze_qr"
         />
 
     <io.forus.me.android.presentation.view.component.images.QRCodeImageView

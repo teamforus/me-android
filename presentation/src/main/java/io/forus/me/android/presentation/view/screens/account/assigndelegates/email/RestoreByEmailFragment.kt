@@ -15,7 +15,7 @@ import io.forus.me.android.presentation.helpers.reactivex.DisposableHolder
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.account_restore_email_fragment.*
+import kotlinx.android.synthetic.main.fragment_account_restore_email.*
 
 
 /**
@@ -38,7 +38,7 @@ class RestoreByEmailFragment : ToolbarLRFragment<RestoreByEmailModel, RestoreByE
         }
 
     override val toolbarTitle: String
-        get() = getString(R.string.login)
+        get() = getString(R.string.restore_login)
 
     override val allowBack: Boolean
         get() = true
@@ -60,7 +60,7 @@ class RestoreByEmailFragment : ToolbarLRFragment<RestoreByEmailModel, RestoreByE
     override fun register() = registerAction
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
-            = inflater.inflate(R.layout.account_restore_email_fragment, container, false)
+            = inflater.inflate(R.layout.fragment_account_restore_email, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -75,7 +75,7 @@ class RestoreByEmailFragment : ToolbarLRFragment<RestoreByEmailModel, RestoreByE
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                restore.active = viewIsValid;
+                restore.active = viewIsValid
             }
         }
 
@@ -127,10 +127,10 @@ class RestoreByEmailFragment : ToolbarLRFragment<RestoreByEmailModel, RestoreByE
 
     fun hideSoftKeyboard() {
         try {
-            val view = activity?.getCurrentFocus()
+            val view = activity?.currentFocus
             if (view != null) {
                 val inputManager = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                inputManager.hideSoftInputFromWindow(view.getWindowToken(), 0)
+                inputManager.hideSoftInputFromWindow(view.windowToken, 0)
             }
         } catch (e: Exception) {
             e.printStackTrace()

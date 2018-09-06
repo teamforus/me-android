@@ -5,9 +5,9 @@ import android.view.ViewGroup
 import io.forus.me.android.domain.models.vouchers.Organization
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.helpers.inflate
-import kotlinx.android.synthetic.main.select_organization_list_item.view.*
+import kotlinx.android.synthetic.main.item_voucher_select_organization.view.*
 
-class OrganizationVH(parent: ViewGroup, private val clickListener: ((Organization, Int) -> Unit)?) : RecyclerView.ViewHolder(parent.inflate(R.layout.select_organization_list_item)) {
+class OrganizationVH(parent: ViewGroup, private val clickListener: ((Organization, Int) -> Unit)?) : RecyclerView.ViewHolder(parent.inflate(R.layout.item_voucher_select_organization)) {
     init {
 
     }

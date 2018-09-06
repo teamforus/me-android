@@ -26,7 +26,7 @@ class AssetsFragment : LRFragment<AssetsModel, AssetsView, AssetsPresenter>(), A
 
     private lateinit var adapter: AssetsAdapter
 
-    override fun getTitle(): String = getString(R.string.valuta)
+    override fun getTitle(): String = getString(R.string.dashboard_valuta)
 
     override fun viewForSnackbar(): View = root
 

@@ -10,12 +10,12 @@ import io.forus.me.android.domain.models.vouchers.Transaction
 
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.view.screens.vouchers.item.transactions.items.TransactionsAdapter
-import kotlinx.android.synthetic.main.vouchers_transactions_view_card.view.*
+import kotlinx.android.synthetic.main.view_vouchers_transactions_card.view.*
 
 
 class TransactionsCard : FrameLayout {
     private var mRootView: View? = null
-    private lateinit var adapter: TransactionsAdapter;
+    private lateinit var adapter: TransactionsAdapter
 
 
     constructor(context: Context) : super(context) {
@@ -41,7 +41,7 @@ class TransactionsCard : FrameLayout {
     private fun init(context: Context) {
 
         val inflater = LayoutInflater.from(context)
-        mRootView = inflater.inflate(R.layout.vouchers_transactions_view_card, this)
+        mRootView = inflater.inflate(R.layout.view_vouchers_transactions_card, this)
 
         adapter = TransactionsAdapter()
 
@@ -52,6 +52,6 @@ class TransactionsCard : FrameLayout {
 
     fun setTransactions (transactions: List<Transaction>){
         adapter.transactions = transactions
-        title.text = resources.getText(if(transactions.isEmpty()) R.string.transactieoverzicht_empty else R.string.transactieoverzicht)
+        title.text = resources.getText(if(transactions.isEmpty()) R.string.vouchers_transactions_empty else R.string.vouchers_transactions)
     }
 }

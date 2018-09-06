@@ -18,7 +18,7 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.dashboard_activity.*
+import kotlinx.android.synthetic.main.activity_dashboard.*
 
 
 class DashboardActivity : CommonActivity() {
@@ -38,7 +38,7 @@ class DashboardActivity : CommonActivity() {
     private var adapter: MainViewPagerAdapter? = null
 
     override val viewID: Int
-        get() = R.layout.dashboard_activity
+        get() = R.layout.activity_dashboard
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,7 +51,7 @@ class DashboardActivity : CommonActivity() {
     private fun initUI(){
 
         bottom_navigation.setOnTabSelectedListener ( object: AHBottomNavigation.OnTabSelectedListener {
-            var lastPosition: Int = 0;
+            var lastPosition: Int = 0
             override fun onTabSelected(position: Int, wasSelected: Boolean): Boolean {
                var result =   showTab(position, lastPosition, wasSelected)
                this.lastPosition = position
@@ -70,8 +70,8 @@ class DashboardActivity : CommonActivity() {
 
         if (adapter == null) {
 
-            val fragments = ArrayList<android.support.v4.app.Fragment?>();
-            val titles = ArrayList<String>();
+            val fragments = ArrayList<android.support.v4.app.Fragment?>()
+            val titles = ArrayList<String>()
 
             //fragments.add(PropertyFragment.newIntent())
             fragments.add(VouchersFragment.newIntent())
@@ -84,7 +84,7 @@ class DashboardActivity : CommonActivity() {
             adapter = MainViewPagerAdapter(supportFragmentManager, applicationContext, fragments, titles)
             view_pager.adapter = adapter
 
-            view_pager.offscreenPageLimit = 3;
+            view_pager.offscreenPageLimit = 3
             selectTab(currentPagerPosition, 0)
         }
 

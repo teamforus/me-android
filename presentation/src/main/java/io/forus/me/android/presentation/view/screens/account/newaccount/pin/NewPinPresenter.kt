@@ -51,7 +51,7 @@ class NewPinPresenter constructor(private val accountRepository: AccountReposito
                                         NewPinPartialChanges.CreateIdentityError(Unit)
                                     }
                         }
-        );
+        )
 
 
         val initialViewState = LRViewState(

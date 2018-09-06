@@ -23,7 +23,7 @@ sealed class NewRecordPartialChanges : PartialChange {
 
     data class SetValue(val value: String) : NewRecordPartialChanges()
 
-    class PreviousStep() : NewRecordPartialChanges()
+    class PreviousStep : NewRecordPartialChanges()
 
-    class NextStep() : NewRecordPartialChanges()
+    class NextStep : NewRecordPartialChanges()
 }

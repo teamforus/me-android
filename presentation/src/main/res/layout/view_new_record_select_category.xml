@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <io.forus.me.android.presentation.view.component.text.TextView
-        android:text="@string/choose_the_category_text"
+        android:text="@string/new_record_choose_the_category_text"
         style="@style/Body2Small"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
