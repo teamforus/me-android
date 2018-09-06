@@ -11,7 +11,6 @@
     <string name="app_exception_message_no_connection">There is no internet connection</string>
 
     <!-- Common -->
-    <string name="me_scan_deze_qr">Scan deze QR-Code met een ander apparaat waar u al op aangemeld bent</string>
     <string name="me_validation_regex_not_empty">^(.*)$</string>
     <string name="me_validation_regex_email">^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$</string>
     <string name="me_validation_regex_decimal">/^(0|[1-9]\d*)(\.\d+)?$/</string>
@@ -21,40 +20,41 @@
     <string name="me_validation_error_decimal">Not a valid number</string>
 
     <!-- Dashboard -->
-    <string name="dashboard_property">Eigendom</string>
+    <string name="dashboard_property">Property</string>
     <string name="dashboard_qr">Qr</string>
-    <string name="dashboard_records">Eigenschappen</string>
+    <string name="dashboard_records">Records</string>
     <string name="dashboard_vouchers">Vouchers</string>
-    <string name="dashboard_valuta">Valuta</string>
-    <string name="dashboard_bezit">Bezit</string>
+    <string name="dashboard_currency">Currency</string>
+    <string name="dashboard_assets">Assets</string>
 
     <!-- Welcome screen -->
-    <string name="welcome_greeting">Welkom bij Me</string>
+    <string name="welcome_greeting">Welcome to Me</string>
     <string name="welcome_create_account">Create account</string>
     <string name="welcome_restore_account">Restore account</string>
-    <string name="welcome_set_up_your_identity">Stel uw identiteit in</string>
+    <string name="welcome_set_up_your_identity">Set up your identity</string>
 
     <!-- Restore identity -->
     <string name="restore_login">Anmelden</string>
-    <string name="restore_login_via_de_qr_code">login via de qr code</string>
-    <string name="restore_inloggen_met_pincode">Inloggen met pincode</string>
-    <string name="restore_inloggen_via_email">Inloggen via email</string>
+    <string name="restore_login_via_de_qr_code">login via qr code</string>
+    <string name="restore_scan_deze_qr">Scan this QR Code with another device you have already registered</string>
+    <string name="restore_inloggen_met_pincode">Login with pincode</string>
+    <string name="restore_inloggen_via_email">Login with email</string>
     <string name="restore_inloggen_by_email">Restore by email</string>
     <string name="restore_email_description">Please enter your e-mail address in order to receive your login details.</string>
-    <string name="restore_pincode_description">Vul deze pincode in uw profeil in</string>
+    <string name="restore_pincode_description">Enter this pincode in your profile</string>
     <string name="restore_email_instructions">The link was sent to your e-mail. Tap on it, wait for Success message and come back to Me.</string>
 
     <!-- New account screen -->
-    <string name="new_account_title">New profiel</string>
+    <string name="new_account_title">New profile</string>
     <string name="new_account_subtitle">Please provide your e-mail and information below. For registration primary email address is required. </string>
-    <string name="new_account_error_already_in_use">"Account already in use"</string>
+    <string name="new_account_error_already_in_use">Account already in use</string>
 
     <!-- New passcode screen -->
     <string name="passcode_title_create">Create Passcode</string>
     <string name="passcode_title_confirm">Confirm Passcode</string>
-    <string name="passcode_title_create_identity">Please wait</string>
-    <string name="passcode_subtitle_create">Maak een 4cijferige pincode aan</string>
-    <string name="passcode_subtitle_create_not_match">Passwordes don\'t match. Please try again</string>
+    <string name="passcode_title_create_identity_wait">Please wait</string>
+    <string name="passcode_subtitle_create">Enter 4-digit passcode</string>
+    <string name="passcode_subtitle_create_not_match">Passwords don\'t match. Please try again</string>
     <string name="passcode_subtitle_create_identity">Creating identity</string>
     <string name="passcode_subtitle_change_error">Something went wrong :(</string>
     <string name="passcode_create_skip">Skip</string>
@@ -99,6 +99,7 @@
     <string name="record_details_title">Record detail</string>
     <string name="record_details_title_validators">Validators</string>
     <string name="record_details_button_show_qr">Show QR</string>
+    <string name="record_details_scan_deze_qr">Scan the QR-Code</string>
     <string name="record_details_validation_request_error">Error while sending validation request</string>
     <string name="record_details_validation_approved">Validation approved</string>
     <string name="record_details_validation_declined">Validation declined</string>
@@ -109,11 +110,11 @@
     <string name="wallet_balance_fiat">~ %1$s€;    %2$s$</string>
     <string name="wallet_send">Zend</string>
     <string name="wallet_receive">Wraag</string>
-    <string name="wallet_transactions_title">Transactieoverzicht</string>
+    <string name="wallet_transactions_title">Transactions</string>
     <string name="wallet_transactions_see_all">See all</string>
 
     <!-- QR Scanner -->
-    <string name="qr_on_off_flashlight">On/Off flashlight"</string>
+    <string name="qr_on_off_flashlight">On/Off flashlight</string>
     <string name="qr_on_off_decoding">On/Off QR decoding</string>
     <string name="qr_validation_approved">Validation approved</string>
     <string name="qr_validation_declined">Validation declined</string>
@@ -125,9 +126,9 @@
     <string name="qr_voucher_access_denied">You are not eligible to scan this voucher</string>
     <string name="qr_unknown_type">Unknown QR</string>
     <string name="qr_unexpected_error">Unexpected error</string>
-    <string name="qr_popup_approve_validation_title">"Record validation"</string>
-    <string name="qr_popup_approve_type">"type"</string>
-    <string name="qr_popup_approve_value">"value"</string>
+    <string name="qr_popup_approve_validation_title">Record validation</string>
+    <string name="qr_popup_approve_type">type</string>
+    <string name="qr_popup_approve_value">value</string>
     <string name="qr_popup_approve_validation_positive">Approve</string>
     <string name="qr_popup_approve_validation_negative">Decline"</string>
     <string name="qr_popup_restore_identity_title">Restore identity</string>
@@ -136,10 +137,10 @@
 
     <!-- Vouchers -->
     <string name="vouchers_item">Voucher</string>
-    <string name="vouchers_transactions">Transactieoverzicht</string>
+    <string name="vouchers_transactions">Transactions</string>
     <string name="vouchers_transactions_empty">No transactions yet</string>
     <string name="vouchers_no_items">You have no vouchers yet</string>
-    <string name="vouchers_make_transaction">GENEREREN</string>
+    <string name="vouchers_make_transaction">GENERATE</string>
     <string name="vouchers_make_transaction_failure">Transaction failed</string>
     <string name="vouchers_transaction_payment">Payment</string>
 

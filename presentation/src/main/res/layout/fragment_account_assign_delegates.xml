@@ -52,7 +52,7 @@
                             android:textColor="@color/textColor"
                             android:letterSpacing="0.02"
                             android:lineSpacingExtra="5.9sp"
-                            android:text="@string/me_scan_deze_qr"
+                            android:text="@string/restore_scan_deze_qr"
                             />
 
                         <ImageView

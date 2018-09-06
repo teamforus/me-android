@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:type="regular"
-        android:text="@string/me_scan_deze_qr"
+        android:text="@string/record_details_scan_deze_qr"
         />
 
     <io.forus.me.android.presentation.view.component.images.QRCodeImageView

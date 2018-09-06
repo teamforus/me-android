@@ -100,7 +100,7 @@ class ChangePinFragment : ToolbarLRFragment<ChangePinModel, ChangePinView, Chang
             ChangePinModel.State.CREATE_NEW_PIN -> changeHeaders(resources.getString(R.string.passcode_title_create), resources.getString(R.string.passcode_subtitle_create), false)
             ChangePinModel.State.CONFIRM_NEW_PIN -> changeHeaders(resources.getString(R.string.passcode_title_confirm), resources.getString(R.string.passcode_subtitle_create), false)
             ChangePinModel.State.PASS_NOT_MATCH -> changeHeaders(resources.getString(R.string.passcode_title_create), resources.getString(R.string.passcode_subtitle_create_not_match), true)
-            ChangePinModel.State.CHANGING_PIN -> changeHeaders(resources.getString(R.string.passcode_title_create_identity), resources.getString(R.string.passcode_changing), false)
+            ChangePinModel.State.CHANGING_PIN -> changeHeaders(resources.getString(R.string.passcode_title_create_identity_wait), resources.getString(R.string.passcode_changing), false)
             ChangePinModel.State.CHANGE_PIN_ERROR -> changeHeaders("", resources.getString(R.string.passcode_subtitle_change_error), true)
         }
 

@@ -42,10 +42,10 @@ class PropertyFragment : BaseFragment() {
         val fragments = ArrayList<Fragment>()
         val titles = ArrayList<String>()
         fragments.add(WalletsFragment.newIntent())
-        titles.add(getString(R.string.dashboard_valuta))
+        titles.add(getString(R.string.dashboard_currency))
 
         fragments.add(AssetsFragment.newIntent())
-        titles.add(getString(R.string.dashboard_bezit))
+        titles.add(getString(R.string.dashboard_assets))
 
         fragments.add(VouchersFragment.newIntent())
         titles.add(getString(R.string.dashboard_vouchers))
