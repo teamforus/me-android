@@ -13,9 +13,6 @@ import io.forus.me.android.presentation.helpers.reactivex.DisposableHolder
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.fragment_account_restore_pin.*
 
-/**
- * Fragment Assign Delegates Screen.
- */
 class RestoreByPinFragment : LRFragment<RestoreByPinModel, RestoreByPinView, RestoreByPinPresenter>(), RestoreByPinView  {
 
     val disposableHolder = DisposableHolder()
@@ -34,6 +31,13 @@ class RestoreByPinFragment : LRFragment<RestoreByPinModel, RestoreByPinView, Res
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
             = inflater.inflate(R.layout.fragment_account_restore_pin, container, false)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        btn_pin_instructions.setOnClickListener {
+            if(activity != null) PinInstructionsDialog(activity!!).show()
+        }
+    }
 
     override fun onDetach() {
         super.onDetach()

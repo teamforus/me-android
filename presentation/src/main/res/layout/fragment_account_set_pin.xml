@@ -16,16 +16,31 @@
 
         <include layout="@layout/toolbar_view"/>
 
-        <io.forus.me.android.presentation.view.component.text.TextView
-            android:id="@+id/subtitle_action"
-            android:layout_gravity="center_horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:textColor="@color/body_1_87"
-            android:letterSpacing="0.02"
-            android:lineSpacingExtra="6sp"
-            tools:text="@string/passcode_subtitle_create" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <io.forus.me.android.presentation.view.component.text.TextView
+                android:id="@+id/subtitle_action"
+                android:gravity="center"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textColor="@color/body_1_87"
+                android:letterSpacing="0.02"
+                android:lineSpacingExtra="6sp"
+                tools:text="@string/passcode_subtitle_create" />
+
+            <Button
+                android:id="@+id/btn_exit"
+                android:layout_alignParentEnd="true"
+                android:layout_centerHorizontal="true"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/ic_close"/>
+
+        </RelativeLayout>
 
         <View
             android:background="@color/secondary200"
@@ -75,16 +90,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </RelativeLayout>
-
-        <io.forus.me.android.presentation.view.component.buttons.Button
-            android:id="@+id/btn_skip"
-            android:visibility="gone"
-            android:layout_gravity="end"
-            android:text="@string/passcode_create_skip"
-            android:layout_marginRight="30dp"
-            android:layout_marginTop="15dp"
-            android:layout_width="70dp"
-            android:layout_height="40dp" />
 
     </LinearLayout>
 

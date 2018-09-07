@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.Color
 import android.os.Build
 import android.util.AttributeSet
-import android.widget.Button
 import io.forus.me.android.presentation.R
 import android.support.v4.content.ContextCompat
 import android.util.TypedValue
@@ -13,7 +12,7 @@ import io.forus.me.android.presentation.helpers.FontCache
 import io.forus.me.android.presentation.view.component.FontType
 
 
-class Button : Button {
+class Button : android.support.v7.widget.AppCompatButton {
 
     private var reverse : Boolean = false
     private var customTextSize: Float = 16f

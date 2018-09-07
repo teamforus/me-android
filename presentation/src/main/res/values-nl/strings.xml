@@ -2,8 +2,6 @@
 <resources>
 
     <!-- Application -->
-    <string name="app_name">Me</string>
-    <string name="app_blank_string"> </string>
     <string name="app_error_text">Gefaald</string>
     <string name="app_retry_text">Retry</string>
     <string name="app_refreshing_error_text">Verversen fout</string>
@@ -11,10 +9,6 @@
     <string name="app_exception_message_no_connection">Er is geen internetverbinding</string>
 
     <!-- Common -->
-    <string name="me_validation_regex_not_empty">^(.*)$</string>
-    <string name="me_validation_regex_email">^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$</string>
-    <string name="me_validation_regex_decimal">/^(0|[1-9]\d*)(\.\d+)?$/</string>
-    <string name="me_validation_required_asterisk"><![CDATA[ <sup><small>*</small></sup> ]]></string>
     <string name="me_validation_error_not_empty">Veld is leeg</string>
     <string name="me_validation_error_email_is_invalid">Veld is ongeldig</string>
     <string name="me_validation_error_decimal">Nummer is niet geldig</string>
@@ -133,7 +127,6 @@
     <string name="qr_popup_approve_validation_negative">Decline"</string>
     <string name="qr_popup_restore_identity_title">Herstel identiteit</string>
     <string name="qr_popup_restore_identity_description">Toegang te verlenen?</string>
-    <string name="qr_popup_restore_identity_positive">OK</string>
 
     <!-- Vouchers -->
     <string name="vouchers_item">Voucher</string>

@@ -23,6 +23,9 @@ class RecordDetailsActivity : SlidingPanelActivity() {
         }
     }
 
+    override val height: Float
+        get() = 400f
+
     private lateinit var fragment: RecordDetailsFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {

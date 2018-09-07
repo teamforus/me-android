@@ -28,10 +28,10 @@ class AssignDelegatesAccountActivity : SlidingPanelActivity() {
     }
 
     fun showPopupQRFragment(){
-        addPopupFragment(RestoreByQRFragment(), "QR-Code")
+        addPopupFragment(RestoreByQRFragment(), resources.getString(R.string.restore_title_qr))
     }
 
     fun showPopupPinFragment(){
-        addPopupFragment(RestoreByPinFragment(), "Pincode")
+        addPopupFragment(RestoreByPinFragment(), resources.getString(R.string.restore_title_pincode))
     }
 }

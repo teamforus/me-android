@@ -8,6 +8,11 @@ import io.forus.me.android.data.net.MeServiceFactory
 import io.forus.me.android.presentation.internal.Injection
 import com.crashlytics.android.Crashlytics
 import io.fabric.sdk.android.Fabric
+import android.app.Activity
+import android.os.Bundle
+import android.content.pm.ActivityInfo
+
+
 
 
 
@@ -27,6 +32,7 @@ class AndroidApplication : Application() {
         this.initializeLeakDetection()
         this.initRetrofit()
         this.initFabric()
+        this.initPortraitOrientation()
 
         this.me = this
 
@@ -43,15 +49,32 @@ class AndroidApplication : Application() {
 
     private fun initializeInjector() {
         Injection.instance.applicationContext = applicationContext
-//        this.applicationComponent = DaggerApplicationComponent.builder()
-//                .applicationModule(ApplicationModule(this))
-//                .build()
     }
 
     private fun initializeLeakDetection() {
         if (BuildConfig.DEBUG) {
            // LeakCanary.install(this)
         }
+    }
+
+    private fun initPortraitOrientation(){
+        registerActivityLifecycleCallbacks(object : Application.ActivityLifecycleCallbacks {
+            override fun onActivityCreated(activity: Activity, bundle: Bundle?) {
+                activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT
+            }
+
+            override fun onActivityStarted(activity: Activity) {}
+
+            override fun onActivityResumed(activity: Activity) {}
+
+            override fun onActivityPaused(activity: Activity) {}
+
+            override fun onActivityStopped(activity: Activity) {}
+
+            override fun onActivitySaveInstanceState(activity: Activity, bundle: Bundle?) {}
+
+            override fun onActivityDestroyed(activity: Activity) {}
+        })
     }
 
     override fun attachBaseContext(base: Context) {

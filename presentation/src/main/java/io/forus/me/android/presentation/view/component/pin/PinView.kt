@@ -84,7 +84,7 @@ class PinView : FrameLayout {
         val lparams = LinearLayout.LayoutParams(
                 FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT)
 
-        lparams.setMargins(Converter.convertDpToPixel(10f, context), 0, Converter.convertDpToPixel(10f, context), 0)
+        lparams.setMargins(Converter.convertDpToPixel(7f, context), 0, Converter.convertDpToPixel(7f, context), 0)
 
         //      lparams.gravity = Gravity.CENTER_VERTICAL
 

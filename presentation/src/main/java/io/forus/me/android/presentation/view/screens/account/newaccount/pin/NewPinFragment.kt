@@ -12,7 +12,7 @@ import io.forus.me.android.presentation.view.component.pinlock.PinLockListener
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.fragmnet_account_set_pin.*
+import kotlinx.android.synthetic.main.fragment_account_set_pin.*
 
 class NewPinFragment : ToolbarLRFragment<NewPinModel, NewPinView, NewPinPresenter>(), NewPinView {
 
@@ -53,7 +53,7 @@ class NewPinFragment : ToolbarLRFragment<NewPinModel, NewPinView, NewPinPresente
     override fun skip(): Observable<Unit> = skip
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val view = inflater.inflate(R.layout.fragmnet_account_set_pin, container, false)
+        val view = inflater.inflate(R.layout.fragment_account_set_pin, container, false)
         val bundle = this.arguments
         if (bundle != null) {
             accessToken = bundle.getString(ACCESS_TOKEN_EXTRA)
@@ -80,7 +80,7 @@ class NewPinFragment : ToolbarLRFragment<NewPinModel, NewPinView, NewPinPresente
 
         })
 
-        btn_skip.setOnClickListener { skip.onNext(Unit) }
+        btn_exit.setOnClickListener { skip.onNext(Unit) }
     }
 
     override fun createPresenter() = NewPinPresenter(
@@ -94,7 +94,7 @@ class NewPinFragment : ToolbarLRFragment<NewPinModel, NewPinView, NewPinPresente
         progressBar.visibility = if (vs.loading || vs.model.state == NewPinModel.State.CREATING_IDENTITY) View.VISIBLE else View.INVISIBLE
         pin_lock_view.visibility = when (vs.model.state) { NewPinModel.State.CREATING_IDENTITY, NewPinModel.State.CREATING_IDENTITY_ERROR -> View.INVISIBLE else  -> View.VISIBLE}
         indicator_dots.visibility = when (vs.model.state) { NewPinModel.State.CREATING_IDENTITY, NewPinModel.State.CREATING_IDENTITY_ERROR -> View.INVISIBLE else  -> View.VISIBLE}
-        btn_skip.visibility = if(vs.model.skipEnabled) View.VISIBLE else View.INVISIBLE
+        btn_exit.visibility = if(vs.model.skipEnabled) View.VISIBLE else View.INVISIBLE
 
         when(vs.model.state){
             NewPinModel.State.CREATE -> changeHeaders(resources.getString(R.string.passcode_title_create), resources.getString(R.string.passcode_subtitle_create), false)

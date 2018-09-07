@@ -12,7 +12,7 @@ class RestoreIdentityDialog(private val context: Context,
     private val dialog: MaterialDialog = MaterialDialog.Builder(context)
             .title(context.resources.getString(R.string.qr_popup_restore_identity_title))
             .content(context.resources.getString(R.string.qr_popup_restore_identity_description))
-            .positiveText(context.resources.getString(R.string.qr_popup_restore_identity_positive))
+            .positiveText(context.resources.getString(R.string.me_ok))
             .onPositive { dialog, which -> positiveCallback.invoke() }
             .cancelListener { cancelListener.invoke() }
             .build()

@@ -23,9 +23,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="84dp"
-            android:layout_marginBottom="84dp">
+            android:layout_marginBottom="22dp">
 
         </io.forus.me.android.presentation.view.component.pin.PinView>
+
+        <io.forus.me.android.presentation.view.component.text.TextView
+            android:id="@+id/btn_pin_instructions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12.1sp"
+            android:textColor="@color/forus_blue"
+            android:letterSpacing="0.03"
+            android:lineSpacingExtra="3.9sp"
+            android:layout_gravity="center_horizontal"
+            android:text="Hoe werkt het?" />
 
     </LinearLayout>
 

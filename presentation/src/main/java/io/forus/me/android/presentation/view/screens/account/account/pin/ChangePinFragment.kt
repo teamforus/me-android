@@ -14,7 +14,7 @@ import io.forus.me.android.presentation.view.component.pinlock.PinLockListener
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.fragmnet_account_set_pin.*
+import kotlinx.android.synthetic.main.fragment_account_set_pin.*
 
 class ChangePinFragment : ToolbarLRFragment<ChangePinModel, ChangePinView, ChangePinPresenter>(), ChangePinView {
 
@@ -55,7 +55,7 @@ class ChangePinFragment : ToolbarLRFragment<ChangePinModel, ChangePinView, Chang
     override fun pinOnChange(): Observable<String> = pinOnChange
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?)
-        = inflater.inflate(R.layout.fragmnet_account_set_pin, container, false).also {
+        = inflater.inflate(R.layout.fragment_account_set_pin, container, false).also {
 
         val bundle = this.arguments
         if (bundle != null) {
@@ -65,6 +65,8 @@ class ChangePinFragment : ToolbarLRFragment<ChangePinModel, ChangePinView, Chang
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        btn_exit.visibility = View.GONE
 
         pin_lock_view.attachIndicatorDots(indicator_dots)
         pin_lock_view.setPinLockListener(object: PinLockListener {

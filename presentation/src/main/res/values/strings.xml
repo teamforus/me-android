@@ -18,6 +18,7 @@
     <string name="me_validation_error_not_empty">Field is empty</string>
     <string name="me_validation_error_email_is_invalid">Field is invalid</string>
     <string name="me_validation_error_decimal">Not a valid number</string>
+    <string name="me_ok">OK</string>
 
     <!-- Dashboard -->
     <string name="dashboard_property">Property</string>
@@ -43,6 +44,9 @@
     <string name="restore_email_description">Please enter your e-mail address in order to receive your login details.</string>
     <string name="restore_pincode_description">Enter this pincode in your profile</string>
     <string name="restore_email_instructions">The link was sent to your e-mail. Tap on it, wait for Success message and come back to Me.</string>
+    <string name="restore_title_pincode">Pincode</string>
+    <string name="restore_title_qr">QR-Code</string>
+    <string name="restore_pincode_instructions">This PIN should be activated in webshop</string>
 
     <!-- New account screen -->
     <string name="new_account_title">New profile</string>
@@ -61,6 +65,7 @@
     <string name="passcode_changing">Changing passcode</string>
 
     <!-- Confirm pinlock screen -->
+    <string name="passcode_title_pinlock">PIN</string>
     <string name="passcode_subtitle_pinlock_confirm">Confirm your identity</string>
     <string name="passcode_subtitle_pinlock_checking">Checking</string>
     <string name="passcode_subtitle_pinlock_error">Wrong passcode</string>
@@ -133,7 +138,6 @@
     <string name="qr_popup_approve_validation_negative">Decline"</string>
     <string name="qr_popup_restore_identity_title">Restore identity</string>
     <string name="qr_popup_restore_identity_description">Allow access?</string>
-    <string name="qr_popup_restore_identity_positive">OK</string>
 
     <!-- Vouchers -->
     <string name="vouchers_item">Voucher</string>

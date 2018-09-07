@@ -12,7 +12,7 @@ class ScanVoucherNotEligibleDialog(private val context: Context,
             .title(R.string.vouchers_item)
             .content(R.string.qr_voucher_access_denied)
             .icon(context.resources.getDrawable(R.drawable.ic_close))
-            .positiveText(context.resources.getString(R.string.qr_popup_restore_identity_positive))
+            .positiveText(context.resources.getString(R.string.me_ok))
             .dismissListener { dismissListener.invoke() }
             .build()
 
