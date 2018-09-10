@@ -17,9 +17,9 @@ class AccountPresenter constructor(private val accountRepository: AccountReposit
 
     override fun initialModelSingle(): Single<AccountModel> = Single.zip(
             Single.fromObservable(accountRepository.getAccount()),
-            Single.fromObservable(accountRepository.checkPin("")),
-            BiFunction { account, pinIsEmpty ->
-                AccountModel(account, !pinIsEmpty)
+            Single.fromObservable(accountRepository.getSecurityOptions()),
+            BiFunction { account, securityOptions ->
+                AccountModel(account, securityOptions.pinEnabled, securityOptions.fingerprintEnabled)
             })
 
 
@@ -28,7 +28,7 @@ class AccountPresenter constructor(private val accountRepository: AccountReposit
 
     override fun bindIntents() {
 
-        var observable = Observable.merge(
+        val observable = Observable.merge(
                 loadRefreshPartialChanges(),
                 intent { it.logout() }
                         .switchMap {
@@ -42,6 +42,20 @@ class AccountPresenter constructor(private val accountRepository: AccountReposit
                                         LRPartialChange.LoadingError(it)
                                     }
                                     .startWith(LRPartialChange.LoadingStarted)
+                        },
+
+                intent { it.switchFingerprint() }
+                        .switchMap {newState ->
+                            accountRepository.setFingerprintEnabled(newState)
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .map<PartialChange> { success ->
+                                        if(success) AccountPartialChanges.FingerprintEnabled(newState)
+                                        else AccountPartialChanges.FingerprintEnabled(!newState)
+                                    }
+                                    .onErrorReturn {
+                                        LRPartialChange.LoadingError(it)
+                                    }
                         }
         )
 
@@ -61,13 +75,13 @@ class AccountPresenter constructor(private val accountRepository: AccountReposit
                 AccountView::render)
     }
 
-    override fun stateReducer(viewState: LRViewState<AccountModel>, change: PartialChange): LRViewState<AccountModel> {
+    override fun stateReducer(vs: LRViewState<AccountModel>, change: PartialChange): LRViewState<AccountModel> {
 
-        if (change !is AccountPartialChanges) return super.stateReducer(viewState, change)
+        if (change !is AccountPartialChanges) return super.stateReducer(vs, change)
 
         return when (change) {
-            is AccountPartialChanges.NavigateToWelcomeScreen -> viewState.copy(model = viewState.model.copy(navigateToWelcome = true))
-
+            is AccountPartialChanges.NavigateToWelcomeScreen -> vs.copy(model = vs.model.copy(navigateToWelcome = true))
+            is AccountPartialChanges.FingerprintEnabled -> vs.copy(model = vs.model.copy(fingerprintEnabled = change.value))
         }
 
     }

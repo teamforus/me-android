@@ -113,8 +113,9 @@ dependencies {
   implementation presentationDependencies.glide
   implementation presentationDependencies.circleIndicator
   implementation presentationDependencies.materialDialogs
+  implementation presentationDependencies.fingerprint
 
-  implementation ('com.crashlytics.sdk.android:crashlytics:2.9.5@aar') {
+  implementation (presentationDependencies.fabric) {
     transitive = true
   }
 

@@ -1,6 +1,5 @@
 package io.forus.me.android.presentation.navigation
 
-import android.app.Activity
 import android.content.Context
 import android.support.v4.app.Fragment
 import io.forus.me.android.domain.models.records.Record
@@ -14,7 +13,7 @@ import io.forus.me.android.presentation.view.screens.account.newaccount.NewAccou
 import io.forus.me.android.presentation.view.screens.account.newaccount.pin.NewPinActivity
 import io.forus.me.android.presentation.view.screens.account.assigndelegates.email.RestoreByEmailActivity
 import io.forus.me.android.presentation.view.screens.dashboard.DashboardActivity
-import io.forus.me.android.presentation.view.screens.pinlock.PinLockActivity
+import io.forus.me.android.presentation.view.screens.lock.PinLockActivity
 import io.forus.me.android.presentation.view.screens.qr.QrScannerActivity
 import io.forus.me.android.presentation.view.screens.records.item.RecordDetailsActivity
 import io.forus.me.android.presentation.view.screens.records.list.RecordsActivity
@@ -33,15 +32,17 @@ import javax.inject.Singleton
 class Navigator @Inject
 constructor()//empty
 {
+    fun navigateToDashboardPinlocked(context: Context?, useFingerprint: Boolean) {
+        if (context != null) {
+            val lockIntent = PinLockActivity.getCallingIntent(context, DashboardActivity.getCallingIntent(context), useFingerprint)
+            context.startActivity(lockIntent)
+        }
+    }
 
-    fun navigateToDashboard(context: Context?, locked: Boolean) {
+    fun navigateToDashboard(context: Context?) {
         if (context != null) {
             val intentToLaunch = DashboardActivity.getCallingIntent(context)
-            if(locked){
-                val lockIntent = PinLockActivity.getCallingIntent(context, intentToLaunch)
-                context.startActivity(lockIntent)
-            }
-            else context.startActivity(intentToLaunch)
+            context.startActivity(intentToLaunch)
         }
     }
 

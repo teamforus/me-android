@@ -1,4 +1,4 @@
-package io.forus.me.android.presentation.view.screens.pinlock
+package io.forus.me.android.presentation.view.screens.lock.pin
 
 data class PinLockModel(
         val state: State = State.CONFIRM,

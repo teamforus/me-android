@@ -12,9 +12,11 @@ import io.forus.me.android.data.repository.account.datasource.local.AccountLocal
 import io.forus.me.android.data.repository.account.datasource.remote.AccountRemoteDataSource
 import io.forus.me.android.data.repository.account.datasource.remote.CheckActivationDataSource
 import io.forus.me.android.data.repository.records.RecordsRepository
-import io.forus.me.android.data.repository.validators.ValidatorsRepository
 import io.forus.me.android.data.repository.records.datasource.mock.RecordsMockDataSource
 import io.forus.me.android.data.repository.records.datasource.remote.RecordsRemoteDataSource
+import io.forus.me.android.data.repository.settings.SettingsDataSource
+import io.forus.me.android.data.repository.settings.SettingsLocalDataSource
+import io.forus.me.android.data.repository.validators.ValidatorsRepository
 import io.forus.me.android.data.repository.validators.datasource.remote.ValidatorsRemoteDataSource
 import io.forus.me.android.data.repository.vouchers.datasource.VouchersDataSource
 import io.forus.me.android.data.repository.vouchers.datasource.remote.VouchersRemoteDataSource
@@ -25,8 +27,9 @@ import io.forus.me.android.domain.repository.assets.AssetsRepository
 import io.forus.me.android.domain.repository.vouchers.VouchersRepository
 import io.forus.me.android.domain.repository.wallets.WalletsRepository
 import io.forus.me.android.presentation.DatabaseHelper
-import io.forus.me.android.presentation.qr.QrDecoder
+import io.forus.me.android.presentation.helpers.AppSettings
 import io.forus.me.android.presentation.helpers.reactivex.AccessTokenChecker
+import io.forus.me.android.presentation.qr.QrDecoder
 
 class Injection private constructor() {
 
@@ -64,7 +67,11 @@ class Injection private constructor() {
     }
 
     val accountRepository: AccountRepository by lazy {
-        return@lazy io.forus.me.android.data.repository.account.AccountRepository(accountLocalDataSource, accountRemoteDataSource, checkActivationDataSource, recordsRepository)
+        return@lazy io.forus.me.android.data.repository.account.AccountRepository(settingsDataSource, accountLocalDataSource, accountRemoteDataSource, checkActivationDataSource, recordsRepository)
+    }
+
+    val settingsDataSource: SettingsDataSource by lazy{
+        return@lazy SettingsLocalDataSource(AppSettings(applicationContext!!))
     }
 
     private val accountRemoteDataSource: AccountRemoteDataSource by lazy {

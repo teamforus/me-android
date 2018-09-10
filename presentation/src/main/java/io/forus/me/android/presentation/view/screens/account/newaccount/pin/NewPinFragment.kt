@@ -125,7 +125,7 @@ class NewPinFragment : ToolbarLRFragment<NewPinModel, NewPinView, NewPinPresente
     }
 
     private fun closeScreen() {
-        navigator.navigateToDashboard(activity, false)
+        navigator.navigateToDashboard(activity)
         activity?.finish()
     }
 }

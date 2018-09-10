@@ -34,7 +34,7 @@
             android:name=".view.screens.welcome.WelcomeActivity"
             android:label="@string/app_name"></activity>
         <activity
-            android:name=".view.screens.pinlock.PinLockActivity"
+            android:name=".view.screens.lock.PinLockActivity"
             android:label="@string/app_blank_string"></activity>
         <activity
             android:name=".view.screens.qr.QrScannerActivity"

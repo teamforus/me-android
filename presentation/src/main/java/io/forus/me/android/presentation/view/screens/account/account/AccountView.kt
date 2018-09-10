@@ -13,5 +13,6 @@ interface AccountView : LRView<AccountModel> {
 
     fun logout(): io.reactivex.Observable<Boolean>
 
+    fun switchFingerprint(): io.reactivex.Observable<Boolean>
 
 }

@@ -122,9 +122,7 @@ public class AccountLocalDataSource implements AccountDataSource, LocalDataSourc
 
     @Override
     public boolean changePin(@NotNull String oldPin, @NotNull String newPin) {
-        if(!checkPin(oldPin)) return false;
-        String token = getTokenString();
-        return saveIdentity(token, newPin);
+        return checkPin(oldPin) && saveIdentity(getTokenString(), newPin);
     }
 
     @Override

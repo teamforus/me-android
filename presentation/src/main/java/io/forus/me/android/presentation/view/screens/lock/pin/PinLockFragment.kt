@@ -1,16 +1,17 @@
-package io.forus.me.android.presentation.view.screens.pinlock
+package io.forus.me.android.presentation.view.screens.lock.pin
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.jakewharton.rxbinding2.view.RxView
+import io.forus.me.android.presentation.R
+import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.base.lr.LRFragment
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.base.lr.LoadRefreshPanel
-import io.forus.me.android.presentation.R
-import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.component.pinlock.PinLockListener
+import io.forus.me.android.presentation.view.screens.lock.PinLockActivity
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_pinlock.*

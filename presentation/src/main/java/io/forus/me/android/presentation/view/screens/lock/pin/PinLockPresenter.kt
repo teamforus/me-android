@@ -1,4 +1,4 @@
-package io.forus.me.android.presentation.view.screens.pinlock
+package io.forus.me.android.presentation.view.screens.lock.pin
 
 import io.forus.me.android.presentation.view.base.lr.LRPresenter
 import io.forus.me.android.presentation.view.base.lr.LRViewState

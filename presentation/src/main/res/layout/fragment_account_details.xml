@@ -101,6 +101,15 @@
                     android:layout_height="1dp"/>
 
 
+                <io.forus.me.android.presentation.view.component.card.SettingsCard
+                    android:id="@+id/change_digits"
+                    app:valuecard_title="@string/profile_change_4digit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </io.forus.me.android.presentation.view.component.card.SettingsCard>
+
+
                 <io.forus.me.android.presentation.view.component.card.SettingsSwitchCard
                     android:id="@+id/enable_pinlock"
                     app:valuecard_title="@string/profile_use_pinlock"
@@ -110,14 +119,13 @@
                 </io.forus.me.android.presentation.view.component.card.SettingsSwitchCard>
 
 
-                <io.forus.me.android.presentation.view.component.card.SettingsCard
-                    android:id="@+id/change_digits"
-                    app:valuecard_title="@string/profile_change_4digit"
+                <io.forus.me.android.presentation.view.component.card.SettingsSwitchCard
+                    android:id="@+id/enable_fingerprint"
+                    app:valuecard_title="@string/profile_use_fingerprint"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                </io.forus.me.android.presentation.view.component.card.SettingsCard>
-
+                </io.forus.me.android.presentation.view.component.card.SettingsSwitchCard>
 
 
                 <io.forus.me.android.presentation.view.component.card.SettingsCard

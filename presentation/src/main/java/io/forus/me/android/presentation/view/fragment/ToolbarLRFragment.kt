@@ -84,11 +84,11 @@ abstract class ToolbarLRFragment<M, V : LRView<M>, P : MviBasePresenter<V, LRVie
     }
 
     override fun viewForSnackbar(): View {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented") //To change body of created functions use File | AppSettings | File Templates.
     }
 
     override fun loadRefreshPanel(): LoadRefreshPanel {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented") //To change body of created functions use File | AppSettings | File Templates.
     }
 
 
