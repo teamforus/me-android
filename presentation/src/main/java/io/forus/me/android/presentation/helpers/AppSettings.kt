@@ -34,7 +34,7 @@ class AppSettings(private val context: Context): SettingsDataSource{
     private var sPref: SharedPreferences = context.getSharedPreferences(SETTINGS_FILENAME, MODE_PRIVATE)
 
     override fun clear() {
-        sPref.edit().clear().apply()
+        sPref.edit().clear().commit()
     }
 
     override fun isFingerprintEnabled(): Boolean {
@@ -52,11 +52,12 @@ class AppSettings(private val context: Context): SettingsDataSource{
     override fun setPin(pin: String): Boolean {
         val editor = sPref.edit()
         editor.putBoolean(PINCODE_ENABLED, pin != "")
-        editor.putString(PINCODE_ENCRYPTED, cipher.encrypt(pin, publicKey))
+        editor.putString(PINCODE_ENCRYPTED, if(pin != "") cipher.encrypt(pin, publicKey) else "")
         return editor.commit()
     }
 
     override fun getPin(): String {
-        return cipher.decrypt(sPref.getString(PINCODE_ENCRYPTED, ""), privateKey)
+        val pin = sPref.getString(PINCODE_ENCRYPTED, "")
+        return if(pin != "") cipher.decrypt(pin, privateKey) else ""
     }
 }

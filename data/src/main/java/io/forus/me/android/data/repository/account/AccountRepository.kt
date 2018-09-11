@@ -62,8 +62,8 @@ class AccountRepository(private val settingsDataSource: SettingsDataSource,
     override fun createIdentity(identity: Identity): Observable<Boolean> {
         return Single.fromCallable {
             if(accountLocalDataSource.saveIdentity(identity.accessToken, identity.pin)) {
+                settingsDataSource.clear()
                 settingsDataSource.setPin(identity.pin)
-                settingsDataSource.setFingerprintEnabled(false)
             }else false
         }.toObservable().delay(100, TimeUnit.MILLISECONDS)
     }
@@ -86,13 +86,6 @@ class AccountRepository(private val settingsDataSource: SettingsDataSource,
         return Single.fromCallable { settingsDataSource.setFingerprintEnabled(isFingerprintEnabled); true }.toObservable()
     }
 
-    override fun isFingerprintEnabled(): Observable<Boolean> {
-        return Single.just(settingsDataSource.isFingerprintEnabled()).toObservable()
-    }
-
-    override fun isPinEnabled(): Observable<Boolean> {
-        return Single.just(settingsDataSource.isPinEnabled()).toObservable()
-    }
 
     override fun changePin(oldPin: String, newPin: String): Observable<Boolean> {
         return Single.fromCallable{
@@ -105,8 +98,8 @@ class AccountRepository(private val settingsDataSource: SettingsDataSource,
 
     override fun exitIdentity(): Observable<Boolean> {
         return Single.fromCallable {
-            settingsDataSource.clear()
             accountLocalDataSource.logout()
+            settingsDataSource.clear()
             true
         }.toObservable()
     }
@@ -127,8 +120,8 @@ class AccountRepository(private val settingsDataSource: SettingsDataSource,
 
     override fun getSecurityOptions(): Observable<SecurityOptions> {
         return Single.zip(
-                Single.fromObservable(isPinEnabled()),
-                Single.fromObservable(isFingerprintEnabled()),
+                Single.just(settingsDataSource.isPinEnabled()),
+                Single.just(settingsDataSource.isFingerprintEnabled()),
                 BiFunction { pinEnabled: Boolean, fingerprintEnabled: Boolean ->
                     SecurityOptions(pinEnabled, fingerprintEnabled)
                 }
@@ -137,5 +130,9 @@ class AccountRepository(private val settingsDataSource: SettingsDataSource,
 
     override fun checkCurrentToken(): Observable<Boolean>{
         return checkActivationDataSource.checkActivation(accountLocalDataSource.getCurrentToken())
+    }
+
+    override fun unlockByFingerprint(): Observable<Boolean> {
+        return Single.just(accountLocalDataSource.unlockIdentity(settingsDataSource.getPin())).toObservable()
     }
 }

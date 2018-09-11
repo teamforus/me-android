@@ -54,12 +54,23 @@
     <string name="passcode_create_skip">Overspringen</string>
     <string name="passcode_changing">Toegangscode wijzigen</string>
 
-    <!-- Confirm pinlock screen -->
+    <!-- PINLOCK screen -->
     <string name="passcode_subtitle_pinlock_confirm">Bevestig je identiteit</string>
     <string name="passcode_subtitle_pinlock_checking">Controleren</string>
     <string name="passcode_subtitle_pinlock_error">Verkeerde toegangscode</string>
 
-    <!--Lock Check strings -->
+    <!-- Lock fingerprint strings -->
+    <string name="lock_no_fingerprints">Geen vingerafdrukken beschikbaar</string>
+    <string name="lock_fingerprint_title">Vingerafdrukverificatie</string>
+    <string name="lock_fingerprint_subtitle">Gebruik de vingerafdruk samen met de toegangscode. Bevestig vingerafdruk om verder te gaan.</string>
+    <string name="lock_fingerprint_hint">Aanraaksensor</string>
+    <string name="lock_fingerprint_cancel">CANCEL</string>
+    <string name="lock_fingerprint_error_hw_not_found">Geen vingerafdrukhardware gevonden</string>
+    <string name="lock_fingerprint_error_no_fingerprints">Geen vingerafdrukken geregistreerd</string>
+    <string name="lock_fingerprint_error_below_marshmallow">Android-versie ondersteunt geen vingerafdruk</string>
+    <string name="lock_fingerprint_error_auth_fail">Auth is mislukt</string>
+
+    <!-- Lock Check strings -->
     <string name="lock_exit">Uitgang</string>
     <string name="lock_settings">Instellingen</string>
     <string name="lock_title">Lock Scherm</string>

@@ -6,4 +6,7 @@ interface FingerprintView : LRView<FingerprintModel> {
 
     fun exit(): io.reactivex.Observable<Unit>
 
+    fun authSuccess(): io.reactivex.Observable<Unit>
+
+    fun authFail(): io.reactivex.Observable<String>
 }

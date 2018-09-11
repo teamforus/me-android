@@ -28,7 +28,8 @@ abstract class LRFragment<M, V : LRView<M>, P : MviBasePresenter<V, LRViewState<
     }
 
     protected fun showToastMessage(message: String) {
-        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
+        val context = activity?.applicationContext
+        if(context != null) Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
     fun updateModel(){

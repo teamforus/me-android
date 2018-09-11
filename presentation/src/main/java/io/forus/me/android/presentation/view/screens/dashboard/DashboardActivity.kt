@@ -27,7 +27,10 @@ class DashboardActivity : CommonActivity() {
     private var currentPagerPosition = 0
     private var menu: Menu? = null
     private var navigationAdapter: AHBottomNavigationAdapter? = null
+
+    private var accountRepository = Injection.instance.accountRepository
     private var checkLogin: Disposable? = null
+    private var logout: Disposable? = null
 
     companion object {
         fun getCallingIntent(context: Context): Intent {
@@ -96,7 +99,7 @@ class DashboardActivity : CommonActivity() {
     }
 
     private fun checkLogin(){
-        checkLogin = Single.fromObservable(Injection.instance.accountRepository.checkCurrentToken())
+        checkLogin = Single.fromObservable(accountRepository.checkCurrentToken())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map {
@@ -107,8 +110,15 @@ class DashboardActivity : CommonActivity() {
     }
 
     private fun logout(){
-        navigator.navigateToWelcomeScreen(this)
-        finish()
+        logout = Single.fromObservable(accountRepository.exitIdentity())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map {
+                    navigator.navigateToWelcomeScreen(this)
+                    finish()
+                }
+                .onErrorReturn {  }
+                .subscribe()
     }
 
     private fun selectTab(currentPagerPosition: Int, oldPosition: Int) {
@@ -167,5 +177,6 @@ class DashboardActivity : CommonActivity() {
     override fun onDestroy() {
         super.onDestroy()
         checkLogin?.dispose()
+        logout?.dispose()
     }
 }

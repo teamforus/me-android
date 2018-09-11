@@ -35,12 +35,6 @@ interface AccountRepository {
     fun setFingerprintEnabled(isFingerprintEnabled: Boolean): Observable<Boolean>
 
 
-    fun isFingerprintEnabled(): Observable<Boolean>
-
-
-    fun isPinEnabled(): Observable<Boolean>
-
-
     fun changePin(oldPin: String, newPin: String): Observable<Boolean>
 
 
@@ -54,4 +48,7 @@ interface AccountRepository {
 
 
     fun checkCurrentToken(): Observable<Boolean>
+
+
+    fun unlockByFingerprint(): Observable<Boolean>
 }

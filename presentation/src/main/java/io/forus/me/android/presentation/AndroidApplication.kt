@@ -31,7 +31,10 @@ class AndroidApplication : Application() {
         this.initializeInjector()
         this.initializeLeakDetection()
         this.initRetrofit()
-        this.initFabric()
+
+        if (!BuildConfig.DEBUG)
+            this.initFabric()
+
         this.initPortraitOrientation()
 
         this.me = this
