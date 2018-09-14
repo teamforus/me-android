@@ -31,6 +31,7 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/btn_new_record"
+        android:visibility="invisible"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="70dp"

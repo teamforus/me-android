@@ -24,7 +24,7 @@
     <!-- Welcome screen -->
     <string name="welcome_greeting">Welkom bij Me</string>
     <string name="welcome_create_account">Create account</string>
-    <string name="welcome_restore_account">Restore account</string>
+    <string name="welcome_restore_account">Log in met een bestaand account</string>
     <string name="welcome_set_up_your_identity">Stel uw identiteit in</string>
 
     <!-- Restore identity -->
@@ -124,7 +124,7 @@
     <string name="qr_validation_approved">Validatie goedgekeurd</string>
     <string name="qr_validation_declined">Validatie geweigerd</string>
     <string name="qr_validation_already_done">Al gevalideerd</string>
-    <string name="qr_identity_restored">Identiteit hersteld</string>
+    <string name="qr_identity_restored">Je bent succesvol ingelogd</string>
     <string name="qr_identity_expired">Validatietoken is verlopen</string>
     <string name="qr_voucher_scanned">Voucher gescand</string>
     <string name="qr_voucher_not_scanned">Voucher kan niet worden gescand</string>

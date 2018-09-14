@@ -31,7 +31,7 @@
     <!-- Welcome screen -->
     <string name="welcome_greeting">Welcome to Me</string>
     <string name="welcome_create_account">Create account</string>
-    <string name="welcome_restore_account">Restore account</string>
+    <string name="welcome_restore_account">Log in with existing account</string>
     <string name="welcome_set_up_your_identity">Set up your identity</string>
 
     <!-- Restore identity -->
@@ -135,7 +135,7 @@
     <string name="qr_validation_approved">Validation approved</string>
     <string name="qr_validation_declined">Validation declined</string>
     <string name="qr_validation_already_done">Already validated</string>
-    <string name="qr_identity_restored">Identity restored</string>
+    <string name="qr_identity_restored">You have successfully logged in</string>
     <string name="qr_identity_expired">Validation token expired</string>
     <string name="qr_voucher_scanned">Voucher scanned</string>
     <string name="qr_voucher_not_scanned">Voucher couldn\'t be scanned</string>
