@@ -8,7 +8,7 @@ import io.forus.me.android.presentation.view.fragment.BaseFragment
 import io.forus.me.android.presentation.view.screens.assets.AssetsFragment
 import io.forus.me.android.presentation.view.screens.vouchers.list.VouchersFragment
 import io.forus.me.android.presentation.view.screens.wallets.WalletsFragment
-import kotlinx.android.synthetic.main.property_fragment.*
+import kotlinx.android.synthetic.main.fragment_property.*
 import java.util.*
 
 
@@ -23,14 +23,14 @@ class PropertyFragment : BaseFragment() {
         }
     }
     override fun getLayoutID(): Int {
-        return R.layout.property_fragment
+        return R.layout.fragment_property
     }
 
     override val allowBack: Boolean
         get() = false
 
     override val toolbarTitle: String
-        get() = getString(R.string.property)
+        get() = getString(R.string.dashboard_property)
 
 
     val menu: Int?
@@ -42,13 +42,13 @@ class PropertyFragment : BaseFragment() {
         val fragments = ArrayList<Fragment>()
         val titles = ArrayList<String>()
         fragments.add(WalletsFragment.newIntent())
-        titles.add(getString(R.string.valuta))
+        titles.add(getString(R.string.dashboard_currency))
 
         fragments.add(AssetsFragment.newIntent())
-        titles.add(getString(R.string.bezit))
+        titles.add(getString(R.string.dashboard_assets))
 
         fragments.add(VouchersFragment.newIntent())
-        titles.add(getString(R.string.vouchers))
+        titles.add(getString(R.string.dashboard_vouchers))
 
 
         val adapter = MainViewPagerAdapter(childFragmentManager, activity?.applicationContext, fragments, titles)

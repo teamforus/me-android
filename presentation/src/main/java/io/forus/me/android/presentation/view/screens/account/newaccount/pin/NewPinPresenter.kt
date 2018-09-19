@@ -1,8 +1,8 @@
 package io.forus.me.android.presentation.view.screens.account.newaccount.pin
 
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRPresenter
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
-import com.ocrv.ekasui.mrm.ui.loadRefresh.PartialChange
+import io.forus.me.android.presentation.view.base.lr.LRPresenter
+import io.forus.me.android.presentation.view.base.lr.LRViewState
+import io.forus.me.android.presentation.view.base.lr.PartialChange
 import io.forus.me.android.domain.models.account.Identity
 import io.forus.me.android.domain.repository.account.AccountRepository
 import io.reactivex.Observable
@@ -26,11 +26,17 @@ class NewPinPresenter constructor(private val accountRepository: AccountReposito
 
                 loadRefreshPartialChanges(),
 
-                intent { it.pinOnComplete() }
-                        .map { NewPinPartialChanges.PinOnComplete(it) },
+                Observable.merge(
 
-                intent { it.pinOnChange() }
-                        .map { NewPinPartialChanges.PinOnChange(it) },
+                    intent { it.pinOnComplete() }
+                            .map { NewPinPartialChanges.PinOnComplete(it) },
+
+                    intent { it.pinOnChange() }
+                            .map { NewPinPartialChanges.PinOnChange(it) },
+
+                    intent { it.skip() }
+                            .map {  NewPinPartialChanges.SkipPin() }
+                ),
 
                 intent { createIdentity() }
                         .switchMap {
@@ -45,7 +51,7 @@ class NewPinPresenter constructor(private val accountRepository: AccountReposito
                                         NewPinPartialChanges.CreateIdentityError(Unit)
                                     }
                         }
-        );
+        )
 
 
         val initialViewState = LRViewState(
@@ -86,9 +92,15 @@ class NewPinPresenter constructor(private val accountRepository: AccountReposito
             }
             is NewPinPartialChanges.PinOnChange -> {
                 when(vs.model.state){
-                    NewPinModel.State.PASS_NOT_MATCH -> vs.copy(model = vs.model.changeState(NewPinModel.State.CREATE, null))
+                    NewPinModel.State.CREATE -> vs.copy(model = vs.model.changeState(skipEnabled = change.passcode.isEmpty()))
+                    NewPinModel.State.PASS_NOT_MATCH -> vs.copy(model = vs.model.changeState(NewPinModel.State.CREATE, null, skipEnabled = change.passcode.isEmpty()))
                     else -> { vs.copy(model = vs.model.changeState())}
                 }
+            }
+
+            is NewPinPartialChanges.SkipPin -> {
+                if(vs.model.skipEnabled) createIdentity.onNext(Identity(accessToken,""))
+                vs.copy()
             }
 
             is NewPinPartialChanges.CreateIdentityError -> vs.copy(model = vs.model.changeState(NewPinModel.State.CREATING_IDENTITY_ERROR))

@@ -4,18 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRFragment
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LoadRefreshPanel
+import io.forus.me.android.presentation.view.base.lr.LRFragment
+import io.forus.me.android.presentation.view.base.lr.LRViewState
+import io.forus.me.android.presentation.view.base.lr.LoadRefreshPanel
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.helpers.reactivex.DisposableHolder
 import io.reactivex.Observable
-import kotlinx.android.synthetic.main.account_restore_pin_fragment.*
+import kotlinx.android.synthetic.main.fragment_account_restore_pin.*
 
-/**
- * Fragment Assign Delegates Screen.
- */
 class RestoreByPinFragment : LRFragment<RestoreByPinModel, RestoreByPinView, RestoreByPinPresenter>(), RestoreByPinView  {
 
     val disposableHolder = DisposableHolder()
@@ -33,10 +30,13 @@ class RestoreByPinFragment : LRFragment<RestoreByPinModel, RestoreByPinView, Res
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
-            = inflater.inflate(R.layout.account_restore_pin_fragment, container, false)
+            = inflater.inflate(R.layout.fragment_account_restore_pin, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        btn_pin_instructions.setOnClickListener {
+            if(activity != null) PinInstructionsDialog(activity!!).show()
+        }
     }
 
     override fun onDetach() {

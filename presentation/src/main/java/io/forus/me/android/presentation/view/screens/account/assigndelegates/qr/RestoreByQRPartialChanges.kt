@@ -1,9 +1,9 @@
 package io.forus.me.android.presentation.view.screens.account.assigndelegates.qr
 
-import com.ocrv.ekasui.mrm.ui.loadRefresh.PartialChange
+import io.forus.me.android.presentation.view.base.lr.PartialChange
 
 sealed class RestoreByQRPartialChanges : PartialChange {
 
-    class RestoreIdentity() : RestoreByQRPartialChanges()
+    class RestoreIdentity : RestoreByQRPartialChanges()
 
 }

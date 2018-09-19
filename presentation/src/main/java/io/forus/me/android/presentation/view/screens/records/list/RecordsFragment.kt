@@ -5,13 +5,10 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRFragment
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LoadRefreshPanel
+import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
-import io.reactivex.Observable
 import kotlinx.android.synthetic.main.fragment_records_recycler.*
 
 /**
@@ -20,8 +17,8 @@ import kotlinx.android.synthetic.main.fragment_records_recycler.*
 class RecordsFragment : ToolbarLRFragment<RecordsModel, RecordsView, RecordsPresenter>(), RecordsView{
 
     companion object {
-        private val CATEGORY_ID_EXTRA = "CATEGORY_ID_EXTRA";
-        private val CATEGORY_NAME_EXTRA = "CATEGORY_NAME_EXTRA";
+        private val CATEGORY_ID_EXTRA = "CATEGORY_ID_EXTRA"
+        private val CATEGORY_NAME_EXTRA = "CATEGORY_NAME_EXTRA"
 
         fun newIntent(recordCategoryId: Long, recordCategoryName: String): RecordsFragment = RecordsFragment().also {
             val bundle = Bundle()
@@ -35,7 +32,7 @@ class RecordsFragment : ToolbarLRFragment<RecordsModel, RecordsView, RecordsPres
         get() = true
 
     override val toolbarTitle: String
-        get() = getString(R.string.records)
+        get() = getString(R.string.dashboard_records)
 
     private var recordCategoryId: Long = 0
     private var recordCategoryName: String = ""

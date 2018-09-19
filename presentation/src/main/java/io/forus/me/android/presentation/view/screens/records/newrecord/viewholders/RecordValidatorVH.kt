@@ -5,9 +5,9 @@ import android.view.ViewGroup
 import io.forus.me.android.domain.models.validators.SimpleValidator
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.helpers.inflate
-import kotlinx.android.synthetic.main.select_validator_list_item.view.*
+import kotlinx.android.synthetic.main.item_record_select_validator.view.*
 
-class RecordValidatorVH(parent: ViewGroup, private val clickListener: ((SimpleValidator, Int) -> Unit)?) : RecyclerView.ViewHolder(parent.inflate(R.layout.select_validator_list_item)) {
+class RecordValidatorVH(parent: ViewGroup, private val clickListener: ((SimpleValidator, Int) -> Unit)?) : RecyclerView.ViewHolder(parent.inflate(R.layout.item_record_select_validator)) {
     init {
 
     }

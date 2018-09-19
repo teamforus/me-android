@@ -10,10 +10,13 @@ import io.forus.me.android.data.net.validators.ValidatorsService
 import io.forus.me.android.data.net.vouchers.VouchersService
 import io.forus.me.android.data.repository.account.datasource.local.AccountLocalDataSource
 import io.forus.me.android.data.repository.account.datasource.remote.AccountRemoteDataSource
+import io.forus.me.android.data.repository.account.datasource.remote.CheckActivationDataSource
 import io.forus.me.android.data.repository.records.RecordsRepository
-import io.forus.me.android.data.repository.validators.ValidatorsRepository
 import io.forus.me.android.data.repository.records.datasource.mock.RecordsMockDataSource
 import io.forus.me.android.data.repository.records.datasource.remote.RecordsRemoteDataSource
+import io.forus.me.android.data.repository.settings.SettingsDataSource
+import io.forus.me.android.data.repository.settings.SettingsLocalDataSource
+import io.forus.me.android.data.repository.validators.ValidatorsRepository
 import io.forus.me.android.data.repository.validators.datasource.remote.ValidatorsRemoteDataSource
 import io.forus.me.android.data.repository.vouchers.datasource.VouchersDataSource
 import io.forus.me.android.data.repository.vouchers.datasource.remote.VouchersRemoteDataSource
@@ -24,8 +27,9 @@ import io.forus.me.android.domain.repository.assets.AssetsRepository
 import io.forus.me.android.domain.repository.vouchers.VouchersRepository
 import io.forus.me.android.domain.repository.wallets.WalletsRepository
 import io.forus.me.android.presentation.DatabaseHelper
-import io.forus.me.android.presentation.view.screens.qr.QrDecoder
+import io.forus.me.android.presentation.helpers.AppSettings
 import io.forus.me.android.presentation.helpers.reactivex.AccessTokenChecker
+import io.forus.me.android.presentation.qr.QrDecoder
 
 class Injection private constructor() {
 
@@ -44,9 +48,12 @@ class Injection private constructor() {
         set(value) {
             field = value
             accountLocalDataSource.updateDao(daoSession)
-            accountRemoteDataSource.updateService()
-            recordRemoteDataSource.updateService()
         }
+
+    fun accessTokenUpdated(){
+        accountRemoteDataSource.updateService()
+        recordRemoteDataSource.updateService()
+    }
 
     var applicationContext: Context? = null
         set(value) {
@@ -60,15 +67,23 @@ class Injection private constructor() {
     }
 
     val accountRepository: AccountRepository by lazy {
-            return@lazy io.forus.me.android.data.repository.account.AccountRepository(accountLocalDataSource, accountRemoteDataSource, recordsRepository)
+        return@lazy io.forus.me.android.data.repository.account.AccountRepository(settingsDataSource, accountLocalDataSource, accountRemoteDataSource, checkActivationDataSource, recordsRepository)
+    }
+
+    val settingsDataSource: SettingsDataSource by lazy{
+        return@lazy SettingsLocalDataSource(AppSettings(applicationContext!!))
     }
 
     private val accountRemoteDataSource: AccountRemoteDataSource by lazy {
         return@lazy AccountRemoteDataSource{ MeServiceFactory.getInstance().createRetrofitService(SignService::class.java, SignService.Service.SERVICE_ENDPOINT) }
     }
 
-    public val accountLocalDataSource: AccountLocalDataSource by lazy {
+    val accountLocalDataSource: AccountLocalDataSource by lazy {
         return@lazy AccountLocalDataSource(daoSession?.tokenDao)
+    }
+
+    private val checkActivationDataSource: CheckActivationDataSource by lazy {
+        return@lazy CheckActivationDataSource(MeServiceFactory.getInstance().createRetrofitService(SignService::class.java, SignService.Service.SERVICE_ENDPOINT))
     }
 
     private val web3LocalDataSource: Web3DataSource by lazy {
@@ -121,7 +136,7 @@ class Injection private constructor() {
     }
 
     val qrDecoder: QrDecoder by lazy {
-        return@lazy QrDecoder(accountRepository, recordsRepository, vouchersRepository)
+        return@lazy QrDecoder()
     }
 
 }

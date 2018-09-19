@@ -17,9 +17,6 @@ package io.forus.me.android.presentation.exception;
 
 import android.content.Context;
 import io.forus.me.android.data.exception.NetworkConnectionException;
-import io.forus.me.android.presentation.R;
-
-import io.forus.me.android.data.exception.NetworkConnectionException;
 
 /**
  * Factory used to create error messages from an Exception as a condition.
@@ -38,10 +35,10 @@ public class ErrorMessageFactory {
    * @return {@link String} an error message.
    */
   public static String create(Context context, Exception exception) {
-    String message = context.getString(io.forus.me.android.presentation.R.string.exception_message_generic);
+    String message = context.getString(io.forus.me.android.presentation.R.string.app_exception_message_generic);
 
     if (exception instanceof NetworkConnectionException) {
-      message = context.getString(io.forus.me.android.presentation.R.string.exception_message_no_connection);
+      message = context.getString(io.forus.me.android.presentation.R.string.app_exception_message_no_connection);
     }
 
     return message;

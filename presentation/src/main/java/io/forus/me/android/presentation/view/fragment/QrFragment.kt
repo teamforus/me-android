@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import io.forus.me.android.presentation.R
-import kotlinx.android.synthetic.main.popup_qr_fragment.*
+import kotlinx.android.synthetic.main.fragment_popup_qr.*
 
 
 class QrFragment : BaseFragment() {
@@ -21,7 +21,7 @@ class QrFragment : BaseFragment() {
         }
 
     companion object {
-        private val QR_TEXT = "QR_TEXT";
+        private val QR_TEXT = "QR_TEXT"
 
         fun newIntent(): QrFragment {
             return QrFragment()
@@ -34,7 +34,7 @@ class QrFragment : BaseFragment() {
         }
     }
     override fun getLayoutID(): Int {
-        return R.layout.popup_qr_fragment
+        return R.layout.fragment_popup_qr
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

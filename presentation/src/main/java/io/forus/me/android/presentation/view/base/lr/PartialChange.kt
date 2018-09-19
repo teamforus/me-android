@@ -1,3 +1,3 @@
-package com.ocrv.ekasui.mrm.ui.loadRefresh
+package io.forus.me.android.presentation.view.base.lr
 
 interface PartialChange

@@ -5,9 +5,9 @@ import android.view.ViewGroup
 import io.forus.me.android.domain.models.records.RecordType
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.helpers.inflate
-import kotlinx.android.synthetic.main.select_type_list_item.view.*
+import kotlinx.android.synthetic.main.item_record_select_type.view.*
 
-class RecordTypeVH(parent: ViewGroup, private val clickListener: ((RecordType, Int) -> Unit)?) : RecyclerView.ViewHolder(parent.inflate(R.layout.select_type_list_item)) {
+class RecordTypeVH(parent: ViewGroup, private val clickListener: ((RecordType, Int) -> Unit)?) : RecyclerView.ViewHolder(parent.inflate(R.layout.item_record_select_type)) {
     init {
 
     }

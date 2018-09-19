@@ -7,7 +7,7 @@ import io.forus.me.android.domain.models.wallets.Wallet
 import io.reactivex.Observable
 import io.reactivex.Single
 
-class AssetsRepository() : io.forus.me.android.domain.repository.assets.AssetsRepository {
+class AssetsRepository : io.forus.me.android.domain.repository.assets.AssetsRepository {
 
     override fun getAssets(): Observable<List<Asset>> {
         val wallets : MutableList<Asset> = mutableListOf()

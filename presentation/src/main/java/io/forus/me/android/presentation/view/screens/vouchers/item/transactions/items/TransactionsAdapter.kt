@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import io.forus.me.android.domain.models.vouchers.Transaction
 
-class TransactionsAdapter() : RecyclerView.Adapter<TransactionsVH>() {
+class TransactionsAdapter : RecyclerView.Adapter<TransactionsVH>() {
 
 
     var transactions: List<Transaction> = emptyList()

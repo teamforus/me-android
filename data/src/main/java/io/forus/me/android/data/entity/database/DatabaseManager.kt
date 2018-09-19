@@ -14,6 +14,10 @@ class DatabaseManager private constructor() : Database {
 
     lateinit var database: Database
 
+    override fun refresh() {
+        return database.refresh()
+    }
+
     override fun exists(): Boolean {
         return database.exists()
     }
@@ -24,6 +28,10 @@ class DatabaseManager private constructor() : Database {
 
     override fun open(pin: String): Boolean {
         return database.open(pin)
+    }
+
+    override fun checkPin(pin: String): Boolean {
+        return database.checkPin(pin)
     }
 
     override fun close(): Boolean {

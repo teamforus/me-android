@@ -4,6 +4,7 @@
     android:orientation="vertical"
     android:id="@+id/container"
     android:clickable="true"
+    android:focusable="true"
     android:background="?android:attr/selectableItemBackground"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -14,6 +15,7 @@
 
     <Switch
         android:id="@+id/switcher"
+        android:clickable="false"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/activity_horizontal_margin"

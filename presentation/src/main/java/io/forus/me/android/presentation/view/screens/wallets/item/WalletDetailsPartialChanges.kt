@@ -1,7 +1,7 @@
 package io.forus.me.android.presentation.view.screens.wallets.item
 
 import android.graphics.Bitmap
-import com.ocrv.ekasui.mrm.ui.loadRefresh.PartialChange
+import io.forus.me.android.presentation.view.base.lr.PartialChange
 
 sealed class WalletDetailsPartialChanges : PartialChange {
 

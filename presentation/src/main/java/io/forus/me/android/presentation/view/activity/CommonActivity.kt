@@ -1,39 +1,14 @@
 package io.forus.me.android.presentation.view.activity
 
-import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
-import android.support.v7.widget.Toolbar
 import android.view.MenuItem
-import android.view.View
-import kotlinx.android.synthetic.main.dashboard_activity.*
-
-import kotlinx.android.synthetic.main.toolbar_view.*
-import io.forus.me.android.presentation.R.string.navigation_drawer_close
-import io.forus.me.android.presentation.R.string.navigation_drawer_open
-import io.forus.me.android.presentation.R.id.toolbar
-import io.forus.me.android.presentation.helpers.Converter
 
 
 abstract class CommonActivity : BaseActivity() {
 
-
-
-//    protected val toolbar: Toolbar
-//        get() = toolbar_view
-//
-//    protected open val toolbarTitle: String
-//        get() = ""
-
-
     protected open val viewID: Int
         get() = 0
-
-
-//    protected open val toolbarType: ToolbarType
-//        get() = ToolbarType.Regular
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,15 +18,8 @@ abstract class CommonActivity : BaseActivity() {
         initUI()
     }
 
-
-
-
     private fun initUI() {
 
-
-    }
-
-    protected fun initfragment(fragment: Fragment) {
 
     }
 
@@ -72,8 +40,4 @@ abstract class CommonActivity : BaseActivity() {
     protected fun getCustomColor(color: Int): Int {
         return ContextCompat.getColor(this, color)
     }
-
-
-
-
 }

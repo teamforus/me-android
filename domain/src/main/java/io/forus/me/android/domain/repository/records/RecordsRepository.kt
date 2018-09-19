@@ -42,4 +42,7 @@ interface RecordsRepository {
 
 
     fun approveValidation(uuid: String): Observable<Boolean>
+
+
+    fun declineValidation(uuid: String): Observable<Boolean>
 }

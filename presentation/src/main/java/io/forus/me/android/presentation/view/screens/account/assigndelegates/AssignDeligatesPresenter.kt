@@ -1,12 +1,12 @@
 package io.forus.me.android.presentation.view.screens.account.assigndelegates
 
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRPresenter
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
+import io.forus.me.android.presentation.view.base.lr.LRPresenter
+import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 
 
-class AssignDeligatesPresenter constructor() : LRPresenter<Unit, Unit, AssignDelegatesView>() {
+class AssignDeligatesPresenter : LRPresenter<Unit, Unit, AssignDelegatesView>() {
 
 
     override fun initialModelSingle(): Single<Unit> = Single.just(Unit)
@@ -15,7 +15,7 @@ class AssignDeligatesPresenter constructor() : LRPresenter<Unit, Unit, AssignDel
 
     override fun bindIntents() {
 
-        val observable = loadRefreshPartialChanges();
+        val observable = loadRefreshPartialChanges()
 
         val initialViewState = LRViewState(
                 false,

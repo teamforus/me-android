@@ -1,8 +1,8 @@
 package io.forus.me.android.presentation.view.screens.vouchers.item
 
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRPresenter
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
-import com.ocrv.ekasui.mrm.ui.loadRefresh.PartialChange
+import io.forus.me.android.presentation.view.base.lr.LRPresenter
+import io.forus.me.android.presentation.view.base.lr.LRViewState
+import io.forus.me.android.presentation.view.base.lr.PartialChange
 import io.forus.me.android.domain.models.vouchers.Voucher
 import io.forus.me.android.domain.repository.vouchers.VouchersRepository
 import io.reactivex.Single
@@ -18,7 +18,7 @@ class VoucherPresenter constructor(private val vouchersRepository: VouchersRepos
 
     override fun bindIntents() {
 
-        val observable = loadRefreshPartialChanges();
+        val observable = loadRefreshPartialChanges()
 
 
         val initialViewState = LRViewState(

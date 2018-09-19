@@ -1,4 +1,4 @@
-package com.ocrv.ekasui.mrm.ui.loadRefresh
+package io.forus.me.android.presentation.view.base.lr
 
 import android.content.Context
 import android.support.v4.widget.SwipeRefreshLayout

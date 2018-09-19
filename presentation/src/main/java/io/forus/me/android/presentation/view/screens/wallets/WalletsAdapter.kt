@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import io.forus.me.android.domain.models.wallets.Wallet
 
-class WalletsAdapter() : RecyclerView.Adapter<WalletsVH>() {
+class WalletsAdapter : RecyclerView.Adapter<WalletsVH>() {
 
 
     var wallets: List<Wallet> = emptyList()

@@ -29,7 +29,7 @@ class EditText : FrameLayout{
     private lateinit var  mTextInputLayout : TextInputLayout
     private var  validationPattern : Pattern? = null
 
-    constructor(context: Context) : super(context) {}
+    constructor(context: Context) : super(context)
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
         init(context, attrs)
@@ -47,7 +47,7 @@ class EditText : FrameLayout{
         mContainer = mRootView.findViewById(R.id.container)
         mTextEdit = mContainer.findViewById(R.id.text_edit)
         mTextInputLayout = mContainer.findViewById(R.id.text_input_layout)
-        mTextInputLayout.hint = if(required) TextUtils.concat(hint, Html.fromHtml(getContext().getString(R.string.required_asterisk))) else hint
+        mTextInputLayout.hint = if(required) TextUtils.concat(hint, Html.fromHtml(getContext().getString(R.string.me_validation_required_asterisk))) else hint
         mTextInputLayout.isHintAnimationEnabled = true
         mTextInputLayout.isErrorEnabled = true
         mTextEdit.addTextChangedListener(object: android.text.TextWatcher {

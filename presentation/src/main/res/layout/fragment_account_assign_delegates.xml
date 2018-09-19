@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<android.support.design.widget.CoordinatorLayout android:id="@+id/coordinator_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <RelativeLayout
+        android:orientation="vertical"
+        android:id="@+id/root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:background="@color/main50"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include layout="@layout/toolbar_view"/>
+
+            <io.forus.me.android.presentation.view.component.card.CommonCard
+                app:cardElevation="@dimen/card_elevation_big"
+                app:cardUseCompatPadding="true"
+                app:cardCornerRadius="@dimen/card_radius"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:paddingTop="29dp"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:paddingBottom="20dp"
+                        android:layout_height="wrap_content">
+
+                        <io.forus.me.android.presentation.view.component.text.TextView
+                            android:layout_toLeftOf="@+id/qrLogo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="14.1sp"
+                            android:textColor="@color/textColor"
+                            android:letterSpacing="0.02"
+                            android:lineSpacingExtra="5.9sp"
+                            android:text="@string/restore_scan_deze_qr"
+                            />
+
+                        <ImageView
+                            android:layout_marginLeft="37dp"
+                            android:src="@drawable/ic_qr_image"
+                            android:id="@+id/qrLogo"
+                            android:layout_alignParentRight="true"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp" />
+
+                    </RelativeLayout>
+
+
+                    <io.forus.me.android.presentation.view.component.text.TextView
+                        android:layout_gravity="right"
+                        android:id="@+id/show_qr_panel"
+                        android:text="@string/restore_login_via_de_qr_code"
+                        android:textColor="@color/colorAccent"
+                        android:textAllCaps="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="20dp"
+                        app:type="bold"
+                        />
+
+
+
+                </LinearLayout>
+
+
+
+            </io.forus.me.android.presentation.view.component.card.CommonCard>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:paddingBottom="38dp"
+            android:layout_alignParentBottom="true"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <io.forus.me.android.presentation.view.component.buttons.Button
+                android:id="@+id/via_pin"
+                android:layout_marginTop="36dp"
+                android:text="@string/restore_inloggen_met_pincode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+            <io.forus.me.android.presentation.view.component.buttons.Button
+                android:id="@+id/via_email"
+                android:layout_marginTop="18dp"
+                android:text="@string/restore_inloggen_via_email"
+                app:reverse="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+
+        </LinearLayout>
+
+
+
+    </RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

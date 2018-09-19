@@ -1,6 +1,6 @@
 package io.forus.me.android.presentation.view.screens.account.newaccount.pin
 
-import com.ocrv.ekasui.mrm.ui.loadRefresh.PartialChange
+import io.forus.me.android.presentation.view.base.lr.PartialChange
 
 sealed class NewPinPartialChanges : PartialChange {
 
@@ -11,5 +11,7 @@ sealed class NewPinPartialChanges : PartialChange {
     data class CreateIdentityEnd(val void: Unit) : NewPinPartialChanges()
 
     data class CreateIdentityError(val void: Unit) : NewPinPartialChanges()
+
+    class SkipPin : NewPinPartialChanges()
 
 }

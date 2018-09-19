@@ -1,7 +1,5 @@
 package io.forus.me.android.presentation.view.screens.wallets.item
 
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRView
+import io.forus.me.android.presentation.view.base.lr.LRView
 
-interface WalletDetailsView : LRView<WalletDetailsModel> {
-
-}
+interface WalletDetailsView : LRView<WalletDetailsModel>

@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import io.forus.me.android.domain.models.vouchers.Voucher
 
-class VouchersAdapter() : RecyclerView.Adapter<VouchersVH>() {
+class VouchersAdapter : RecyclerView.Adapter<VouchersVH>() {
 
 
     var vouchers: List<Voucher> = emptyList()

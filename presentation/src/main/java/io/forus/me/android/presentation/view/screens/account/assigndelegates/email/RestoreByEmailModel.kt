@@ -1,4 +1,4 @@
-package io.forus.me.android.presentation.view.screens.account.assigndelegates.email;
+package io.forus.me.android.presentation.view.screens.account.assigndelegates.email
 
 import io.forus.me.android.domain.models.account.RequestDelegatesEmailModel
 

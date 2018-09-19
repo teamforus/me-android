@@ -15,7 +15,7 @@
 
         <include layout="@layout/toolbar_view"/>
 
-        <com.ocrv.ekasui.mrm.ui.loadRefresh.LRPanelImpl
+        <io.forus.me.android.presentation.view.base.lr.LRPanelImpl
             android:id="@+id/lr_panel"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_width="match_parent"
@@ -67,7 +67,7 @@
 
             </LinearLayout>
 
-        </com.ocrv.ekasui.mrm.ui.loadRefresh.LRPanelImpl>
+        </io.forus.me.android.presentation.view.base.lr.LRPanelImpl>
 
     </android.support.design.widget.CoordinatorLayout>
 
@@ -81,7 +81,7 @@
         <io.forus.me.android.presentation.view.component.buttons.Button
             android:id="@+id/btn_show_qr"
             app:textSize="14.0"
-            android:text="@string/button_show_qr"
+            android:text="@string/record_details_button_show_qr"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginTop="13dp"

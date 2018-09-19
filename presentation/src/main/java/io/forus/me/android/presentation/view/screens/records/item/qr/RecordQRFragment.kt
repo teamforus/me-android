@@ -4,21 +4,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRFragment
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LoadRefreshPanel
+import io.forus.me.android.presentation.view.base.lr.LRFragment
+import io.forus.me.android.presentation.view.base.lr.LRViewState
+import io.forus.me.android.presentation.view.base.lr.LoadRefreshPanel
 import io.forus.me.android.domain.models.qr.QrCode
+import io.forus.me.android.domain.models.records.Validation
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.helpers.reactivex.DisposableHolder
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.screens.records.item.RecordDetailsActivity
 import io.reactivex.Observable
-import kotlinx.android.synthetic.main.popup_qr_fragment.*
+import kotlinx.android.synthetic.main.fragment_popup_qr.*
 
 class RecordQRFragment : LRFragment<RecordQRModel, RecordQRView, RecordQRPresenter>(), RecordQRView {
 
     companion object {
-        private val RECORD_ID_EXTRA = "RECORD_ID_EXTRA";
+        private val RECORD_ID_EXTRA = "RECORD_ID_EXTRA"
 
         fun newIntent(recordId: Long): RecordQRFragment = RecordQRFragment().also {
             val bundle = Bundle()
@@ -55,15 +56,11 @@ class RecordQRFragment : LRFragment<RecordQRModel, RecordQRView, RecordQRPresent
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
-            = inflater.inflate(R.layout.popup_qr_fragment, container, false).also {
+            = inflater.inflate(R.layout.fragment_popup_qr, container, false).also {
         val bundle = this.arguments
         if (bundle != null) {
             recordId = bundle.getLong(RECORD_ID_EXTRA)
         }
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
     }
 
     override fun onDetach() {
@@ -85,13 +82,13 @@ class RecordQRFragment : LRFragment<RecordQRModel, RecordQRView, RecordQRPresent
             qrText = vs.model.uuid
         }
 
-        if(vs.closeScreen && vs.model.isRecordValidated == true){
-            closeScreen()
+        if(vs.closeScreen && vs.model.recordValidatedState != null){
+            closeScreen(vs.model.recordValidatedState)
         }
     }
 
-    fun closeScreen() {
-        showToastMessage("Record successfully validated")
+    fun closeScreen(state: Validation.State) {
+        showToastMessage(resources.getString(if(state == Validation.State.approved) R.string.record_details_validation_approved else R.string.record_details_validation_declined))
         (activity as? RecordDetailsActivity)?.closeQRFragment()
     }
 }

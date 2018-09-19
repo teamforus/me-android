@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<io.forus.me.android.presentation.view.component.card.CommonCard
+    android:layout_marginTop="@dimen/activity_horizontal_margin_small"
+    app:cardCornerRadius="@dimen/card_radius"
+    android:id="@+id/root"
+    android:layout_marginLeft="@dimen/activity_horizontal_margin_small"
+    android:layout_marginRight="@dimen/activity_horizontal_margin_small"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    app:cardElevation="@dimen/card_elevation_medium"
+    app:cardUseCompatPadding="false"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:background="@color/brightBackground"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <RelativeLayout
+            android:id="@+id/background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+
+                <io.forus.me.android.presentation.view.component.text.TextView
+                    android:id="@+id/name"
+                    style="@style/Subtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:type="medium"
+                    tools:text="Nieuwe" />
+
+                <io.forus.me.android.presentation.view.component.text.TextView
+                    android:id="@+id/num_records"
+                    style="@style/Body2"
+                    android:layout_marginTop="4dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="4 eigenschappen" />
+
+
+            </LinearLayout>
+
+            <io.forus.me.android.presentation.view.component.images.AutoLoadImageView
+                android:id="@+id/logo"
+                android:layout_gravity="center_vertical"
+                android:layout_alignParentEnd="true"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="3dp"
+                android:src="@drawable/circle_empty"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</io.forus.me.android.presentation.view.component.card.CommonCard>

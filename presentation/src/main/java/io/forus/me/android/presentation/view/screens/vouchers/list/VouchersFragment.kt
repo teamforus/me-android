@@ -5,11 +5,11 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
+import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
-import kotlinx.android.synthetic.main.vouchers_fragment_recycler.*
+import kotlinx.android.synthetic.main.fragment_vouchers_recycler.*
 
 /**
  * Fragment Vouchers Delegates Screen.
@@ -25,7 +25,7 @@ class VouchersFragment : ToolbarLRFragment<VouchersModel, VouchersView, Vouchers
     private lateinit var adapter: VouchersAdapter
 
     override val toolbarTitle: String
-        get() = getString(R.string.vouchers)
+        get() = getString(R.string.dashboard_vouchers)
 
 
     override val allowBack: Boolean
@@ -36,7 +36,7 @@ class VouchersFragment : ToolbarLRFragment<VouchersModel, VouchersView, Vouchers
     override fun loadRefreshPanel() = lr_panel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
-            = inflater.inflate(R.layout.vouchers_fragment_recycler, container, false).also {
+            = inflater.inflate(R.layout.fragment_vouchers_recycler, container, false).also {
         adapter = VouchersAdapter()
     }
 

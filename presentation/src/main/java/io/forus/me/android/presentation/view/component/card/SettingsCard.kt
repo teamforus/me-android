@@ -1,4 +1,4 @@
-package com.ocrv.ekasui.mrm.ui.views.card
+package io.forus.me.android.presentation.view.component.card
 
 import android.content.Context
 import android.util.AttributeSet
@@ -23,7 +23,7 @@ open class SettingsCard : FrameLayout {
     protected var iIcon: ImageView? = null
 
 
-    internal var hideDevider: Boolean = false;
+    internal var hideDevider: Boolean = false
     internal var title: String? = null
         set(value) {
             field = value
@@ -51,6 +51,7 @@ open class SettingsCard : FrameLayout {
         icon = ta.getResourceId(R.styleable.TitleValueCard_valuecard_icon, 0)
         text = ta.getString(R.styleable.TitleValueCard_valuecard_text)
         hideDevider = ta.getBoolean(R.styleable.TitleValueCard_valuecard_hidedevider, false)
+        ta.recycle()
 
         init(context)
     }
@@ -61,7 +62,7 @@ open class SettingsCard : FrameLayout {
 
     open val layoutID: Int = R.layout.settings_title_value_card
 
-    open protected fun init(context: Context) {
+    protected open fun init(context: Context) {
 
         val inflater = LayoutInflater.from(context)
         mRootView = inflater.inflate(layoutID, this)

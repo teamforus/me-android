@@ -1,8 +1,8 @@
 package io.forus.me.android.presentation.view.screens.records.newrecord
 
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRPresenter
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
-import com.ocrv.ekasui.mrm.ui.loadRefresh.PartialChange
+import io.forus.me.android.presentation.view.base.lr.LRPresenter
+import io.forus.me.android.presentation.view.base.lr.LRViewState
+import io.forus.me.android.presentation.view.base.lr.PartialChange
 import io.forus.me.android.domain.models.records.NewRecordRequest
 import io.forus.me.android.domain.models.records.RecordCategory
 import io.forus.me.android.domain.models.records.RecordType
@@ -17,7 +17,7 @@ import io.reactivex.schedulers.Schedulers
 
 class NewRecordPresenter constructor(private val recordRepository: RecordsRepository, private val validatorsRepository: ValidatorsRepository) : LRPresenter<NewRecordModel, NewRecordModel, NewRecordView>() {
 
-    var request: NewRecordRequest? = null;
+    var request: NewRecordRequest? = null
 
     override fun initialModelSingle(): Single<NewRecordModel> = Single.zip(
             Single.fromObservable(recordRepository.getRecordTypes()),
@@ -77,7 +77,7 @@ class NewRecordPresenter constructor(private val recordRepository: RecordsReposi
                                 }
 
                 )
-        );
+        )
 
 
         val initialViewState = LRViewState(

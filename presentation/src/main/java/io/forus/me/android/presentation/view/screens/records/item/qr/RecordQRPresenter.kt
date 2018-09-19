@@ -1,8 +1,8 @@
 package io.forus.me.android.presentation.view.screens.records.item.qr
 
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRPresenter
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
-import com.ocrv.ekasui.mrm.ui.loadRefresh.PartialChange
+import io.forus.me.android.presentation.view.base.lr.LRPresenter
+import io.forus.me.android.presentation.view.base.lr.LRViewState
+import io.forus.me.android.presentation.view.base.lr.PartialChange
 import io.forus.me.android.domain.models.records.Validation
 import io.forus.me.android.domain.repository.records.RecordsRepository
 import io.forus.me.android.presentation.helpers.reactivex.DisposableHolder
@@ -25,12 +25,12 @@ class RecordQRPresenter constructor(private val recordId: Long, private val disp
                 .repeatWhen{observable -> observable.delay(1000, TimeUnit.MILLISECONDS)}
                 .takeUntil{it.state != Validation.State.pending}
                 .subscribe {
-                    if(it.state != Validation.State.pending) validationComplete.onNext(Unit)
+                    if(it.state != Validation.State.pending) validationComplete.onNext(it.state)
                 })
     }
 
-    private val validationComplete = PublishSubject.create<Unit>()
-    fun validationComplete(): Observable<Unit> = validationComplete
+    private val validationComplete = PublishSubject.create<Validation.State>()
+    fun validationComplete(): Observable<Validation.State> = validationComplete
 
     override fun bindIntents() {
 
@@ -38,7 +38,7 @@ class RecordQRPresenter constructor(private val recordId: Long, private val disp
 
                 loadRefreshPartialChanges(),
 
-                intent { validationComplete() }.map { RecordQRPartialChanges.RecordValidated() }
+                intent { validationComplete() }.map { RecordQRPartialChanges.RecordValidated(it) }
         )
 
         val initialViewState = LRViewState(
@@ -61,7 +61,7 @@ class RecordQRPresenter constructor(private val recordId: Long, private val disp
         if (change !is RecordQRPartialChanges) return super.stateReducer(vs, change)
 
         return when (change) {
-            is RecordQRPartialChanges.RecordValidated -> vs.copy(closeScreen = true, model = vs.model.copy(isRecordValidated = true))
+            is RecordQRPartialChanges.RecordValidated -> vs.copy(closeScreen = true, model = vs.model.copy(recordValidatedState = change.state))
         }
 
     }

@@ -32,7 +32,7 @@ public class MeServiceFactory {
     }
 
     private MeServiceFactory(AccountLocalDataSource accountLocalDataSource) {
-        this.accountLocalDataSource = accountLocalDataSource;
+        MeServiceFactory.accountLocalDataSource = accountLocalDataSource;
     }
 
     public static void init(Context context, AccountLocalDataSource accountLocalDataSource){

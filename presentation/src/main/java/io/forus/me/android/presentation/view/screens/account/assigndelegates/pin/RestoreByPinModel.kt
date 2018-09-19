@@ -1,4 +1,4 @@
-package io.forus.me.android.presentation.view.screens.account.assigndelegates.pin;
+package io.forus.me.android.presentation.view.screens.account.assigndelegates.pin
 
 import io.forus.me.android.domain.models.account.RequestDelegatesPinModel
 

@@ -14,6 +14,6 @@ class Asset {
     var name: String = ""
     var logoUrl: String? = ""
     var description: String = ""
-    lateinit var type: Type
+    var type: Type
 
 }

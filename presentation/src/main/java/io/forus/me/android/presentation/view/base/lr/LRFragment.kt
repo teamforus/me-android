@@ -1,4 +1,4 @@
-package com.ocrv.ekasui.mrm.ui.loadRefresh
+package io.forus.me.android.presentation.view.base.lr
 
 import android.support.annotation.CallSuper
 import android.support.design.widget.Snackbar
@@ -7,13 +7,9 @@ import com.hannesdorfmann.mosby3.mvi.MviBasePresenter
 import com.hannesdorfmann.mosby3.mvi.MviFragment
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.ViewGroup
 import android.widget.Toast
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.helpers.OnCompleteListener
-import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.navigation.Navigator
 
 
@@ -28,14 +24,15 @@ abstract class LRFragment<M, V : LRView<M>, P : MviBasePresenter<V, LRViewState<
     override fun refresh(): Observable<Any> = loadRefreshPanel().refreshes()
 
     override fun updateData(): Observable<Any> {
-        return updateObservable;
+        return updateObservable
     }
 
     protected fun showToastMessage(message: String) {
-        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
+        val context = activity?.applicationContext
+        if(context != null) Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
-    public fun updateModel(){
+    fun updateModel(){
         if(updateObservable != null){
             updateObservable.onNext(true)
         }
@@ -50,18 +47,17 @@ abstract class LRFragment<M, V : LRView<M>, P : MviBasePresenter<V, LRViewState<
     }
 
     open fun getScrollableView(): View? {
-        return null;
+        return null
     }
 
-    private val updateObservable = PublishSubject.create<Any>();
-
+    private val updateObservable = PublishSubject.create<Any>()
 
 
     @CallSuper
     override fun render(vs: LRViewState<M>) {
         loadRefreshPanel().render(vs)
         if (vs.refreshingError != null) {
-            Snackbar.make(viewForSnackbar(), R.string.refreshing_error_text, Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(viewForSnackbar(), R.string.app_refreshing_error_text, Snackbar.LENGTH_SHORT).show()
         }
     }
 

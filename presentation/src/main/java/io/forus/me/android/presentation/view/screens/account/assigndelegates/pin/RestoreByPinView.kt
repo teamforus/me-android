@@ -1,12 +1,10 @@
-package io.forus.me.android.presentation.view.screens.account.assigndelegates.pin;
+package io.forus.me.android.presentation.view.screens.account.assigndelegates.pin
 
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRView
+import io.forus.me.android.presentation.view.base.lr.LRView
 
 /**
  * Created by pavelpantuhov on 31.10.2017.
  */
 
 
-interface RestoreByPinView : LRView<RestoreByPinModel> {
-
-}
+interface RestoreByPinView : LRView<RestoreByPinModel>

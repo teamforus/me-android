@@ -29,8 +29,26 @@ interface AccountRepository {
     fun unlockIdentity(pin: String): Observable<Boolean>
 
 
+    fun checkPin(pin: String): Observable<Boolean>
+
+
+    fun setFingerprintEnabled(isFingerprintEnabled: Boolean): Observable<Boolean>
+
+
+    fun changePin(oldPin: String, newPin: String): Observable<Boolean>
+
+
     fun exitIdentity(): Observable<Boolean>
+
 
     fun getAccount(): Observable<Account>
 
+
+    fun getSecurityOptions(): Observable<SecurityOptions>
+
+
+    fun checkCurrentToken(): Observable<Boolean>
+
+
+    fun unlockByFingerprint(): Observable<Boolean>
 }

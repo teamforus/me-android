@@ -23,6 +23,9 @@ class RecordDetailsActivity : SlidingPanelActivity() {
         }
     }
 
+    override val height: Float
+        get() = 400f
+
     private lateinit var fragment: RecordDetailsFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,6 +43,6 @@ class RecordDetailsActivity : SlidingPanelActivity() {
 
     fun closeQRFragment(){
         sliding_layout.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
-        fragment.refresh()
+        fragment.updateModel()
     }
 }

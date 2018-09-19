@@ -8,14 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import com.hannesdorfmann.mosby3.mvi.MviBasePresenter
 import kotlinx.android.synthetic.main.toolbar_view.*
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRFragment
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRView
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LoadRefreshPanel
+import io.forus.me.android.presentation.view.base.lr.LRFragment
+import io.forus.me.android.presentation.view.base.lr.LRView
+import io.forus.me.android.presentation.view.base.lr.LRViewState
+import io.forus.me.android.presentation.view.base.lr.LoadRefreshPanel
 import io.forus.me.android.presentation.helpers.Converter
 import io.reactivex.Observable
 
-abstract class ToolbarLRFragment<M, V : LRView<M>, P : MviBasePresenter<V, LRViewState<M>>> : LRFragment<M,V,P>() {
+abstract class ToolbarLRFragment<M, V : LRView<M>, P : MviBasePresenter<V, LRViewState<M>>> : LRFragment<M, V, P>() {
 
 
     protected val toolbar: Toolbar
@@ -50,7 +50,7 @@ abstract class ToolbarLRFragment<M, V : LRView<M>, P : MviBasePresenter<V, LRVie
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val result =  super.onCreateView(inflater, container, savedInstanceState)
-        return  result;
+        return  result
 
     }
 
@@ -84,35 +84,11 @@ abstract class ToolbarLRFragment<M, V : LRView<M>, P : MviBasePresenter<V, LRVie
     }
 
     override fun viewForSnackbar(): View {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented") //To change body of created functions use File | AppSettings | File Templates.
     }
 
     override fun loadRefreshPanel(): LoadRefreshPanel {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun retry(): Observable<Any> {
-        return super.retry()
-    }
-
-    override fun refresh(): Observable<Any> {
-        return super.refresh()
-    }
-
-    override fun updateData(): Observable<Any> {
-        return super.updateData()
-    }
-
-    override fun onResume() {
-        super.onResume()
-    }
-
-    override fun getScrollableView(): View? {
-        return super.getScrollableView()
-    }
-
-    override fun render(vs: LRViewState<M>) {
-        super.render(vs)
+        TODO("not implemented") //To change body of created functions use File | AppSettings | File Templates.
     }
 
 

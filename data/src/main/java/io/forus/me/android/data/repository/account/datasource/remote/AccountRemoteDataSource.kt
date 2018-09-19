@@ -13,7 +13,7 @@ import io.forus.me.android.data.repository.account.datasource.AccountDataSource
 import io.forus.me.android.data.repository.datasource.RemoteDataSource
 import io.reactivex.Observable
 
-public class AccountRemoteDataSource(f: () -> SignService): AccountDataSource, RemoteDataSource<SignService>(f) {
+class AccountRemoteDataSource(f: () -> SignService): AccountDataSource, RemoteDataSource<SignService>(f) {
 
     override fun createUser(signUp: SignUp): Observable<SignUpResult> {
         return service.signup(signUp)
@@ -32,6 +32,18 @@ public class AccountRemoteDataSource(f: () -> SignService): AccountDataSource, R
     }
 
     override fun logout() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun checkPin(pin: String): Boolean {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun changePin(oldPin: String, newPin: String): Boolean {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun getCurrentToken(): String {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

@@ -7,7 +7,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
+import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.helpers.format
 import io.forus.me.android.presentation.internal.Injection
@@ -16,7 +16,7 @@ import io.forus.me.android.presentation.view.screens.vouchers.provider.categorie
 import io.forus.me.android.presentation.view.screens.vouchers.provider.organizations.OrganizationsAdapter
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.voucher_provider.*
+import kotlinx.android.synthetic.main.fragment_voucher_provider.*
 
 class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, ProviderPresenter>(), ProviderView{
 
@@ -35,7 +35,7 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
     private lateinit var categoriesAdapter: CategoriesAdapter
 
     override val toolbarTitle: String
-        get() = getString(R.string.voucher)
+        get() = getString(R.string.vouchers_item)
 
     override val allowBack: Boolean
         get() = true
@@ -51,7 +51,7 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
     override fun submit(): Observable<Boolean> = submit
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
-            = inflater.inflate(R.layout.voucher_provider, container, false).also {
+            = inflater.inflate(R.layout.fragment_voucher_provider, container, false).also {
 
         address = if (arguments == null) "" else arguments!!.getString(VOUCHER_ADDRESS_EXTRA, "")
 
@@ -80,7 +80,8 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
                     selectAmount.onNext(s.toString().toFloat())
                 }
                 catch(e: Exception){
-                    amount.setError(resources.getString(R.string.decimal_validation_error))
+                    selectAmount.onNext(Float.NaN)
+                    amount.setError(resources.getString(R.string.me_validation_error_decimal))
                 }
             }
         })
@@ -112,7 +113,7 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
 
         btn_make.active = vs.model.buttonIsActive
 
-        if(vs.model.makeTransactionError != null) showToastMessage(vs.model.makeTransactionError.toString())
+        if(vs.model.makeTransactionError != null) showToastMessage(resources.getString(R.string.vouchers_make_transaction_failure))
 
         if(vs.closeScreen) closeScreen()
     }

@@ -1,8 +1,8 @@
 package io.forus.me.android.presentation.view.screens.account.assigndelegates.email
 
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRPresenter
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
-import com.ocrv.ekasui.mrm.ui.loadRefresh.PartialChange
+import io.forus.me.android.presentation.view.base.lr.LRPresenter
+import io.forus.me.android.presentation.view.base.lr.LRViewState
+import io.forus.me.android.presentation.view.base.lr.PartialChange
 import io.forus.me.android.domain.repository.account.AccountRepository
 import io.forus.me.android.presentation.helpers.reactivex.AccessTokenChecker
 import io.forus.me.android.presentation.helpers.reactivex.DisposableHolder
@@ -44,7 +44,7 @@ class RestoreByEmailPresenter constructor(private val disposableHolder: Disposab
                                     .startWith(RestoreByEmailPartialChanges.RestoreByEmailRequestStart())
 
                         }
-        );
+        )
 
 
         val initialViewState = LRViewState(

@@ -1,8 +1,8 @@
 package io.forus.me.android.presentation.view.screens.records.item
 
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRPresenter
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
-import com.ocrv.ekasui.mrm.ui.loadRefresh.PartialChange
+import io.forus.me.android.presentation.view.base.lr.LRPresenter
+import io.forus.me.android.presentation.view.base.lr.LRViewState
+import io.forus.me.android.presentation.view.base.lr.PartialChange
 import io.forus.me.android.domain.models.records.Record
 import io.forus.me.android.domain.models.records.Validation
 import io.forus.me.android.domain.models.validators.SimpleValidator

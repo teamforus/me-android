@@ -1,21 +1,26 @@
 package io.forus.me.android.presentation.view.screens.account.account
 
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRPartialChange
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRPresenter
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
-import com.ocrv.ekasui.mrm.ui.loadRefresh.PartialChange
+import io.forus.me.android.presentation.view.base.lr.LRPartialChange
+import io.forus.me.android.presentation.view.base.lr.LRPresenter
+import io.forus.me.android.presentation.view.base.lr.LRViewState
+import io.forus.me.android.presentation.view.base.lr.PartialChange
 import io.forus.me.android.domain.repository.account.AccountRepository
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 
 
 class AccountPresenter constructor(private val accountRepository: AccountRepository) : LRPresenter<AccountModel, AccountModel, AccountView>() {
 
 
-    override fun initialModelSingle(): Single<AccountModel> = Single.fromObservable(accountRepository.getAccount())
-            .flatMap {  Single.just(AccountModel(it))  }
+    override fun initialModelSingle(): Single<AccountModel> = Single.zip(
+            Single.fromObservable(accountRepository.getAccount()),
+            Single.fromObservable(accountRepository.getSecurityOptions()),
+            BiFunction { account, securityOptions ->
+                AccountModel(account, securityOptions.pinEnabled, securityOptions.fingerprintEnabled)
+            })
 
 
     override fun AccountModel.changeInitialModel(i: AccountModel): AccountModel = i.copy()
@@ -23,7 +28,7 @@ class AccountPresenter constructor(private val accountRepository: AccountReposit
 
     override fun bindIntents() {
 
-        var observable = Observable.merge(
+        val observable = Observable.merge(
                 loadRefreshPartialChanges(),
                 intent { it.logout() }
                         .switchMap {
@@ -37,6 +42,20 @@ class AccountPresenter constructor(private val accountRepository: AccountReposit
                                         LRPartialChange.LoadingError(it)
                                     }
                                     .startWith(LRPartialChange.LoadingStarted)
+                        },
+
+                intent { it.switchFingerprint() }
+                        .switchMap {newState ->
+                            accountRepository.setFingerprintEnabled(newState)
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .map<PartialChange> { success ->
+                                        if(success) AccountPartialChanges.FingerprintEnabled(newState)
+                                        else AccountPartialChanges.FingerprintEnabled(!newState)
+                                    }
+                                    .onErrorReturn {
+                                        LRPartialChange.LoadingError(it)
+                                    }
                         }
         )
 
@@ -56,13 +75,13 @@ class AccountPresenter constructor(private val accountRepository: AccountReposit
                 AccountView::render)
     }
 
-    override fun stateReducer(viewState: LRViewState<AccountModel>, change: PartialChange): LRViewState<AccountModel> {
+    override fun stateReducer(vs: LRViewState<AccountModel>, change: PartialChange): LRViewState<AccountModel> {
 
-        if (change !is AccountPartialChanges) return super.stateReducer(viewState, change)
+        if (change !is AccountPartialChanges) return super.stateReducer(vs, change)
 
         return when (change) {
-            is AccountPartialChanges.NavigateToWelcomeScreen -> viewState.copy(model = viewState.model.copy(navigateToWelcome = true))
-
+            is AccountPartialChanges.NavigateToWelcomeScreen -> vs.copy(model = vs.model.copy(navigateToWelcome = true))
+            is AccountPartialChanges.FingerprintEnabled -> vs.copy(model = vs.model.copy(fingerprintEnabled = change.value))
         }
 
     }

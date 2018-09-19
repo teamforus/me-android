@@ -4,6 +4,7 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'org.greenrobot.greendao'
+apply plugin: 'io.fabric'
 
 android {
 
@@ -111,7 +112,12 @@ dependencies {
   implementation presentationDependencies.slidingUpPanel
   implementation presentationDependencies.glide
   implementation presentationDependencies.circleIndicator
+  implementation presentationDependencies.materialDialogs
+  implementation presentationDependencies.fingerprint
 
+  implementation (presentationDependencies.fabric) {
+    transitive = true
+  }
 
   compileOnly presentationDependencies.javaxAnnotation
 

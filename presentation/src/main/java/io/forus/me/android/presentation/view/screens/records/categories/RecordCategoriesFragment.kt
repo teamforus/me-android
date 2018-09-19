@@ -3,18 +3,14 @@ package io.forus.me.android.presentation.view.screens.records.categories
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LoadRefreshPanel
+import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.R
-import io.forus.me.android.presentation.interfaces.FragmentListener
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.forus.me.android.presentation.view.screens.records.list.RecordsAdapter
-import io.reactivex.Observable
-import kotlinx.android.synthetic.main.records_category_recycler.*
+import kotlinx.android.synthetic.main.fragment_record_categories.*
 
 
 class RecordCategoriesFragment : ToolbarLRFragment<RecordCategoriesModel, RecordCategoriesView, RecordCategoriesPresenter>(), RecordCategoriesView{
@@ -26,7 +22,7 @@ class RecordCategoriesFragment : ToolbarLRFragment<RecordCategoriesModel, Record
     }
 
     override val toolbarTitle: String
-        get() = getString(R.string.records)
+        get() = getString(R.string.dashboard_records)
 
 
     override val allowBack: Boolean
@@ -41,7 +37,7 @@ class RecordCategoriesFragment : ToolbarLRFragment<RecordCategoriesModel, Record
     override fun loadRefreshPanel() = lr_panel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
-            = inflater.inflate(R.layout.records_category_recycler, container, false).also {
+            = inflater.inflate(R.layout.fragment_record_categories, container, false).also {
         //adapter = RecordCategoriesAdapter()
         adapter = RecordsAdapter()
     }
@@ -65,16 +61,6 @@ class RecordCategoriesFragment : ToolbarLRFragment<RecordCategoriesModel, Record
             this.navigator.navigateToNewRecord(activity)
         }
     }
-
-//    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-//        when (item?.itemId) {
-//            R.id.add_record -> {
-//                this.navigator.navigateToNewRecord(activity)
-//                return true
-//            }
-//        }
-//        return super.onOptionsItemSelected(item)
-//    }
 
     override fun createPresenter() = RecordCategoriesPresenter(
             Injection.instance.recordsRepository

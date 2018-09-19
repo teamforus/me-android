@@ -5,7 +5,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
+import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_record_detail.*
 class RecordDetailsFragment : ToolbarLRFragment<RecordDetailsModel, RecordDetailsView, RecordDetailsPresenter>(), RecordDetailsView{
 
     companion object {
-        private val RECORD_ID_EXTRA = "RECORD_ID_EXTRA";
+        private val RECORD_ID_EXTRA = "RECORD_ID_EXTRA"
 
         fun newIntent(recordId: Long): RecordDetailsFragment = RecordDetailsFragment().also {
             val bundle = Bundle()
@@ -37,7 +37,7 @@ class RecordDetailsFragment : ToolbarLRFragment<RecordDetailsModel, RecordDetail
         get() = true
 
     override val toolbarTitle: String
-        get() = getString(R.string.title_record_detail)
+        get() = getString(R.string.record_details_title)
 
     override fun viewForSnackbar(): View = root
 
@@ -82,7 +82,7 @@ class RecordDetailsFragment : ToolbarLRFragment<RecordDetailsModel, RecordDetail
         adapter.items = vs.model.validators
 
         if(vs.model.requestValidationError != null){
-            showToastMessage(resources.getString(R.string.validation_request_error))
+            showToastMessage(resources.getString(R.string.record_details_validation_request_error))
         }
     }
 }

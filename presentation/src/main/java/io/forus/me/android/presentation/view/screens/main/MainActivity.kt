@@ -1,11 +1,7 @@
 package io.forus.me.android.presentation.view.screens.main
 
 
-import android.app.KeyguardManager
-import android.content.Context
-import android.os.Build
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.activity.BaseActivity
 
@@ -14,47 +10,30 @@ import io.forus.me.android.presentation.view.activity.BaseActivity
  */
 class MainActivity : BaseActivity() {
 
-    private  val  keyguardManager: KeyguardManager
-        get() {
-            return this.getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
-        }
-
-    private var deviceSecurityAlert: AlertDialog? = null
-
-
-    fun isDeviceSecure(): Boolean {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) keyguardManager.isDeviceSecure else keyguardManager.isKeyguardSecure
-    }
+    private val db = Injection.instance.databaseHelper
+    private val settings = Injection.instance.settingsDataSource
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(io.forus.me.android.presentation.R.layout.activity_main)
 
 
-        if(Injection.instance.databaseHelper.exists()){
-            navigateToDashboard()
+        if(db.exists()){
+            val locked = settings.isPinEnabled()
+            if(locked){
+                navigateToPinlock()
+            }
+            else {
+                navigateToDashboard()
+            }
         }
         else {
             navigateToWelcomeScreen()
         }
-
-
-//        if (Injection.instance.accountLocalDataSource.isLogin()) {
-////            if (!systemServices.isDeviceSecure()) {
-////                deviceSecurityAlert = systemServices.showDeviceSecurityAlert()
-////            } else {
-////                navigateToDashboard()
-////            }
-//            navigateToDashboard()
-//            //navigateToDashboard()
-//        } else {
-//            navigateToWelcomeScreen()
-//        }
     }
 
     override fun onStop() {
         super.onStop()
-        deviceSecurityAlert?.dismiss()
     }
 
     /**
@@ -65,12 +44,23 @@ class MainActivity : BaseActivity() {
         this.navigator.navigateToWelcomeScreen(this)
         finish()
     }
+
     /**
-     * Goes to the welcome screen.
+     * Goes to the dashboard screen.
      */
     private fun navigateToDashboard() {
+        db.open("")
+        this.navigator.navigateToDashboard(this)
+        finish()
+    }
 
-        this.navigator.navigateToDashboard(this, true)
+    /**
+     * Goes to the lock screen
+     */
+    private fun navigateToPinlock() {
+        // Database will be opened later
+        val useFingerprint = settings.isFingerprintEnabled()
+        this.navigator.navigateToDashboardPinlocked(this, useFingerprint)
         finish()
     }
 

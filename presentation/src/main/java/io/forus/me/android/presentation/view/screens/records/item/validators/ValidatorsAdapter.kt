@@ -30,12 +30,12 @@ class ValidatorsAdapter(private val clickListener: ((ValidatorViewModel) -> Unit
 
     override fun getItemViewType(position: Int): Int {
         if (items[position].type == ValidatorViewModel.Type.header)
-            return TYPE_HEADER;
+            return TYPE_HEADER
 
         if (items[position].type == ValidatorViewModel.Type.p2p)
-            return TYPE_ITEM_P2P;
+            return TYPE_ITEM_P2P
 
-        return TYPE_ITEM_VALIDATOR;
+        return TYPE_ITEM_VALIDATOR
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder{
