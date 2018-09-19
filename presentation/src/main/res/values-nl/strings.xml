@@ -2,119 +2,119 @@
 <resources>
 
     <!-- Application -->
-    <string name="app_error_text">Gefaald</string>
-    <string name="app_retry_text">Retry</string>
-    <string name="app_refreshing_error_text">Verversen fout</string>
+    <string name="app_error_text">Mislukt</string>
+    <string name="app_retry_text">Probeer opnieuw</string>
+    <string name="app_refreshing_error_text">Inhoud herladen is mislukt</string>
     <string name="app_exception_message_generic">Er is een toepassingsfout opgetreden</string>
     <string name="app_exception_message_no_connection">Er is geen internetverbinding</string>
 
     <!-- Common -->
-    <string name="me_validation_error_not_empty">Veld is leeg</string>
-    <string name="me_validation_error_email_is_invalid">Veld is ongeldig</string>
-    <string name="me_validation_error_decimal">Nummer is niet geldig</string>
+    <string name="me_validation_error_not_empty">Het invoerveld is leeg</string>
+    <string name="me_validation_error_email_is_invalid">Het invoerveld is niet juist ingevoerd.</string>
+    <string name="me_validation_error_decimal">Het invoerveld accepteert alleen getallen of decimalen.</string>
 
     <!-- Dashboard -->
     <string name="dashboard_property">Vouchers</string>
     <string name="dashboard_qr">Qr</string>
     <string name="dashboard_records">Eigenschappen</string>
     <string name="dashboard_vouchers">Vouchers</string>
-    <string name="dashboard_currency">Valuta</string>
+    <string name="dashboard_currency">Tokens</string>
     <string name="dashboard_assets">Bezit</string>
 
     <!-- Welcome screen -->
     <string name="welcome_greeting">Welkom bij Me</string>
-    <string name="welcome_create_account">Create account</string>
+    <string name="welcome_create_account">Maak een account aan</string>
     <string name="welcome_restore_account">Log in met een bestaand account</string>
-    <string name="welcome_set_up_your_identity">Stel uw identiteit in</string>
+    <string name="welcome_set_up_your_identity">Stel uw account in</string>
 
     <!-- Restore identity -->
-    <string name="restore_login">Anmelden</string>
-    <string name="restore_login_via_de_qr_code">login via de qr code</string>
-    <string name="restore_scan_deze_qr">Scan deze QR-Code met een ander apparaat waar u al op aangemeld bent</string>
+    <string name="restore_login">Aanmelden</string>
+    <string name="restore_login_via_de_qr_code">login via qr code</string>
+    <string name="restore_scan_deze_qr">Scan deze QR-Code met een ander apparaat waar u al op ingelogt bent</string>
     <string name="restore_inloggen_met_pincode">Inloggen met pincode</string>
     <string name="restore_inloggen_via_email">Inloggen via email</string>
     <string name="restore_inloggen_by_email">Herstel per e-mail</string>
     <string name="restore_email_description">Voer uw e-mailadres in om uw inloggegevens te ontvangen</string>
-    <string name="restore_pincode_description">Vul deze pincode in uw profeil in</string>
-    <string name="restore_email_instructions">De link is naar uw e-mail verzonden. Tik erop, wacht op het succesbericht en kom bij mij terug</string>
+    <string name="restore_pincode_description">Vul deze pincode in de webshop in, waar u al bent ingelogd.</string>
+    <string name="restore_email_instructions">Er is een e-mail verstuurd naar uw e-mailadres waarmee u opnieuw kunt inloggen.</string>
 
     <!-- New account screen -->
-    <string name="new_account_title">New profiel</string>
-    <string name="new_account_subtitle">Geef hieronder uw e-mail en informatie op. Voor registratie is een primair e-mailadres vereist</string>
-    <string name="new_account_error_already_in_use">Account is al in gebruik</string>
+    <string name="new_account_title">Nieuw account aanmaken</string>
+    <string name="new_account_subtitle">Dit scherm geeft de mogelijkheid om een account aan te maken. Met dit account kunt u digitaal uw voucher beheren en inloggen op de webshop.</string>
+    <string name="new_account_error_already_in_use">E-mailadres is al in gebruik</string>
 
     <!-- New passcode screen -->
-    <string name="passcode_title_create">Maak een toegangscode</string>
-    <string name="passcode_title_confirm">Bevestig toegangscode</string>
-    <string name="passcode_title_create_identity_wait">Even geduld aub</string>
-    <string name="passcode_subtitle_create">Maak een 4cijferige pincode aan</string>
-    <string name="passcode_subtitle_create_not_match">Wachtwoorden komen niet overeen. Probeer het opnieuw</string>
-    <string name="passcode_subtitle_create_identity">Identiteit creëren</string>
+    <string name="passcode_title_create">Inlogcode instellen</string>
+    <string name="passcode_title_confirm">Bevestig inlogcode</string>
+    <string name="passcode_title_create_identity_wait">Even geduld a.u.b.</string>
+    <string name="passcode_subtitle_create">Beveilig uw account door een vier cijferige inlogcode aan te maken.</string>
+    <string name="passcode_subtitle_create_not_match">Wachtwoorden komen niet overeen. Probeer het opnieuw.</string>
+    <string name="passcode_subtitle_create_identity">Account aanmaken</string>
     <string name="passcode_subtitle_change_error">Er is iets fout gegaan :(</string>
-    <string name="passcode_create_skip">Overspringen</string>
-    <string name="passcode_changing">Toegangscode wijzigen</string>
+    <string name="passcode_create_skip">Overslaan</string>
+    <string name="passcode_changing">Inlogcode wijzigen</string>
 
     <!-- PINLOCK screen -->
-    <string name="passcode_subtitle_pinlock_confirm">Bevestig je identiteit</string>
-    <string name="passcode_subtitle_pinlock_checking">Controleren</string>
+    <string name="passcode_subtitle_pinlock_confirm">Voer uw inlogcode in</string>
+    <string name="passcode_subtitle_pinlock_checking">Bevestigen</string>
     <string name="passcode_subtitle_pinlock_error">Verkeerde toegangscode</string>
 
     <!-- Lock fingerprint strings -->
     <string name="lock_no_fingerprints">Geen vingerafdrukken beschikbaar</string>
     <string name="lock_fingerprint_title">Vingerafdrukverificatie</string>
-    <string name="lock_fingerprint_subtitle">Gebruik de vingerafdruk samen met de toegangscode. Bevestig vingerafdruk om verder te gaan.</string>
+    <string name="lock_fingerprint_subtitle">Gebruik de vingerafdruk samen met de inlogcode. Bevestig vingerafdruk om verder te gaan.</string>
     <string name="lock_fingerprint_hint">Aanraaksensor</string>
-    <string name="lock_fingerprint_cancel">CANCEL</string>
+    <string name="lock_fingerprint_cancel">ANNULEREN</string>
     <string name="lock_fingerprint_error_hw_not_found">Geen vingerafdrukhardware gevonden</string>
     <string name="lock_fingerprint_error_no_fingerprints">Geen vingerafdrukken geregistreerd</string>
     <string name="lock_fingerprint_error_below_marshmallow">Android-versie ondersteunt geen vingerafdruk</string>
-    <string name="lock_fingerprint_error_auth_fail">Auth is mislukt</string>
+    <string name="lock_fingerprint_error_auth_fail">Authenticatie is mislukt</string>
 
     <!-- Lock Check strings -->
-    <string name="lock_exit">Uitgang</string>
+    <string name="lock_exit">Afsluiten</string>
     <string name="lock_settings">Instellingen</string>
-    <string name="lock_title">Lock Scherm</string>
+    <string name="lock_title">Sluiten</string>
     <string name="lock_body">
-        Secure lock-scherm is niet ingesteld.
-        Als je wilt blijven werken met deze app, ga je naar Instellingen en stel je een vergrendelschermmethode in.
+        Uw telefoon is niet ingesteld met een beveiligingsmaatregel.
+        Als u deze app wilt blijven gebruiken, gaat u naar instellingen en stelt u een vergrendelschermmethode in.
     </string>
 
     <!-- Profile screen -->
-    <string name="profile_app_settings">App instellingen</string>
-    <string name="profile_use_pinlock">Gebruik pinlock</string>
-    <string name="profile_change_4digit">4-cijferige toegangscode wijzigen</string>
+    <string name="profile_app_settings">Instellingen</string>
+    <string name="profile_use_pinlock">Gebruik een inlogcode</string>
+    <string name="profile_change_4digit">Inlogcode wijzigen</string>
     <string name="profile_logout">Uitloggen</string>
 
     <!-- New record screen -->
-    <string name="new_record_title">Nieuw record</string>
+    <string name="new_record_title">Nieuwe eigenschap</string>
     <string name="new_record_title_choose_category">Kies categorie</string>
-    <string name="new_record_title_choose_type">Lies Type</string>
-    <string name="new_record_title_choose_text">Text</string>
+    <string name="new_record_title_choose_type">Kies Type</string>
+    <string name="new_record_title_choose_text">Tekst</string>
     <string name="new_record_title_choose_validators">Validators</string>
-    <string name="new_record_choose_the_category_text">Selecteer de categorie waaronder de nieuwe record moet worden toegevoegd</string>
-    <string name="new_record_choose_the_type_text">Selecteer het type waaronder de nieuwe record moet worden toegevoegd</string>
-    <string name="new_record_choose_the_value_text">Voer de waarde van de record in</string>
-    <string name="new_record_value_hint">Text Text Text</string>
-    <string name="new_record_choose_validators_text">Selecteer de validators, de uwe de nieuwe record moet verifiëren</string>
-    <string name="new_record_value_text">Venue</string>
+    <string name="new_record_choose_the_category_text">Selecteer de categorie waaronder de nieuwe eigenschap moet worden toegevoegd</string>
+    <string name="new_record_choose_the_type_text">Selecteer het type waaronder de nieuwe eigenschap moet worden toegevoegd</string>
+    <string name="new_record_choose_the_value_text">Voer de inhoud van de eigenschap in</string>
+    <string name="new_record_value_hint">...</string>
+    <string name="new_record_choose_validators_text">Selecteer de validators, die deze nieuwe eigenschap moet valideren.</string>
+    <string name="new_record_value_text">Invoerveld</string>
     <string name="new_record_next_step">VOLGENDE STAP</string>
-    <string name="new_record_submit">SUBMIT</string>
+    <string name="new_record_submit">BEVESTIGEN</string>
 
     <!-- Record details screen -->
-    <string name="record_details_title">Record detail</string>
+    <string name="record_details_title">Eigenschap detail</string>
     <string name="record_details_title_validators">Validators</string>
     <string name="record_details_button_show_qr">Toon QR</string>
     <string name="record_details_scan_deze_qr">Scan deze QR-Code</string>
-    <string name="record_details_validation_request_error">Fout tijdens het verzenden van validatieaanvraag</string>
+    <string name="record_details_validation_request_error">Fout tijdens het verzenden van de validatieaanvraag</string>
     <string name="record_details_validation_approved">Validatie goedgekeurd</string>
     <string name="record_details_validation_declined">Validatie geweigerd</string>
 
     <!-- Wallet details screen -->
-    <string name="wallet_title_info">Wallet informatie</string>
-    <string name="wallet_current_balance">Huidig balans</string>
+    <string name="wallet_title_info">Eigendom informatie</string>
+    <string name="wallet_current_balance">Huidige balans</string>
     <string name="wallet_balance_fiat">~ %1$s€;    %2$s$</string>
-    <string name="wallet_send">Zend</string>
-    <string name="wallet_receive">Wraag</string>
+    <string name="wallet_send">Zenden</string>
+    <string name="wallet_receive">Vragen</string>
     <string name="wallet_transactions_title">Transactieoverzicht</string>
     <string name="wallet_transactions_see_all">Alles zien</string>
 
@@ -124,28 +124,28 @@
     <string name="qr_validation_approved">Validatie goedgekeurd</string>
     <string name="qr_validation_declined">Validatie geweigerd</string>
     <string name="qr_validation_already_done">Al gevalideerd</string>
-    <string name="qr_identity_restored">Je bent succesvol ingelogd</string>
+    <string name="qr_identity_restored">U bent succesvol ingelogd</string>
     <string name="qr_identity_expired">Validatietoken is verlopen</string>
     <string name="qr_voucher_scanned">Voucher gescand</string>
     <string name="qr_voucher_not_scanned">Voucher kan niet worden gescand</string>
     <string name="qr_voucher_access_denied">U komt niet in aanmerking om deze voucher te scannen</string>
-    <string name="qr_unknown_type">Onbekende QR</string>
+    <string name="qr_unknown_type">Onbekende QR code</string>
     <string name="qr_unexpected_error">Onverwachte fout</string>
-    <string name="qr_popup_approve_validation_title">Record validation</string>
+    <string name="qr_popup_approve_validation_title">Eigenschap validatie</string>
     <string name="qr_popup_approve_type">type</string>
-    <string name="qr_popup_approve_value">value</string>
-    <string name="qr_popup_approve_validation_positive">Approve</string>
-    <string name="qr_popup_approve_validation_negative">Decline"</string>
-    <string name="qr_popup_restore_identity_title">Herstel identiteit</string>
-    <string name="qr_popup_restore_identity_description">Toegang te verlenen?</string>
+    <string name="qr_popup_approve_value">inhoud</string>
+    <string name="qr_popup_approve_validation_positive">Accepteren</string>
+    <string name="qr_popup_approve_validation_negative">Weigeren</string>
+    <string name="qr_popup_restore_identity_title">Bestaand account herstellen</string>
+    <string name="qr_popup_restore_identity_description">Wilt u dit nieuwe toestel toegang verlenen tot uw account?</string>
 
     <!-- Vouchers -->
     <string name="vouchers_item">Voucher</string>
     <string name="vouchers_transactions">Transactieoverzicht</string>
     <string name="vouchers_transactions_empty">Nog geen transacties</string>
-    <string name="vouchers_no_items">Je hebt nog geen vouchers</string>
+    <string name="vouchers_no_items">U hebt geen vouchers</string>
     <string name="vouchers_make_transaction">GENEREREN</string>
-    <string name="vouchers_make_transaction_failure">transactie mislukt</string>
+    <string name="vouchers_make_transaction_failure">Transactie mislukt</string>
     <string name="vouchers_transaction_payment">Betaling</string>
 
 </resources>
