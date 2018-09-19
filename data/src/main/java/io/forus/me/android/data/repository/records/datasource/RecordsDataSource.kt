@@ -2,9 +2,7 @@ package io.forus.me.android.data.repository.records.datasource
 
 import io.forus.me.android.data.entity.common.Success
 import io.forus.me.android.data.entity.records.request.*
-import io.forus.me.android.data.entity.records.response.Record
-import io.forus.me.android.data.entity.records.response.RecordCategory
-import io.forus.me.android.data.entity.records.response.RecordType
+import io.forus.me.android.data.entity.records.response.*
 
 import io.reactivex.Observable
 
@@ -33,10 +31,16 @@ interface RecordsDataSource {
     fun sortRecordCategories(sortCategories: SortCategories) : Observable<Success>
 
 
-    fun getRecords(type: RecordType): Observable<List<Record>>
+    fun getRecords(categoryId: Long): Observable<List<Record>>
 
 
-    fun createRecord(createRecord: CreateRecord): Observable<Success>
+    fun getRecords(): Observable<List<Record>>
+
+
+    fun getRecords(type: String): Observable<List<Record>>
+
+
+    fun createRecord(createRecord: CreateRecord): Observable<Record>
 
 
     fun retrieveRecord(id: Long) : Observable<Record>
@@ -49,4 +53,16 @@ interface RecordsDataSource {
 
 
     fun sortRecords(sortRecords: SortRecords) : Observable<Success>
+
+
+    fun createValidationToken(recordId: Long): Observable<ValidationToken>
+
+
+    fun readValidation(uuid: String): Observable<Validation>
+
+
+    fun approveValidation(uuid: String): Observable<Success>
+
+
+    fun declineValidation(uuid: String): Observable<Success>
 }

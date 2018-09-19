@@ -14,37 +14,18 @@
 
 
 
-        <android.support.design.widget.CoordinatorLayout
-            android:background="@color/brightBackground"
-            android:fitsSystemWindows="true"
+        <FrameLayout
+            android:id="@+id/fragmentContainer"
+            android:focusableInTouchMode="true"
             android:layout_width="match_parent"
-            android:id="@+id/main_content"
-            android:layout_height="match_parent">
-
-            <android.support.v4.widget.NestedScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fillViewport="true"
-                android:layout_marginTop="-24dp"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-                <FrameLayout
-                    android:id="@+id/fragmentContainer"
-                    android:focusableInTouchMode="true"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                </FrameLayout>
-
-            </android.support.v4.widget.NestedScrollView>
-
-            <include layout="@layout/toolbar_view"/>
+            android:layout_height="wrap_content">
+        </FrameLayout>
 
 
 
 
 
 
-        </android.support.design.widget.CoordinatorLayout>
 
 
     </RelativeLayout>

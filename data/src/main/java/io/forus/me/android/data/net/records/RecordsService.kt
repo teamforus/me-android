@@ -2,9 +2,7 @@ package com.gigawatt.android.data.net.sign
 
 import io.forus.me.android.data.entity.common.Success
 import io.forus.me.android.data.entity.records.request.*
-import io.forus.me.android.data.entity.records.response.Record
-import io.forus.me.android.data.entity.records.response.RecordCategory
-import io.forus.me.android.data.entity.records.response.RecordType
+import io.forus.me.android.data.entity.records.response.*
 import io.forus.me.android.data.net.Constants
 import io.reactivex.Observable
 import retrofit2.http.*
@@ -48,10 +46,10 @@ interface RecordsService {
     // Records
 
     @GET("api/v1/identity/records")
-    fun listAllRecords(@Query("type") type: String) : Observable<List<Record>>
+    fun listAllRecords(@Query("type") type: String?, @Query("record_category_id") categoryId: Long?) : Observable<List<Record>>
 
     @POST("api/v1/identity/records")
-    fun createRecord(@Query("type") type: String, @Body createRecord: CreateRecord) : Observable<Success>
+    fun createRecord(@Query("type") type: String, @Body createRecord: CreateRecord) : Observable<Record>
 
     @GET("api/v1/identity/records/{id}")
     fun retrieveRecord(@Path("id") id: Long) : Observable<Record>
@@ -64,4 +62,19 @@ interface RecordsService {
 
     @POST("api/v1/identity/records/sort")
     fun sortRecords(@Body sortRecords: SortRecords) : Observable<Success>
+
+
+    // Validations
+
+    @POST("api/v1/identity/record-validations")
+    fun createValidationToken(@Body createValidationToken: CreateValidationToken) : Observable<ValidationToken>
+
+    @GET("api/v1/identity/record-validations/{uuid}")
+    fun readValidation(@Path("uuid") uuid: String) : Observable<Validation>
+
+    @PATCH("api/v1/identity/record-validations/{uuid}/approve")
+    fun approveValidation(@Path("uuid") uuid: String) : Observable<Success>
+
+    @PATCH("api/v1/identity/record-validations/{uuid}/decline")
+    fun declineValidation(@Path("uuid") uuid: String) : Observable<Success>
 }

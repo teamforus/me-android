@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import io.forus.me.android.domain.models.assets.Asset
 
-class AssetsAdapter() : RecyclerView.Adapter<AssetsVH>() {
+class AssetsAdapter : RecyclerView.Adapter<AssetsVH>() {
 
 
     var assets: List<Asset> = emptyList()

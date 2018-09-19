@@ -4,21 +4,14 @@ package io.forus.me.android.presentation.view.screens.vouchers.item
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import io.forus.me.android.presentation.R
-import io.forus.me.android.presentation.interfaces.SlidingToolbarFragmentActionListener
+import io.forus.me.android.presentation.view.activity.SlidingPanelActivity
+import io.forus.me.android.presentation.view.fragment.QrFragment
 
-import io.forus.me.android.presentation.view.activity.ToolbarActivity
-import kotlinx.android.synthetic.main.activity_toolbar_sliding_panel.*
 
-/**
- * Main application screen. This is the app entry point.
- */
-class VoucherActivity : ToolbarActivity() {
-
+class VoucherActivity : SlidingPanelActivity() {
 
     companion object {
-
          val ID_EXTRA = "ID_EXTRA"
 
         fun getCallingIntent(context: Context, id: String): Intent {
@@ -28,24 +21,18 @@ class VoucherActivity : ToolbarActivity() {
         }
     }
 
-    override val toolbarType: ToolbarType
-        get() = ToolbarType.Small
-
-    override val viewID: Int
-        get() = R.layout.activity_toolbar
-
-    override val toolbarTitle: String
-        get() = getString(R.string.voucher)
+    private lateinit var fragment: VoucherFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         if (savedInstanceState == null) {
-            val fragment = VoucherFragment.newIntent(intent.getStringExtra(ID_EXTRA))
-
+            fragment = VoucherFragment.newIntent(intent.getStringExtra(ID_EXTRA))
             addFragment(R.id.fragmentContainer, fragment)
         }
     }
 
-
+    fun showPopupQRFragment(address: String){
+        addPopupFragment(QrFragment.newIntent(address), "QR code")
+    }
 }

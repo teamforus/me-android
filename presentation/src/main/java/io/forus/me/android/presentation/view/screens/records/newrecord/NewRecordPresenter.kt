@@ -1,60 +1,83 @@
 package io.forus.me.android.presentation.view.screens.records.newrecord
 
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRPresenter
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
-import com.ocrv.ekasui.mrm.ui.loadRefresh.PartialChange
+import io.forus.me.android.presentation.view.base.lr.LRPresenter
+import io.forus.me.android.presentation.view.base.lr.LRViewState
+import io.forus.me.android.presentation.view.base.lr.PartialChange
 import io.forus.me.android.domain.models.records.NewRecordRequest
 import io.forus.me.android.domain.models.records.RecordCategory
 import io.forus.me.android.domain.models.records.RecordType
+import io.forus.me.android.domain.models.validators.SimpleValidator
 import io.forus.me.android.domain.repository.records.RecordsRepository
+import io.forus.me.android.domain.repository.validators.ValidatorsRepository
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.functions.BiFunction
+import io.reactivex.functions.Function3
 import io.reactivex.schedulers.Schedulers
 
-class NewRecordPresenter constructor(private val recordRepository: RecordsRepository) : LRPresenter<NewRecordModel, NewRecordModel, NewRecordView>() {
+class NewRecordPresenter constructor(private val recordRepository: RecordsRepository, private val validatorsRepository: ValidatorsRepository) : LRPresenter<NewRecordModel, NewRecordModel, NewRecordView>() {
 
-    var request: NewRecordRequest? = null;
+    var request: NewRecordRequest? = null
 
     override fun initialModelSingle(): Single<NewRecordModel> = Single.zip(
             Single.fromObservable(recordRepository.getRecordTypes()),
             Single.fromObservable(recordRepository.getCategories()),
-            BiFunction { types : List<RecordType>, categories: List<RecordCategory> -> NewRecordModel(types = types, categories = categories)}
+            Single.fromObservable(validatorsRepository.getValidators()),
+            Function3 { types : List<RecordType>, categories: List<RecordCategory>, validators: List<SimpleValidator> ->
+                NewRecordModel(types = types, categories = categories, validators = validators)
+            }
     )
 
 
-    override fun NewRecordModel.changeInitialModel(i: NewRecordModel): NewRecordModel = i.copy()
-
+    override fun NewRecordModel.changeInitialModel(i: NewRecordModel): NewRecordModel{
+        val defaultCategory = i.categories.find{ it -> it.name == "Persoonlijk"}
+        return i.copy(currentStep = 1, item = i.item.copy(category = defaultCategory))
+    }
 
     override fun bindIntents() {
 
-        var observable = Observable.merge(
+        val observable = Observable.merge(
 
                 loadRefreshPartialChanges(),
-                Observable.merge(
+                Observable.mergeArray(
                         intent { it.selectCategory() }
                                 .map {  NewRecordPartialChanges.SelectCategory(it) },
                         intent { it.selectType() }
                                 .map {  NewRecordPartialChanges.SelectType(it) },
                         intent { it.setValue() }
-                                .map {  NewRecordPartialChanges.SetValue(it) }
+                                .map {  NewRecordPartialChanges.SetValue(it) },
+                        intent { it.selectValidator()}
+                                .map {  NewRecordPartialChanges.SelectValidator(it) },
+                        intent { it.previousStep()}
+                                .map {  NewRecordPartialChanges.PreviousStep() },
+                        intent { it.nextStep() }
+                                .map {  NewRecordPartialChanges.NextStep() },
 
-                ),
-                intent { it.createRecord() }
-                        .switchMap {
-                            recordRepository.newRecord(request!!)
-                                    .subscribeOn(Schedulers.io())
-                                    .observeOn(AndroidSchedulers.mainThread())
-                                    .map<PartialChange> {
-                                        NewRecordPartialChanges.CreateRecordEnd(it)
-                                    }
-                                    .onErrorReturn {
-                                        NewRecordPartialChanges.CreateRecordError(it)
-                                    }
-                                    .startWith(NewRecordPartialChanges.CreateRecordStart(request!!))
-                        }
-        );
+                        intent { it.submit() }
+                                .switchMap {
+                                    recordRepository.newRecord(request!!)
+                                            .subscribeOn(Schedulers.io())
+                                            .observeOn(AndroidSchedulers.mainThread())
+                                            .switchMap<PartialChange> { createRecordResponse ->
+                                                if(request!!.validators.isNotEmpty()) {
+                                                    validatorsRepository.requestValidations(createRecordResponse.id, request!!.validators.map { it.id })
+                                                            .subscribeOn(Schedulers.io())
+                                                            .observeOn(AndroidSchedulers.mainThread())
+                                                            .map {
+                                                                NewRecordPartialChanges.CreateRecordEnd(createRecordResponse)
+                                                            }
+                                                }
+                                                else Observable.just(NewRecordPartialChanges.CreateRecordEnd(createRecordResponse))
+
+                                            }
+                                            .onErrorReturn {
+                                                NewRecordPartialChanges.CreateRecordError(it)
+                                            }
+                                            .startWith(NewRecordPartialChanges.CreateRecordStart(request!!))
+                                }
+
+                )
+        )
 
 
         val initialViewState = LRViewState(
@@ -71,9 +94,6 @@ class NewRecordPresenter constructor(private val recordRepository: RecordsReposi
                         .observeOn(AndroidSchedulers.mainThread()),
                 NewRecordView::render)
 
-//        val observable = loadRefreshPartialChanges()
-//        val initialViewState = LRViewState(false, null, false, false, null, MapModel("", "" ))
-//        subscribeViewState(observable.scan(initialViewState, this::stateReducer).observeOn(AndroidSchedulers.mainThread()),MapView::render)
     }
 
     override fun stateReducer(vs: LRViewState<NewRecordModel>, change: PartialChange): LRViewState<NewRecordModel> {
@@ -88,7 +108,9 @@ class NewRecordPresenter constructor(private val recordRepository: RecordsReposi
             is NewRecordPartialChanges.SelectCategory -> result = vs.copy(model = vs.model.copy(item = vs.model.item.copy(category = change.category)))
             is NewRecordPartialChanges.SelectType -> result = vs.copy(model = vs.model.copy(item = vs.model.item.copy(recordType = change.type)))
             is NewRecordPartialChanges.SetValue -> result = vs.copy(model = vs.model.copy(item = vs.model.item.copy(value = change.value)))
-
+            is NewRecordPartialChanges.SelectValidator -> result = vs.copy(model = vs.model.copy(item = vs.model.item.selectValidator(change.validator)))
+            is NewRecordPartialChanges.PreviousStep -> result = vs.copy(model = vs.model.copy(currentStep = vs.model.currentStep - (if (vs.model.currentStep < NewRecordView.NUM_PAGES && vs.model.currentStep > 0) 1 else 0)))
+            is NewRecordPartialChanges.NextStep -> result = vs.copy(model = vs.model.copy(currentStep = vs.model.currentStep + (if (vs.model.currentStep < NewRecordView.NUM_PAGES - 1 && vs.model.currentStep >= 0) 1 else 0)))
         }
 
 

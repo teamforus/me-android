@@ -6,19 +6,19 @@ import io.forus.me.android.domain.models.vouchers.Voucher
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.helpers.format
 import io.forus.me.android.presentation.helpers.inflate
-import kotlinx.android.synthetic.main.vouchers_list_item.view.*
+import kotlinx.android.synthetic.main.item_vouchers_list.view.*
 
 
-class VouchersVH(parent: ViewGroup, private val clickListener: ((Voucher) -> Unit)?) : RecyclerView.ViewHolder(parent.inflate(R.layout.vouchers_list_item)) {
+class VouchersVH(parent: ViewGroup, private val clickListener: ((Voucher) -> Unit)?) : RecyclerView.ViewHolder(parent.inflate(R.layout.item_vouchers_list)) {
     init {
 
     }
 
     fun render(item:  Voucher) = with(itemView) {
 
-        type.text = "Valid til ${item.validDays} days"
+        type.text = item.getValidString()
         name.text = item.name
-        value.text = "${item.currency.name} ${item.value.format()}"
+        value.text = "${item.currency.name} ${item.amount.toDouble().format(2)}"
 
         logo.setImageUrl(item.logo)
         root.setOnClickListener {

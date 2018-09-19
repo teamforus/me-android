@@ -3,9 +3,7 @@ buildscript {
     mavenCentral()
     google()
   }
-  dependencies {
-    classpath 'me.tatarka:gradle-retrolambda:3.2.3'
-  }
+
 }
 
 
@@ -90,6 +88,7 @@ dependencies {
   implementation dataDependencies.retrofithttpConverter
   implementation dataDependencies.retrofitRx
   implementation dataDependencies.greendao
+  implementation dataDependencies.annimon
 
   kapt dataDependencies.archCompiler
 

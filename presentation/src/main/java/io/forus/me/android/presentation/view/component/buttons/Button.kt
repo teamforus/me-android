@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.Color
 import android.os.Build
 import android.util.AttributeSet
-import android.widget.Button
 import io.forus.me.android.presentation.R
 import android.support.v4.content.ContextCompat
 import android.util.TypedValue
@@ -13,9 +12,10 @@ import io.forus.me.android.presentation.helpers.FontCache
 import io.forus.me.android.presentation.view.component.FontType
 
 
-class Button : Button {
+class Button : android.support.v7.widget.AppCompatButton {
 
     private var reverse : Boolean = false
+    private var customTextSize: Float = 16f
 
     var active : Boolean = true
         set(value) {
@@ -56,6 +56,10 @@ class Button : Button {
                 reverse = ta.getBoolean(R.styleable.CustomButtonAttrs_reverse, false)
 
             }
+            if (ta.hasValue(R.styleable.CustomButtonAttrs_textSize)) {
+                customTextSize = ta.getFloat(R.styleable.CustomButtonAttrs_textSize, 16f)
+            }
+            ta.recycle()
         }
 
         initFont()
@@ -64,13 +68,14 @@ class Button : Button {
 
     private fun initFont(){
         setTextColor(if (!active) ContextCompat.getColor(context, R.color.body_1_38) else (if (reverse) ContextCompat.getColor(context, R.color.colorAccent) else Color.WHITE))
-        setTextSize(TypedValue.COMPLEX_UNIT_DIP, 16f);
+        setTextSize(TypedValue.COMPLEX_UNIT_DIP, customTextSize)
         val fontType = FontType.Bold
 
-        typeface = FontCache.getTypeface(fontType.getFontPath(), context);
+        typeface = FontCache.getTypeface(fontType.getFontPath(), context)
     }
 
     private fun initBackground(){
+        isEnabled = active
         setBackgroundResource(if (!reverse && active)  R.drawable.button_main_raund else R.drawable.button_main_raund_reverse)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             this.stateListAnimator = null

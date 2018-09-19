@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
 
@@ -7,36 +7,71 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:text="PAGE THREE IN"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#000000"
-        android:textSize="24dp"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp">
 
-    <io.forus.me.android.presentation.view.component.editors.EditText
-        android:id="@+id/value"
-        app:validationRegex="@string/not_empty_validation_regex"
-        app:validationError="@string/not_empty_error"
-        app:hint="Value"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <io.forus.me.android.presentation.view.component.text.TextView
+            android:text="@string/new_record_choose_the_value_text"
+            style="@style/Body2Small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="17dp" />
 
-    <io.forus.me.android.presentation.view.component.buttons.Button
-        android:id="@+id/register"
-        android:text="@string/create_account"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:baselineAligned="false">
 
-    <io.forus.me.android.presentation.view.component.text.TextView
-        android:id="@+id/error"
-        style="@style/Headline6"
-        app:type="medium"
-        android:textColor="@color/error"
-        android:paddingTop="16dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="Error message here"
-        />
+            <include
+                android:id="@+id/hat_item_category_2"
+                layout="@layout/view_new_record_hat_item"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
 
-</LinearLayout>
+            <LinearLayout
+                android:layout_width="38dp"
+                android:layout_height="match_parent">
+            </LinearLayout>
+
+            <include
+                android:id="@+id/hat_item_type_2"
+                layout="@layout/view_new_record_hat_item"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <io.forus.me.android.presentation.view.component.text.TextView
+            android:text="@string/new_record_value_text"
+            android:textSize="12.1sp"
+            android:textColor="@color/body_1_87"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="45dp"/>
+
+        <EditText
+            android:id="@+id/value"
+            android:background="@color/alabaster"
+            android:layout_width="match_parent"
+            android:layout_height="184dp"
+            android:padding="16dp"
+            android:hint="@string/new_record_value_hint"
+            android:textSize="16.1sp"
+            android:lineSpacingExtra="7.9sp"
+            android:gravity="top"
+            android:inputType="textMultiLine" />
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

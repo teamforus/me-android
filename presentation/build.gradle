@@ -4,8 +4,14 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'org.greenrobot.greendao'
+apply plugin: 'io.fabric'
 
 android {
+
+  dataBinding {
+    enabled = true
+  }
+
   def globalConfiguration = rootProject.extensions.getByName("ext")
 
   compileSdkVersion globalConfiguration.getAt("androidCompileSdkVersion")
@@ -29,6 +35,10 @@ android {
   compileOptions {
     sourceCompatibility JavaVersion.VERSION_1_7
     targetCompatibility JavaVersion.VERSION_1_7
+  }
+
+  kotlinOptions {
+    languageVersion = "1.2"
   }
 
   packagingOptions {
@@ -101,8 +111,13 @@ dependencies {
   implementation presentationDependencies.cardView
   implementation presentationDependencies.slidingUpPanel
   implementation presentationDependencies.glide
+  implementation presentationDependencies.circleIndicator
+  implementation presentationDependencies.materialDialogs
+  implementation presentationDependencies.fingerprint
 
-
+  implementation (presentationDependencies.fabric) {
+    transitive = true
+  }
 
   compileOnly presentationDependencies.javaxAnnotation
 
@@ -114,4 +129,7 @@ dependencies {
 
   //Development
   implementation developmentDependencies.leakCanary
+  implementation (presentationDependencies.qrReader){
+    transitive = true
+  }
 }

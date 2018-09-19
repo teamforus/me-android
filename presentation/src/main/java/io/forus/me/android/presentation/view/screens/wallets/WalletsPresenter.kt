@@ -1,8 +1,8 @@
 package io.forus.me.android.presentation.view.screens.wallets
 
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRPresenter
-import com.ocrv.ekasui.mrm.ui.loadRefresh.LRViewState
-import com.ocrv.ekasui.mrm.ui.loadRefresh.PartialChange
+import io.forus.me.android.presentation.view.base.lr.LRPresenter
+import io.forus.me.android.presentation.view.base.lr.LRViewState
+import io.forus.me.android.presentation.view.base.lr.PartialChange
 import io.forus.me.android.domain.models.wallets.Wallet
 import io.forus.me.android.domain.repository.wallets.WalletsRepository
 import io.reactivex.Single
@@ -29,7 +29,7 @@ class WalletsPresenter constructor(val walletsRepository: WalletsRepository) : L
 //                loadRefreshPartialChanges()
 //        );
 
-        var observable = loadRefreshPartialChanges();
+        var observable = loadRefreshPartialChanges()
 
 
         val initialViewState = LRViewState(

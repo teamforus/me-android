@@ -1,26 +1,26 @@
 package io.forus.me.android.domain.models.records
 
-import io.forus.me.android.domain.models.currency.Currency
-import java.util.*
-
-class RecordCategory {
+class RecordCategory{
 
 
 
-    var id: Long = 0
+    var id: Long
 
-    var name: String = ""
-
+    var name: String
 
     var logo: String = ""
+    get() {
+        return "https://test.platform.forus.io/assets/category-icons/${name.toLowerCase()}.png"
+    }
 
-    var order: Long = 0
+    var order: Long
 
+    var size: Long
 
-    constructor(id: Long, name: String, order: Long, logo: String = "https://www.freelogodesign.org/Content/img/logo-ex-7.png") {
+    constructor(id: Long, name: String, order: Long, size: Long = 0) {
         this.id = id
         this.name = name
         this.order = order
-        this.logo = logo
+        this.size = size
     }
 }

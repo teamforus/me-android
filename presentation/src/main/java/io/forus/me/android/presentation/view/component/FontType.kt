@@ -3,7 +3,7 @@ package io.forus.me.android.presentation.view.component
 import java.util.stream.Stream
 
 
-public enum class FontType(public val prefix: String) {
+enum class FontType(val prefix: String) {
     Bold ("bold"),
     BoldItalic("bolditalic"),
     Italic("italic"),
@@ -41,7 +41,7 @@ public enum class FontType(public val prefix: String) {
     companion object {
 
         fun getFromString(value: String, default: FontType) : FontType {
-            val items = FontType.values();
+            val items = FontType.values()
             for ( item in items) {
                 if (item.prefix == value)
                     return item

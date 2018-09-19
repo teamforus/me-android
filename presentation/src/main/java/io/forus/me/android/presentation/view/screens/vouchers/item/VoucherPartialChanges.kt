@@ -1,10 +1,6 @@
 package io.forus.me.android.presentation.view.screens.vouchers.item
 
 
-import com.ocrv.ekasui.mrm.ui.loadRefresh.PartialChange
+import io.forus.me.android.presentation.view.base.lr.PartialChange
 
-sealed class VoucherPartialChanges : PartialChange {
-
-
-
-}
+sealed class VoucherPartialChanges : PartialChange

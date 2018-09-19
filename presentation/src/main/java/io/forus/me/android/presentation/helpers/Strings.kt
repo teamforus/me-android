@@ -1,6 +1,7 @@
 package io.forus.me.android.presentation.helpers
 
 import android.R.attr.x
+import java.security.MessageDigest
 import java.text.NumberFormat
 import java.util.*
 
@@ -34,15 +35,15 @@ object Strings {
 
 fun String?.capitalize() : String {
     if (this == null)
-        return "";
+        return ""
 
-    return Strings.capitalize(this) ?: "";
+    return Strings.capitalize(this) ?: ""
 }
 
 
 fun String?.toAppFloat() : Float? {
     if (this == null)
-        return null;
+        return null
     return this.toAppFloat()
 }
 
@@ -57,4 +58,11 @@ fun String?.toAppDoubleOrNull() : Double {
     val myNumForm = NumberFormat.getInstance(Locale.getDefault())
     val myParsedFrenchNumber = myNumForm.parse(this).toFloat().toDouble()
     return myParsedFrenchNumber
+}
+
+fun String.SHA256(): String {
+    val bytes = this.toByteArray()
+    val md = MessageDigest.getInstance("SHA-256")
+    val digest = md.digest(bytes)
+    return digest.fold("", { str, it -> str + "%02x".format(it) })
 }

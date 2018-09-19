@@ -11,17 +11,38 @@ interface RecordsRepository {
     fun getCategories(): Observable<List<RecordCategory>>
 
 
-    fun newCategory(model: NewRecordCategoryRequest): Observable<Boolean>
+    fun getCategoriesWithRecordCount(): Observable<List<RecordCategory>>
 
 
-    fun getCategory(id: Long): Observable<RecordCategory>
+    fun newCategory(newRecordCategoryRequest: NewRecordCategoryRequest): Observable<Boolean>
+
+
+    fun getCategory(categoryId: Long?): Observable<RecordCategory>
+
+
+    fun getRecordsCount(recordCategoryId: Long): Observable<Long>
 
 
     fun getRecords(): Observable<List<Record>>
 
 
-    fun newRecord(model: NewRecordRequest) : Observable<NewRecordRequest>
+    fun getRecords(recordCategoryId: Long): Observable<List<Record>>
 
 
-    fun getRecord(id: Long): Observable<Record>
+    fun newRecord(model: NewRecordRequest) : Observable<CreateRecordResponse>
+
+
+    fun getRecord(recordId: Long): Observable<Record>
+
+
+    fun getRecordUuid(recordId: Long): Observable<String>
+
+
+    fun readValidation(uuid: String): Observable<Validation>
+
+
+    fun approveValidation(uuid: String): Observable<Boolean>
+
+
+    fun declineValidation(uuid: String): Observable<Boolean>
 }

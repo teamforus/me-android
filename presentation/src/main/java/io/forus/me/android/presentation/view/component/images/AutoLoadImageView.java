@@ -11,7 +11,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.widget.ImageView;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -24,7 +23,7 @@ import io.forus.me.android.presentation.helpers.ImageLoader;
  * Simple implementation of {@link android.widget.ImageView} with extended features like setting an
  * image from an url and an internal file cache using the application cache directory.
  */
-public class AutoLoadImageView extends ImageView {
+public class AutoLoadImageView extends android.support.v7.widget.AppCompatImageView {
 
   private static final String BASE_IMAGE_NAME_CACHED = "image_";
 

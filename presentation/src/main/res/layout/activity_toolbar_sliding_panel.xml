@@ -24,38 +24,44 @@
         android:orientation="vertical">
 
 
-
-        <android.support.design.widget.CoordinatorLayout
-            android:background="@color/brightBackground"
-            android:fitsSystemWindows="true"
-            android:layout_width="match_parent"
-            android:id="@+id/main_content"
-            android:layout_height="match_parent">
-
-            <android.support.v4.widget.NestedScrollView
+            <FrameLayout
+                android:id="@+id/fragmentContainer"
+                android:focusableInTouchMode="true"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fillViewport="true"
-                android:layout_marginTop="-24dp"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+                android:layout_height="wrap_content">
+            </FrameLayout>
 
-                <FrameLayout
-                    android:id="@+id/fragmentContainer"
-                    android:focusableInTouchMode="true"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                </FrameLayout>
+        <!--<android.support.design.widget.CoordinatorLayout-->
+            <!--android:background="@color/brightBackground"-->
+            <!--android:fitsSystemWindows="true"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:id="@+id/main_content"-->
+            <!--android:layout_height="match_parent">-->
 
-            </android.support.v4.widget.NestedScrollView>
+            <!--<android.support.v4.widget.NestedScrollView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:fillViewport="true"-->
+                <!--android:layout_marginTop="-24dp"-->
+                <!--app:layout_behavior="@string/appbar_scrolling_view_behavior">-->
 
-            <include layout="@layout/toolbar_view"/>
+                <!--<FrameLayout-->
+                    <!--android:id="@+id/fragmentContainer"-->
+                    <!--android:focusableInTouchMode="true"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content">-->
+                <!--</FrameLayout>-->
+
+            <!--</android.support.v4.widget.NestedScrollView>-->
+
+            <!--<include layout="@layout/toolbar_view"/>-->
 
 
 
 
 
 
-        </android.support.design.widget.CoordinatorLayout>
+        <!--</android.support.design.widget.CoordinatorLayout>-->
 
 
     </RelativeLayout>
@@ -70,6 +76,7 @@
                 android:padding="@dimen/activity_horizontal_margin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <io.forus.me.android.presentation.view.component.text.TextView
                     android:id="@+id/sliding_panel_title"
                     android:layout_width="wrap_content"
@@ -77,9 +84,8 @@
                     android:textSize="20sp"
                     android:textColor="@color/body_1_87"
                     android:letterSpacing="0.01"
-                    android:text="QR-Code"
-                    app:type="medium"
-                    />
+                    android:text="@string/dashboard_qr"
+                    app:type="medium" />
                 
                 
                 <ImageView

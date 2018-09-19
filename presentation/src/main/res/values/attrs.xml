@@ -5,9 +5,21 @@
 
     <declare-styleable name="CustomEditFieldAttrs">
         <attr name="hint" format="string"/>
+        <attr name="required" format="boolean"/>
         <attr name="validationRegex" format="string"/>
         <attr name="validationError" format="string"/>
     </declare-styleable>
+
+
+
+    <declare-styleable name="TitleValueCard">
+        <attr name="valuecard_title" format="string"/>
+        <attr name="valuecard_text" format="string"/>
+        <attr name="valuecard_hidedevider" format="boolean"/>
+        <attr name="valuecard_icon" format="reference"/>
+        <attr name="valuecard_darkbackground" format="boolean"/>
+    </declare-styleable>
+
 
     <declare-styleable name="CustomTextViewAttrs">
         <attr name="type" format="string"/>
@@ -16,12 +28,43 @@
 
     <declare-styleable name="CustomButtonAttrs">
         <attr name="reverse" format="boolean"/>
+        <attr name="textSize" format="float"/>
     </declare-styleable>
 
 
     <declare-styleable name="CustomShareButtonAttrs">
         <attr name="sb_text" format="string"/>
         <attr name="sb_icon" format="integer"/>
+    </declare-styleable>
+
+    <declare-styleable name="PinLockView">
+        <attr name="pinLength" format="integer" />
+        <attr name="keypadTextColor" format="color" />
+        <attr name="keypadTextSize" format="dimension" />
+        <attr name="keypadButtonSize" format="dimension" />
+        <attr name="keypadVerticalSpacing" format="dimension" />
+        <attr name="keypadHorizontalSpacing" format="dimension" />
+        <attr name="keypadButtonBackgroundDrawable" format="integer" />
+        <attr name="keypadDeleteButtonDrawable" format="integer" />
+        <attr name="keypadDeleteButtonSize" format="dimension" />
+        <attr name="keypadShowDeleteButton" format="boolean" />
+        <attr name="keypadDeleteButtonPressedColor" format="color" />
+
+        <attr name="dotEmptyBackground" format="reference" />
+        <attr name="dotFilledBackground" format="reference" />
+        <attr name="dotDiameter" format="dimension" />
+        <attr name="dotSpacing" format="dimension" />
+        <attr name="indicatorType" format="enum">
+            <enum name="fixed" value="0" />
+            <enum name="fill" value="1" />
+            <enum name="fillWithAnimation" value="2" />
+        </attr>
+
+    </declare-styleable>
+
+    <declare-styleable name="QRCodeImageView">
+        <attr name="onColor" format="integer"/>
+        <attr name="offColor" format="integer"/>
     </declare-styleable>
 
 </resources>

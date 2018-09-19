@@ -1,22 +1,54 @@
 package io.forus.me.android.domain.repository.account
 
-import io.forus.me.android.domain.models.account.NewAccountRequest
-import io.forus.me.android.domain.models.account.RequestDelegatesPinModel
-import io.forus.me.android.domain.models.account.RequestDelegatesQrModel
-import io.forus.me.android.domain.models.account.RestoreAccountByEmailRequest
+import io.forus.me.android.domain.models.account.*
 import io.reactivex.Observable
 
 interface AccountRepository {
 
-    fun requestDelegatesQRAddress(): Observable<RequestDelegatesQrModel>
+    fun newUser(model: NewAccountRequest) : Observable<String>
 
 
-    fun newUser(model: NewAccountRequest) : Observable<NewAccountRequest>
+    fun restoreByEmail(email: String) : Observable<RequestDelegatesEmailModel>
 
 
-    fun loginByEmail(email: String) : Observable<RestoreAccountByEmailRequest>
+    fun restoreByQrToken(): Observable<RequestDelegatesQrModel>
 
 
-    fun getLoginPin() : Observable<RequestDelegatesPinModel>
+    fun restoreByPinCode() : Observable<RequestDelegatesPinModel>
 
+
+    fun authorizeCode(code: String): Observable<Boolean>
+
+
+    fun authorizeToken(token: String): Observable<Boolean>
+
+
+    fun createIdentity(identity: Identity): Observable<Boolean>
+
+
+    fun unlockIdentity(pin: String): Observable<Boolean>
+
+
+    fun checkPin(pin: String): Observable<Boolean>
+
+
+    fun setFingerprintEnabled(isFingerprintEnabled: Boolean): Observable<Boolean>
+
+
+    fun changePin(oldPin: String, newPin: String): Observable<Boolean>
+
+
+    fun exitIdentity(): Observable<Boolean>
+
+
+    fun getAccount(): Observable<Account>
+
+
+    fun getSecurityOptions(): Observable<SecurityOptions>
+
+
+    fun checkCurrentToken(): Observable<Boolean>
+
+
+    fun unlockByFingerprint(): Observable<Boolean>
 }

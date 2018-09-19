@@ -16,8 +16,8 @@ object Converter {
      * @return A float value to represent px equivalent to dp depending on device density
      */
     fun convertDpToPixel(dp: Float, context: Context): Int {
-        val resources = context.getResources()
-        val metrics = resources.getDisplayMetrics()
+        val resources = context.resources
+        val metrics = resources.displayMetrics
         return Math.round(dp * (metrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT) * 100) / 100
     }
 
@@ -29,8 +29,8 @@ object Converter {
      * @return A float value to represent dp equivalent to px value
      */
     fun convertPixelsToDp(px: Float, context: Context): Float {
-        val resources = context.getResources()
-        val metrics = resources.getDisplayMetrics()
+        val resources = context.resources
+        val metrics = resources.displayMetrics
         return px / (metrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)
     }
 }

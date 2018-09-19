@@ -2,22 +2,28 @@ package io.forus.me.android.data.repository.account.datasource.remote
 
 import com.gigawatt.android.data.net.sign.SignService
 import com.gigawatt.android.data.net.sign.models.request.SignUp
-import com.gigawatt.android.data.net.sign.models.request.SignUpByEmail
+import io.forus.me.android.data.entity.sign.request.AuthorizeCode
+import io.forus.me.android.data.entity.sign.request.AuthorizeToken
+import io.forus.me.android.data.entity.sign.request.RestoreByEmail
 import io.forus.me.android.data.entity.sign.response.AccessToken
 import io.forus.me.android.data.entity.sign.response.IdentityPinResult
 import io.forus.me.android.data.entity.sign.response.IdentityTokenResult
 import io.forus.me.android.data.entity.sign.response.SignUpResult
 import io.forus.me.android.data.repository.account.datasource.AccountDataSource
+import io.forus.me.android.data.repository.datasource.RemoteDataSource
 import io.reactivex.Observable
 
-public class AccountRemoteDataSource(private val signService: SignService): AccountDataSource {
-
+class AccountRemoteDataSource(f: () -> SignService): AccountDataSource, RemoteDataSource<SignService>(f) {
 
     override fun createUser(signUp: SignUp): Observable<SignUpResult> {
-        return signService.signup(signUp)
+        return service.signup(signUp)
     }
 
-    override fun saveToken(token: String) {
+    override fun saveIdentity(token: String, pin: String): Boolean {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override  fun unlockIdentity(pin: String): Boolean{
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
@@ -29,17 +35,36 @@ public class AccountRemoteDataSource(private val signService: SignService): Acco
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun requestDelegatesQRAddress(): Observable<IdentityTokenResult> {
-        return signService.identityToken()
+    override fun checkPin(pin: String): Boolean {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun getAuthCode(): Observable<IdentityPinResult> {
-        return signService.authCode()
+    override fun changePin(oldPin: String, newPin: String): Boolean {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun requestNewUserByEmail(email: String): Observable<AccessToken> {
-        val signUp = SignUpByEmail(email)
+    override fun getCurrentToken(): String {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
-        return signService.requestNewUserByEmail(signUp)
+    override fun restoreByQrToken(): Observable<IdentityTokenResult> {
+        return service.restoreByQrToken()
+    }
+
+    override fun restoreByPinCode(): Observable<IdentityPinResult> {
+        return service.restoreByPinCode()
+    }
+
+    override fun authorizeCode(code: String): Observable<Boolean> {
+        return service.authorizeCode(AuthorizeCode(code)).map { it.success }
+    }
+
+    override fun authorizeToken(token: String): Observable<Boolean> {
+        return service.authorizeToken(AuthorizeToken(token)).map { it.success }
+    }
+
+    override fun restoreByEmail(email: String): Observable<AccessToken> {
+        val signUp = RestoreByEmail(email)
+        return service.restoreByEmail(signUp)
     }
 }

@@ -1,35 +1,37 @@
 package io.forus.me.android.domain.models.vouchers
 
 import io.forus.me.android.domain.models.currency.Currency
+import java.math.BigDecimal
 import java.util.*
 
 class Voucher {
 
+    var address: String
 
+    var name: String
 
-    var id: String = ""
+    var validDays: Int
 
-    var name: String = ""
+    var currency: Currency
 
-    var validDays: Int = 0
+    var amount: BigDecimal
 
-    var currency: io.forus.me.android.domain.models.currency.Currency
+    var logo: String
 
-    var value: Float = 0f
+    var transactions: List<Transaction>
 
-    var logo: String = ""
-
-    constructor(id: String, name: String, validDays: Int, currency: Currency, value: Float, logo: String) {
-        this.id = id
+    constructor(address: String, name: String, validDays: Int, currency: Currency, amount: BigDecimal, logo: String, transactions: List<Transaction> = emptyList()) {
+        this.address = address
         this.name = name
         this.validDays = validDays
         this.currency = currency
-        this.value = value
+        this.amount = amount
         this.logo = logo
+        this.transactions = transactions
     }
 
 
     fun getValidString() : String {
-        return "Valid til ${validDays} days"
+        return "Nog $validDays dagen geldig Valid"
     }
 }

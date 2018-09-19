@@ -18,4 +18,12 @@ public class SortCategories {
     public SortCategories(List<Long> categories) {
         this.categories = categories;
     }
+
+    public List<Long> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Long> categories) {
+        this.categories = categories;
+    }
 }

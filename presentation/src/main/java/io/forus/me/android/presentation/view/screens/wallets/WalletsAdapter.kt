@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import io.forus.me.android.domain.models.wallets.Wallet
 
-class WalletsAdapter() : RecyclerView.Adapter<WalletsVH>() {
+class WalletsAdapter : RecyclerView.Adapter<WalletsVH>() {
 
 
     var wallets: List<Wallet> = emptyList()
@@ -26,7 +26,9 @@ class WalletsAdapter() : RecyclerView.Adapter<WalletsVH>() {
         setHasStableIds(true)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = WalletsVH(parent)
+    var clickListener: ((Wallet) -> Unit)? = null
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = WalletsVH(parent, clickListener)
     override fun onBindViewHolder(holder: WalletsVH, position: Int) {
 
         holder.render(wallets[position])

@@ -12,7 +12,7 @@ import io.forus.me.android.presentation.view.component.FontType
 class TextView : AppCompatTextView {
 
 
-    public  var type: FontType = FontType.Regular
+    var type: FontType = FontType.Regular
 
     constructor(context: Context) : super(context) {
         initUI(context, null)
@@ -32,10 +32,11 @@ class TextView : AppCompatTextView {
         val ta = context.obtainStyledAttributes(attrs, R.styleable.CustomTextViewAttrs, 0, 0)
 
         if (ta.hasValue(R.styleable.CustomTextViewAttrs_type)) {
-            val stringtype = ta.getString(R.styleable.CustomTextViewAttrs_type);
+            val stringtype = ta.getString(R.styleable.CustomTextViewAttrs_type)
             if (!stringtype.isNullOrEmpty())
                 type = FontType.getFromString(stringtype.toLowerCase(), type)
         }
+        ta.recycle()
 
 
         initType(context)

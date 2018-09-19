@@ -1,16 +1,17 @@
-package com.ocrv.ekasui.mrm.ui.loadRefresh
+package io.forus.me.android.presentation.view.base.lr
 
 import android.support.annotation.CallSuper
 import android.util.Log
 import com.hannesdorfmann.mosby3.mvi.MviBasePresenter
 import io.reactivex.Observable
 import io.reactivex.Single
+import io.reactivex.schedulers.Schedulers
 
 abstract class LRPresenter<I, M, V : LRView<M>> : MviBasePresenter<V, LRViewState<M>>() {
 
     protected abstract fun initialModelSingle(): Single<I>
 
-    open protected val reloadIntent: Observable<Any> = Observable.never()
+    protected open val reloadIntent: Observable<Any> = Observable.never()
 
     protected val retryIntent: Observable<Any> = intent { it.retry() }
     protected val refreshIntent: Observable<Any> = intent { it.refresh() }
@@ -26,6 +27,7 @@ abstract class LRPresenter<I, M, V : LRView<M>> : MviBasePresenter<V, LRViewStat
                     .switchMap {
                         initialModelSingle()
                                 .toObservable()
+                                .subscribeOn(Schedulers.io())
                                 .map<LRPartialChange> { LRPartialChange.InitialModelLoaded(it) }
                                 .onErrorReturn {
                                     it.printStackTrace()
@@ -37,6 +39,7 @@ abstract class LRPresenter<I, M, V : LRView<M>> : MviBasePresenter<V, LRViewStat
                     .switchMap {
                         initialModelSingle()
                                 .toObservable()
+                                .subscribeOn(Schedulers.io())
                                 .map<LRPartialChange> { LRPartialChange.InitialModelLoaded(it) }
                                 .onErrorReturn { LRPartialChange.RefreshError(it) }
                                 .startWith(LRPartialChange.RefreshStarted)
@@ -45,16 +48,17 @@ abstract class LRPresenter<I, M, V : LRView<M>> : MviBasePresenter<V, LRViewStat
                     .switchMap {
                         initialModelSingle()
                                 .toObservable()
+                                .subscribeOn(Schedulers.io())
                                 .map<LRPartialChange> { LRPartialChange.InitialModelLoaded(it) }
                                 .onErrorReturn { LRPartialChange.RefreshError(it) }
                                 .startWith(LRPartialChange.RefreshStarted)
                     }
     )
 
-    abstract protected fun M.changeInitialModel(i: I): M
+    protected abstract fun M.changeInitialModel(i: I): M
 
     @CallSuper
-    open protected fun stateReducer(vs: LRViewState<M>, change: PartialChange): LRViewState<M> {
+    protected open fun stateReducer(vs: LRViewState<M>, change: PartialChange): LRViewState<M> {
         Log.d("AASSDD", "LRPresenter stateReducer $change")
         var viewState = vs.copy(closeScreen = false)
         if (change !is LRPartialChange) throw Exception()
