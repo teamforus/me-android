@@ -27,6 +27,7 @@
     <string name="dashboard_vouchers">Vouchers</string>
     <string name="dashboard_currency">Currency</string>
     <string name="dashboard_assets">Assets</string>
+    <string name="dashboard_profile">Profile</string>
 
     <!-- Welcome screen -->
     <string name="welcome_greeting">Welcome to Me</string>

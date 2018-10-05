@@ -12,6 +12,7 @@ import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.activity.CommonActivity
 import io.forus.me.android.presentation.view.adapters.MainViewPagerAdapter
+import io.forus.me.android.presentation.view.screens.account.account.AccountFragment
 import io.forus.me.android.presentation.view.screens.records.categories.RecordCategoriesFragment
 import io.forus.me.android.presentation.view.screens.vouchers.list.VouchersFragment
 import io.reactivex.Single
@@ -81,7 +82,8 @@ class DashboardActivity : CommonActivity() {
             titles.add("")
             fragments.add(Fragment())
             titles.add("")
-            fragments.add(RecordCategoriesFragment.newIntent())
+            //fragments.add(RecordCategoriesFragment.newIntent())
+            fragments.add(AccountFragment())
             titles.add("")
 
             adapter = MainViewPagerAdapter(supportFragmentManager, applicationContext, fragments, titles)

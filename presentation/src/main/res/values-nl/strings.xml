@@ -20,6 +20,7 @@
     <string name="dashboard_vouchers">Vouchers</string>
     <string name="dashboard_currency">Tokens</string>
     <string name="dashboard_assets">Bezit</string>
+    <string name="dashboard_profile">Profiel</string>
 
     <!-- Welcome screen -->
     <string name="welcome_greeting">Welkom bij Me</string>
