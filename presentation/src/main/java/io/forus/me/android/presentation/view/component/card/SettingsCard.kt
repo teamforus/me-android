@@ -17,7 +17,7 @@ open class SettingsCard : FrameLayout {
 
     protected var mRootView: View? = null
     protected var tvTitle: TextView? = null
-   // protected var tvText: TextView? = null
+    protected var tvText: TextView? = null
     protected var vDevider: View? = null
     protected var vConteiner: View? = null
     protected var iIcon: ImageView? = null
@@ -73,7 +73,7 @@ open class SettingsCard : FrameLayout {
 
     open fun prepareItems(){
         tvTitle = mRootView!!.findViewById(R.id.title)
-      //  tvText = mRootView!!.findViewById(R.id.text)
+        tvText = mRootView!!.findViewById(R.id.text)
         vDevider = mRootView!!.findViewById(R.id.devider)
         vConteiner = mRootView!!.findViewById(R.id.container)
         iIcon =  mRootView!!.findViewById(R.id.icon)
@@ -86,7 +86,7 @@ open class SettingsCard : FrameLayout {
 
     internal fun initUI() {
         tvTitle?.text = title
-     //   tvText?.text = text
+        tvText?.text = text
 
         if (icon > 0){
             iIcon?.setImageResource(icon)
