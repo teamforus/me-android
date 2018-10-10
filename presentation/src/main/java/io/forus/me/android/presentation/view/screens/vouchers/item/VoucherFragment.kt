@@ -73,7 +73,6 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPres
         name.text = vs.model.item?.name
         type.text = vs.model.item?.getValidString()
         value.text = "${vs.model.item?.currency?.name} ${vs.model.item?.amount?.toDouble().format(2)}"
-        btn_qr.setImageUrl("https://image.flaticon.com/icons/png/512/107/107072.png")
 
         if(vs.model.item?.transactions != null){
             transactions_card.setTransactions(vs.model.item.transactions)

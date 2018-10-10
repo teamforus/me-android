@@ -7,16 +7,16 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.helpers.format
 import io.forus.me.android.presentation.internal.Injection
+import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.forus.me.android.presentation.view.screens.vouchers.provider.categories.CategoriesAdapter
-import io.forus.me.android.presentation.view.screens.vouchers.provider.organizations.OrganizationsAdapter
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_voucher_provider.*
+import kotlinx.android.synthetic.main.view_organization.*
 
 class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, ProviderPresenter>(), ProviderView{
 
@@ -31,7 +31,6 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
     }
 
     private lateinit var address: String
-    private lateinit var organizationsAdapter: OrganizationsAdapter
     private lateinit var categoriesAdapter: CategoriesAdapter
 
     override val toolbarTitle: String
@@ -55,17 +54,11 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
 
         address = if (arguments == null) "" else arguments!!.getString(VOUCHER_ADDRESS_EXTRA, "")
 
-        organizationsAdapter = OrganizationsAdapter {
-            showToastMessage(it.name)
-        }
         categoriesAdapter = CategoriesAdapter()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        rv_organizations.layoutManager = LinearLayoutManager(context)
-        rv_organizations.adapter = organizationsAdapter
 
         rv_categories.layoutManager = LinearLayoutManager(context)
         rv_categories.adapter = categoriesAdapter
@@ -85,10 +78,6 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
                 }
             }
         })
-
-        btn_make.setOnClickListener {
-            submit.onNext(true)
-        }
     }
 
 
@@ -106,16 +95,34 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
         value.text = "${vs.model.item?.voucher?.currency?.name} ${vs.model.item?.voucher?.amount?.toDouble().format(2)}"
         btn_qr.setImageUrl(vs.model.item?.voucher?.logo)
 
+        if(vs.model.selectedOrganization != null){
+            tv_organization_name.text = vs.model.selectedOrganization.name
+            if(!vs.model.selectedOrganization.logo.isBlank())
+                iv_organization_icon.setImageUrl(vs.model.selectedOrganization.logo)
+        }
+
         if(vs.model.item != null) {
-            organizationsAdapter.items = vs.model.item.allowedOrganizations
             categoriesAdapter.items = vs.model.item.allowedProductCategories
         }
 
         btn_make.active = vs.model.buttonIsActive
+        btn_make.setOnClickListener {
+            payDialog(vs.model.selectedAmount)
+        }
+
+
+        if(!vs.model.selectedAmount.isNaN() && !vs.model.amountIsValid) amount.setError(resources.getString(R.string.vouchers_amount_invalid))
 
         if(vs.model.makeTransactionError != null) showToastMessage(resources.getString(R.string.vouchers_make_transaction_failure))
 
         if(vs.closeScreen) closeScreen()
+    }
+
+    private fun payDialog(amount: Float){
+        PayDialog(context!!, amount) {
+            submit.onNext(true)
+        }
+        .show()
     }
 
     private fun closeScreen() {

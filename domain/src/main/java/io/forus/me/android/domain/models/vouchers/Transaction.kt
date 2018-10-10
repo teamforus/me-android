@@ -8,7 +8,7 @@ class Transaction {
 
     var id: String
 
-    var organizationName: String
+    var organization: Organization
 
     var currency: Currency
 
@@ -18,9 +18,9 @@ class Transaction {
 
     var type: Type = Type.Payed
 
-    constructor(id: String, organizationName: String, currency: Currency, amount: BigDecimal, dateTime: String, type: Type = Type.Payed) {
+    constructor(id: String, organization: Organization, currency: Currency, amount: BigDecimal, dateTime: String, type: Type = Type.Payed) {
         this.id = id
-        this.organizationName = organizationName
+        this.organization = organization
         this.currency = currency
         this.amount = amount
         this.dateTime = dateTime

@@ -17,12 +17,13 @@ class TransactionsVH(parent: ViewGroup, private val clickListener: ((Transaction
 
     fun render(item: Transaction) = with(itemView) {
 
-        subtitle1.text = item.organizationName
+        subtitle1.text = item.organization.name
         overline1.text = item.dateTime
 
         subtitle2.text = item.amount.toFloat().format(2)
 
-        if(!item.currency.logoUrl.isEmpty()) logo.setImageUrl(item.currency.logoUrl)
+        if(!item.organization.logo.isBlank())
+            iv_logo.setImageUrl(item.organization.logo)
         
         root.setOnClickListener {
             clickListener?.invoke(item)

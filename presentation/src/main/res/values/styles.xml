@@ -259,6 +259,7 @@
     <style name="Headline6">
         <item name="android:textSize">20.1sp</item>
         <item name="android:textColor">@color/body_1_87</item>
+        <item name="android:lineSpacingExtra">1.9sp</item>
     </style>
 
     <style name="Subtitle">
