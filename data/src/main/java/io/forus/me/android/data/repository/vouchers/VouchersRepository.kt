@@ -11,7 +11,7 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
     private fun mapToSimple(voucher: io.forus.me.android.data.entity.vouchers.response.Voucher): Voucher{
         val euro = Currency("€")
         val logoUrl = voucher.fund?.logo?.sizes?.large ?: (voucher.fund?.organization?.logo?.sizes?.large ?: "https://freeiconshop.com/wp-content/uploads/edd/person-flat.png")
-        val transactions = voucher.transactions.map { Transaction(it.address, it.organization.name, euro, it.amount, it.dateTime) }
+        val transactions = voucher.transactions.map { Transaction(it.address, Organization(it.organization.id, it.organization.name, it.organization?.logo?.sizes?.large ?: ""), euro, it.amount, it.dateTime) }
         return Voucher(voucher.address, voucher.fund.name, 2, euro, voucher.amount, logoUrl, transactions)
     }
 
@@ -20,7 +20,7 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
         val logoUrl = voucher.fund?.logo?.sizes?.large ?: (voucher.fund?.organization?.logo?.sizes?.large ?: "https://freeiconshop.com/wp-content/uploads/edd/person-flat.png")
         val item = Voucher(voucher.address, voucher.fund.name, 2, euro, voucher.amount, logoUrl, emptyList())
         val categoris = voucher.allowedProductCategories.map { ProductCategory(it.id, it.key, it.name) }
-        val organizations = voucher.allowedOrganizations.map { Organization(it.id, it.name) }
+        val organizations = voucher.allowedOrganizations.map { Organization(it.id, it.name, it.logo?.sizes?.large ?: "") }
         return VoucherProvider(item, organizations, categoris)
     }
 

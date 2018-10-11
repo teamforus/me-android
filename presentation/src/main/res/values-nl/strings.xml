@@ -145,8 +145,11 @@
     <string name="vouchers_transactions">Transactieoverzicht</string>
     <string name="vouchers_transactions_empty">Nog geen transacties</string>
     <string name="vouchers_no_items">U hebt geen vouchers</string>
-    <string name="vouchers_make_transaction">GENEREREN</string>
+    <string name="vouchers_make_transaction">Belasten</string>
     <string name="vouchers_make_transaction_failure">Transactie mislukt</string>
     <string name="vouchers_transaction_payment">Betaling</string>
+    <string name="vouchers_product_categories">Productcategorieën</string>
+    <string name="vouchers_pay_title">Voucher transactie</string>
+    <string name="vouchers_pay_question">Weet je zeker dat je wilt belasten %1$s€?</string>
 
 </resources>

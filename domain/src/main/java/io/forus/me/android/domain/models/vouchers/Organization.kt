@@ -6,8 +6,11 @@ class Organization {
 
     var name: String
 
-    constructor(id: Long, name: String) {
+    var logo: String
+
+    constructor(id: Long, name: String, logo: String) {
         this.id = id
         this.name = name
+        this.logo = logo
     }
 }

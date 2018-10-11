@@ -6,5 +6,5 @@ import io.forus.me.android.data.BuildConfig
 object Constants {
 
 
-    val BASE_SERVICE_ENDPOINT = if (BuildConfig.DEBUG) "https://test.platform.forus.io/" else "https://test.platform.forus.io/"
+    val BASE_SERVICE_ENDPOINT = if (BuildConfig.DEBUG) "https://dev.api.forus.link/" else "https://dev.api.forus.link/"
 }
