@@ -28,13 +28,15 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
     }
 
     override val allowBack: Boolean
-        get() = true
+        get() = false
 
+    override val showAccount: Boolean
+        get() = false
 
     override fun viewForSnackbar(): View = lr_panel
 
     override val toolbarTitle: String
-        get() = ""
+        get() = getString(R.string.dashboard_profile)
 
     override fun loadRefreshPanel() = lr_panel
 

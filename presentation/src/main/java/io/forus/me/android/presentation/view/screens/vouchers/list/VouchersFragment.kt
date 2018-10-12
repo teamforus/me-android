@@ -31,6 +31,9 @@ class VouchersFragment : ToolbarLRFragment<VouchersModel, VouchersView, Vouchers
     override val allowBack: Boolean
         get() = false
 
+    override val showAccount: Boolean
+        get() = false
+
     override fun viewForSnackbar(): View = root
 
     override fun loadRefreshPanel() = lr_panel

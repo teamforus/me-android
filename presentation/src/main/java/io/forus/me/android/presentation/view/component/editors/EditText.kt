@@ -13,7 +13,10 @@ import android.widget.RelativeLayout
 import io.forus.me.android.presentation.R
 import java.util.regex.Pattern
 
-class EditText : FrameLayout{
+open class EditText : FrameLayout{
+
+    protected open val layout: Int
+        get() = R.layout.view_edit_text
 
     var hint: String? = ""
     var required: Boolean = false
@@ -43,7 +46,7 @@ class EditText : FrameLayout{
         initAttrs(context, attrs)
 
         val inflater = LayoutInflater.from(context)
-        val mRootView = inflater.inflate(R.layout.view_edit_text, this)
+        val mRootView = inflater.inflate(layout, this)
         mContainer = mRootView.findViewById(R.id.container)
         mTextEdit = mContainer.findViewById(R.id.text_edit)
         mTextInputLayout = mContainer.findViewById(R.id.text_input_layout)
@@ -74,6 +77,7 @@ class EditText : FrameLayout{
 
     private fun validate(text: String) : Boolean {
         val isValid =  isValid()
+        println("EEEEEET IS VALID"+isValid)
         mTextInputLayout.error = if(!isValid) validationError else ""
 
         return isValid

@@ -139,25 +139,32 @@
 
 
 
-                <!--<io.forus.me.android.presentation.view.component.text.TextView-->
-                    <!--style="@style/Header6"-->
-                    <!--app:type="medium"-->
-                    <!--android:layout_marginLeft="@dimen/activity_horizontal_margin"-->
-                    <!--android:layout_marginTop="26dp"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:text="About"-->
-                    <!--/>-->
+                <io.forus.me.android.presentation.view.component.text.TextView
+                    style="@style/Header6"
+                    app:type="medium"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="26dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="About"
+                    />
 
 
-                <!--<View-->
-                    <!--android:layout_marginTop="18dp"-->
-                    <!--android:layout_marginLeft="@dimen/activity_horizontal_margin"-->
-                    <!--android:background="@color/silver"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="1dp"/>-->
+                <View
+                    android:layout_marginTop="18dp"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:background="@color/silver"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"/>
 
+                <io.forus.me.android.presentation.view.component.card.SettingsCard
+                    android:id="@+id/app_version"
+                    app:valuecard_title="App version"
+                    app:valuecard_text="1.01.1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
+                </io.forus.me.android.presentation.view.component.card.SettingsCard>
 
 
             </LinearLayout>

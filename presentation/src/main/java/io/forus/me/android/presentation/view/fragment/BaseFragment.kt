@@ -56,7 +56,7 @@ abstract class BaseFragment : Fragment(), FragmentListener {
     private fun initSubView() {
         if (subviewFragment != null) {
             fragmentManager?.beginTransaction()
-                    ?.replace(R.id.subview, subviewFragment)
+                    ?.replace(R.id.subview, subviewFragment!!)
                     ?.commit()
         }
 
