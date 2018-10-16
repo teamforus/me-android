@@ -63,8 +63,12 @@ class AccountRemoteDataSource(f: () -> SignService): AccountDataSource, RemoteDa
         return service.authorizeToken(AuthorizeToken(token)).map { it.success }
     }
 
-    override fun restoreByEmail(email: String): Observable<AccessToken> {
+    override fun restoreByEmail(email: String): Observable<Boolean> {
         val signUp = RestoreByEmail(email)
-        return service.restoreByEmail(signUp)
+        return service.restoreByEmail(signUp).map { it.success }
+    }
+
+    override fun restoreExchangeToken(token: String): Observable<AccessToken> {
+        return service.restoreExchangeToken(token);
     }
 }

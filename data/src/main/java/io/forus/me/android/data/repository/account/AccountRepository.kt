@@ -30,8 +30,12 @@ class AccountRepository(private val settingsDataSource: SettingsDataSource,
 
     }
 
-    override fun restoreByEmail(email: String): Observable<RequestDelegatesEmailModel> {
+    override fun restoreByEmail(email: String): Observable<Boolean> {
         return accountRemoteDataSource.restoreByEmail(email)
+    }
+
+    override fun restoreExchangeToken(token: String): Observable<RequestDelegatesEmailModel> {
+        return accountRemoteDataSource.restoreExchangeToken(token)
                 .map {
                     RequestDelegatesEmailModel(it.accessToken)
                 }

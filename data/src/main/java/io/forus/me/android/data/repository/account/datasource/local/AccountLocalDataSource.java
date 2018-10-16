@@ -55,7 +55,13 @@ public class AccountLocalDataSource implements AccountDataSource, LocalDataSourc
 
     @NotNull
     @Override
-    public Observable<AccessToken> restoreByEmail(@NotNull String email) {
+    public Observable<Boolean> restoreByEmail(@NotNull String email) {
+        return null;
+    }
+
+    @NotNull
+    @Override
+    public Observable<AccessToken> restoreExchangeToken(@NotNull String token) {
         return null;
     }
 

@@ -18,7 +18,10 @@ interface AccountDataSource {
     fun restoreByQrToken() : Observable<IdentityTokenResult>
 
 
-    fun restoreByEmail(email: String) : Observable<AccessToken>
+    fun restoreByEmail(email: String) : Observable<Boolean>
+
+
+    fun restoreExchangeToken(token: String) : Observable<AccessToken>
 
 
     fun restoreByPinCode() : Observable<IdentityPinResult>
