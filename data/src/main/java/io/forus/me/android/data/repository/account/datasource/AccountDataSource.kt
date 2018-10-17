@@ -33,7 +33,7 @@ interface AccountDataSource {
     fun authorizeToken(token: String): Observable<Boolean>
 
 
-    fun saveIdentity(token: String, pin: String): Boolean
+    fun saveIdentity(token: String, pin: String)
 
 
     fun unlockIdentity(pin: String): Boolean

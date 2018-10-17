@@ -90,23 +90,16 @@ public class AccountLocalDataSource implements AccountDataSource, LocalDataSourc
     }
 
     @Override
-    public boolean saveIdentity(@NotNull String token, @NotNull String pin) {
-        try {
-            Database db = DatabaseManager.Companion.getInstance();
-            db.delete();
-            boolean opened = db.open(pin);
-            if (!opened || tokenDao == null) return false;
+    public void saveIdentity(@NotNull String token, @NotNull String pin) {
+        Database db = DatabaseManager.Companion.getInstance();
+        db.delete();
+        boolean opened = db.open(pin);
+        if (!opened || tokenDao == null) throw new IllegalStateException("DB is not opened");
 
-            Token dbToken = new Token();
-            dbToken.setToken(token);
-            tokenDao.save(dbToken);
-            db.refresh();
-            return true;
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            return false;
-        }
+        Token dbToken = new Token();
+        dbToken.setToken(token);
+        tokenDao.save(dbToken);
+        db.refresh();
     }
 
     public boolean unlockIdentity(@NotNull String pin){
@@ -128,7 +121,11 @@ public class AccountLocalDataSource implements AccountDataSource, LocalDataSourc
 
     @Override
     public boolean changePin(@NotNull String oldPin, @NotNull String newPin) {
-        return checkPin(oldPin) && saveIdentity(getTokenString(), newPin);
+        if(checkPin(oldPin)){
+            saveIdentity(getTokenString(), newPin);
+            return true;
+        }
+        return false;
     }
 
     @Override

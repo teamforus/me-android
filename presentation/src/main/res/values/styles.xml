@@ -10,6 +10,9 @@
 
         <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
 
+        <item name="md_medium_font">googlesans_medium.ttf</item>
+        <item name="md_regular_font">googlesans_regular.ttf</item>
+
     </style>
 
     <style name="AppTheme.ProgressBar">

@@ -19,7 +19,7 @@ class AccountRemoteDataSource(f: () -> SignService): AccountDataSource, RemoteDa
         return service.signup(signUp)
     }
 
-    override fun saveIdentity(token: String, pin: String): Boolean {
+    override fun saveIdentity(token: String, pin: String){
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

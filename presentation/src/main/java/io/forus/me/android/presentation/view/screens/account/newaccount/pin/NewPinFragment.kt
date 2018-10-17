@@ -101,7 +101,7 @@ class NewPinFragment : ToolbarLRFragment<NewPinModel, NewPinView, NewPinPresente
             NewPinModel.State.CONFIRM -> changeHeaders(resources.getString(R.string.passcode_title_confirm), resources.getString(R.string.passcode_subtitle_create), false)
             NewPinModel.State.PASS_NOT_MATCH -> changeHeaders(resources.getString(R.string.passcode_title_create), resources.getString(R.string.passcode_subtitle_create_not_match), true)
             NewPinModel.State.CREATING_IDENTITY -> changeHeaders(resources.getString(R.string.passcode_title_create_identity_wait), resources.getString(R.string.passcode_subtitle_create_identity), false)
-            NewPinModel.State.CREATING_IDENTITY_ERROR -> changeHeaders("", resources.getString(R.string.passcode_subtitle_change_error), true)
+            NewPinModel.State.CREATING_IDENTITY_ERROR -> changeHeaders(resources.getString(R.string.passcode_subtitle_change_error), vs.model.createIdentityError?.message ?: "", true)
         }
 
         if(vs.model.state != vs.model.prevState) when(vs.model.state){
