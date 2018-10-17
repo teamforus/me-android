@@ -22,14 +22,17 @@
 
             <io.forus.me.android.presentation.view.component.text.TextView
                 android:id="@+id/subtitle_action"
-                android:gravity="center"
-                android:layout_centerInParent="true"
-                android:layout_width="wrap_content"
+                android:paddingStart="45dp"
+                android:paddingEnd="5dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:textColor="@color/body_1_87"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@+id/btn_exit"
+                android:gravity="center"
                 android:letterSpacing="0.02"
                 android:lineSpacingExtra="6sp"
+                android:textColor="@color/body_1_87"
+                android:textSize="15sp"
                 tools:text="@string/passcode_subtitle_create" />
 
             <Button
@@ -38,6 +41,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
+                android:foreground="?selectableItemBackground"
                 android:background="@drawable/ic_close"/>
 
         </RelativeLayout>

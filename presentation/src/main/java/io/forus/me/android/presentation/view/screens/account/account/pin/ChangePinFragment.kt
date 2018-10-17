@@ -66,7 +66,7 @@ class ChangePinFragment : ToolbarLRFragment<ChangePinModel, ChangePinView, Chang
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        btn_exit.visibility = View.GONE
+        btn_exit.visibility = View.INVISIBLE
 
         pin_lock_view.attachIndicatorDots(indicator_dots)
         pin_lock_view.setPinLockListener(object: PinLockListener {
