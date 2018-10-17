@@ -140,7 +140,6 @@
     <string name="qr_identity_restored">You have successfully logged in</string>
     <string name="qr_identity_expired">Validation token expired</string>
     <string name="qr_voucher_scanned">Voucher scanned</string>
-    <string name="qr_voucher_not_scanned">Voucher couldn\'t be scanned</string>
     <string name="qr_voucher_access_denied">You are not eligible to scan this voucher</string>
     <string name="qr_unknown_type">Unknown QR</string>
     <string name="qr_unexpected_error">Unexpected error</string>
@@ -164,5 +163,7 @@
     <string name="vouchers_amount_invalid">Invalid amount</string>
     <string name="vouchers_pay_title">Voucher transaction</string>
     <string name="vouchers_pay_question">Are you sure you want to charge %1$s€?</string>
+    <string name="vouchers_apply_question">Are you sure you want to apply the voucher?</string>
+    <string name="voucher_is_used">USED</string>
 
 </resources>

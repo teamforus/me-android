@@ -71,7 +71,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPres
         super.render(vs)
 
         name.text = vs.model.item?.name
-        type.text = vs.model.item?.getValidString()
+        type.text = vs.model.item?.organizationName
         value.text = "${vs.model.item?.currency?.name} ${vs.model.item?.amount?.toDouble().format(2)}"
 
         if(vs.model.item?.transactions != null){

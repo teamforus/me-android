@@ -91,7 +91,7 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
         super.render(vs)
 
         name.text = vs.model.item?.voucher?.name
-        type.text = vs.model.item?.voucher?.getValidString()
+        type.text = vs.model.item?.voucher?.organizationName
         value.text = "${vs.model.item?.voucher?.currency?.name} ${vs.model.item?.voucher?.amount?.toDouble().format(2)}"
         btn_qr.setImageUrl(vs.model.item?.voucher?.logo)
 
@@ -107,7 +107,7 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
 
         btn_make.active = vs.model.buttonIsActive
         btn_make.setOnClickListener {
-            payDialog(vs.model.selectedAmount)
+            payDialog(vs.model.item?.voucher?.isProduct, vs.model.selectedAmount)
         }
 
 
@@ -118,8 +118,8 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
         if(vs.closeScreen) closeScreen()
     }
 
-    private fun payDialog(amount: Float){
-        PayDialog(context!!, amount) {
+    private fun payDialog(isProduct: Boolean?, amount: Float){
+        PayDialog(context!!, isProduct != null && isProduct, amount) {
             submit.onNext(true)
         }
         .show()
