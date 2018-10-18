@@ -33,7 +33,11 @@ interface SignService {
 
 
     @POST("api/v1/identity/proxy/email")
-    fun restoreByEmail(@Body restore: RestoreByEmail) : Observable<AccessToken>
+    fun restoreByEmail(@Body restore: RestoreByEmail) : Observable<Success>
+
+
+    @GET("api/v1/identity/proxy/authorize/email/app-me_app/{token}")
+    fun restoreExchangeToken(@Path("token") token: String) : Observable<AccessToken>
 
 
     @POST("api/v1/identity/proxy/authorize/code")

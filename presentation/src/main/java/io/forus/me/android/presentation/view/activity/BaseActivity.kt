@@ -24,15 +24,10 @@ import javax.inject.Inject
 abstract class BaseActivity : AppCompatActivity() {
 
     val systemServices by lazy(LazyThreadSafetyMode.NONE) { SystemServices(this) }
-
-
-    //@Inject
-    protected lateinit var navigator: Navigator
+    val navigator by lazy{ Navigator() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        navigator = Navigator()
-
     }
 
     protected fun addFragment(containerViewId: Int, fragment: android.support.v4.app.Fragment) {

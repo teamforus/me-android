@@ -2,10 +2,18 @@ package io.forus.me.android.data.entity.vouchers.response;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.math.BigDecimal;
+
 public class Product {
 
     @SerializedName("id")
     private Long id;
+
+    @SerializedName("organization_id")
+    private Long organizationId;
+
+    @SerializedName("product_category_id")
+    private Long productCategoryId;
 
     @SerializedName("name")
     private String name;
@@ -14,10 +22,10 @@ public class Product {
     private String description;
 
     @SerializedName("price")
-    private Long price;
+    private BigDecimal price;
 
     @SerializedName("old_price")
-    private Long oldPrice;
+    private BigDecimal oldPrice;
 
     @SerializedName("total_amount")
     private Long totalAmount;
@@ -31,10 +39,15 @@ public class Product {
     @SerializedName("product_category")
     private ProductCategory productCategory;
 
+    @SerializedName("organization")
+    private Organization organization;
+
     public Product() { }
 
-    public Product(Long id, String name, String description, Long price, Long oldPrice, Long totalAmount, Long soldAmount, Logo photo, ProductCategory productCategory) {
+    public Product(Long id, Long organizationId, Long productCategoryId, String name, String description, BigDecimal price, BigDecimal oldPrice, Long totalAmount, Long soldAmount, Logo photo, ProductCategory productCategory, Organization organization) {
         this.id = id;
+        this.organizationId = organizationId;
+        this.productCategoryId = productCategoryId;
         this.name = name;
         this.description = description;
         this.price = price;
@@ -43,6 +56,7 @@ public class Product {
         this.soldAmount = soldAmount;
         this.photo = photo;
         this.productCategory = productCategory;
+        this.organization = organization;
     }
 
     public Long getId() {
@@ -51,6 +65,22 @@ public class Product {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getOrganizationId() {
+        return organizationId;
+    }
+
+    public void setOrganizationId(Long organizationId) {
+        this.organizationId = organizationId;
+    }
+
+    public Long getProductCategoryId() {
+        return productCategoryId;
+    }
+
+    public void setProductCategoryId(Long productCategoryId) {
+        this.productCategoryId = productCategoryId;
     }
 
     public String getName() {
@@ -69,19 +99,19 @@ public class Product {
         this.description = description;
     }
 
-    public Long getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Long price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
-    public Long getOldPrice() {
+    public BigDecimal getOldPrice() {
         return oldPrice;
     }
 
-    public void setOldPrice(Long oldPrice) {
+    public void setOldPrice(BigDecimal oldPrice) {
         this.oldPrice = oldPrice;
     }
 
@@ -115,5 +145,13 @@ public class Product {
 
     public void setProductCategory(ProductCategory productCategory) {
         this.productCategory = productCategory;
+    }
+
+    public Organization getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(Organization organization) {
+        this.organization = organization;
     }
 }

@@ -14,11 +14,12 @@ data class ProviderModel(
 
     val amountIsValid: Boolean
         get(){
-            return selectedAmount != Float.NaN && selectedAmount >= 0.01 && selectedAmount <= item!!.voucher.amount.toFloat()
+            return selectedAmount != Float.NaN && selectedAmount >= 0.01 //&& selectedAmount <= item!!.voucher.amount.toFloat()
         }
 
     val buttonIsActive: Boolean
         get() {
-            return selectedOrganization != null && amountIsValid
+            return if(item != null && item.voucher.isProduct) true
+                    else (selectedOrganization != null && amountIsValid)
         }
 }

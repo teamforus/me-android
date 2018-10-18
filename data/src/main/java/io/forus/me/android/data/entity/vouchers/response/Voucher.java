@@ -3,12 +3,17 @@ package io.forus.me.android.data.entity.vouchers.response;
 import com.google.gson.annotations.SerializedName;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 public class Voucher {
 
+    public enum Type {
+        regular, product
+    }
+
     @SerializedName("fund_id")
-    private Long data;
+    private Long fundId;
 
     @SerializedName("identity_address")
     private String identityAddress;
@@ -17,7 +22,13 @@ public class Voucher {
     private String address;
 
     @SerializedName("created_at")
-    private String createdAt;
+    private Date createdAt;
+
+    @SerializedName("type")
+    private Type type;
+
+    @SerializedName("product")
+    private Product product;
 
     @SerializedName("amount")
     private BigDecimal amount;
@@ -39,11 +50,13 @@ public class Voucher {
 
     public Voucher() { }
 
-    public Voucher(Long data, String identityAddress, String address, String createdAt, BigDecimal amount, Fund fund, List<Transaction> transactions, List<Organization> allowedOrganizations, List<ProductCategory> allowedProductCategories, List<Product> allowedProducts) {
-        this.data = data;
+    public Voucher(Long fundId, String identityAddress, String address, Date createdAt, Type type, Product product, BigDecimal amount, Fund fund, List<Transaction> transactions, List<Organization> allowedOrganizations, List<ProductCategory> allowedProductCategories, List<Product> allowedProducts) {
+        this.fundId = fundId;
         this.identityAddress = identityAddress;
         this.address = address;
         this.createdAt = createdAt;
+        this.type = type;
+        this.product = product;
         this.amount = amount;
         this.fund = fund;
         this.transactions = transactions;
@@ -52,12 +65,12 @@ public class Voucher {
         this.allowedProducts = allowedProducts;
     }
 
-    public Long getData() {
-        return data;
+    public Long getFundId() {
+        return fundId;
     }
 
-    public void setData(Long data) {
-        this.data = data;
+    public void setFundId(Long fundId) {
+        this.fundId = fundId;
     }
 
     public String getIdentityAddress() {
@@ -76,12 +89,28 @@ public class Voucher {
         this.address = address;
     }
 
-    public String getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(String createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public BigDecimal getAmount() {

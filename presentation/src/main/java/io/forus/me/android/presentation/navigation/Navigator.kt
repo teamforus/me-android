@@ -1,6 +1,7 @@
 package io.forus.me.android.presentation.navigation
 
 import android.content.Context
+import android.content.Intent
 import android.support.v4.app.Fragment
 import io.forus.me.android.domain.models.records.Record
 import io.forus.me.android.domain.models.records.RecordCategory
@@ -87,6 +88,14 @@ constructor()//empty
     fun navigateToAccountRestoreByEmail(context: Context?) {
         if (context != null) {
             val intentToLaunch = RestoreByEmailActivity.getCallingIntent(context)
+            context.startActivity(intentToLaunch)
+        }
+    }
+
+    fun navigateToAccountRestoreByEmailExchangeToken(context: Context?, token: String) {
+        if (context != null) {
+            val intentToLaunch = RestoreByEmailActivity.getCallingIntent(context, token)
+            intentToLaunch.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             context.startActivity(intentToLaunch)
         }
     }

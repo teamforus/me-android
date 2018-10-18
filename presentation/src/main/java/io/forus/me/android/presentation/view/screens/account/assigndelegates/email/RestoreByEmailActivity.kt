@@ -15,6 +15,14 @@ class RestoreByEmailActivity : CommonActivity() {
 
 
     companion object {
+        private val TOKEN_EXTRA = "TOKEN_EXTRA"
+
+        fun getCallingIntent(context: Context, token: String): Intent {
+            val intent = Intent(context, RestoreByEmailActivity::class.java)
+            intent.putExtra(TOKEN_EXTRA, token)
+            return intent
+        }
+
         fun getCallingIntent(context: Context): Intent {
             return Intent(context, RestoreByEmailActivity::class.java)
         }
@@ -23,17 +31,17 @@ class RestoreByEmailActivity : CommonActivity() {
     override val viewID: Int
         get() = R.layout.activity_toolbar
 
-//    override val toolbarTitle: String
-//        get() = getString(R.string.inloggen_via_email)
-
+    private lateinit var fragment: RestoreByEmailFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         if (savedInstanceState == null) {
-            addFragment(R.id.fragmentContainer, RestoreByEmailFragment())
+            if(intent.hasExtra(TOKEN_EXTRA)){
+                fragment = RestoreByEmailFragment.newIntent(intent.getStringExtra(TOKEN_EXTRA))
+            }
+            else fragment = RestoreByEmailFragment()
+            addFragment(R.id.fragmentContainer, fragment)
         }
     }
-
-
 }

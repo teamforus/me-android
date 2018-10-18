@@ -6,11 +6,9 @@ import io.forus.me.android.domain.models.account.RequestDelegatesEmailModel
 
 sealed class RestoreByEmailPartialChanges : PartialChange {
 
-    class RestoreIdentity : RestoreByEmailPartialChanges()
-
     class RestoreByEmailRequestStart : RestoreByEmailPartialChanges()
 
-    data class RestoreByEmailRequestEnd(val requestDelegatesEmailModel: RequestDelegatesEmailModel) : RestoreByEmailPartialChanges()
+    class RestoreByEmailRequestEnd : RestoreByEmailPartialChanges()
 
     data class RestoreByEmailRequestError(val error: Throwable) : RestoreByEmailPartialChanges()
 

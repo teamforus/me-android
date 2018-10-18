@@ -77,7 +77,6 @@ open class EditText : FrameLayout{
 
     private fun validate(text: String) : Boolean {
         val isValid =  isValid()
-        println("EEEEEET IS VALID"+isValid)
         mTextInputLayout.error = if(!isValid) validationError else ""
 
         return isValid
