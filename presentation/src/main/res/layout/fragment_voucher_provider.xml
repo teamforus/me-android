@@ -113,8 +113,9 @@
                             android:id="@+id/amount"
                             android:layout_marginTop="16dp"
                             app:hint="Amount"
-                            app:validationRegex="@string/me_validation_regex_not_empty"
+                            app:validationRegex="decimal"
                             app:validationError="@string/me_validation_error_decimal"
+                            android:inputType="numberDecimal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
 

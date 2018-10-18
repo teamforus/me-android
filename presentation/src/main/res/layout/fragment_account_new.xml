@@ -53,43 +53,45 @@
                         android:id="@+id/email"
                         app:hint="@string/new_account_field_email"
                         app:required="true"
-                        app:validationRegex="@string/me_validation_regex_email"
+                        app:validationRegex="email"
                         app:validationError="@string/me_validation_error_email_is_invalid"
+                        android:inputType="textEmailAddress"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
                     <io.forus.me.android.presentation.view.component.editors.EditText
                         android:id="@+id/firstName"
+                        android:layout_marginTop="3dp"
                         app:hint="@string/new_account_field_first_name"
-                        app:validationRegex="@string/me_validation_regex_not_empty"
-                        app:validationError="@string/me_validation_error_not_empty"
+                        android:inputType="textPersonName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
 
                     <io.forus.me.android.presentation.view.component.editors.EditText
                         android:id="@+id/lastName"
+                        android:layout_marginTop="3dp"
                         app:hint="@string/new_account_field_last_name"
-                        app:validationRegex="@string/me_validation_regex_not_empty"
-                        app:validationError="@string/me_validation_error_not_empty"
+                        android:inputType="textPersonName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
 
                     <io.forus.me.android.presentation.view.component.editors.EditText
                         android:id="@+id/bsn"
+                        android:layout_marginTop="3dp"
                         app:hint="@string/new_account_field_bsn"
-                        app:validationRegex="@string/me_validation_regex_not_empty"
-                        app:validationError="@string/me_validation_error_not_empty"
+                        android:inputType="text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
 
                     <io.forus.me.android.presentation.view.component.editors.EditText
                         android:id="@+id/phone"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginBottom="10dp"
                         app:hint="@string/new_account_field_phone"
-                        app:validationRegex="@string/me_validation_regex_not_empty"
-                        app:validationError="@string/me_validation_error_not_empty"
+                        android:inputType="phone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 

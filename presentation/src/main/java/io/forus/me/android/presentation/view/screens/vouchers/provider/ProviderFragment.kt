@@ -1,12 +1,14 @@
 package io.forus.me.android.presentation.view.screens.vouchers.provider
 
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import io.forus.me.android.domain.exception.RetrofitException
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.helpers.format
 import io.forus.me.android.presentation.internal.Injection
@@ -69,12 +71,12 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if(!amount.validate()) selectAmount.onNext(Float.NaN)
                 try{
                     selectAmount.onNext(s.toString().toFloat())
                 }
                 catch(e: Exception){
                     selectAmount.onNext(Float.NaN)
-                    amount.setError(resources.getString(R.string.me_validation_error_decimal))
                 }
             }
         })
@@ -106,6 +108,7 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
         }
 
         btn_make.active = vs.model.buttonIsActive
+        btn_make.isEnabled = vs.model.buttonIsActive
         btn_make.setOnClickListener {
             payDialog(vs.model.item?.voucher?.isProduct, vs.model.selectedAmount)
         }
@@ -113,7 +116,11 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
 
         if(!vs.model.selectedAmount.isNaN() && !vs.model.amountIsValid) amount.setError(resources.getString(R.string.vouchers_amount_invalid))
 
-        if(vs.model.makeTransactionError != null) showToastMessage(resources.getString(R.string.vouchers_make_transaction_failure))
+        if(vs.model.makeTransactionError != null){
+            val error: Throwable = vs.model.makeTransactionError
+            val errorMessage = if(error is RetrofitException && error.kind == RetrofitException.Kind.HTTP) R.string.vouchers_make_transaction_failure else R.string.app_error_text
+            Snackbar.make(viewForSnackbar(), errorMessage, Snackbar.LENGTH_SHORT).show()
+        }
 
         if(vs.closeScreen) closeScreen()
     }
@@ -126,6 +133,7 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
     }
 
     private fun closeScreen() {
+        showToastMessage(resources.getString(R.string.vouchers_apply_success))
         activity?.finish()
     }
 }

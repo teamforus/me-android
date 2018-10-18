@@ -1,6 +1,8 @@
 package io.forus.me.android.presentation.view.screens.account.newaccount
 
 import android.os.Bundle
+import android.support.design.widget.Snackbar
+import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +12,7 @@ import io.forus.me.android.domain.exception.RetrofitException
 import io.forus.me.android.domain.models.account.NewAccountRequest
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.internal.Injection
+import io.forus.me.android.presentation.view.activity.BaseActivity
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
@@ -26,6 +29,15 @@ class NewAccountFragment : ToolbarLRFragment<NewAccountModel, NewAccountView, Ne
             return email.validate() //firstName.validate() && lastName.validate() && bsn.validate() && email.validate() && phone.validate();
         }
 
+    private var showFieldErrors: Boolean = false
+        set(value) {
+            field = value
+            email.showError = value
+            firstName.showError = value
+            lastName.showError = value
+            bsn.showError = value
+            phone.showError = value
+        }
 
     override val showAccount: Boolean
         get() = false
@@ -56,7 +68,23 @@ class NewAccountFragment : ToolbarLRFragment<NewAccountModel, NewAccountView, Ne
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        showFieldErrors = false
+        register.active = false
+
+        email.setTextChangedListener(object : android.text.TextWatcher {
+            override fun afterTextChanged(s: Editable?) {}
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                register.active = viewIsValid
+            }
+
+        })
+
         register.setOnClickListener {
+            (activity as? BaseActivity)?.hideSoftKeyboard()
+            showFieldErrors = true
             if (viewIsValid) {
                 registerAction.onNext(NewAccountRequest(
                         firstname = firstName.getTextOrNullIfBlank(),
@@ -82,10 +110,8 @@ class NewAccountFragment : ToolbarLRFragment<NewAccountModel, NewAccountView, Ne
 
         if(vs.model.sendingRegistrationError != null) {
             val error: Throwable = vs.model.sendingRegistrationError
-            showToastMessage(resources.getString(
-                    if(error is RetrofitException && error.kind == RetrofitException.Kind.HTTP) R.string.new_account_error_already_in_use
-                    else R.string.app_error_text)
-            )
+            val errorMessage = if(error is RetrofitException && error.kind == RetrofitException.Kind.HTTP) R.string.new_account_error_already_in_use else R.string.app_error_text
+            Snackbar.make(viewForSnackbar(), errorMessage, Snackbar.LENGTH_SHORT).show()
         }
 
         if (vs.closeScreen && vs.model.accessToken != null) {

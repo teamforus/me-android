@@ -13,12 +13,6 @@ class AssignDelegatesAccountActivity : SlidingPanelActivity() {
 
 
     companion object {
-        var assignDelegatesAccountActivity: AssignDelegatesAccountActivity? = null
-
-        fun getInstance(): AssignDelegatesAccountActivity? {
-            return assignDelegatesAccountActivity
-        }
-
         fun getCallingIntent(context: Context): Intent {
             return Intent(context, AssignDelegatesAccountActivity::class.java)
         }
@@ -31,8 +25,6 @@ class AssignDelegatesAccountActivity : SlidingPanelActivity() {
             val assignDelegatesAccountFragment = AssignDelegatesAccountFragment()
             addFragment(R.id.fragmentContainer, assignDelegatesAccountFragment)
         }
-
-        assignDelegatesAccountActivity = this
     }
 
     fun showPopupQRFragment(){

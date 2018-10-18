@@ -15,12 +15,6 @@ class WelcomeActivity : BaseActivity() {
 
 
     companion object {
-        var welcomeActivity: WelcomeActivity? = null
-
-        fun getInstance(): WelcomeActivity? {
-            return welcomeActivity
-        }
-
         fun getCallingIntent(context: Context): Intent {
             return Intent(context, WelcomeActivity::class.java)
         }
@@ -33,7 +27,5 @@ class WelcomeActivity : BaseActivity() {
         if (savedInstanceState == null) {
             addFragment(R.id.fragmentContainer, WelcomeFragment())
         }
-
-        welcomeActivity = this
     }
 }
