@@ -83,7 +83,7 @@ class NewPinPresenter constructor(private val accountRepository: AccountReposito
                             vs.copy(model = vs.model.changeState(NewPinModel.State.CREATING_IDENTITY))
                         }
                         else{
-                            vs.copy(model = vs.model.changeState(NewPinModel.State.PASS_NOT_MATCH))
+                            vs.copy(model = vs.model.changeState(NewPinModel.State.PASS_NOT_MATCH, skipEnabled = true))
                         }
                     }
                     else -> { vs.copy(model = vs.model.changeState())}
@@ -99,7 +99,7 @@ class NewPinPresenter constructor(private val accountRepository: AccountReposito
 
             is NewPinPartialChanges.SkipPin -> {
                 if(vs.model.skipEnabled) createIdentity.onNext(Identity(accessToken,""))
-                vs.copy()
+                vs.copy(model = vs.model.changeState(NewPinModel.State.CREATING_IDENTITY))
             }
 
             is NewPinPartialChanges.CreateIdentityError -> vs.copy(model = vs.model.changeState(NewPinModel.State.CREATING_IDENTITY_ERROR).copy(createIdentityError = change.error))

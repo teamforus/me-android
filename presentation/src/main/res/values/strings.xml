@@ -45,12 +45,18 @@
     <string name="restore_inloggen_by_email">Restore by email</string>
     <string name="restore_email_description">Please enter your e-mail address in order to receive your login details.</string>
     <string name="restore_pincode_description">Enter this pincode in your profile</string>
+    <string name="restore_pincode_how">How does it work?</string>
     <string name="restore_email_instructions">The link was sent to your e-mail. Tap on it, wait for Success message and come back to Me.</string>
     <string name="restore_title_pincode">Pincode</string>
     <string name="restore_title_qr">QR-Code</string>
     <string name="restore_pincode_instructions">This PIN should be activated in webshop</string>
 
     <!-- New account screen -->
+    <string name="new_account_field_email">E-mail</string>
+    <string name="new_account_field_first_name">Given Name</string>
+    <string name="new_account_field_last_name">Family Name</string>
+    <string name="new_account_field_bsn">BSN</string>
+    <string name="new_account_field_phone">Phone number</string>
     <string name="new_account_title">New profile</string>
     <string name="new_account_subtitle">Please provide your e-mail and information below. For registration primary email address is required. </string>
     <string name="new_account_error_already_in_use">Account already in use</string>

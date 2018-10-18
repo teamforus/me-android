@@ -44,6 +44,8 @@ constructor()//empty
         if (context != null) {
             val intentToLaunch = DashboardActivity.getCallingIntent(context)
             context.startActivity(intentToLaunch)
+            WelcomeActivity.getInstance()?.finish()
+            AssignDelegatesAccountActivity.getInstance()?.finish()
         }
     }
 
