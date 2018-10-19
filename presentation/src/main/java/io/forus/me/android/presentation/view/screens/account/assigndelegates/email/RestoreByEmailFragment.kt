@@ -72,6 +72,9 @@ class RestoreByEmailFragment : ToolbarLRFragment<RestoreByEmailModel, RestoreByE
     private val registerAction = PublishSubject.create<String>()
     override fun register() = registerAction
 
+    private val exchangeToken = PublishSubject.create<String>()
+    override fun exchangeToken() = exchangeToken
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
             = inflater.inflate(R.layout.fragment_account_restore_email, container, false).also {
 
@@ -138,6 +141,10 @@ class RestoreByEmailFragment : ToolbarLRFragment<RestoreByEmailModel, RestoreByE
             email.setError(resources.getString(R.string.restore_email_not_found))
         }
 
+        if(vs.model.exchangeTokenError != null){
+            showToastMessage(resources.getString(R.string.restore_email_invalid_link))
+        }
+
         if (vs.model.accessToken != null && vs.model.accessToken.isNotBlank()) {
             closeScreen(vs.model.accessToken)
         }
@@ -146,6 +153,10 @@ class RestoreByEmailFragment : ToolbarLRFragment<RestoreByEmailModel, RestoreByE
     fun closeScreen(accessToken: String) {
         navigator.navigateToPinNew(activity, accessToken)
         activity?.finish()
+    }
+
+    fun exchangeToken(token: String) {
+        exchangeToken.onNext(token)
     }
 }
 

@@ -45,6 +45,7 @@
     <string name="restore_pincode_how">How does it work?</string>
     <string name="restore_email_instructions">The link was sent to your e-mail. Tap on it, wait for Success message and come back to Me.</string>
     <string name="restore_email_not_found">Identity not found</string>
+    <string name="restore_email_invalid_link">Invalid link</string>
     <string name="restore_title_pincode">Pincode</string>
     <string name="restore_title_qr">QR-Code</string>
     <string name="restore_pincode_instructions">This PIN should be activated in webshop</string>

@@ -40,6 +40,7 @@
     <string name="restore_pincode_description">Vul deze pincode in de webshop in, waar u al bent ingelogd.</string>
     <string name="restore_email_instructions">Er is een e-mail verstuurd naar uw e-mailadres waarmee u opnieuw kunt inloggen.</string>
     <string name="restore_email_not_found">Identity niet gevonden</string>
+    <string name="restore_email_invalid_link">Ongeldige link</string>
     <string name="restore_pincode_instructions">This PIN should be activated in webshop</string>
 
     <!-- New account screen -->
