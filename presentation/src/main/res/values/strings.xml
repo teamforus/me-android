@@ -36,6 +36,13 @@
     <string name="welcome_restore_account">Log in with existing account</string>
     <string name="welcome_set_up_your_identity">Set up your identity</string>
 
+    <!-- Sign up -->
+    <string name="sign_up_given_name">Given Name</string>
+    <string name="sign_up_family_name">Family Name</string>
+    <string name="sign_up_bsn">BSN</string>
+    <string name="sign_up_phone_number">Phone number</string>
+    <string name="sign_up_email">E-mail</string>
+
     <!-- Restore identity -->
     <string name="restore_login">Anmelden</string>
     <string name="restore_login_via_de_qr_code">login via qr code</string>

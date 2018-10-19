@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Application -->
+    <string name="app_name">Me</string>
+    <string name="app_blank_string"> </string>
+    <string name="app_error_text">Error</string>
+    <string name="app_retry_text">Reintentar</string>
+    <string name="app_refreshing_error_text">Error al recargar</string>
+    <string name="app_exception_message_generic">Hubo un error en la aplicación</string>
+    <string name="app_exception_message_no_connection">No hay conexión a internet</string>
+
+    <!-- Common -->
+    <string name="me_validation_error_not_empty">Este campo es requerido</string>
+    <string name="me_validation_error_email_is_invalid">El campo es invalido</string>
+    <string name="me_validation_error_decimal">No es un numero valido</string>
+    <string name="me_ok">OK</string>
+    <string name="me_cancel">Cancelar</string>
+
+    <!-- Dashboard -->
+    <string name="dashboard_property">Comprobantes</string>
+    <string name="dashboard_qr">Qr</string>
+    <string name="dashboard_records">Registros</string>
+    <string name="dashboard_vouchers">Comprobantes</string>
+    <string name="dashboard_currency">Moneda</string>
+    <string name="dashboard_assets">Assets</string>
+    <string name="dashboard_profile">Perfil</string>
+
+    <!-- Welcome screen -->
+    <string name="welcome_greeting">Bienvenido a Me</string>
+    <string name="welcome_create_account">Crea una nueva cuenta</string>
+    <string name="welcome_restore_account">Inicia sesión con una cuenta existente</string>
+    <string name="welcome_set_up_your_identity">Inicializa tu identidad</string>
+
+    <!-- Sign up -->
+    <string name="sign_up_given_name">Nombre</string>
+    <string name="sign_up_family_name">Apellido</string>
+    <string name="sign_up_bsn">BSN</string>
+    <string name="sign_up_phone_number">Número telefónico</string>
+    <string name="sign_up_email">Correó electrónico</string>
+
+    <!-- Restore identity -->
+    <string name="restore_login">Anmelden</string>
+    <string name="restore_login_via_de_qr_code">Iniciar sesión vía código QR</string>
+    <string name="restore_scan_deze_qr">Escanéa este codigo QA en otro dispositivo en el que ya te hayas registrado</string>
+    <string name="restore_inloggen_met_pincode">Inciar sesión con codigo pin</string>
+    <string name="restore_inloggen_via_email">Iniciar sesión con tu correo electrónico</string>
+    <string name="restore_inloggen_by_email">Restaurar por correo electrónico</string>
+    <string name="restore_email_description">Porfavor ingrese su dirección de correo electronico para recibir sus detalles de inicio de sesión.</string>
+    <string name="restore_pincode_description">Ingresa este código secreto en tu perfil</string>
+    <string name="restore_email_instructions">El enlace ha sido enviado a tu correo electrónico. Pulsalo, espera por el mensaje y vuelve a Me.</string>
+    <string name="restore_title_pincode">Código secreto</string>
+    <string name="restore_title_qr">QR-Code</string>
+    <string name="restore_pincode_instructions">Este PIN debe ser activado en webshop</string>
+
+    <!-- New account screen -->
+    <string name="new_account_title">Nuevo perfil</string>
+    <string name="new_account_subtitle">Porfavor provee tu dirección de correo electrónico y información en el formulario.\n Para registro, una dirección de correo electrónico principal es requerida.</string>
+    <string name="new_account_error_already_in_use">Esta cuenta ya se encuentra en uso.</string>
+
+    <!-- New passcode screen -->
+    <string name="passcode_title_create">Crear código secreto</string>
+    <string name="passcode_title_confirm">Confirma el código secreto</string>
+    <string name="passcode_title_create_identity_wait">Porfavor espere</string>
+    <string name="passcode_subtitle_create">Ingresa un codigo secreto de 4 digitos</string>
+    <string name="passcode_subtitle_create_not_match">El codigo secreto no coincide. Porfavor intentalo de nuevo</string>
+    <string name="passcode_subtitle_create_identity">Creando identida</string>
+    <string name="passcode_subtitle_change_error">Algo salió mal :(</string>
+    <string name="passcode_create_skip">Saltar</string>
+    <string name="passcode_changing">Cambiar código secreto</string>
+
+    <!-- PINLOCK screen -->
+    <string name="passcode_subtitle_pinlock_confirm">Confirm your identity</string>
+    <string name="passcode_subtitle_pinlock_checking">Checking</string>
+    <string name="passcode_subtitle_pinlock_error">Wrong passcode</string>
+
+    <!-- Lock fingerprint strings -->
+    <string name="lock_no_fingerprints">No fingerprints available</string>
+    <string name="lock_fingerprint_title">Fingerprint authentication</string>
+    <string name="lock_fingerprint_subtitle">Use fingerprint together with passcode. Confirm fingerprint to continue.</string>
+    <string name="lock_fingerprint_hint">Toca el sensor</string>
+    <string name="lock_fingerprint_cancel">CANCELAR</string>
+    <string name="lock_fingerprint_error_hw_not_found">No fingerprint hardware found</string>
+    <string name="lock_fingerprint_error_no_fingerprints">No fingerprints registered</string>
+    <string name="lock_fingerprint_error_below_marshmallow">Android version doesn\'t support fingerprint</string>
+    <string name="lock_fingerprint_error_auth_fail">Auth failed</string>
+
+    <!-- Lock Check strings -->
+    <string name="lock_exit">Exit</string>
+    <string name="lock_settings">Settings</string>
+    <string name="lock_title">Lock Screen</string>
+    <string name="lock_body">
+        Secure lock screen hasn\'t set up. To continue working with this app,
+        please got to Settings and set a lock screen method.
+    </string>
+
+    <!-- Profile screen -->
+    <string name="profile_app_settings">App settings</string>
+    <string name="profile_use_pinlock">Use pinlock</string>
+    <string name="profile_use_fingerprint">Use fingerprint</string>
+    <string name="profile_change_4digit">Change 4-digit passcode</string>
+    <string name="profile_logout">Cerrar sesión</string>
+
+    <!-- New record screen -->
+    <string name="new_record_title">New Record</string>
+    <string name="new_record_title_choose_category">Choose Category</string>
+    <string name="new_record_title_choose_type">Choose Type</string>
+    <string name="new_record_title_choose_text">Text</string>
+    <string name="new_record_title_choose_validators">Validators</string>
+    <string name="new_record_choose_the_category_text">Select the category under which the new record should be added.</string>
+    <string name="new_record_choose_the_type_text">Select the type under which the new record should be added.</string>
+    <string name="new_record_choose_the_value_text">Enter the value of the record.</string>
+    <string name="new_record_value_hint">Text Text Text</string>
+    <string name="new_record_choose_validators_text">Select the validators, yours the new record should be verify.</string>
+    <string name="new_record_value_text">Value</string>
+    <string name="new_record_next_step">NEXT STEP</string>
+    <string name="new_record_submit">SUBMIT</string>
+
+    <!-- Record details screen -->
+    <string name="record_details_title">Record detail</string>
+    <string name="record_details_title_validators">Validators</string>
+    <string name="record_details_button_show_qr">Show QR</string>
+    <string name="record_details_scan_deze_qr">Scan the QR-Code</string>
+    <string name="record_details_validation_request_error">Error while sending validation request</string>
+    <string name="record_details_validation_approved">Validation approved</string>
+    <string name="record_details_validation_declined">Validation declined</string>
+
+    <!-- Wallet details screen -->
+    <string name="wallet_title_info">Wallet info</string>
+    <string name="wallet_current_balance">Current Balance</string>
+    <string name="wallet_balance_fiat">~ %1$s€;    %2$s$</string>
+    <string name="wallet_send">Send</string>
+    <string name="wallet_receive">Receive</string>
+    <string name="wallet_transactions_title">Transactions</string>
+    <string name="wallet_transactions_see_all">See all</string>
+
+    <!-- QR Scanner -->
+    <string name="qr_on_off_flashlight">On/Off flashlight</string>
+    <string name="qr_on_off_decoding">On/Off QR decoding</string>
+    <string name="qr_validation_approved">Validación aprobada</string>
+    <string name="qr_validation_declined">Validación declinada</string>
+    <string name="qr_validation_already_done">Ya se encuentra validado</string>
+    <string name="qr_identity_restored">Se ha iniciado sesión exitosamente</string>
+    <string name="qr_identity_expired">La validación ha expirado</string>
+    <string name="qr_voucher_scanned">Comprobante escaneado</string>
+    <string name="qr_voucher_not_scanned">El comprobante no pudo ser escaneado</string>
+    <string name="qr_voucher_access_denied">No eres elegible para escanear este comprobante</string>
+    <string name="qr_unknown_type">QR Desconocido</string>
+    <string name="qr_unexpected_error">Error inesperado</string>
+    <string name="qr_popup_approve_validation_title">Validación de registro</string>
+    <string name="qr_popup_approve_type">type</string>
+    <string name="qr_popup_approve_value">value</string>
+    <string name="qr_popup_approve_validation_positive">Aprobar</string>
+    <string name="qr_popup_approve_validation_negative">Declinar</string>
+    <string name="qr_popup_restore_identity_title">Restaurar identidad</string>
+    <string name="qr_popup_restore_identity_description">Permitir acceso?</string>
+
+    <!-- Vouchers -->
+    <string name="vouchers_item">Comprobante</string>
+    <string name="vouchers_transactions">Transaciones</string>
+    <string name="vouchers_transactions_empty">Todavía no hay transaciones</string>
+    <string name="vouchers_no_items">Aún no tienes ningún comprobante</string>
+    <string name="vouchers_make_transaction">Cargar</string>
+    <string name="vouchers_make_transaction_failure">Transacción fallida</string>
+    <string name="vouchers_transaction_payment">Pago</string>
+    <string name="vouchers_product_categories">Categorias de producto</string>
+    <string name="vouchers_amount_invalid">Monto no valido</string>
+    <string name="vouchers_pay_title">Comprobante de transacción</string>
+    <string name="vouchers_pay_question">¿Estás seguro que deseas cargar %1$s€?</string>
+
+</resources>
