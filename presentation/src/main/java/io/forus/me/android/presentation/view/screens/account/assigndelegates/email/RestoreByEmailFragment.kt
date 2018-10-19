@@ -7,11 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import io.forus.me.android.presentation.view.base.lr.LRViewState
-import io.forus.me.android.presentation.view.base.lr.LoadRefreshPanel
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.internal.Injection
-import io.forus.me.android.presentation.helpers.reactivex.DisposableHolder
+import io.forus.me.android.presentation.view.base.lr.LRViewState
+import io.forus.me.android.presentation.view.base.lr.LoadRefreshPanel
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
@@ -23,11 +22,22 @@ import kotlinx.android.synthetic.main.fragment_account_restore_email.*
  */
 class RestoreByEmailFragment : ToolbarLRFragment<RestoreByEmailModel, RestoreByEmailView, RestoreByEmailPresenter>(), RestoreByEmailView  {
 
-    val disposableHolder = DisposableHolder()
+
+    companion object {
+        private val TOKEN_EXTRA = "TOKEN_EXTRA"
+
+        fun newIntent(token: String): RestoreByEmailFragment = RestoreByEmailFragment().also {
+            val bundle = Bundle()
+            bundle.putString(TOKEN_EXTRA, token)
+            it.arguments = bundle
+        }
+    }
+
+    private var token: String = ""
 
     private val viewIsValid: Boolean
         get() {
-            var validation = email.validate() //&& email_repeat.validate()
+            val validation = email.validate() //&& email_repeat.validate()
 //            if (validation) {
 //                if (email.getText() != email_repeat.getText()) {
 //                    validation = false
@@ -60,7 +70,13 @@ class RestoreByEmailFragment : ToolbarLRFragment<RestoreByEmailModel, RestoreByE
     override fun register() = registerAction
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
-            = inflater.inflate(R.layout.fragment_account_restore_email, container, false)
+            = inflater.inflate(R.layout.fragment_account_restore_email, container, false).also {
+
+        val bundle = this.arguments
+        if (bundle != null) {
+            token = bundle.getString(TOKEN_EXTRA, "")
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -91,12 +107,10 @@ class RestoreByEmailFragment : ToolbarLRFragment<RestoreByEmailModel, RestoreByE
 
     override fun onDetach() {
         super.onDetach()
-        disposableHolder.disposeAll()
     }
 
     override fun createPresenter() = RestoreByEmailPresenter(
-            disposableHolder,
-            Injection.instance.accessTokenChecker,
+            token,
             Injection.instance.accountRepository
     )
 
@@ -115,8 +129,8 @@ class RestoreByEmailFragment : ToolbarLRFragment<RestoreByEmailModel, RestoreByE
             email.setError("Identity not found")
         }
 
-        if (vs.closeScreen && vs.model.isEmailConfirmed && vs.model.item?.accessToken != null) {
-            closeScreen(vs.model.item.accessToken)
+        if (vs.model.accessToken != null && vs.model.accessToken.isNotBlank()) {
+            closeScreen(vs.model.accessToken)
         }
     }
 

@@ -1,10 +1,10 @@
 package io.forus.me.android.presentation.view.screens.account.newaccount.pin
 
+import io.forus.me.android.domain.models.account.Identity
+import io.forus.me.android.domain.repository.account.AccountRepository
 import io.forus.me.android.presentation.view.base.lr.LRPresenter
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.base.lr.PartialChange
-import io.forus.me.android.domain.models.account.Identity
-import io.forus.me.android.domain.repository.account.AccountRepository
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -15,7 +15,7 @@ class NewPinPresenter constructor(private val accountRepository: AccountReposito
 
     override fun initialModelSingle(): Single<String> = Single.just(accessToken)
 
-    override fun NewPinModel.changeInitialModel(i: String): NewPinModel = copy(access_token=i)
+    override fun NewPinModel.changeInitialModel(i: String): NewPinModel = copy(accessToken=i)
 
     private val createIdentity = PublishSubject.create<Identity>()
     private fun createIdentity(): Observable<Identity> = createIdentity
@@ -44,11 +44,10 @@ class NewPinPresenter constructor(private val accountRepository: AccountReposito
                                     .subscribeOn(Schedulers.io())
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .map<PartialChange> {
-                                        if(it) NewPinPartialChanges.CreateIdentityEnd(Unit)
-                                        else NewPinPartialChanges.CreateIdentityError(Unit)
+                                        NewPinPartialChanges.CreateIdentityEnd(Unit)
                                     }
                                     .onErrorReturn {
-                                        NewPinPartialChanges.CreateIdentityError(Unit)
+                                        NewPinPartialChanges.CreateIdentityError(it)
                                     }
                         }
         )
@@ -80,7 +79,7 @@ class NewPinPresenter constructor(private val accountRepository: AccountReposito
                     NewPinModel.State.CREATE -> vs.copy(model = vs.model.changeState(NewPinModel.State.CONFIRM, change.passcode))
                     NewPinModel.State.CONFIRM -> {
                         if(vs.model.passcode.equals(change.passcode) && vs.model.valid){
-                            createIdentity.onNext(Identity(vs.model.access_token!!, vs.model.passcode!!))
+                            createIdentity.onNext(Identity(vs.model.accessToken!!, vs.model.passcode!!))
                             vs.copy(model = vs.model.changeState(NewPinModel.State.CREATING_IDENTITY))
                         }
                         else{
@@ -103,7 +102,7 @@ class NewPinPresenter constructor(private val accountRepository: AccountReposito
                 vs.copy()
             }
 
-            is NewPinPartialChanges.CreateIdentityError -> vs.copy(model = vs.model.changeState(NewPinModel.State.CREATING_IDENTITY_ERROR))
+            is NewPinPartialChanges.CreateIdentityError -> vs.copy(model = vs.model.changeState(NewPinModel.State.CREATING_IDENTITY_ERROR).copy(createIdentityError = change.error))
             is NewPinPartialChanges.CreateIdentityEnd -> vs.copy(closeScreen = true)
         }
     }

@@ -1,5 +1,6 @@
 package io.forus.me.android.presentation.view.screens.qr
 
+import android.util.Log
 import io.forus.me.android.domain.exception.RetrofitException
 import io.forus.me.android.domain.models.records.Validation
 import io.forus.me.android.domain.repository.account.AccountRepository
@@ -86,7 +87,7 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map {
-                    if(it.allowedOrganizations.isEmpty()){
+                    if(!it.voucher.isProduct && it.allowedOrganizations.isEmpty()){
                         ScanVoucherNotEligibleDialog(scanner, reactivateDecoding).show()
                     }
                     else{
@@ -94,7 +95,8 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
                     }
                 }
                 .onErrorReturn {
-                    onResultVoucherNotScanned()
+                    //Log.e("QR_ACTION", "scan voucher", it)
+                    ScanVoucherNotEligibleDialog(scanner, reactivateDecoding).show()
                 }
                 .subscribe()
     }
@@ -137,11 +139,6 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
         (android.os.Handler()).postDelayed({
             reactivateDecoding()
         },1000)
-    }
-
-    private fun onResultVoucherNotScanned(){
-        showToastMessage(resources.getString(R.string.qr_voucher_not_scanned))
-        reactivateDecoding()
     }
 
     private fun onResultUnexpectedError(){

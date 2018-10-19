@@ -5,7 +5,8 @@ data class NewPinModel(
         val prevState: State = State.CREATE,
         val skipEnabled: Boolean = true,
         val passcode: String? = null,
-        val access_token: String? = null
+        val accessToken: String? = null,
+        val createIdentityError: Throwable? = null
 )
 {
     enum class State {
@@ -16,7 +17,7 @@ data class NewPinModel(
 
     val valid: Boolean
         get() {
-            return passcode != null && passcode.length == 4 && access_token != null && access_token.isNotEmpty()
+            return passcode != null && passcode.length == 4 && accessToken != null && accessToken.isNotEmpty()
         }
 
 }

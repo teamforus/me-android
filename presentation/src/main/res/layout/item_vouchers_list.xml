@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<io.forus.me.android.presentation.view.component.card.CommonCard android:layout_marginTop="@dimen/activity_horizontal_margin"
+<io.forus.me.android.presentation.view.component.card.CommonCard
+    android:layout_marginTop="@dimen/activity_horizontal_margin_small"
+    android:layout_marginBottom="@dimen/activity_horizontal_margin_small"
     app:cardCornerRadius="@dimen/card_radius"
     android:id="@+id/root"
     android:layout_marginLeft="@dimen/activity_horizontal_margin_small"
@@ -11,6 +13,7 @@
     app:cardUseCompatPadding="false"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:foreground="?android:attr/selectableItemBackground"
     xmlns:tools="http://schemas.android.com/tools">
 
     <RelativeLayout
@@ -37,7 +40,7 @@
                 />
 
             <io.forus.me.android.presentation.view.component.text.TextView
-                android:id="@+id/type"
+                android:id="@+id/organization_name"
                 android:layout_marginTop="3dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -47,21 +50,37 @@
                 tools:text=" 10 dagen geldig"
                 />
 
-
-            <io.forus.me.android.presentation.view.component.text.TextView
-                android:id="@+id/value"
+            <RelativeLayout
                 android:layout_marginTop="@dimen/activity_horizontal_margin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20.1sp"
-                android:textColor="@color/darkGrey_Text_1"
-                tools:text="€ 456,66"
-                app:type="bold"
-                />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
+                <io.forus.me.android.presentation.view.component.text.TextView
+                    android:id="@+id/value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:textSize="20.1sp"
+                    android:textColor="@color/darkGrey_Text_1"
+                    tools:text="€ 456,66"
+                    app:type="bold"
+                    />
+
+                <io.forus.me.android.presentation.view.component.text.TextView
+                    android:id="@+id/used"
+                    android:layout_marginEnd="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/darkGrey_Text_1"
+                    android:textSize="13sp"
+                    app:type="bold"
+                    tools:text="USED: YES" />
+
+            </RelativeLayout>
 
         </LinearLayout>
-
 
         <io.forus.me.android.presentation.view.component.images.AutoLoadImageView
             android:layout_marginTop="8dp"

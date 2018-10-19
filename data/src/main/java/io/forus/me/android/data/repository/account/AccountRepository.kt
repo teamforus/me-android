@@ -10,6 +10,7 @@ import io.forus.me.android.domain.models.account.*
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
+import java.lang.IllegalStateException
 import java.util.concurrent.TimeUnit
 
 class AccountRepository(private val settingsDataSource: SettingsDataSource,
@@ -30,8 +31,12 @@ class AccountRepository(private val settingsDataSource: SettingsDataSource,
 
     }
 
-    override fun restoreByEmail(email: String): Observable<RequestDelegatesEmailModel> {
+    override fun restoreByEmail(email: String): Observable<Boolean> {
         return accountRemoteDataSource.restoreByEmail(email)
+    }
+
+    override fun restoreExchangeToken(token: String): Observable<RequestDelegatesEmailModel> {
+        return accountRemoteDataSource.restoreExchangeToken(token)
                 .map {
                     RequestDelegatesEmailModel(it.accessToken)
                 }
@@ -61,10 +66,12 @@ class AccountRepository(private val settingsDataSource: SettingsDataSource,
 
     override fun createIdentity(identity: Identity): Observable<Boolean> {
         return Single.fromCallable {
-            if(accountLocalDataSource.saveIdentity(identity.accessToken, identity.pin)) {
-                settingsDataSource.clear()
-                settingsDataSource.setPin(identity.pin)
-            }else false
+            accountLocalDataSource.saveIdentity(identity.accessToken, identity.pin)
+            settingsDataSource.clear()
+            if(!settingsDataSource.setPin(identity.pin))
+                throw IllegalStateException("PIN set error")
+            true
+
         }.toObservable().delay(100, TimeUnit.MILLISECONDS)
     }
 

@@ -1,6 +1,7 @@
 package io.forus.me.android.presentation.view.screens.vouchers.list
 
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import android.view.ViewGroup
 import io.forus.me.android.domain.models.vouchers.Voucher
 import io.forus.me.android.presentation.R
@@ -16,9 +17,16 @@ class VouchersVH(parent: ViewGroup, private val clickListener: ((Voucher) -> Uni
 
     fun render(item:  Voucher) = with(itemView) {
 
-        type.text = item.getValidString()
         name.text = item.name
+        organization_name.text = item.organizationName
         value.text = "${item.currency.name} ${item.amount.toDouble().format(2)}"
+
+        if(item.isProduct){
+            used.text = resources.getString(R.string.voucher_is_used) + ":" + if(item.isUsed) "YES" else "NO"
+        }
+        else{
+            used.visibility = View.GONE
+        }
 
         logo.setImageUrl(item.logo)
         root.setOnClickListener {
