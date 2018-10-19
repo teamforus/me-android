@@ -3,9 +3,11 @@ package io.forus.me.android.presentation.view.activity
 import android.app.Activity
 import android.app.Fragment
 import android.app.FragmentTransaction
+import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Window
+import android.view.inputmethod.InputMethodManager
 import io.forus.me.android.presentation.helpers.SystemServices
 
 //import io.forus.me.android.presentation._AndroidApplication;
@@ -57,5 +59,16 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
+    fun hideSoftKeyboard() {
+        try {
+            val view = currentFocus
+            if (view != null) {
+                val inputManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                inputManager.hideSoftInputFromWindow(view.windowToken, 0)
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
 
+    }
 }

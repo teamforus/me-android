@@ -44,9 +44,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        app:hint="E-mail"
+                        app:hint="@string/new_account_field_email"
+                        app:validationRegex="email"
                         app:validationError="@string/me_validation_error_email_is_invalid"
-                        app:validationRegex="@string/me_validation_regex_email" />
+                        android:inputType="textEmailAddress"/>
 
 
                     <io.forus.me.android.presentation.view.component.editors.EditText
@@ -55,9 +56,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="0dp"
-                        app:hint="Repeate Email"
+                        app:hint="@string/new_account_field_email_repeat"
+                        app:validationRegex="email"
                         app:validationError="@string/me_validation_error_email_is_invalid"
-                        app:validationRegex="@string/me_validation_regex_email" />
+                        android:inputType="textEmailAddress"/>
 
                     <io.forus.me.android.presentation.view.component.text.TextView
                         android:id="@+id/email_description"

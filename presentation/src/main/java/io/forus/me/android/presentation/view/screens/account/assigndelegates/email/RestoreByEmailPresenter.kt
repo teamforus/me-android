@@ -44,6 +44,19 @@ class RestoreByEmailPresenter constructor(private val token: String, private val
                                     }
                                     .startWith(RestoreByEmailPartialChanges.RestoreByEmailRequestStart())
 
+                        },
+
+                intent { it.exchangeToken() }
+                        .flatMap {
+                            accountRepository.restoreExchangeToken(it)
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .map<PartialChange> {
+                                        RestoreByEmailPartialChanges.ExchangeTokenResult(it.accessToken)
+                                    }
+                                    .onErrorReturn {
+                                        RestoreByEmailPartialChanges.ExchangeTokenError(it)
+                                    }
                         }
         )
 
@@ -69,8 +82,10 @@ class RestoreByEmailPresenter constructor(private val token: String, private val
 
         return when (change) {
             is RestoreByEmailPartialChanges.RestoreByEmailRequestStart -> vs.copy(model = vs.model.copy(sendingRestoreByEmail = true, sendingRestoreByEmailError = null))
-            is RestoreByEmailPartialChanges.RestoreByEmailRequestEnd -> vs.copy(model = vs.model.copy(sendingRestoreByEmail = true))
+            is RestoreByEmailPartialChanges.RestoreByEmailRequestEnd -> vs.copy(model = vs.model.copy(sendingRestoreByEmail = false, sendingRestoreByEmailSuccess = true))
             is RestoreByEmailPartialChanges.RestoreByEmailRequestError -> vs.copy(model = vs.model.copy(sendingRestoreByEmail = false, sendingRestoreByEmailError = change.error))
+            is RestoreByEmailPartialChanges.ExchangeTokenResult -> vs.copy(model = vs.model.copy(accessToken = change.accessToken, sendingRestoreByEmail = false, sendingRestoreByEmailError = null))
+            is RestoreByEmailPartialChanges.ExchangeTokenError -> vs.copy(model = vs.model.copy(exchangeTokenError = change.error))
         }
     }
 }

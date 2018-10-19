@@ -109,7 +109,6 @@ class NewPinFragment : ToolbarLRFragment<NewPinModel, NewPinView, NewPinPresente
             NewPinModel.State.PASS_NOT_MATCH -> {
                 pin_lock_view.resetPinLockView()
                 pin_lock_view.setErrorAnimation()
-                pinOnChange.onNext("")
             }
         }
 

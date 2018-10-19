@@ -11,12 +11,9 @@
     <string name="app_exception_message_no_connection">There is no internet connection</string>
 
     <!-- Common -->
-    <string name="me_validation_regex_not_empty">^(.*)$</string>
-    <string name="me_validation_regex_email">^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$</string>
-    <string name="me_validation_regex_decimal">/^(0|[1-9]\d*)(\.\d+)?$/</string>
     <string name="me_validation_required_asterisk"><![CDATA[ <sup><small>*</small></sup> ]]></string>
     <string name="me_validation_error_not_empty">Field is empty</string>
-    <string name="me_validation_error_email_is_invalid">Field is invalid</string>
+    <string name="me_validation_error_email_is_invalid">Email is invalid</string>
     <string name="me_validation_error_decimal">Not a valid number</string>
     <string name="me_ok">OK</string>
     <string name="me_cancel">Cancel</string>
@@ -45,15 +42,25 @@
     <string name="restore_inloggen_by_email">Restore by email</string>
     <string name="restore_email_description">Please enter your e-mail address in order to receive your login details.</string>
     <string name="restore_pincode_description">Enter this pincode in your profile</string>
+    <string name="restore_pincode_how">How does it work?</string>
     <string name="restore_email_instructions">The link was sent to your e-mail. Tap on it, wait for Success message and come back to Me.</string>
+    <string name="restore_email_not_found">Identity not found</string>
+    <string name="restore_email_invalid_link">Invalid link</string>
     <string name="restore_title_pincode">Pincode</string>
     <string name="restore_title_qr">QR-Code</string>
     <string name="restore_pincode_instructions">This PIN should be activated in webshop</string>
 
     <!-- New account screen -->
+    <string name="new_account_field_email">E-mail</string>
+    <string name="new_account_field_email_repeat">Repeat e-mail</string>
+    <string name="new_account_field_first_name">Given Name</string>
+    <string name="new_account_field_last_name">Family Name</string>
+    <string name="new_account_field_bsn">BSN</string>
+    <string name="new_account_field_phone">Phone number</string>
     <string name="new_account_title">New profile</string>
     <string name="new_account_subtitle">Please provide your e-mail and information below. For registration primary email address is required. </string>
     <string name="new_account_error_already_in_use">Account already in use</string>
+    <string name="new_account_email_repeat_error">Emails should be the same</string>
 
     <!-- New passcode screen -->
     <string name="passcode_title_create">Create Passcode</string>
@@ -164,6 +171,7 @@
     <string name="vouchers_pay_title">Voucher transaction</string>
     <string name="vouchers_pay_question">Are you sure you want to charge %1$s€?</string>
     <string name="vouchers_apply_question">Are you sure you want to apply the voucher?</string>
+    <string name="vouchers_apply_success">Voucher applied successfully</string>
     <string name="voucher_is_used">USED</string>
 
 </resources>

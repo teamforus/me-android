@@ -36,13 +36,24 @@
     <string name="restore_inloggen_via_email">Inloggen via email</string>
     <string name="restore_inloggen_by_email">Herstel per e-mail</string>
     <string name="restore_email_description">Voer uw e-mailadres in om uw inloggegevens te ontvangen</string>
+    <string name="restore_pincode_how">Hoe werkt het?</string>
     <string name="restore_pincode_description">Vul deze pincode in de webshop in, waar u al bent ingelogd.</string>
     <string name="restore_email_instructions">Er is een e-mail verstuurd naar uw e-mailadres waarmee u opnieuw kunt inloggen.</string>
+    <string name="restore_email_not_found">Identity niet gevonden</string>
+    <string name="restore_email_invalid_link">Ongeldige link</string>
+    <string name="restore_pincode_instructions">This PIN should be activated in webshop</string>
 
     <!-- New account screen -->
+    <string name="new_account_field_email">E-mail</string>
+    <string name="new_account_field_email_repeat">Herhaal e-mail</string>
+    <string name="new_account_field_first_name">Voornaam</string>
+    <string name="new_account_field_last_name">Achternaam</string>
+    <string name="new_account_field_bsn">BSN</string>
+    <string name="new_account_field_phone">Telefoonnummer</string>
     <string name="new_account_title">Nieuw account aanmaken</string>
     <string name="new_account_subtitle">Dit scherm geeft de mogelijkheid om een account aan te maken. Met dit account kunt u digitaal uw voucher beheren en inloggen op de webshop.</string>
     <string name="new_account_error_already_in_use">E-mailadres is al in gebruik</string>
+    <string name="new_account_email_repeat_error">E-mails moeten hetzelfde zijn</string>
 
     <!-- New passcode screen -->
     <string name="passcode_title_create">Inlogcode instellen</string>
@@ -151,6 +162,7 @@
     <string name="vouchers_pay_title">Voucher transactie</string>
     <string name="vouchers_pay_question">Weet je zeker dat je wilt belasten %1$s€?</string>
     <string name="vouchers_apply_question">Weet je zeker dat je wilt aanwenden voucher?</string>
+    <string name="vouchers_apply_success">Voucher succesvol toegepast</string>
     <string name="voucher_is_used">GEBRUIKT</string>
 
 </resources>
