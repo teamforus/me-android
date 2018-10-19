@@ -45,6 +45,7 @@
 
     <!-- New account screen -->
     <string name="new_account_field_email">E-mail</string>
+    <string name="new_account_field_email_repeat">Herhaal e-mail</string>
     <string name="new_account_field_first_name">Voornaam</string>
     <string name="new_account_field_last_name">Achternaam</string>
     <string name="new_account_field_bsn">BSN</string>
@@ -52,6 +53,7 @@
     <string name="new_account_title">Nieuw account aanmaken</string>
     <string name="new_account_subtitle">Dit scherm geeft de mogelijkheid om een account aan te maken. Met dit account kunt u digitaal uw voucher beheren en inloggen op de webshop.</string>
     <string name="new_account_error_already_in_use">E-mailadres is al in gebruik</string>
+    <string name="new_account_email_repeat_error">E-mails moeten hetzelfde zijn</string>
 
     <!-- New passcode screen -->
     <string name="passcode_title_create">Inlogcode instellen</string>

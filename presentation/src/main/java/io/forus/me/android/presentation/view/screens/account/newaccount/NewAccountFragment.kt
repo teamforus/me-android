@@ -26,13 +26,23 @@ class NewAccountFragment : ToolbarLRFragment<NewAccountModel, NewAccountView, Ne
 
     private val viewIsValid: Boolean
         get() {
-            return email.validate() //firstName.validate() && lastName.validate() && bsn.validate() && email.validate() && phone.validate();
+            var validation = email.validate()
+            if (validation) {
+                if (email.getText() != email_repeat.getText()) {
+                    validation = false
+                    email_repeat.setError(resources.getString(R.string.new_account_email_repeat_error))
+                }
+                else email_repeat.setError("")
+            }
+            else email_repeat.setError("")
+            return  validation
         }
 
     private var showFieldErrors: Boolean = false
         set(value) {
             field = value
             email.showError = value
+            email_repeat.showError = value
             firstName.showError = value
             lastName.showError = value
             bsn.showError = value
@@ -71,16 +81,18 @@ class NewAccountFragment : ToolbarLRFragment<NewAccountModel, NewAccountView, Ne
         showFieldErrors = false
         register.active = false
 
-        email.setTextChangedListener(object : android.text.TextWatcher {
-            override fun afterTextChanged(s: Editable?) {}
+        val listener = object: android.text.TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {}
 
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 register.active = viewIsValid
             }
+        }
 
-        })
+        email.setTextChangedListener(listener)
+        email_repeat.setTextChangedListener(listener)
 
         register.setOnClickListener {
             (activity as? BaseActivity)?.hideSoftKeyboard()

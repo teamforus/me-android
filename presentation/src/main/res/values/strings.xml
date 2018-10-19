@@ -52,6 +52,7 @@
 
     <!-- New account screen -->
     <string name="new_account_field_email">E-mail</string>
+    <string name="new_account_field_email_repeat">Repeat e-mail</string>
     <string name="new_account_field_first_name">Given Name</string>
     <string name="new_account_field_last_name">Family Name</string>
     <string name="new_account_field_bsn">BSN</string>
@@ -59,6 +60,7 @@
     <string name="new_account_title">New profile</string>
     <string name="new_account_subtitle">Please provide your e-mail and information below. For registration primary email address is required. </string>
     <string name="new_account_error_already_in_use">Account already in use</string>
+    <string name="new_account_email_repeat_error">Emails should be the same</string>
 
     <!-- New passcode screen -->
     <string name="passcode_title_create">Create Passcode</string>
