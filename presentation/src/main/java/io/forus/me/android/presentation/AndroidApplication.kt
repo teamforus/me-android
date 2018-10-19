@@ -31,6 +31,7 @@ class AndroidApplication : Application() {
         this.initializeInjector()
         this.initializeLeakDetection()
         this.initRetrofit()
+        this.initDb()
 
         if (!BuildConfig.DEBUG)
             this.initFabric()
@@ -48,6 +49,11 @@ class AndroidApplication : Application() {
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
         MeServiceFactory.init(applicationContext, Injection.instance.accountLocalDataSource)
+    }
+
+    private fun initDb(){
+        Injection.instance.databaseHelper
+        Injection.instance.settingsDataSource
     }
 
     private fun initializeInjector() {

@@ -17,7 +17,7 @@ class RestoreByEmail : Serializable{
 
     @SerializedName("source")
     @Expose
-    var source: String = "app.me_app"
+    var source: String = "app-me_app"
 
     constructor(email: String) {
         this.email = email

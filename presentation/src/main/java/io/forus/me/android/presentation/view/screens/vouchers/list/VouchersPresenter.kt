@@ -14,7 +14,12 @@ class VouchersPresenter constructor(val vouchersRepository: VouchersRepository) 
 
     override fun initialModelSingle(): Single<List<Voucher>> = Single.fromObservable(vouchersRepository.getVouchers())
 
-    override fun VouchersModel.changeInitialModel(i: List<Voucher>): VouchersModel = copy(items = i)
+    override fun VouchersModel.changeInitialModel(i: List<Voucher>): VouchersModel {
+        val vouchers: MutableList<Voucher> = mutableListOf()
+        vouchers.addAll(i.filter { voucher ->  !(voucher.isProduct && voucher.isUsed)})
+        vouchers.addAll(i.filter { voucher ->  (voucher.isProduct && voucher.isUsed)})
+        return copy(items = vouchers)
+    }
 
 
     override fun bindIntents() {

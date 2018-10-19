@@ -6,11 +6,17 @@ import java.util.*
 
 class Voucher {
 
+    var isProduct: Boolean
+
+    var isUsed: Boolean
+
     var address: String
 
     var name: String
 
-    var validDays: Int
+    var organizationName: String
+
+    var createdAt: Date
 
     var currency: Currency
 
@@ -20,10 +26,13 @@ class Voucher {
 
     var transactions: List<Transaction>
 
-    constructor(address: String, name: String, validDays: Int, currency: Currency, amount: BigDecimal, logo: String, transactions: List<Transaction> = emptyList()) {
+    constructor(isProduct: Boolean, isUsed: Boolean, address: String, name: String, organizationName: String, createdAt: Date, currency: Currency, amount: BigDecimal, logo: String, transactions: List<Transaction>) {
+        this.isProduct = isProduct
+        this.isUsed = isUsed
         this.address = address
         this.name = name
-        this.validDays = validDays
+        this.organizationName = organizationName
+        this.createdAt = createdAt
         this.currency = currency
         this.amount = amount
         this.logo = logo
@@ -31,7 +40,7 @@ class Voucher {
     }
 
 
-    fun getValidString() : String {
-        return "Nog $validDays dagen geldig Valid"
-    }
+//    fun getValidString() : String {
+//        return "Nog $validDays dagen geldig Valid"
+//    }
 }

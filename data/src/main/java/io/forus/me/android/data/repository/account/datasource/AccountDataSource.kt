@@ -18,7 +18,10 @@ interface AccountDataSource {
     fun restoreByQrToken() : Observable<IdentityTokenResult>
 
 
-    fun restoreByEmail(email: String) : Observable<AccessToken>
+    fun restoreByEmail(email: String) : Observable<Boolean>
+
+
+    fun restoreExchangeToken(token: String) : Observable<AccessToken>
 
 
     fun restoreByPinCode() : Observable<IdentityPinResult>
@@ -30,7 +33,7 @@ interface AccountDataSource {
     fun authorizeToken(token: String): Observable<Boolean>
 
 
-    fun saveIdentity(token: String, pin: String): Boolean
+    fun saveIdentity(token: String, pin: String)
 
 
     fun unlockIdentity(pin: String): Boolean

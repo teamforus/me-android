@@ -8,7 +8,10 @@ interface AccountRepository {
     fun newUser(model: NewAccountRequest) : Observable<String>
 
 
-    fun restoreByEmail(email: String) : Observable<RequestDelegatesEmailModel>
+    fun restoreByEmail(email: String) : Observable<Boolean>
+
+
+    fun restoreExchangeToken(token: String) : Observable<RequestDelegatesEmailModel>
 
 
     fun restoreByQrToken(): Observable<RequestDelegatesQrModel>
