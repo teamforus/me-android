@@ -114,6 +114,8 @@ dependencies {
   implementation presentationDependencies.circleIndicator
   implementation presentationDependencies.materialDialogs
   implementation presentationDependencies.fingerprint
+  implementation presentationDependencies.firebaseCore
+  implementation presentationDependencies.firebaseMessaging
 
   implementation (presentationDependencies.fabric) {
     transitive = true
@@ -133,3 +135,7 @@ dependencies {
     transitive = true
   }
 }
+
+
+
+apply plugin: 'com.google.gms.google-services'
