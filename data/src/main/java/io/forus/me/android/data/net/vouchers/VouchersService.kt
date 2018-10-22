@@ -2,7 +2,6 @@ package io.forus.me.android.data.net.vouchers
 
 import io.forus.me.android.data.entity.vouchers.request.MakeTransaction
 import io.forus.me.android.data.entity.vouchers.response.*
-import io.forus.me.android.data.net.Constants
 import io.reactivex.Observable
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -10,11 +9,6 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface VouchersService {
-
-    object Service {
-        @JvmStatic
-        val SERVICE_ENDPOINT: String = Constants.BASE_SERVICE_ENDPOINT
-    }
 
     @GET("api/v1/platform/vouchers")
     fun listAllVouchers(): Observable<ListAllVouchers>

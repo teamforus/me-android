@@ -1,6 +1,6 @@
 package io.forus.me.android.data.repository.account.datasource.remote
 
-import com.gigawatt.android.data.net.sign.SignService
+import io.forus.me.android.data.net.sign.SignService
 import com.gigawatt.android.data.net.sign.models.request.SignUp
 import io.forus.me.android.data.entity.sign.request.AuthorizeCode
 import io.forus.me.android.data.entity.sign.request.AuthorizeToken
