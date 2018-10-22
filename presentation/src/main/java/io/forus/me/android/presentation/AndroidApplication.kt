@@ -11,10 +11,7 @@ import io.fabric.sdk.android.Fabric
 import android.app.Activity
 import android.os.Bundle
 import android.content.pm.ActivityInfo
-
-
-
-
+import com.google.android.gms.common.GoogleApiAvailability
 
 
 //import com.squareup.leakcanary.LeakCanary
@@ -37,6 +34,7 @@ class AndroidApplication : Application() {
             this.initFabric()
 
         this.initPortraitOrientation()
+        this.initFirebase()
 
         this.me = this
 
@@ -89,6 +87,10 @@ class AndroidApplication : Application() {
     override fun attachBaseContext(base: Context) {
         super.attachBaseContext(base)
         MultiDex.install(this)
+    }
+
+    private fun initFirebase(){
+
     }
 
 }

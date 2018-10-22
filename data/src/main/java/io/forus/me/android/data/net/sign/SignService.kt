@@ -1,4 +1,4 @@
-package com.gigawatt.android.data.net.sign
+package io.forus.me.android.data.net.sign
 
 import com.gigawatt.android.data.net.sign.models.request.SignUp
 import io.forus.me.android.data.entity.common.Success
@@ -6,7 +6,6 @@ import io.forus.me.android.data.entity.sign.request.AuthorizeCode
 import io.forus.me.android.data.entity.sign.request.AuthorizeToken
 import io.forus.me.android.data.entity.sign.request.RestoreByEmail
 import io.forus.me.android.data.entity.sign.response.*
-import io.forus.me.android.data.net.Constants
 import io.reactivex.Observable
 import retrofit2.http.*
 
@@ -14,11 +13,6 @@ import retrofit2.http.*
  * Created by pavel on 30.10.17.
  */
 interface SignService {
-
-    object Service {
-        @JvmStatic  val SERVICE_ENDPOINT : String = Constants.BASE_SERVICE_ENDPOINT
-    }
-
 
     @POST("api/v1/identity")
     fun signup(@Body signUp: SignUp) : Observable<SignUpResult>

@@ -73,7 +73,29 @@ android {
       signingConfig signingConfigs.debug
     }
   }
-    buildToolsVersion androidBuildToolsVersion
+
+  buildToolsVersion androidBuildToolsVersion
+
+  flavorDimensions "version"
+  productFlavors {
+    def SERVER_URL = "SERVER_URL"
+
+    dev {
+      dimension "version"
+      versionNameSuffix "-dev"
+      buildConfigField "String", SERVER_URL, "\"https://dev.api.forus.link/\""
+    }
+    demo {
+      dimension "version"
+      versionNameSuffix "-demo"
+      buildConfigField "String", SERVER_URL, "\"https://demo.api.forus.link/\""
+    }
+    prod {
+      dimension "version"
+      versionNameSuffix "-prod"
+      buildConfigField "String", SERVER_URL, "\"https://api.forus.link/\""
+    }
+  }
 }
 
 greendao {
@@ -114,6 +136,8 @@ dependencies {
   implementation presentationDependencies.circleIndicator
   implementation presentationDependencies.materialDialogs
   implementation presentationDependencies.fingerprint
+  implementation presentationDependencies.firebaseCore
+  implementation presentationDependencies.firebaseMessaging
 
   implementation (presentationDependencies.fabric) {
     transitive = true
@@ -133,3 +157,7 @@ dependencies {
     transitive = true
   }
 }
+
+
+
+apply plugin: 'com.google.gms.google-services'

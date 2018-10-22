@@ -1,6 +1,6 @@
 package io.forus.me.android.data.repository.records.datasource.remote
 
-import com.gigawatt.android.data.net.sign.RecordsService
+import io.forus.me.android.data.net.records.RecordsService
 import io.forus.me.android.data.entity.common.Success
 import io.forus.me.android.data.entity.records.request.*
 import io.forus.me.android.data.entity.records.response.*

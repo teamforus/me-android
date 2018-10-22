@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import io.forus.me.android.presentation.BuildConfig
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.helpers.SystemServices
 import io.forus.me.android.presentation.internal.Injection
@@ -75,6 +76,8 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
 
     override fun render(vs: LRViewState<AccountModel>) {
         super.render(vs)
+
+        app_version.text = BuildConfig.VERSION_NAME + "_" + BuildConfig.BUILD_TYPE
 
         name.text = vs.model.account?.name
         email.text = vs.model.account?.email

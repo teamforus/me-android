@@ -8,7 +8,7 @@ ext {
   //Android
   androidBuildToolsVersion = "28.0.3"
   androidMinSdkVersion = 18
-  androidTargetSdkVersion = 28
+  androidTargetSdkVersion = 26
   androidCompileSdkVersion = 28
 
   //Libraries
@@ -49,6 +49,8 @@ ext {
   slidingUpPanelVersion='3.3.1'
   glideVersion='3.7.0'
   fingerprintAuthVersion='1.0.1'
+  firebaseCoreVersion='16.0.1'
+  firebaseCloudMessageVersion='17.3.3'
 
   //Development
   leakCanaryVersion = '1.3.1'
@@ -89,7 +91,9 @@ ext {
       qrReader:           "com.dlazaro66.qrcodereaderview:qrcodereaderview:${rootProject.qrReaderVersion}",
       materialDialogs:    "com.afollestad.material-dialogs:core:${rootProject.materialDialogs}",
       fingerprint:        "com.multidots:fingerprint-auth:${rootProject.fingerprintAuthVersion}",
-      fabric:             "com.crashlytics.sdk.android:crashlytics:${rootProject.fabric}"
+      fabric:             "com.crashlytics.sdk.android:crashlytics:${rootProject.fabric}",
+      firebaseCore:       "com.google.firebase:firebase-core:${rootProject.firebaseCoreVersion}",
+      firebaseMessaging:       "com.google.firebase:firebase-messaging:${rootProject.firebaseCloudMessageVersion}"
 
   ]
 
