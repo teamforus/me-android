@@ -3,6 +3,7 @@ package io.forus.me.android.data.entity.vouchers.response;
 import com.google.gson.annotations.SerializedName;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 public class Transaction {
 
@@ -19,16 +20,16 @@ public class Transaction {
     private String address;
 
     @SerializedName("created_at")
-    private String createdAt;
+    private Date createdAt;
 
     @SerializedName("updated_at")
-    private String updatedAt;
+    private Date updatedAt;
 
     @SerializedName("date")
     private String date;
 
-    @SerializedName("date_time")
-    private String dateTime;
+    @SerializedName("timestamp")
+    private Long timestamp;
 
     @SerializedName("organization")
     private Organization organization;
@@ -38,7 +39,7 @@ public class Transaction {
 
     public Transaction() { }
 
-    public Transaction(Long organizationId, Long productId, BigDecimal amount, String address, String createdAt, String updatedAt, String date, String dateTime, Organization organization, Product product) {
+    public Transaction(Long organizationId, Long productId, BigDecimal amount, String address, Date createdAt, Date updatedAt, String date, Long timestamp, Organization organization, Product product) {
         this.organizationId = organizationId;
         this.productId = productId;
         this.amount = amount;
@@ -46,7 +47,7 @@ public class Transaction {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.date = date;
-        this.dateTime = dateTime;
+        this.timestamp = timestamp;
         this.organization = organization;
         this.product = product;
     }
@@ -83,19 +84,19 @@ public class Transaction {
         this.address = address;
     }
 
-    public String getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(String createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 
-    public String getUpdatedAt() {
+    public Date getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(String updatedAt) {
+    public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
 
@@ -107,12 +108,12 @@ public class Transaction {
         this.date = date;
     }
 
-    public String getDateTime() {
-        return dateTime;
+    public Long getTimestamp() {
+        return timestamp;
     }
 
-    public void setDateTime(String dateTime) {
-        this.dateTime = dateTime;
+    public void setTimestamp(Long timestamp) {
+        this.timestamp = timestamp;
     }
 
     public Organization getOrganization() {

@@ -48,7 +48,8 @@
             android:name=".view.activity.LinkDispatcherActivity"
             android:noHistory="true"
             android:launchMode="singleInstance"
-            android:theme="@android:style/Theme.NoDisplay" >
+            android:theme="@android:style/Theme.NoDisplay"
+            android:screenOrientation="unspecified">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.DEFAULT"/>
@@ -71,7 +72,8 @@
 
         <activity
             android:name=".view.screens.qr.QrScannerActivity"
-            android:label="@string/app_blank_string"></activity>
+            android:label="@string/app_blank_string"
+            android:launchMode="singleTop"></activity>
 
         <activity
             android:name="io.forus.me.android.presentation.view.screens.account.assigndelegates.email.RestoreByEmailActivity"
@@ -100,35 +102,43 @@
 
         <activity
             android:name=".view.screens.vouchers.item.VoucherActivity"
-            android:label="@string/app_blank_string"></activity>
+            android:label="@string/app_blank_string"
+            android:launchMode="singleTop"></activity>
 
         <activity
             android:name=".view.screens.records.newrecord.NewRecordActivity"
-            android:label="@string/app_blank_string"></activity>
+            android:label="@string/app_blank_string"
+            android:launchMode="singleTop"></activity>
 
         <activity
             android:name=".view.screens.account.account.AccountActivity"
-            android:label="@string/app_blank_string"></activity>
+            android:label="@string/app_blank_string"
+            android:launchMode="singleTop"></activity>
 
         <activity
             android:name=".view.screens.records.list.RecordsActivity"
-            android:label=""></activity>
+            android:label=""
+            android:launchMode="singleTop"></activity>
 
         <activity
             android:name=".view.screens.records.item.RecordDetailsActivity"
-            android:label=""></activity>
+            android:label=""
+            android:launchMode="singleTop"></activity>
 
         <activity
             android:name=".view.screens.wallets.item.WalletDetailsActivity"
-            android:label=""></activity>
+            android:label=""
+            android:launchMode="singleTop"></activity>
 
         <activity
             android:name=".view.screens.vouchers.provider.ProviderActivity"
-            android:label=""></activity>
+            android:label=""
+            android:launchMode="singleTop"></activity>
 
         <activity
             android:name=".view.screens.account.account.pin.ChangePinActivity"
-            android:label=""></activity>
+            android:label=""
+            android:launchMode="singleTop"></activity>
 
 
 

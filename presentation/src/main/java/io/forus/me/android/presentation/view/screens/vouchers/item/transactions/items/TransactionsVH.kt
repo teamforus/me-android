@@ -7,10 +7,14 @@ import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.helpers.format
 import io.forus.me.android.presentation.helpers.inflate
 import kotlinx.android.synthetic.main.item_voucher_transcations_list.view.*
+import java.text.SimpleDateFormat
 
 
 class TransactionsVH(parent: ViewGroup, private val clickListener: ((Transaction) -> Unit)?)
     : RecyclerView.ViewHolder(parent.inflate(R.layout.item_voucher_transcations_list)) {
+
+    val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm")
+
     init {
 
     }
@@ -18,7 +22,7 @@ class TransactionsVH(parent: ViewGroup, private val clickListener: ((Transaction
     fun render(item: Transaction) = with(itemView) {
 
         subtitle1.text = item.organization.name
-        overline1.text = item.dateTime
+        overline1.text = simpleDateFormat.format(item.createdAt)
 
         subtitle2.text = item.amount.toFloat().format(2)
 
