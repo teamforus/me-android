@@ -49,11 +49,11 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPres
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        btn_info.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.zuidhorn.nl/kindpakket"))
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            startActivity(intent)
-        }
+//        btn_info.setOnClickListener {
+//            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.zuidhorn.nl/kindpakket"))
+//            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+//            startActivity(intent)
+//        }
 
         btn_qr.setOnClickListener {
             (activity as? VoucherActivity)?.showPopupQRFragment(QrCode(QrCode.Type.VOUCHER, address).toJson())
@@ -69,6 +69,8 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPres
 
     override fun render(vs: LRViewState<VoucherModel>) {
         super.render(vs)
+
+        used.visibility = if(vs.model.item != null && vs.model.item.isProduct && vs.model.item.isUsed) View.VISIBLE else View.GONE
 
         name.text = vs.model.item?.name
         type.text = vs.model.item?.organizationName

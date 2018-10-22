@@ -172,6 +172,6 @@
     <string name="vouchers_pay_question">Are you sure you want to charge %1$s€?</string>
     <string name="vouchers_apply_question">Are you sure you want to apply the voucher?</string>
     <string name="vouchers_apply_success">Voucher applied successfully</string>
-    <string name="voucher_is_used">USED</string>
+    <string name="voucher_is_used">Used voucher</string>
 
 </resources>
