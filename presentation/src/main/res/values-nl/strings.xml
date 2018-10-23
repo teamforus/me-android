@@ -164,5 +164,7 @@
     <string name="vouchers_apply_question">Weet je zeker dat je wilt aanwenden voucher?</string>
     <string name="vouchers_apply_success">Voucher succesvol toegepast</string>
     <string name="voucher_is_used">Gebruikte voucher</string>
+    <string name="voucher_created">Voucher aangemaakt - %1$s</string>
+    <string name="voucher_button_show_qr">Toon QR-code</string>
 
 </resources>

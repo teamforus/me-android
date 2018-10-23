@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
 
@@ -8,121 +9,160 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include layout="@layout/toolbar_view"/>
-
-    <io.forus.me.android.presentation.view.base.lr.LRPanelImpl
-        android:id="@+id/lr_panel"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_marginBottom="60dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:orientation="vertical"
+        <include layout="@layout/toolbar_view"/>
+
+        <io.forus.me.android.presentation.view.base.lr.LRPanelImpl
+            android:id="@+id/lr_panel"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
-            <LinearLayout
+            <android.support.v4.widget.NestedScrollView
                 android:orientation="vertical"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <android.support.v7.widget.CardView
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginTop="8dp"
-                    app:cardCornerRadius="@dimen/card_radius"
-                    app:cardBackgroundColor="@color/brightBackground"
-                    app:cardElevation="@dimen/card_elevation_small"
+                <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp">
+                    android:layout_height="wrap_content">
 
-                    <RelativeLayout
+                    <android.support.v7.widget.CardView
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="8dp"
+                        app:cardCornerRadius="@dimen/card_radius"
+                        app:cardBackgroundColor="@color/brightBackground"
+                        app:cardElevation="@dimen/card_elevation_small"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="100dp">
 
-                        <LinearLayout
-                            android:layout_marginRight="140dp"
-                            android:layout_marginEnd="140dp"
-                            android:orientation="vertical"
+                        <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="100dp"
-                            android:paddingStart="16dp">
+                            android:layout_height="match_parent">
+
+                            <LinearLayout
+                                android:layout_marginRight="140dp"
+                                android:layout_marginEnd="140dp"
+                                android:orientation="vertical"
+                                android:layout_width="match_parent"
+                                android:layout_height="100dp"
+                                android:paddingStart="16dp">
+
+                                <io.forus.me.android.presentation.view.component.text.TextView
+                                    android:id="@+id/name"
+                                    style="@style/CardTitle4"
+                                    app:type="medium"
+                                    android:layout_marginTop="15dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    tools:text="Kindpakket" />
+
+                                <io.forus.me.android.presentation.view.component.text.TextView
+                                    android:id="@+id/type"
+                                    style="@style/BackToCaption"
+                                    android:layout_marginTop="4dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    tools:text="Initflow" />
+
+                                <io.forus.me.android.presentation.view.component.text.TextView
+                                    android:id="@+id/value"
+                                    style="@style/Subtitle"
+                                    app:type="medium"
+                                    android:layout_marginTop="4dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    tools:text="€ 456,66" />
+
+                            </LinearLayout>
+
+                            <io.forus.me.android.presentation.view.component.images.AutoLoadImageView
+                                android:id="@+id/iv_icon"
+                                android:layout_alignParentTop="true"
+                                android:layout_alignParentEnd="true"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_marginLeft="17dp"
+                                android:layout_marginTop="17dp"
+                                android:layout_marginRight="17dp"
+                                android:layout_marginBottom="17dp"
+                                android:src="@drawable/circle_empty" />
 
                             <io.forus.me.android.presentation.view.component.text.TextView
-                                android:id="@+id/name"
-                                style="@style/CardTitle4"
-                                app:type="medium"
-                                android:layout_marginTop="15dp"
+                                android:id="@+id/used"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                tools:text="Kindpakket" />
+                                android:layout_marginRight="17dp"
+                                android:layout_below="@+id/iv_icon"
+                                android:layout_alignParentEnd="true"
+                                style="@style/UsedVoucher"
+                                app:type="regular"
+                                android:text="@string/voucher_is_used" />
 
-                            <io.forus.me.android.presentation.view.component.text.TextView
-                                android:id="@+id/type"
-                                style="@style/BackToCaption"
-                                android:layout_marginTop="4dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                tools:text="Initflow" />
+                        </RelativeLayout>
 
-                            <io.forus.me.android.presentation.view.component.text.TextView
-                                android:id="@+id/value"
-                                style="@style/Subtitle"
-                                app:type="medium"
-                                android:layout_marginTop="4dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                tools:text="€ 456,66" />
+                    </android.support.v7.widget.CardView>
 
-                        </LinearLayout>
+                    <io.forus.me.android.presentation.view.component.buttons.ShareButton
+                        android:id="@+id/btn_email"
+                        app:sb_text="Email to me"
+                        app:sb_icon="@drawable/ic_baseline_mail_outline_24px"
+                        app:sb_icon_tint="@color/forus_blue"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"/>
 
-                        <io.forus.me.android.presentation.view.component.images.AutoLoadImageView
-                            android:id="@+id/btn_qr"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_marginLeft="17dp"
-                            android:layout_marginTop="17dp"
-                            android:layout_marginRight="17dp"
-                            android:layout_marginBottom="17dp"
-                            android:src="@drawable/ic_qr_image_2" />
+                    <io.forus.me.android.presentation.view.component.text.TextView
+                        android:id="@+id/tv_transactions_title"
+                        android:layout_marginTop="28dp"
+                        android:layout_marginStart="@dimen/activity_horizontal_margin"
+                        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                        app:type="medium"
+                        style="@style/Headline6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/vouchers_transactions" />
 
-                        <io.forus.me.android.presentation.view.component.text.TextView
-                            android:id="@+id/used"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="17dp"
-                            android:layout_below="@+id/btn_qr"
-                            android:layout_alignParentEnd="true"
-                            style="@style/UsedVoucher"
-                            app:type="regular"
-                            android:text="@string/voucher_is_used" />
+                    <io.forus.me.android.presentation.view.component.text.TextView
+                        android:id="@+id/tv_created"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginStart="@dimen/activity_horizontal_margin"
+                        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                        android:textColor="@color/body1_60"
+                        android:textSize="14.1sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="Voucher Created – 2 Mei, 14:08" />
 
-                    </RelativeLayout>
+                    <android.support.v7.widget.RecyclerView
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:layout_marginTop="7dp"
+                        android:id="@+id/rv_transactions"
+                        android:descendantFocusability="blocksDescendants"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
 
-                </android.support.v7.widget.CardView>
+                </LinearLayout>
 
-                <io.forus.me.android.presentation.view.component.buttons.ShareButton
-                    android:id="@+id/btn_email"
-                    app:sb_text="Email to me"
-                    app:sb_icon="@drawable/ic_baseline_markunread_24px"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"/>
+            </android.support.v4.widget.NestedScrollView>
 
-                <io.forus.me.android.presentation.view.screens.vouchers.item.transactions.card.TransactionsCard
-                    android:id="@+id/transactions_card"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+        </io.forus.me.android.presentation.view.base.lr.LRPanelImpl>
 
-            </LinearLayout>
+    </android.support.design.widget.CoordinatorLayout>
 
-        </android.support.v4.widget.NestedScrollView>
+    <io.forus.me.android.presentation.view.component.buttons.QrButton
+        android:id="@+id/btn_qr"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
-    </io.forus.me.android.presentation.view.base.lr.LRPanelImpl>
 
-</android.support.design.widget.CoordinatorLayout>
+</RelativeLayout>

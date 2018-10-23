@@ -41,6 +41,7 @@
     <declare-styleable name="CustomShareButtonAttrs">
         <attr name="sb_text" format="string"/>
         <attr name="sb_icon" format="integer"/>
+        <attr name="sb_icon_tint" format="color"/>
     </declare-styleable>
 
     <declare-styleable name="PinLockView">

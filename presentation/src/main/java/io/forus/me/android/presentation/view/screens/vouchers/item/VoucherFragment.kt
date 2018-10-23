@@ -11,15 +11,18 @@ import io.forus.me.android.presentation.helpers.format
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import kotlinx.android.synthetic.main.fragment_voucher.*
-import android.content.Intent
-import android.net.Uri
+import android.support.v7.widget.LinearLayoutManager
 import io.forus.me.android.domain.models.qr.QrCode
+import io.forus.me.android.presentation.view.screens.vouchers.item.transactions.TransactionsAdapter
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPresenter>(), VoucherView{
 
     companion object {
         private val VOUCHER_ADDRESS_EXTRA = "VOUCHER_ADDRESS_EXTRA"
+        val dateFormat = SimpleDateFormat("dd MMM, HH:mm", Locale.getDefault())
 
         fun newIntent(id: String): VoucherFragment = VoucherFragment().also {
             val bundle = Bundle()
@@ -29,6 +32,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPres
     }
 
     private lateinit var address: String
+    private lateinit var adapter: TransactionsAdapter
 
     override val toolbarTitle: String
         get() = getString(R.string.vouchers_item)
@@ -44,10 +48,14 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPres
             = inflater.inflate(R.layout.fragment_voucher, container, false).also {
 
         address = if (arguments == null) "" else arguments!!.getString(VOUCHER_ADDRESS_EXTRA, "")
+        adapter = TransactionsAdapter()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        rv_transactions.layoutManager = LinearLayoutManager(context)
+        rv_transactions.adapter = adapter
 
 //        btn_info.setOnClickListener {
 //            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.zuidhorn.nl/kindpakket"))
@@ -75,9 +83,12 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPres
         name.text = vs.model.item?.name
         type.text = vs.model.item?.organizationName
         value.text = "${vs.model.item?.currency?.name} ${vs.model.item?.amount?.toDouble().format(2)}"
+        iv_icon.setImageUrl(vs.model.item?.logo)
 
-        if(vs.model.item?.transactions != null){
-            transactions_card.setTransactions(vs.model.item.transactions)
+        if(vs.model.item != null){
+            adapter.transactions = vs.model.item.transactions
+            tv_transactions_title.text = resources.getText(if(vs.model.item.transactions.isEmpty()) R.string.vouchers_transactions_empty else R.string.vouchers_transactions)
+            tv_created.text = resources.getString(R.string.voucher_created, dateFormat.format(vs.model.item.createdAt))
         }
     }
 }
