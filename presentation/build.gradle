@@ -5,6 +5,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'org.greenrobot.greendao'
 apply plugin: 'io.fabric'
+apply plugin: 'com.google.gms.google-services'
 
 android {
 
@@ -114,6 +115,7 @@ dependencies {
 
   annotationProcessor presentationDependencies.daggerCompiler
 
+  implementation presentationDependencies.supportLib
   implementation presentationDependencies.dagger
   implementation presentationDependencies.greendao
   implementation presentationDependencies.recyclerView
@@ -157,7 +159,3 @@ dependencies {
     transitive = true
   }
 }
-
-
-
-apply plugin: 'com.google.gms.google-services'

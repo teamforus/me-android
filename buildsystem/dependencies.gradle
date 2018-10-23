@@ -67,6 +67,7 @@ ext {
       rxAndroid:          "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
       javaxAnnotation:    "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
       materialLib:        "com.google.android.material:material:${materialLib}",
+      supportLib:         "com.android.support:support-v4:${androidSupportVersion}",
       recyclerView:       "com.android.support:recyclerview-v7:${androidSupportVersion}",
       cardView:           "com.android.support:cardview-v7:${androidSupportVersion}",
       appCompat:          "com.android.support:appcompat-v7:${androidSupportVersion}",
