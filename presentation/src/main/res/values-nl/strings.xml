@@ -24,52 +24,41 @@
 
     <!-- Welcome screen -->
     <string name="welcome_greeting">Welkom bij Me</string>
-    <string name="welcome_create_account">Maak een account aan</string>
-    <string name="welcome_restore_account">Log in met een bestaand account</string>
-    <string name="welcome_set_up_your_identity">Stel uw account in</string>
+    <string name="welcome_create_account">Aanmaken</string>
+    <string name="welcome_restore_account">Ik heb een me identiteit</string>
+    <string name="welcome_set_up_your_identity">Stel je identiteit in</string>
 
     <!-- Restore identity -->
     <string name="restore_login">Aanmelden</string>
-    <string name="restore_login_via_de_qr_code">login via qr code</string>
-    <string name="restore_scan_deze_qr">Scan deze QR-Code met een ander apparaat waar u al op ingelogt bent</string>
-    <string name="restore_inloggen_met_pincode">Inloggen met pincode</string>
-    <string name="restore_inloggen_via_email">Inloggen via email</string>
-    <string name="restore_inloggen_by_email">Herstel per e-mail</string>
-    <string name="restore_email_description">Voer uw e-mailadres in om uw inloggegevens te ontvangen</string>
-    <string name="restore_pincode_how">Hoe werkt het?</string>
-    <string name="restore_pincode_description">Vul deze pincode in de webshop in, waar u al bent ingelogd.</string>
-    <string name="restore_email_instructions">Er is een e-mail verstuurd naar uw e-mailadres waarmee u opnieuw kunt inloggen.</string>
-    <string name="restore_email_not_found">Identity niet gevonden</string>
-    <string name="restore_email_invalid_link">Ongeldige link</string>
-    <string name="restore_pincode_instructions">This PIN should be activated in webshop</string>
+    <string name="restore_login_via_de_qr_code">login via de qr code</string>
+    <string name="restore_scan_deze_qr">Scan deze QR-Code met een ander apparaat waar je al op ingelogd bent</string>
+    <string name="restore_inloggen_met_pincode">Inloggen met autorisatiecode</string>
+    <string name="restore_inloggen_via_email">Inloggen via e-mail</string>
+    <string name="restore_inloggen_by_email">Bevestig</string>
+    <string name="restore_email_description">Vul je e-mailadres in om inloggegevens te ontvangen</string>
+    <string name="restore_pincode_description">Vul deze code in op de webshop</string>
+    <string name="restore_email_instructions">Er is een e-mail naar je verstuurd.</string>
 
     <!-- New account screen -->
-    <string name="new_account_field_email">E-mail</string>
-    <string name="new_account_field_email_repeat">Herhaal e-mail</string>
-    <string name="new_account_field_first_name">Voornaam</string>
-    <string name="new_account_field_last_name">Achternaam</string>
-    <string name="new_account_field_bsn">BSN</string>
-    <string name="new_account_field_phone">Telefoonnummer</string>
-    <string name="new_account_title">Nieuw account aanmaken</string>
-    <string name="new_account_subtitle">Dit scherm geeft de mogelijkheid om een account aan te maken. Met dit account kunt u digitaal uw voucher beheren en inloggen op de webshop.</string>
+    <string name="new_account_title">Identiteit</string>
+    <string name="new_account_subtitle">Vul onderstaande gegevens in om een identiteit aan te maken</string>
     <string name="new_account_error_already_in_use">E-mailadres is al in gebruik</string>
-    <string name="new_account_email_repeat_error">E-mails moeten hetzelfde zijn</string>
 
     <!-- New passcode screen -->
-    <string name="passcode_title_create">Inlogcode instellen</string>
+    <string name="passcode_title_create">Inlogcode aanmaken</string>
     <string name="passcode_title_confirm">Bevestig inlogcode</string>
-    <string name="passcode_title_create_identity_wait">Even geduld a.u.b.</string>
-    <string name="passcode_subtitle_create">Beveilig uw account door een vier cijferige inlogcode aan te maken.</string>
-    <string name="passcode_subtitle_create_not_match">Wachtwoorden komen niet overeen. Probeer het opnieuw.</string>
-    <string name="passcode_subtitle_create_identity">Account aanmaken</string>
+    <string name="passcode_title_create_identity_wait">Even geduld alsjeblieft</string>
+    <string name="passcode_subtitle_create">Beveilig je identiteit door een inlogcode aan te maken</string>
+    <string name="passcode_subtitle_create_not_match">Inlogcodes komen niet overeen. Probeer het opnieuw.</string>
+    <string name="passcode_subtitle_create_identity">Identiteit toevoegen</string>
     <string name="passcode_subtitle_change_error">Er is iets fout gegaan :(</string>
     <string name="passcode_create_skip">Overslaan</string>
     <string name="passcode_changing">Inlogcode wijzigen</string>
 
     <!-- PINLOCK screen -->
-    <string name="passcode_subtitle_pinlock_confirm">Voer uw inlogcode in</string>
+    <string name="passcode_subtitle_pinlock_confirm">Vul je inlogcode in</string>
     <string name="passcode_subtitle_pinlock_checking">Bevestigen</string>
-    <string name="passcode_subtitle_pinlock_error">Verkeerde toegangscode</string>
+    <string name="passcode_subtitle_pinlock_error">Verkeerde inlogcode</string>
 
     <!-- Lock fingerprint strings -->
     <string name="lock_no_fingerprints">Geen vingerafdrukken beschikbaar</string>
@@ -85,17 +74,17 @@
     <!-- Lock Check strings -->
     <string name="lock_exit">Afsluiten</string>
     <string name="lock_settings">Instellingen</string>
-    <string name="lock_title">Sluiten</string>
+    <string name="lock_title">Sluit</string>
     <string name="lock_body">
-        Uw telefoon is niet ingesteld met een beveiligingsmaatregel.
-        Als u deze app wilt blijven gebruiken, gaat u naar instellingen en stelt u een vergrendelschermmethode in.
+        Je telefoon is niet ingesteld met een beveiligingsmaatregel.
+        Als je deze app wilt blijven gebruiken, ga je naar instellingen en stel je een vergrendelschermmethode in.
     </string>
 
     <!-- Profile screen -->
     <string name="profile_app_settings">Instellingen</string>
     <string name="profile_use_pinlock">Gebruik een inlogcode</string>
     <string name="profile_change_4digit">Inlogcode wijzigen</string>
-    <string name="profile_logout">Uitloggen</string>
+    <string name="profile_logout">Log uit</string>
 
     <!-- New record screen -->
     <string name="new_record_title">Nieuwe eigenschap</string>
@@ -109,13 +98,13 @@
     <string name="new_record_value_hint">...</string>
     <string name="new_record_choose_validators_text">Selecteer de validators, die deze nieuwe eigenschap moet valideren.</string>
     <string name="new_record_value_text">Invoerveld</string>
-    <string name="new_record_next_step">VOLGENDE STAP</string>
-    <string name="new_record_submit">BEVESTIGEN</string>
+    <string name="new_record_next_step">VOLGENDE</string>
+    <string name="new_record_submit">BEVESTIG</string>
 
     <!-- Record details screen -->
-    <string name="record_details_title">Eigenschap detail</string>
+    <string name="record_details_title">Eigenschap details</string>
     <string name="record_details_title_validators">Validators</string>
-    <string name="record_details_button_show_qr">Toon QR</string>
+    <string name="record_details_button_show_qr">QR-CODE</string>
     <string name="record_details_scan_deze_qr">Scan deze QR-Code</string>
     <string name="record_details_validation_request_error">Fout tijdens het verzenden van de validatieaanvraag</string>
     <string name="record_details_validation_approved">Validatie goedgekeurd</string>
@@ -136,10 +125,10 @@
     <string name="qr_validation_approved">Validatie goedgekeurd</string>
     <string name="qr_validation_declined">Validatie geweigerd</string>
     <string name="qr_validation_already_done">Al gevalideerd</string>
-    <string name="qr_identity_restored">U bent succesvol ingelogd</string>
+    <string name="qr_identity_restored">Je bent succesvol ingelogd</string>
     <string name="qr_identity_expired">Validatietoken is verlopen</string>
     <string name="qr_voucher_scanned">Voucher gescand</string>
-    <string name="qr_voucher_access_denied">U komt niet in aanmerking om deze voucher te scannen</string>
+    <string name="qr_voucher_access_denied">Je komt niet in aanmerking om deze voucher te scannen</string>
     <string name="qr_unknown_type">Onbekende QR code</string>
     <string name="qr_unexpected_error">Onverwachte fout</string>
     <string name="qr_popup_approve_validation_title">Eigenschap validatie</string>
@@ -148,13 +137,13 @@
     <string name="qr_popup_approve_validation_positive">Accepteren</string>
     <string name="qr_popup_approve_validation_negative">Weigeren</string>
     <string name="qr_popup_restore_identity_title">Bestaand account herstellen</string>
-    <string name="qr_popup_restore_identity_description">Wilt u dit nieuwe toestel toegang verlenen tot uw account?</string>
+    <string name="qr_popup_restore_identity_description">Wil je dit nieuwe toestel toegang verlenen tot je account</string>
 
     <!-- Vouchers -->
     <string name="vouchers_item">Voucher</string>
     <string name="vouchers_transactions">Transactieoverzicht</string>
     <string name="vouchers_transactions_empty">Nog geen transacties</string>
-    <string name="vouchers_no_items">U hebt geen vouchers</string>
+    <string name="vouchers_no_items">Je hebt nog geen vouchers</string>
     <string name="vouchers_make_transaction">Belasten</string>
     <string name="vouchers_make_transaction_failure">Transactie mislukt</string>
     <string name="vouchers_transaction_payment">Betaling</string>
@@ -162,7 +151,6 @@
     <string name="vouchers_pay_title">Voucher transactie</string>
     <string name="vouchers_pay_question">Weet je zeker dat je wilt belasten %1$s€?</string>
     <string name="vouchers_apply_question">Weet je zeker dat je wilt aanwenden voucher?</string>
-    <string name="vouchers_apply_success">Voucher succesvol toegepast</string>
-    <string name="voucher_is_used">Gebruikte voucher</string>
+    <string name="voucher_is_used">GEBRUIKT</string>
 
 </resources>
