@@ -36,7 +36,7 @@
     <string name="restore_inloggen_via_email">Inloggen via e-mail</string>
     <string name="restore_inloggen_by_email">Bevestig</string>
     <string name="restore_email_description">Vul je e-mailadres in om inloggegevens te ontvangen</string>
-    <string name="restore_pincode_description">Vul deze code in op de webshop</string>
+    <string name="restore_pincode_description">Vul deze code in op de webshop, waar je al bent ingelogd.</string>
     <string name="restore_email_instructions">Er is een e-mail naar je verstuurd.</string>
 
     <!-- New account screen -->
@@ -77,7 +77,7 @@
     <string name="lock_title">Sluit</string>
     <string name="lock_body">
         Je telefoon is niet ingesteld met een beveiligingsmaatregel.
-        Als u deze app wilt blijven gebruiken, ga je naar instellingen en stel je een vergrendelschermmethode in.
+        Als je deze app wilt blijven gebruiken, ga dan instellingen en stel je een vergrendelschermmethode in.
     </string>
 
     <!-- Profile screen -->
@@ -136,7 +136,7 @@
     <string name="qr_popup_approve_value">inhoud</string>
     <string name="qr_popup_approve_validation_positive">Accepteren</string>
     <string name="qr_popup_approve_validation_negative">Weigeren</string>
-    <string name="qr_popup_restore_identity_title">Bestaand account herstellen</string>
+    <string name="qr_popup_restore_identity_title">Inloggen via QR-Code</string>
     <string name="qr_popup_restore_identity_description">Wil je dit nieuwe toestel toegang verlenen tot je account</string>
 
     <!-- Vouchers -->
@@ -144,13 +144,13 @@
     <string name="vouchers_transactions">Transactieoverzicht</string>
     <string name="vouchers_transactions_empty">Nog geen transacties</string>
     <string name="vouchers_no_items">Je hebt nog geen vouchers</string>
-    <string name="vouchers_make_transaction">Belasten</string>
+    <string name="vouchers_make_transaction">Bevestig</string>
     <string name="vouchers_make_transaction_failure">Transactie mislukt</string>
     <string name="vouchers_transaction_payment">Betaling</string>
     <string name="vouchers_product_categories">Productcategorieën</string>
     <string name="vouchers_pay_title">Voucher transactie</string>
-    <string name="vouchers_pay_question">Weet je zeker dat je wilt belasten %1$s€?</string>
-    <string name="vouchers_apply_question">Weet je zeker dat je wilt aanwenden voucher?</string>
+    <string name="vouchers_pay_question">Weet je zeker dat je %1$s€ wilt betalen?</string>
+    <string name="vouchers_apply_question">Weet je zeker dat je gebruik wil maken van je voucher?</string>
     <string name="voucher_is_used">GEBRUIKT</string>
 
 </resources>
