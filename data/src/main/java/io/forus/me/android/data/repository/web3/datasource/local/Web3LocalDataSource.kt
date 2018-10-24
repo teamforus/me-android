@@ -1,7 +1,6 @@
 package io.forus.me.android.data.repository.web3.datasource.local
 
 import android.content.Context
-import io.forus.me.android.data.net.Constants
 import io.forus.me.android.data.repository.web3.datasource.Web3DataSource
 import io.reactivex.Observable
 import org.spongycastle.util.encoders.Hex
@@ -51,7 +50,7 @@ class Web3LocalDataSource(val context: Context) : Web3DataSource {
 
     private val walletFileDirectory:String
         get() {
-            val ret = walletLocation(Constants.BASE_SERVICE_ENDPOINT)
+            val ret = walletLocation("???")
             val dir = File(ret)
             if (!dir.exists()) {
                 dir.mkdirs()

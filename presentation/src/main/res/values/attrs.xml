@@ -6,8 +6,14 @@
     <declare-styleable name="CustomEditFieldAttrs">
         <attr name="hint" format="string"/>
         <attr name="required" format="boolean"/>
-        <attr name="validationRegex" format="string"/>
+        <attr name="validationRegex" format="enum">
+            <enum name="none" value="0" />
+            <enum name="not_empty" value="1" />
+            <enum name="email" value="2" />
+            <enum name="decimal" value="3" />
+        </attr>
         <attr name="validationError" format="string"/>
+        <attr name="android:inputType"/>
     </declare-styleable>
 
 
@@ -35,6 +41,7 @@
     <declare-styleable name="CustomShareButtonAttrs">
         <attr name="sb_text" format="string"/>
         <attr name="sb_icon" format="integer"/>
+        <attr name="sb_icon_tint" format="color"/>
     </declare-styleable>
 
     <declare-styleable name="PinLockView">

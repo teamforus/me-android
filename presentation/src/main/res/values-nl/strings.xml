@@ -43,6 +43,7 @@
     <string name="new_account_title">Identiteit</string>
     <string name="new_account_subtitle">Vul onderstaande gegevens in om een identiteit aan te maken</string>
     <string name="new_account_error_already_in_use">E-mailadres is al in gebruik</string>
+    <string name="new_account_email_repeat_error">E-mails moeten hetzelfde zijn</string>
 
     <!-- New passcode screen -->
     <string name="passcode_title_create">Inlogcode aanmaken</string>
@@ -152,5 +153,8 @@
     <string name="vouchers_pay_question">Weet je zeker dat je %1$s€ wilt betalen?</string>
     <string name="vouchers_apply_question">Weet je zeker dat je gebruik wil maken van je voucher?</string>
     <string name="voucher_is_used">GEBRUIKT</string>
+    <string name="vouchers_apply_success">Voucher succesvol toegepast</string>
+    <string name="voucher_created">Voucher aangemaakt - %1$s</string>
+    <string name="voucher_button_show_qr">Toon QR-code</string>
 
 </resources>

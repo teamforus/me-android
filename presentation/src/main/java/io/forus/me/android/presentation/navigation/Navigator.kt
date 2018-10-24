@@ -2,6 +2,7 @@ package io.forus.me.android.presentation.navigation
 
 import android.content.Context
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
 import android.support.v4.app.Fragment
 import io.forus.me.android.domain.models.records.Record
 import io.forus.me.android.domain.models.records.RecordCategory
@@ -43,6 +44,7 @@ constructor()//empty
     fun navigateToDashboard(context: Context?) {
         if (context != null) {
             val intentToLaunch = DashboardActivity.getCallingIntent(context)
+            intentToLaunch.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK)
             context.startActivity(intentToLaunch)
         }
     }
@@ -51,6 +53,7 @@ constructor()//empty
     fun navigateToWelcomeScreen(context: Context?) {
         if (context != null) {
             val intentToLaunch = WelcomeActivity.getCallingIntent(context)
+            intentToLaunch.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK)
             context.startActivity(intentToLaunch)
         }
     }

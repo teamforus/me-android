@@ -28,6 +28,4 @@ class WelcomeActivity : BaseActivity() {
             addFragment(R.id.fragmentContainer, WelcomeFragment())
         }
     }
-
-
 }

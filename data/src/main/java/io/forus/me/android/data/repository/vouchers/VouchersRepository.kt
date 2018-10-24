@@ -24,7 +24,7 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
                                     ?: ""))))
 
         val transactions = if(voucher.transactions == null) emptyList()
-                else voucher.transactions.map { Transaction(it.address, Organization(it.organization.id, it.organization.name, it.organization?.logo?.sizes?.large ?: ""), euro, it.amount, it.dateTime) }
+                else voucher.transactions.map { Transaction(it.address, Organization(it.organization.id, it.organization.name, it.organization?.logo?.sizes?.large ?: ""), euro, it.amount, it.createdAt) }
 
         return Voucher(isProduct, isUsed, voucher.address, name, organizationName, voucher.createdAt, euro, amount, logoUrl, transactions)
     }

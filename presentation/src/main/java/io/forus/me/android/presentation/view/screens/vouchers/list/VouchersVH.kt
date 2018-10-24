@@ -20,13 +20,7 @@ class VouchersVH(parent: ViewGroup, private val clickListener: ((Voucher) -> Uni
         name.text = item.name
         organization_name.text = item.organizationName
         value.text = "${item.currency.name} ${item.amount.toDouble().format(2)}"
-
-        if(item.isProduct){
-            used.text = resources.getString(R.string.voucher_is_used) + ":" + if(item.isUsed) "YES" else "NO"
-        }
-        else{
-            used.visibility = View.GONE
-        }
+        used.visibility = if(item.isProduct && item.isUsed) View.VISIBLE else View.GONE
 
         logo.setImageUrl(item.logo)
         root.setOnClickListener {

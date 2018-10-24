@@ -1,23 +1,28 @@
 package io.forus.me.android.presentation.view.component.editors
 
 import android.content.Context
-import android.support.design.widget.TextInputLayout
 import android.support.design.widget.TextInputEditText
+import android.support.design.widget.TextInputLayout
 import android.text.Editable
 import android.text.Html
+import android.text.InputType
 import android.text.TextUtils
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.inputmethod.EditorInfo
 import android.widget.FrameLayout
 import android.widget.RelativeLayout
 import io.forus.me.android.presentation.R
+import io.forus.me.android.presentation.view.component.ValidationRegex
 import java.util.regex.Pattern
+
 
 open class EditText : FrameLayout{
 
     protected open val layout: Int
         get() = R.layout.view_edit_text
 
+    var inputType: Int = EditorInfo.TYPE_NULL
     var hint: String? = ""
     var required: Boolean = false
     var validationError: String? = null
@@ -25,6 +30,30 @@ open class EditText : FrameLayout{
         set(value) {
             field = value ?: ""
             validationPattern = Pattern.compile(if (field.isNullOrEmpty()) ".*" else validationRegex)
+        }
+
+    var isErrorLayoutEnabled: Boolean = true
+        set(value) {
+            field = value
+            mTextInputLayout.isErrorEnabled = value
+        }
+
+    var showError: Boolean = true
+        set(value) {
+            field = value
+            mTextInputLayout.error = if(value) fieldError else ""
+        }
+
+    var fieldError: String? = null
+        set(value) {
+            field = value
+            if(showError) mTextInputLayout.error = value
+        }
+
+    var isEditable: Boolean = true
+        set(value){
+            field = value
+            mTextEdit.inputType = if(value) inputType else InputType.TYPE_NULL
         }
 
     private lateinit var  mContainer : RelativeLayout
@@ -53,6 +82,9 @@ open class EditText : FrameLayout{
         mTextInputLayout.hint = if(required) TextUtils.concat(hint, Html.fromHtml(getContext().getString(R.string.me_validation_required_asterisk))) else hint
         mTextInputLayout.isHintAnimationEnabled = true
         mTextInputLayout.isErrorEnabled = true
+        if (inputType != EditorInfo.TYPE_NULL) {
+            mTextEdit.setInputType(inputType)
+        }
         mTextEdit.addTextChangedListener(object: android.text.TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
             }
@@ -70,14 +102,16 @@ open class EditText : FrameLayout{
         val ta = context.obtainStyledAttributes(attrs, R.styleable.CustomEditFieldAttrs, 0, 0)
         hint = ta.getString(R.styleable.CustomEditFieldAttrs_hint)
         required = ta.getBoolean(R.styleable.CustomEditFieldAttrs_required, false)
-        validationRegex = ta.getString(R.styleable.CustomEditFieldAttrs_validationRegex)
+        val validationRegexValue = ta.getInt(R.styleable.CustomEditFieldAttrs_validationRegex, 0)
+        validationRegex = ValidationRegex.values().get(validationRegexValue).pattern
         validationError = ta.getString(R.styleable.CustomEditFieldAttrs_validationError)
+        inputType = ta.getInt(R.styleable.CustomEditFieldAttrs_android_inputType, EditorInfo.TYPE_NULL)
         ta.recycle()
     }
 
     private fun validate(text: String) : Boolean {
         val isValid =  isValid()
-        mTextInputLayout.error = if(!isValid) validationError else ""
+        fieldError = if(!isValid) validationError else ""
 
         return isValid
     }
@@ -100,12 +134,10 @@ open class EditText : FrameLayout{
     }
 
     fun setError(error: String){
-        mTextInputLayout.error = error
+        fieldError = error
     }
 
     fun setTextChangedListener(listener : android.text.TextWatcher) {
         mTextEdit.addTextChangedListener(listener)
     }
-
-    fun getEditText() = mTextEdit
 }

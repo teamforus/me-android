@@ -27,7 +27,7 @@ class AccountRepository(private val settingsDataSource: SettingsDataSource,
        return accountRemoteDataSource.createUser(signUp)
                 .flatMap {
                     Observable.just(it.accessToken)
-                }.delay(100, TimeUnit.MILLISECONDS)
+                }.delay(50, TimeUnit.MILLISECONDS)
 
     }
 
@@ -72,7 +72,7 @@ class AccountRepository(private val settingsDataSource: SettingsDataSource,
                 throw IllegalStateException("PIN set error")
             true
 
-        }.toObservable().delay(100, TimeUnit.MILLISECONDS)
+        }.toObservable().delay(50, TimeUnit.MILLISECONDS)
     }
 
     override fun unlockIdentity(pin: String): Observable<Boolean> {

@@ -11,4 +11,5 @@ interface RestoreByEmailView : LRView<RestoreByEmailModel> {
 
     fun register(): io.reactivex.Observable<String>
 
+    fun exchangeToken(): io.reactivex.Observable<String>
 }
