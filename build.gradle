@@ -26,11 +26,12 @@ buildscript {
 
 allprojects {
   repositories {
-    jcenter()
+    mavenCentral()
     maven { url "https://jitpack.io" }
     maven { url 'https://maven.fabric.io/public' }
     google()
     maven { url "https://dl.bintray.com/drummer-aidan/maven/" }
+    jcenter()
   }
   ext {
     androidApplicationId = 'io.forus.me'
