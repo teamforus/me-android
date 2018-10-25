@@ -31,11 +31,15 @@ class FCMHandler(private val accountRepository: AccountRepository, private val s
     }
 
     fun registerFCMToken(token: String): Observable<Unit> {
-        return accountRepository.registerFCMToken(token).map {
-            Log.d("FCM_TOKEN_REGISTERED", token)
-            settings.setFCMToken(token)
-            Unit
-        }
+        return accountRepository.registerFCMToken(token)
+                .map {
+                    Log.d("FCM_TOKEN_REGISTERED", token)
+                    settings.setFCMToken(token)
+                    Unit
+                }
+                .onErrorReturn {
+                    Log.d("FCM_TOKEN_REGISTER_ERR", it.message)
+                }
     }
 
     fun clearFCMToken(): Observable<Unit> {
