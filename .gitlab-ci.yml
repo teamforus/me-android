@@ -18,4 +18,4 @@ distribution:
   - development
   script:
   - cd presentation
-  - ../gradlew assembleRelease crashlyticsUploadDistributionDebug
+  - ../gradlew assembleDebug
