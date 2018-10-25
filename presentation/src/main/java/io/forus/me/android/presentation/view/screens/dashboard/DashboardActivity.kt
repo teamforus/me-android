@@ -9,15 +9,14 @@ import android.view.MenuItem
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter
 import io.forus.me.android.presentation.R
+import io.forus.me.android.presentation.helpers.reactivex.DisposableHolder
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.activity.CommonActivity
 import io.forus.me.android.presentation.view.adapters.MainViewPagerAdapter
 import io.forus.me.android.presentation.view.screens.account.account.AccountFragment
-import io.forus.me.android.presentation.view.screens.records.categories.RecordCategoriesFragment
 import io.forus.me.android.presentation.view.screens.vouchers.list.VouchersFragment
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_dashboard.*
 
@@ -30,8 +29,9 @@ class DashboardActivity : CommonActivity() {
     private var navigationAdapter: AHBottomNavigationAdapter? = null
 
     private var accountRepository = Injection.instance.accountRepository
-    private var checkLogin: Disposable? = null
-    private var logout: Disposable? = null
+    private var fcmHandler = Injection.instance.fcmHandler
+    private var settings = Injection.instance.settingsDataSource
+    private var disposableHolder = DisposableHolder()
 
     companion object {
         fun getCallingIntent(context: Context): Intent {
@@ -48,9 +48,10 @@ class DashboardActivity : CommonActivity() {
         super.onCreate(savedInstanceState)
 
         initUI()
+        checkLogin()
+        checkFCM()
 
     }
-
 
     private fun initUI(){
 
@@ -96,31 +97,35 @@ class DashboardActivity : CommonActivity() {
         (android.os.Handler()).postDelayed({
             showTab(0, 0,false)
         },500)
-
-        checkLogin()
     }
 
     private fun checkLogin(){
-        checkLogin = Single.fromObservable(accountRepository.checkCurrentToken())
+        disposableHolder.add(Single.fromObservable(accountRepository.checkCurrentToken())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map {
                     if(!it) logout()
                 }
                 .onErrorReturn {  }
-                .subscribe()
+                .subscribe())
+    }
+
+    private fun checkFCM(){
+        disposableHolder.add(fcmHandler.checkFCMToken(this)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe())
     }
 
     private fun logout(){
-        logout = Single.fromObservable(accountRepository.exitIdentity())
+        disposableHolder.add(Single.fromObservable(accountRepository.exitIdentity())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .map {
-                    navigator.navigateToWelcomeScreen(this)
-                    finish()
+                .flatMap {
+                    Single.fromObservable(fcmHandler.clearFCMToken())
                 }
                 .onErrorReturn {  }
-                .subscribe()
+                .subscribe())
     }
 
     private fun selectTab(currentPagerPosition: Int, oldPosition: Int) {
@@ -178,7 +183,6 @@ class DashboardActivity : CommonActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        checkLogin?.dispose()
-        logout?.dispose()
+        disposableHolder.disposeAll()
     }
 }

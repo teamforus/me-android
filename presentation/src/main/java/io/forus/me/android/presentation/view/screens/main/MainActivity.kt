@@ -2,13 +2,20 @@ package io.forus.me.android.presentation.view.screens.main
 
 
 import android.os.Bundle
+import android.util.Log
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.activity.BaseActivity
+import com.google.android.gms.common.ConnectionResult
+import com.google.android.gms.common.GoogleApiAvailability
+
+
 
 /**
  * Main application screen. This is the app entry point.
  */
 class MainActivity : BaseActivity() {
+
+    private val PLAY_SERVICES_RESOLUTION_REQUEST = 9000
 
     private val db = Injection.instance.databaseHelper
     private val settings = Injection.instance.settingsDataSource
@@ -17,6 +24,8 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(io.forus.me.android.presentation.R.layout.activity_main)
 
+        val isGooglePlayAvailable = checkPlayServices()
+        Log.d("GOOGLE_PLAY_AVAILABLE", isGooglePlayAvailable.toString())
 
         if(db.exists()){
             val locked = settings.isPinEnabled()
@@ -62,6 +71,21 @@ class MainActivity : BaseActivity() {
         val useFingerprint = settings.isFingerprintEnabled()
         this.navigator.navigateToDashboardPinlocked(this, useFingerprint)
         finish()
+    }
+
+    private fun checkPlayServices(): Boolean {
+        val googleAPI = GoogleApiAvailability.getInstance()
+        val result = googleAPI.isGooglePlayServicesAvailable(this)
+        if (result != ConnectionResult.SUCCESS) {
+            if (googleAPI.isUserResolvableError(result)) {
+                googleAPI.getErrorDialog(this, result,
+                        PLAY_SERVICES_RESOLUTION_REQUEST).show()
+            }
+
+            return false
+        }
+
+        return true
     }
 
 }

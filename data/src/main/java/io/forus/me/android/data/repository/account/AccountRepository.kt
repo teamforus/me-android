@@ -75,6 +75,10 @@ class AccountRepository(private val settingsDataSource: SettingsDataSource,
         }.toObservable().delay(50, TimeUnit.MILLISECONDS)
     }
 
+    override fun registerFCMToken(token: String): Observable<Boolean> {
+        return Observable.just(true)
+    }
+
     override fun unlockIdentity(pin: String): Observable<Boolean> {
         return Single.just(accountLocalDataSource.unlockIdentity(pin)).toObservable()
     }
