@@ -36,10 +36,20 @@
     <string name="restore_inloggen_via_email">Inloggen via e-mail</string>
     <string name="restore_inloggen_by_email">Bevestig</string>
     <string name="restore_email_description">Vul je e-mailadres in om inloggegevens te ontvangen</string>
-    <string name="restore_pincode_description">Vul deze code in op de webshop</string>
-    <string name="restore_email_instructions">Er is een e-mail naar je verstuurd.</string>
+    <string name="restore_pincode_description">Vul deze pincode in de webshop in, waar u al bent ingelogd.</string>
+    <string name="restore_pincode_how">Hoe werkt het?</string>
+    <string name="restore_email_instructions">Er is een e-mail verstuurd naar uw e-mailadres waarmee u opnieuw kunt inloggen.</string>
+    <string name="restore_email_not_found">Identity niet gevonden</string>
+    <string name="restore_email_invalid_link">Ongeldige link</string>
+    <string name="restore_pincode_instructions">This PIN should be activated in webshop</string>
 
     <!-- New account screen -->
+    <string name="new_account_field_email">E-mail</string>
+    <string name="new_account_field_email_repeat">Herhaal e-mail</string>
+    <string name="new_account_field_first_name">Voornaam</string>
+    <string name="new_account_field_last_name">Achternaam</string>
+    <string name="new_account_field_bsn">BSN</string>
+    <string name="new_account_field_phone">Telefoonnummer</string>
     <string name="new_account_title">Identiteit</string>
     <string name="new_account_subtitle">Vul onderstaande gegevens in om een identiteit aan te maken</string>
     <string name="new_account_error_already_in_use">E-mailadres is al in gebruik</string>
@@ -149,6 +159,7 @@
     <string name="vouchers_make_transaction_failure">Transactie mislukt</string>
     <string name="vouchers_transaction_payment">Betaling</string>
     <string name="vouchers_product_categories">Productcategorieën</string>
+    <string name="vouchers_amount_invalid">Ongeldige hoeveelheid</string>
     <string name="vouchers_pay_title">Voucher transactie</string>
     <string name="vouchers_pay_question">Weet je zeker dat je wilt belasten %1$s€?</string>
     <string name="vouchers_apply_question">Weet je zeker dat je wilt aanwenden voucher?</string>
