@@ -1,19 +1,28 @@
-image: jangrewe/gitlab-ci-android
-
-stages:
-- distribution
+image: javiersantos/android-ci:28.0.3
 
 before_script:
-- export GRADLE_USER_HOME=$(pwd)/.gradle
-- chmod +x ./gradlew
+    - export GRADLE_USER_HOME=`pwd`/.gradle
+    - chmod +x ./gradlew
 
 cache:
-  key: ${CI_PROJECT_ID}
+  key: "$CI_COMMIT_REF_NAME"
   paths:
-  - .gradle/
+     - .gradle/
 
-distribution:
-  stage: distribution
+stages:
+  - build
+
+#build:
+#  stage: build
+#  script:
+#    - cd presentation
+#    - ../gradlew assembleDebug
+##  artifacts:
+##    paths:
+##      - app/build/outputs/apk/
+
+build:
+  stage: build
   only:
   - development
   script:
