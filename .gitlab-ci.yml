@@ -2,8 +2,6 @@ image: openjdk:8-jdk
 
 stages:
   - build
- # - test
- # - package
 
 
 ####################################################################################################
@@ -54,23 +52,6 @@ build_release:
   script:
     - cd presenter
     - ./gradlew assembleRelease
-
-####################################################################################################
-# UNIT TESTING
-#
-
-#unit_test:
-#  stage: test
-#  only:
-#    - master
-#    - development
-#
-#  before_script:
-#    - export ANDROID_HOME=$PWD/.android
-#    - export PATH=$PATH:$PWD/.android/platform-tools/
-#
-#  script:
-#    - ./gradlew test
 
 
 ####################################################################################################
