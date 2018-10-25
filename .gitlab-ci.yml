@@ -19,7 +19,7 @@ build:
   stage: release
   script:
       - cd presentation
-      - ./gradlew clean assembleDebug
+      - ../gradlew clean assembleDebug
   artifacts:
       expire_in: 2 weeks
       paths:
