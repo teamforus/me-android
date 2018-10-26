@@ -9,10 +9,11 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import java.math.BigDecimal
 
 class ProviderPresenter constructor(private val vouchersRepository: VouchersRepository, private val address: String) : LRPresenter<VoucherProvider, ProviderModel, ProviderView>() {
 
-    private var amount = 0.0f
+    private var amount = BigDecimal.ZERO
     private var organizationId = 0L
 
     override fun initialModelSingle(): Single<VoucherProvider> = Single.fromObservable(vouchersRepository.getVoucherAsProvider(address))

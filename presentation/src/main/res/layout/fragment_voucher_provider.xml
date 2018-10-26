@@ -34,71 +34,84 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <RelativeLayout
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginRight="8dp"
-                        android:layout_marginBottom="12dp"
-                        android:background="@drawable/bg_card_surface"
+                    <android.support.v7.widget.CardView
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="8dp"
+                        app:cardCornerRadius="@dimen/card_radius"
+                        app:cardBackgroundColor="@color/brightBackground"
+                        app:cardElevation="@dimen/card_elevation_small"
                         android:layout_width="match_parent"
-                        android:layout_height="110dp">
+                        android:layout_height="100dp">
 
-                        <LinearLayout
-                            android:layout_marginEnd="140dp"
-                            android:orientation="vertical"
+                        <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="110dp"
-                            android:paddingStart="20dp">
+                            android:layout_height="match_parent">
 
-                            <io.forus.me.android.presentation.view.component.text.TextView
-                                android:id="@+id/name"
-                                style="@style/Headline6"
-                                app:type="medium"
-                                android:textColor="@color/forus_blue"
-                                android:paddingTop="16dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                tools:text="Kindpakket" />
+                            <LinearLayout
+                                android:layout_marginRight="140dp"
+                                android:layout_marginEnd="140dp"
+                                android:orientation="vertical"
+                                android:layout_width="match_parent"
+                                android:layout_height="100dp"
+                                android:paddingStart="16dp">
 
-                            <io.forus.me.android.presentation.view.component.text.TextView
-                                android:id="@+id/type"
-                                style="@style/BackToCaption"
-                                android:layout_marginTop="3dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                tools:text=" 10 dagen geldig" />
+                                <io.forus.me.android.presentation.view.component.text.TextView
+                                    android:id="@+id/tv_name"
+                                    style="@style/CardTitle4"
+                                    app:type="medium"
+                                    android:layout_marginTop="15dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    tools:text="Bike" />
 
-                            <io.forus.me.android.presentation.view.component.text.TextView
-                                android:id="@+id/value"
-                                style="@style/Subtitle"
-                                app:type="medium"
-                                android:textColor="@color/forus_blue"
-                                android:paddingTop="12dp"
-                                android:paddingBottom="12dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                tools:text="€ 456,66" />
+                                <io.forus.me.android.presentation.view.component.text.TextView
+                                    android:id="@+id/tv_organization"
+                                    style="@style/BackToCaption"
+                                    android:layout_marginTop="4dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    tools:text="Initflow" />
 
-                        </LinearLayout>
+                                <io.forus.me.android.presentation.view.component.text.TextView
+                                    android:id="@+id/tv_fund"
+                                    style="@style/Subtitle"
+                                    app:type="medium"
+                                    android:layout_marginTop="4dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    tools:text="Kindpakket" />
 
-                        <LinearLayout
-                            android:layout_width="140dp"
-                            android:layout_height="105dp"
-                            android:layout_marginTop="1dp"
-                            android:background="@drawable/bg_card_surface2"
-                            android:layout_alignParentEnd="true">
+                            </LinearLayout>
 
                             <io.forus.me.android.presentation.view.component.images.AutoLoadImageView
-                                android:id="@+id/btn_qr"
-                                android:layout_marginStart="17dp"
-                                android:layout_marginEnd="47dp"
+                                android:id="@+id/iv_icon"
+                                android:layout_alignParentTop="true"
+                                android:layout_alignParentEnd="true"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_marginLeft="17dp"
                                 android:layout_marginTop="17dp"
+                                android:layout_marginRight="17dp"
                                 android:layout_marginBottom="17dp"
-                                android:layout_width="76dp"
-                                android:layout_height="76dp" />
+                                android:src="@drawable/circle_empty" />
 
-                        </LinearLayout>
+                            <io.forus.me.android.presentation.view.component.text.TextView
+                                android:id="@+id/used"
+                                android:visibility="gone"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="17dp"
+                                android:layout_below="@+id/iv_icon"
+                                android:layout_alignParentEnd="true"
+                                style="@style/UsedVoucher"
+                                app:type="regular"
+                                android:text="@string/voucher_is_used" />
 
-                    </RelativeLayout>
+                        </RelativeLayout>
+
+                    </android.support.v7.widget.CardView>
 
                     <LinearLayout
                         android:orientation="vertical"
@@ -112,10 +125,18 @@
                         <io.forus.me.android.presentation.view.component.editors.EditTextOutlined
                             android:id="@+id/amount"
                             android:layout_marginTop="16dp"
-                            app:hint="Amount"
+                            app:hint="@string/vouchers_amount"
                             app:validationRegex="decimal"
                             app:validationError="@string/me_validation_error_decimal"
                             android:inputType="numberDecimal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <io.forus.me.android.presentation.view.component.editors.EditTextOutlined
+                            android:id="@+id/note"
+                            app:hint="@string/vouchers_note"
+                            app:validationRegex="none"
+                            android:inputType="textMultiLine"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
 

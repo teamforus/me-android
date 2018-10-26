@@ -166,6 +166,8 @@
     <string name="vouchers_make_transaction">Charge</string>
     <string name="vouchers_make_transaction_failure">Transaction failed</string>
     <string name="vouchers_transaction_payment">Payment</string>
+    <string name="vouchers_amount">Amount</string>
+    <string name="vouchers_note">Note</string>
     <string name="vouchers_product_categories">Product categories</string>
     <string name="vouchers_amount_invalid">Invalid amount</string>
     <string name="vouchers_pay_title">Voucher transaction</string>

@@ -6,6 +6,7 @@ import io.forus.me.android.domain.models.currency.Currency
 import io.forus.me.android.domain.models.vouchers.*
 import io.reactivex.Observable
 import java.lang.Exception
+import java.math.BigDecimal
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -29,6 +30,8 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
         }
         if(createdAt == null) createdAt = (if(voucher.createdAt != null) voucher.createdAt else (Date(voucher.timestamp * 1000)))
 
+        val description = if(isProduct) voucher.product.description else null
+
         val amount = voucher.amount ?: voucher.product.price
         val euro = Currency("€")
         val logoUrl = voucher.product?.photo?.sizes?.large
@@ -40,7 +43,7 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
         val transactions = if(voucher.transactions == null) emptyList()
                 else voucher.transactions.map { Transaction(it.address, Organization(it.organization.id, it.organization.name, it.organization?.logo?.sizes?.large ?: ""), euro, it.amount, it.createdAt) }
 
-        return Voucher(isProduct, isUsed, voucher.address, name, organizationName, createdAt!!, euro, amount, logoUrl, transactions)
+        return Voucher(isProduct, isUsed, voucher.address, name, organizationName, voucher.fund.name, description, createdAt!!, euro, amount, logoUrl, transactions)
     }
 
     private fun mapToProvider(voucher: io.forus.me.android.data.entity.vouchers.response.Voucher): VoucherProvider{
@@ -64,7 +67,7 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
         return vouchersDataSource.retrieveVoucherAsProvider(address).map { mapToProvider(it) }
     }
 
-    override fun makeTransaction(address: String, amount: Float, organizationId: Long): Observable<Boolean> {
+    override fun makeTransaction(address: String, amount: BigDecimal, organizationId: Long): Observable<Boolean> {
         return vouchersDataSource.makeTransaction(address, MakeTransaction(amount, organizationId)).map { true }
     }
 
