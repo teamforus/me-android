@@ -4,6 +4,7 @@ import io.forus.me.android.data.net.sign.SignService
 import com.gigawatt.android.data.net.sign.models.request.SignUp
 import io.forus.me.android.data.entity.sign.request.AuthorizeCode
 import io.forus.me.android.data.entity.sign.request.AuthorizeToken
+import io.forus.me.android.data.entity.sign.request.RegisterPush
 import io.forus.me.android.data.entity.sign.request.RestoreByEmail
 import io.forus.me.android.data.entity.sign.response.AccessToken
 import io.forus.me.android.data.entity.sign.response.IdentityPinResult
@@ -70,5 +71,9 @@ class AccountRemoteDataSource(f: () -> SignService): AccountDataSource, RemoteDa
 
     override fun restoreExchangeToken(token: String): Observable<AccessToken> {
         return service.restoreExchangeToken(token);
+    }
+
+    override fun registerPush(token: String): Observable<Boolean> {
+        return service.registerPush(RegisterPush(token)). map { it.success }
     }
 }

@@ -4,6 +4,7 @@ import com.gigawatt.android.data.net.sign.models.request.SignUp
 import io.forus.me.android.data.entity.common.Success
 import io.forus.me.android.data.entity.sign.request.AuthorizeCode
 import io.forus.me.android.data.entity.sign.request.AuthorizeToken
+import io.forus.me.android.data.entity.sign.request.RegisterPush
 import io.forus.me.android.data.entity.sign.request.RestoreByEmail
 import io.forus.me.android.data.entity.sign.response.*
 import io.reactivex.Observable
@@ -44,5 +45,8 @@ interface SignService {
 
     @GET("api/v1/identity/proxy/check-token")
     fun checkToken(@Query("access_token") token: String): Observable<CheckTokenResult>
+
+    @POST("api/v1/platform/devices/register-push")
+    fun registerPush(@Body token: RegisterPush): Observable<Success>
 
 }

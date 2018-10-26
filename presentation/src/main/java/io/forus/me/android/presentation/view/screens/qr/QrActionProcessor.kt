@@ -98,7 +98,7 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
                     }
                 }
                 .onErrorReturn {
-                    //Log.e("QR_ACTION", "scan voucher", it)
+                    Log.e("QR_ACTION", "scan voucher_error", it)
                     if(scanner.hasWindowFocus())
                         ScanVoucherNotEligibleDialog(scanner, reactivateDecoding).show()
                 }

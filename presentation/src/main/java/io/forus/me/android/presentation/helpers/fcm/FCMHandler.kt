@@ -38,7 +38,7 @@ class FCMHandler(private val accountRepository: AccountRepository, private val s
                     Unit
                 }
                 .onErrorReturn {
-                    Log.d("FCM_TOKEN_REGISTER_ERR", it.message)
+                    Log.e("FCM_TOKEN_REGISTER_ERR", it.message)
                 }
     }
 

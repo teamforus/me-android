@@ -76,7 +76,7 @@ class AccountRepository(private val settingsDataSource: SettingsDataSource,
     }
 
     override fun registerFCMToken(token: String): Observable<Boolean> {
-        return Observable.error(NotImplementedError("Not implemented yet"))
+        return accountRemoteDataSource.registerPush(token)
     }
 
     override fun unlockIdentity(pin: String): Observable<Boolean> {

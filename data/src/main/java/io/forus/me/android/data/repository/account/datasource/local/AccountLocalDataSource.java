@@ -89,6 +89,12 @@ public class AccountLocalDataSource implements AccountDataSource, LocalDataSourc
         return null;
     }
 
+    @NotNull
+    @Override
+    public Observable<Boolean> registerPush(@NotNull String token) {
+        return null;
+    }
+
     @Override
     public void saveIdentity(@NotNull String token, @NotNull String pin) {
         Database db = DatabaseManager.Companion.getInstance();

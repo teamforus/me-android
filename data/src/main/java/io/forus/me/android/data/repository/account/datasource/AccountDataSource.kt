@@ -33,6 +33,9 @@ interface AccountDataSource {
     fun authorizeToken(token: String): Observable<Boolean>
 
 
+    fun registerPush(token: String): Observable<Boolean>
+
+
     fun saveIdentity(token: String, pin: String)
 
 
