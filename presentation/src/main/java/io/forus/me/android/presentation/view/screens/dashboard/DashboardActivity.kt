@@ -11,8 +11,9 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.helpers.reactivex.DisposableHolder
 import io.forus.me.android.presentation.internal.Injection
-import io.forus.me.android.presentation.view.activity.CommonActivity
+import io.forus.me.android.presentation.view.activity.SlidingPanelActivity
 import io.forus.me.android.presentation.view.adapters.MainViewPagerAdapter
+import io.forus.me.android.presentation.view.fragment.QrFragment
 import io.forus.me.android.presentation.view.screens.account.account.AccountFragment
 import io.forus.me.android.presentation.view.screens.vouchers.list.VouchersFragment
 import io.reactivex.Single
@@ -21,7 +22,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_dashboard.*
 
 
-class DashboardActivity : CommonActivity() {
+class DashboardActivity : SlidingPanelActivity() {
 
     private var currentFragment: android.support.v4.app.Fragment? = null
     private var currentPagerPosition = 0
@@ -184,5 +185,9 @@ class DashboardActivity : CommonActivity() {
     override fun onDestroy() {
         super.onDestroy()
         disposableHolder.disposeAll()
+    }
+
+    fun showPopupQRFragment(address: String){
+        addPopupFragment(QrFragment.newIntent(address), "QR code")
     }
 }

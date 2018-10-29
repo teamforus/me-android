@@ -1,5 +1,7 @@
 package io.forus.me.android.presentation.view.screens.vouchers.item
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +16,7 @@ import kotlinx.android.synthetic.main.fragment_voucher.*
 import android.support.v7.widget.LinearLayoutManager
 import io.forus.me.android.domain.models.qr.QrCode
 import io.forus.me.android.presentation.view.screens.vouchers.item.transactions.TransactionsAdapter
+import kotlinx.android.synthetic.main.toolbar_view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -40,6 +43,12 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPres
     override val allowBack: Boolean
         get() = true
 
+    override val showAccount: Boolean
+        get() = false
+
+    override val showInfo: Boolean
+        get() = true
+
     override fun viewForSnackbar(): View = root
 
     override fun loadRefreshPanel() = lr_panel
@@ -57,14 +66,16 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPres
         rv_transactions.layoutManager = LinearLayoutManager(context)
         rv_transactions.adapter = adapter
 
-//        btn_info.setOnClickListener {
-//            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.zuidhorn.nl/kindpakket"))
-//            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-//            startActivity(intent)
-//        }
+        info_button.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.zuidhorn.nl/kindpakket"))
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
+        }
 
-        btn_qr.setOnClickListener {
-            (activity as? VoucherActivity)?.showPopupQRFragment(QrCode(QrCode.Type.VOUCHER, address).toJson())
+        val qrEncoded = QrCode(QrCode.Type.VOUCHER, address).toJson()
+        iv_qr_icon.setQRText(qrEncoded)
+        iv_qr_icon.setOnClickListener {
+            (activity as? VoucherActivity)?.showPopupQRFragment(qrEncoded)
         }
     }
 
@@ -78,12 +89,9 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPres
     override fun render(vs: LRViewState<VoucherModel>) {
         super.render(vs)
 
-        used.visibility = if(vs.model.item != null && vs.model.item.isProduct && vs.model.item.isUsed) View.VISIBLE else View.GONE
-
         name.text = vs.model.item?.name
         type.text = vs.model.item?.organizationName
         value.text = "${vs.model.item?.currency?.name} ${vs.model.item?.amount?.toDouble().format(2)}"
-        iv_icon.setImageUrl(vs.model.item?.logo)
 
         if(vs.model.item != null){
             adapter.transactions = vs.model.item.transactions

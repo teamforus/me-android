@@ -67,6 +67,7 @@
     <string name="passcode_title_confirm">Confirm Passcode</string>
     <string name="passcode_title_create_identity_wait">Please wait</string>
     <string name="passcode_subtitle_create">Enter 4-digit passcode</string>
+    <string name="passcode_subtitle_confirm">Confirm 4-digit passcode</string>
     <string name="passcode_subtitle_create_not_match">Passwords don\'t match. Please try again</string>
     <string name="passcode_subtitle_create_identity">Creating identity</string>
     <string name="passcode_subtitle_change_error">Something went wrong :(</string>
@@ -104,6 +105,7 @@
     <string name="profile_use_fingerprint">Use fingerprint</string>
     <string name="profile_change_4digit">Change 4-digit passcode</string>
     <string name="profile_logout">Logout</string>
+    <string name="profile_button_show_qr">My QR-code</string>
 
     <!-- New record screen -->
     <string name="new_record_title">New Record</string>

@@ -116,17 +116,22 @@ class AccountRepository(private val settingsDataSource: SettingsDataSource,
     }
 
     override fun getAccount(): Observable<Account> {
-        return recordsRepository.getRecords().map {
+        return Observable.zip(
+                recordsRepository.getRecords(),
+                accountRemoteDataSource.getIdentity(),
+                BiFunction{ records, identity ->
 
-            val account = Account()
-            val email = com.annimon.stream.Stream.of(it).filter { x->x.recordType.key == "primary_email" }.findFirst()
-            val givanName = com.annimon.stream.Stream.of(it).filter { x->x.recordType.key == "given_name" }.findFirst()
-            val familyName = com.annimon.stream.Stream.of(it).filter { x->x.recordType.key == "family_name" }.findFirst()
-            account.name = (if (givanName.isPresent) "${givanName.get().value} " else "") + (if (familyName.isPresent) "${familyName.get().value}" else "")
-            account.email = if (email.isPresent) email.get().value else ""
+                    val account = Account()
+                    val email = com.annimon.stream.Stream.of(records).filter { x->x.recordType.key == "primary_email" }.findFirst()
+                    val givanName = com.annimon.stream.Stream.of(records).filter { x->x.recordType.key == "given_name" }.findFirst()
+                    val familyName = com.annimon.stream.Stream.of(records).filter { x->x.recordType.key == "family_name" }.findFirst()
+                    account.name = (if (givanName.isPresent) "${givanName.get().value} " else "") + (if (familyName.isPresent) "${familyName.get().value}" else "")
+                    account.email = if (email.isPresent) email.get().value else ""
+                    account.address = identity.address
 
-            account
-        }
+                    account
+                }
+        )
     }
 
     override fun getSecurityOptions(): Observable<SecurityOptions> {

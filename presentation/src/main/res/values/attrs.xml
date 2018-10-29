@@ -74,4 +74,8 @@
         <attr name="offColor" format="integer"/>
     </declare-styleable>
 
+    <declare-styleable name="QRButtonAttrs">
+        <attr name="android:text"/>
+    </declare-styleable>
+
 </resources>

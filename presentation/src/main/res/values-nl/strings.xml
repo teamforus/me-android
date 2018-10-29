@@ -60,6 +60,7 @@
     <string name="passcode_title_confirm">Bevestig inlogcode</string>
     <string name="passcode_title_create_identity_wait">Even geduld alsjeblieft</string>
     <string name="passcode_subtitle_create">Beveilig je identiteit door een inlogcode aan te maken</string>
+    <string name="passcode_subtitle_confirm">Beveilig je identiteit door een inlogcode aan te maken</string>
     <string name="passcode_subtitle_create_not_match">Inlogcodes komen niet overeen. Probeer het opnieuw.</string>
     <string name="passcode_subtitle_create_identity">Identiteit toevoegen</string>
     <string name="passcode_subtitle_change_error">Er is iets fout gegaan :(</string>
@@ -96,6 +97,7 @@
     <string name="profile_use_pinlock">Gebruik een inlogcode</string>
     <string name="profile_change_4digit">Inlogcode wijzigen</string>
     <string name="profile_logout">Log uit</string>
+    <string name="profile_button_show_qr">Toon QR-code</string>
 
     <!-- New record screen -->
     <string name="new_record_title">Nieuwe eigenschap</string>

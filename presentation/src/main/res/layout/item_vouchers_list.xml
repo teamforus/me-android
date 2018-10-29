@@ -24,7 +24,6 @@
 
 
         <LinearLayout
-            android:layout_marginEnd="60dp"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -50,16 +49,33 @@
                 tools:text=" 10 dagen geldig"
                 />
 
-            <io.forus.me.android.presentation.view.component.text.TextView
-                android:id="@+id/value"
-                android:layout_marginTop="6dp"
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16.1sp"
-                android:textColor="@color/darkGrey_Text_1"
-                tools:text="€ 456,66"
-                app:type="bold"
-                />
+                android:layout_marginTop="6dp">
+
+                <io.forus.me.android.presentation.view.component.text.TextView
+                    android:id="@+id/value"
+                    android:layout_centerVertical="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16.1sp"
+                    android:textColor="@color/darkGrey_Text_1"
+                    tools:text="€ 456,66"
+                    app:type="bold"
+                    />
+
+                <io.forus.me.android.presentation.view.component.text.TextView
+                    android:id="@+id/used"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/UsedVoucher"
+                    app:type="regular"
+                    android:text="@string/voucher_is_used" />
+
+            </RelativeLayout>
 
         </LinearLayout>
 
@@ -71,18 +87,6 @@
             android:layout_alignParentEnd="true"
             android:layout_width="40dp"
             android:layout_height="40dp" />
-
-
-        <io.forus.me.android.presentation.view.component.text.TextView
-            android:id="@+id/used"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/logo"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="20dp"
-            style="@style/UsedVoucher"
-            app:type="regular"
-            android:text="@string/voucher_is_used" />
 
     </RelativeLayout>
 

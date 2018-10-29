@@ -36,6 +36,9 @@ interface AccountDataSource {
     fun registerPush(token: String): Observable<Boolean>
 
 
+    fun getIdentity(): Observable<Account>
+
+
     fun saveIdentity(token: String, pin: String)
 
 

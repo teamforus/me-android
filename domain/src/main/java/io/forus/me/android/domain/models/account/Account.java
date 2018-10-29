@@ -1,15 +1,12 @@
 package io.forus.me.android.domain.models.account;
 
-import com.google.gson.annotations.SerializedName;
-
 public class Account {
 
-    @SerializedName("email")
     private String email;
 
-    @SerializedName("name")
     private String name;
 
+    private String address;
 
     public String getEmail() {
         return email;
@@ -25,5 +22,13 @@ public class Account {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }
