@@ -43,7 +43,7 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
         val transactions = if(voucher.transactions == null) emptyList()
                 else voucher.transactions.map { Transaction(it.address, Organization(it.organization.id, it.organization.name, it.organization?.logo?.sizes?.large ?: ""), euro, it.amount, it.createdAt) }
 
-        return Voucher(isProduct, isUsed, voucher.address, name, organizationName, voucher.fund.name, description, createdAt!!, euro, amount, logoUrl, transactions)
+        return Voucher(isProduct, isUsed, voucher.address ?: "", name, organizationName, voucher.fund.name, description, createdAt!!, euro, amount, logoUrl, transactions)
     }
 
     private fun mapToProvider(voucher: io.forus.me.android.data.entity.vouchers.response.Voucher): VoucherProvider{
