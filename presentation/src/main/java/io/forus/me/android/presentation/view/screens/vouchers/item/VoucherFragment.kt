@@ -1,21 +1,21 @@
 package io.forus.me.android.presentation.view.screens.vouchers.item
 
 import android.content.Intent
+import android.graphics.BlurMaskFilter
 import android.net.Uri
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import io.forus.me.android.presentation.view.base.lr.LRViewState
-
+import io.forus.me.android.domain.models.qr.QrCode
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.helpers.format
 import io.forus.me.android.presentation.internal.Injection
+import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
-import kotlinx.android.synthetic.main.fragment_voucher.*
-import android.support.v7.widget.LinearLayoutManager
-import io.forus.me.android.domain.models.qr.QrCode
 import io.forus.me.android.presentation.view.screens.vouchers.item.transactions.TransactionsAdapter
+import kotlinx.android.synthetic.main.fragment_voucher.*
 import kotlinx.android.synthetic.main.toolbar_view.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -98,6 +98,28 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPres
             tv_transactions_title.text = resources.getText(if(vs.model.item.transactions.isEmpty()) R.string.vouchers_transactions_empty else R.string.vouchers_transactions)
             tv_created.text = resources.getString(R.string.voucher_created, dateFormat.format(vs.model.item.createdAt))
         }
+    }
+
+    fun blurBackground(){
+
+        name.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
+        type.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
+        value.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
+
+        value.paint.maskFilter = BlurMaskFilter(value.textSize / 4, BlurMaskFilter.Blur.NORMAL)
+        name.paint.maskFilter = BlurMaskFilter(name.textSize / 4, BlurMaskFilter.Blur.NORMAL)
+        type.paint.maskFilter = BlurMaskFilter(type.textSize / 4, BlurMaskFilter.Blur.NORMAL)
+    }
+
+    fun unblurBackground(){
+
+        name.setLayerType(View.LAYER_TYPE_NONE, null)
+        type.setLayerType(View.LAYER_TYPE_NONE, null)
+        value.setLayerType(View.LAYER_TYPE_NONE, null)
+
+        value.paint.maskFilter = null
+        name.paint.maskFilter = null
+        type.paint.maskFilter = null
     }
 }
 
