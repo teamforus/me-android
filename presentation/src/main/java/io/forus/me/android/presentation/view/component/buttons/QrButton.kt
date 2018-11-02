@@ -38,6 +38,13 @@ class QrButton : FrameLayout {
 
         val fontType = FontType.Regular
         btn_qr.typeface = FontCache.getTypeface(fontType.getFontPath(), context)
+
+        val ta = context.obtainStyledAttributes(attrs, R.styleable.QRButtonAttrs, 0, 0)
+        if(ta.hasValue(R.styleable.QRButtonAttrs_android_text)){
+            val text = ta.getString(R.styleable.QRButtonAttrs_android_text)
+            qr_click.text = text
+        }
+        ta.recycle()
     }
 
     override fun setOnClickListener(l: OnClickListener?) {

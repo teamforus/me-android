@@ -4,6 +4,8 @@ import io.forus.me.android.presentation.view.base.lr.LRPresenter
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.base.lr.PartialChange
 import io.forus.me.android.domain.repository.account.AccountRepository
+import io.forus.me.android.presentation.internal.Injection
+import io.forus.me.android.presentation.view.base.lr.LRPartialChange
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -37,11 +39,15 @@ class PinLockPresenter constructor(private val accountRepository: AccountReposit
                             accountRepository.exitIdentity()
                                     .subscribeOn(Schedulers.io())
                                     .observeOn(AndroidSchedulers.mainThread())
-                                    .map<PartialChange> {
-                                        PinLockPartialChanges.Exit(Unit)
+                                    .flatMap<PartialChange> {
+                                        Injection.instance.fcmHandler.clearFCMToken()
+                                                .subscribeOn(Schedulers.io())
+                                                .observeOn(AndroidSchedulers.mainThread())
+                                                .map<PartialChange> { PinLockPartialChanges.Exit(Unit) }
+                                                .onErrorReturn { LRPartialChange.LoadingError(it) }
                                     }
                                     .onErrorReturn {
-                                        PinLockPartialChanges.Exit(Unit)
+                                        LRPartialChange.LoadingError(it)
                                     }
                         },
 

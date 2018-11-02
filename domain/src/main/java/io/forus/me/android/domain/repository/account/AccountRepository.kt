@@ -29,6 +29,9 @@ interface AccountRepository {
     fun createIdentity(identity: Identity): Observable<Boolean>
 
 
+    fun registerFCMToken(token: String): Observable<Boolean>
+
+
     fun unlockIdentity(pin: String): Observable<Boolean>
 
 

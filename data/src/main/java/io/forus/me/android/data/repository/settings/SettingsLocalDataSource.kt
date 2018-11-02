@@ -13,4 +13,10 @@ class SettingsLocalDataSource(private val settings: SettingsDataSource): Setting
     override fun getPin(): String = settings.getPin()
 
     override fun setPin(pin: String): Boolean = settings.setPin(pin)
+
+    override fun setFCMToken(token: String): Boolean = settings.setFCMToken(token)
+
+    override fun getFCMToken(): String = settings.getFCMToken()
+
+    override fun updateFCMToken(): Boolean = settings.updateFCMToken()
 }

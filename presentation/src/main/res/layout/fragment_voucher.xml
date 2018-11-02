@@ -10,7 +10,6 @@
     android:layout_height="match_parent">
 
     <android.support.design.widget.CoordinatorLayout
-        android:layout_marginBottom="60dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -49,8 +48,7 @@
                             android:layout_height="match_parent">
 
                             <LinearLayout
-                                android:layout_marginRight="140dp"
-                                android:layout_marginEnd="140dp"
+                                android:layout_marginEnd="114dp"
                                 android:orientation="vertical"
                                 android:layout_width="match_parent"
                                 android:layout_height="100dp"
@@ -73,39 +71,49 @@
                                     android:layout_height="wrap_content"
                                     tools:text="Initflow" />
 
-                                <io.forus.me.android.presentation.view.component.text.TextView
-                                    android:id="@+id/value"
-                                    style="@style/Subtitle"
-                                    app:type="medium"
-                                    android:layout_marginTop="4dp"
+                                <RelativeLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    tools:text="€ 456,66" />
+                                    android:layout_marginTop="4dp">
+
+                                    <io.forus.me.android.presentation.view.component.text.TextView
+                                        android:id="@+id/value"
+                                        android:layout_centerVertical="true"
+                                        style="@style/Subtitle"
+                                        app:type="medium"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        tools:text="€ 456,66" />
+
+                                    <io.forus.me.android.presentation.view.component.text.TextView
+                                        android:id="@+id/used"
+                                        android:visibility="gone"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        style="@style/UsedVoucher"
+                                        app:type="regular"
+                                        android:text="@string/voucher_is_used" />
+
+                                </RelativeLayout>
 
                             </LinearLayout>
 
-                            <io.forus.me.android.presentation.view.component.images.AutoLoadImageView
-                                android:id="@+id/iv_icon"
+                            <io.forus.me.android.presentation.view.component.images.QRCodeImageView
+                                android:id="@+id/iv_qr_icon"
+                                app:onColor="@android:color/black"
+                                app:offColor="@android:color/white"
+                                android:foreground="?selectableItemBackground"
                                 android:layout_alignParentTop="true"
                                 android:layout_alignParentEnd="true"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
                                 android:layout_marginLeft="17dp"
-                                android:layout_marginTop="17dp"
+                                android:layout_marginTop="10dp"
                                 android:layout_marginRight="17dp"
-                                android:layout_marginBottom="17dp"
+                                android:layout_marginBottom="10dp"
                                 android:src="@drawable/circle_empty" />
-
-                            <io.forus.me.android.presentation.view.component.text.TextView
-                                android:id="@+id/used"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="17dp"
-                                android:layout_below="@+id/iv_icon"
-                                android:layout_alignParentEnd="true"
-                                style="@style/UsedVoucher"
-                                app:type="regular"
-                                android:text="@string/voucher_is_used" />
 
                         </RelativeLayout>
 
@@ -160,6 +168,7 @@
 
     <io.forus.me.android.presentation.view.component.buttons.QrButton
         android:id="@+id/btn_qr"
+        android:visibility="gone"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

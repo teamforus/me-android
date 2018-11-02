@@ -31,6 +31,7 @@ import io.forus.me.android.presentation.DatabaseHelper
 import io.forus.me.android.presentation.helpers.AppSettings
 import io.forus.me.android.presentation.helpers.reactivex.AccessTokenChecker
 import io.forus.me.android.presentation.qr.QrDecoder
+import io.forus.me.android.presentation.helpers.fcm.FCMHandler
 
 class Injection private constructor() {
 
@@ -140,4 +141,7 @@ class Injection private constructor() {
         return@lazy QrDecoder()
     }
 
+    val fcmHandler: FCMHandler by lazy {
+        return@lazy FCMHandler(accountRepository, settingsDataSource)
+    }
 }

@@ -19,6 +19,7 @@ import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_voucher_provider.*
 import kotlinx.android.synthetic.main.view_organization.*
+import java.math.BigDecimal
 
 class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, ProviderPresenter>(), ProviderView{
 
@@ -45,8 +46,8 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
 
     override fun loadRefreshPanel() = lr_panel
 
-    private val selectAmount = PublishSubject.create<Float>()
-    override fun selectAmount(): Observable<Float> = selectAmount
+    private val selectAmount = PublishSubject.create<BigDecimal>()
+    override fun selectAmount(): Observable<BigDecimal> = selectAmount
 
     private val submit = PublishSubject.create<Boolean>()
     override fun submit(): Observable<Boolean> = submit
@@ -71,12 +72,12 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if(!amount.validate()) selectAmount.onNext(Float.NaN)
+                if(!amount.validate()) selectAmount.onNext(BigDecimal.ZERO)
                 try{
-                    selectAmount.onNext(s.toString().toFloat())
+                    selectAmount.onNext(BigDecimal(s.toString()))
                 }
                 catch(e: Exception){
-                    selectAmount.onNext(Float.NaN)
+                    selectAmount.onNext(BigDecimal.ZERO)
                 }
             }
         })
@@ -92,10 +93,13 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
     override fun render(vs: LRViewState<ProviderModel>) {
         super.render(vs)
 
-        name.text = vs.model.item?.voucher?.name
-        type.text = vs.model.item?.voucher?.organizationName
-        value.text = "${vs.model.item?.voucher?.currency?.name} ${vs.model.item?.voucher?.amount?.toDouble().format(2)}"
-        btn_qr.setImageUrl(vs.model.item?.voucher?.logo)
+        amount.visibility = if(vs.model.item?.voucher?.isProduct == true) View.GONE else View.VISIBLE
+        note.visibility = if(vs.model.item?.voucher?.isProduct == true) View.GONE else View.VISIBLE
+
+        tv_name.text = vs.model.item?.voucher?.name
+        tv_organization.text = vs.model.item?.voucher?.organizationName
+        iv_icon.setImageUrl(vs.model.item?.voucher?.logo)
+
 
         if(vs.model.selectedOrganization != null){
             tv_organization_name.text = vs.model.selectedOrganization.name
@@ -105,6 +109,10 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
 
         if(vs.model.item != null) {
             categoriesAdapter.items = vs.model.item.allowedProductCategories
+
+            if(vs.model.item.voucher.isProduct){
+                tv_fund.text = vs.model.item.voucher.fundName
+            }
         }
 
         btn_make.active = vs.model.buttonIsActive
@@ -114,7 +122,7 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
         }
 
 
-        if(!vs.model.selectedAmount.isNaN() && !vs.model.amountIsValid) amount.setError(resources.getString(R.string.vouchers_amount_invalid))
+        if(!(vs.model.selectedAmount == BigDecimal.ZERO) && !vs.model.amountIsValid) amount.setError(resources.getString(R.string.vouchers_amount_invalid))
 
         if(vs.model.makeTransactionError != null){
             val error: Throwable = vs.model.makeTransactionError
@@ -125,7 +133,7 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
         if(vs.closeScreen) closeScreen()
     }
 
-    private fun payDialog(isProduct: Boolean?, amount: Float){
+    private fun payDialog(isProduct: Boolean?, amount: BigDecimal){
         PayDialog(context!!, isProduct != null && isProduct, amount) {
             submit.onNext(true)
         }

@@ -24,6 +24,15 @@ public class Voucher {
     @SerializedName("created_at")
     private Date createdAt;
 
+    @SerializedName("created_at_locale")
+    private String createdAtLocale;
+
+    @SerializedName("expire_at_locale")
+    private String expireAtLocale;
+
+    @SerializedName("timestamp")
+    private Long timestamp;
+
     @SerializedName("type")
     private Type type;
 
@@ -50,11 +59,14 @@ public class Voucher {
 
     public Voucher() { }
 
-    public Voucher(Long fundId, String identityAddress, String address, Date createdAt, Type type, Product product, BigDecimal amount, Fund fund, List<Transaction> transactions, List<Organization> allowedOrganizations, List<ProductCategory> allowedProductCategories, List<Product> allowedProducts) {
+    public Voucher(Long fundId, String identityAddress, String address, Date createdAt, String createdAtLocale, String expireAtLocale, Long timestamp, Type type, Product product, BigDecimal amount, Fund fund, List<Transaction> transactions, List<Organization> allowedOrganizations, List<ProductCategory> allowedProductCategories, List<Product> allowedProducts) {
         this.fundId = fundId;
         this.identityAddress = identityAddress;
         this.address = address;
         this.createdAt = createdAt;
+        this.createdAtLocale = createdAtLocale;
+        this.expireAtLocale = expireAtLocale;
+        this.timestamp = timestamp;
         this.type = type;
         this.product = product;
         this.amount = amount;
@@ -95,6 +107,30 @@ public class Voucher {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getCreatedAtLocale() {
+        return createdAtLocale;
+    }
+
+    public void setCreatedAtLocale(String createdAtLocale) {
+        this.createdAtLocale = createdAtLocale;
+    }
+
+    public String getExpireAtLocale() {
+        return expireAtLocale;
+    }
+
+    public void setExpireAtLocale(String expireAtLocale) {
+        this.expireAtLocale = expireAtLocale;
+    }
+
+    public Long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Long timestamp) {
+        this.timestamp = timestamp;
     }
 
     public Type getType() {

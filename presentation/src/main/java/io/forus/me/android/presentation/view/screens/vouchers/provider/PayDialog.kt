@@ -3,10 +3,11 @@ package io.forus.me.android.presentation.view.screens.vouchers.provider
 import android.content.Context
 import com.afollestad.materialdialogs.MaterialDialog
 import io.forus.me.android.presentation.R
+import java.math.BigDecimal
 
 class PayDialog(private val context: Context,
                               private val isProduct: Boolean,
-                              private val amount: Float,
+                              private val amount: BigDecimal,
                               private val positiveCallback: () -> Unit) {
 
     private val dialog: MaterialDialog = MaterialDialog.Builder(context)
