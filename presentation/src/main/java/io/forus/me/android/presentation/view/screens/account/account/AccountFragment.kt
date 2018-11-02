@@ -6,14 +6,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import io.forus.me.android.domain.models.qr.QrCode
 import io.forus.me.android.presentation.BuildConfig
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.helpers.SystemServices
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.models.ChangePinMode
 import io.forus.me.android.presentation.view.activity.BaseActivity
+import io.forus.me.android.presentation.view.activity.SlidingPanelActivity
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
+import io.forus.me.android.presentation.view.screens.dashboard.DashboardActivity
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_account_details.*
@@ -96,6 +99,12 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
                 switchFingerprint.onNext(!vs.model.fingerprintEnabled)
             }
             else showToastMessage(resources.getString(R.string.lock_no_fingerprints))
+        }
+
+        if(vs.model.account?.address != null){
+            btn_qr.setOnClickListener {
+                (activity as? DashboardActivity)?.showPopupQRFragment(QrCode(QrCode.Type.P2P_IDENTITY, vs.model.account.address).toJson())
+            }
         }
 
         if (vs.model.navigateToWelcome) {

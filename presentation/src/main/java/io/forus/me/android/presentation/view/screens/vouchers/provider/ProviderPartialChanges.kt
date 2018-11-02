@@ -1,10 +1,11 @@
 package io.forus.me.android.presentation.view.screens.vouchers.provider
 
 import io.forus.me.android.presentation.view.base.lr.PartialChange
+import java.math.BigDecimal
 
 sealed class ProviderPartialChanges : PartialChange {
 
-    data class SetAmount(val amount: Float) : ProviderPartialChanges()
+    data class SetAmount(val amount: BigDecimal) : ProviderPartialChanges()
 
     class MakeTransactionStart : ProviderPartialChanges()
 

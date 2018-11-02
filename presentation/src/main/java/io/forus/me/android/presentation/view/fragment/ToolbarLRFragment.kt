@@ -27,6 +27,10 @@ abstract class ToolbarLRFragment<M, V : LRView<M>, P : MviBasePresenter<V, LRVie
         get() = true
 
 
+    open val showInfo: Boolean
+        get() = false
+
+
     protected open val allowBack: Boolean
         get() = false
 
@@ -80,6 +84,8 @@ abstract class ToolbarLRFragment<M, V : LRView<M>, P : MviBasePresenter<V, LRVie
 
         if (!showAccount)
             profile_button.visibility = View.INVISIBLE
+
+        info_button.visibility = if(showInfo) View.VISIBLE else View.INVISIBLE
 
     }
 

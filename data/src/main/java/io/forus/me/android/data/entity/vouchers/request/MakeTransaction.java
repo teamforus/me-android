@@ -2,10 +2,12 @@ package io.forus.me.android.data.entity.vouchers.request;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.math.BigDecimal;
+
 public class MakeTransaction {
 
     @SerializedName("amount")
-    private Float amount;
+    private BigDecimal amount;
 
     @SerializedName("organization_id")
     private Long organizationId;
@@ -13,16 +15,16 @@ public class MakeTransaction {
     public MakeTransaction() {
     }
 
-    public MakeTransaction(Float amount, Long organizationId) {
+    public MakeTransaction(BigDecimal amount, Long organizationId) {
         this.amount = amount;
         this.organizationId = organizationId;
     }
 
-    public Float getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(Float amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 

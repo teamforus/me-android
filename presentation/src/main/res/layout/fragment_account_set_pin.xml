@@ -49,15 +49,15 @@
 
         <View
             android:background="@color/secondary200"
-            android:layout_marginTop="18dp"
-            android:layout_marginBottom="32dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="15dp"
             android:layout_width="match_parent"
             android:layout_height="2dp"/>
 
         <io.forus.me.android.presentation.view.component.pinlock.IndicatorDots
             android:id="@+id/indicator_dots"
             android:gravity="center_horizontal"
-            android:layout_marginBottom="37dp"
+            android:layout_marginBottom="28dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
@@ -81,7 +81,7 @@
                 app:keypadTextColor="@color/forus_blue"
                 app:keypadTextSize="34sp"
                 app:keypadButtonSize="72dp"
-                app:keypadVerticalSpacing="24dp"
+                app:keypadVerticalSpacing="12dp"
                 app:keypadHorizontalSpacing="36dp"
                 app:keypadDeleteButtonDrawable="@drawable/ic_del"
                 app:keypadDeleteButtonSize="34dp"

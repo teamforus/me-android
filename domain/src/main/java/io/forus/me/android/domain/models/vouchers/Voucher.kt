@@ -16,6 +16,10 @@ class Voucher {
 
     var organizationName: String
 
+    var fundName: String
+
+    var description: String?
+
     var createdAt: Date
 
     var currency: Currency
@@ -26,12 +30,14 @@ class Voucher {
 
     var transactions: List<Transaction>
 
-    constructor(isProduct: Boolean, isUsed: Boolean, address: String, name: String, organizationName: String, createdAt: Date, currency: Currency, amount: BigDecimal, logo: String, transactions: List<Transaction>) {
+    constructor(isProduct: Boolean, isUsed: Boolean, address: String, name: String, organizationName: String, fundName: String, description: String?, createdAt: Date, currency: Currency, amount: BigDecimal, logo: String, transactions: List<Transaction>) {
         this.isProduct = isProduct
         this.isUsed = isUsed
         this.address = address
         this.name = name
         this.organizationName = organizationName
+        this.fundName = fundName
+        this.description = description
         this.createdAt = createdAt
         this.currency = currency
         this.amount = amount
@@ -39,8 +45,7 @@ class Voucher {
         this.transactions = transactions
     }
 
-
-//    fun getValidString() : String {
+    //    fun getValidString() : String {
 //        return "Nog $validDays dagen geldig Valid"
 //    }
 }

@@ -16,6 +16,7 @@
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
         android:textSize="14sp"
+        android:textAllCaps="false"
         android:text="@string/voucher_button_show_qr"
         android:textColor="@color/forus_blue"
         android:layout_marginLeft="6dp"

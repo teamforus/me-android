@@ -60,12 +60,23 @@
         <io.forus.me.android.presentation.view.component.images.AutoLoadImageView
             android:id="@+id/profile_button"
             android:src="@drawable/ic_person"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
             android:layout_width="@dimen/a11y_min_touch_target"
             android:layout_height="@dimen/a11y_min_touch_target"
             android:layout_gravity="center_vertical|start"
-            android:foreground="?selectableItemBackground"
+            android:foreground="?actionBarItemBackground"
             android:padding="@dimen/spacing_micro" />
+
+        <io.forus.me.android.presentation.view.component.images.AutoLoadImageView
+            android:id="@+id/info_button"
+            android:visibility="invisible"
+            android:layout_width="@dimen/a11y_min_touch_target"
+            android:layout_height="@dimen/a11y_min_touch_target"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:foreground="?actionBarItemBackground"
+            android:padding="@dimen/spacing_micro"
+            android:src="@drawable/ic_info_outline_24px" />
 
 
     </android.support.design.widget.CollapsingToolbarLayout>
