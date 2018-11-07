@@ -33,7 +33,7 @@ class SystemServices(private val context: Context) {
 
     init {
         if (hasMarshmallow()) {
-            fingerprintManager = context.getSystemService(Context.FINGERPRINT_SERVICE) as FingerprintManager
+            fingerprintManager = context.getSystemService(Context.FINGERPRINT_SERVICE) as FingerprintManager?
         }
     }
 
