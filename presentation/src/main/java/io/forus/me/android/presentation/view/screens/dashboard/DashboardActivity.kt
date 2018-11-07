@@ -123,7 +123,11 @@ class DashboardActivity : SlidingPanelActivity() {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap {
-                    Single.fromObservable(fcmHandler.clearFCMToken())
+                    try {
+                        Single.fromObservable(fcmHandler.clearFCMToken())
+                    } catch (e: Exception) {
+                        Single.just(it)
+                    }
                 }
                 .onErrorReturn {  }
                 .subscribe())
