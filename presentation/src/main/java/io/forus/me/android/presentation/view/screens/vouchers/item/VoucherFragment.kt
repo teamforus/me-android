@@ -8,13 +8,17 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.jakewharton.rxbinding2.view.RxView
 import io.forus.me.android.domain.models.qr.QrCode
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.helpers.format
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
+import io.forus.me.android.presentation.view.screens.vouchers.item.dialogs.SendVoucherSuccessDialog
 import io.forus.me.android.presentation.view.screens.vouchers.item.transactions.TransactionsAdapter
+import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_voucher.*
 import kotlinx.android.synthetic.main.toolbar_view.*
 import java.text.SimpleDateFormat
@@ -52,6 +56,11 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPres
     override fun viewForSnackbar(): View = root
 
     override fun loadRefreshPanel() = lr_panel
+
+    override fun sendEmail(): Observable<Unit> = RxView.clicks(btn_email).map { Unit }
+
+    private val sendEmailDialogShown = PublishSubject.create<Unit>()
+    override fun sendEmailDialogShown(): Observable<Unit> = sendEmailDialogShown
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
             = inflater.inflate(R.layout.fragment_voucher, container, false).also {
@@ -98,6 +107,10 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPres
             tv_transactions_title.text = resources.getText(if(vs.model.item.transactions.isEmpty()) R.string.vouchers_transactions_empty else R.string.vouchers_transactions)
             tv_created.text = resources.getString(R.string.voucher_created, dateFormat.format(vs.model.item.createdAt))
         }
+
+        if(vs.model.emailSend){
+            showEmailSendDialog()
+        }
     }
 
     fun blurBackground(){
@@ -120,6 +133,12 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPres
         value.paint.maskFilter = null
         name.paint.maskFilter = null
         type.paint.maskFilter = null
+    }
+
+    fun showEmailSendDialog(){
+        SendVoucherSuccessDialog(context!!) {
+            sendEmailDialogShown.onNext(Unit)
+        }.show()
     }
 }
 

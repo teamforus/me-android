@@ -28,4 +28,7 @@ interface VouchersService {
     @POST("api/v1/platform/vouchers/{address}/transactions")
     fun makeTransaction(@Path("address") address: String, @Body makeTransaction: MakeTransaction): Observable<CreatedTransaction>
 
+    @POST("api/v1/platform/vouchers/{address}/send-email")
+    fun sendEmail(@Path("address") address: String): Observable<Void>
+
 }

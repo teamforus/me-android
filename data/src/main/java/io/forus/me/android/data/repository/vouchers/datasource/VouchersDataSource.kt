@@ -15,4 +15,6 @@ interface VouchersDataSource {
 
     fun makeTransaction(address: String, makeTransaction: MakeTransaction): Observable<Transaction>
 
+    fun sendEmail(address: String): Observable<Boolean>
+
 }

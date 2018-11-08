@@ -179,5 +179,7 @@
     <string name="voucher_is_used">Used voucher</string>
     <string name="voucher_created">Voucher created - %1$s</string>
     <string name="voucher_button_show_qr">Show QR-code</string>
+    <string name="voucher_send_email_success">Success</string>
+    <string name="voucher_send_email_description">The voucher has been sent to email</string>
 
 </resources>

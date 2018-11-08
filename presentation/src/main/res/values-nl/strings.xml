@@ -169,5 +169,7 @@
     <string name="vouchers_apply_success">Voucher succesvol toegepast</string>
     <string name="voucher_created">Voucher aangemaakt - %1$s</string>
     <string name="voucher_button_show_qr">Toon QR-code</string>
+    <string name="voucher_send_email_success">Success</string>
+    <string name="voucher_send_email_description">De voucher is verzonden naar de e-mail</string>
 
 </resources>
