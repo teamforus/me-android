@@ -1,6 +1,6 @@
 me-android
 ==========
-Android implementation of the [me app](https://github.com/teamforus/me)
+Android implementation of [Me](https://github.com/teamforus/me)
 
 Getting Started
 ===============
