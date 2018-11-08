@@ -154,6 +154,7 @@
 
     <!-- Vouchers -->
     <string name="vouchers_item">Voucher</string>
+    <string name="vouchers_item_product">Aanbieding voucher</string>
     <string name="vouchers_transactions">Transactieoverzicht</string>
     <string name="vouchers_transactions_empty">Nog geen transacties</string>
     <string name="vouchers_no_items">Je hebt nog geen vouchers</string>

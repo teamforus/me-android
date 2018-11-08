@@ -162,6 +162,7 @@
 
     <!-- Vouchers -->
     <string name="vouchers_item">Voucher</string>
+    <string name="vouchers_item_product">Product voucher</string>
     <string name="vouchers_transactions">Transactions</string>
     <string name="vouchers_transactions_empty">No transactions yet</string>
     <string name="vouchers_no_items">You have no vouchers yet</string>

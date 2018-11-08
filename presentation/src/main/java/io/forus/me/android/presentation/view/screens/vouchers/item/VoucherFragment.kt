@@ -103,6 +103,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPres
         value.text = "${vs.model.item?.currency?.name} ${vs.model.item?.amount?.toDouble().format(2)}"
 
         if(vs.model.item != null){
+            setToolbarTitle(resources.getString(if(vs.model.item.isProduct) R.string.vouchers_item_product else R.string.vouchers_item))
             adapter.transactions = vs.model.item.transactions
             tv_transactions_title.text = resources.getText(if(vs.model.item.transactions.isEmpty()) R.string.vouchers_transactions_empty else R.string.vouchers_transactions)
             tv_created.text = resources.getString(R.string.voucher_created, dateFormat.format(vs.model.item.createdAt))
