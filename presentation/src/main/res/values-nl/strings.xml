@@ -25,7 +25,7 @@
     <!-- Welcome screen -->
     <string name="welcome_greeting">Welkom bij Me</string>
     <string name="welcome_create_account">Aanmaken</string>
-    <string name="welcome_restore_account">Ik heb een me identiteit</string>
+    <string name="welcome_restore_account">Ik heb een profiel</string>
     <string name="welcome_set_up_your_identity">Stel je identiteit in</string>
 
     <!-- Restore identity -->
@@ -172,5 +172,7 @@
     <string name="voucher_button_show_qr">Toon QR-code</string>
     <string name="voucher_send_email_success">Success</string>
     <string name="voucher_send_email_description">De voucher is verzonden naar de e-mail</string>
+    <string name="voucher_qr_code_subtitle">Dit is de QR-code van de Voucher.</string>
+    <string name="voucher_qr_code_description">Laat de aanbieder deze QR-Code scannen om een betaling te kunnen doen.</string>
 
 </resources>

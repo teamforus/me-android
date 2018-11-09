@@ -198,6 +198,6 @@ class DashboardActivity : SlidingPanelActivity() {
     }
 
     fun showPopupQRFragment(address: String){
-        addPopupFragment(QrFragment.newIntent(address), "QR code")
+        addPopupFragment(QrFragment.newIntent(address, null, null), "QR code")
     }
 }

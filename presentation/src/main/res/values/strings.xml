@@ -30,7 +30,7 @@
     <!-- Welcome screen -->
     <string name="welcome_greeting">Welcome to Me</string>
     <string name="welcome_create_account">Create account</string>
-    <string name="welcome_restore_account">Log in with existing account</string>
+    <string name="welcome_restore_account">I already have a profile</string>
     <string name="welcome_set_up_your_identity">Set up your identity</string>
 
     <!-- Restore identity -->
@@ -182,5 +182,7 @@
     <string name="voucher_button_show_qr">Show QR-code</string>
     <string name="voucher_send_email_success">Success</string>
     <string name="voucher_send_email_description">The voucher has been sent to email</string>
+    <string name="voucher_qr_code_subtitle">This is the QR-code of the Voucher.</string>
+    <string name="voucher_qr_code_description">Let the shopkeeper scan this QR-code to make a payment.</string>
 
 </resources>
