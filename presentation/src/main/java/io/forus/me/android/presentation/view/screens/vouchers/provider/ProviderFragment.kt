@@ -10,11 +10,12 @@ import android.view.View
 import android.view.ViewGroup
 import io.forus.me.android.domain.exception.RetrofitException
 import io.forus.me.android.presentation.R
-import io.forus.me.android.presentation.helpers.format
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.forus.me.android.presentation.view.screens.vouchers.provider.categories.CategoriesAdapter
+import io.forus.me.android.presentation.view.screens.vouchers.provider.dialogs.ApplyDialog
+import io.forus.me.android.presentation.view.screens.vouchers.provider.dialogs.PayDialog
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_voucher_provider.*
@@ -37,7 +38,7 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
     private lateinit var categoriesAdapter: CategoriesAdapter
 
     override val toolbarTitle: String
-        get() = getString(R.string.vouchers_item)
+        get() = getString(R.string.vouchers_provider)
 
     override val allowBack: Boolean
         get() = true
@@ -134,10 +135,16 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
     }
 
     private fun payDialog(isProduct: Boolean?, amount: BigDecimal){
-        PayDialog(context!!, isProduct != null && isProduct, amount) {
-            submit.onNext(true)
+        if(isProduct != null && isProduct){
+            ApplyDialog(context!!) {
+                submit.onNext(true)
+            }.show()
         }
-        .show()
+        else{
+            PayDialog(context!!, amount) {
+                submit.onNext(true)
+            }.show()
+        }
     }
 
     private fun closeScreen() {

@@ -26,7 +26,7 @@
     <string name="welcome_greeting">Welkom bij Me</string>
     <string name="welcome_create_account">Aanmaken</string>
     <string name="welcome_restore_account">Ik heb een profiel</string>
-    <string name="welcome_set_up_your_identity">Stel je identiteit in</string>
+    <string name="welcome_set_up_your_identity">Stel je profiel in</string>
 
     <!-- Restore identity -->
     <string name="restore_login">Aanmelden</string>
@@ -50,8 +50,8 @@
     <string name="new_account_field_last_name">Achternaam</string>
     <string name="new_account_field_bsn">BSN</string>
     <string name="new_account_field_phone">Telefoonnummer</string>
-    <string name="new_account_title">Identiteit</string>
-    <string name="new_account_subtitle">Vul onderstaande gegevens in om een identiteit aan te maken</string>
+    <string name="new_account_title">Profiel</string>
+    <string name="new_account_subtitle">Vul onderstaande gegevens in om een profiel aan te maken</string>
     <string name="new_account_error_already_in_use">E-mailadres is al in gebruik</string>
     <string name="new_account_email_repeat_error">E-mails moeten hetzelfde zijn</string>
 
@@ -59,10 +59,10 @@
     <string name="passcode_title_create">Inlogcode aanmaken</string>
     <string name="passcode_title_confirm">Bevestig inlogcode</string>
     <string name="passcode_title_create_identity_wait">Even geduld alsjeblieft</string>
-    <string name="passcode_subtitle_create">Beveilig je identiteit door een inlogcode aan te maken</string>
-    <string name="passcode_subtitle_confirm">Beveilig je identiteit door een inlogcode aan te maken</string>
+    <string name="passcode_subtitle_create">Beveilig je profiel door een inlogcode aan te maken</string>
+    <string name="passcode_subtitle_confirm">Beveilig je profiel door een inlogcode aan te maken</string>
     <string name="passcode_subtitle_create_not_match">Inlogcodes komen niet overeen. Probeer het opnieuw.</string>
-    <string name="passcode_subtitle_create_identity">Identiteit toevoegen</string>
+    <string name="passcode_subtitle_create_identity">Profile toevoegen</string>
     <string name="passcode_subtitle_change_error">Er is iets fout gegaan :(</string>
     <string name="passcode_create_skip">Overslaan</string>
     <string name="passcode_changing">Inlogcode wijzigen</string>
@@ -95,11 +95,13 @@
     <!-- Profile screen -->
     <string name="profile_app_settings">Instellingen</string>
     <string name="profile_use_pinlock">Gebruik een inlogcode</string>
+    <string name="profile_use_fingerprint">Gebruik vingerafdrukscanner</string>
     <string name="profile_change_4digit">Inlogcode wijzigen</string>
     <string name="profile_logout">Log uit</string>
     <string name="profile_button_show_qr">Toon QR-code</string>
     <string name="profile_about_me">Over Me</string>
     <string name="profile_about_me_text">Met Me kan je een profiel aanmaken, vouchers beheren en de QR-code scanner gebruiken om in te loggen op de gebruikersomgeving. Bezoek onze website voor meer informatie — https://zuidhorn.forus.io</string>
+    <string name="profile_app_version">App versie</string>
 
     <!-- New record screen -->
     <string name="new_record_title">Nieuwe eigenschap</string>
@@ -157,24 +159,28 @@
     <!-- Vouchers -->
     <string name="vouchers_item">Voucher</string>
     <string name="vouchers_item_product">Aanbieding voucher</string>
+    <string name="vouchers_provider">Verzoek Betaling</string>
     <string name="vouchers_transactions">Transactieoverzicht</string>
     <string name="vouchers_transactions_empty">Nog geen transacties</string>
     <string name="vouchers_no_items">Je hebt nog geen vouchers</string>
     <string name="vouchers_make_transaction">Belasten</string>
     <string name="vouchers_make_transaction_failure">Transactie mislukt</string>
-    <string name="vouchers_transaction_payment">Betaling</string>
+    <string name="vouchers_transaction_payment">Betaald</string>
+    <string name="vouchers_amount">Enter the price here.</string>
     <string name="vouchers_product_categories">Productcategorieën</string>
     <string name="vouchers_amount_invalid">Ongeldige hoeveelheid</string>
-    <string name="vouchers_pay_title">Voucher transactie</string>
-    <string name="vouchers_pay_question">Weet je zeker dat je wilt belasten %1$s€?</string>
+    <string name="vouchers_pay_title">Bevestig transactie</string>
+    <string name="vouchers_pay_question">Weet je zeker dat je %1$s€ wilt aanvragen?</string>
     <string name="vouchers_apply_question">Weet je zeker dat je wilt aanwenden voucher?</string>
     <string name="voucher_is_used">GEBRUIKT</string>
-    <string name="vouchers_apply_success">Voucher succesvol toegepast</string>
+    <string name="vouchers_apply_success">Betaling geslaagd!</string>
     <string name="voucher_created">Voucher aangemaakt - %1$s</string>
     <string name="voucher_button_show_qr">Toon QR-code</string>
     <string name="voucher_send_email_success">Success</string>
     <string name="voucher_send_email_description">De voucher is verzonden naar de e-mail</string>
-    <string name="voucher_qr_code_subtitle">Dit is de QR-code van de Voucher.</string>
-    <string name="voucher_qr_code_description">Laat de aanbieder deze QR-Code scannen om een betaling te kunnen doen.</string>
+    <string name="voucher_qr_code_subtitle">Dit is de QR-code van de Voucher</string>
+    <string name="voucher_qr_code_description">Laat de aanbieder deze QR-Code scannen om een betaling te kunnen doen</string>
+    <string name="voucher_email_to_me">E-mail naar mijzelf</string>
+    <string name="voucher_request">VRAAG </string>
 
 </resources>

@@ -172,7 +172,7 @@
 
                     <io.forus.me.android.presentation.view.component.card.SettingsCard
                         android:id="@+id/app_version"
-                        app:valuecard_title="App version"
+                        app:valuecard_title="@string/profile_app_version"
                         app:valuecard_text="1.01.1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">

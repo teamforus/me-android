@@ -108,6 +108,7 @@
     <string name="profile_button_show_qr">My QR-code</string>
     <string name="profile_about_me">About Me</string>
     <string name="profile_about_me_text">With Me you can create an identity, receive and use your vouchers. For more information please visit our website — https://zuidhorn.forus.io</string>
+    <string name="profile_app_version">App version</string>
 
     <!-- New record screen -->
     <string name="new_record_title">New Record</string>
@@ -165,26 +166,29 @@
     <!-- Vouchers -->
     <string name="vouchers_item">Voucher</string>
     <string name="vouchers_item_product">Product voucher</string>
+    <string name="vouchers_provider">Request payment</string>
     <string name="vouchers_transactions">Transactions</string>
     <string name="vouchers_transactions_empty">No transactions yet</string>
     <string name="vouchers_no_items">You have no vouchers yet</string>
     <string name="vouchers_make_transaction">Charge</string>
     <string name="vouchers_make_transaction_failure">Transaction failed</string>
     <string name="vouchers_transaction_payment">Payment</string>
-    <string name="vouchers_amount">Amount</string>
+    <string name="vouchers_amount">Enter the price here.</string>
     <string name="vouchers_note">Note</string>
     <string name="vouchers_product_categories">Product categories</string>
     <string name="vouchers_amount_invalid">Invalid amount</string>
-    <string name="vouchers_pay_title">Voucher transaction</string>
-    <string name="vouchers_pay_question">Are you sure you want to charge %1$s€?</string>
+    <string name="vouchers_pay_title">Confirm transaction</string>
+    <string name="vouchers_pay_question">Are you sure you want to request %1$s€?</string>
     <string name="vouchers_apply_question">Are you sure you want to apply the voucher?</string>
-    <string name="vouchers_apply_success">Voucher applied successfully</string>
+    <string name="vouchers_apply_success">Payment succeeded!</string>
     <string name="voucher_is_used">Used voucher</string>
     <string name="voucher_created">Voucher created - %1$s</string>
     <string name="voucher_button_show_qr">Show QR-code</string>
     <string name="voucher_send_email_success">Success</string>
     <string name="voucher_send_email_description">The voucher has been sent to email</string>
-    <string name="voucher_qr_code_subtitle">This is the QR-code of the Voucher.</string>
-    <string name="voucher_qr_code_description">Let the shopkeeper scan this QR-code to make a payment.</string>
+    <string name="voucher_qr_code_subtitle">This is the QR-code of the Voucher</string>
+    <string name="voucher_qr_code_description">Let the shopkeeper scan this QR-code to make a payment</string>
+    <string name="voucher_email_to_me">Email to me</string>
+    <string name="voucher_request">REQUEST</string>
 
 </resources>
