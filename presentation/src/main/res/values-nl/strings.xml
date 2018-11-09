@@ -98,6 +98,8 @@
     <string name="profile_change_4digit">Inlogcode wijzigen</string>
     <string name="profile_logout">Log uit</string>
     <string name="profile_button_show_qr">Toon QR-code</string>
+    <string name="profile_about_me">Over Me</string>
+    <string name="profile_about_me_text">Met Me kan je een profiel aanmaken, vouchers beheren en de QR-code scanner gebruiken om in te loggen op de gebruikersomgeving. Bezoek onze website voor meer informatie — https://zuidhorn.forus.io</string>
 
     <!-- New record screen -->
     <string name="new_record_title">Nieuwe eigenschap</string>

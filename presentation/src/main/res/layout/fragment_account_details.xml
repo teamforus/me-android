@@ -155,7 +155,6 @@
                         android:text="About"
                         />
 
-
                     <View
                         android:layout_marginTop="18dp"
                         android:layout_marginLeft="@dimen/activity_horizontal_margin"
@@ -164,12 +163,19 @@
                         android:layout_height="1dp"/>
 
                     <io.forus.me.android.presentation.view.component.card.SettingsCard
+                        android:id="@+id/about_me"
+                        app:valuecard_title="@string/profile_about_me"
+                        app:valuecard_text=""
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </io.forus.me.android.presentation.view.component.card.SettingsCard>
+
+                    <io.forus.me.android.presentation.view.component.card.SettingsCard
                         android:id="@+id/app_version"
                         app:valuecard_title="App version"
                         app:valuecard_text="1.01.1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
-
                     </io.forus.me.android.presentation.view.component.card.SettingsCard>
 
 
