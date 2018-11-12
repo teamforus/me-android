@@ -152,7 +152,8 @@
     <string name="qr_identity_restored">You have successfully logged in</string>
     <string name="qr_identity_expired">Validation token expired</string>
     <string name="qr_voucher_scanned">Voucher scanned</string>
-    <string name="qr_voucher_access_denied">You are not eligible to scan this voucher</string>
+    <string name="qr_voucher_access_denied">You are not allowed to scan this voucher or it was already used.</string>
+    <string name="qr_voucher_empty">The voucher is empty! No transactions can be done.</string>
     <string name="qr_unknown_type">Unknown QR</string>
     <string name="qr_unexpected_error">Unexpected error</string>
     <string name="qr_popup_approve_validation_title">Record validation</string>
@@ -162,6 +163,7 @@
     <string name="qr_popup_approve_validation_negative">Decline"</string>
     <string name="qr_popup_restore_identity_title">Restore identity</string>
     <string name="qr_popup_restore_identity_description">Allow access?</string>
+    <string name="qr_popup_error">Error!</string>
 
     <!-- Vouchers -->
     <string name="vouchers_item">Voucher</string>

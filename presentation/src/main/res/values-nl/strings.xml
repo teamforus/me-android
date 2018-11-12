@@ -145,7 +145,8 @@
     <string name="qr_identity_restored">Je bent succesvol ingelogd</string>
     <string name="qr_identity_expired">Validatietoken is verlopen</string>
     <string name="qr_voucher_scanned">Voucher gescand</string>
-    <string name="qr_voucher_access_denied">Je komt niet in aanmerking om deze voucher te scannen</string>
+    <string name="qr_voucher_access_denied"> Je bent niet gerechtigd of de voucher is al gebruikt</string>
+    <string name="qr_voucher_empty">De voucher is op! Geen transacties kunnen gedaan worden.</string>
     <string name="qr_unknown_type">Onbekende QR code</string>
     <string name="qr_unexpected_error">Onverwachte fout</string>
     <string name="qr_popup_approve_validation_title">Eigenschap validatie</string>
@@ -155,6 +156,7 @@
     <string name="qr_popup_approve_validation_negative">Weigeren</string>
     <string name="qr_popup_restore_identity_title">Bestaand account herstellen</string>
     <string name="qr_popup_restore_identity_description">Wil je dit nieuwe toestel toegang verlenen tot je account</string>
+    <string name="qr_popup_error">Mislukt!</string>
 
     <!-- Vouchers -->
     <string name="vouchers_item">Voucher</string>
