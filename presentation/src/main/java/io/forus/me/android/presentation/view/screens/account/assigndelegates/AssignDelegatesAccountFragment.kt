@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.fragment_account_assign_delegates.*
 /**
  * Fragment Assign Delegates Screen.
  */
-class AssignDelegatesAccountFragment : ToolbarLRFragment<AssignDelegatesAccountModel, AssignDelegatesView, AssignDeligatesPresenter>(), AssignDelegatesView{
+class AssignDelegatesAccountFragment : ToolbarLRFragment<AssignDelegatesAccountModel, AssignDelegatesView, AssignDelegatesPresenter>(), AssignDelegatesView{
 
     val disposableHolder = DisposableHolder()
 
@@ -58,7 +58,7 @@ class AssignDelegatesAccountFragment : ToolbarLRFragment<AssignDelegatesAccountM
         disposableHolder.disposeAll()
     }
 
-    override fun createPresenter() = AssignDeligatesPresenter(
+    override fun createPresenter() = AssignDelegatesPresenter(
             disposableHolder,
             Injection.instance.accessTokenChecker,
             Injection.instance.accountRepository

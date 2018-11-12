@@ -13,7 +13,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.PublishSubject
 
 
-class AssignDeligatesPresenter constructor(private val disposableHolder: DisposableHolder, private val accessTokenChecker: AccessTokenChecker, private val accountRepository: AccountRepository)
+class AssignDelegatesPresenter constructor(private val disposableHolder: DisposableHolder, private val accessTokenChecker: AccessTokenChecker, private val accountRepository: AccountRepository)
     : LRPresenter<RequestDelegatesPinModel, AssignDelegatesAccountModel, AssignDelegatesView>() {
 
     override fun initialModelSingle(): Single<RequestDelegatesPinModel> = Single.fromObservable(accountRepository.restoreByPinCode())
