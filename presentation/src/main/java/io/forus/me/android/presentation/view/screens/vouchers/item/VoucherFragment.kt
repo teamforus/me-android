@@ -29,7 +29,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPres
 
     companion object {
         private val VOUCHER_ADDRESS_EXTRA = "VOUCHER_ADDRESS_EXTRA"
-        val dateFormat = SimpleDateFormat("dd MMM, HH:mm", Locale.getDefault())
+        val dateFormat = SimpleDateFormat("d MMMM, HH:mm", Locale.getDefault())
 
         fun newIntent(id: String): VoucherFragment = VoucherFragment().also {
             val bundle = Bundle()

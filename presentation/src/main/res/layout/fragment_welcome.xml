@@ -9,6 +9,7 @@
 
     <LinearLayout
         android:orientation="vertical"
+        android:layout_gravity="center_vertical"
         android:paddingLeft="30dp"
         android:paddingRight="30dp"
         android:layout_width="match_parent"
@@ -16,7 +17,6 @@
 
 
         <ImageView
-            android:layout_marginTop="110dp"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/ic_me_logo"
             android:layout_width="wrap_content"

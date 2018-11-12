@@ -23,7 +23,7 @@ class TransactionsVH(parent: ViewGroup, private val clickListener: ((Transaction
         subtitle1.text = item.organization.name
         overline1.text = VoucherFragment.dateFormat.format(item.createdAt)
 
-        subtitle2.text = item.amount.toFloat().format(2)
+        subtitle2.text = "-"+item.amount.toFloat().format(2)
 
         if(!item.organization.logo.isBlank())
             iv_logo.setImageUrl(item.organization.logo)

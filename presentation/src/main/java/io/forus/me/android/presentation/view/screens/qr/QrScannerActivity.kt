@@ -48,6 +48,8 @@ class QrScannerActivity : FragmentActivity(), QRCodeReaderView.OnQRCodeReadListe
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        overridePendingTransition( R.anim.slide_in_up, R.anim.slide_out_up );
         setContentView(R.layout.activity_qr_decoder)
 
 

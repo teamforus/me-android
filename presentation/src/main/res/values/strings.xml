@@ -109,6 +109,7 @@
     <string name="profile_about_me">About Me</string>
     <string name="profile_about_me_text">With Me you can create an identity, receive and use your vouchers. For more information please visit our website — https://zuidhorn.forus.io</string>
     <string name="profile_app_version">App version</string>
+    <string name="profile_about">About</string>
 
     <!-- New record screen -->
     <string name="new_record_title">New Record</string>

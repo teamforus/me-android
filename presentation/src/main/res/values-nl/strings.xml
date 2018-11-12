@@ -23,7 +23,6 @@
     <string name="dashboard_profile">Profiel</string>
 
     <!-- Welcome screen -->
-    <string name="welcome_greeting">Welkom bij Me</string>
     <string name="welcome_create_account">Aanmaken</string>
     <string name="welcome_restore_account">Ik heb een profiel</string>
     <string name="welcome_set_up_your_identity">Stel je profiel in</string>
@@ -102,6 +101,7 @@
     <string name="profile_about_me">Over Me</string>
     <string name="profile_about_me_text">Met Me kan je een profiel aanmaken, vouchers beheren en de QR-code scanner gebruiken om in te loggen op de gebruikersomgeving. Bezoek onze website voor meer informatie — https://zuidhorn.forus.io</string>
     <string name="profile_app_version">App versie</string>
+    <string name="profile_about">Informatie</string>
 
     <!-- New record screen -->
     <string name="new_record_title">Nieuwe eigenschap</string>
@@ -160,7 +160,7 @@
     <string name="vouchers_item">Voucher</string>
     <string name="vouchers_item_product">Aanbieding voucher</string>
     <string name="vouchers_provider">Verzoek Betaling</string>
-    <string name="vouchers_transactions">Transactieoverzicht</string>
+    <string name="vouchers_transactions">Geschiedenis</string>
     <string name="vouchers_transactions_empty">Nog geen transacties</string>
     <string name="vouchers_no_items">Je hebt nog geen vouchers</string>
     <string name="vouchers_make_transaction">Belasten</string>
