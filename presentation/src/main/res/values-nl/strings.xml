@@ -28,19 +28,19 @@
     <string name="welcome_set_up_your_identity">Stel je profiel in</string>
 
     <!-- Restore identity -->
-    <string name="restore_login">Aanmelden</string>
+    <string name="restore_login">Inloggen</string>
     <string name="restore_login_via_de_qr_code">login via de qr code</string>
     <string name="restore_scan_deze_qr">Scan deze QR-Code met een ander apparaat waar je al op ingelogd bent</string>
-    <string name="restore_inloggen_met_pincode">Inloggen met autorisatiecode</string>
     <string name="restore_inloggen_via_email">Inloggen via e-mail</string>
+    <string name="restore_inloggen_via_qr">Ander apparat toevoegen</string>
+    <string name="restore_auth_code">Autorisatie code</string>
+    <string name="restore_auth_code_description">Log in op de webshop, klik op je profiel en klik op autoriseer apparaat en vul deze code in.</string>
     <string name="restore_inloggen_by_email">Bevestig</string>
     <string name="restore_email_description">Vul je e-mailadres in om inloggegevens te ontvangen</string>
     <string name="restore_pincode_description">Vul deze pincode in de webshop in, waar u al bent ingelogd.</string>
-    <string name="restore_pincode_how">Hoe werkt het?</string>
     <string name="restore_email_instructions">Er is een e-mail verstuurd naar uw e-mailadres waarmee u opnieuw kunt inloggen.</string>
     <string name="restore_email_not_found">Identity niet gevonden</string>
     <string name="restore_email_invalid_link">Ongeldige link</string>
-    <string name="restore_pincode_instructions">This PIN should be activated in webshop</string>
 
     <!-- New account screen -->
     <string name="new_account_field_email">E-mail</string>

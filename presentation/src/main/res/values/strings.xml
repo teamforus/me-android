@@ -34,21 +34,20 @@
     <string name="welcome_set_up_your_identity">Set up your identity</string>
 
     <!-- Restore identity -->
-    <string name="restore_login">Anmelden</string>
+    <string name="restore_login">Log in</string>
     <string name="restore_login_via_de_qr_code">login via qr code</string>
     <string name="restore_scan_deze_qr">Scan this QR Code with another device you have already registered</string>
-    <string name="restore_inloggen_met_pincode">Login with pincode</string>
     <string name="restore_inloggen_via_email">Login with email</string>
+    <string name="restore_inloggen_via_qr">Add another device</string>
+    <string name="restore_auth_code">Authorization code</string>
+    <string name="restore_auth_code_description">Log in to the webshop, click on your profile, then authorize device and enter this code.</string>
     <string name="restore_inloggen_by_email">Restore by email</string>
     <string name="restore_email_description">Please enter your e-mail address in order to receive your login details.</string>
     <string name="restore_pincode_description">Enter this pincode in your profile</string>
-    <string name="restore_pincode_how">How does it work?</string>
     <string name="restore_email_instructions">The link was sent to your e-mail. Tap on it, wait for Success message and come back to Me.</string>
     <string name="restore_email_not_found">Identity not found</string>
     <string name="restore_email_invalid_link">Invalid link</string>
-    <string name="restore_title_pincode">Pincode</string>
     <string name="restore_title_qr">QR-Code</string>
-    <string name="restore_pincode_instructions">This PIN should be activated in webshop</string>
 
     <!-- New account screen -->
     <string name="new_account_field_email">E-mail</string>
