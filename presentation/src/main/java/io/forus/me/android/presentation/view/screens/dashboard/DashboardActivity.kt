@@ -60,8 +60,9 @@ class DashboardActivity : SlidingPanelActivity() {
         bottom_navigation.setOnTabSelectedListener ( object: AHBottomNavigation.OnTabSelectedListener {
             var lastPosition: Int = 0
             override fun onTabSelected(position: Int, wasSelected: Boolean): Boolean {
-               var result =   showTab(position, lastPosition, wasSelected)
-               this.lastPosition = position
+               val result =   showTab(position, lastPosition, wasSelected)
+
+                if(result) this.lastPosition = position
 
                return result
             }
