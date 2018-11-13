@@ -85,7 +85,7 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
     override fun render(vs: LRViewState<AccountModel>) {
         super.render(vs)
 
-        app_version.text = BuildConfig.VERSION_NAME + "_" + BuildConfig.BUILD_TYPE
+        app_version.text = BuildConfig.VERSION_NAME + "-" + BuildConfig.BUILD_NUMBER
 
         name.text = vs.model.account?.name
         email.text = vs.model.account?.email
