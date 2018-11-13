@@ -7,4 +7,4 @@ import io.forus.me.android.presentation.view.base.lr.LRView
  */
 
 
-interface AssignDelegatesView : LRView<Unit>
+interface AssignDelegatesView : LRView<AssignDelegatesAccountModel>

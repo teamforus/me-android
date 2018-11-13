@@ -58,6 +58,8 @@ class RestoreByQRFragment : LRFragment<RestoreByQRModel, RestoreByQRView, Restor
     override fun render(vs: LRViewState<RestoreByQRModel>) {
         super.render(vs)
 
+        subtitle.text = resources.getString(R.string.restore_scan_deze_qr)
+
         if (vs.model.item != null) {
             qrText = vs.model.item.authToken
         }

@@ -16,6 +16,7 @@ import io.forus.me.android.presentation.view.activity.BaseActivity
 import io.forus.me.android.presentation.view.activity.SlidingPanelActivity
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
+import io.forus.me.android.presentation.view.screens.account.account.dialogs.AboutMeDialog
 import io.forus.me.android.presentation.view.screens.dashboard.DashboardActivity
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
@@ -71,6 +72,10 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
         logout_view.setOnClickListener {
             logout.onNext(true)
         }
+
+        about_me.setOnClickListener {
+            AboutMeDialog(activity!!).show()
+        }
     }
 
     override fun createPresenter() = AccountPresenter(
@@ -80,7 +85,7 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
     override fun render(vs: LRViewState<AccountModel>) {
         super.render(vs)
 
-        app_version.text = BuildConfig.VERSION_NAME + "_" + BuildConfig.BUILD_TYPE
+        app_version.text = BuildConfig.VERSION_NAME + "-" + BuildConfig.BUILD_NUMBER
 
         name.text = vs.model.account?.name
         email.text = vs.model.account?.email

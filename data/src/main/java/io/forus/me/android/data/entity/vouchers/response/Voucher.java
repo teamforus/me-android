@@ -57,9 +57,12 @@ public class Voucher {
     @SerializedName("allowed_products")
     private List<Product> allowedProducts;
 
+    @SerializedName("product_vouchers")
+    private List<Voucher> childVouchers;
+
     public Voucher() { }
 
-    public Voucher(Long fundId, String identityAddress, String address, Date createdAt, String createdAtLocale, String expireAtLocale, Long timestamp, Type type, Product product, BigDecimal amount, Fund fund, List<Transaction> transactions, List<Organization> allowedOrganizations, List<ProductCategory> allowedProductCategories, List<Product> allowedProducts) {
+    public Voucher(Long fundId, String identityAddress, String address, Date createdAt, String createdAtLocale, String expireAtLocale, Long timestamp, Type type, Product product, BigDecimal amount, Fund fund, List<Transaction> transactions, List<Organization> allowedOrganizations, List<ProductCategory> allowedProductCategories, List<Product> allowedProducts, List<Voucher> childVouchers) {
         this.fundId = fundId;
         this.identityAddress = identityAddress;
         this.address = address;
@@ -75,6 +78,7 @@ public class Voucher {
         this.allowedOrganizations = allowedOrganizations;
         this.allowedProductCategories = allowedProductCategories;
         this.allowedProducts = allowedProducts;
+        this.childVouchers = childVouchers;
     }
 
     public Long getFundId() {
@@ -195,5 +199,13 @@ public class Voucher {
 
     public void setAllowedProducts(List<Product> allowedProducts) {
         this.allowedProducts = allowedProducts;
+    }
+
+    public List<Voucher> getChildVouchers() {
+        return childVouchers;
+    }
+
+    public void setChildVouchers(List<Voucher> childVouchers) {
+        this.childVouchers = childVouchers;
     }
 }

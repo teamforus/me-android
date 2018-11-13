@@ -30,25 +30,24 @@
     <!-- Welcome screen -->
     <string name="welcome_greeting">Welcome to Me</string>
     <string name="welcome_create_account">Create account</string>
-    <string name="welcome_restore_account">Log in with existing account</string>
+    <string name="welcome_restore_account">I already have a profile</string>
     <string name="welcome_set_up_your_identity">Set up your identity</string>
 
     <!-- Restore identity -->
-    <string name="restore_login">Anmelden</string>
+    <string name="restore_login">Log in</string>
     <string name="restore_login_via_de_qr_code">login via qr code</string>
     <string name="restore_scan_deze_qr">Scan this QR Code with another device you have already registered</string>
-    <string name="restore_inloggen_met_pincode">Login with pincode</string>
     <string name="restore_inloggen_via_email">Login with email</string>
+    <string name="restore_inloggen_via_qr">Add another device</string>
+    <string name="restore_auth_code">Authorization code</string>
+    <string name="restore_auth_code_description">Log in to the webshop, click on your profile, then authorize device and enter this code.</string>
     <string name="restore_inloggen_by_email">Restore by email</string>
     <string name="restore_email_description">Please enter your e-mail address in order to receive your login details.</string>
     <string name="restore_pincode_description">Enter this pincode in your profile</string>
-    <string name="restore_pincode_how">How does it work?</string>
     <string name="restore_email_instructions">The link was sent to your e-mail. Tap on it, wait for Success message and come back to Me.</string>
     <string name="restore_email_not_found">Identity not found</string>
     <string name="restore_email_invalid_link">Invalid link</string>
-    <string name="restore_title_pincode">Pincode</string>
     <string name="restore_title_qr">QR-Code</string>
-    <string name="restore_pincode_instructions">This PIN should be activated in webshop</string>
 
     <!-- New account screen -->
     <string name="new_account_field_email">E-mail</string>
@@ -106,6 +105,10 @@
     <string name="profile_change_4digit">Change 4-digit passcode</string>
     <string name="profile_logout">Logout</string>
     <string name="profile_button_show_qr">My QR-code</string>
+    <string name="profile_about_me">About Me</string>
+    <string name="profile_about_me_text">With Me you can create an identity, receive and use your vouchers. For more information please visit our website — https://zuidhorn.forus.io</string>
+    <string name="profile_app_version">App version</string>
+    <string name="profile_about">About</string>
 
     <!-- New record screen -->
     <string name="new_record_title">New Record</string>
@@ -149,7 +152,8 @@
     <string name="qr_identity_restored">You have successfully logged in</string>
     <string name="qr_identity_expired">Validation token expired</string>
     <string name="qr_voucher_scanned">Voucher scanned</string>
-    <string name="qr_voucher_access_denied">You are not eligible to scan this voucher</string>
+    <string name="qr_voucher_access_denied">You are not allowed to scan this voucher or it was already used.</string>
+    <string name="qr_voucher_empty">The voucher is empty! No transactions can be done.</string>
     <string name="qr_unknown_type">Unknown QR</string>
     <string name="qr_unexpected_error">Unexpected error</string>
     <string name="qr_popup_approve_validation_title">Record validation</string>
@@ -159,25 +163,34 @@
     <string name="qr_popup_approve_validation_negative">Decline"</string>
     <string name="qr_popup_restore_identity_title">Restore identity</string>
     <string name="qr_popup_restore_identity_description">Allow access?</string>
+    <string name="qr_popup_error">Error!</string>
 
     <!-- Vouchers -->
     <string name="vouchers_item">Voucher</string>
+    <string name="vouchers_item_product">Product voucher</string>
+    <string name="vouchers_provider">Request payment</string>
     <string name="vouchers_transactions">Transactions</string>
     <string name="vouchers_transactions_empty">No transactions yet</string>
     <string name="vouchers_no_items">You have no vouchers yet</string>
     <string name="vouchers_make_transaction">Charge</string>
     <string name="vouchers_make_transaction_failure">Transaction failed</string>
     <string name="vouchers_transaction_payment">Payment</string>
-    <string name="vouchers_amount">Amount</string>
+    <string name="vouchers_amount">Enter the price here.</string>
     <string name="vouchers_note">Note</string>
     <string name="vouchers_product_categories">Product categories</string>
     <string name="vouchers_amount_invalid">Invalid amount</string>
-    <string name="vouchers_pay_title">Voucher transaction</string>
-    <string name="vouchers_pay_question">Are you sure you want to charge %1$s€?</string>
+    <string name="vouchers_pay_title">Confirm transaction</string>
+    <string name="vouchers_pay_question">Are you sure you want to request %1$s€?</string>
     <string name="vouchers_apply_question">Are you sure you want to apply the voucher?</string>
-    <string name="vouchers_apply_success">Voucher applied successfully</string>
+    <string name="vouchers_apply_success">Payment succeeded!</string>
     <string name="voucher_is_used">Used voucher</string>
     <string name="voucher_created">Voucher created - %1$s</string>
     <string name="voucher_button_show_qr">Show QR-code</string>
+    <string name="voucher_send_email_success">Success</string>
+    <string name="voucher_send_email_description">The voucher has been sent to email</string>
+    <string name="voucher_qr_code_subtitle">This is the QR-code of the Voucher</string>
+    <string name="voucher_qr_code_description">Let the shopkeeper scan this QR-code to make a payment</string>
+    <string name="voucher_email_to_me">Email to me</string>
+    <string name="voucher_request">REQUEST</string>
 
 </resources>

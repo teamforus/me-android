@@ -1,23 +1,24 @@
-package io.forus.me.android.presentation.view.screens.account.assigndelegates.pin
+package io.forus.me.android.presentation.view.screens.account.assigndelegates
 
-import io.forus.me.android.presentation.view.base.lr.LRPresenter
-import io.forus.me.android.presentation.view.base.lr.LRViewState
-import io.forus.me.android.presentation.view.base.lr.PartialChange
 import io.forus.me.android.domain.models.account.RequestDelegatesPinModel
 import io.forus.me.android.domain.repository.account.AccountRepository
 import io.forus.me.android.presentation.helpers.reactivex.AccessTokenChecker
 import io.forus.me.android.presentation.helpers.reactivex.DisposableHolder
+import io.forus.me.android.presentation.view.base.lr.LRPresenter
+import io.forus.me.android.presentation.view.base.lr.LRViewState
+import io.forus.me.android.presentation.view.base.lr.PartialChange
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.PublishSubject
 
 
-class RestoreByPinPresenter constructor(private val disposableHolder: DisposableHolder, private val accessTokenChecker: AccessTokenChecker, private val accountRepository: AccountRepository) : LRPresenter<RequestDelegatesPinModel, RestoreByPinModel, RestoreByPinView>() {
+class AssignDelegatesPresenter constructor(private val disposableHolder: DisposableHolder, private val accessTokenChecker: AccessTokenChecker, private val accountRepository: AccountRepository)
+    : LRPresenter<RequestDelegatesPinModel, AssignDelegatesAccountModel, AssignDelegatesView>() {
 
     override fun initialModelSingle(): Single<RequestDelegatesPinModel> = Single.fromObservable(accountRepository.restoreByPinCode())
 
-    override fun RestoreByPinModel.changeInitialModel(i: RequestDelegatesPinModel): RestoreByPinModel = copy(item = i).also {
+    override fun AssignDelegatesAccountModel.changeInitialModel(i: RequestDelegatesPinModel): AssignDelegatesAccountModel = copy(item = i).also {
         disposableHolder.add(accessTokenChecker.startCheckingActivation(i.accessToken, activationComplete))
     }
 
@@ -30,7 +31,7 @@ class RestoreByPinPresenter constructor(private val disposableHolder: Disposable
 
                 loadRefreshPartialChanges(),
 
-                intent { activationComplete() }.map { RestoreByPinPartialChanges.RestoreIdentity() }
+                intent { activationComplete() }.map { AssignDelegatesAccountPartialChanges.RestoreIdentity() }
         )
 
         val initialViewState = LRViewState(
@@ -40,20 +41,20 @@ class RestoreByPinPresenter constructor(private val disposableHolder: Disposable
                 false,
                 null,
                 false,
-                RestoreByPinModel())
+                AssignDelegatesAccountModel())
 
         subscribeViewState(
                 observable.scan(initialViewState, this::stateReducer)
                         .observeOn(AndroidSchedulers.mainThread()),
-                RestoreByPinView::render)
+                AssignDelegatesView::render)
     }
 
-    override fun stateReducer(vs: LRViewState<RestoreByPinModel>, change: PartialChange): LRViewState<RestoreByPinModel> {
+    override fun stateReducer(vs: LRViewState<AssignDelegatesAccountModel>, change: PartialChange): LRViewState<AssignDelegatesAccountModel> {
 
-        if (change !is RestoreByPinPartialChanges) return super.stateReducer(vs, change)
+        if (change !is AssignDelegatesAccountPartialChanges) return super.stateReducer(vs, change)
 
         return when (change) {
-            is RestoreByPinPartialChanges.RestoreIdentity -> vs.copy(closeScreen = true, model = vs.model.copy(isPinConfirmed = true))
+            is AssignDelegatesAccountPartialChanges.RestoreIdentity -> vs.copy(closeScreen = true, model = vs.model.copy(isPinConfirmed = true))
         }
 
     }

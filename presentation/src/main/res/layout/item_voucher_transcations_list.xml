@@ -85,6 +85,7 @@
                         app:type="medium"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="end"
                         tools:text="Subtitle2"
                         />
 
@@ -94,7 +95,8 @@
                         android:layout_marginTop="@dimen/activity_horizontal_margin_small"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/vouchers_transaction_payment"/>
+                        android:layout_gravity="end"
+                        tools:text="Overline4"/>
 
                 </LinearLayout>
 

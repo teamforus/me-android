@@ -29,6 +29,6 @@ class Transaction {
 
 
     enum class Type {
-        Payed, Refund, Cancel, Income
+        Payed, Refund, Cancel, Income, Product
     }
 }

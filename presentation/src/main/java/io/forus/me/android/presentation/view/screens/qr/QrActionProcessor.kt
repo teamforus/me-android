@@ -10,9 +10,11 @@ import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.navigation.Navigator
 import io.forus.me.android.presentation.view.screens.qr.dialogs.ApproveValidationDialog
 import io.forus.me.android.presentation.view.screens.qr.dialogs.RestoreIdentityDialog
+import io.forus.me.android.presentation.view.screens.qr.dialogs.ScanVoucherEmptyDialog
 import io.forus.me.android.presentation.view.screens.qr.dialogs.ScanVoucherNotEligibleDialog
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import java.math.BigDecimal
 
 class QrActionProcessor(private val scanner: QrScannerActivity,
                         private val recordsRepository: RecordsRepository,
@@ -92,6 +94,10 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
                     if(!it.voucher.isProduct && it.allowedOrganizations.isEmpty()){
                         if(scanner.hasWindowFocus())
                             ScanVoucherNotEligibleDialog(scanner, reactivateDecoding).show()
+                    }
+                    else if(!it.voucher.isProduct && it.voucher.amount == BigDecimal.ZERO){
+                        if(scanner.hasWindowFocus())
+                            ScanVoucherEmptyDialog(scanner, reactivateDecoding).show()
                     }
                     else{
                         onResultVoucherScanned(address)

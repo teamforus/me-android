@@ -17,17 +17,20 @@ android {
 
   compileSdkVersion globalConfiguration.getAt("androidCompileSdkVersion")
 
-    defaultConfig {
-      minSdkVersion globalConfiguration.getAt("androidMinSdkVersion")
-      targetSdkVersion globalConfiguration.getAt("androidTargetSdkVersion")
+  defaultConfig {
+    minSdkVersion globalConfiguration.getAt("androidMinSdkVersion")
+    targetSdkVersion globalConfiguration.getAt("androidTargetSdkVersion")
 
-      applicationId globalConfiguration.getAt("androidApplicationId")
-      versionCode globalConfiguration.getAt("androidVersionCode")
-      versionName globalConfiguration.getAt("androidVersionName")
-      testInstrumentationRunner globalConfiguration.getAt("testInstrumentationRunner")
-      testApplicationId globalConfiguration.getAt("testApplicationId")
-      multiDexEnabled true
-    }
+    applicationId globalConfiguration.getAt("androidApplicationId")
+    versionCode globalConfiguration.getAt("androidVersionCode")
+    versionName globalConfiguration.getAt("androidVersionName")
+
+    testInstrumentationRunner globalConfiguration.getAt("testInstrumentationRunner")
+    testApplicationId globalConfiguration.getAt("testApplicationId")
+    multiDexEnabled true
+
+    buildConfigField "int", "BUILD_NUMBER", globalConfiguration.getAt("androidBuildNumber").toString()
+  }
 
   dexOptions {
     javaMaxHeapSize "4g"
@@ -95,6 +98,20 @@ android {
       dimension "version"
       versionNameSuffix "-prod"
       buildConfigField "String", SERVER_URL, "\"https://api.forus.link/\""
+    }
+  }
+
+  applicationVariants.all { variant ->
+    variant.outputs.all { output ->
+      def project = "me"
+      def SEP = "-"
+      def flavor = variant.productFlavors[0].name
+      def buildType = variant.variantData.variantConfiguration.buildType.name
+      def version = variant.versionName
+      def buildNumber = globalConfiguration.getAt("androidBuildNumber").toString()
+      def newApkName = project + SEP + version + SEP + buildNumber + SEP + buildType + ".apk"
+
+      outputFileName = new File(newApkName)
     }
   }
 }

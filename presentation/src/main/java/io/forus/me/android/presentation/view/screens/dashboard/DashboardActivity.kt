@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
@@ -59,8 +60,9 @@ class DashboardActivity : SlidingPanelActivity() {
         bottom_navigation.setOnTabSelectedListener ( object: AHBottomNavigation.OnTabSelectedListener {
             var lastPosition: Int = 0
             override fun onTabSelected(position: Int, wasSelected: Boolean): Boolean {
-               var result =   showTab(position, lastPosition, wasSelected)
-               this.lastPosition = position
+               val result =   showTab(position, lastPosition, wasSelected)
+
+                if(result) this.lastPosition = position
 
                return result
             }
@@ -125,7 +127,12 @@ class DashboardActivity : SlidingPanelActivity() {
                 .flatMap {
                     try {
                         Single.fromObservable(fcmHandler.clearFCMToken())
+                                .map {
+                                    navigator.navigateToWelcomeScreen(this)
+                                    finish()
+                                }
                     } catch (e: Exception) {
+                        Log.e("DASH_LOGOUT", e.message, e)
                         Single.just(it)
                     }
                 }
@@ -192,6 +199,6 @@ class DashboardActivity : SlidingPanelActivity() {
     }
 
     fun showPopupQRFragment(address: String){
-        addPopupFragment(QrFragment.newIntent(address), "QR code")
+        addPopupFragment(QrFragment.newIntent(address, null, null), "QR code")
     }
 }
