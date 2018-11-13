@@ -40,8 +40,20 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
                             ?: (voucher.fund?.organization?.logo?.sizes?.large
                                     ?: ""))))
 
-        val transactions = if(voucher.transactions == null) emptyList()
-                else voucher.transactions.map { Transaction(it.address, Organization(it.organization.id, it.organization.name, it.organization?.logo?.sizes?.large ?: ""), euro, it.amount, it.createdAt) }
+        val transactions = mutableListOf<Transaction>()
+        if(voucher.transactions != null){
+            transactions.addAll(voucher.transactions.map {
+                Transaction(it.address, Organization(it.organization.id, it.organization.name, it.organization?.logo?.sizes?.large ?: ""), euro, it.amount, it.createdAt)
+            })
+        }
+        if(voucher.childVouchers != null){
+            transactions.addAll(voucher.childVouchers.map {
+                Transaction("", Organization(it.product.organizationId, it.product.name, ""), euro, it.amount, it.createdAt, Transaction.Type.Product)
+            })
+        }
+        transactions.sortWith(Comparator { t1, t2 ->
+            -t1.createdAt.compareTo(t2.createdAt)
+        })
 
         return Voucher(isProduct, isUsed, voucher.address ?: "", name, organizationName, voucher.fund?.name ?: "", description, createdAt!!, euro, amount, logoUrl, transactions)
     }
