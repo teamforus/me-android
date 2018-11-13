@@ -61,7 +61,7 @@
     <string name="passcode_subtitle_create">Beveilig je profiel door een inlogcode aan te maken</string>
     <string name="passcode_subtitle_confirm">Beveilig je profiel door een inlogcode aan te maken</string>
     <string name="passcode_subtitle_create_not_match">Inlogcodes komen niet overeen. Probeer het opnieuw.</string>
-    <string name="passcode_subtitle_create_identity">Profile toevoegen</string>
+    <string name="passcode_subtitle_create_identity">Profiel toevoegen</string>
     <string name="passcode_subtitle_change_error">Er is iets fout gegaan :(</string>
     <string name="passcode_create_skip">Overslaan</string>
     <string name="passcode_changing">Inlogcode wijzigen</string>
@@ -88,7 +88,7 @@
     <string name="lock_title">Sluit</string>
     <string name="lock_body">
         Je telefoon is niet ingesteld met een beveiligingsmaatregel.
-        Als je deze app wilt blijven gebruiken, ga je naar instellingen en stel je een vergrendelschermmethode in.
+        Als je deze app wilt blijven gebruiken, ga dan instellingen en stel je een vergrendelschermmethode in.
     </string>
 
     <!-- Profile screen -->
@@ -154,7 +154,7 @@
     <string name="qr_popup_approve_value">inhoud</string>
     <string name="qr_popup_approve_validation_positive">Accepteren</string>
     <string name="qr_popup_approve_validation_negative">Weigeren</string>
-    <string name="qr_popup_restore_identity_title">Bestaand account herstellen</string>
+    <string name="qr_popup_restore_identity_title">Inloggen via QR-Code</string>
     <string name="qr_popup_restore_identity_description">Wil je dit nieuwe toestel toegang verlenen tot je account</string>
     <string name="qr_popup_error">Mislukt!</string>
 
@@ -165,14 +165,14 @@
     <string name="vouchers_transactions">Geschiedenis</string>
     <string name="vouchers_transactions_empty">Nog geen transacties</string>
     <string name="vouchers_no_items">Je hebt nog geen vouchers</string>
-    <string name="vouchers_make_transaction">Belasten</string>
+    <string name="vouchers_make_transaction">Bevestig</string>
     <string name="vouchers_make_transaction_failure">Transactie mislukt</string>
     <string name="vouchers_transaction_payment">Betaald</string>
     <string name="vouchers_amount">Enter the price here.</string>
     <string name="vouchers_product_categories">Productcategorieën</string>
     <string name="vouchers_amount_invalid">Ongeldige hoeveelheid</string>
     <string name="vouchers_pay_title">Bevestig transactie</string>
-    <string name="vouchers_pay_question">Weet je zeker dat je %1$s€ wilt aanvragen?</string>
+    <string name="vouchers_pay_question">Weet je zeker dat je €%1$s wilt aanvragen?</string>
     <string name="vouchers_apply_question">Weet je zeker dat je wilt aanwenden voucher?</string>
     <string name="voucher_is_used">GEBRUIKT</string>
     <string name="vouchers_apply_success">Betaling geslaagd!</string>
