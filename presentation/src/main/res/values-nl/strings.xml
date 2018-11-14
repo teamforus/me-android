@@ -32,7 +32,7 @@
     <string name="restore_login_via_de_qr_code">login via de qr code</string>
     <string name="restore_scan_deze_qr">Scan deze QR-Code met een ander apparaat waar je al op ingelogd bent</string>
     <string name="restore_inloggen_via_email">Inloggen via e-mail</string>
-    <string name="restore_inloggen_via_qr">Ander apparat toevoegen</string>
+    <string name="restore_inloggen_via_qr">Ander apparaat toevoegen</string>
     <string name="restore_auth_code">Autorisatie code</string>
     <string name="restore_auth_code_description">Log in op de webshop, klik op je profiel en klik op autoriseer apparaat en vul deze code in.</string>
     <string name="restore_inloggen_by_email">Bevestig</string>
