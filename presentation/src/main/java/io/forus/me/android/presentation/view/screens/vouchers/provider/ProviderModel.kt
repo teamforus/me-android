@@ -15,7 +15,7 @@ data class ProviderModel(
 
     val amountIsValid: Boolean
         get(){
-            return selectedAmount != BigDecimal.ZERO && selectedAmount >= BigDecimal("0.01")
+            return selectedAmount >= BigDecimal("0.01")
         }
 
     val buttonIsActive: Boolean

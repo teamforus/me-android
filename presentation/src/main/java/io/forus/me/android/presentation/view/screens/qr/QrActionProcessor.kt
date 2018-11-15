@@ -95,7 +95,7 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
                         if(scanner.hasWindowFocus())
                             ScanVoucherNotEligibleDialog(scanner, reactivateDecoding).show()
                     }
-                    else if(!it.voucher.isProduct && it.voucher.amount == BigDecimal.ZERO){
+                    else if(!it.voucher.isProduct && it.voucher.amount.compareTo(BigDecimal.ZERO) == 0){
                         if(scanner.hasWindowFocus())
                             ScanVoucherEmptyDialog(scanner, reactivateDecoding).show()
                     }

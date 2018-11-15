@@ -13,7 +13,6 @@ import java.math.BigDecimal
 
 class ProviderPresenter constructor(private val vouchersRepository: VouchersRepository, private val address: String) : LRPresenter<VoucherProvider, ProviderModel, ProviderView>() {
 
-    private var amount = BigDecimal.ZERO
     private var organizationId = 0L
 
     override fun initialModelSingle(): Single<VoucherProvider> = Single.fromObservable(vouchersRepository.getVoucherAsProvider(address))
@@ -31,11 +30,11 @@ class ProviderPresenter constructor(private val vouchersRepository: VouchersRepo
                 loadRefreshPartialChanges(),
 
                 intent { it.selectAmount() }
-                        .map {  amount = it; ProviderPartialChanges.SetAmount(it) },
+                        .map {  ProviderPartialChanges.SetAmount(it) },
 
-                intent { it.submit() }
+                intent { it.charge() }
                         .switchMap {
-                            vouchersRepository.makeTransaction(address, amount, organizationId)
+                            vouchersRepository.makeTransaction(address, it, organizationId)
                                     .subscribeOn(Schedulers.io())
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .map<PartialChange> {

@@ -99,7 +99,7 @@
     <string name="profile_logout">Log uit</string>
     <string name="profile_button_show_qr">Toon QR-code</string>
     <string name="profile_about_me">Over Me</string>
-    <string name="profile_about_me_text">Met Me kan je een profiel aanmaken, vouchers beheren en de QR-code scanner gebruiken om in te loggen op de gebruikersomgeving. Bezoek onze website voor meer informatie — https://zuidhorn.forus.io</string>
+    <string name="profile_about_me_text">Met Me kan je een profiel aanmaken, vouchers beheren en de QR-code scanner gebruiken om in te loggen op de gebruikersomgeving.</string>
     <string name="profile_app_version">App versie</string>
     <string name="profile_about">Informatie</string>
 
@@ -165,14 +165,16 @@
     <string name="vouchers_transactions">Geschiedenis</string>
     <string name="vouchers_transactions_empty">Nog geen transacties</string>
     <string name="vouchers_no_items">Je hebt nog geen vouchers</string>
-    <string name="vouchers_make_transaction">Bevestig</string>
+    <string name="vouchers_make_transaction">Verzoek betaling</string>
     <string name="vouchers_make_transaction_failure">Transactie mislukt</string>
     <string name="vouchers_transaction_payment">Betaald</string>
-    <string name="vouchers_amount">Enter the price here.</string>
+    <string name="vouchers_amount">Vul hier het bedrag in</string>
+    <string name="vouchers_note">Omschrijving</string>
     <string name="vouchers_product_categories">Productcategorieën</string>
     <string name="vouchers_amount_invalid">Ongeldige hoeveelheid</string>
     <string name="vouchers_pay_title">Bevestig transactie</string>
     <string name="vouchers_pay_question">Weet je zeker dat je €%1$s wilt aanvragen?</string>
+    <string name="vouchers_pay_question_extra">Onvoldoende budget op de voucher. Vraag de klant of hij een bedrag van €%1$s wilt bijbetalen.</string>
     <string name="vouchers_apply_question">Weet je zeker dat je wilt aanwenden voucher?</string>
     <string name="voucher_is_used">GEBRUIKT</string>
     <string name="vouchers_apply_success">Betaling geslaagd!</string>

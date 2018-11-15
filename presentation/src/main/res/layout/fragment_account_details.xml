@@ -11,8 +11,8 @@
     <android.support.design.widget.CoordinatorLayout
         android:background="@color/colorPrimary"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <!--android:layout_marginBottom="116dp"-->
+        android:layout_height="match_parent"
+        android:layout_marginBottom="57dp">
 
         <include layout="@layout/toolbar_view"/>
 
