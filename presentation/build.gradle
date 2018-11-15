@@ -92,12 +92,17 @@ android {
     demo {
       dimension "version"
       versionNameSuffix "-demo"
-      buildConfigField "String", SERVER_URL, "\"https://demo.api.forus.link/\""
+      buildConfigField "String", SERVER_URL, "\"https://demo.api.forus.io/\""
+    }
+    staging {
+      dimension "version"
+      versionNameSuffix "-staging"
+      buildConfigField "String", SERVER_URL, "\"https://staging.api.forus.io/\""
     }
     prod {
       dimension "version"
       versionNameSuffix "-prod"
-      buildConfigField "String", SERVER_URL, "\"https://api.forus.link/\""
+      buildConfigField "String", SERVER_URL, "\"https://api.forus.io/\""
     }
   }
 
