@@ -154,8 +154,8 @@
     <string name="qr_popup_approve_value">inhoud</string>
     <string name="qr_popup_approve_validation_positive">Accepteren</string>
     <string name="qr_popup_approve_validation_negative">Weigeren</string>
-    <string name="qr_popup_restore_identity_title">Inloggen via QR-Code</string>
-    <string name="qr_popup_restore_identity_description">Wil je dit nieuwe toestel toegang verlenen tot je account</string>
+    <string name="qr_popup_restore_identity_title">Aanmelden</string>
+    <string name="qr_popup_restore_identity_description">Wilt u zich aanmelden op dit apparaat of website?</string>
     <string name="qr_popup_error">Mislukt!</string>
 
     <!-- Vouchers -->

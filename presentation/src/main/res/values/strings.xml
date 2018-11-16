@@ -161,8 +161,8 @@
     <string name="qr_popup_approve_value">value</string>
     <string name="qr_popup_approve_validation_positive">Approve</string>
     <string name="qr_popup_approve_validation_negative">Decline"</string>
-    <string name="qr_popup_restore_identity_title">Restore identity</string>
-    <string name="qr_popup_restore_identity_description">Allow access?</string>
+    <string name="qr_popup_restore_identity_title">Login</string>
+    <string name="qr_popup_restore_identity_description">Do you want to login on this device or website?</string>
     <string name="qr_popup_error">Error!</string>
 
     <!-- Vouchers -->
