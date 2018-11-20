@@ -144,8 +144,12 @@
     <string name="wallet_transactions_see_all">See all</string>
 
     <!-- QR Scanner -->
-    <string name="qr_on_off_flashlight">On/Off flashlight</string>
-    <string name="qr_on_off_decoding">On/Off QR decoding</string>
+    <string name="qr_camera_access_required">Camera access is required to display the camera preview.</string>
+    <string name="qr_camera_permission_not_available">Permission is not available. Requesting camera permission.</string>
+    <string name="qr_camera_permission_granted">Camera permission was granted.</string>
+    <string name="qr_camera_permission_denied">Camera permission request was denied.</string>
+    <string name="qr_scan">Scan QR-code</string>
+    <string name="qr_scan_help">Press back to close the QR-code scanner</string>
     <string name="qr_validation_approved">Validation approved</string>
     <string name="qr_validation_declined">Validation declined</string>
     <string name="qr_validation_already_done">Already validated</string>

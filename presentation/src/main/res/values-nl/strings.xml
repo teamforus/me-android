@@ -137,8 +137,12 @@
     <string name="wallet_transactions_see_all">Alles zien</string>
 
     <!-- QR Scanner -->
-    <string name="qr_on_off_flashlight">On/Off zaklamp</string>
-    <string name="qr_on_off_decoding">On/Off QR decodering</string>
+    <string name="qr_camera_access_required">Cameratoegang is vereist om het cameravoorbeeld weer te geven.</string>
+    <string name="qr_camera_permission_not_available">Me heeft geen toegang tot uw camera. Om toegang te verlenen, tik op instellingen en schakel de camera in.</string>
+    <string name="qr_camera_permission_granted">Cameratoestemming is verleend.</string>
+    <string name="qr_camera_permission_denied">Verzoek om cameratoestemming is geweigerd.</string>
+    <string name="qr_scan">Scan QR-code</string>
+    <string name="qr_scan_help">Druk op terug om de QR-codescanner te sluiten</string>
     <string name="qr_validation_approved">Validatie goedgekeurd</string>
     <string name="qr_validation_declined">Validatie geweigerd</string>
     <string name="qr_validation_already_done">Al gevalideerd</string>
