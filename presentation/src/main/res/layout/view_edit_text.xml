@@ -14,7 +14,7 @@
         android:layout_marginRight="3dp"
         android:layout_width="match_parent"
         android:layout_height="58dp"
-        android:background="@color/gallery">
+        android:background="@drawable/edit_text_rounded_corners">
     </RelativeLayout>
 
     <android.support.design.widget.TextInputLayout
