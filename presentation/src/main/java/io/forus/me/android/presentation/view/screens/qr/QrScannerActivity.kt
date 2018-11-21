@@ -52,9 +52,6 @@ class QrScannerActivity : FragmentActivity(), QRCodeReaderView.OnQRCodeReadListe
         } else {
             requestCameraPermission()
         }
-
-        Snackbar.make(main_layout, resources.getString(R.string.qr_scan_help), Snackbar.LENGTH_LONG)
-                .show()
     }
 
     override fun onResume() {
@@ -132,5 +129,8 @@ class QrScannerActivity : FragmentActivity(), QRCodeReaderView.OnQRCodeReadListe
         qrCodeReaderView?.setOnQRCodeReadListener(this)
         qrCodeReaderView?.setBackCamera()
         qrCodeReaderView?.startCamera()
+
+        Snackbar.make(main_layout, resources.getString(R.string.qr_scan_help), Snackbar.LENGTH_LONG)
+                .show()
     }
 }

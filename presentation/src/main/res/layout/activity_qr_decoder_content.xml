@@ -26,7 +26,7 @@
             android:layout_height="262dp"
             android:layout_centerInParent="true"
 
-            android:src="@drawable/ic_qr_frame" />
+            android:src="@drawable/ic_qr_window" />
 
         <FrameLayout
             android:id="@+id/qr_shadow_top"
