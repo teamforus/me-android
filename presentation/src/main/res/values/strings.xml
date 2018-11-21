@@ -100,6 +100,7 @@
 
     <!-- Profile screen -->
     <string name="profile_app_settings">App settings</string>
+    <string name="profile_start_from_scanner">Start from scanner</string>
     <string name="profile_use_pinlock">Use pinlock</string>
     <string name="profile_use_fingerprint">Use fingerprint</string>
     <string name="profile_change_4digit">Change 4-digit passcode</string>

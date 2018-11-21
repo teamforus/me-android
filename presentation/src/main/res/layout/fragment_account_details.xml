@@ -134,6 +134,15 @@
                     </io.forus.me.android.presentation.view.component.card.SettingsSwitchCard>
 
 
+                    <io.forus.me.android.presentation.view.component.card.SettingsSwitchCard
+                        android:id="@+id/start_from_scanner"
+                        app:valuecard_title="@string/profile_start_from_scanner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    </io.forus.me.android.presentation.view.component.card.SettingsSwitchCard>
+
+
                     <io.forus.me.android.presentation.view.component.card.SettingsCard
                         android:id="@+id/logout_view"
                         app:valuecard_title="@string/profile_logout"

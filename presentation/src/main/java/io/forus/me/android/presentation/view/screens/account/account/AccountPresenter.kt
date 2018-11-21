@@ -20,7 +20,7 @@ class AccountPresenter constructor(private val accountRepository: AccountReposit
             Single.fromObservable(accountRepository.getAccount()),
             Single.fromObservable(accountRepository.getSecurityOptions()),
             BiFunction { account, securityOptions ->
-                AccountModel(account, securityOptions.pinEnabled, securityOptions.fingerprintEnabled)
+                AccountModel(account, securityOptions.pinEnabled, securityOptions.fingerprintEnabled, securityOptions.startFromScanner)
             })
 
 
@@ -55,8 +55,20 @@ class AccountPresenter constructor(private val accountRepository: AccountReposit
                                     .subscribeOn(Schedulers.io())
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .map<PartialChange> { success ->
-                                        if(success) AccountPartialChanges.FingerprintEnabled(newState)
-                                        else AccountPartialChanges.FingerprintEnabled(!newState)
+                                        AccountPartialChanges.FingerprintEnabled(if(success) newState else !newState)
+                                    }
+                                    .onErrorReturn {
+                                        LRPartialChange.LoadingError(it)
+                                    }
+                        },
+
+                intent { it.switchStartFromScanner() }
+                        .switchMap {newState ->
+                            accountRepository.setStartFromScannerEnabled(newState)
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .map<PartialChange> { success ->
+                                        AccountPartialChanges.StartFromScannerEnabled(if(success) newState else !newState)
                                     }
                                     .onErrorReturn {
                                         LRPartialChange.LoadingError(it)
@@ -87,6 +99,7 @@ class AccountPresenter constructor(private val accountRepository: AccountReposit
         return when (change) {
             is AccountPartialChanges.NavigateToWelcomeScreen -> vs.copy(model = vs.model.copy(navigateToWelcome = true))
             is AccountPartialChanges.FingerprintEnabled -> vs.copy(model = vs.model.copy(fingerprintEnabled = change.value))
+            is AccountPartialChanges.StartFromScannerEnabled -> vs.copy(model = vs.model.copy(startFromScanner = change.value))
         }
 
     }

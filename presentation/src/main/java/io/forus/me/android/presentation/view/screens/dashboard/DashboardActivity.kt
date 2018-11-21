@@ -31,8 +31,8 @@ class DashboardActivity : SlidingPanelActivity() {
     private var navigationAdapter: AHBottomNavigationAdapter? = null
 
     private var accountRepository = Injection.instance.accountRepository
-    private var fcmHandler = Injection.instance.fcmHandler
     private var settings = Injection.instance.settingsDataSource
+    private var fcmHandler = Injection.instance.fcmHandler
     private var disposableHolder = DisposableHolder()
 
     companion object {
@@ -52,7 +52,7 @@ class DashboardActivity : SlidingPanelActivity() {
         initUI()
         checkLogin()
         checkFCM()
-
+        checkStartFromScanner()
     }
 
     private fun initUI(){
@@ -96,10 +96,6 @@ class DashboardActivity : SlidingPanelActivity() {
             view_pager.offscreenPageLimit = 3
             selectTab(currentPagerPosition, 0)
         }
-
-        (android.os.Handler()).postDelayed({
-            showTab(0, 0,false)
-        },500)
     }
 
     private fun checkLogin(){
@@ -166,7 +162,7 @@ class DashboardActivity : SlidingPanelActivity() {
 
         if (position == 1) {
             view_pager.setCurrentItem(oldPosition, false)
-            this.navigator.navigateToQrScanner(this)
+            navigateToQrScanner()
             return false
 
         }
@@ -200,5 +196,15 @@ class DashboardActivity : SlidingPanelActivity() {
 
     fun showPopupQRFragment(address: String){
         addPopupFragment(QrFragment.newIntent(address, null, null), "QR code")
+    }
+
+    fun navigateToQrScanner(){
+        this.navigator.navigateToQrScanner(this)
+    }
+
+    fun checkStartFromScanner(){
+        if(settings.isStartFromScannerEnabled()){
+            navigateToQrScanner()
+        }
     }
 }

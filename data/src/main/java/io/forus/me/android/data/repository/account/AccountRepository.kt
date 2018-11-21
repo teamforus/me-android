@@ -10,6 +10,7 @@ import io.forus.me.android.domain.models.account.*
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
+import io.reactivex.functions.Function3
 import java.lang.IllegalStateException
 import java.util.concurrent.TimeUnit
 
@@ -97,6 +98,9 @@ class AccountRepository(private val settingsDataSource: SettingsDataSource,
         return Single.fromCallable { settingsDataSource.setFingerprintEnabled(isFingerprintEnabled); true }.toObservable()
     }
 
+    override fun setStartFromScannerEnabled(isEnabled: Boolean): Observable<Boolean> {
+        return Single.fromCallable { settingsDataSource.setStartFromScannerEnabled(isEnabled); true }.toObservable()
+    }
 
     override fun changePin(oldPin: String, newPin: String): Observable<Boolean> {
         return Single.fromCallable{
@@ -138,8 +142,9 @@ class AccountRepository(private val settingsDataSource: SettingsDataSource,
         return Single.zip(
                 Single.just(settingsDataSource.isPinEnabled()),
                 Single.just(settingsDataSource.isFingerprintEnabled()),
-                BiFunction { pinEnabled: Boolean, fingerprintEnabled: Boolean ->
-                    SecurityOptions(pinEnabled, fingerprintEnabled)
+                Single.just(settingsDataSource.isStartFromScannerEnabled()),
+                Function3 { pinEnabled: Boolean, fingerprintEnabled: Boolean, startFromScannerEnabled: Boolean ->
+                    SecurityOptions(pinEnabled, fingerprintEnabled, startFromScannerEnabled)
                 }
         ).toObservable()
     }

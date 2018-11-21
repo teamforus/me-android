@@ -37,7 +37,7 @@ allprojects {
     androidApplicationId = 'io.forus.me'
     androidVersionCode = 3
     androidVersionName = "0.0.5"
-    androidBuildNumber = 7
+    androidBuildNumber = 8
     testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
     testApplicationId = 'io.forus.me.test'
   }
