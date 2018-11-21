@@ -19,4 +19,8 @@ interface SettingsDataSource {
     fun getFCMToken(): String
 
     fun updateFCMToken(): Boolean
+
+    fun isStartFromScannerEnabled(): Boolean
+
+    fun setStartFromScannerEnabled(isEnabled: Boolean): Boolean
 }

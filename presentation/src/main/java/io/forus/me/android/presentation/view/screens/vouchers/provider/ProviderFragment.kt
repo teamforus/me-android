@@ -15,7 +15,7 @@ import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.forus.me.android.presentation.view.screens.vouchers.provider.categories.CategoriesAdapter
 import io.forus.me.android.presentation.view.screens.vouchers.provider.dialogs.ApplyDialog
-import io.forus.me.android.presentation.view.screens.vouchers.provider.dialogs.PayDialog
+import io.forus.me.android.presentation.view.screens.vouchers.provider.dialogs.ChargeDialog
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_voucher_provider.*
@@ -50,8 +50,8 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
     private val selectAmount = PublishSubject.create<BigDecimal>()
     override fun selectAmount(): Observable<BigDecimal> = selectAmount
 
-    private val submit = PublishSubject.create<Boolean>()
-    override fun submit(): Observable<Boolean> = submit
+    private val charge = PublishSubject.create<BigDecimal>()
+    override fun charge(): Observable<BigDecimal> = charge
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
             = inflater.inflate(R.layout.fragment_voucher_provider, container, false).also {
@@ -119,11 +119,13 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
         btn_make.active = vs.model.buttonIsActive
         btn_make.isEnabled = vs.model.buttonIsActive
         btn_make.setOnClickListener {
-            payDialog(vs.model.item?.voucher?.isProduct, vs.model.selectedAmount)
+            if(vs.model.item != null) {
+                payDialog(vs.model.item.voucher.isProduct, vs.model.selectedAmount, vs.model.item.voucher.amount)
+            }
         }
 
 
-        if(!(vs.model.selectedAmount == BigDecimal.ZERO) && !vs.model.amountIsValid) amount.setError(resources.getString(R.string.vouchers_amount_invalid))
+        if(!(vs.model.selectedAmount.compareTo(BigDecimal.ZERO) == 0) && !vs.model.amountIsValid) amount.setError(resources.getString(R.string.vouchers_amount_invalid))
 
         if(vs.model.makeTransactionError != null){
             val error: Throwable = vs.model.makeTransactionError
@@ -134,15 +136,17 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
         if(vs.closeScreen) closeScreen()
     }
 
-    private fun payDialog(isProduct: Boolean?, amount: BigDecimal){
-        if(isProduct != null && isProduct){
+    private fun payDialog(isProduct: Boolean, amount: BigDecimal, balance: BigDecimal){
+        if(isProduct){
             ApplyDialog(context!!) {
-                submit.onNext(true)
+                charge.onNext(BigDecimal.ZERO)
             }.show()
         }
         else{
-            PayDialog(context!!, amount) {
-                submit.onNext(true)
+            val chargeAmount = if(amount <= balance) amount else balance
+            val extra = if(amount <= balance) BigDecimal.ZERO else amount.minus(balance)
+            ChargeDialog(context!!, chargeAmount, extra) {
+                charge.onNext(chargeAmount)
             }.show()
         }
     }

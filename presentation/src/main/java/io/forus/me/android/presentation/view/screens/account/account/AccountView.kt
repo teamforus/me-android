@@ -15,4 +15,5 @@ interface AccountView : LRView<AccountModel> {
 
     fun switchFingerprint(): io.reactivex.Observable<Boolean>
 
+    fun switchStartFromScanner(): io.reactivex.Observable<Boolean>
 }

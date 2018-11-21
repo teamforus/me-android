@@ -52,6 +52,9 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
     private val logout = PublishSubject.create<Boolean>()
     override fun logout(): Observable<Boolean> = logout
 
+    private val switchStartFromScanner = PublishSubject.create<Boolean>()
+    override fun switchStartFromScanner(): Observable<Boolean> = switchStartFromScanner
+
     private val switchFingerprint = PublishSubject.create<Boolean>()
     override fun switchFingerprint(): Observable<Boolean> = switchFingerprint
 
@@ -104,6 +107,11 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
                 switchFingerprint.onNext(!vs.model.fingerprintEnabled)
             }
             else showToastMessage(resources.getString(R.string.lock_no_fingerprints))
+        }
+
+        start_from_scanner.setChecked(vs.model.startFromScanner)
+        start_from_scanner.setOnClickListener {
+            switchStartFromScanner.onNext(!vs.model.startFromScanner)
         }
 
         if(vs.model.account?.address != null){

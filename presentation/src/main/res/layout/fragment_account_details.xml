@@ -11,8 +11,8 @@
     <android.support.design.widget.CoordinatorLayout
         android:background="@color/colorPrimary"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <!--android:layout_marginBottom="116dp"-->
+        android:layout_height="match_parent"
+        android:layout_marginBottom="57dp">
 
         <include layout="@layout/toolbar_view"/>
 
@@ -128,6 +128,15 @@
                     <io.forus.me.android.presentation.view.component.card.SettingsSwitchCard
                         android:id="@+id/enable_fingerprint"
                         app:valuecard_title="@string/profile_use_fingerprint"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    </io.forus.me.android.presentation.view.component.card.SettingsSwitchCard>
+
+
+                    <io.forus.me.android.presentation.view.component.card.SettingsSwitchCard
+                        android:id="@+id/start_from_scanner"
+                        app:valuecard_title="@string/profile_start_from_scanner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 

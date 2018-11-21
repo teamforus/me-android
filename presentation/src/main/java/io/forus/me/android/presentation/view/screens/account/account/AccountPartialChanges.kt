@@ -7,6 +7,8 @@ sealed class AccountPartialChanges : PartialChange {
 
     data class FingerprintEnabled(val value: Boolean) : AccountPartialChanges()
 
+    data class StartFromScannerEnabled(val value: Boolean) : AccountPartialChanges()
+
     data class NavigateToWelcomeScreen(val value: Boolean) : AccountPartialChanges()
 
 }

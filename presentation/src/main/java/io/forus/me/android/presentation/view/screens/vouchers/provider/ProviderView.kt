@@ -8,5 +8,5 @@ interface ProviderView : LRView<ProviderModel> {
 
     fun selectAmount(): Observable<BigDecimal>
 
-    fun submit(): Observable<Boolean>
+    fun charge(): Observable<BigDecimal>
 }

@@ -34,10 +34,9 @@ allprojects {
     jcenter()
   }
   ext {
-    androidApplicationId = 'io.forus.me'
     androidVersionCode = 3
     androidVersionName = "0.0.5"
-    androidBuildNumber = 6
+    androidBuildNumber = 9
     testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
     testApplicationId = 'io.forus.me.test'
   }

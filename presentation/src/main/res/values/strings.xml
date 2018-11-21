@@ -100,13 +100,14 @@
 
     <!-- Profile screen -->
     <string name="profile_app_settings">App settings</string>
+    <string name="profile_start_from_scanner">Start from scanner</string>
     <string name="profile_use_pinlock">Use pinlock</string>
     <string name="profile_use_fingerprint">Use fingerprint</string>
     <string name="profile_change_4digit">Change 4-digit passcode</string>
     <string name="profile_logout">Logout</string>
     <string name="profile_button_show_qr">My QR-code</string>
     <string name="profile_about_me">About Me</string>
-    <string name="profile_about_me_text">With Me you can create an identity, receive and use your vouchers. For more information please visit our website — https://zuidhorn.forus.io</string>
+    <string name="profile_about_me_text">With Me you can create an identity, receive and use your vouchers.</string>
     <string name="profile_app_version">App version</string>
     <string name="profile_about">About</string>
 
@@ -144,8 +145,12 @@
     <string name="wallet_transactions_see_all">See all</string>
 
     <!-- QR Scanner -->
-    <string name="qr_on_off_flashlight">On/Off flashlight</string>
-    <string name="qr_on_off_decoding">On/Off QR decoding</string>
+    <string name="qr_camera_access_required">Camera access is required to display the camera preview.</string>
+    <string name="qr_camera_permission_not_available">Permission is not available. Requesting camera permission.</string>
+    <string name="qr_camera_permission_granted">Camera permission was granted.</string>
+    <string name="qr_camera_permission_denied">Camera permission request was denied.</string>
+    <string name="qr_scan">Scan QR-code</string>
+    <string name="qr_scan_help">Press back to close the QR-code scanner</string>
     <string name="qr_validation_approved">Validation approved</string>
     <string name="qr_validation_declined">Validation declined</string>
     <string name="qr_validation_already_done">Already validated</string>
@@ -161,8 +166,8 @@
     <string name="qr_popup_approve_value">value</string>
     <string name="qr_popup_approve_validation_positive">Approve</string>
     <string name="qr_popup_approve_validation_negative">Decline"</string>
-    <string name="qr_popup_restore_identity_title">Restore identity</string>
-    <string name="qr_popup_restore_identity_description">Allow access?</string>
+    <string name="qr_popup_restore_identity_title">Login</string>
+    <string name="qr_popup_restore_identity_description">Do you want to login on this device or website?</string>
     <string name="qr_popup_error">Error!</string>
 
     <!-- Vouchers -->
@@ -180,7 +185,8 @@
     <string name="vouchers_product_categories">Product categories</string>
     <string name="vouchers_amount_invalid">Invalid amount</string>
     <string name="vouchers_pay_title">Confirm transaction</string>
-    <string name="vouchers_pay_question">Are you sure you want to request %1$s€?</string>
+    <string name="vouchers_pay_question">Are you sure you want to request €%1$s?</string>
+    <string name="vouchers_pay_question_extra">Insufficient funds on the voucher. Please, request extra payment of €%1$s.</string>
     <string name="vouchers_apply_question">Are you sure you want to apply the voucher?</string>
     <string name="vouchers_apply_success">Payment succeeded!</string>
     <string name="voucher_is_used">Used voucher</string>

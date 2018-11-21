@@ -32,7 +32,7 @@
     <string name="restore_login_via_de_qr_code">login via de qr code</string>
     <string name="restore_scan_deze_qr">Scan deze QR-Code met een ander apparaat waar je al op ingelogd bent</string>
     <string name="restore_inloggen_via_email">Inloggen via e-mail</string>
-    <string name="restore_inloggen_via_qr">Ander apparat toevoegen</string>
+    <string name="restore_inloggen_via_qr">Ander apparaat toevoegen</string>
     <string name="restore_auth_code">Autorisatie code</string>
     <string name="restore_auth_code_description">Log in op de webshop, klik op je profiel en klik op autoriseer apparaat en vul deze code in.</string>
     <string name="restore_inloggen_by_email">Bevestig</string>
@@ -93,13 +93,14 @@
 
     <!-- Profile screen -->
     <string name="profile_app_settings">Instellingen</string>
+    <string name="profile_start_from_scanner">Start van scanner</string>
     <string name="profile_use_pinlock">Gebruik een inlogcode</string>
     <string name="profile_use_fingerprint">Gebruik vingerafdrukscanner</string>
     <string name="profile_change_4digit">Inlogcode wijzigen</string>
     <string name="profile_logout">Log uit</string>
     <string name="profile_button_show_qr">Toon QR-code</string>
     <string name="profile_about_me">Over Me</string>
-    <string name="profile_about_me_text">Met Me kan je een profiel aanmaken, vouchers beheren en de QR-code scanner gebruiken om in te loggen op de gebruikersomgeving. Bezoek onze website voor meer informatie — https://zuidhorn.forus.io</string>
+    <string name="profile_about_me_text">Met Me kan je een profiel aanmaken, vouchers beheren en de QR-code scanner gebruiken om in te loggen op de gebruikersomgeving.</string>
     <string name="profile_app_version">App versie</string>
     <string name="profile_about">Informatie</string>
 
@@ -137,8 +138,12 @@
     <string name="wallet_transactions_see_all">Alles zien</string>
 
     <!-- QR Scanner -->
-    <string name="qr_on_off_flashlight">On/Off zaklamp</string>
-    <string name="qr_on_off_decoding">On/Off QR decodering</string>
+    <string name="qr_camera_access_required">Cameratoegang is vereist om het cameravoorbeeld weer te geven.</string>
+    <string name="qr_camera_permission_not_available">Me heeft geen toegang tot uw camera. Om toegang te verlenen, tik op instellingen en schakel de camera in.</string>
+    <string name="qr_camera_permission_granted">Cameratoestemming is verleend.</string>
+    <string name="qr_camera_permission_denied">Verzoek om cameratoestemming is geweigerd.</string>
+    <string name="qr_scan">Scan QR-code</string>
+    <string name="qr_scan_help">Druk op terug om de QR-codescanner te sluiten</string>
     <string name="qr_validation_approved">Validatie goedgekeurd</string>
     <string name="qr_validation_declined">Validatie geweigerd</string>
     <string name="qr_validation_already_done">Al gevalideerd</string>
@@ -154,8 +159,8 @@
     <string name="qr_popup_approve_value">inhoud</string>
     <string name="qr_popup_approve_validation_positive">Accepteren</string>
     <string name="qr_popup_approve_validation_negative">Weigeren</string>
-    <string name="qr_popup_restore_identity_title">Inloggen via QR-Code</string>
-    <string name="qr_popup_restore_identity_description">Wil je dit nieuwe toestel toegang verlenen tot je account</string>
+    <string name="qr_popup_restore_identity_title">Aanmelden</string>
+    <string name="qr_popup_restore_identity_description">Wilt u zich aanmelden op dit apparaat of website?</string>
     <string name="qr_popup_error">Mislukt!</string>
 
     <!-- Vouchers -->
@@ -165,14 +170,16 @@
     <string name="vouchers_transactions">Geschiedenis</string>
     <string name="vouchers_transactions_empty">Nog geen transacties</string>
     <string name="vouchers_no_items">Je hebt nog geen vouchers</string>
-    <string name="vouchers_make_transaction">Bevestig</string>
+    <string name="vouchers_make_transaction">Verzoek betaling</string>
     <string name="vouchers_make_transaction_failure">Transactie mislukt</string>
     <string name="vouchers_transaction_payment">Betaald</string>
-    <string name="vouchers_amount">Enter the price here.</string>
+    <string name="vouchers_amount">Vul hier het bedrag in</string>
+    <string name="vouchers_note">Omschrijving</string>
     <string name="vouchers_product_categories">Productcategorieën</string>
     <string name="vouchers_amount_invalid">Ongeldige hoeveelheid</string>
     <string name="vouchers_pay_title">Bevestig transactie</string>
     <string name="vouchers_pay_question">Weet je zeker dat je €%1$s wilt aanvragen?</string>
+    <string name="vouchers_pay_question_extra">Onvoldoende budget op de voucher. Vraag de klant of hij een bedrag van €%1$s wilt bijbetalen.</string>
     <string name="vouchers_apply_question">Weet je zeker dat je wilt aanwenden voucher?</string>
     <string name="voucher_is_used">GEBRUIKT</string>
     <string name="vouchers_apply_success">Betaling geslaagd!</string>
