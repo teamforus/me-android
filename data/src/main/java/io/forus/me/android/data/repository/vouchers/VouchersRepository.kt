@@ -79,8 +79,8 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
         return vouchersDataSource.retrieveVoucherAsProvider(address).map { mapToProvider(it) }
     }
 
-    override fun makeTransaction(address: String, amount: BigDecimal, organizationId: Long): Observable<Boolean> {
-        return vouchersDataSource.makeTransaction(address, MakeTransaction(amount, organizationId)).map { true }
+    override fun makeTransaction(address: String, amount: BigDecimal, note: String, organizationId: Long): Observable<Boolean> {
+        return vouchersDataSource.makeTransaction(address, MakeTransaction(amount, note, organizationId)).map { true }
     }
 
     override fun sendEmail(address: String): Observable<Boolean> {
