@@ -7,6 +7,8 @@ sealed class ProviderPartialChanges : PartialChange {
 
     data class SetAmount(val amount: BigDecimal) : ProviderPartialChanges()
 
+    data class SetNote(val note: String) : ProviderPartialChanges()
+
     class MakeTransactionStart : ProviderPartialChanges()
 
     class MakeTransactionEnd : ProviderPartialChanges()

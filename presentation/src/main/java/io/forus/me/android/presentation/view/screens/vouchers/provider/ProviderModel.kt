@@ -8,6 +8,7 @@ data class ProviderModel(
         val item: VoucherProvider? = null,
         val selectedOrganization: Organization? = null,
         val selectedAmount: BigDecimal = BigDecimal.ZERO,
+        val selectedNote: String = "",
         val sendingMakeTransaction: Boolean = false,
         val makeTransactionError: Throwable? = null
 )

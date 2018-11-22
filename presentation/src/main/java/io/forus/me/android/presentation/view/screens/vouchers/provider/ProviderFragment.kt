@@ -50,6 +50,9 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
     private val selectAmount = PublishSubject.create<BigDecimal>()
     override fun selectAmount(): Observable<BigDecimal> = selectAmount
 
+    private val selectNote = PublishSubject.create<String>()
+    override fun selectNote(): Observable<String> = selectNote
+
     private val charge = PublishSubject.create<BigDecimal>()
     override fun charge(): Observable<BigDecimal> = charge
 
@@ -82,6 +85,16 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
                 }
             }
         })
+
+        note.setTextChangedListener(object: TextWatcher{
+            override fun afterTextChanged(s: Editable?) {}
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                selectNote.onNext(s.toString())
+            }
+        })
     }
 
 
@@ -95,7 +108,6 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
         super.render(vs)
 
         amount.visibility = if(vs.model.item?.voucher?.isProduct == true) View.GONE else View.VISIBLE
-        note.visibility = if(vs.model.item?.voucher?.isProduct == true) View.GONE else View.VISIBLE
 
         tv_name.text = vs.model.item?.voucher?.name
         tv_organization.text = vs.model.item?.voucher?.organizationName
@@ -109,7 +121,7 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
         }
 
         if(vs.model.item != null) {
-            categoriesAdapter.items = vs.model.item.allowedProductCategories
+            //categoriesAdapter.items = vs.model.item.allowedProductCategories
 
             if(vs.model.item.voucher.isProduct){
                 tv_fund.text = vs.model.item.voucher.fundName
