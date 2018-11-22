@@ -192,6 +192,6 @@
     <string name="voucher_qr_code_subtitle">Dit is de QR-code van de Voucher</string>
     <string name="voucher_qr_code_description">Laat de aanbieder deze QR-Code scannen om een betaling te kunnen doen</string>
     <string name="voucher_email_to_me">E-mail naar mijzelf</string>
-    <string name="voucher_request">VRAAG </string>
+    <string name="voucher_request">BEVESTIG</string>
 
 </resources>
