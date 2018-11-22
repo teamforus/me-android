@@ -133,7 +133,8 @@
         <activity
             android:name=".view.screens.vouchers.provider.ProviderActivity"
             android:label=""
-            android:launchMode="singleTop"></activity>
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="adjustResize"></activity>
 
         <activity
             android:name=".view.screens.account.account.pin.ChangePinActivity"
