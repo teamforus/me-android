@@ -12,6 +12,8 @@
     <string name="me_validation_error_not_empty">Het invoerveld is leeg</string>
     <string name="me_validation_error_email_is_invalid">Het invoerveld is niet juist ingevoerd.</string>
     <string name="me_validation_error_decimal">Het invoerveld accepteert alleen getallen of decimalen.</string>
+    <string name="me_ok">OK</string>
+    <string name="me_cancel">ANNULEER</string>
 
     <!-- Dashboard -->
     <string name="dashboard_property">Vouchers</string>
@@ -93,7 +95,7 @@
 
     <!-- Profile screen -->
     <string name="profile_app_settings">Instellingen</string>
-    <string name="profile_start_from_scanner">Start van scanner</string>
+    <string name="profile_start_from_scanner">Start met scanner</string>
     <string name="profile_use_pinlock">Gebruik een inlogcode</string>
     <string name="profile_use_fingerprint">Gebruik vingerafdrukscanner</string>
     <string name="profile_change_4digit">Inlogcode wijzigen</string>
@@ -160,12 +162,12 @@
     <string name="qr_popup_approve_validation_positive">Accepteren</string>
     <string name="qr_popup_approve_validation_negative">Weigeren</string>
     <string name="qr_popup_restore_identity_title">Aanmelden</string>
-    <string name="qr_popup_restore_identity_description">Wilt u zich aanmelden op dit apparaat of website?</string>
+    <string name="qr_popup_restore_identity_description">Wil je je aanmelden op dit apparaat of deze website?</string>
     <string name="qr_popup_error">Mislukt!</string>
 
     <!-- Vouchers -->
     <string name="vouchers_item">Voucher</string>
-    <string name="vouchers_item_product">Aanbieding voucher</string>
+    <string name="vouchers_item_product">Aanbiedings voucher</string>
     <string name="vouchers_provider">Verzoek Betaling</string>
     <string name="vouchers_transactions">Geschiedenis</string>
     <string name="vouchers_transactions_empty">Nog geen transacties</string>
@@ -178,9 +180,9 @@
     <string name="vouchers_product_categories">Productcategorieën</string>
     <string name="vouchers_amount_invalid">Ongeldige hoeveelheid</string>
     <string name="vouchers_pay_title">Bevestig transactie</string>
-    <string name="vouchers_pay_question">Weet je zeker dat je €%1$s wilt aanvragen?</string>
+    <string name="vouchers_pay_question">Is het bedrag van €%1$s correct?</string>
     <string name="vouchers_pay_question_extra">Onvoldoende budget op de voucher. Vraag de klant of hij een bedrag van €%1$s wilt bijbetalen.</string>
-    <string name="vouchers_apply_question">Weet je zeker dat je wilt aanwenden voucher?</string>
+    <string name="vouchers_apply_question">Weet je zeker dat je deze transactie wilt bevestigen?</string>
     <string name="voucher_is_used">GEBRUIKT</string>
     <string name="vouchers_apply_success">Betaling geslaagd!</string>
     <string name="voucher_created">Voucher aangemaakt - %1$s</string>
