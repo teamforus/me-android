@@ -13,7 +13,7 @@
     <string name="me_validation_error_email_is_invalid">Het invoerveld is niet juist ingevoerd.</string>
     <string name="me_validation_error_decimal">Het invoerveld accepteert alleen getallen of decimalen.</string>
     <string name="me_ok">OK</string>
-    <string name="me_cancel">Cancel</string>
+    <string name="me_cancel">ANNULEER</string>
 
     <!-- Dashboard -->
     <string name="dashboard_property">Vouchers</string>
