@@ -151,6 +151,7 @@ dependencies {
   implementation presentationDependencies.recyclerView
   implementation presentationDependencies.supportDesign
   implementation presentationDependencies.appCompat
+  implementation presentationDependencies.customTabsIntent
   implementation presentationDependencies.multiDex
   implementation presentationDependencies.qrGet
   implementation presentationDependencies.qrGetAndroid
