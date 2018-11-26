@@ -12,7 +12,7 @@
         android:background="@color/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="116dp">
+        android:layout_marginBottom="57dp">
 
         <include layout="@layout/toolbar_view"/>
 
@@ -134,6 +134,15 @@
                     </io.forus.me.android.presentation.view.component.card.SettingsSwitchCard>
 
 
+                    <io.forus.me.android.presentation.view.component.card.SettingsSwitchCard
+                        android:id="@+id/start_from_scanner"
+                        app:valuecard_title="@string/profile_start_from_scanner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    </io.forus.me.android.presentation.view.component.card.SettingsSwitchCard>
+
+
                     <io.forus.me.android.presentation.view.component.card.SettingsCard
                         android:id="@+id/logout_view"
                         app:valuecard_title="@string/profile_logout"
@@ -152,9 +161,8 @@
                         android:layout_marginTop="26dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="About"
+                        android:text="@string/profile_about"
                         />
-
 
                     <View
                         android:layout_marginTop="18dp"
@@ -164,12 +172,19 @@
                         android:layout_height="1dp"/>
 
                     <io.forus.me.android.presentation.view.component.card.SettingsCard
+                        android:id="@+id/about_me"
+                        app:valuecard_title="@string/profile_about_me"
+                        app:valuecard_text=""
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </io.forus.me.android.presentation.view.component.card.SettingsCard>
+
+                    <io.forus.me.android.presentation.view.component.card.SettingsCard
                         android:id="@+id/app_version"
-                        app:valuecard_title="App version"
+                        app:valuecard_title="@string/profile_app_version"
                         app:valuecard_text="1.01.1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
-
                     </io.forus.me.android.presentation.view.component.card.SettingsCard>
 
 
@@ -184,6 +199,7 @@
 
     <io.forus.me.android.presentation.view.component.buttons.QrButton
         android:id="@+id/btn_qr"
+        android:visibility="gone"
         android:text="@string/profile_button_show_qr"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

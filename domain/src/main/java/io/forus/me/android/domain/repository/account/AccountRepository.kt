@@ -41,6 +41,9 @@ interface AccountRepository {
     fun setFingerprintEnabled(isFingerprintEnabled: Boolean): Observable<Boolean>
 
 
+    fun setStartFromScannerEnabled(isEnabled: Boolean): Observable<Boolean>
+
+
     fun changePin(oldPin: String, newPin: String): Observable<Boolean>
 
 

@@ -19,17 +19,19 @@ class QrFragment : BaseFragment() {
                 }
             }
         }
+    var qrSubtitle : String = ""
+    var qrDescription : String = ""
 
     companion object {
         private val QR_TEXT = "QR_TEXT"
+        private val QR_SUBTITLE = "QR_SUBTITLE"
+        private val QR_DESCRIPTION = "QR_DESCRIPTION"
 
-        fun newIntent(): QrFragment {
-            return QrFragment()
-        }
-
-        fun newIntent(qrText: String): QrFragment = QrFragment().also {
+        fun newIntent(qrText: String, qrSubtitle: String?, qrDescription: String?): QrFragment = QrFragment().also {
             val bundle = Bundle()
             bundle.putString(QR_TEXT, qrText)
+            if(qrSubtitle != null) bundle.putString(QR_SUBTITLE, qrSubtitle)
+            if(qrDescription != null) bundle.putString(QR_DESCRIPTION, qrDescription)
             it.arguments = bundle
         }
     }
@@ -49,13 +51,16 @@ class QrFragment : BaseFragment() {
         return super.onCreateView(inflater, container, savedInstanceState).also{
             val bundle = this.arguments
             if (bundle != null) {
-                qrText = bundle.getString(QR_TEXT)
+                qrText = bundle.getString(QR_TEXT, "")
+                qrSubtitle = bundle.getString(QR_SUBTITLE, "")
+                qrDescription = bundle.getString(QR_DESCRIPTION, "")
             }
         }
     }
 
     override fun initUI() {
-
+        if(qrSubtitle.isNotBlank()) subtitle.text = qrSubtitle
+        if(qrDescription.isNotBlank()) description.text = qrDescription
     }
 }
 

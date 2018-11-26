@@ -1,5 +1,6 @@
 package io.forus.me.android.presentation.view.screens.vouchers.provider
 
+import io.forus.me.android.domain.models.vouchers.Organization
 import io.forus.me.android.presentation.view.base.lr.LRPresenter
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.base.lr.PartialChange
@@ -13,14 +14,14 @@ import java.math.BigDecimal
 
 class ProviderPresenter constructor(private val vouchersRepository: VouchersRepository, private val address: String) : LRPresenter<VoucherProvider, ProviderModel, ProviderView>() {
 
-    private var amount = BigDecimal.ZERO
     private var organizationId = 0L
+    private var note = ""
 
     override fun initialModelSingle(): Single<VoucherProvider> = Single.fromObservable(vouchersRepository.getVoucherAsProvider(address))
 
     override fun ProviderModel.changeInitialModel(i: VoucherProvider): ProviderModel {
-        val organization = if(i.allowedOrganizations.isNotEmpty()) i.allowedOrganizations.get(0) else null
-        if(organization != null) organizationId = organization.id
+        val organization = if(i.allowedOrganizations.isNotEmpty()) i.allowedOrganizations.get(0) else Organization(organizationId, i.voucher.organizationName, "")
+        organizationId = organization.id
         return copy(item = i, selectedOrganization = organization)
     }
 
@@ -31,11 +32,14 @@ class ProviderPresenter constructor(private val vouchersRepository: VouchersRepo
                 loadRefreshPartialChanges(),
 
                 intent { it.selectAmount() }
-                        .map {  amount = it; ProviderPartialChanges.SetAmount(it) },
+                        .map {  ProviderPartialChanges.SetAmount(it) },
 
-                intent { it.submit() }
+                intent { it.selectNote() }
+                        .map {  ProviderPartialChanges.SetNote(it) },
+
+                intent { it.charge() }
                         .switchMap {
-                            vouchersRepository.makeTransaction(address, amount, organizationId)
+                            vouchersRepository.makeTransaction(address, it, note, organizationId)
                                     .subscribeOn(Schedulers.io())
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .map<PartialChange> {
@@ -74,6 +78,9 @@ class ProviderPresenter constructor(private val vouchersRepository: VouchersRepo
             is ProviderPartialChanges.MakeTransactionStart -> vs.copy(model = vs.model.copy(sendingMakeTransaction = true, makeTransactionError = null))
             is ProviderPartialChanges.MakeTransactionError -> vs.copy(model = vs.model.copy(sendingMakeTransaction = false, makeTransactionError = change.error))
             is ProviderPartialChanges.SetAmount -> vs.copy(model = vs.model.copy(selectedAmount = change.amount, makeTransactionError = null))
+            is ProviderPartialChanges.SetNote -> {
+                note = change.note
+                vs.copy(model = vs.model.copy(selectedNote = change.note, makeTransactionError = null))}
         }
     }
 }

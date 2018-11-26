@@ -121,7 +121,7 @@
 
                     <io.forus.me.android.presentation.view.component.buttons.ShareButton
                         android:id="@+id/btn_email"
-                        app:sb_text="Email to me"
+                        app:sb_text="@string/voucher_email_to_me"
                         app:sb_icon="@drawable/ic_baseline_mail_outline_24px"
                         app:sb_icon_tint="@color/forus_blue"
                         android:layout_width="match_parent"

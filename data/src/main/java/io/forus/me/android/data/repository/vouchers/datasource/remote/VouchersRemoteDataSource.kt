@@ -26,4 +26,7 @@ class VouchersRemoteDataSource(f: () -> VouchersService): VouchersDataSource, Re
         return service.makeTransaction(address, makeTransaction).map { it.data }
     }
 
+    override fun sendEmail(address: String): Observable<Boolean> {
+        return service.sendEmail(address).map { _: Void? -> true }
+    }
 }

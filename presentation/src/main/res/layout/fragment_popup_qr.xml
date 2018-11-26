@@ -7,26 +7,39 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-
-
-    <io.forus.me.android.presentation.view.component.text.TextView
-        style="@style/Body2Small"
-        android:layout_marginEnd="25dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:type="regular"
-        android:text="@string/record_details_scan_deze_qr"
-        />
-
     <io.forus.me.android.presentation.view.component.images.QRCodeImageView
         android:id="@+id/qrImage"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="5dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:layout_width="350dp"
         android:layout_height="350dp"
         app:onColor="@android:color/black"
         app:offColor="@android:color/white"/>
 
+    <io.forus.me.android.presentation.view.component.text.TextView
+        android:id="@+id/subtitle"
+        style="@style/Body2Small"
+        android:textSize="16sp"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        app:type="bold"
+        android:text="@string/record_details_scan_deze_qr"
+        />
+
+    <io.forus.me.android.presentation.view.component.text.TextView
+        android:id="@+id/description"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:type="regular"
+        android:textColor="@color/body_1_87"
+        android:textSize="14.1sp"
+        android:text=""
+        />
 
 </LinearLayout>

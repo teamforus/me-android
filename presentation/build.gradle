@@ -17,17 +17,19 @@ android {
 
   compileSdkVersion globalConfiguration.getAt("androidCompileSdkVersion")
 
-    defaultConfig {
-      minSdkVersion globalConfiguration.getAt("androidMinSdkVersion")
-      targetSdkVersion globalConfiguration.getAt("androidTargetSdkVersion")
+  defaultConfig {
+    minSdkVersion globalConfiguration.getAt("androidMinSdkVersion")
+    targetSdkVersion globalConfiguration.getAt("androidTargetSdkVersion")
 
-      applicationId globalConfiguration.getAt("androidApplicationId")
-      versionCode globalConfiguration.getAt("androidVersionCode")
-      versionName globalConfiguration.getAt("androidVersionName")
-      testInstrumentationRunner globalConfiguration.getAt("testInstrumentationRunner")
-      testApplicationId globalConfiguration.getAt("testApplicationId")
-      multiDexEnabled true
-    }
+    versionCode globalConfiguration.getAt("androidVersionCode")
+    versionName globalConfiguration.getAt("androidVersionName")
+
+    testInstrumentationRunner globalConfiguration.getAt("testInstrumentationRunner")
+    testApplicationId globalConfiguration.getAt("testApplicationId")
+    multiDexEnabled true
+
+    buildConfigField "int", "BUILD_NUMBER", globalConfiguration.getAt("androidBuildNumber").toString()
+  }
 
   dexOptions {
     javaMaxHeapSize "4g"
@@ -81,20 +83,43 @@ android {
   productFlavors {
     def SERVER_URL = "SERVER_URL"
 
-    dev {
-      dimension "version"
-      versionNameSuffix "-dev"
-      buildConfigField "String", SERVER_URL, "\"https://dev.api.forus.link/\""
-    }
-    demo {
-      dimension "version"
-      versionNameSuffix "-demo"
-      buildConfigField "String", SERVER_URL, "\"https://demo.api.forus.link/\""
-    }
     prod {
       dimension "version"
       versionNameSuffix "-prod"
       buildConfigField "String", SERVER_URL, "\"https://api.forus.link/\""
+      applicationId 'io.forus.me'
+    }
+    demo {
+      dimension "version"
+      versionNameSuffix "-demo"
+      buildConfigField "String", SERVER_URL, "\"https://demo.api.forus.io/\""
+      applicationId 'io.forus.me.beta'
+    }
+    staging {
+      dimension "version"
+      versionNameSuffix "-staging"
+      buildConfigField "String", SERVER_URL, "\"https://staging.api.forus.io/\""
+      applicationId 'io.forus.me.alpha'
+    }
+    dev {
+      dimension "version"
+      versionNameSuffix "-dev"
+      buildConfigField "String", SERVER_URL, "\"https://dev.api.forus.io/\""
+      applicationId 'io.forus.me.dev'
+    }
+  }
+
+  applicationVariants.all { variant ->
+    variant.outputs.all { output ->
+      def project = "me"
+      def SEP = "-"
+      def flavor = variant.productFlavors[0].name
+      def buildType = variant.variantData.variantConfiguration.buildType.name
+      def version = variant.versionName
+      def buildNumber = globalConfiguration.getAt("androidBuildNumber").toString()
+      def newApkName = project + SEP + version + SEP + buildNumber + SEP + buildType + ".apk"
+
+      outputFileName = new File(newApkName)
     }
   }
 }

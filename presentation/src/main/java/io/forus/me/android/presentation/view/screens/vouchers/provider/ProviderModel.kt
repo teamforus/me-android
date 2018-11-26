@@ -8,6 +8,7 @@ data class ProviderModel(
         val item: VoucherProvider? = null,
         val selectedOrganization: Organization? = null,
         val selectedAmount: BigDecimal = BigDecimal.ZERO,
+        val selectedNote: String = "",
         val sendingMakeTransaction: Boolean = false,
         val makeTransactionError: Throwable? = null
 )
@@ -15,7 +16,7 @@ data class ProviderModel(
 
     val amountIsValid: Boolean
         get(){
-            return selectedAmount != BigDecimal.ZERO && selectedAmount >= BigDecimal("0.01")
+            return selectedAmount >= BigDecimal("0.01")
         }
 
     val buttonIsActive: Boolean

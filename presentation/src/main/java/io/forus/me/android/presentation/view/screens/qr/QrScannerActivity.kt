@@ -9,8 +9,6 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.FragmentActivity
-import android.widget.CheckBox
-import android.widget.TextView
 import android.widget.Toast
 import com.dlazaro66.qrcodereaderview.QRCodeReaderView
 import io.forus.me.android.presentation.R
@@ -26,11 +24,7 @@ class QrScannerActivity : FragmentActivity(), QRCodeReaderView.OnQRCodeReadListe
 
     private val MY_PERMISSION_REQUEST_CAMERA = 0
 
-
-    private var resultTextView: TextView? = null
     private var qrCodeReaderView: QRCodeReaderView? = null
-    private var flashlightCheckBox: CheckBox? = null
-    private var enableDecodingCheckBox: CheckBox? = null
     private var pointsOverlayView: PointsOverlayView? = null
 
     private var qrDecoder = Injection.instance.qrDecoder
@@ -48,6 +42,7 @@ class QrScannerActivity : FragmentActivity(), QRCodeReaderView.OnQRCodeReadListe
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_qr_decoder)
 
 
@@ -57,18 +52,18 @@ class QrScannerActivity : FragmentActivity(), QRCodeReaderView.OnQRCodeReadListe
         } else {
             requestCameraPermission()
         }
-
     }
-
 
     override fun onResume() {
         super.onResume()
+        overridePendingTransition( R.anim.slide_in_up, R.anim.slide_out_up );
 
         qrCodeReaderView?.setQRDecodingEnabled(true)
     }
 
     override fun onPause() {
         super.onPause()
+        overridePendingTransition(R.anim.slide_in_down, R.anim.slide_out_down);
 
         qrCodeReaderView?.setQRDecodingEnabled(false)
     }
@@ -80,10 +75,10 @@ class QrScannerActivity : FragmentActivity(), QRCodeReaderView.OnQRCodeReadListe
         }
 
         if (grantResults.size == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            Snackbar.make(main_layout, "Camera permission was granted.", Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(main_layout, resources.getString(R.string.qr_camera_permission_granted), Snackbar.LENGTH_SHORT).show()
             initQRCodeReaderView()
         } else {
-            Snackbar.make(main_layout, "Camera permission request was denied.", Snackbar.LENGTH_SHORT)
+            Snackbar.make(main_layout, resources.getString(R.string.qr_camera_permission_denied), Snackbar.LENGTH_SHORT)
                     .show()
         }
     }
@@ -96,7 +91,7 @@ class QrScannerActivity : FragmentActivity(), QRCodeReaderView.OnQRCodeReadListe
         if(decodingInProgress.compareAndSet(false, true)){
 
             qrCodeReaderView?.setQRDecodingEnabled(false)
-            pointsOverlayView?.setPoints(points)
+            //pointsOverlayView?.setPoints(points)
 
             val result = qrDecoder.decode(text)
             when(result){
@@ -115,10 +110,10 @@ class QrScannerActivity : FragmentActivity(), QRCodeReaderView.OnQRCodeReadListe
 
     private fun requestCameraPermission() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
-            Snackbar.make(main_layout, "Camera access is required to display the camera preview.",
+            Snackbar.make(main_layout, resources.getString(R.string.qr_camera_access_required),
                     Snackbar.LENGTH_INDEFINITE).setAction("OK") { ActivityCompat.requestPermissions(this@QrScannerActivity, arrayOf(Manifest.permission.CAMERA), MY_PERMISSION_REQUEST_CAMERA) }.show()
         } else {
-            Snackbar.make(main_layout, "Permission is not available. Requesting camera permission.",
+            Snackbar.make(main_layout, resources.getString(R.string.qr_camera_permission_not_available),
                     Snackbar.LENGTH_SHORT).show()
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), MY_PERMISSION_REQUEST_CAMERA)
         }
@@ -128,16 +123,14 @@ class QrScannerActivity : FragmentActivity(), QRCodeReaderView.OnQRCodeReadListe
         val content = layoutInflater.inflate(R.layout.activity_qr_decoder_content, main_layout, true)
 
         qrCodeReaderView = content.findViewById(R.id.qrdecoderview)
-        resultTextView = content.findViewById(R.id.result_text_view)
-        flashlightCheckBox = content.findViewById(R.id.flashlight_checkbox)
-        enableDecodingCheckBox = content.findViewById(R.id.enable_decoding_checkbox)
         pointsOverlayView = content.findViewById(R.id.points_overlay_view)
 
         qrCodeReaderView?.setAutofocusInterval(1500L)
         qrCodeReaderView?.setOnQRCodeReadListener(this)
         qrCodeReaderView?.setBackCamera()
-        flashlightCheckBox?.setOnCheckedChangeListener { compoundButton, isChecked -> qrCodeReaderView?.setTorchEnabled(isChecked) }
-        enableDecodingCheckBox?.setOnCheckedChangeListener { compoundButton, isChecked -> qrCodeReaderView?.setQRDecodingEnabled(isChecked) }
         qrCodeReaderView?.startCamera()
+
+        Snackbar.make(main_layout, resources.getString(R.string.qr_scan_help), Snackbar.LENGTH_LONG)
+                .show()
     }
 }

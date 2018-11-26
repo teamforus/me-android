@@ -51,6 +51,6 @@ class VoucherActivity : SlidingPanelActivity() {
     }
 
     fun showPopupQRFragment(address: String){
-        addPopupFragment(QrFragment.newIntent(address), "QR code")
+        addPopupFragment(QrFragment.newIntent(address, resources.getString(R.string.voucher_qr_code_subtitle), resources.getString(R.string.voucher_qr_code_description)), "QR code")
     }
 }

@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
@@ -30,8 +31,8 @@ class DashboardActivity : SlidingPanelActivity() {
     private var navigationAdapter: AHBottomNavigationAdapter? = null
 
     private var accountRepository = Injection.instance.accountRepository
-    private var fcmHandler = Injection.instance.fcmHandler
     private var settings = Injection.instance.settingsDataSource
+    private var fcmHandler = Injection.instance.fcmHandler
     private var disposableHolder = DisposableHolder()
 
     companion object {
@@ -51,7 +52,7 @@ class DashboardActivity : SlidingPanelActivity() {
         initUI()
         checkLogin()
         checkFCM()
-
+        checkStartFromScanner()
     }
 
     private fun initUI(){
@@ -59,8 +60,9 @@ class DashboardActivity : SlidingPanelActivity() {
         bottom_navigation.setOnTabSelectedListener ( object: AHBottomNavigation.OnTabSelectedListener {
             var lastPosition: Int = 0
             override fun onTabSelected(position: Int, wasSelected: Boolean): Boolean {
-               var result =   showTab(position, lastPosition, wasSelected)
-               this.lastPosition = position
+               val result =   showTab(position, lastPosition, wasSelected)
+
+                if(result) this.lastPosition = position
 
                return result
             }
@@ -94,10 +96,6 @@ class DashboardActivity : SlidingPanelActivity() {
             view_pager.offscreenPageLimit = 3
             selectTab(currentPagerPosition, 0)
         }
-
-        (android.os.Handler()).postDelayed({
-            showTab(0, 0,false)
-        },500)
     }
 
     private fun checkLogin(){
@@ -123,7 +121,16 @@ class DashboardActivity : SlidingPanelActivity() {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap {
-                    Single.fromObservable(fcmHandler.clearFCMToken())
+                    try {
+                        Single.fromObservable(fcmHandler.clearFCMToken())
+                                .map {
+                                    navigator.navigateToWelcomeScreen(this)
+                                    finish()
+                                }
+                    } catch (e: Exception) {
+                        Log.e("DASH_LOGOUT", e.message, e)
+                        Single.just(it)
+                    }
                 }
                 .onErrorReturn {  }
                 .subscribe())
@@ -155,7 +162,7 @@ class DashboardActivity : SlidingPanelActivity() {
 
         if (position == 1) {
             view_pager.setCurrentItem(oldPosition, false)
-            this.navigator.navigateToQrScanner(this)
+            navigateToQrScanner()
             return false
 
         }
@@ -188,6 +195,16 @@ class DashboardActivity : SlidingPanelActivity() {
     }
 
     fun showPopupQRFragment(address: String){
-        addPopupFragment(QrFragment.newIntent(address), "QR code")
+        addPopupFragment(QrFragment.newIntent(address, null, null), "QR code")
+    }
+
+    fun navigateToQrScanner(){
+        this.navigator.navigateToQrScanner(this)
+    }
+
+    fun checkStartFromScanner(){
+        if(settings.isStartFromScannerEnabled()){
+            navigateToQrScanner()
+        }
     }
 }
