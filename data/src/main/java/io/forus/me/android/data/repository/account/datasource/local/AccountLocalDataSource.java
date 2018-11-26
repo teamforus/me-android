@@ -6,6 +6,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
+import io.forus.me.android.data.entity.account.Account;
 import io.forus.me.android.data.entity.database.DaoSession;
 import io.forus.me.android.data.entity.database.Database;
 import io.forus.me.android.data.entity.database.DatabaseManager;
@@ -86,6 +87,18 @@ public class AccountLocalDataSource implements AccountDataSource, LocalDataSourc
     @NotNull
     @Override
     public Observable<Boolean> authorizeToken(@NotNull String token) {
+        return null;
+    }
+
+    @NotNull
+    @Override
+    public Observable<Boolean> registerPush(@NotNull String token) {
+        return null;
+    }
+
+    @NotNull
+    @Override
+    public Observable<Account> getIdentity() {
         return null;
     }
 

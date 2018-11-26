@@ -9,7 +9,7 @@ class ScanVoucherNotEligibleDialog(private val context: Context,
                                    private val dismissListener: () -> Unit){
 
     private val dialog: MaterialDialog = MaterialDialog.Builder(context)
-            .title(R.string.vouchers_item)
+            .title(R.string.qr_popup_error)
             .content(R.string.qr_voucher_access_denied)
             .icon(context.resources.getDrawable(R.drawable.ic_close))
             .positiveText(context.resources.getString(R.string.me_ok))

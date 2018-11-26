@@ -20,23 +20,25 @@ buildscript {
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     classpath 'me.tatarka:gradle-retrolambda:3.2.3'
     classpath 'io.fabric.tools:gradle:1.25.4'
+    classpath 'com.google.gms:google-services:4.0.1'
   }
 }
 
 allprojects {
   repositories {
-    jcenter()
+    mavenCentral()
     maven { url "https://jitpack.io" }
     maven { url 'https://maven.fabric.io/public' }
     google()
     maven { url "https://dl.bintray.com/drummer-aidan/maven/" }
+    jcenter()
   }
   ext {
-    androidApplicationId = 'io.forus.me.android.presentation'
-    androidVersionCode = 1
-    androidVersionName = "1.0"
+    androidVersionCode = 4
+    androidVersionName = "0.0.6"
+    androidBuildNumber = 2
     testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
-    testApplicationId = 'io.forus.me.android.presentation.test'
+    testApplicationId = 'io.forus.me.test'
   }
 }
 
@@ -55,6 +57,3 @@ task runUnitTests(dependsOn: ['runDomainUnitTests', 'runDataUnitTests']) {
 task runAcceptanceTests(dependsOn: [':presentation:connectedAndroidTest']) {
   description 'Run application acceptance tests.'
 }
-
-
-

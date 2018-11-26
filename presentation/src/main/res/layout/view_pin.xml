@@ -2,7 +2,7 @@
 <LinearLayout android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:id="@+id/container"
-    android:background="@color/secondary200"
+    android:background="@color/brightBackground"
     android:layout_gravity="center"
     android:clipToPadding="false"
     android:orientation="horizontal"

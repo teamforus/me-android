@@ -211,10 +211,15 @@
     </style>
 
     <style name="BackToCaption">
-        <item name="android:textSize">12.1sp</item>
-        <item name="android:letterSpacing" tools:targetApi="lollipop">0.03</item>
-        <item name="android:lineSpacingExtra">3.9sp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:lineSpacingExtra">4sp</item>
         <item name="android:textColor">@color/body_1_87</item>
+    </style>
+
+    <style name="UsedVoucher">
+        <item name="android:textSize">13sp</item>
+        <item name="android:lineSpacingExtra">4sp</item>
+        <item name="android:textColor">@color/yellowish_orange</item>
     </style>
 
     <style name="Body2Small">
@@ -237,7 +242,7 @@
     </style>
 
     <style name="CardTitle4">
-        <item name="android:textSize">24.1sp</item>
+        <item name="android:textSize">20.1sp</item>
         <item name="android:textColor">@color/body_1_87</item>
     </style>
 

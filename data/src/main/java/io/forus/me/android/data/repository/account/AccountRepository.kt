@@ -10,6 +10,7 @@ import io.forus.me.android.domain.models.account.*
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
+import io.reactivex.functions.Function3
 import java.lang.IllegalStateException
 import java.util.concurrent.TimeUnit
 
@@ -27,7 +28,7 @@ class AccountRepository(private val settingsDataSource: SettingsDataSource,
        return accountRemoteDataSource.createUser(signUp)
                 .flatMap {
                     Observable.just(it.accessToken)
-                }.delay(100, TimeUnit.MILLISECONDS)
+                }.delay(50, TimeUnit.MILLISECONDS)
 
     }
 
@@ -72,7 +73,11 @@ class AccountRepository(private val settingsDataSource: SettingsDataSource,
                 throw IllegalStateException("PIN set error")
             true
 
-        }.toObservable().delay(100, TimeUnit.MILLISECONDS)
+        }.toObservable().delay(50, TimeUnit.MILLISECONDS)
+    }
+
+    override fun registerFCMToken(token: String): Observable<Boolean> {
+        return accountRemoteDataSource.registerPush(token)
     }
 
     override fun unlockIdentity(pin: String): Observable<Boolean> {
@@ -93,6 +98,9 @@ class AccountRepository(private val settingsDataSource: SettingsDataSource,
         return Single.fromCallable { settingsDataSource.setFingerprintEnabled(isFingerprintEnabled); true }.toObservable()
     }
 
+    override fun setStartFromScannerEnabled(isEnabled: Boolean): Observable<Boolean> {
+        return Single.fromCallable { settingsDataSource.setStartFromScannerEnabled(isEnabled); true }.toObservable()
+    }
 
     override fun changePin(oldPin: String, newPin: String): Observable<Boolean> {
         return Single.fromCallable{
@@ -112,25 +120,31 @@ class AccountRepository(private val settingsDataSource: SettingsDataSource,
     }
 
     override fun getAccount(): Observable<Account> {
-        return recordsRepository.getRecords().map {
+        return Observable.zip(
+                recordsRepository.getRecords(),
+                accountRemoteDataSource.getIdentity(),
+                BiFunction{ records, identity ->
 
-            val account = Account()
-            val email = com.annimon.stream.Stream.of(it).filter { x->x.recordType.key == "primary_email" }.findFirst()
-            val givanName = com.annimon.stream.Stream.of(it).filter { x->x.recordType.key == "given_name" }.findFirst()
-            val familyName = com.annimon.stream.Stream.of(it).filter { x->x.recordType.key == "family_name" }.findFirst()
-            account.name = (if (givanName.isPresent) "${givanName.get().value} " else "") + (if (familyName.isPresent) "${familyName.get().value}" else "")
-            account.email = if (email.isPresent) email.get().value else ""
+                    val account = Account()
+                    val email = com.annimon.stream.Stream.of(records).filter { x->x.recordType.key == "primary_email" }.findFirst()
+                    val givanName = com.annimon.stream.Stream.of(records).filter { x->x.recordType.key == "given_name" }.findFirst()
+                    val familyName = com.annimon.stream.Stream.of(records).filter { x->x.recordType.key == "family_name" }.findFirst()
+                    account.name = (if (givanName.isPresent) "${givanName.get().value} " else "") + (if (familyName.isPresent) "${familyName.get().value}" else "")
+                    account.email = if (email.isPresent) email.get().value else ""
+                    account.address = identity.address
 
-            account
-        }
+                    account
+                }
+        )
     }
 
     override fun getSecurityOptions(): Observable<SecurityOptions> {
         return Single.zip(
                 Single.just(settingsDataSource.isPinEnabled()),
                 Single.just(settingsDataSource.isFingerprintEnabled()),
-                BiFunction { pinEnabled: Boolean, fingerprintEnabled: Boolean ->
-                    SecurityOptions(pinEnabled, fingerprintEnabled)
+                Single.just(settingsDataSource.isStartFromScannerEnabled()),
+                Function3 { pinEnabled: Boolean, fingerprintEnabled: Boolean, startFromScannerEnabled: Boolean ->
+                    SecurityOptions(pinEnabled, fingerprintEnabled, startFromScannerEnabled)
                 }
         ).toObservable()
     }

@@ -14,21 +14,21 @@ class Transaction {
 
     var amount: BigDecimal
 
-    var dateTime: String
+    var createdAt: Date
 
     var type: Type = Type.Payed
 
-    constructor(id: String, organization: Organization, currency: Currency, amount: BigDecimal, dateTime: String, type: Type = Type.Payed) {
+    constructor(id: String, organization: Organization, currency: Currency, amount: BigDecimal, createdAt: Date, type: Type = Type.Payed) {
         this.id = id
         this.organization = organization
         this.currency = currency
         this.amount = amount
-        this.dateTime = dateTime
+        this.createdAt = createdAt
         this.type = type
     }
 
 
     enum class Type {
-        Payed, Refund, Cancel, Income
+        Payed, Refund, Cancel, Income, Product
     }
 }

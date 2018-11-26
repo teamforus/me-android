@@ -1,12 +1,13 @@
-package com.gigawatt.android.data.net.sign
+package io.forus.me.android.data.net.sign
 
 import com.gigawatt.android.data.net.sign.models.request.SignUp
+import io.forus.me.android.data.entity.account.Account
 import io.forus.me.android.data.entity.common.Success
 import io.forus.me.android.data.entity.sign.request.AuthorizeCode
 import io.forus.me.android.data.entity.sign.request.AuthorizeToken
+import io.forus.me.android.data.entity.sign.request.RegisterPush
 import io.forus.me.android.data.entity.sign.request.RestoreByEmail
 import io.forus.me.android.data.entity.sign.response.*
-import io.forus.me.android.data.net.Constants
 import io.reactivex.Observable
 import retrofit2.http.*
 
@@ -15,14 +16,11 @@ import retrofit2.http.*
  */
 interface SignService {
 
-    object Service {
-        @JvmStatic  val SERVICE_ENDPOINT : String = Constants.BASE_SERVICE_ENDPOINT
-    }
-
-
     @POST("api/v1/identity")
     fun signup(@Body signUp: SignUp) : Observable<SignUpResult>
 
+    @GET("api/v1/identity")
+    fun getIdentity(): Observable<Account>
 
     @POST("api/v1/identity/proxy/token")
     fun restoreByQrToken() : Observable<IdentityTokenResult>
@@ -50,5 +48,9 @@ interface SignService {
 
     @GET("api/v1/identity/proxy/check-token")
     fun checkToken(@Query("access_token") token: String): Observable<CheckTokenResult>
+
+
+    @POST("api/v1/platform/devices/register-push")
+    fun registerPush(@Body token: RegisterPush): Observable<Void>
 
 }

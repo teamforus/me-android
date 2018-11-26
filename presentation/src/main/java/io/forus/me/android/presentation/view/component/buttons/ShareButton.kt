@@ -1,6 +1,7 @@
 package io.forus.me.android.presentation.view.component.buttons
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -17,6 +18,8 @@ class ShareButton : FrameLayout {
     var text: String? = ""
 
     var icon: Drawable? = null
+
+    var color: Int? = null
 
     private lateinit var  mRootView : View
 
@@ -59,8 +62,19 @@ class ShareButton : FrameLayout {
                 this.icon = drawable
         }
 
+        if (ta.hasValue(R.styleable.CustomShareButtonAttrs_sb_icon_tint)) {
+            val color = ta.getColor(R.styleable.CustomShareButtonAttrs_sb_icon_tint, 0)
+            if (color != 0)
+                this.color = color
+        }
+
         val imageView : ImageView = mContainer.findViewById(R.id.iv_icon)
-        if(icon != null) imageView.setImageDrawable(icon)
+        if(icon != null) {
+            imageView.setImageDrawable(icon)
+            if(color != null){
+                imageView.setColorFilter(color!!)
+            }
+        }
         val textView : io.forus.me.android.presentation.view.component.text.TextView = mContainer.findViewById(R.id.tv_text)
         textView.text = text
 

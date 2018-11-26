@@ -18,6 +18,9 @@ class AppSettings(private val context: Context): SettingsDataSource{
         const val FINGERPRINT_ENABLED = "FINGERPRINT_ENABLED"
         const val PINCODE_ENABLED = "PINCODE_ENABLED"
         const val PINCODE_ENCRYPTED = "PINCODE_ENCRYPTED"
+        const val FCM_TOKEN = "FCM_TOKEN"
+
+        const val START_FROM_SCANNER_ENABLED = "START_FROM_SCANNER_ENABLED"
     }
 
     private val cipher = CipherWrapper(TRANSFORMATION_ASYMMETRIC)
@@ -59,5 +62,25 @@ class AppSettings(private val context: Context): SettingsDataSource{
     override fun getPin(): String {
         val pin = sPref.getString(PINCODE_ENCRYPTED, "")
         return if(pin != "") cipher.decrypt(pin, privateKey) else ""
+    }
+
+    override fun setFCMToken(token: String): Boolean {
+        return sPref.edit().putString(FCM_TOKEN, token).commit()
+    }
+
+    override fun getFCMToken(): String {
+        return sPref.getString(FCM_TOKEN, "") ?: ""
+    }
+
+    override fun updateFCMToken(): Boolean {
+        return setFCMToken("")
+    }
+
+    override fun isStartFromScannerEnabled(): Boolean {
+        return sPref.getBoolean(START_FROM_SCANNER_ENABLED, false)
+    }
+
+    override fun setStartFromScannerEnabled(isEnabled: Boolean): Boolean {
+        return sPref.edit().putBoolean(START_FROM_SCANNER_ENABLED, isEnabled).commit()
     }
 }

@@ -13,4 +13,14 @@ interface SettingsDataSource {
     fun setPin(pin: String): Boolean
 
     fun getPin(): String
+
+    fun setFCMToken(token: String): Boolean
+
+    fun getFCMToken(): String
+
+    fun updateFCMToken(): Boolean
+
+    fun isStartFromScannerEnabled(): Boolean
+
+    fun setStartFromScannerEnabled(isEnabled: Boolean): Boolean
 }

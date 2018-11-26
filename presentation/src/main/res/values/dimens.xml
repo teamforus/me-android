@@ -15,6 +15,7 @@
     <dimen name="card_radius">10dp</dimen>
     <dimen name="card_elevation_big">13dp</dimen>
     <dimen name="card_elevation_medium">5dp</dimen>
+    <dimen name="card_elevation_small">3dp</dimen>
 
     <!--PIN -->
     <dimen name="pin_default_text_size">34sp</dimen>

@@ -29,6 +29,9 @@ interface AccountRepository {
     fun createIdentity(identity: Identity): Observable<Boolean>
 
 
+    fun registerFCMToken(token: String): Observable<Boolean>
+
+
     fun unlockIdentity(pin: String): Observable<Boolean>
 
 
@@ -36,6 +39,9 @@ interface AccountRepository {
 
 
     fun setFingerprintEnabled(isFingerprintEnabled: Boolean): Observable<Boolean>
+
+
+    fun setStartFromScannerEnabled(isEnabled: Boolean): Observable<Boolean>
 
 
     fun changePin(oldPin: String, newPin: String): Observable<Boolean>

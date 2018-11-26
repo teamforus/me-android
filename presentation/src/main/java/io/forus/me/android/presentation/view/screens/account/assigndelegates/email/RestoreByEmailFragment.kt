@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.internal.Injection
+import io.forus.me.android.presentation.view.activity.BaseActivity
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.base.lr.LoadRefreshPanel
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
@@ -47,6 +48,8 @@ class RestoreByEmailFragment : ToolbarLRFragment<RestoreByEmailModel, RestoreByE
             return  validation
         }
 
+    private var instructionsAlreadyShown: Boolean = false
+
     override val toolbarTitle: String
         get() = getString(R.string.restore_login)
 
@@ -69,6 +72,9 @@ class RestoreByEmailFragment : ToolbarLRFragment<RestoreByEmailModel, RestoreByE
     private val registerAction = PublishSubject.create<String>()
     override fun register() = registerAction
 
+    private val exchangeToken = PublishSubject.create<String>()
+    override fun exchangeToken() = exchangeToken
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
             = inflater.inflate(R.layout.fragment_account_restore_email, container, false).also {
 
@@ -81,14 +87,13 @@ class RestoreByEmailFragment : ToolbarLRFragment<RestoreByEmailModel, RestoreByE
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        email.showError = false
         restore.active = false
 
         val listener = object: android.text.TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {
-            }
+            override fun afterTextChanged(p0: Editable?) {}
 
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 restore.active = viewIsValid
@@ -99,6 +104,7 @@ class RestoreByEmailFragment : ToolbarLRFragment<RestoreByEmailModel, RestoreByE
         //email_repeat.setTextChangedListener(listener)
 
         restore.setOnClickListener {
+            email.showError = true
             if (viewIsValid) {
                 registerAction.onNext(email.getText())
             }
@@ -118,15 +124,25 @@ class RestoreByEmailFragment : ToolbarLRFragment<RestoreByEmailModel, RestoreByE
     override fun render(vs: LRViewState<RestoreByEmailModel>) {
         super.render(vs)
 
-        restore.visibility = if(vs.model.sendingRestoreByEmail == true) View.INVISIBLE else View.VISIBLE
-        email_description.visibility = if(vs.model.sendingRestoreByEmail == true) View.VISIBLE else View.INVISIBLE
+        restore.visibility = if(vs.model.sendingRestoreByEmail == true || vs.model.sendingRestoreByEmailSuccess == true) View.INVISIBLE else View.VISIBLE
+        email_description.visibility = if(vs.model.sendingRestoreByEmailSuccess == true) View.VISIBLE else View.INVISIBLE
+        email.isEditable = !(vs.model.sendingRestoreByEmailSuccess == true)
+
+        if(vs.model.sendingRestoreByEmailSuccess == true && !instructionsAlreadyShown){
+            InstructionsDialog(context!!).show()
+            instructionsAlreadyShown = true
+        }
 
         if(vs.model.sendingRestoreByEmail == true){
-            hideSoftKeyboard()
+            (activity as? BaseActivity)?.hideSoftKeyboard()
         }
 
         if(vs.model.sendingRestoreByEmailError != null){
-            email.setError("Identity not found")
+            email.setError(resources.getString(R.string.restore_email_not_found))
+        }
+
+        if(vs.model.exchangeTokenError != null){
+            showToastMessage(resources.getString(R.string.restore_email_invalid_link))
         }
 
         if (vs.model.accessToken != null && vs.model.accessToken.isNotBlank()) {
@@ -139,17 +155,8 @@ class RestoreByEmailFragment : ToolbarLRFragment<RestoreByEmailModel, RestoreByE
         activity?.finish()
     }
 
-    fun hideSoftKeyboard() {
-        try {
-            val view = activity?.currentFocus
-            if (view != null) {
-                val inputManager = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                inputManager.hideSoftInputFromWindow(view.windowToken, 0)
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-
+    fun exchangeToken(token: String) {
+        exchangeToken.onNext(token)
     }
 }
 

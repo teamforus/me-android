@@ -75,7 +75,6 @@ class Button : android.support.v7.widget.AppCompatButton {
     }
 
     private fun initBackground(){
-        isEnabled = active
         setBackgroundResource(if (!reverse && active)  R.drawable.button_main_raund else R.drawable.button_main_raund_reverse)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             this.stateListAnimator = null

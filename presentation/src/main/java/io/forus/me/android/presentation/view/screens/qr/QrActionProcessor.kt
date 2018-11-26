@@ -10,9 +10,11 @@ import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.navigation.Navigator
 import io.forus.me.android.presentation.view.screens.qr.dialogs.ApproveValidationDialog
 import io.forus.me.android.presentation.view.screens.qr.dialogs.RestoreIdentityDialog
+import io.forus.me.android.presentation.view.screens.qr.dialogs.ScanVoucherEmptyDialog
 import io.forus.me.android.presentation.view.screens.qr.dialogs.ScanVoucherNotEligibleDialog
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import java.math.BigDecimal
 
 class QrActionProcessor(private val scanner: QrScannerActivity,
                         private val recordsRepository: RecordsRepository,
@@ -36,26 +38,27 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
                 .observeOn(AndroidSchedulers.mainThread())
                 .map { validation ->
                     if(validation.state  == Validation.State.pending && validation.uuid != null){
-                        ApproveValidationDialog(scanner,
-                                validation,
-                                {
-                                    recordsRepository.approveValidation(validation.uuid!!)
-                                            .subscribeOn(Schedulers.io())
-                                            .observeOn(AndroidSchedulers.mainThread())
-                                            .map { onResultValidationApproved() }
-                                            .onErrorReturn { onResultUnexpectedError() }
-                                            .subscribe()
-                                },
-                                {
-                                    recordsRepository.declineValidation(validation.uuid!!)
-                                            .subscribeOn(Schedulers.io())
-                                            .observeOn(AndroidSchedulers.mainThread())
-                                            .map { onResultValidationDeclined() }
-                                            .onErrorReturn { onResultUnexpectedError() }
-                                            .subscribe()
-                                },
-                                reactivateDecoding)
-                                .show()
+                        if(scanner.hasWindowFocus())
+                            ApproveValidationDialog(scanner,
+                                    validation,
+                                    {
+                                        recordsRepository.approveValidation(validation.uuid!!)
+                                                .subscribeOn(Schedulers.io())
+                                                .observeOn(AndroidSchedulers.mainThread())
+                                                .map { onResultValidationApproved() }
+                                                .onErrorReturn { onResultUnexpectedError() }
+                                                .subscribe()
+                                    },
+                                    {
+                                        recordsRepository.declineValidation(validation.uuid!!)
+                                                .subscribeOn(Schedulers.io())
+                                                .observeOn(AndroidSchedulers.mainThread())
+                                                .map { onResultValidationDeclined() }
+                                                .onErrorReturn { onResultUnexpectedError() }
+                                                .subscribe()
+                                    },
+                                    reactivateDecoding)
+                                    .show()
                     }
                     else onResultValidationAlreadyDone()
                 }
@@ -64,22 +67,23 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
     }
 
     fun restoreIdentity(token: String){
-        RestoreIdentityDialog(scanner,
-                {
-                    accountRepository.authorizeToken(token)
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .map { onResultIdentityRestored() }
-                            .onErrorReturn {
-                                if(it is RetrofitException && it.kind == RetrofitException.Kind.HTTP && it.responseCode == 402){
-                                    onResultTokenExpired()
+        if(scanner.hasWindowFocus())
+            RestoreIdentityDialog(scanner,
+                    {
+                        accountRepository.authorizeToken(token)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .map { onResultIdentityRestored() }
+                                .onErrorReturn {
+                                    if(it is RetrofitException && it.kind == RetrofitException.Kind.HTTP && it.responseCode == 402){
+                                        onResultTokenExpired()
+                                    }
+                                    else onResultUnexpectedError()
                                 }
-                                else onResultUnexpectedError()
-                            }
-                            .subscribe()
-                },
-                reactivateDecoding)
-                .show()
+                                .subscribe()
+                    },
+                    reactivateDecoding)
+                    .show()
     }
 
     fun scanVoucher(address: String){
@@ -88,15 +92,21 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
                 .observeOn(AndroidSchedulers.mainThread())
                 .map {
                     if(!it.voucher.isProduct && it.allowedOrganizations.isEmpty()){
-                        ScanVoucherNotEligibleDialog(scanner, reactivateDecoding).show()
+                        if(scanner.hasWindowFocus())
+                            ScanVoucherNotEligibleDialog(scanner, reactivateDecoding).show()
+                    }
+                    else if(!it.voucher.isProduct && it.voucher.amount.compareTo(BigDecimal.ZERO) == 0){
+                        if(scanner.hasWindowFocus())
+                            ScanVoucherEmptyDialog(scanner, reactivateDecoding).show()
                     }
                     else{
                         onResultVoucherScanned(address)
                     }
                 }
                 .onErrorReturn {
-                    //Log.e("QR_ACTION", "scan voucher", it)
-                    ScanVoucherNotEligibleDialog(scanner, reactivateDecoding).show()
+                    Log.e("QR_ACTION", "scan voucher_error", it)
+                    if(scanner.hasWindowFocus())
+                        ScanVoucherNotEligibleDialog(scanner, reactivateDecoding).show()
                 }
                 .subscribe()
     }

@@ -5,6 +5,7 @@ import io.forus.me.android.presentation.view.base.lr.LRPresenter
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.base.lr.PartialChange
 import io.forus.me.android.domain.repository.account.AccountRepository
+import io.forus.me.android.presentation.internal.Injection
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -19,7 +20,7 @@ class AccountPresenter constructor(private val accountRepository: AccountReposit
             Single.fromObservable(accountRepository.getAccount()),
             Single.fromObservable(accountRepository.getSecurityOptions()),
             BiFunction { account, securityOptions ->
-                AccountModel(account, securityOptions.pinEnabled, securityOptions.fingerprintEnabled)
+                AccountModel(account, securityOptions.pinEnabled, securityOptions.fingerprintEnabled, securityOptions.startFromScanner)
             })
 
 
@@ -35,8 +36,12 @@ class AccountPresenter constructor(private val accountRepository: AccountReposit
                             accountRepository.exitIdentity()
                                     .subscribeOn(Schedulers.io())
                                     .observeOn(AndroidSchedulers.mainThread())
-                                    .map<PartialChange> {
-                                        AccountPartialChanges.NavigateToWelcomeScreen(true)
+                                    .flatMap<PartialChange> {
+                                        Injection.instance.fcmHandler.clearFCMToken()
+                                                .subscribeOn(Schedulers.io())
+                                                .observeOn(AndroidSchedulers.mainThread())
+                                                .map<PartialChange> { AccountPartialChanges.NavigateToWelcomeScreen(true) }
+                                                .onErrorReturn { LRPartialChange.LoadingError(it) }
                                     }
                                     .onErrorReturn {
                                         LRPartialChange.LoadingError(it)
@@ -50,8 +55,20 @@ class AccountPresenter constructor(private val accountRepository: AccountReposit
                                     .subscribeOn(Schedulers.io())
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .map<PartialChange> { success ->
-                                        if(success) AccountPartialChanges.FingerprintEnabled(newState)
-                                        else AccountPartialChanges.FingerprintEnabled(!newState)
+                                        AccountPartialChanges.FingerprintEnabled(if(success) newState else !newState)
+                                    }
+                                    .onErrorReturn {
+                                        LRPartialChange.LoadingError(it)
+                                    }
+                        },
+
+                intent { it.switchStartFromScanner() }
+                        .switchMap {newState ->
+                            accountRepository.setStartFromScannerEnabled(newState)
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .map<PartialChange> { success ->
+                                        AccountPartialChanges.StartFromScannerEnabled(if(success) newState else !newState)
                                     }
                                     .onErrorReturn {
                                         LRPartialChange.LoadingError(it)
@@ -82,6 +99,7 @@ class AccountPresenter constructor(private val accountRepository: AccountReposit
         return when (change) {
             is AccountPartialChanges.NavigateToWelcomeScreen -> vs.copy(model = vs.model.copy(navigateToWelcome = true))
             is AccountPartialChanges.FingerprintEnabled -> vs.copy(model = vs.model.copy(fingerprintEnabled = change.value))
+            is AccountPartialChanges.StartFromScannerEnabled -> vs.copy(model = vs.model.copy(startFromScanner = change.value))
         }
 
     }

@@ -3,6 +3,7 @@ package io.forus.me.android.domain.repository.vouchers
 import io.forus.me.android.domain.models.vouchers.Voucher
 import io.forus.me.android.domain.models.vouchers.VoucherProvider
 import io.reactivex.Observable
+import java.math.BigDecimal
 
 interface VouchersRepository {
 
@@ -12,6 +13,7 @@ interface VouchersRepository {
 
     fun getVoucherAsProvider(address: String): Observable<VoucherProvider>
 
-    fun makeTransaction(address: String, amount: Float, organizationId: Long): Observable<Boolean>
+    fun makeTransaction(address: String, amount: BigDecimal, note: String, organizationId: Long): Observable<Boolean>
 
+    fun sendEmail(address: String): Observable<Boolean>
 }

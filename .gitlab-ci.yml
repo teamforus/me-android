@@ -1,7 +1,10 @@
-image: jangrewe/gitlab-ci-android
+image: inovex/gitlab-ci-android
 
 stages:
-- distribution
+- release
+
+variables:
+  GRADLE_OPTS: "-Dorg.gradle.daemon=false"
 
 before_script:
 - export GRADLE_USER_HOME=$(pwd)/.gradle
@@ -12,10 +15,14 @@ cache:
   paths:
   - .gradle/
 
-distribution:
-  stage: distribution
-  only:
-  - development
+build:
+  stage: release
   script:
-  - cd presentation
-  - ../gradlew assembleRelease crashlyticsUploadDistributionDebug
+      - cd presentation
+      - ../gradlew clean assembleDebug
+  artifacts:
+      expire_in: 2 weeks
+      paths:
+          - presentation/build/outputs/apk/*.apk
+  only:
+      - development

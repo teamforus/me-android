@@ -23,7 +23,7 @@ class NewAccountPresenter constructor(private val accountRepository: AccountRepo
 
     override fun bindIntents() {
 
-        var observable = Observable.merge(
+        val observable = Observable.merge(
 
                 loadRefreshPartialChanges(),
                 intent { it.register() }

@@ -12,4 +12,8 @@ sealed class RestoreByEmailPartialChanges : PartialChange {
 
     data class RestoreByEmailRequestError(val error: Throwable) : RestoreByEmailPartialChanges()
 
+    data class ExchangeTokenResult(val accessToken: String?) : RestoreByEmailPartialChanges()
+
+    data class ExchangeTokenError(val error: Throwable) : RestoreByEmailPartialChanges()
+
 }

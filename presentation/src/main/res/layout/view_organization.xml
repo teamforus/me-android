@@ -47,7 +47,7 @@
 
         <io.forus.me.android.presentation.view.component.images.AutoLoadImageView
             android:id="@+id/iv_organization_select"
-            android:visibility="invisible"
+            android:visibility="visible"
             android:src="@drawable/ic_chevron_right_24px"
             android:layout_width="24dp"
             android:layout_height="24dp"

@@ -1,8 +1,8 @@
 package io.forus.me.android.presentation.internal
 
 import android.content.Context
-import com.gigawatt.android.data.net.sign.RecordsService
-import com.gigawatt.android.data.net.sign.SignService
+import io.forus.me.android.data.net.records.RecordsService
+import io.forus.me.android.data.net.sign.SignService
 import io.forus.me.android.data.entity.database.DaoSession
 import io.forus.me.android.data.exception.RetrofitExceptionMapper
 import io.forus.me.android.data.net.MeServiceFactory
@@ -26,10 +26,12 @@ import io.forus.me.android.domain.repository.account.AccountRepository
 import io.forus.me.android.domain.repository.assets.AssetsRepository
 import io.forus.me.android.domain.repository.vouchers.VouchersRepository
 import io.forus.me.android.domain.repository.wallets.WalletsRepository
+import io.forus.me.android.presentation.BuildConfig
 import io.forus.me.android.presentation.DatabaseHelper
 import io.forus.me.android.presentation.helpers.AppSettings
 import io.forus.me.android.presentation.helpers.reactivex.AccessTokenChecker
 import io.forus.me.android.presentation.qr.QrDecoder
+import io.forus.me.android.presentation.helpers.fcm.FCMHandler
 
 class Injection private constructor() {
 
@@ -75,7 +77,7 @@ class Injection private constructor() {
     }
 
     private val accountRemoteDataSource: AccountRemoteDataSource by lazy {
-        return@lazy AccountRemoteDataSource{ MeServiceFactory.getInstance().createRetrofitService(SignService::class.java, SignService.Service.SERVICE_ENDPOINT) }
+        return@lazy AccountRemoteDataSource{ MeServiceFactory.getInstance().createRetrofitService(SignService::class.java, BuildConfig.SERVER_URL) }
     }
 
     val accountLocalDataSource: AccountLocalDataSource by lazy {
@@ -83,7 +85,7 @@ class Injection private constructor() {
     }
 
     private val checkActivationDataSource: CheckActivationDataSource by lazy {
-        return@lazy CheckActivationDataSource(MeServiceFactory.getInstance().createRetrofitService(SignService::class.java, SignService.Service.SERVICE_ENDPOINT))
+        return@lazy CheckActivationDataSource(MeServiceFactory.getInstance().createRetrofitService(SignService::class.java, BuildConfig.SERVER_URL))
     }
 
     private val web3LocalDataSource: Web3DataSource by lazy {
@@ -99,7 +101,7 @@ class Injection private constructor() {
     }
 
     val vouchersDataSource: VouchersDataSource by lazy {
-        return@lazy VouchersRemoteDataSource{ MeServiceFactory.getInstance().createRetrofitService(VouchersService::class.java, VouchersService.Service.SERVICE_ENDPOINT) }
+        return@lazy VouchersRemoteDataSource{ MeServiceFactory.getInstance().createRetrofitService(VouchersService::class.java, BuildConfig.SERVER_URL) }
     }
 
     val vouchersRepository: VouchersRepository by lazy {
@@ -116,7 +118,7 @@ class Injection private constructor() {
     }
 
     private val recordRemoteDataSource: RecordsRemoteDataSource by lazy {
-        return@lazy RecordsRemoteDataSource{MeServiceFactory.getInstance().createRetrofitService(RecordsService::class.java, RecordsService.Service.SERVICE_ENDPOINT)}
+        return@lazy RecordsRemoteDataSource{MeServiceFactory.getInstance().createRetrofitService(RecordsService::class.java, BuildConfig.SERVER_URL)}
     }
 
     val retrofitExceptionMapper: RetrofitExceptionMapper by lazy {
@@ -124,7 +126,7 @@ class Injection private constructor() {
     }
 
     private val validatorsRemoteDataSource: ValidatorsRemoteDataSource by lazy {
-        return@lazy ValidatorsRemoteDataSource{MeServiceFactory.getInstance().createRetrofitService(ValidatorsService::class.java, ValidatorsService.Service.SERVICE_ENDPOINT)}
+        return@lazy ValidatorsRemoteDataSource{MeServiceFactory.getInstance().createRetrofitService(ValidatorsService::class.java, BuildConfig.SERVER_URL)}
     }
 
     val validatorsRepository: ValidatorsRepository by lazy {
@@ -132,11 +134,14 @@ class Injection private constructor() {
     }
 
     val accessTokenChecker: AccessTokenChecker by lazy {
-        return@lazy AccessTokenChecker()
+        return@lazy AccessTokenChecker(BuildConfig.SERVER_URL)
     }
 
     val qrDecoder: QrDecoder by lazy {
         return@lazy QrDecoder()
     }
 
+    val fcmHandler: FCMHandler by lazy {
+        return@lazy FCMHandler(accountRepository, settingsDataSource)
+    }
 }
