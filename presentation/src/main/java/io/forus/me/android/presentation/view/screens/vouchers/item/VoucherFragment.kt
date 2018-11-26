@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.jakewharton.rxbinding2.view.RxView
 import io.forus.me.android.domain.models.qr.QrCode
+import io.forus.me.android.presentation.BuildConfig
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.helpers.format
 import io.forus.me.android.presentation.internal.Injection
@@ -33,7 +34,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPres
 
         fun newIntent(id: String): VoucherFragment = VoucherFragment().also {
             val bundle = Bundle()
-            bundle.putSerializable(VOUCHER_ADDRESS_EXTRA, id)
+            bundle.putString(VOUCHER_ADDRESS_EXTRA, id)
             it.arguments = bundle
         }
     }
@@ -65,7 +66,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPres
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
             = inflater.inflate(R.layout.fragment_voucher, container, false).also {
 
-        address = if (arguments == null) "" else arguments!!.getString(VOUCHER_ADDRESS_EXTRA, "")
+        address = arguments?.getString(VOUCHER_ADDRESS_EXTRA, "") ?: ""
         adapter = TransactionsAdapter()
     }
 
@@ -76,7 +77,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPres
         rv_transactions.adapter = adapter
 
         info_button.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.zuidhorn.nl/kindpakket"))
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://" + BuildConfig.PREFIX_URL + "zuidhorn.forus.io/#!/products/$address"))
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intent)
         }
