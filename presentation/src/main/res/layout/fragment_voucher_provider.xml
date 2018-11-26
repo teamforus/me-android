@@ -160,6 +160,23 @@
 
                     </LinearLayout>
 
+                    <RelativeLayout
+                        android:id="@+id/rl_make"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <io.forus.me.android.presentation.view.component.buttons.Button
+                            android:id="@+id/btn_make"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:layout_marginBottom="6dp"
+                            android:text="@string/vouchers_make_transaction" />
+
+                    </RelativeLayout>
+
                 </LinearLayout>
 
             </android.support.v4.widget.NestedScrollView>
@@ -167,23 +184,6 @@
         </io.forus.me.android.presentation.view.base.lr.LRPanelImpl>
 
     </android.support.design.widget.CoordinatorLayout>
-
-    <RelativeLayout
-        android:id="@+id/rl_make"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_alignParentBottom="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <io.forus.me.android.presentation.view.component.buttons.Button
-            android:id="@+id/btn_make"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_marginBottom="6dp"
-            android:text="@string/vouchers_make_transaction" />
-
-    </RelativeLayout>
 
 </RelativeLayout>
 
