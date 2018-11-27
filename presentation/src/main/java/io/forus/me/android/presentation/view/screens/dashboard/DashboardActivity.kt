@@ -9,6 +9,10 @@ import android.view.Menu
 import android.view.MenuItem
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter
+import com.crashlytics.android.Crashlytics
+import io.fabric.sdk.android.Fabric
+import io.forus.me.android.domain.models.account.Account
+import io.forus.me.android.presentation.BuildConfig
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.helpers.reactivex.DisposableHolder
 import io.forus.me.android.presentation.internal.Injection
@@ -104,6 +108,17 @@ class DashboardActivity : SlidingPanelActivity() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .map {
                     if(!it) logout()
+                    else if(Fabric.isInitialized()){
+                        accountRepository.getAccount()
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe { a: Account? ->
+                                    a?.let {account->
+
+                                        Crashlytics.setUserIdentifier(account.address)
+                                    }
+                                }
+                    }
                 }
                 .onErrorReturn {  }
                 .subscribe())

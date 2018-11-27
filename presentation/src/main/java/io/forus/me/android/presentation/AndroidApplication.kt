@@ -1,5 +1,6 @@
 package io.forus.me.android.presentation
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import android.os.StrictMode
@@ -12,6 +13,10 @@ import android.app.Activity
 import android.os.Bundle
 import android.content.pm.ActivityInfo
 import com.google.android.gms.common.GoogleApiAvailability
+import io.forus.me.android.domain.models.account.Account
+import io.reactivex.Scheduler
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 
 //import com.squareup.leakcanary.LeakCanary
@@ -43,6 +48,7 @@ class AndroidApplication : Application() {
     private fun initFabric() {
         Fabric.with(this, Crashlytics())
     }
+
     private fun initRetrofit() {
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
