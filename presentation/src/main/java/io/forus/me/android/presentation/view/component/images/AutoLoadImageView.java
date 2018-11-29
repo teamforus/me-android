@@ -23,7 +23,7 @@ import io.forus.me.android.presentation.helpers.ImageLoader;
  * Simple implementation of {@link android.widget.ImageView} with extended features like setting an
  * image from an url and an internal file cache using the application cache directory.
  */
-public class AutoLoadImageView extends android.support.v7.widget.AppCompatImageView {
+public class AutoLoadImageView extends CircleImageView {
 
   private static final String BASE_IMAGE_NAME_CACHED = "image_";
 
