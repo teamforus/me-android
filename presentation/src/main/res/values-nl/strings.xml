@@ -176,7 +176,7 @@
     <string name="vouchers_make_transaction_failure">Transactie mislukt</string>
     <string name="vouchers_transaction_payment">Betaald</string>
     <string name="vouchers_amount">Vul hier het bedrag in</string>
-    <string name="vouchers_note">Omschrijving</string>
+    <string name="vouchers_note">Uw persoonlijke notitie</string>
     <string name="vouchers_product_categories">Productcategorieën</string>
     <string name="vouchers_amount_invalid">Ongeldige hoeveelheid</string>
     <string name="vouchers_pay_title">Bevestig transactie</string>
