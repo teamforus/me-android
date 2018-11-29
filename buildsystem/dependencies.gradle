@@ -24,6 +24,7 @@ ext {
   arrowVersion = '1.0.0'
   circleIndicatorVersion = '1.2.2@aar'
   materialDialogs = '0.9.6.0'
+  gooleMapsVersion = '16.0.0'
 
   //Testing
   robolectricVersion = '3.1.1'
@@ -94,7 +95,8 @@ ext {
       fingerprint:        "com.multidots:fingerprint-auth:${rootProject.fingerprintAuthVersion}",
       fabric:             "com.crashlytics.sdk.android:crashlytics:${rootProject.fabric}",
       firebaseCore:       "com.google.firebase:firebase-core:${rootProject.firebaseCoreVersion}",
-      firebaseMessaging:       "com.google.firebase:firebase-messaging:${rootProject.firebaseCloudMessageVersion}"
+      firebaseMessaging:       "com.google.firebase:firebase-messaging:${rootProject.firebaseCloudMessageVersion}",
+      googleMaps:       "com.google.android.gms:play-services-maps:${rootProject.gooleMapsVersion}"
 
   ]
 
