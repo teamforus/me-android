@@ -3,7 +3,7 @@ package io.forus.me.android.presentation.view.screens.vouchers.item.transactions
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
-import io.forus.me.android.domain.models.vouchers.Transaction
+import io.forus.me.android.presentation.models.vouchers.Transaction
 
 class TransactionsAdapter : RecyclerView.Adapter<TransactionsVH>() {
 

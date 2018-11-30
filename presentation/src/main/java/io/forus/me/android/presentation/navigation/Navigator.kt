@@ -8,6 +8,7 @@ import io.forus.me.android.domain.models.records.Record
 import io.forus.me.android.domain.models.records.RecordCategory
 import io.forus.me.android.domain.models.wallets.Wallet
 import io.forus.me.android.presentation.models.ChangePinMode
+import io.forus.me.android.presentation.models.vouchers.Voucher
 import io.forus.me.android.presentation.view.screens.account.account.AccountActivity
 import io.forus.me.android.presentation.view.screens.account.account.pin.ChangePinActivity
 import io.forus.me.android.presentation.view.screens.account.assigndelegates.AssignDelegatesAccountActivity
@@ -113,6 +114,13 @@ constructor()//empty
     fun navigateToVoucher(context: Context?, id: String) {
         if (context != null) {
             val intentToLaunch = VoucherActivity.getCallingIntent(context, id)
+            context.startActivity(intentToLaunch)
+        }
+    }
+
+    fun navigateToVoucher(context: Context?, voucher: Voucher) {
+        if (context != null) {
+            val intentToLaunch = VoucherActivity.getCallingIntent(context, voucher)
             context.startActivity(intentToLaunch)
         }
     }

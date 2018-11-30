@@ -13,6 +13,7 @@ import io.forus.me.android.domain.models.qr.QrCode
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.helpers.format
 import io.forus.me.android.presentation.internal.Injection
+import io.forus.me.android.presentation.models.vouchers.Voucher
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.forus.me.android.presentation.view.screens.vouchers.item.dialogs.SendVoucherSuccessDialog
@@ -28,12 +29,20 @@ import java.util.*
 class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPresenter>(), VoucherView{
 
     companion object {
-        private val VOUCHER_ADDRESS_EXTRA = "VOUCHER_ADDRESS_EXTRA"
+        private const val VOUCHER_ADDRESS_EXTRA = "VOUCHER_ADDRESS_EXTRA"
+        private const val VOUCHER_EXTRA = "VOUCHER_EXTRA"
         val dateFormat = SimpleDateFormat("d MMMM, HH:mm", Locale.getDefault())
 
-        fun newIntent(id: String): VoucherFragment = VoucherFragment().also {
+        fun newInstance(id: String): VoucherFragment = VoucherFragment().also {
             val bundle = Bundle()
-            bundle.putSerializable(VOUCHER_ADDRESS_EXTRA, id)
+            bundle.putString(VOUCHER_ADDRESS_EXTRA, id)
+            it.arguments = bundle
+        }
+
+        fun newInstance(voucher: Voucher): VoucherFragment = VoucherFragment().also {
+            val bundle = Bundle()
+            bundle.putParcelable(VOUCHER_EXTRA, voucher)
+            bundle.putString(VOUCHER_ADDRESS_EXTRA, voucher.address)
             it.arguments = bundle
         }
     }

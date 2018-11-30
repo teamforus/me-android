@@ -3,7 +3,7 @@ package io.forus.me.android.presentation.view.screens.vouchers.list
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
-import io.forus.me.android.domain.models.vouchers.Voucher
+import io.forus.me.android.presentation.models.vouchers.Voucher
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.helpers.format
 import io.forus.me.android.presentation.helpers.inflate
@@ -15,7 +15,7 @@ class VouchersVH(parent: ViewGroup, private val clickListener: ((Voucher) -> Uni
 
     }
 
-    fun render(item:  Voucher) = with(itemView) {
+    fun render(item: Voucher) = with(itemView) {
 
         name.text = item.name
         organization_name.text = item.organizationName

@@ -1,7 +1,10 @@
 package io.forus.me.android.presentation.view.screens.vouchers.item
 
-import io.forus.me.android.domain.models.vouchers.Voucher
+import io.forus.me.android.presentation.models.vouchers.Voucher
 import io.forus.me.android.domain.repository.vouchers.VouchersRepository
+import io.forus.me.android.presentation.models.currency.Currency
+import io.forus.me.android.presentation.models.vouchers.Organization
+import io.forus.me.android.presentation.models.vouchers.Transaction
 import io.forus.me.android.presentation.view.base.lr.LRPresenter
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.base.lr.PartialChange
@@ -14,7 +17,20 @@ import io.reactivex.schedulers.Schedulers
 class VoucherPresenter constructor(private val vouchersRepository: VouchersRepository, private val address: String) : LRPresenter<Voucher, VoucherModel, VoucherView>() {
 
 
-    override fun initialModelSingle(): Single<Voucher> = Single.fromObservable(vouchersRepository.getVoucher(address))
+    override fun initialModelSingle(): Single<Voucher> = Single.fromObservable(vouchersRepository.getVoucher(address).map { domainVoucher ->
+        with(domainVoucher) {
+            Voucher(isProduct, isUsed, address, name, organizationName,
+                    fundName, description, createdAt,
+                    Currency(currency.name, currency.logoUrl), amount, logo,
+                    transactions.map {
+                        Transaction(it.id, Organization(it.organization.id,
+                                it.organization.name, it.organization.logo),
+                                Currency(it.currency.name, it.currency.logoUrl),
+                                it.amount, createdAt, Transaction.Type.valueOf(it.type.name))
+            })
+        }
+
+    })
 
     override fun VoucherModel.changeInitialModel(i: Voucher): VoucherModel = copy(item = i)
 

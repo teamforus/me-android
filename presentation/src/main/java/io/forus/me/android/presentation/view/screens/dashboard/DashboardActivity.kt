@@ -81,12 +81,12 @@ class DashboardActivity : SlidingPanelActivity() {
             val fragments = ArrayList<android.support.v4.app.Fragment?>()
             val titles = ArrayList<String>()
 
-            //fragments.add(PropertyFragment.newIntent())
+            //fragments.add(PropertyFragment.newInstance())
             fragments.add(VouchersFragment.newIntent())
             titles.add("")
             fragments.add(Fragment())
             titles.add("")
-            //fragments.add(RecordCategoriesFragment.newIntent())
+            //fragments.add(RecordCategoriesFragment.newInstance())
             fragments.add(AccountFragment())
             titles.add("")
 

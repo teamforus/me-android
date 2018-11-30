@@ -3,7 +3,7 @@ package io.forus.me.android.presentation.view.screens.vouchers.list
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
-import io.forus.me.android.domain.models.vouchers.Voucher
+import io.forus.me.android.presentation.models.vouchers.Voucher
 
 class VouchersAdapter : RecyclerView.Adapter<VouchersVH>() {
 
