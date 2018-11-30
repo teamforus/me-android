@@ -29,9 +29,9 @@ abstract class LRPresenter<I, M, V : LRView<M>> : MviBasePresenter<V, LRViewStat
                                 .toObservable()
                                 .subscribeOn(Schedulers.io())
                                 .map<LRPartialChange> { LRPartialChange.InitialModelLoaded(it) }
-                                .onErrorReturn {
-                                    it.printStackTrace()
-                                    LRPartialChange.LoadingError(it)
+                                .onErrorReturn {throwable->
+                                    throwable.printStackTrace()
+                                    LRPartialChange.LoadingError(throwable)
                                 }
                                 .startWith(LRPartialChange.LoadingStarted)
                     },

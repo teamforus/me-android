@@ -14,23 +14,31 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 
-class VoucherPresenter constructor(private val vouchersRepository: VouchersRepository, private val address: String) : LRPresenter<Voucher, VoucherModel, VoucherView>() {
+class VoucherPresenter constructor(private val vouchersRepository: VouchersRepository,
+                                   private val address: String,
+                                   private val voucher: Voucher? = null) : LRPresenter<Voucher, VoucherModel, VoucherView>() {
 
 
-    override fun initialModelSingle(): Single<Voucher> = Single.fromObservable(vouchersRepository.getVoucher(address).map { domainVoucher ->
-        with(domainVoucher) {
-            Voucher(isProduct, isUsed, address, name, organizationName,
-                    fundName, description, createdAt,
-                    Currency(currency.name, currency.logoUrl), amount, logo,
-                    transactions.map {
-                        Transaction(it.id, Organization(it.organization.id,
-                                it.organization.name, it.organization.logo),
-                                Currency(it.currency.name, it.currency.logoUrl),
-                                it.amount, createdAt, Transaction.Type.valueOf(it.type.name))
-            })
-        }
+    override fun initialModelSingle(): Single<Voucher> {
+        val voucherObservable = if (voucher != null) Single.just(voucher) else null
 
-    })
+        return voucherObservable ?: Single.fromObservable(
+                vouchersRepository.getVoucher(address).map { domainVoucher ->
+                    with(domainVoucher) {
+                        Voucher(isProduct, isUsed, address, name, organizationName,
+                                fundName, description, createdAt,
+                                Currency(currency.name, currency.logoUrl), amount, logo,
+                                transactions.map {
+                                    Transaction(it.id, Organization(it.organization.id,
+                                            it.organization.name, it.organization.logo),
+                                            Currency(it.currency.name, it.currency.logoUrl),
+                                            it.amount, createdAt,
+                                            Transaction.Type.valueOf(it.type.name))
+                                })
+                    }
+
+                })
+    }
 
     override fun VoucherModel.changeInitialModel(i: Voucher): VoucherModel = copy(item = i)
 
