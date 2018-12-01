@@ -4,6 +4,8 @@ import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import io.forus.me.android.domain.models.vouchers.Voucher
+import io.forus.me.android.presentation.R.id.root
+import kotlinx.android.synthetic.main.item_vouchers_list.view.*
 
 class VouchersAdapter : RecyclerView.Adapter<VouchersVH>() {
 
@@ -28,9 +30,14 @@ class VouchersAdapter : RecyclerView.Adapter<VouchersVH>() {
 
     var clickListener: ((Voucher) -> Unit)? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = VouchersVH(parent, clickListener)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = VouchersVH(parent).apply {
+        itemView.root.setOnClickListener {
+            vouchers.getOrNull(adapterPosition)?.let {voucher ->
+                clickListener?.invoke(voucher)
+            }
+        }
+    }
     override fun onBindViewHolder(holder: VouchersVH, position: Int) {
-
         holder.render(vouchers[position])
     }
     override fun getItemCount() = vouchers.size

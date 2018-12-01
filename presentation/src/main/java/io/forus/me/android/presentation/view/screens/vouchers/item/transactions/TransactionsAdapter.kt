@@ -4,6 +4,7 @@ import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import io.forus.me.android.domain.models.vouchers.Transaction
+import kotlinx.android.synthetic.main.item_voucher_transcations_list.view.*
 
 class TransactionsAdapter : RecyclerView.Adapter<TransactionsVH>() {
 
@@ -28,7 +29,14 @@ class TransactionsAdapter : RecyclerView.Adapter<TransactionsVH>() {
 
     var clickListener: ((Transaction) -> Unit)? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = TransactionsVH(parent, clickListener)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = TransactionsVH(parent).apply {
+        itemView.root.setOnClickListener {
+            transactions.getOrNull(adapterPosition)?.let {transactions->
+                clickListener?.invoke(transactions)
+            }
+        }
+    }
+
     override fun onBindViewHolder(holder: TransactionsVH, position: Int) {
 
         holder.render(transactions[position])
