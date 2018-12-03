@@ -8,4 +8,5 @@ sealed class VoucherPartialChanges : PartialChange{
     data class SendEmailSuccess(val void: Unit) : VoucherPartialChanges()
     data class SendEmailError(val error: Throwable) : VoucherPartialChanges()
     data class SendEmailDialogShown(val void: Unit) : VoucherPartialChanges()
+    data class SendEmailDialogShows(val void: Unit) : VoucherPartialChanges()
 }

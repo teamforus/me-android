@@ -14,5 +14,7 @@ interface VoucherView : LRView<VoucherModel>{
 
     fun showInfo(): io.reactivex.Observable<Unit>
 
-    fun sendEmailDialogShown(): io.reactivex.Observable<Unit>
+    fun sendEmailDialogShows(): io.reactivex.Observable<Boolean>
+
+    fun sentEmailDialogShown(): io.reactivex.Observable<Unit>
 }

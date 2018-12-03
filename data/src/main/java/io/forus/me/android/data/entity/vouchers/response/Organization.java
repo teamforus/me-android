@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 public class Organization {
 
     @SerializedName("id")
-    private Long id;
+    private long id;
 
     @SerializedName("name")
     private String name;
@@ -31,9 +31,15 @@ public class Organization {
     @SerializedName("btw")
     private String btw;
 
+    @SerializedName("lat")
+    private double lat;
+
+    @SerializedName("lon")
+    private double lon;
+
     public Organization() {}
 
-    public Organization(Long id, String name, Logo logo, String identityAddress, String iban, String email, String phone, String kvk, String btw) {
+    public Organization(long id, String name, Logo logo, String identityAddress, String iban, String email, String phone, String kvk, String btw, double lat, double lon) {
         this.id = id;
         this.name = name;
         this.logo = logo;
@@ -43,9 +49,11 @@ public class Organization {
         this.phone = phone;
         this.kvk = kvk;
         this.btw = btw;
+        this.lat = lat;
+        this.lon = lon;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
@@ -115,5 +123,21 @@ public class Organization {
 
     public void setBtw(String btw) {
         this.btw = btw;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLon() {
+        return lon;
+    }
+
+    public void setLon(double lon) {
+        this.lon = lon;
     }
 }
