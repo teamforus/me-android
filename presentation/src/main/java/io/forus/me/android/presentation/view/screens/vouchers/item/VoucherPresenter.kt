@@ -1,7 +1,10 @@
 package io.forus.me.android.presentation.view.screens.vouchers.item
 
-import io.forus.me.android.domain.models.vouchers.Voucher
+import io.forus.me.android.presentation.models.vouchers.Voucher
 import io.forus.me.android.domain.repository.vouchers.VouchersRepository
+import io.forus.me.android.presentation.models.currency.Currency
+import io.forus.me.android.presentation.models.vouchers.Organization
+import io.forus.me.android.presentation.models.vouchers.Transaction
 import io.forus.me.android.presentation.view.base.lr.LRPresenter
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.base.lr.PartialChange
@@ -11,16 +14,50 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 
-class VoucherPresenter constructor(private val vouchersRepository: VouchersRepository, private val address: String) : LRPresenter<Voucher, VoucherModel, VoucherView>() {
+class VoucherPresenter constructor(private val vouchersRepository: VouchersRepository,
+                                   private val address: String,
+                                   private val voucher: Voucher? = null) : LRPresenter<Voucher, VoucherModel, VoucherView>() {
 
 
-    override fun initialModelSingle(): Single<Voucher> = Single.fromObservable(vouchersRepository.getVoucher(address))
+    override fun initialModelSingle(): Single<Voucher> {
+        val voucherObservable = if (voucher != null) Single.just(voucher) else null
+
+        return voucherObservable ?: Single.fromObservable(
+                vouchersRepository.getVoucher(address).map { domainVoucher ->
+                    with(domainVoucher) {
+                        Voucher(isProduct, isUsed, address, name, organizationName,
+                                fundName, description, createdAt,
+                                Currency(currency.name, currency.logoUrl), amount, logo,
+                                transactions.map {
+                                    Transaction(it.id, Organization(it.organization.id,
+                                            it.organization.name, it.organization.logo),
+                                            Currency(it.currency.name, it.currency.logoUrl),
+                                            it.amount, createdAt,
+                                            Transaction.Type.valueOf(it.type.name))
+                                })
+                    }
+
+                })
+    }
+
 
     override fun VoucherModel.changeInitialModel(i: Voucher): VoucherModel = copy(item = i)
 
-    override fun bindIntents() {
+    override fun attachView(view: VoucherView) {
+        super.attachView(view)
 
-        val observable = Observable.merge(
+
+    }
+
+    override fun bindIntents() {
+        val infoObservable = Observable.merge(
+                loadRefreshPartialChanges(),
+                intent {
+                    it.showInfo()
+                }
+        )
+
+        val emailObservable = Observable.merge(
 
                 loadRefreshPartialChanges(),
 
@@ -53,7 +90,7 @@ class VoucherPresenter constructor(private val vouchersRepository: VouchersRepos
                 VoucherModel())
 
         subscribeViewState(
-                observable.scan(initialViewState, this::stateReducer)
+                emailObservable.scan(initialViewState, this::stateReducer)
                         .observeOn(AndroidSchedulers.mainThread()),
                 VoucherView::render)
     }

@@ -89,6 +89,7 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
                 ?: "", name, organizationName, voucher.fund?.name
                 ?: "", description, createdAt!!, euro, amount,
                 productLogoUrl, transactions, productMapped)
+
     }
 
     private fun mapToProvider(voucher: io.forus.me.android.data.entity.vouchers.response.Voucher): VoucherProvider {

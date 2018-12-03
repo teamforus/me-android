@@ -3,7 +3,7 @@ package io.forus.me.android.presentation.view.screens.vouchers.provider.categori
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
-import io.forus.me.android.domain.models.vouchers.ProductCategory
+import io.forus.me.android.presentation.models.vouchers.ProductCategory
 
 class CategoriesAdapter : RecyclerView.Adapter<CategoryVH>() {
 

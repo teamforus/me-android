@@ -17,10 +17,13 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.jakewharton.rxbinding2.view.RxView
+import io.forus.me.android.data.entity.vouchers.response.Product
 import io.forus.me.android.domain.models.qr.QrCode
+import io.forus.me.android.presentation.BuildConfig
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.helpers.format
 import io.forus.me.android.presentation.internal.Injection
+import io.forus.me.android.presentation.models.vouchers.Voucher
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.forus.me.android.presentation.view.screens.vouchers.item.dialogs.SendVoucherSuccessDialog
@@ -31,22 +34,30 @@ import kotlinx.android.synthetic.main.fragment_voucher.*
 import kotlinx.android.synthetic.main.toolbar_view.*
 import java.text.SimpleDateFormat
 import java.util.*
+import android.support.customtabs.CustomTabsIntent
+import android.support.v4.content.ContextCompat
 
 private const val MAP_VIEW_BUNDLE_KEY = "MapViewBundleKey"
 
 class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPresenter>(), VoucherView, OnMapReadyCallback {
 
     companion object {
-        private val VOUCHER_ADDRESS_EXTRA = "VOUCHER_ADDRESS_EXTRA"
+        private const val VOUCHER_ADDRESS_EXTRA = "VOUCHER_ADDRESS_EXTRA"
+        private const val VOUCHER_EXTRA = "VOUCHER_EXTRA"
+
         val dateFormat = SimpleDateFormat("d MMMM, HH:mm", Locale.getDefault())
 
-        fun newIntent(id: String): VoucherFragment = VoucherFragment().also {
+
+        fun newInstance(voucher: Voucher): VoucherFragment = VoucherFragment().also {
             val bundle = Bundle()
-            bundle.putSerializable(VOUCHER_ADDRESS_EXTRA, id)
+            bundle.putParcelable(VOUCHER_EXTRA, voucher)
+            bundle.putString(VOUCHER_ADDRESS_EXTRA, voucher.address)
+
             it.arguments = bundle
         }
     }
 
+    private var voucher: Voucher? = null
     private lateinit var address: String
     private lateinit var adapter: TransactionsAdapter
 
@@ -71,12 +82,15 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPres
 
     override fun sendEmail(): Observable<Unit> = RxView.clicks(btn_email).map { Unit }
 
+    override fun showInfo(): Observable<Unit> = RxView.clicks(info_button).map { Unit }
+
     private val sendEmailDialogShown = PublishSubject.create<Unit>()
     override fun sendEmailDialogShown(): Observable<Unit> = sendEmailDialogShown
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = inflater.inflate(R.layout.fragment_voucher, container, false).also {
 
-        address = if (arguments == null) "" else arguments!!.getString(VOUCHER_ADDRESS_EXTRA, "")
+        voucher = arguments?.getParcelable(VOUCHER_EXTRA)
+        address = arguments?.getString(VOUCHER_ADDRESS_EXTRA, "") ?: ""
         adapter = TransactionsAdapter()
     }
 
@@ -93,9 +107,17 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPres
         rv_transactions.adapter = adapter
 
         info_button.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.zuidhorn.nl/kindpakket"))
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            startActivity(intent)
+            val url = when {
+                productId != null ->
+                    "https://" + BuildConfig.PREFIX_URL + "zuidhorn.forus.io/#!/products/$productId"
+                else -> "https://www.zuidhorn.nl/kindpakket"
+
+            }
+
+            val intentBuilder = CustomTabsIntent.Builder()
+            intentBuilder.setToolbarColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
+            val customTabsIntent = intentBuilder.build()
+            customTabsIntent.launchUrl(activity, Uri.parse(url))
         }
 
         val qrEncoded = QrCode(QrCode.Type.VOUCHER, address).toJson()
@@ -157,7 +179,8 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPres
 
     override fun createPresenter() = VoucherPresenter(
             Injection.instance.vouchersRepository,
-            address
+            address,
+            voucher
     )
 
 
@@ -277,5 +300,6 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPres
         intent.data = Uri.parse(uri)
         startActivity(intent)
     }
+
 }
 

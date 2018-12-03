@@ -176,7 +176,7 @@
     <string name="vouchers_make_transaction_failure">Transactie mislukt</string>
     <string name="vouchers_transaction_payment">Betaald</string>
     <string name="vouchers_amount">Vul hier het bedrag in</string>
-    <string name="vouchers_note">Omschrijving</string>
+    <string name="vouchers_note">Uw persoonlijke notitie</string>
     <string name="vouchers_product_categories">Productcategorieën</string>
     <string name="vouchers_amount_invalid">Ongeldige hoeveelheid</string>
     <string name="vouchers_pay_title">Bevestig transactie</string>
@@ -185,14 +185,15 @@
     <string name="vouchers_apply_question">Weet je zeker dat je deze transactie wilt bevestigen?</string>
     <string name="voucher_is_used">GEBRUIKT</string>
     <string name="vouchers_apply_success">Betaling geslaagd!</string>
-    <string name="voucher_created">Voucher aangemaakt - %1$s</string>
+    <string name="voucher_created">Geactiveerd - %1$s</string>
     <string name="voucher_button_show_qr">Toon QR-code</string>
     <string name="voucher_send_email_success">Success</string>
     <string name="voucher_send_email_description">De voucher is verzonden naar de e-mail</string>
     <string name="voucher_qr_code_subtitle">Dit is de QR-code van de Voucher</string>
     <string name="voucher_qr_code_description">Laat de aanbieder deze QR-Code scannen om een betaling te kunnen doen</string>
+    <string name="voucher_email_to_me">E-mail naar mij</string>
+    <string name="voucher_request">BEVESTIG</string>
     <string name="voucher_email_to_me">E-mail naar mijzelf</string>
-    <string name="voucher_request">VRAAG </string>
     <string name="shopkeeper_address_text">Adres</string>
     <string name="shopkeeper_phone_text">Telefoonnummer</string>
     <string name="send_email_title">Stuur e-mail</string>

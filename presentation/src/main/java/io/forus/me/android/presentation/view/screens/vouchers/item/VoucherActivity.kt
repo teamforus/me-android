@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
+import io.forus.me.android.presentation.models.vouchers.Voucher
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.view.activity.SlidingPanelActivity
 import io.forus.me.android.presentation.view.fragment.QrFragment
@@ -15,11 +16,18 @@ import kotlinx.android.synthetic.main.activity_toolbar_sliding_panel.*
 class VoucherActivity : SlidingPanelActivity() {
 
     companion object {
-         val ID_EXTRA = "ID_EXTRA"
+         const val ID_EXTRA = "ID_EXTRA"
+         const val VOUCHER_EXTRA = "VOUCHER_EXTRA"
 
         fun getCallingIntent(context: Context, id: String): Intent {
             val intent = Intent(context, VoucherActivity::class.java)
             intent.putExtra(ID_EXTRA, id)
+            return intent
+        }
+
+        fun getCallingIntent(context: Context, voucher: Voucher): Intent {
+            val intent = Intent(context, VoucherActivity::class.java)
+            intent.putExtra(VOUCHER_EXTRA, voucher)
             return intent
         }
     }
@@ -29,8 +37,13 @@ class VoucherActivity : SlidingPanelActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val voucher = intent.getParcelableExtra<Voucher>(VOUCHER_EXTRA)
         if (savedInstanceState == null) {
-            fragment = VoucherFragment.newIntent(intent.getStringExtra(ID_EXTRA))
+            fragment = when (voucher) {
+                null -> VoucherFragment.newInstance(intent.getStringExtra(ID_EXTRA))
+                else -> VoucherFragment.newInstance(voucher)
+            }
+
             addFragment(R.id.fragmentContainer, fragment)
         }
 
