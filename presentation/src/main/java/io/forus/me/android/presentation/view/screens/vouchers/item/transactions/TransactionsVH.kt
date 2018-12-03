@@ -11,27 +11,20 @@ import kotlinx.android.synthetic.main.item_voucher_transcations_list.view.*
 import java.text.SimpleDateFormat
 
 
-class TransactionsVH(parent: ViewGroup, private val clickListener: ((Transaction) -> Unit)?)
+class TransactionsVH(parent: ViewGroup)
     : RecyclerView.ViewHolder(parent.inflate(R.layout.item_voucher_transcations_list)) {
-
-    init {
-
-    }
 
     fun render(item: Transaction) = with(itemView) {
 
         subtitle1.text = item.organization.name
         overline1.text = VoucherFragment.dateFormat.format(item.createdAt)
 
-        subtitle2.text = "-"+item.amount.toFloat().format(2)
+        subtitle2.text = "-${item.amount.toFloat().format(2)}"
         overline2.text = if(item.type == Transaction.Type.Product) resources.getString(R.string.vouchers_item_product)
                             else resources.getString(R.string.vouchers_transaction_payment)
 
         if(!item.organization.logo.isBlank())
             iv_logo.setImageUrl(item.organization.logo)
 
-        root.setOnClickListener {
-            clickListener?.invoke(item)
-        }
     }
 }
