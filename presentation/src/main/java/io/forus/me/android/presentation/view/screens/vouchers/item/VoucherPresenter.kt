@@ -33,25 +33,33 @@ class VoucherPresenter constructor(private val vouchersRepository: VouchersRepos
                 }
         )
 
-        val emailObservable = Observable.merge(
 
+        val emailObservable = Observable.merge(
                 loadRefreshPartialChanges(),
 
-                intent { it.sendEmail() }
-                        .switchMap {
-                            vouchersRepository.sendEmail(address)
-                                    .subscribeOn(Schedulers.io())
-                                    .observeOn(AndroidSchedulers.mainThread())
-                                    .map <VoucherPartialChanges> {
-                                        VoucherPartialChanges.SendEmailSuccess(Unit)
-                                    }
-                                    .onErrorReturn {
-                                        VoucherPartialChanges.SendEmailError(it)
-                                    }
-                        },
+                intent(VoucherView::sendEmail).map {
+                    VoucherPartialChanges.SendEmailDialogShows(Unit)
+                },
 
-                intent { it.sendEmailDialogShown()}
-                        .map { VoucherPartialChanges.SendEmailDialogShown(Unit) }
+                intent(VoucherView::sendEmailDialogShows).switchMap {
+                    if (it) {
+                         vouchersRepository.sendEmail(address)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .map<VoucherPartialChanges> {
+                                    VoucherPartialChanges.SendEmailSuccess(Unit)
+                                }
+                                .onErrorReturn { error ->
+                                    VoucherPartialChanges.SendEmailError(error)
+                                }
+                    } else {
+                         Observable.just(VoucherPartialChanges.SendEmailDialogShown(Unit))
+                    }
+                },
+
+                intent(VoucherView::sentEmailDialogShown).map {
+                    VoucherPartialChanges.SendEmailDialogShown(Unit)
+                }
 
         )
 
@@ -76,9 +84,10 @@ class VoucherPresenter constructor(private val vouchersRepository: VouchersRepos
         if (change !is VoucherPartialChanges) return super.stateReducer(vs, change)
 
         return when (change) {
-            is VoucherPartialChanges.SendEmailSuccess -> vs.copy(model = vs.model.copy(emailSend = true))
+            is VoucherPartialChanges.SendEmailSuccess -> vs.copy(model = vs.model.copy(emailSend = EmailSend.SENT))
             is VoucherPartialChanges.SendEmailError -> vs.copy(loadingError = change.error)
-            is VoucherPartialChanges.SendEmailDialogShown -> vs.copy(model = vs.model.copy(emailSend = false))
+            is VoucherPartialChanges.SendEmailDialogShown -> vs.copy(model = vs.model.copy(emailSend = EmailSend.NOTHING))
+            is VoucherPartialChanges.SendEmailDialogShows -> vs.copy(model = vs.model.copy(emailSend = EmailSend.SEND))
         }
     }
 }

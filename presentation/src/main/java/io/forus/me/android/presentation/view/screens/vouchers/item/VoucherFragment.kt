@@ -1,6 +1,6 @@
 package io.forus.me.android.presentation.view.screens.vouchers.item
 
-import android.content.Intent
+import android.content.DialogInterface
 import android.graphics.BlurMaskFilter
 import android.net.Uri
 import android.os.Bundle
@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.jakewharton.rxbinding2.view.RxView
-import io.forus.me.android.data.entity.vouchers.response.Product
 import io.forus.me.android.domain.models.qr.QrCode
 import io.forus.me.android.presentation.BuildConfig
 import io.forus.me.android.presentation.R
@@ -27,6 +26,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import android.support.customtabs.CustomTabsIntent
 import android.support.v4.content.ContextCompat
+import android.support.v7.app.AlertDialog
 
 
 class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPresenter>(), VoucherView{
@@ -45,6 +45,16 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPres
     private var productId: Long? = null
     private lateinit var address: String
     private lateinit var adapter: TransactionsAdapter
+
+    private val sendEmailDialog: AlertDialog.Builder by lazy(LazyThreadSafetyMode.NONE) {
+        AlertDialog.Builder(activity!!)
+                .setTitle(R.string.send_voucher_email_dialog_title)
+                .setPositiveButton(R.string.send_voucher_email_dialog_positive_button) { _, _ ->
+                    sendEmailDialogShows.onNext(true) }
+                .setNegativeButton(R.string.send_voucher_email_dialog_cancel_button) { _: DialogInterface, _: Int -> sendEmailDialogShows.onNext(false)}
+                .setCancelable(false)
+
+    }
 
     override val toolbarTitle: String
         get() = getString(R.string.vouchers_item)
@@ -66,8 +76,12 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPres
 
     override fun showInfo(): Observable<Unit> = RxView.clicks(info_button).map { Unit }
 
-    private val sendEmailDialogShown = PublishSubject.create<Unit>()
-    override fun sendEmailDialogShown(): Observable<Unit> = sendEmailDialogShown
+    private val sendEmailDialogShows = PublishSubject.create<Boolean>()
+    private val sentEmailDialogShown = PublishSubject.create<Unit>()
+
+    override fun sendEmailDialogShows(): Observable<Boolean> = sendEmailDialogShows
+
+    override fun sentEmailDialogShown(): Observable<Unit> = sentEmailDialogShown
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
             = inflater.inflate(R.layout.fragment_voucher, container, false).also {
@@ -126,8 +140,10 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPres
             tv_created.text = resources.getString(R.string.voucher_created, dateFormat.format(vs.model.item.createdAt))
         }
 
-        if(vs.model.emailSend){
-            showEmailSendDialog()
+        when(vs.model.emailSend) {
+            EmailSend.SEND -> showEmailSendDialog()
+            EmailSend.SENT -> showEmailSentDialog()
+            EmailSend.NOTHING -> Unit
         }
     }
 
@@ -153,10 +169,14 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPres
         type.paint.maskFilter = null
     }
 
-    fun showEmailSendDialog(){
+    private fun showEmailSentDialog(){
         SendVoucherSuccessDialog(context!!) {
-            sendEmailDialogShown.onNext(Unit)
+            sentEmailDialogShown.onNext(Unit)
         }.show()
+    }
+
+    private fun showEmailSendDialog(){
+        sendEmailDialog.show()
     }
 
 }

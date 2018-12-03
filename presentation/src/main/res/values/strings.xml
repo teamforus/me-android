@@ -197,6 +197,9 @@
     <string name="voucher_qr_code_subtitle">This is the QR-code of the Voucher</string>
     <string name="voucher_qr_code_description">Let the shopkeeper scan this QR-code to make a payment</string>
     <string name="voucher_email_to_me">Email to me</string>
+    <string name="send_voucher_email_dialog_title">Send the voucher to your email</string>
+    <string name="send_voucher_email_dialog_positive_button">Send</string>
     <string name="voucher_request">REQUEST</string>
+    <string name="send_voucher_email_dialog_cancel_button">Cancel</string>
 
 </resources>

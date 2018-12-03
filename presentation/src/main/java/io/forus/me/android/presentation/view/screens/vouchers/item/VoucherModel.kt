@@ -4,5 +4,11 @@ import io.forus.me.android.domain.models.vouchers.Voucher
 
 data class VoucherModel(
         val item: Voucher? = null,
-        val emailSend: Boolean = false
+        val emailSend: EmailSend = EmailSend.NOTHING
 )
+
+enum class EmailSend {
+    SEND,
+    SENT,
+    NOTHING
+}
