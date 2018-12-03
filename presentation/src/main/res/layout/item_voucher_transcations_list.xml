@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<io.forus.me.android.presentation.view.component.card.CommonCard
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<io.forus.me.android.presentation.view.component.card.CommonCard xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-
     android:id="@+id/root"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clickable="true"
     android:focusable="true"
-
+    android:orientation="vertical"
     app:cardCornerRadius="0dp"
     app:cardElevation="0dp"
     app:cardUseCompatPadding="false">
@@ -22,13 +19,13 @@
 
         <LinearLayout
             android:id="@+id/background"
-            android:background="@color/brightBackground"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="18dp"
-            android:paddingBottom="18dp"
+            android:background="@color/brightBackground"
             android:paddingStart="10dp"
-            android:paddingEnd="16dp">
+            android:paddingTop="18dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="18dp">
 
             <RelativeLayout
                 android:layout_width="36dp"
@@ -36,10 +33,11 @@
                 android:layout_marginEnd="20dp"
                 android:background="@drawable/circle_empty">
 
-                <io.forus.me.android.presentation.view.component.images.AutoLoadImageView
+                <io.forus.me.android.presentation.view.component.images.CircleImageView
                     android:id="@+id/iv_logo"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
+                    android:scaleType="centerCrop"
                     android:layout_centerInParent="true"
                     android:src="@drawable/ic_person_outlined" />
 
@@ -50,53 +48,51 @@
                 android:layout_height="wrap_content">
 
                 <LinearLayout
-                    android:orientation="vertical"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
                     <io.forus.me.android.presentation.view.component.text.TextView
                         android:id="@+id/subtitle1"
                         style="@style/Subtitle"
-                        app:type="medium"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:text="Subtitle1"
-                        />
+                        app:type="medium"
+                        tools:text="Subtitle1" />
 
                     <io.forus.me.android.presentation.view.component.text.TextView
                         android:id="@+id/overline1"
                         style="@style/Overline4"
-                        android:layout_marginTop="@dimen/activity_horizontal_margin_small"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:text="Overline1"/>
+                        android:layout_marginTop="@dimen/activity_horizontal_margin_small"
+                        tools:text="Overline1" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_alignParentEnd="true"
-                    android:orientation="vertical"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:orientation="vertical">
 
                     <io.forus.me.android.presentation.view.component.text.TextView
                         android:id="@+id/subtitle2"
                         style="@style/Subtitle"
-                        app:type="medium"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
-                        tools:text="Subtitle2"
-                        />
+                        app:type="medium"
+                        tools:text="Subtitle2" />
 
                     <io.forus.me.android.presentation.view.component.text.TextView
                         android:id="@+id/overline2"
                         style="@style/Overline4"
-                        android:layout_marginTop="@dimen/activity_horizontal_margin_small"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
-                        tools:text="Overline4"/>
+                        android:layout_marginTop="@dimen/activity_horizontal_margin_small"
+                        tools:text="Overline4" />
 
                 </LinearLayout>
 
@@ -105,11 +101,11 @@
         </LinearLayout>
 
         <View
-            android:background="@color/border_color"
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:layout_alignBottom="@id/background"
             android:layout_marginStart="16dp"
-            android:layout_alignBottom="@id/background"/>
+            android:background="@color/border_color" />
     </RelativeLayout>
 
 </io.forus.me.android.presentation.view.component.card.CommonCard>
