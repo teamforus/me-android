@@ -35,6 +35,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPres
     companion object {
         private const val VOUCHER_ADDRESS_EXTRA = "VOUCHER_ADDRESS_EXTRA"
         private const val VOUCHER_EXTRA = "VOUCHER_EXTRA"
+
         val dateFormat = SimpleDateFormat("d MMMM, HH:mm", Locale.getDefault())
 
 
