@@ -32,7 +32,7 @@ import android.support.v4.content.ContextCompat
 class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPresenter>(), VoucherView{
 
     companion object {
-        private val VOUCHER_ADDRESS_EXTRA = "VOUCHER_ADDRESS_EXTRA"
+        private const val VOUCHER_ADDRESS_EXTRA = "VOUCHER_ADDRESS_EXTRA"
         val dateFormat = SimpleDateFormat("d MMMM, HH:mm", Locale.getDefault())
 
         fun newIntent(id: String): VoucherFragment = VoucherFragment().also {
