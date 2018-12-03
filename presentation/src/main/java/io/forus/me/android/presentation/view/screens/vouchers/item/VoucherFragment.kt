@@ -5,9 +5,17 @@ import android.graphics.BlurMaskFilter
 import android.net.Uri
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.jakewharton.rxbinding2.view.RxView
 import io.forus.me.android.domain.models.qr.QrCode
 import io.forus.me.android.presentation.BuildConfig
@@ -29,8 +37,9 @@ import android.support.customtabs.CustomTabsIntent
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
 
+private const val MAP_VIEW_BUNDLE_KEY = "MapViewBundleKey"
 
-class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPresenter>(), VoucherView{
+class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPresenter>(), VoucherView, OnMapReadyCallback {
 
     companion object {
         private const val VOUCHER_ADDRESS_EXTRA = "VOUCHER_ADDRESS_EXTRA"
@@ -52,6 +61,8 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPres
     private lateinit var address: String
     private lateinit var adapter: TransactionsAdapter
 
+    private var map: GoogleMap? = null
+    private var organizationLatLng: LatLng? = null
     private val sendEmailDialog: AlertDialog.Builder by lazy(LazyThreadSafetyMode.NONE) {
         AlertDialog.Builder(activity!!)
                 .setTitle(R.string.send_voucher_email_dialog_title)
@@ -89,16 +100,21 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPres
 
     override fun sentEmailDialogShown(): Observable<Unit> = sentEmailDialogShown
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
-            = inflater.inflate(R.layout.fragment_voucher, container, false).also {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = inflater.inflate(R.layout.fragment_voucher, container, false).also {
 
         voucher = arguments?.getParcelable(VOUCHER_EXTRA)
         address = arguments?.getString(VOUCHER_ADDRESS_EXTRA, "") ?: ""
         adapter = TransactionsAdapter()
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val mapViewBundle: Bundle? = savedInstanceState?.getBundle(MAP_VIEW_BUNDLE_KEY)
+
+        map_view.onCreate(mapViewBundle)
+        map_view.getMapAsync(this)
 
         rv_transactions.layoutManager = LinearLayoutManager(context)
         rv_transactions.adapter = adapter
@@ -122,8 +138,57 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPres
         iv_qr_icon.setOnClickListener {
             (activity as? VoucherActivity)?.showPopupQRFragment(qrEncoded)
         }
+
+        shopkeeper_call.setOnClickListener {
+            callToShopkeeper(shopkeeper_phone.text.toString())
+        }
+
+        shopkeeper_email.setOnClickListener {
+            emailToShopkeeper(shopkeeper_email.text.toString())
+        }
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        var mapViewBundle = outState.getBundle(MAP_VIEW_BUNDLE_KEY)
+        if (mapViewBundle == null) {
+            mapViewBundle = Bundle()
+            outState.putBundle(MAP_VIEW_BUNDLE_KEY, mapViewBundle)
+        }
+
+        map_view.onSaveInstanceState(mapViewBundle)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        map_view?.onResume()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        map_view?.onStart()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        map_view?.onStop()
+    }
+
+    override fun onPause() {
+        map_view?.onPause()
+        super.onPause()
+    }
+
+    override fun onDestroy() {
+        map_view?.onDestroy()
+        super.onDestroy()
+    }
+
+    override fun onLowMemory() {
+        super.onLowMemory()
+        map_view?.onLowMemory()
+    }
 
     override fun createPresenter() = VoucherPresenter(
             Injection.instance.vouchersRepository,
@@ -139,23 +204,69 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPres
         type.text = vs.model.item?.organizationName
         value.text = "${vs.model.item?.currency?.name} ${vs.model.item?.amount?.toDouble().format(2)}"
 
-        if(vs.model.item != null){
-            setToolbarTitle(resources.getString(if(vs.model.item.isProduct) R.string.vouchers_item_product else R.string.vouchers_item))
+        vs.model.item?.let { voucher ->
+            setToolbarTitle(resources.getString(if (voucher.isProduct) R.string.vouchers_item_product else R.string.vouchers_item))
+            adapter.transactions = voucher.transactions
+            tv_transactions_title.visibility =
+                    if (voucher.transactions.isEmpty()) View.GONE else View.VISIBLE
 
-            productId = vs.model.item.productId
-            adapter.transactions = vs.model.item.transactions
-            tv_transactions_title.text = resources.getText(if(vs.model.item.transactions.isEmpty()) R.string.vouchers_transactions_empty else R.string.vouchers_transactions)
-            tv_created.text = resources.getString(R.string.voucher_created, dateFormat.format(vs.model.item.createdAt))
+            tv_created.visibility =
+                    if (voucher.transactions.isEmpty()) View.GONE else View.VISIBLE
+
+            shopkeeper_card.visibility =
+                    if (voucher.transactions.isEmpty()) View.VISIBLE else View.GONE
+
+            if (voucher.transactions.isNotEmpty()) {
+                tv_created.text = resources.getString(R.string.voucher_created,
+                        dateFormat.format(voucher.createdAt))
+            }
+
+            if (voucher.isProduct) {
+                voucher.product?.organization?.let { organization ->
+                    shopkeeper_title.text = organization.name
+                    shopkeeper_address.text = organization.address
+                    shopkeeper_email.text = organization.email
+
+                    Glide.with(this)
+                            .load(organization.logo)
+                            .fitCenter()
+                            .into(shopkeeper_logo)
+
+                    shopkeeper_phone.text = organization.phone
+
+                    val latLng = LatLng(organization.lat, organization.lon)
+                    organizationLatLng = latLng
+                    setMarker(latLng)
+                }
+            }
         }
+
 
         when(vs.model.emailSend) {
             EmailSend.SEND -> showEmailSendDialog()
             EmailSend.SENT -> showEmailSentDialog()
             EmailSend.NOTHING -> Unit
+
         }
     }
 
-    fun blurBackground(){
+    override fun onMapReady(googleMap: GoogleMap?) {
+        map = googleMap
+        val uiSettings = map?.uiSettings
+        uiSettings?.isIndoorLevelPickerEnabled = false
+        uiSettings?.isMyLocationButtonEnabled = false
+        uiSettings?.isMapToolbarEnabled = false
+        uiSettings?.isCompassEnabled = false
+        uiSettings?.isZoomControlsEnabled = false
+        uiSettings?.isScrollGesturesEnabled = false
+        uiSettings?.isZoomGesturesEnabled = false
+
+        organizationLatLng?.let {
+            setMarker(it)
+        }
+    }
+
+    fun blurBackground() {
 
         name.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
         type.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
@@ -166,7 +277,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPres
         type.paint.maskFilter = BlurMaskFilter(type.textSize / 4, BlurMaskFilter.Blur.NORMAL)
     }
 
-    fun unblurBackground(){
+    fun unblurBackground() {
 
         name.setLayerType(View.LAYER_TYPE_NONE, null)
         type.setLayerType(View.LAYER_TYPE_NONE, null)
@@ -177,12 +288,36 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPres
         type.paint.maskFilter = null
     }
 
+    fun showEmailSendDialog() {
     private fun showEmailSentDialog(){
         SendVoucherSuccessDialog(context!!) {
             sentEmailDialogShown.onNext(Unit)
         }.show()
     }
 
+    private fun setMarker(address: LatLng) {
+        val marker = MarkerOptions()
+        marker.position(address)
+
+        map?.addMarker(marker)
+                ?.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.shop_location))
+
+        map?.moveCamera(CameraUpdateFactory.newLatLng(address))
+    }
+
+    private fun emailToShopkeeper(email: String) {
+        val intent = Intent(Intent.ACTION_SENDTO)
+        intent.data = Uri.parse("mailto:$email")
+
+        startActivity(Intent.createChooser(intent, getString(R.string.send_email_title)))
+    }
+
+    private fun callToShopkeeper(phone: String) {
+        val uri = "tel:" + phone.trim()
+        val intent = Intent(Intent.ACTION_DIAL)
+        intent.data = Uri.parse(uri)
+        startActivity(intent)
+    }
     private fun showEmailSendDialog(){
         sendEmailDialog.show()
     }

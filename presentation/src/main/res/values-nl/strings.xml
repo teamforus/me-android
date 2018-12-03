@@ -197,5 +197,8 @@
     <string name="send_voucher_email_dialog_positive_button">Stuur</string>
     <string name="send_voucher_email_dialog_cancel_button">Annuleer</string>
     <string name="voucher_email_to_me">E-mail naar mijzelf</string>
-
+    <string name="shopkeeper_address_text">Adres</string>
+    <string name="shopkeeper_phone_text">Telefoonnummer</string>
+    <string name="send_email_title">Stuur e-mail</string>
+    <string name="shopkeeper_provider_text">Aanbieder</string>
 </resources>

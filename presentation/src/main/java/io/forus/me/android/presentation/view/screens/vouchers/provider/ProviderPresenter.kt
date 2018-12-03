@@ -44,7 +44,7 @@ class ProviderPresenter constructor(private val vouchersRepository: VouchersRepo
     })
 
     override fun ProviderModel.changeInitialModel(i: VoucherProvider): ProviderModel {
-        val organization = if (i.allowedOrganizations.isNotEmpty()) i.allowedOrganizations.get(0) else Organization(organizationId, i.voucher.organizationName, "")
+        val organization = if(i.allowedOrganizations.isNotEmpty()) i.allowedOrganizations.get(0) else Organization(organizationId, i.voucher.organizationName, "", i.voucher.product?.organization?.lat ?: 0.0, i.voucher.product?.organization?.lon ?: 0.0, i.voucher.product?.organization?.address ?: "", i.voucher.product?.organization?.phone ?: "",i.voucher.product?.organization?.email ?: "")
         organizationId = organization.id
         return copy(item = i, selectedOrganization = organization)
     }

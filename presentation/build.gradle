@@ -15,6 +15,10 @@ android {
 
   def globalConfiguration = rootProject.extensions.getByName("ext")
 
+  Properties properties = new Properties()
+  properties.load(project.rootProject.file('local.properties').newDataInputStream())
+  def MAPS_KEY = properties.getProperty('MAPS_KEY')
+
   compileSdkVersion globalConfiguration.getAt("androidCompileSdkVersion")
 
   defaultConfig {
@@ -29,6 +33,9 @@ android {
     multiDexEnabled true
 
     buildConfigField "int", "BUILD_NUMBER", globalConfiguration.getAt("androidBuildNumber").toString()
+
+    resValue "string", "maps_key", "$MAPS_KEY"
+
   }
 
   dexOptions {
@@ -171,6 +178,7 @@ dependencies {
   implementation presentationDependencies.fingerprint
   implementation presentationDependencies.firebaseCore
   implementation presentationDependencies.firebaseMessaging
+  implementation presentationDependencies.googleMaps
 
   implementation (presentationDependencies.fabric) {
     transitive = true
