@@ -29,9 +29,9 @@ abstract class LRPresenter<I, M, V : LRView<M>> : MviBasePresenter<V, LRViewStat
                                 .toObservable()
                                 .subscribeOn(Schedulers.io())
                                 .map<LRPartialChange> { LRPartialChange.InitialModelLoaded(it) }
-                                .onErrorReturn {
-                                    it.printStackTrace()
-                                    LRPartialChange.LoadingError(it)
+                                .onErrorReturn {throwable->
+                                    throwable.printStackTrace()
+                                    LRPartialChange.LoadingError(throwable)
                                 }
                                 .startWith(LRPartialChange.LoadingStarted)
                     },
@@ -60,7 +60,7 @@ abstract class LRPresenter<I, M, V : LRView<M>> : MviBasePresenter<V, LRViewStat
     @CallSuper
     protected open fun stateReducer(vs: LRViewState<M>, change: PartialChange): LRViewState<M> {
         Log.d("AASSDD", "LRPresenter stateReducer $change")
-        var viewState = vs.copy(closeScreen = false)
+        val viewState = vs.copy(closeScreen = false)
         if (change !is LRPartialChange) throw Exception()
         return when (change) {
             LRPartialChange.LoadingStarted -> viewState.copy(loading = true, loadingError = null, canRefresh = false)

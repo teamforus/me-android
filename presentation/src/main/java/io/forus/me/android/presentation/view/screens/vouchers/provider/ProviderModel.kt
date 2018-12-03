@@ -1,7 +1,7 @@
 package io.forus.me.android.presentation.view.screens.vouchers.provider
 
-import io.forus.me.android.domain.models.vouchers.Organization
-import io.forus.me.android.domain.models.vouchers.VoucherProvider
+import io.forus.me.android.presentation.models.vouchers.Organization
+import io.forus.me.android.presentation.models.vouchers.VoucherProvider
 import java.math.BigDecimal
 
 data class ProviderModel(

@@ -14,6 +14,7 @@ import io.forus.me.android.presentation.BuildConfig
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.helpers.format
 import io.forus.me.android.presentation.internal.Injection
+import io.forus.me.android.presentation.models.vouchers.Voucher
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.forus.me.android.presentation.view.screens.vouchers.item.dialogs.SendVoucherSuccessDialog
@@ -32,17 +33,22 @@ import android.support.v7.app.AlertDialog
 class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPresenter>(), VoucherView{
 
     companion object {
-        private val VOUCHER_ADDRESS_EXTRA = "VOUCHER_ADDRESS_EXTRA"
+        private const val VOUCHER_ADDRESS_EXTRA = "VOUCHER_ADDRESS_EXTRA"
+        private const val VOUCHER_EXTRA = "VOUCHER_EXTRA"
+
         val dateFormat = SimpleDateFormat("d MMMM, HH:mm", Locale.getDefault())
 
-        fun newIntent(id: String): VoucherFragment = VoucherFragment().also {
+
+        fun newInstance(voucher: Voucher): VoucherFragment = VoucherFragment().also {
             val bundle = Bundle()
-            bundle.putString(VOUCHER_ADDRESS_EXTRA, id)
+            bundle.putParcelable(VOUCHER_EXTRA, voucher)
+            bundle.putString(VOUCHER_ADDRESS_EXTRA, voucher.address)
+
             it.arguments = bundle
         }
     }
 
-    private var productId: Long? = null
+    private var voucher: Voucher? = null
     private lateinit var address: String
     private lateinit var adapter: TransactionsAdapter
 
@@ -86,6 +92,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPres
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
             = inflater.inflate(R.layout.fragment_voucher, container, false).also {
 
+        voucher = arguments?.getParcelable(VOUCHER_EXTRA)
         address = arguments?.getString(VOUCHER_ADDRESS_EXTRA, "") ?: ""
         adapter = TransactionsAdapter()
     }
@@ -120,7 +127,8 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPres
 
     override fun createPresenter() = VoucherPresenter(
             Injection.instance.vouchersRepository,
-            address
+            address,
+            voucher
     )
 
 
