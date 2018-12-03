@@ -9,6 +9,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.util.Log;
 import java.io.File;
@@ -23,7 +24,7 @@ import io.forus.me.android.presentation.helpers.ImageLoader;
  * Simple implementation of {@link android.widget.ImageView} with extended features like setting an
  * image from an url and an internal file cache using the application cache directory.
  */
-public class AutoLoadImageView extends CircleImageView {
+public class AutoLoadImageView extends AppCompatImageView {
 
   private static final String BASE_IMAGE_NAME_CACHED = "image_";
 

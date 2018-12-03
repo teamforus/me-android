@@ -30,7 +30,7 @@ import android.view.ViewOutlineProvider;
 
 import io.forus.me.android.presentation.R;
 
-public class CircleImageView extends AppCompatImageView {
+public class CircleImageView extends AutoLoadImageView {
 
     private static final ScaleType SCALE_TYPE = ScaleType.CENTER_CROP;
 
