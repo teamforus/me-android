@@ -17,7 +17,7 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
     private fun mapToSimple(voucher: io.forus.me.android.data.entity.vouchers.response.Voucher): Voucher{
         val isProduct = voucher.type == io.forus.me.android.data.entity.vouchers.response.Voucher.Type.product
         val isUsed = isProduct && voucher.transactions !=null && voucher.transactions.isNotEmpty()
-
+        val productId = if(isProduct) voucher.product.id else null
         val name = if(isProduct) voucher.product.name else voucher.fund.name
         val organizationName = if(isProduct) voucher.product.organization.name else voucher.fund.organization.name
 
@@ -55,7 +55,7 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
             -t1.createdAt.compareTo(t2.createdAt)
         })
 
-        return Voucher(isProduct, isUsed, voucher.address ?: "", name, organizationName, voucher.fund?.name ?: "", description, createdAt!!, euro, amount, logoUrl, transactions)
+        return Voucher(isProduct, isUsed, voucher.address ?: "", name, organizationName, voucher.fund?.name ?: "", description, createdAt!!, euro, amount, logoUrl, transactions, productId)
     }
 
     private fun mapToProvider(voucher: io.forus.me.android.data.entity.vouchers.response.Voucher): VoucherProvider{

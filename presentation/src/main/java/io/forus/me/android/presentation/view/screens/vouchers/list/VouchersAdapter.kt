@@ -28,9 +28,14 @@ class VouchersAdapter : RecyclerView.Adapter<VouchersVH>() {
 
     var clickListener: ((Voucher) -> Unit)? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = VouchersVH(parent, clickListener)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = VouchersVH(parent).apply {
+        itemView.root.setOnClickListener {
+            vouchers.getOrNull(adapterPosition)?.let {voucher ->
+                clickListener?.invoke(voucher)
+            }
+        }
+    }
     override fun onBindViewHolder(holder: VouchersVH, position: Int) {
-
         holder.render(vouchers[position])
     }
     override fun getItemCount() = vouchers.size

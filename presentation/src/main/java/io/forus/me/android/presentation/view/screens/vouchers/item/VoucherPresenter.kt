@@ -40,11 +40,24 @@ class VoucherPresenter constructor(private val vouchersRepository: VouchersRepos
                 })
     }
 
+
     override fun VoucherModel.changeInitialModel(i: Voucher): VoucherModel = copy(item = i)
 
-    override fun bindIntents() {
+    override fun attachView(view: VoucherView) {
+        super.attachView(view)
 
-        val observable = Observable.merge(
+
+    }
+
+    override fun bindIntents() {
+        val infoObservable = Observable.merge(
+                loadRefreshPartialChanges(),
+                intent {
+                    it.showInfo()
+                }
+        )
+
+        val emailObservable = Observable.merge(
 
                 loadRefreshPartialChanges(),
 
@@ -77,7 +90,7 @@ class VoucherPresenter constructor(private val vouchersRepository: VouchersRepos
                 VoucherModel())
 
         subscribeViewState(
-                observable.scan(initialViewState, this::stateReducer)
+                emailObservable.scan(initialViewState, this::stateReducer)
                         .observeOn(AndroidSchedulers.mainThread()),
                 VoucherView::render)
     }

@@ -10,10 +10,7 @@ import io.forus.me.android.presentation.helpers.inflate
 import kotlinx.android.synthetic.main.item_vouchers_list.view.*
 
 
-class VouchersVH(parent: ViewGroup, private val clickListener: ((Voucher) -> Unit)?) : RecyclerView.ViewHolder(parent.inflate(R.layout.item_vouchers_list)) {
-    init {
-
-    }
+class VouchersVH(parent: ViewGroup) : RecyclerView.ViewHolder(parent.inflate(R.layout.item_vouchers_list)) {
 
     fun render(item: Voucher) = with(itemView) {
 
@@ -23,9 +20,6 @@ class VouchersVH(parent: ViewGroup, private val clickListener: ((Voucher) -> Uni
         used.visibility = if(item.isProduct && item.isUsed) View.VISIBLE else View.GONE
 
         logo.setImageUrl(item.logo)
-        root.setOnClickListener {
-            clickListener?.invoke(item)
-        }
 
     }
 }
