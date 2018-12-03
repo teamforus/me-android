@@ -14,12 +14,5 @@ class CheckLoginUseCase(val accountRepository: AccountRepository,
         return accountRepository.checkCurrentToken()
     }
 
-    class Params private constructor(private val userId: Int) {
-        companion object {
-
-            fun forUser(userId: Int): Params {
-                return Params(userId)
-            }
-        }
-    }
+    class Params
 }

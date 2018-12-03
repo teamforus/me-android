@@ -32,7 +32,7 @@ public class JobExecutor implements ThreadExecutor {
   private final ThreadPoolExecutor threadPoolExecutor;
 
   @Inject
-  JobExecutor() {
+  public JobExecutor() {
     this.threadPoolExecutor = new ThreadPoolExecutor(3, 5, 10, TimeUnit.SECONDS,
         new LinkedBlockingQueue<>(), new JobThreadFactory());
   }
