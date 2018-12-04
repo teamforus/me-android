@@ -4,6 +4,7 @@ import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import io.forus.me.android.presentation.models.vouchers.Transaction
+import kotlinx.android.synthetic.main.item_voucher_transcations_list.view.*
 
 class TransactionsAdapter : RecyclerView.Adapter<TransactionsVH>() {
 
