@@ -60,7 +60,7 @@ fun clipToCircle(view: View, clip: Boolean) {
     view.outlineProvider = if (clip) CircularOutlineProvider else null
 }
 
-@BindingAdapter(value = *["imageUri", "placeholder"], requireAll = false)
+@BindingAdapter(value = ["imageUri", "placeholder"], requireAll = false)
 fun imageUri(imageView: ImageView, imageUri: String?, placeholder: Drawable?) {
     ImageLoader.load(imageView.context, imageUri, imageView)
 

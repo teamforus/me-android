@@ -47,7 +47,7 @@ class VouchersFragment : ToolbarLRFragment<VouchersModel, VouchersView, Vouchers
         super.onViewCreated(view, savedInstanceState)
 
         adapter.clickListener = { item ->
-            navigator.navigateToVoucher(activity, item.address)
+            navigator.navigateToVoucher(activity, item)
         }
         recycler.layoutManager = LinearLayoutManager(context)
         recycler.adapter = adapter
@@ -63,7 +63,7 @@ class VouchersFragment : ToolbarLRFragment<VouchersModel, VouchersView, Vouchers
     override fun render(vs: LRViewState<VouchersModel>) {
         super.render(vs)
 
-        tv_no_vouchers.visibility = if(vs.loading == false && vs.loadingError == null && vs.model.items.isEmpty()) View.VISIBLE else View.INVISIBLE
+        tv_no_vouchers.visibility = if(!vs.loading && vs.loadingError == null && vs.model.items.isEmpty()) View.VISIBLE else View.INVISIBLE
 
         adapter.vouchers = vs.model.items
     }

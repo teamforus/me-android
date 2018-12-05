@@ -7,13 +7,13 @@ import java.math.BigDecimal;
 public class Product {
 
     @SerializedName("id")
-    private Long id;
+    private long id;
 
     @SerializedName("organization_id")
-    private Long organizationId;
+    private long organizationId;
 
     @SerializedName("product_category_id")
-    private Long productCategoryId;
+    private long productCategoryId;
 
     @SerializedName("name")
     private String name;
@@ -28,10 +28,10 @@ public class Product {
     private BigDecimal oldPrice;
 
     @SerializedName("total_amount")
-    private Long totalAmount;
+    private long totalAmount;
 
     @SerializedName("sold_amount")
-    private Long soldAmount;
+    private long soldAmount;
 
     @SerializedName("photo")
     private Logo photo;
@@ -44,7 +44,7 @@ public class Product {
 
     public Product() { }
 
-    public Product(Long id, Long organizationId, Long productCategoryId, String name, String description, BigDecimal price, BigDecimal oldPrice, Long totalAmount, Long soldAmount, Logo photo, ProductCategory productCategory, Organization organization) {
+    public Product(long id, long organizationId, long productCategoryId, String name, String description, BigDecimal price, BigDecimal oldPrice, long totalAmount, long soldAmount, Logo photo, ProductCategory productCategory, Organization organization) {
         this.id = id;
         this.organizationId = organizationId;
         this.productCategoryId = productCategoryId;
@@ -59,27 +59,27 @@ public class Product {
         this.organization = organization;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public Long getOrganizationId() {
+    public long getOrganizationId() {
         return organizationId;
     }
 
-    public void setOrganizationId(Long organizationId) {
+    public void setOrganizationId(long organizationId) {
         this.organizationId = organizationId;
     }
 
-    public Long getProductCategoryId() {
+    public long getProductCategoryId() {
         return productCategoryId;
     }
 
-    public void setProductCategoryId(Long productCategoryId) {
+    public void setProductCategoryId(long productCategoryId) {
         this.productCategoryId = productCategoryId;
     }
 
@@ -115,19 +115,19 @@ public class Product {
         this.oldPrice = oldPrice;
     }
 
-    public Long getTotalAmount() {
+    public long getTotalAmount() {
         return totalAmount;
     }
 
-    public void setTotalAmount(Long totalAmount) {
+    public void setTotalAmount(long totalAmount) {
         this.totalAmount = totalAmount;
     }
 
-    public Long getSoldAmount() {
+    public long getSoldAmount() {
         return soldAmount;
     }
 
-    public void setSoldAmount(Long soldAmount) {
+    public void setSoldAmount(long soldAmount) {
         this.soldAmount = soldAmount;
     }
 

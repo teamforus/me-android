@@ -15,6 +15,10 @@ android {
 
   def globalConfiguration = rootProject.extensions.getByName("ext")
 
+  Properties properties = new Properties()
+  properties.load(project.rootProject.file('local.properties').newDataInputStream())
+  def MAPS_KEY = properties.getProperty('MAPS_KEY')
+
   compileSdkVersion globalConfiguration.getAt("androidCompileSdkVersion")
 
   defaultConfig {
@@ -29,6 +33,9 @@ android {
     multiDexEnabled true
 
     buildConfigField "int", "BUILD_NUMBER", globalConfiguration.getAt("androidBuildNumber").toString()
+
+    resValue "string", "maps_key", "$MAPS_KEY"
+
   }
 
   dexOptions {
@@ -82,29 +89,34 @@ android {
   flavorDimensions "version"
   productFlavors {
     def SERVER_URL = "SERVER_URL"
+    def PREFIX_URL = "PREFIX_URL"
 
     prod {
       dimension "version"
       versionNameSuffix "-prod"
       buildConfigField "String", SERVER_URL, "\"https://api.forus.link/\""
+      buildConfigField "String", PREFIX_URL, "\"\""
       applicationId 'io.forus.me'
     }
     demo {
       dimension "version"
       versionNameSuffix "-demo"
       buildConfigField "String", SERVER_URL, "\"https://demo.api.forus.io/\""
+      buildConfigField "String", PREFIX_URL, "\"demo.\""
       applicationId 'io.forus.me.beta'
     }
     staging {
       dimension "version"
       versionNameSuffix "-staging"
       buildConfigField "String", SERVER_URL, "\"https://staging.api.forus.io/\""
+      buildConfigField "String", PREFIX_URL, "\"staging.\""
       applicationId 'io.forus.me.alpha'
     }
     dev {
       dimension "version"
       versionNameSuffix "-dev"
       buildConfigField "String", SERVER_URL, "\"https://dev.api.forus.io/\""
+      buildConfigField "String", PREFIX_URL, "\"dev.\""
       applicationId 'io.forus.me.dev'
     }
   }
@@ -146,6 +158,7 @@ dependencies {
   implementation presentationDependencies.recyclerView
   implementation presentationDependencies.supportDesign
   implementation presentationDependencies.appCompat
+  implementation presentationDependencies.customTabsIntent
   implementation presentationDependencies.multiDex
   implementation presentationDependencies.qrGet
   implementation presentationDependencies.qrGetAndroid
@@ -165,6 +178,7 @@ dependencies {
   implementation presentationDependencies.fingerprint
   implementation presentationDependencies.firebaseCore
   implementation presentationDependencies.firebaseMessaging
+  implementation presentationDependencies.googleMaps
 
   implementation (presentationDependencies.fabric) {
     transitive = true
@@ -183,4 +197,5 @@ dependencies {
   implementation (presentationDependencies.qrReader){
     transitive = true
   }
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 }

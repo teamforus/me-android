@@ -2,7 +2,7 @@ package io.forus.me.android.presentation.view.screens.vouchers.provider.categori
 
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
-import io.forus.me.android.domain.models.vouchers.ProductCategory
+import io.forus.me.android.presentation.models.vouchers.ProductCategory
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.helpers.inflate
 import kotlinx.android.synthetic.main.item_product_category.view.*
