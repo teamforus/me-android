@@ -6,10 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        <FrameLayout
+            android:id="@+id/dashboard_content"
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:layout_height="match_parent"/>
 
         <com.sothree.slidinguppanel.SlidingUpPanelLayout
             android:id="@+id/sliding_layout"
@@ -87,7 +88,5 @@
             </LinearLayout>
 
         </com.sothree.slidinguppanel.SlidingUpPanelLayout>
-
-    </RelativeLayout>
 
 </android.support.v4.widget.DrawerLayout>

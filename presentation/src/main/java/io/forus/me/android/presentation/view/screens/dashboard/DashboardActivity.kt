@@ -3,10 +3,13 @@ package io.forus.me.android.presentation.view.screens.dashboard
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.transition.Explode
+import android.support.transition.Fade
 import android.support.v4.app.Fragment
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter
 import com.crashlytics.android.Crashlytics
@@ -82,7 +85,7 @@ class DashboardActivity : SlidingPanelActivity() {
 
         if (adapter == null) {
 
-            val fragments = ArrayList<android.support.v4.app.Fragment?>()
+            val fragments = ArrayList<Fragment?>()
             val titles = ArrayList<String>()
 
             //fragments.add(PropertyFragment.newInstance())
@@ -209,17 +212,28 @@ class DashboardActivity : SlidingPanelActivity() {
         disposableHolder.disposeAll()
     }
 
+
+
     fun showPopupQRFragment(address: String){
         addPopupFragment(QrFragment.newIntent(address, null, null), "QR code")
     }
 
-    fun navigateToQrScanner(){
+    override fun replaceFragment(fragment: Fragment, sharedViews: List<View>) {
+        dashboard_content.visibility = View.VISIBLE
+        sliding_layout.visibility = View.GONE
+
+        super.replaceFragment(R.id.dashboard_content, fragment, sharedViews, true)
+    }
+
+    private fun navigateToQrScanner(){
         this.navigator.navigateToQrScanner(this)
     }
 
-    fun checkStartFromScanner(){
+    private fun checkStartFromScanner(){
         if(settings.isStartFromScannerEnabled()){
             navigateToQrScanner()
         }
     }
+
+
 }

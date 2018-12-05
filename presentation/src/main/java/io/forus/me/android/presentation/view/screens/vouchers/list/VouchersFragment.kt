@@ -8,7 +8,10 @@ import android.view.ViewGroup
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.internal.Injection
+import io.forus.me.android.presentation.models.vouchers.Voucher
+import io.forus.me.android.presentation.view.activity.BaseActivity
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
+import io.forus.me.android.presentation.view.screens.vouchers.item.VoucherFragment
 import kotlinx.android.synthetic.main.fragment_vouchers_recycler.*
 
 /**
@@ -46,8 +49,8 @@ class VouchersFragment : ToolbarLRFragment<VouchersModel, VouchersView, Vouchers
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter.clickListener = { item ->
-            navigator.navigateToVoucher(activity, item)
+        adapter.clickListener = { voucher: Voucher, sharedViews: List<View>, position: Int ->
+            (activity as? BaseActivity)?.replaceFragment(VoucherFragment.newInstance(voucher, position), sharedViews)
         }
         recycler.layoutManager = LinearLayoutManager(context)
         recycler.adapter = adapter

@@ -8,6 +8,7 @@ import android.content.Context
 import android.support.transition.Explode
 import android.support.transition.Fade
 import android.support.v4.app.Fragment
+import android.support.v4.view.ViewCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -59,9 +60,12 @@ abstract class BaseActivity : AppCompatActivity() {
                 .commit()
     }
 
+    open fun replaceFragment(fragment: Fragment,
+                             sharedViews: List<View>) {}
 
-    protected fun replaceFragment(containerViewId: Int, fragment: Fragment,
-                                  sharedViews: List<Pair<String, View>>) {
+
+    fun replaceFragment(containerViewId: Int, fragment: Fragment,
+                                  sharedViews: List<View>, addToBackStack: Boolean) {
         val transaction = supportFragmentManager
                 .beginTransaction()
 
@@ -72,7 +76,11 @@ abstract class BaseActivity : AppCompatActivity() {
 
 
         sharedViews.forEach {
-            transaction.addSharedElement(it.second, it.first)
+            transaction.addSharedElement(it, ViewCompat.getTransitionName(it) ?: "")
+        }
+
+        if(addToBackStack) {
+            transaction.addToBackStack(null)
         }
 
         transaction
