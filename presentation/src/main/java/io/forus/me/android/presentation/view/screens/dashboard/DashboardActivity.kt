@@ -11,9 +11,12 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter
 import com.crashlytics.android.Crashlytics
 import io.fabric.sdk.android.Fabric
-import io.forus.me.android.domain.models.account.Account
-import io.forus.me.android.presentation.BuildConfig
+import io.forus.me.android.data.executor.JobExecutor
+import io.forus.me.android.data.repository.account.AccountRepository
+import io.forus.me.android.domain.interactor.CheckLoginUseCase
+import io.forus.me.android.domain.interactor.LoadAccountUseCase
 import io.forus.me.android.presentation.R
+import io.forus.me.android.presentation.UIThread
 import io.forus.me.android.presentation.helpers.reactivex.DisposableHolder
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.activity.SlidingPanelActivity
@@ -27,7 +30,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_dashboard.*
 
 
-class DashboardActivity : SlidingPanelActivity() {
+class DashboardActivity : SlidingPanelActivity(), DashboardContract.View {
 
     private var currentFragment: android.support.v4.app.Fragment? = null
     private var currentPagerPosition = 0
@@ -38,6 +41,8 @@ class DashboardActivity : SlidingPanelActivity() {
     private var settings = Injection.instance.settingsDataSource
     private var fcmHandler = Injection.instance.fcmHandler
     private var disposableHolder = DisposableHolder()
+
+    private lateinit var presenter: DashboardContract.Presenter
 
     companion object {
         fun getCallingIntent(context: Context): Intent {
@@ -52,9 +57,12 @@ class DashboardActivity : SlidingPanelActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        presenter = DashboardPresenter(this,
+                CheckLoginUseCase(Injection.instance.accountRepository, JobExecutor(), UIThread()),
+                LoadAccountUseCase(JobExecutor(), UIThread(), Injection.instance.accountRepository))
+        presenter.onCreate()
 
         initUI()
-        checkLogin()
         checkFCM()
         checkStartFromScanner()
     }
@@ -85,12 +93,12 @@ class DashboardActivity : SlidingPanelActivity() {
             val fragments = ArrayList<android.support.v4.app.Fragment?>()
             val titles = ArrayList<String>()
 
-            //fragments.add(PropertyFragment.newInstance())
+            //fragments.add(PropertyFragment.newIntent())
             fragments.add(VouchersFragment.newIntent())
             titles.add("")
             fragments.add(Fragment())
             titles.add("")
-            //fragments.add(RecordCategoriesFragment.newInstance())
+            //fragments.add(RecordCategoriesFragment.newIntent())
             fragments.add(AccountFragment())
             titles.add("")
 
@@ -102,28 +110,6 @@ class DashboardActivity : SlidingPanelActivity() {
         }
     }
 
-    private fun checkLogin(){
-        disposableHolder.add(Single.fromObservable(accountRepository.checkCurrentToken())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .map {
-                    if(!it) logout()
-                    else if(Fabric.isInitialized()){
-                        accountRepository.getAccount()
-                                .subscribeOn(Schedulers.io())
-                                .observeOn(AndroidSchedulers.mainThread())
-                                .subscribe { a: Account? ->
-                                    a?.let {account->
-
-                                        Crashlytics.setUserIdentifier(account.address)
-                                    }
-                                }
-                    }
-                }
-                .onErrorReturn {  }
-                .subscribe())
-    }
-
     private fun checkFCM(){
         disposableHolder.add(fcmHandler.checkFCMToken(this)
                 .subscribeOn(Schedulers.io())
@@ -131,7 +117,13 @@ class DashboardActivity : SlidingPanelActivity() {
                 .subscribe())
     }
 
-    private fun logout(){
+    override fun addUserId(id: String) {
+        if (Fabric.isInitialized()) {
+            Crashlytics.setUserIdentifier(id)
+        }
+    }
+
+    override fun logout(){
         disposableHolder.add(Single.fromObservable(accountRepository.exitIdentity())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -205,6 +197,7 @@ class DashboardActivity : SlidingPanelActivity() {
     }
 
     override fun onDestroy() {
+        presenter.onDestroy()
         super.onDestroy()
         disposableHolder.disposeAll()
     }
@@ -213,11 +206,11 @@ class DashboardActivity : SlidingPanelActivity() {
         addPopupFragment(QrFragment.newIntent(address, null, null), "QR code")
     }
 
-    fun navigateToQrScanner(){
+    private fun navigateToQrScanner(){
         this.navigator.navigateToQrScanner(this)
     }
 
-    fun checkStartFromScanner(){
+    private fun checkStartFromScanner(){
         if(settings.isStartFromScannerEnabled()){
             navigateToQrScanner()
         }

@@ -31,7 +31,7 @@ import javax.inject.Singleton;
 public class UIThread implements PostExecutionThread {
 
   @Inject
-  UIThread() {}
+  public UIThread() {}
 
   @Override public Scheduler getScheduler() {
     return AndroidSchedulers.mainThread();
