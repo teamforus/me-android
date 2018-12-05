@@ -9,12 +9,16 @@ import io.forus.me.android.domain.models.account.Account
 
 class DashboardPresenter(private var view: DashboardContract.View?,
                          private val checkLoginUseCase: UseCase<Boolean, CheckLoginUseCase.Params>,
-                         private val loadAccountUseCase: UseCase<Account, LoadAccountUseCase.Params>) {
+                         private val loadAccountUseCase: UseCase<Account, LoadAccountUseCase.Params>): DashboardContract.Presenter {
 
 
-    fun onCreate() {
+    override fun onCreate() {
         checkLoginUseCase.execute(CheckLoginObserver(),
                 CheckLoginUseCase.Params())
+    }
+
+    override fun onDestroy() {
+        view = null
     }
 
     private inner class CheckLoginObserver : DefaultObserver<Boolean>() {

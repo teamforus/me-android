@@ -42,7 +42,7 @@ class DashboardActivity : SlidingPanelActivity(), DashboardContract.View {
     private var fcmHandler = Injection.instance.fcmHandler
     private var disposableHolder = DisposableHolder()
 
-    private lateinit var presenter: DashboardPresenter
+    private lateinit var presenter: DashboardContract.Presenter
 
     companion object {
         fun getCallingIntent(context: Context): Intent {
@@ -60,6 +60,8 @@ class DashboardActivity : SlidingPanelActivity(), DashboardContract.View {
         presenter = DashboardPresenter(this,
                 CheckLoginUseCase(Injection.instance.accountRepository, JobExecutor(), UIThread()),
                 LoadAccountUseCase(JobExecutor(), UIThread(), Injection.instance.accountRepository))
+        presenter.onCreate()
+
         initUI()
         checkFCM()
         checkStartFromScanner()
@@ -195,6 +197,7 @@ class DashboardActivity : SlidingPanelActivity(), DashboardContract.View {
     }
 
     override fun onDestroy() {
+        presenter.onDestroy()
         super.onDestroy()
         disposableHolder.disposeAll()
     }
@@ -203,11 +206,11 @@ class DashboardActivity : SlidingPanelActivity(), DashboardContract.View {
         addPopupFragment(QrFragment.newIntent(address, null, null), "QR code")
     }
 
-    fun navigateToQrScanner(){
+    private fun navigateToQrScanner(){
         this.navigator.navigateToQrScanner(this)
     }
 
-    fun checkStartFromScanner(){
+    private fun checkStartFromScanner(){
         if(settings.isStartFromScannerEnabled()){
             navigateToQrScanner()
         }

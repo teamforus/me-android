@@ -10,6 +10,9 @@ interface DashboardContract {
     }
 
     interface Presenter {
+
         fun onCreate()
+
+        fun onDestroy()
     }
 }
