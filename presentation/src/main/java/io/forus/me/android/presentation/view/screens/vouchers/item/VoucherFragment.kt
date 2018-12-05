@@ -37,6 +37,9 @@ import android.support.customtabs.CustomTabsIntent
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewCompat
 import android.support.v7.app.AlertDialog
+import android.view.MenuItem
+import io.forus.me.android.presentation.view.screens.dashboard.DashboardActivity
+import io.forus.me.android.presentation.view.screens.dashboard.DashboardFragment
 
 private const val MAP_VIEW_BUNDLE_KEY = "MapViewBundleKey"
 
@@ -121,14 +124,11 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        ViewCompat.setTransitionName(voucher_card,
-                "card_transition_name_${arguments?.getInt(POSITION_EXTRA, -1)}")
-        ViewCompat.setTransitionName(name,
-                "name_transition_name_${arguments?.getInt(POSITION_EXTRA, -1)}")
-        ViewCompat.setTransitionName(value,
-                "value_transition_name_${arguments?.getInt(POSITION_EXTRA, -1)}")
-
+//        val position = arguments?.getInt(POSITION_EXTRA, -1)
+//
+//        ViewCompat.setTransitionName(voucher_card, "card_transition_name_$position")
+//        ViewCompat.setTransitionName(name, "name_transition_name_$position")
+//        ViewCompat.setTransitionName(value, "value_transition_name_$position")
 
         val mapViewBundle: Bundle? = savedInstanceState?.getBundle(MAP_VIEW_BUNDLE_KEY)
 
@@ -155,7 +155,15 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
         val qrEncoded = QrCode(QrCode.Type.VOUCHER, address).toJson()
         iv_qr_icon.setQRText(qrEncoded)
         iv_qr_icon.setOnClickListener {
-            (activity as? VoucherActivity)?.showPopupQRFragment(qrEncoded)
+            (activity as? DashboardActivity)?.showPopupQRFragment(qrEncoded)
+        }
+
+        toolbar.setNavigationOnClickListener {
+            if (activity?.supportFragmentManager?.backStackEntryCount ?: 0 > 0) {
+                activity?.supportFragmentManager?.popBackStack()
+            } else {
+                activity?.onBackPressed()
+            }
         }
 
         shopkeeper_call.setOnClickListener {
@@ -214,7 +222,6 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
             address,
             voucher
     )
-
 
     override fun render(vs: LRViewState<VoucherModel>) {
         super.render(vs)

@@ -40,15 +40,14 @@ class VouchersAdapter : RecyclerView.Adapter<VouchersVH>() {
         itemView.root.setOnClickListener {
             vouchers.getOrNull(adapterPosition)?.let {voucher ->
 
-                ViewCompat.setTransitionName(itemView.root,
-                        "card_transition_name_$adapterPosition")
-                ViewCompat.setTransitionName(itemView.name,
-                        "name_transition_name_$adapterPosition")
-                ViewCompat.setTransitionName(itemView.value,
-                        "value_transition_name_$adapterPosition")
+//                ViewCompat.setTransitionName(itemView.root,
+//                        "card_transition_name_$adapterPosition")
+//                ViewCompat.setTransitionName(itemView.name,
+//                        "name_transition_name_$adapterPosition")
+//                ViewCompat.setTransitionName(itemView.value,
+//                        "value_transition_name_$adapterPosition")
 
-
-                clickListener?.invoke(voucher, listOf(itemView.root, itemView.name, itemView.value), adapterPosition)
+                clickListener?.invoke(voucher, listOf(), adapterPosition)
             }
         }
     }

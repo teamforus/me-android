@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.fragment_vouchers_recycler.*
 /**
  * Fragment Vouchers Delegates Screen.
  */
-class VouchersFragment : ToolbarLRFragment<VouchersModel, VouchersView, VouchersPresenter>(), VouchersView{
+class VouchersFragment : ToolbarLRFragment<VouchersModel, VouchersView, VouchersPresenter>(), VouchersView {
 
     companion object {
         fun newIntent(): VouchersFragment {
@@ -41,8 +41,7 @@ class VouchersFragment : ToolbarLRFragment<VouchersModel, VouchersView, Vouchers
 
     override fun loadRefreshPanel() = lr_panel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
-            = inflater.inflate(R.layout.fragment_vouchers_recycler, container, false).also {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = inflater.inflate(R.layout.fragment_vouchers_recycler, container, false).also {
         adapter = VouchersAdapter()
     }
 
@@ -66,7 +65,7 @@ class VouchersFragment : ToolbarLRFragment<VouchersModel, VouchersView, Vouchers
     override fun render(vs: LRViewState<VouchersModel>) {
         super.render(vs)
 
-        tv_no_vouchers.visibility = if(!vs.loading && vs.loadingError == null && vs.model.items.isEmpty()) View.VISIBLE else View.INVISIBLE
+        tv_no_vouchers.visibility = if (!vs.loading && vs.loadingError == null && vs.model.items.isEmpty()) View.VISIBLE else View.INVISIBLE
 
         adapter.vouchers = vs.model.items
     }

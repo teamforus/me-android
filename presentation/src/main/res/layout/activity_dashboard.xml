@@ -6,12 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-        <FrameLayout
-            android:id="@+id/dashboard_content"
-            android:layout_width="match_parent"
-            android:visibility="gone"
-            android:layout_height="match_parent"/>
-
         <com.sothree.slidinguppanel.SlidingUpPanelLayout
             android:id="@+id/sliding_layout"
             android:layout_width="match_parent"
@@ -21,72 +15,49 @@
             app:umanoShadowHeight="0dp"
             app:umanoOverlay="true">
 
-            <RelativeLayout
-                android:background="@color/brightBackground"
-                android:fitsSystemWindows="true"
-                android:orientation="vertical"
+            <FrameLayout
+                android:id="@+id/dashboard_content"
                 android:layout_width="match_parent"
-                android:id="@+id/main_content"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"/>
 
-                <com.aurelhubert.ahbottomnavigation.AHBottomNavigationViewPager
-                    android:id="@+id/view_pager"
-                    android:background="@color/windowsBackground"
-                    android:fillViewport="true"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-                <com.aurelhubert.ahbottomnavigation.AHBottomNavigation
-                    android:id="@+id/bottom_navigation"
-                    android:layout_alignParentBottom="true"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    app:selectedBackgroundVisible="false" />
-
-            </RelativeLayout>
 
             <LinearLayout
-                android:orientation="vertical"
-                android:background="@drawable/corner_card_background"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@drawable/corner_card_background"
+                android:orientation="vertical">
 
                 <RelativeLayout
-                    android:padding="@dimen/activity_horizontal_margin"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/activity_horizontal_margin">
 
                     <io.forus.me.android.presentation.view.component.text.TextView
                         android:id="@+id/sliding_panel_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="20sp"
-                        android:textColor="@color/body_1_87"
                         android:letterSpacing="0.01"
                         android:text="@string/dashboard_qr"
+                        android:textColor="@color/body_1_87"
+                        android:textSize="20sp"
                         app:type="medium" />
 
 
                     <ImageView
-                        android:layout_alignParentRight="true"
-                        android:src="@drawable/ic_close"
                         android:layout_width="24dp"
-                        android:layout_height="24dp" />
+                        android:layout_height="24dp"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/ic_close" />
 
                 </RelativeLayout>
-
 
                 <FrameLayout
 
                     android:id="@+id/fragmentPanelContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
-
-
             </LinearLayout>
-
         </com.sothree.slidinguppanel.SlidingUpPanelLayout>
 
 </android.support.v4.widget.DrawerLayout>
