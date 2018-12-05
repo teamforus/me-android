@@ -1,11 +1,11 @@
 package io.forus.me.android.presentation.view.screens.vouchers.item
 
 import android.content.DialogInterface
+import android.content.Intent
 import android.graphics.BlurMaskFilter
 import android.net.Uri
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -52,6 +52,13 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPres
             val bundle = Bundle()
             bundle.putParcelable(VOUCHER_EXTRA, voucher)
             bundle.putString(VOUCHER_ADDRESS_EXTRA, voucher.address)
+
+            it.arguments = bundle
+        }
+
+        fun newInstance(address: String): VoucherFragment = VoucherFragment().also {
+            val bundle = Bundle()
+            bundle.putString(VOUCHER_ADDRESS_EXTRA, address)
 
             it.arguments = bundle
         }
@@ -121,8 +128,8 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPres
 
         info_button.setOnClickListener {
             val url = when {
-                productId != null ->
-                    "https://" + BuildConfig.PREFIX_URL + "zuidhorn.forus.io/#!/products/$productId"
+                voucher?.product?.id != null ->
+                    "https://" + BuildConfig.PREFIX_URL + "zuidhorn.forus.io/#!/products/${voucher?.product?.id}"
                 else -> "https://www.zuidhorn.nl/kindpakket"
 
             }
@@ -288,7 +295,6 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPres
         type.paint.maskFilter = null
     }
 
-    fun showEmailSendDialog() {
     private fun showEmailSentDialog(){
         SendVoucherSuccessDialog(context!!) {
             sentEmailDialogShown.onNext(Unit)
@@ -318,6 +324,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPres
         intent.data = Uri.parse(uri)
         startActivity(intent)
     }
+
     private fun showEmailSendDialog(){
         sendEmailDialog.show()
     }

@@ -6,10 +6,19 @@ import io.forus.me.android.presentation.models.currency.Currency
 import java.math.BigDecimal
 import java.util.*
 
-class Voucher(var isProduct: Boolean, var isUsed: Boolean, var address: String,
-              var name: String, var organizationName: String, var fundName: String,
-              var description: String?, var createdAt: Date, var currency: Currency,
-              var amount: BigDecimal, var logo: String, var transactions: List<Transaction>) : Parcelable {
+class Voucher(var isProduct: Boolean,
+              var isUsed: Boolean,
+              var address: String,
+              var name: String,
+              var organizationName: String,
+              var fundName: String,
+              var description: String?,
+              var createdAt: Date,
+              var currency: Currency,
+              var amount: BigDecimal,
+              var logo: String,
+              var transactions: List<Transaction>,
+              val product: Product? = null) : Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readByte() != 0.toByte(),
             parcel.readByte() != 0.toByte(),
@@ -22,7 +31,8 @@ class Voucher(var isProduct: Boolean, var isUsed: Boolean, var address: String,
             parcel.readParcelable(Currency::class.java.classLoader) ?: Currency(),
             BigDecimal.valueOf(parcel.readDouble()),
             parcel.readString() ?: "",
-            parcel.createTypedArrayList(Transaction))
+            parcel.createTypedArrayList(Transaction),
+            parcel.readParcelable(Product::class.java.classLoader))
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeByte(if (isProduct) 1 else 0)
@@ -37,6 +47,7 @@ class Voucher(var isProduct: Boolean, var isUsed: Boolean, var address: String,
         parcel.writeDouble(amount.toDouble())
         parcel.writeString(logo)
         parcel.writeTypedList(transactions)
+        parcel.writeParcelable(product, flags)
     }
 
     override fun describeContents(): Int {

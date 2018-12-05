@@ -18,19 +18,15 @@ package io.forus.me.android.presentation.view.base
 
 import android.databinding.BindingAdapter
 import android.graphics.drawable.Drawable
-import android.net.Uri
 import android.os.Build
 import android.support.annotation.RequiresApi
 import android.support.design.widget.FloatingActionButton
 import android.support.v4.view.ViewPager
-import android.support.v7.content.res.AppCompatResources
 import android.view.View
 import android.view.View.GONE
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.widget.ImageView
-import com.bumptech.glide.Glide
-import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.helpers.ImageLoader
 
 @BindingAdapter("invisibleUnless")
@@ -60,7 +56,7 @@ fun clipToCircle(view: View, clip: Boolean) {
     view.outlineProvider = if (clip) CircularOutlineProvider else null
 }
 
-@BindingAdapter(value = ["imageUri", "placeholder"], requireAll = false)
+@BindingAdapter(value = *["imageUri", "placeholder"], requireAll = false)
 fun imageUri(imageView: ImageView, imageUri: String?, placeholder: Drawable?) {
     ImageLoader.load(imageView.context, imageUri, imageView)
 

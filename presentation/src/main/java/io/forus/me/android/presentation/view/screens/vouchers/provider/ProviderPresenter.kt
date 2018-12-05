@@ -28,23 +28,44 @@ class ProviderPresenter constructor(private val vouchersRepository: VouchersRepo
                 it.voucher.fundName, it.voucher.description, it.voucher.createdAt,
                 Currency(it.voucher.currency.name, it.voucher.currency.logoUrl), it.voucher.amount, it.voucher.logo,
                 it.voucher.transactions.map { transaction ->
-                    Transaction(transaction.id, Organization(transaction.organization.id,
-                            transaction.organization.name, transaction.organization.logo),
-                            Currency(transaction.currency.name, transaction.currency.logoUrl),
-                            transaction.amount, transaction.createdAt,
+                    Transaction(transaction.id,
+                            Organization(transaction.organization.id,
+                                    transaction.organization.name,
+                                    transaction.organization.logo,
+                                    transaction.organization.lat,
+                                    transaction.organization.lon,
+                                    transaction.organization.address,
+                                    transaction.organization.phone,
+                                    transaction.organization.email),
+                            Currency(transaction.currency.name,
+                                    transaction.currency.logoUrl),
+                            transaction.amount,
+                            transaction.createdAt,
                             Transaction.Type.valueOf(transaction.type.name))
                 }),
 
                 it.allowedOrganizations.map { organization ->
-                    Organization(organization.id, organization.name, organization.logo) },
+                    Organization(organization.id,
+                            organization.name,
+                            organization.logo,
+                            organization.lat,
+                            organization.lon,
+                            organization.address,
+                            organization.phone,
+                            organization.email)
+                },
 
                 it.allowedProductCategories.map { productCategory ->
                     ProductCategory(productCategory.id, productCategory.key, productCategory.name)
-        })
+                })
     })
 
     override fun ProviderModel.changeInitialModel(i: VoucherProvider): ProviderModel {
-        val organization = if(i.allowedOrganizations.isNotEmpty()) i.allowedOrganizations.get(0) else Organization(organizationId, i.voucher.organizationName, "", i.voucher.product?.organization?.lat ?: 0.0, i.voucher.product?.organization?.lon ?: 0.0, i.voucher.product?.organization?.address ?: "", i.voucher.product?.organization?.phone ?: "",i.voucher.product?.organization?.email ?: "")
+        val organization = if (i.allowedOrganizations.isNotEmpty()) i.allowedOrganizations.get(0) else Organization(organizationId, i.voucher.organizationName, "", i.voucher.product?.organization?.lat
+                ?: 0.0, i.voucher.product?.organization?.lon
+                ?: 0.0, i.voucher.product?.organization?.address
+                ?: "", i.voucher.product?.organization?.phone
+                ?: "", i.voucher.product?.organization?.email ?: "")
         organizationId = organization.id
         return copy(item = i, selectedOrganization = organization)
     }
