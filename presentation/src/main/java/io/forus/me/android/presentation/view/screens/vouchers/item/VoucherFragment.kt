@@ -35,23 +35,30 @@ import java.text.SimpleDateFormat
 import java.util.*
 import android.support.customtabs.CustomTabsIntent
 import android.support.v4.content.ContextCompat
+import android.support.v4.view.ViewCompat
 import android.support.v7.app.AlertDialog
+import android.view.MenuItem
+import io.forus.me.android.presentation.view.screens.dashboard.DashboardActivity
+import io.forus.me.android.presentation.view.screens.dashboard.DashboardFragment
 
 private const val MAP_VIEW_BUNDLE_KEY = "MapViewBundleKey"
 
-class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPresenter>(), VoucherView, OnMapReadyCallback {
+class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
+        VoucherPresenter>(), VoucherView, OnMapReadyCallback {
 
     companion object {
         private const val VOUCHER_ADDRESS_EXTRA = "VOUCHER_ADDRESS_EXTRA"
         private const val VOUCHER_EXTRA = "VOUCHER_EXTRA"
+        private const val POSITION_EXTRA = "POSITION_EXTRA"
 
         val dateFormat = SimpleDateFormat("d MMMM, HH:mm", Locale.getDefault())
 
 
-        fun newInstance(voucher: Voucher): VoucherFragment = VoucherFragment().also {
+        fun newInstance(voucher: Voucher, position: Int = -1): VoucherFragment = VoucherFragment().also {
             val bundle = Bundle()
             bundle.putParcelable(VOUCHER_EXTRA, voucher)
             bundle.putString(VOUCHER_ADDRESS_EXTRA, voucher.address)
+            bundle.putInt(POSITION_EXTRA, position)
 
             it.arguments = bundle
         }
@@ -117,6 +124,11 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPres
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+//        val position = arguments?.getInt(POSITION_EXTRA, -1)
+//
+//        ViewCompat.setTransitionName(voucher_card, "card_transition_name_$position")
+//        ViewCompat.setTransitionName(name, "name_transition_name_$position")
+//        ViewCompat.setTransitionName(value, "value_transition_name_$position")
 
         val mapViewBundle: Bundle? = savedInstanceState?.getBundle(MAP_VIEW_BUNDLE_KEY)
 
@@ -143,7 +155,15 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPres
         val qrEncoded = QrCode(QrCode.Type.VOUCHER, address).toJson()
         iv_qr_icon.setQRText(qrEncoded)
         iv_qr_icon.setOnClickListener {
-            (activity as? VoucherActivity)?.showPopupQRFragment(qrEncoded)
+            (activity as? DashboardActivity)?.showPopupQRFragment(qrEncoded)
+        }
+
+        toolbar.setNavigationOnClickListener {
+            if (activity?.supportFragmentManager?.backStackEntryCount ?: 0 > 0) {
+                activity?.supportFragmentManager?.popBackStack()
+            } else {
+                activity?.onBackPressed()
+            }
         }
 
         shopkeeper_call.setOnClickListener {
@@ -202,7 +222,6 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView, VoucherPres
             address,
             voucher
     )
-
 
     override fun render(vs: LRViewState<VoucherModel>) {
         super.render(vs)
