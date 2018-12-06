@@ -188,7 +188,7 @@
     <string name="voucher_created">Geactiveerd - %1$s</string>
     <string name="voucher_button_show_qr">Toon QR-code</string>
     <string name="voucher_send_email_success">Success</string>
-    <string name="voucher_send_email_description">De voucher is verzonden naar de e-mail</string>
+    <string name="voucher_send_email_description">De voucher is verzonden per mail</string>
     <string name="voucher_qr_code_subtitle">Dit is de QR-code van de Voucher</string>
     <string name="voucher_qr_code_description">Laat de aanbieder deze QR-Code scannen om een betaling te kunnen doen</string>
     <string name="voucher_email_to_me">E-mail naar mij</string>
