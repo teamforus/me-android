@@ -5,10 +5,19 @@ package io.forus.me.android.presentation.view.activity
 //import io.forus.me.android.presentation.internal.di.modules.ActivityModule;
 
 import android.content.Context
+import android.support.transition.ChangeBounds
+import android.support.transition.ChangeClipBounds
+import android.support.transition.ChangeTransform
 import android.support.transition.Explode
 import android.support.transition.Fade
+import android.support.transition.Slide
+import android.support.transition.Transition
+import android.support.transition.TransitionInflater
+import android.support.transition.TransitionSet
 import android.support.v4.app.Fragment
+import android.support.v4.view.ViewCompat
 import android.support.v7.app.AppCompatActivity
+import android.view.Gravity
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import io.forus.me.android.presentation.helpers.SystemServices
@@ -20,8 +29,11 @@ import io.forus.me.android.presentation.navigation.Navigator
  */
 abstract class BaseActivity : AppCompatActivity() {
 
+    private val MOVE_DEFAULT_TIME: Long = 500
+    private val FADE_DEFAULT_TIME: Long = 250
+
     val systemServices by lazy(LazyThreadSafetyMode.NONE) { SystemServices(this) }
-    val navigator by lazy{ Navigator() }
+    val navigator by lazy { Navigator() }
 
     protected fun addFragment(containerViewId: Int, fragment: Fragment) {
 
@@ -52,28 +64,35 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     protected fun replaceFragment(containerViewId: Int, fragment: Fragment) {
-
         supportFragmentManager
                 .beginTransaction()
                 .replace(containerViewId, fragment)
                 .commit()
     }
 
+    open fun replaceFragment(fragment: Fragment,
+                             sharedViews: List<View>) {
+    }
 
-    protected fun replaceFragment(containerViewId: Int, fragment: Fragment,
-                                  sharedViews: List<Pair<String, View>>) {
+
+    fun replaceFragment(containerViewId: Int, fragment: Fragment,
+                        sharedViews: List<View>, addToBackStack: Boolean) {
         val transaction = supportFragmentManager
                 .beginTransaction()
 
-        fragment.sharedElementEnterTransition = Explode()
-        fragment.enterTransition = Fade()
-        fragment.exitTransition = Fade()
-        fragment.sharedElementReturnTransition = Explode()
+//        val sharedTransition = Explode()
+//
+//        fragment.sharedElementEnterTransition = sharedTransition
+//        fragment.sharedElementReturnTransition = sharedTransition
+//        fragment.enterTransition = Fade()
+//        fragment.exitTransition = Fade()
+//
+//        sharedViews.forEach {
+//            transaction.addSharedElement(it, ViewCompat.getTransitionName(it) ?: "")
+//        }
 
-
-        sharedViews.forEach {
-            transaction.addSharedElement(it.second, it.first)
-        }
+        if (addToBackStack)
+            transaction.addToBackStack(null)
 
         transaction
                 .replace(containerViewId, fragment)
@@ -83,7 +102,7 @@ abstract class BaseActivity : AppCompatActivity() {
     protected fun removeFragment(containerViewId: Int) {
 
         val fragment = supportFragmentManager.findFragmentById(containerViewId)
-        if(fragment != null){
+        if (fragment != null) {
             supportFragmentManager
                     .beginTransaction()
                     .remove(fragment)
