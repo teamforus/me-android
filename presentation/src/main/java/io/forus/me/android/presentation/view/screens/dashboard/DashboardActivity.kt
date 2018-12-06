@@ -118,9 +118,9 @@ class DashboardActivity : SlidingPanelActivity(), DashboardContract.View {
     }
 
     override fun addUserId(id: String) {
-        if (Fabric.isInitialized()) {
-            Crashlytics.setUserIdentifier(id)
-        }
+//        if (Fabric.isInitialized()) {
+//            Crashlytics.setUserIdentifier(id)
+//        }
     }
 
     override fun logout(){
