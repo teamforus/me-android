@@ -180,6 +180,13 @@
                     </io.forus.me.android.presentation.view.component.card.SettingsCard>
 
                     <io.forus.me.android.presentation.view.component.card.SettingsCard
+                        android:id="@+id/support_email"
+                        app:valuecard_title="@string/profile_support"
+                        app:valuecard_text="feedback@forus.io"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <io.forus.me.android.presentation.view.component.card.SettingsCard
                         android:id="@+id/app_version"
                         app:valuecard_title="@string/profile_app_version"
                         app:valuecard_text="1.01.1"

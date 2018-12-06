@@ -109,6 +109,7 @@
     <string name="profile_about_me">About Me</string>
     <string name="profile_about_me_text">With Me you can create an identity, receive and use your vouchers.</string>
     <string name="profile_app_version">App version</string>
+    <string name="profile_support" translatable="false">Support</string>
     <string name="profile_about">About</string>
 
     <!-- New record screen -->
