@@ -22,7 +22,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_dashboard.*
 
 
-class DashboardActivity : SlidingPanelActivity() {
+class DashboardActivity : SlidingPanelActivity(), DashboardContract.View {
 
     private var currentFragment: android.support.v4.app.Fragment? = null
     private var menu: Menu? = null

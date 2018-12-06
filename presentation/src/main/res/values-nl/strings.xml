@@ -17,7 +17,7 @@
 
     <!-- Dashboard -->
     <string name="dashboard_property">Vouchers</string>
-    <string name="dashboard_qr">Qr</string>
+    <string name="dashboard_qr">QR</string>
     <string name="dashboard_records">Eigenschappen</string>
     <string name="dashboard_vouchers">Vouchers</string>
     <string name="dashboard_currency">Tokens</string>
