@@ -24,7 +24,7 @@ class DashboardPresenter(private var view: DashboardContract.View?,
     private inner class CheckLoginObserver : DefaultObserver<Boolean>() {
 
         override fun onNext(isLoggined: Boolean) {
-            if (isLoggined) {
+            if (!isLoggined) {
                 this@DashboardPresenter.view?.logout()
             } else {
                 loadAccountUseCase.execute(LoadAccountObserver(), LoadAccountUseCase.Params())
