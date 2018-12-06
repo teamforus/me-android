@@ -193,7 +193,7 @@
     <string name="voucher_qr_code_description">Laat de aanbieder deze QR-Code scannen om een betaling te kunnen doen</string>
     <string name="voucher_email_to_me">E-mail naar mij</string>
     <string name="voucher_request">BEVESTIG</string>
-    <string name="send_voucher_email_dialog_title">Stuur de voucher naar uw e-mailadres?</string>
+    <string name="send_voucher_email_dialog_title">Wilt u ons verbeterpunten per mail versturen?</string>
     <string name="send_voucher_email_dialog_positive_button">Stuur</string>
     <string name="send_voucher_email_dialog_cancel_button">Annuleer</string>
     <string name="shopkeeper_address_text">Adres</string>
