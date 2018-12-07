@@ -26,7 +26,7 @@ object NumberUtils {
 
 }
 
-fun Double?.format(digits: Int = 6) = (if (this == null) "" else java.lang.String.format("%.${digits}f", this))!!
+fun Double?.format(digits: Int = 6) = (if (this == null) "" else java.lang.String.format(Locale.US, "%.${digits}f", this))!!
 
 fun Float?.format(digits: Int = 6) = this?.toDouble().format(digits)
 
