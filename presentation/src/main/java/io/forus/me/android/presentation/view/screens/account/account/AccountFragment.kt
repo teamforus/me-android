@@ -2,6 +2,7 @@ package io.forus.me.android.presentation.view.screens.account.account
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -78,6 +79,13 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
 
         about_me.setOnClickListener {
             AboutMeDialog(activity!!).show()
+        }
+
+        support_email.setOnClickListener {
+            val intent = Intent(Intent.ACTION_SENDTO)
+            intent.data = Uri.parse("mailto:${support_email.text}")
+
+            startActivity(Intent.createChooser(intent, getString(R.string.send_email_title)))
         }
     }
 

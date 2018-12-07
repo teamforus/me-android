@@ -22,7 +22,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_dashboard.*
 
 
-class DashboardActivity : SlidingPanelActivity() {
+class DashboardActivity : SlidingPanelActivity(), DashboardContract.View {
 
     private var currentFragment: android.support.v4.app.Fragment? = null
     private var menu: Menu? = null
@@ -80,7 +80,13 @@ class DashboardActivity : SlidingPanelActivity() {
                 .subscribe())
     }
 
-    private fun logout() {
+    override fun addUserId(id: String) {
+//        if (Fabric.isInitialized()) {
+//            Crashlytics.setUserIdentifier(id)
+//        }
+    }
+
+    override fun logout(){
         disposableHolder.add(Single.fromObservable(accountRepository.exitIdentity())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
