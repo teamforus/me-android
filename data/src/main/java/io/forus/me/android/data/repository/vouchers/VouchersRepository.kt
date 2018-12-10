@@ -98,7 +98,7 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
         else voucher.allowedProductCategories.map { ProductCategory(it.id, it.key, it.name) }
         val organizations = if (voucher.allowedOrganizations == null) emptyList()
         else voucher.allowedOrganizations.map {
-            Organization(it.id, it.name, it.logo?.sizes?.large ?: "", it.lat, it.lon, it.identityAddress, it.phone, it.email)
+            Organization(it.id, it.name ?: "", it.logo?.sizes?.large ?: "", it.lat, it.lon, it.identityAddress ?: "", it.phone ?: "", it.email ?: "")
         }
         return VoucherProvider(item, organizations, categories)
     }
