@@ -51,14 +51,19 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
         if (voucher.transactions != null) {
             transactions.addAll(voucher.transactions.map {
                 Transaction(it.address, Organization(it.organization.id, it.organization.name, it.organization?.logo?.sizes?.large
-                        ?: "", it.organization?.lat ?: 0.0, it.organization?.lon?: 0.0, it.organization?.identityAddress ?: "", it.organization?.phone?: "", it.organization?.email ?: ""), euro, it.amount, it.createdAt)
+                        ?: "", it.organization?.lat ?: 0.0, it.organization?.lon
+                        ?: 0.0, it.organization?.identityAddress ?: "", it.organization?.phone
+                        ?: "", it.organization?.email ?: ""), euro, it.amount, it.createdAt)
             })
         }
 
         if (voucher.childVouchers != null) {
             transactions.addAll(voucher.childVouchers.map { childVoucher ->
                 val organization = childVoucher.product?.organization
-                Transaction("", Organization(childVoucher.product.organizationId, childVoucher.product.name, "", organization?.lat ?: 0.0, organization?.lon ?: 0.0, organization?.identityAddress ?: "",organization?.phone ?: "", organization?.email ?: ""), euro, childVoucher.amount, childVoucher.createdAt, Transaction.Type.Product)
+                Transaction("", Organization(childVoucher.product.organizationId, childVoucher.product.name, "", organization?.lat
+                        ?: 0.0, organization?.lon ?: 0.0, organization?.identityAddress
+                        ?: "", organization?.phone ?: "", organization?.email
+                        ?: ""), euro, childVoucher.amount, childVoucher.createdAt, Transaction.Type.Product)
             })
         }
         transactions.sortWith(Comparator { t1, t2 ->
@@ -77,11 +82,14 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
                 if (it.organizationId == office.organizationId) {
                     organization = Organization(office.id, office.organization.name,
                             office.photo?.sizes?.large ?: "",
-                            office.lat, office.lon, office.address, office.phone ?: office.organization.phone ?: "", office.organization.email)
+                            office.lat, office.lon, office.address, office.phone
+                            ?: office.organization.phone ?: "", office.organization.email)
                 }
             }
 
-            productMapped = Product(it.id, it.organizationId, it.productCategoryId, it.name, it.description, it.price, it.oldPrice, it.totalAmount, it.soldAmount, ProductCategory(it.productCategory.id, it.productCategory.key, it.productCategory.name), organization)
+            productMapped = Product(it.id, it.organizationId, it.productCategoryId, it.name, it.description, it.price, it.oldPrice, it.totalAmount, it.soldAmount, ProductCategory(it.productCategory?.id
+                    ?: it.productCategoryId, it.productCategory?.key ?: "", it.productCategory?.name
+                    ?: ""), organization)
         }
 
 
@@ -98,7 +106,8 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
         else voucher.allowedProductCategories.map { ProductCategory(it.id, it.key, it.name) }
         val organizations = if (voucher.allowedOrganizations == null) emptyList()
         else voucher.allowedOrganizations.map {
-            Organization(it.id, it.name ?: "", it.logo?.sizes?.large ?: "", it.lat, it.lon, it.identityAddress ?: "", it.phone ?: "", it.email ?: "")
+            Organization(it.id, it.name ?: "", it.logo?.sizes?.large
+                    ?: "", it.lat, it.lon, it.identityAddress ?: "", it.phone ?: "", it.email ?: "")
         }
         return VoucherProvider(item, organizations, categories)
     }
