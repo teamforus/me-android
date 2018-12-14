@@ -185,7 +185,7 @@
     <string name="vouchers_apply_question">Weet je zeker dat je deze transactie wilt bevestigen?</string>
     <string name="voucher_is_used">GEBRUIKT</string>
     <string name="vouchers_apply_success">Betaling geslaagd!</string>
-    <string name="voucher_created">Geactiveerd - %1$s</string>
+    <string name="voucher_created">Geactiveerd op %1$s</string>
     <string name="voucher_button_show_qr">Toon QR-code</string>
     <string name="voucher_send_email_success">Success</string>
     <string name="voucher_send_email_description">De voucher is verzonden per mail</string>
