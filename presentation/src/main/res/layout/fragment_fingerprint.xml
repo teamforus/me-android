@@ -20,6 +20,8 @@
         android:lineSpacingExtra="6sp"
         android:textColor="@color/body_1_87"
         android:textSize="15sp"
+        android:paddingStart="@dimen/activity_horizontal_margin"
+        android:paddingEnd="@dimen/activity_horizontal_margin"
         android:text="@string/lock_fingerprint_subtitle" />
 
     <LinearLayout
