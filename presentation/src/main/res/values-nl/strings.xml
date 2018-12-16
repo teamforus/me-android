@@ -17,7 +17,7 @@
 
     <!-- Dashboard -->
     <string name="dashboard_property">Vouchers</string>
-    <string name="dashboard_qr">Qr</string>
+    <string name="dashboard_qr">QR</string>
     <string name="dashboard_records">Eigenschappen</string>
     <string name="dashboard_vouchers">Vouchers</string>
     <string name="dashboard_currency">Tokens</string>
@@ -167,7 +167,7 @@
 
     <!-- Vouchers -->
     <string name="vouchers_item">Voucher</string>
-    <string name="vouchers_item_product">Aanbiedings voucher</string>
+    <string name="vouchers_item_product">Aanbieding</string>
     <string name="vouchers_provider">Verzoek Betaling</string>
     <string name="vouchers_transactions">Geschiedenis</string>
     <string name="vouchers_transactions_empty">Nog geen transacties</string>
@@ -176,7 +176,7 @@
     <string name="vouchers_make_transaction_failure">Transactie mislukt</string>
     <string name="vouchers_transaction_payment">Betaald</string>
     <string name="vouchers_amount">Vul hier het bedrag in</string>
-    <string name="vouchers_note">Omschrijving</string>
+    <string name="vouchers_note">Uw persoonlijke notitie</string>
     <string name="vouchers_product_categories">Productcategorieën</string>
     <string name="vouchers_amount_invalid">Ongeldige hoeveelheid</string>
     <string name="vouchers_pay_title">Bevestig transactie</string>
@@ -185,13 +185,20 @@
     <string name="vouchers_apply_question">Weet je zeker dat je deze transactie wilt bevestigen?</string>
     <string name="voucher_is_used">GEBRUIKT</string>
     <string name="vouchers_apply_success">Betaling geslaagd!</string>
-    <string name="voucher_created">Voucher aangemaakt - %1$s</string>
+    <string name="voucher_created">Geactiveerd op %1$s</string>
     <string name="voucher_button_show_qr">Toon QR-code</string>
     <string name="voucher_send_email_success">Success</string>
-    <string name="voucher_send_email_description">De voucher is verzonden naar de e-mail</string>
+    <string name="voucher_send_email_description">De voucher is verzonden per mail</string>
     <string name="voucher_qr_code_subtitle">Dit is de QR-code van de Voucher</string>
     <string name="voucher_qr_code_description">Laat de aanbieder deze QR-Code scannen om een betaling te kunnen doen</string>
-    <string name="voucher_email_to_me">E-mail naar mijzelf</string>
+    <string name="voucher_email_to_me">E-mail naar mij</string>
     <string name="voucher_request">BEVESTIG</string>
-
+    <string name="send_voucher_email_dialog_title">Stuur de voucher naar uw e-mailadres?</string>
+    <string name="send_feedback_email_dialog_title">Wilt u ons verbeterpunten per mail versturen?</string>
+    <string name="send_voucher_email_dialog_positive_button">Bevestig</string>
+    <string name="send_voucher_email_dialog_cancel_button">Annuleer</string>
+    <string name="shopkeeper_address_text">Adres</string>
+    <string name="shopkeeper_phone_text">Telefoonnummer</string>
+    <string name="send_email_title">Stuur e-mail</string>
+    <string name="shopkeeper_provider_text">Aanbieder</string>
 </resources>

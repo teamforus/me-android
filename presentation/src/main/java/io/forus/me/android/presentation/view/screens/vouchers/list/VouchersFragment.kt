@@ -8,13 +8,16 @@ import android.view.ViewGroup
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.internal.Injection
+import io.forus.me.android.presentation.models.vouchers.Voucher
+import io.forus.me.android.presentation.view.activity.BaseActivity
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
+import io.forus.me.android.presentation.view.screens.vouchers.item.VoucherFragment
 import kotlinx.android.synthetic.main.fragment_vouchers_recycler.*
 
 /**
  * Fragment Vouchers Delegates Screen.
  */
-class VouchersFragment : ToolbarLRFragment<VouchersModel, VouchersView, VouchersPresenter>(), VouchersView{
+class VouchersFragment : ToolbarLRFragment<VouchersModel, VouchersView, VouchersPresenter>(), VouchersView {
 
     companion object {
         fun newIntent(): VouchersFragment {
@@ -38,16 +41,15 @@ class VouchersFragment : ToolbarLRFragment<VouchersModel, VouchersView, Vouchers
 
     override fun loadRefreshPanel() = lr_panel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
-            = inflater.inflate(R.layout.fragment_vouchers_recycler, container, false).also {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = inflater.inflate(R.layout.fragment_vouchers_recycler, container, false).also {
         adapter = VouchersAdapter()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter.clickListener = { item ->
-            navigator.navigateToVoucher(activity, item.address)
+        adapter.clickListener = { voucher: Voucher, sharedViews: List<View>, position: Int ->
+            (activity as? BaseActivity)?.replaceFragment(VoucherFragment.newInstance(voucher, position), sharedViews)
         }
         recycler.layoutManager = LinearLayoutManager(context)
         recycler.adapter = adapter
@@ -63,7 +65,7 @@ class VouchersFragment : ToolbarLRFragment<VouchersModel, VouchersView, Vouchers
     override fun render(vs: LRViewState<VouchersModel>) {
         super.render(vs)
 
-        tv_no_vouchers.visibility = if(vs.loading == false && vs.loadingError == null && vs.model.items.isEmpty()) View.VISIBLE else View.INVISIBLE
+        tv_no_vouchers.visibility = if (!vs.loading && vs.loadingError == null && vs.model.items.isEmpty()) View.VISIBLE else View.INVISIBLE
 
         adapter.vouchers = vs.model.items
     }

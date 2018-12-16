@@ -1,8 +1,11 @@
 package io.forus.me.android.presentation.view.screens.account.account
 
 import android.app.Activity
+import android.content.DialogInterface
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +16,6 @@ import io.forus.me.android.presentation.helpers.SystemServices
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.models.ChangePinMode
 import io.forus.me.android.presentation.view.activity.BaseActivity
-import io.forus.me.android.presentation.view.activity.SlidingPanelActivity
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.forus.me.android.presentation.view.screens.account.account.dialogs.AboutMeDialog
@@ -26,7 +28,7 @@ import kotlinx.android.synthetic.main.fragment_account_details.*
 /**
  * Fragment User Account Screen.
  */
-class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPresenter>(), AccountView  {
+class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPresenter>(), AccountView {
 
     companion object {
         private const val REQUEST_CHANGE_PIN = 10001
@@ -48,6 +50,19 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
     private var isFingerprintHardwareAvailable = false
 
     private lateinit var services: SystemServices
+    private val sendSupportEmailDialogBuilder: AlertDialog.Builder by lazy(LazyThreadSafetyMode.NONE) {
+        AlertDialog.Builder(context!!)
+                .setTitle(R.string.send_feedback_email_dialog_title)
+                .setNegativeButton(R.string.send_voucher_email_dialog_cancel_button) { dialogInterface, _ -> dialogInterface.dismiss() }
+                .setPositiveButton(R.string.send_voucher_email_dialog_positive_button) { dialogInterface: DialogInterface, _ ->
+                    dialogInterface.dismiss()
+                    val intent = Intent(Intent.ACTION_SENDTO)
+                    intent.data = Uri.parse("mailto:${support_email.text}")
+
+                    startActivity(Intent.createChooser(intent, getString(R.string.send_email_title)))
+                }
+
+    }
 
     private val logout = PublishSubject.create<Boolean>()
     override fun logout(): Observable<Boolean> = logout
@@ -58,8 +73,7 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
     private val switchFingerprint = PublishSubject.create<Boolean>()
     override fun switchFingerprint(): Observable<Boolean> = switchFingerprint
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
-            = inflater.inflate(R.layout.fragment_account_details, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = inflater.inflate(R.layout.fragment_account_details, container, false)
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -79,6 +93,10 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
         about_me.setOnClickListener {
             AboutMeDialog(activity!!).show()
         }
+
+        support_email.setOnClickListener {
+            sendSupportEmailDialogBuilder.show()
+        }
     }
 
     override fun createPresenter() = AccountPresenter(
@@ -94,19 +112,18 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
         email.text = vs.model.account?.email
         avatar.setImageDrawable(resources.getDrawable(R.drawable.ic_me_logo))
 
-        change_digits.visibility = if(vs.model.pinlockEnabled) View.VISIBLE else View.GONE
+        change_digits.visibility = if (vs.model.pinlockEnabled) View.VISIBLE else View.GONE
         enable_pinlock.setChecked(vs.model.pinlockEnabled)
-        enable_pinlock.setOnClickListener{
-            navigator.navigateToChangePin(this, if(vs.model.pinlockEnabled) ChangePinMode.REMOVE_OLD else ChangePinMode.SET_NEW, REQUEST_CHANGE_PIN)
+        enable_pinlock.setOnClickListener {
+            navigator.navigateToChangePin(this, if (vs.model.pinlockEnabled) ChangePinMode.REMOVE_OLD else ChangePinMode.SET_NEW, REQUEST_CHANGE_PIN)
         }
 
-        enable_fingerprint.visibility = if(isFingerprintHardwareAvailable && vs.model.pinlockEnabled) View.VISIBLE else View.GONE
+        enable_fingerprint.visibility = if (isFingerprintHardwareAvailable && vs.model.pinlockEnabled) View.VISIBLE else View.GONE
         enable_fingerprint.setChecked(vs.model.fingerprintEnabled)
         enable_fingerprint.setOnClickListener {
-            if(services.hasEnrolledFingerprints()){
+            if (services.hasEnrolledFingerprints()) {
                 switchFingerprint.onNext(!vs.model.fingerprintEnabled)
-            }
-            else showToastMessage(resources.getString(R.string.lock_no_fingerprints))
+            } else showToastMessage(resources.getString(R.string.lock_no_fingerprints))
         }
 
         start_from_scanner.setChecked(vs.model.startFromScanner)
@@ -114,7 +131,7 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
             switchStartFromScanner.onNext(!vs.model.startFromScanner)
         }
 
-        if(vs.model.account?.address != null){
+        if (vs.model.account?.address != null) {
             btn_qr.setOnClickListener {
                 (activity as? DashboardActivity)?.showPopupQRFragment(QrCode(QrCode.Type.P2P_IDENTITY, vs.model.account.address).toJson())
             }
@@ -129,7 +146,7 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_CHANGE_PIN && resultCode == Activity.RESULT_OK){
+        if (requestCode == REQUEST_CHANGE_PIN && resultCode == Activity.RESULT_OK) {
             updateModel()
         }
     }

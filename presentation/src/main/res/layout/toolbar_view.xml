@@ -20,7 +20,7 @@
         app:contentScrim="@color/colorPrimary"
         app:expandedTitleMarginEnd="64dp"
         app:expandedTitleMarginStart="48dp"
-        app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
+        app:layout_scrollFlags="scroll|enterAlways|snap"
         app:theme="@style/ToolbarStyle"
         app:expandedTitleTextAppearance="@style/ActionBar.TitleTextStyle"
         app:titleEnabled="false">

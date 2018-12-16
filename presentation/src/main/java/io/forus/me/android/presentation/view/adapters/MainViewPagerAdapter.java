@@ -17,8 +17,8 @@ import io.forus.me.android.presentation.view.screens.property.PropertyFragment;
 
 public class MainViewPagerAdapter extends FragmentPagerAdapter {
 
-    private List<android.support.v4.app.Fragment> fragments = new ArrayList<>();
-    private List<String> titles = new ArrayList<>();
+    private List<android.support.v4.app.Fragment> fragments;
+    private List<String> titles;
 
     private Fragment currentFragment;
 
@@ -30,7 +30,6 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter {
 
         this.fragments = fragments;
         this.titles = titles;
-
 
     }
 
@@ -77,5 +76,17 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter {
      */
     public Fragment getCurrentFragment() {
         return currentFragment;
+    }
+
+    public void setCurrentFragment(Fragment currentFragment) {
+        this.currentFragment = currentFragment;
+    }
+
+    public List<Fragment> getFragments() {
+        return fragments;
+    }
+
+    public List<String> getTitles() {
+        return titles;
     }
 }

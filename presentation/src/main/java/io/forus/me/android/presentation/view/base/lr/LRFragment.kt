@@ -29,17 +29,12 @@ abstract class LRFragment<M, V : LRView<M>, P : MviBasePresenter<V, LRViewState<
 
     protected fun showToastMessage(message: String) {
         val context = activity?.applicationContext
-        if(context != null) Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+        if (context != null) Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
-    fun updateModel(){
-        if(updateObservable != null){
-            updateObservable.onNext(true)
-        }
+    fun updateModel() {
+        updateObservable.onNext(true)
     }
-
-
-
 
     override fun onResume() {
         super.onResume()
@@ -61,14 +56,6 @@ abstract class LRFragment<M, V : LRView<M>, P : MviBasePresenter<V, LRViewState<
         }
     }
 
-
     var mOnCompleteListener: OnCompleteListener? = null
-
-
-
-
-
-
-
 
 }

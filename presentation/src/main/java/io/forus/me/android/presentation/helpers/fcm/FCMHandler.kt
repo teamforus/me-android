@@ -47,6 +47,8 @@ class FCMHandler(private val accountRepository: AccountRepository, private val s
             FirebaseInstanceId.getInstance().deleteInstanceId()
             Log.d("FCM_TOKEN_CLEAR", "OK")
             Unit
+        }.doOnError {
+            Log.e("FCM_TOKEN_CLEAR_THROWS", it.message)
         }
     }
 }

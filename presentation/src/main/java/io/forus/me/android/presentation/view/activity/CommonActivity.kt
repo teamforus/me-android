@@ -37,7 +37,7 @@ abstract class CommonActivity : BaseActivity() {
         onBackPressed()
     }
 
-    protected fun getCustomColor(color: Int): Int {
+    fun getCustomColor(color: Int): Int {
         return ContextCompat.getColor(this, color)
     }
 }
