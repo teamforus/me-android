@@ -57,11 +57,13 @@
     <string name="new_account_email_repeat_error">E-mails moeten hetzelfde zijn</string>
 
     <!-- New passcode screen -->
-    <string name="passcode_title_create">Inlogcode aanmaken</string>
-    <string name="passcode_title_confirm">Bevestig inlogcode</string>
+    <string name="passcode_title_create">Vul je nieuwe inlogcode in</string>
+    <string name="passcode_title_confirm">Vul je bestaande inlogcode in</string>
+    <string name="passcode_title_new_confirm">Bevestig inlogcode</string>
     <string name="passcode_title_create_identity_wait">Even geduld alsjeblieft</string>
-    <string name="passcode_subtitle_create">Beveilig je profiel door een inlogcode aan te maken</string>
-    <string name="passcode_subtitle_confirm">Beveilig je profiel door een inlogcode aan te maken</string>
+    <string name="passcode_subtitle_create">Beveilig je profiel door een inlogcode aan te maken.</string>
+    <string name="passcode_subtitle_confirm">Om je inlogcode te wijzigen hebben vul je je bestaande inlogcode in.</string>
+    <string name="passcode_subtitle_new_confirm">Herhaal je inlogcode om hem te bevestigen</string>
     <string name="passcode_subtitle_create_not_match">Inlogcodes komen niet overeen. Probeer het opnieuw.</string>
     <string name="passcode_subtitle_create_identity">Profiel toevoegen</string>
     <string name="passcode_subtitle_change_error">Er is iets fout gegaan :(</string>
@@ -69,7 +71,8 @@
     <string name="passcode_changing">Inlogcode wijzigen</string>
 
     <!-- PINLOCK screen -->
-    <string name="passcode_subtitle_pinlock_confirm">Vul je inlogcode in</string>
+    <string name="passcode_title_pinlock_confirm">Vul je bestaande inlogcode in</string>
+    <string name="passcode_subtitle_pinlock_confirm">Vul je bestaande inlogcode in</string>
     <string name="passcode_subtitle_pinlock_checking">Bevestigen</string>
     <string name="passcode_subtitle_pinlock_error">Verkeerde inlogcode</string>
 
@@ -190,6 +193,7 @@
     <string name="voucher_send_email_success">Success</string>
     <string name="voucher_send_email_description">De voucher is verzonden per mail</string>
     <string name="voucher_qr_code_subtitle">Dit is de QR-code van de Voucher</string>
+    <string name="voucher_qr_code_subtitle_with_fund_name">Dit is uw %s-voucher in de vorm van een QR-code</string>
     <string name="voucher_qr_code_description">Laat de aanbieder deze QR-Code scannen om een betaling te kunnen doen</string>
     <string name="voucher_email_to_me">E-mail naar mij</string>
     <string name="voucher_request">BEVESTIG</string>
