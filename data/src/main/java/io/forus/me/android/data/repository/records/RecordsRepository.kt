@@ -13,7 +13,7 @@ class RecordsRepository(private val recordsRemoteDataSource: RecordsDataSource) 
 
     override fun getRecordTypes(): Observable<List<RecordType>> {
         return recordsRemoteDataSource.getRecordTypes()
-                .map { it.map { RecordType(it.key, it.type, it.name) }}
+                .map { recordTypes -> recordTypes.map { recordType -> RecordType(recordType.key ?: "", recordType.type ?: "", recordType.name ?: "") }}
     }
 
     override fun getCategories(): Observable<List<RecordCategory>> {
@@ -30,7 +30,7 @@ class RecordsRepository(private val recordsRemoteDataSource: RecordsDataSource) 
                         newCategoryNames.forEach {
                             newCategory(NewRecordCategoryRequest(it, 0)).blockingSubscribe()
                         }
-                getCategories()
+                        getCategories()
                     }
                     else{
                         Observable.just(categories.map { RecordCategory(it.id, it.name, it.order, 0) }
@@ -58,7 +58,7 @@ class RecordsRepository(private val recordsRemoteDataSource: RecordsDataSource) 
 
     override fun getCategory(categoryId: Long?): Observable<RecordCategory> {
         return if(categoryId == null) Observable.just(RecordCategory(-1, "null category", 0))
-                else recordsRemoteDataSource.retrieveRecordCategory(categoryId).map{ RecordCategory(it.id, it.name, it.order)}
+        else recordsRemoteDataSource.retrieveRecordCategory(categoryId).map{ RecordCategory(it.id, it.name, it.order)}
     }
 
     override fun getRecordsCount(recordCategoryId: Long): Observable<Long> {
@@ -105,7 +105,7 @@ class RecordsRepository(private val recordsRemoteDataSource: RecordsDataSource) 
         val createRecord = io.forus.me.android.data.entity.records.request.CreateRecord(model.recordType?.key, model.category?.id, model.value, model.order)
         return recordsRemoteDataSource.createRecord(createRecord)
                 .map{ CreateRecordResponse(it.id, it.value, it.order)}
-                //.delay(100, TimeUnit.MILLISECONDS)
+        //.delay(100, TimeUnit.MILLISECONDS)
     }
 
     override fun getRecord(recordId: Long): Observable<Record> {
