@@ -190,7 +190,7 @@
     <string name="vouchers_apply_success">Betaling geslaagd!</string>
     <string name="voucher_created">Geactiveerd op %1$s</string>
     <string name="voucher_button_show_qr">Toon QR-code</string>
-    <string name="voucher_send_email_success">Success</string>
+    <string name="voucher_send_email_success">Succes</string>
     <string name="voucher_send_email_description">De voucher is verzonden per mail</string>
     <string name="voucher_qr_code_subtitle">Dit is de QR-code van de Voucher</string>
     <string name="voucher_qr_code_subtitle_with_fund_name">Dit is uw %s-voucher in de vorm van een QR-code</string>
