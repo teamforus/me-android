@@ -96,11 +96,11 @@ class ChangePinFragment : ToolbarLRFragment<ChangePinModel, ChangePinView, Chang
         indicator_dots.visibility = when (vs.model.state) {ChangePinModel.State.CHECKING_OLD_PIN, ChangePinModel.State.CHANGING_PIN, ChangePinModel.State.CHANGE_PIN_ERROR -> View.INVISIBLE else  -> View.VISIBLE}
 
         when(vs.model.state){
-            ChangePinModel.State.CONFIRM_OLD_PIN -> changeHeaders(resources.getString(R.string.passcode_subtitle_pinlock_confirm), resources.getString(R.string.passcode_subtitle_confirm), false)
+            ChangePinModel.State.CONFIRM_OLD_PIN -> changeHeaders(resources.getString(R.string.passcode_title_confirm), resources.getString(R.string.passcode_subtitle_confirm), false)
             ChangePinModel.State.CHECKING_OLD_PIN -> changeHeaders(resources.getString(R.string.passcode_subtitle_pinlock_checking), "", false)
             ChangePinModel.State.WRONG_OLD_PIN -> changeHeaders(resources.getString(R.string.passcode_subtitle_pinlock_confirm), resources.getString(R.string.passcode_subtitle_pinlock_error), true)
             ChangePinModel.State.CREATE_NEW_PIN -> changeHeaders(resources.getString(R.string.passcode_title_create), resources.getString(R.string.passcode_subtitle_create), false)
-            ChangePinModel.State.CONFIRM_NEW_PIN -> changeHeaders(resources.getString(R.string.passcode_title_confirm), resources.getString(R.string.passcode_subtitle_create), false)
+            ChangePinModel.State.CONFIRM_NEW_PIN -> changeHeaders(resources.getString(R.string.passcode_title_new_confirm), resources.getString(R.string.passcode_subtitle_new_confirm), false)
             ChangePinModel.State.PASS_NOT_MATCH -> changeHeaders(resources.getString(R.string.passcode_title_create), resources.getString(R.string.passcode_subtitle_create_not_match), true)
             ChangePinModel.State.CHANGING_PIN -> changeHeaders(resources.getString(R.string.passcode_title_create_identity_wait), resources.getString(R.string.passcode_changing), false)
             ChangePinModel.State.CHANGE_PIN_ERROR -> changeHeaders("", resources.getString(R.string.passcode_subtitle_change_error), true)
