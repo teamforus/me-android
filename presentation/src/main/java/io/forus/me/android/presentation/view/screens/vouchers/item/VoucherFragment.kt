@@ -5,6 +5,9 @@ import android.content.Intent
 import android.graphics.BlurMaskFilter
 import android.net.Uri
 import android.os.Bundle
+import android.support.customtabs.CustomTabsIntent
+import android.support.v4.content.ContextCompat
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -25,6 +28,7 @@ import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.models.vouchers.Voucher
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
+import io.forus.me.android.presentation.view.screens.dashboard.DashboardActivity
 import io.forus.me.android.presentation.view.screens.vouchers.item.dialogs.SendVoucherSuccessDialog
 import io.forus.me.android.presentation.view.screens.vouchers.item.transactions.TransactionsAdapter
 import io.reactivex.Observable
@@ -33,13 +37,6 @@ import kotlinx.android.synthetic.main.fragment_voucher.*
 import kotlinx.android.synthetic.main.toolbar_view.*
 import java.text.SimpleDateFormat
 import java.util.*
-import android.support.customtabs.CustomTabsIntent
-import android.support.v4.content.ContextCompat
-import android.support.v4.view.ViewCompat
-import android.support.v7.app.AlertDialog
-import android.view.MenuItem
-import io.forus.me.android.presentation.view.screens.dashboard.DashboardActivity
-import io.forus.me.android.presentation.view.screens.dashboard.DashboardFragment
 
 private const val MAP_VIEW_BUNDLE_KEY = "MapViewBundleKey"
 
@@ -81,8 +78,9 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
         AlertDialog.Builder(activity!!)
                 .setTitle(R.string.send_voucher_email_dialog_title)
                 .setPositiveButton(R.string.send_voucher_email_dialog_positive_button) { _, _ ->
-                    sendEmailDialogShows.onNext(true) }
-                .setNegativeButton(R.string.send_voucher_email_dialog_cancel_button) { _: DialogInterface, _: Int -> sendEmailDialogShows.onNext(false)}
+                    sendEmailDialogShows.onNext(true)
+                }
+                .setNegativeButton(R.string.send_voucher_email_dialog_cancel_button) { _: DialogInterface, _: Int -> sendEmailDialogShows.onNext(false) }
                 .setCancelable(false)
 
     }
@@ -234,13 +232,13 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
             setToolbarTitle(resources.getString(if (voucher.isProduct) R.string.vouchers_item_product else R.string.vouchers_item))
             adapter.transactions = voucher.transactions
             tv_transactions_title.visibility =
-                    if (voucher.transactions.isEmpty()) View.GONE else View.VISIBLE
+                    if (voucher.isProduct || voucher.transactions.isEmpty()) View.GONE else View.VISIBLE
 
             tv_created.visibility =
-                    if (voucher.transactions.isEmpty()) View.GONE else View.VISIBLE
+                    if (voucher.isProduct) View.GONE else View.VISIBLE
 
             shopkeeper_card.visibility =
-                    if (voucher.transactions.isEmpty()) View.VISIBLE else View.GONE
+                    if (voucher.isProduct) View.VISIBLE else View.GONE
 
             if (voucher.transactions.isNotEmpty()) {
                 tv_created.text = resources.getString(R.string.voucher_created,
@@ -268,11 +266,10 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
         }
 
 
-        when(vs.model.emailSend) {
+        when (vs.model.emailSend) {
             EmailSend.SEND -> showEmailSendDialog()
             EmailSend.SENT -> showEmailSentDialog()
             EmailSend.NOTHING -> Unit
-
         }
     }
 
@@ -314,7 +311,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
         type.paint.maskFilter = null
     }
 
-    private fun showEmailSentDialog(){
+    private fun showEmailSentDialog() {
         SendVoucherSuccessDialog(context!!) {
             sentEmailDialogShown.onNext(Unit)
         }.show()
@@ -344,7 +341,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
         startActivity(intent)
     }
 
-    private fun showEmailSendDialog(){
+    private fun showEmailSendDialog() {
         sendEmailDialog.show()
     }
 
