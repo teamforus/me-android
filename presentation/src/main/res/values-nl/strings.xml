@@ -102,7 +102,9 @@
     <string name="profile_logout">Log uit</string>
     <string name="profile_button_show_qr">Toon QR-code</string>
     <string name="profile_about_me">Over Me</string>
-    <string name="profile_about_me_text">Met Me kan je een profiel aanmaken, vouchers beheren en de QR-code scanner gebruiken om in te loggen op de gebruikersomgeving.</string>
+    <string name="profile_about_me_text">De app Me werkt samen met het Forus platform en biedt de volgende mogelijkheden:\n \n  • 	inloggen op applicaties;\n
+	• 	vouchers beheren;\n
+	• 	profiel beheren\n \nDe applicatie biedt een duidelijk overzicht van vouchers en makkelijke en veilige manier van inloggen zonder wachtwoord.\n \nDe applicatie functioneert als een generieke stadspas waarmee men zich kan identificeren aan Platform Forus en betalingen kan verrichten.</string>
     <string name="profile_app_version">App versie</string>
     <string name="profile_about">Informatie</string>
 

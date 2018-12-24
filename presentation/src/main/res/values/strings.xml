@@ -107,7 +107,9 @@
     <string name="profile_logout">Logout</string>
     <string name="profile_button_show_qr">My QR-code</string>
     <string name="profile_about_me">About Me</string>
-    <string name="profile_about_me_text">With Me you can create an identity, receive and use your vouchers.</string>
+    <string name="profile_about_me_text">Me works together with the Forus platform and offers the following possibilities:\n \n • 	log in to applications;\n
+• 	manage vouchers;\n
+• 	manage profile.\n \nThe application provides a clear overview of vouchers and an easy and secure way of logging in without a password.\n \nThe application functions as a generic client that can be used with Platform Forus to make payments.</string>
     <string name="profile_app_version">App version</string>
     <string name="profile_support" translatable="false">Support</string>
     <string name="profile_about">About</string>
