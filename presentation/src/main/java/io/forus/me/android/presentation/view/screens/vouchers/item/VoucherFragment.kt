@@ -140,6 +140,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
             val url = when {
                 voucher?.product?.id != null ->
                     "https://" + BuildConfig.PREFIX_URL + "zuidhorn.forus.io/#!/products/${voucher?.product?.id}"
+                voucher?.fundWebShopUrl?.isNotEmpty() == true -> voucher?.fundWebShopUrl
                 else -> "https://www.zuidhorn.nl/kindpakket"
 
             }

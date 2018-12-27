@@ -12,6 +12,7 @@ class Voucher(var isProduct: Boolean,
               var name: String,
               var organizationName: String,
               var fundName: String,
+              var fundWebShopUrl: String,
               var description: String?,
               var createdAt: Date,
               var currency: Currency,
@@ -26,7 +27,8 @@ class Voucher(var isProduct: Boolean,
             parcel.readString() ?: "",
             parcel.readString() ?: "",
             parcel.readString() ?: "",
-            parcel.readString(),
+            parcel.readString()?: "",
+            parcel.readString()?: "",
             Date(parcel.readLong()),
             parcel.readParcelable(Currency::class.java.classLoader) ?: Currency(),
             BigDecimal.valueOf(parcel.readDouble()),
@@ -41,6 +43,7 @@ class Voucher(var isProduct: Boolean,
         parcel.writeString(name)
         parcel.writeString(organizationName)
         parcel.writeString(fundName)
+        parcel.writeString(fundWebShopUrl)
         parcel.writeString(description)
         parcel.writeLong(createdAt.time)
         parcel.writeParcelable(currency, flags)
