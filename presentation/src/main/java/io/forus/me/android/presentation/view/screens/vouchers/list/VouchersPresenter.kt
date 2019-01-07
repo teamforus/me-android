@@ -30,7 +30,7 @@ class VouchersPresenter constructor(val vouchersRepository: VouchersRepository) 
 
                     Transaction(it.id, organization,
                             Currency(it.currency.name, it.currency.logoUrl),
-                            it.amount, createdAt, Transaction.Type.valueOf(it.type.name))
+                            it.amount, it.createdAt, Transaction.Type.valueOf(it.type.name))
                 }
 
                 val domainProduct = domainVoucher.product
