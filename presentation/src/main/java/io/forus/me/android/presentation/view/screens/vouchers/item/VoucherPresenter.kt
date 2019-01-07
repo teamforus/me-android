@@ -27,7 +27,7 @@ class VoucherPresenter constructor(private val vouchersRepository: VouchersRepos
                     vouchersRepository.getVoucher(address).map { domainVoucher ->
                         with(domainVoucher) {
                             Voucher(isProduct, isUsed, address, name, organizationName,
-                                    fundName, description, createdAt,
+                                    fundName, fundWebShopUrl ,description, createdAt,
                                     Currency(currency.name, currency.logoUrl), amount, logo,
                                     transactions.map {
                                         Transaction(it.id, Organization(it.organization.id,
