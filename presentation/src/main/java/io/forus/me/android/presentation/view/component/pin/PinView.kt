@@ -91,7 +91,7 @@ class PinView : FrameLayout {
         val tv = io.forus.me.android.presentation.view.component.text.TextView(context)
         tv.layoutParams = lparams
         tv.setTextColor(ContextCompat.getColor(context, R.color.textColor))
-        tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 58.2f)
+        tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimension(R.dimen.auth_pin_text_size));
         tv.text = ""
         tv.type = FontType.Medium
         mContainer.addView(tv)
