@@ -13,6 +13,9 @@ public class Fund {
     @SerializedName("state")
     private String state;
 
+    @SerializedName("url_webshop")
+    private String webShopUrl;
+
     @SerializedName("organization")
     private Organization organization;
 
@@ -21,10 +24,11 @@ public class Fund {
 
     public Fund() { }
 
-    public Fund(Long id, String name, String state, Organization organization, Logo logo) {
+    public Fund(Long id, String name, String state, String webShopUrl, Organization organization, Logo logo) {
         this.id = id;
         this.name = name;
         this.state = state;
+        this.webShopUrl = webShopUrl;
         this.organization = organization;
         this.logo = logo;
     }
@@ -67,5 +71,13 @@ public class Fund {
 
     public void setLogo(Logo logo) {
         this.logo = logo;
+    }
+
+    public String getWebShopUrl() {
+        return webShopUrl;
+    }
+
+    public void setWebShopUrl(String webShopUrl) {
+        this.webShopUrl = webShopUrl;
     }
 }

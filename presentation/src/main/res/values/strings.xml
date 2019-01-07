@@ -35,8 +35,8 @@
 
     <!-- Restore identity -->
     <string name="restore_login">Log in</string>
-    <string name="restore_login_via_de_qr_code">login via qr code</string>
-    <string name="restore_scan_deze_qr">Scan this QR Code with another device you have already registered</string>
+    <string name="restore_login_via_de_qr_code">login via qr-code</string>
+    <string name="restore_scan_deze_qr">Scan this QR-Code with another device you have already registered</string>
     <string name="restore_inloggen_via_email">Login with email</string>
     <string name="restore_inloggen_via_qr">Add another device</string>
     <string name="restore_auth_code">Authorization code</string>
@@ -62,11 +62,13 @@
     <string name="new_account_email_repeat_error">Emails should be the same</string>
 
     <!-- New passcode screen -->
-    <string name="passcode_title_create">Create Passcode</string>
-    <string name="passcode_title_confirm">Confirm Passcode</string>
+    <string name="passcode_title_create">Enter new pass code</string>
+    <string name="passcode_title_confirm">Enter your old passcode</string>
+    <string name="passcode_title_new_confirm">Confirm new pass code</string>
     <string name="passcode_title_create_identity_wait">Please wait</string>
-    <string name="passcode_subtitle_create">Enter 4-digit passcode</string>
-    <string name="passcode_subtitle_confirm">Confirm 4-digit passcode</string>
+    <string name="passcode_subtitle_create">Secure your profile by creating a passcode.</string>
+    <string name="passcode_subtitle_confirm">In order to change your passcode, enter your old one</string>
+    <string name="passcode_subtitle_new_confirm">Repeat your passcode to finally set it up</string>
     <string name="passcode_subtitle_create_not_match">Passwords don\'t match. Please try again</string>
     <string name="passcode_subtitle_create_identity">Creating identity</string>
     <string name="passcode_subtitle_change_error">Something went wrong :(</string>
@@ -74,6 +76,7 @@
     <string name="passcode_changing">Changing passcode</string>
 
     <!-- PINLOCK screen -->
+    <string name="passcode_title_pinlock_confirm">Confirm Passcode</string>
     <string name="passcode_subtitle_pinlock_confirm">Confirm your identity</string>
     <string name="passcode_subtitle_pinlock_checking">Checking</string>
     <string name="passcode_subtitle_pinlock_error">Wrong passcode</string>
@@ -107,7 +110,9 @@
     <string name="profile_logout">Logout</string>
     <string name="profile_button_show_qr">My QR-code</string>
     <string name="profile_about_me">About Me</string>
-    <string name="profile_about_me_text">With Me you can create an identity, receive and use your vouchers.</string>
+    <string name="profile_about_me_text">Me works together with the Forus platform and offers the following possibilities:\n \n • 	log in to applications;\n
+• 	manage vouchers;\n
+• 	manage profile.\n \nThe application provides a clear overview of vouchers and an easy and secure way of logging in without a password.\n \nThe application functions as a generic client that can be used with Platform Forus to make payments.</string>
     <string name="profile_app_version">App version</string>
     <string name="profile_support" translatable="false">Support</string>
     <string name="profile_about">About</string>
@@ -196,6 +201,7 @@
     <string name="voucher_send_email_success">Success</string>
     <string name="voucher_send_email_description">The voucher was sent to your mail</string>
     <string name="voucher_qr_code_subtitle">This is the QR-code of the Voucher</string>
+    <string name="voucher_qr_code_subtitle_with_fund_name">This is your %s voucher in the form of a QR-code</string>
     <string name="voucher_qr_code_description">Let the shopkeeper scan this QR-code to make a payment</string>
     <string name="voucher_email_to_me">Email to me</string>
     <string name="send_feedback_email_dialog_title">Would you like to send us your feedback by e-mail?</string>

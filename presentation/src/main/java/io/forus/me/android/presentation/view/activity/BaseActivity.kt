@@ -71,7 +71,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     open fun replaceFragment(fragment: Fragment,
-                             sharedViews: List<View>) {
+                             sharedViews: List<View> = emptyList()) {
     }
 
 

@@ -26,4 +26,9 @@
     <dimen name="pin_default_dot_diameter">8dp</dimen>
     <dimen name="pin_default_dot_spacing">8dp</dimen>
 
+
+    <dimen name="auth_pin_text_size">48.2sp</dimen>
+
+
+
 </resources>

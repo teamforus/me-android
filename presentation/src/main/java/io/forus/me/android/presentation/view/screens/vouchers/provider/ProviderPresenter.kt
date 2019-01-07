@@ -25,7 +25,7 @@ class ProviderPresenter constructor(private val vouchersRepository: VouchersRepo
 
     override fun initialModelSingle(): Single<VoucherProvider> = Single.fromObservable(vouchersRepository.getVoucherAsProvider(address).map {
         VoucherProvider(Voucher(it.voucher.isProduct, it.voucher.isUsed, it.voucher.address, it.voucher.name, it.voucher.organizationName,
-                it.voucher.fundName, it.voucher.description, it.voucher.createdAt,
+                it.voucher.fundName, it.voucher.fundWebShopUrl, it.voucher.description, it.voucher.createdAt,
                 Currency(it.voucher.currency.name, it.voucher.currency.logoUrl), it.voucher.amount, it.voucher.logo,
                 it.voucher.transactions.map { transaction ->
                     Transaction(transaction.id,
