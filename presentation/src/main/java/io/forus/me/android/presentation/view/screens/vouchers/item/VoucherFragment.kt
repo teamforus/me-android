@@ -20,9 +20,13 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.jakewharton.rxbinding2.view.RxView
+import io.forus.me.android.data.executor.JobExecutor
+import io.forus.me.android.domain.interactor.LoadVoucherUseCase
+import io.forus.me.android.domain.interactor.SendEmailUseCase
 import io.forus.me.android.domain.models.qr.QrCode
 import io.forus.me.android.presentation.BuildConfig
 import io.forus.me.android.presentation.R
+import io.forus.me.android.presentation.UIThread
 import io.forus.me.android.presentation.helpers.format
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.models.vouchers.Voucher
@@ -217,7 +221,8 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
     }
 
     override fun createPresenter() = VoucherPresenter(
-            Injection.instance.vouchersRepository,
+            LoadVoucherUseCase(Injection.instance.vouchersRepository, JobExecutor(), UIThread()),
+            SendEmailUseCase(Injection.instance.vouchersRepository, JobExecutor(), UIThread()),
             address,
             voucher
     )
