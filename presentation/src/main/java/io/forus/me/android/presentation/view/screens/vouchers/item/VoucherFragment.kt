@@ -179,7 +179,6 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
 
         var mapViewBundle = outState.getBundle(MAP_VIEW_BUNDLE_KEY)
         if (mapViewBundle == null) {
@@ -188,6 +187,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
         }
 
         map_view?.onSaveInstanceState(mapViewBundle)
+        super.onSaveInstanceState(outState)
     }
 
     override fun onResume() {
