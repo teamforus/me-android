@@ -10,6 +10,7 @@ import io.reactivex.schedulers.Schedulers
 abstract class LRPresenter<I, M, V : LRView<M>> : MviBasePresenter<V, LRViewState<M>>() {
 
     protected abstract fun initialModelSingle(): Single<I>
+    protected open fun refreshModelSingle(): Single<I> = initialModelSingle()
 
     protected open val reloadIntent: Observable<Any> = Observable.never()
 
@@ -17,7 +18,7 @@ abstract class LRPresenter<I, M, V : LRView<M>> : MviBasePresenter<V, LRViewStat
     protected val refreshIntent: Observable<Any> = intent { it.refresh() }
     protected  val updateIntent: Observable<Any> = intent { it.updateData() }
 
-    protected fun loadRefreshPartialChanges(): Observable<LRPartialChange> = Observable.merge(
+    protected open fun loadRefreshPartialChanges(): Observable<LRPartialChange> = Observable.merge(
             Observable
                     .merge(
                             Observable.just(Any()),
@@ -37,7 +38,7 @@ abstract class LRPresenter<I, M, V : LRView<M>> : MviBasePresenter<V, LRViewStat
                     },
             refreshIntent
                     .switchMap {
-                        initialModelSingle()
+                        refreshModelSingle()
                                 .toObservable()
                                 .subscribeOn(Schedulers.io())
                                 .map<LRPartialChange> { LRPartialChange.InitialModelLoaded(it) }

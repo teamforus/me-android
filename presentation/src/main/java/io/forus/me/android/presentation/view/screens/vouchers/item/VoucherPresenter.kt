@@ -3,9 +3,7 @@ package io.forus.me.android.presentation.view.screens.vouchers.item
 import io.forus.me.android.domain.interactor.LoadVoucherUseCase
 import io.forus.me.android.domain.interactor.SendEmailUseCase
 import io.forus.me.android.presentation.models.currency.Currency
-import io.forus.me.android.presentation.models.vouchers.Organization
-import io.forus.me.android.presentation.models.vouchers.Transaction
-import io.forus.me.android.presentation.models.vouchers.Voucher
+import io.forus.me.android.presentation.models.vouchers.*
 import io.forus.me.android.presentation.view.base.lr.LRPresenter
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.base.lr.PartialChange
@@ -13,6 +11,7 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableObserver
+import io.reactivex.subjects.ReplaySubject
 import io.forus.me.android.domain.models.vouchers.Voucher as VoucherDomain
 
 
@@ -21,47 +20,25 @@ class VoucherPresenter constructor(private val loadVoucherUseCase: LoadVoucherUs
                                    private val address: String,
                                    private val voucher: Voucher? = null) : LRPresenter<Voucher, VoucherModel, VoucherView>() {
 
-    private lateinit var voucherObservable: Observable<Voucher>
+    private val voucherSubject: ReplaySubject<Voucher> by lazy { ReplaySubject.create<Voucher>() }
 
     override fun initialModelSingle(): Single<Voucher> {
-        voucherObservable = if (voucher != null) Observable.just(voucher) else Observable.empty()
-
-        loadVoucherUseCase.execute(object : DisposableObserver<VoucherDomain?>() {
-            override fun onComplete() {
-            }
-
-            override fun onNext(t: VoucherDomain) {
-                with(t) {
-                    val voucherNext = Voucher(isProduct, isUsed, address, name, organizationName,
-                            fundName, description, createdAt,
-                            Currency(currency.name, currency.logoUrl), amount, logo,
-                            transactions.map {
-                                Transaction(it.id, Organization(it.organization.id,
-                                        it.organization.name, it.organization.logo),
-                                        Currency(it.currency.name, it.currency.logoUrl),
-                                        it.amount, createdAt,
-                                        Transaction.Type.valueOf(it.type.name))
-                            })
-                    voucherObservable.ambWith { observer -> observer.onNext(voucherNext) }
-                }
-
-            }
-
-            override fun onError(e: Throwable) {
-            }
-        }, LoadVoucherUseCase.Params.forVoucher(address))
-
-        return voucherObservable.singleOrError()
+        if (voucher != null) {
+            voucherSubject.onNext(voucher)
+            voucherSubject.onComplete()
+        } else {
+            loadVoucherUseCase.execute(LoadVoucherObserver(),
+                    LoadVoucherUseCase.Params.forVoucher(address))
+        }
+        return voucherSubject.singleOrError()
     }
 
+    override fun refreshModelSingle(): Single<Voucher> {
+        loadVoucherUseCase.execute(LoadVoucherObserver(), LoadVoucherUseCase.Params.forVoucher(address))
+        return voucherSubject.singleOrError()
+    }
 
     override fun VoucherModel.changeInitialModel(i: Voucher): VoucherModel = copy(item = i)
-
-    override fun attachView(view: VoucherView) {
-        super.attachView(view)
-
-
-    }
 
     override fun bindIntents() {
         val infoObservable = Observable.merge(
@@ -81,18 +58,20 @@ class VoucherPresenter constructor(private val loadVoucherUseCase: LoadVoucherUs
 
                 intent(VoucherView::sendEmailDialogShows).switchMap {
                     if (it) {
-                        val observable = Observable.empty<VoucherPartialChanges>()
-                        sendEmailUseCase.execute(object: DisposableObserver<Boolean?>() {
+                        val observable = ReplaySubject.create<VoucherPartialChanges>()
+                        sendEmailUseCase.execute(object : DisposableObserver<Boolean?>() {
                             override fun onComplete() {
 
                             }
 
                             override fun onNext(t: Boolean) {
-                                observable.ambWith { observer -> observer.onNext(VoucherPartialChanges.SendEmailSuccess(Unit)) }
+                                observable.onNext(VoucherPartialChanges.SendEmailSuccess(Unit))
+                                voucherSubject.onComplete()
                             }
 
                             override fun onError(e: Throwable) {
-                                observable.ambWith { observer -> observer.onNext(VoucherPartialChanges.SendEmailError(e)) }
+                                observable.onNext(VoucherPartialChanges.SendEmailError(e))
+                                voucherSubject.onComplete()
                             }
                         }, SendEmailUseCase.Params.forVoucher(address))
                         return@switchMap observable
@@ -134,4 +113,67 @@ class VoucherPresenter constructor(private val loadVoucherUseCase: LoadVoucherUs
             is VoucherPartialChanges.SendEmailDialogShows -> vs.copy(model = vs.model.copy(emailSend = EmailSend.SEND))
         }
     }
+
+    inner class LoadVoucherObserver : DisposableObserver<VoucherDomain?>() {
+        override fun onComplete() {
+        }
+
+        override fun onNext(voucherDomain: VoucherDomain) {
+            val productDomain = voucherDomain.product
+            val product = if(productDomain != null) {
+                Product(productDomain.id,
+                        productDomain.organizationId,
+                        productDomain.productCategoryId,
+                        productDomain.name,
+                        productDomain.description,
+                        productDomain.price,
+                        productDomain.oldPrice,
+                        productDomain.totalAmount,
+                        productDomain.soldAmount,
+                        ProductCategory(productDomain.productCategory.id,
+                                productDomain.productCategory.key,
+                                productDomain.productCategory.name),
+                        Organization(productDomain.organization.id,
+                                productDomain.organization.name,
+                                productDomain.organization.logo,
+                                productDomain.organization.lat,
+                                productDomain.organization.lon,
+                                productDomain.organization.address,
+                                productDomain.organization.phone,
+                                productDomain.organization.email))
+            } else {
+                null
+            }
+
+            val voucherNext = Voucher(voucherDomain.isProduct,
+                    voucherDomain.isUsed,
+                    voucherDomain.address,
+                    voucherDomain.name,
+                    voucherDomain.organizationName,
+                    voucherDomain.fundName,
+                    voucherDomain.description,
+                    voucherDomain.createdAt,
+                    Currency(voucherDomain.currency.name,
+                            voucherDomain.currency.logoUrl),
+                    voucherDomain.amount,
+                    voucherDomain.logo,
+
+                    voucherDomain.transactions.map {
+                        Transaction(it.id, Organization(it.organization.id,
+                                it.organization.name,
+                                it.organization.logo),
+                                Currency(it.currency.name,
+                                        it.currency.logoUrl),
+                                it.amount,
+                                it.createdAt,
+                                Transaction.Type.valueOf(it.type.name))
+                    }, product)
+            voucherSubject.onNext(voucherNext)
+            voucherSubject.onComplete()
+        }
+
+        override fun onError(e: Throwable) {
+        }
+    }
+
 }
