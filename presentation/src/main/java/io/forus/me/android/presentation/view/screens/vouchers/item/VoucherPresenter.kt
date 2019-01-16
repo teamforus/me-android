@@ -18,7 +18,7 @@ import io.forus.me.android.domain.models.vouchers.Voucher as VoucherDomain
 class VoucherPresenter constructor(private val loadVoucherUseCase: LoadVoucherUseCase,
                                    private val sendEmailUseCase: SendEmailUseCase,
                                    private val address: String,
-                                   private val voucher: Voucher? = null) : LRPresenter<Voucher, VoucherModel, VoucherView>() {
+                                   private var voucher: Voucher? = null) : LRPresenter<Voucher, VoucherModel, VoucherView>() {
 
     private val voucherSubject: ReplaySubject<Voucher> by lazy { ReplaySubject.create<Voucher>() }
 
@@ -37,19 +37,12 @@ class VoucherPresenter constructor(private val loadVoucherUseCase: LoadVoucherUs
         loadVoucherUseCase.execute(LoadVoucherObserver(), LoadVoucherUseCase.Params.forVoucher(address))
         return voucherSubject.singleOrError()
     }
-
+  
     override fun VoucherModel.changeInitialModel(i: Voucher): VoucherModel = copy(item = i)
 
     override fun bindIntents() {
-        val infoObservable = Observable.merge(
-                loadRefreshPartialChanges(),
-                intent {
-                    it.showInfo()
-                }
-        )
 
-
-        val emailObservable = Observable.merge(
+        val observable = Observable.merge(
                 loadRefreshPartialChanges(),
 
                 intent(VoucherView::sendEmail).map {
@@ -96,8 +89,9 @@ class VoucherPresenter constructor(private val loadVoucherUseCase: LoadVoucherUs
                 false,
                 VoucherModel())
 
+
         subscribeViewState(
-                emailObservable.scan(initialViewState, this::stateReducer)
+                observable.scan(initialViewState, this::stateReducer)
                         .observeOn(AndroidSchedulers.mainThread()),
                 VoucherView::render)
     }

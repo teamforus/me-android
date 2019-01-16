@@ -82,8 +82,9 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
         AlertDialog.Builder(activity!!)
                 .setTitle(R.string.send_voucher_email_dialog_title)
                 .setPositiveButton(R.string.send_voucher_email_dialog_positive_button) { _, _ ->
-                    sendEmailDialogShows.onNext(true) }
-                .setNegativeButton(R.string.send_voucher_email_dialog_cancel_button) { _: DialogInterface, _: Int -> sendEmailDialogShows.onNext(false)}
+                    sendEmailDialogShows.onNext(true)
+                }
+                .setNegativeButton(R.string.send_voucher_email_dialog_cancel_button) { _: DialogInterface, _: Int -> sendEmailDialogShows.onNext(false) }
                 .setCancelable(false)
 
     }
@@ -143,6 +144,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
             val url = when {
                 voucher?.product?.id != null ->
                     "https://" + BuildConfig.PREFIX_URL + "zuidhorn.forus.io/#!/products/${voucher?.product?.id}"
+                voucher?.fundWebShopUrl?.isNotEmpty() == true -> voucher?.fundWebShopUrl
                 else -> "https://www.zuidhorn.nl/kindpakket"
 
             }
@@ -156,7 +158,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
         val qrEncoded = QrCode(QrCode.Type.VOUCHER, address).toJson()
         iv_qr_icon.setQRText(qrEncoded)
         iv_qr_icon.setOnClickListener {
-            (activity as? DashboardActivity)?.showPopupQRFragment(qrEncoded)
+            (activity as? DashboardActivity)?.showPopupQRFragment(qrEncoded, resources.getString(R.string.voucher_qr_code_subtitle_with_fund_name, voucher?.fundName))
         }
 
         toolbar.setNavigationOnClickListener {
@@ -236,13 +238,13 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
             setToolbarTitle(resources.getString(if (voucher.isProduct) R.string.vouchers_item_product else R.string.vouchers_item))
             adapter.transactions = voucher.transactions
             tv_transactions_title.visibility =
-                    if (voucher.transactions.isEmpty()) View.GONE else View.VISIBLE
+                    if (voucher.isProduct || voucher.transactions.isEmpty()) View.GONE else View.VISIBLE
 
             tv_created.visibility =
-                    if (voucher.transactions.isEmpty()) View.GONE else View.VISIBLE
+                    if (voucher.isProduct) View.GONE else View.VISIBLE
 
             shopkeeper_card.visibility =
-                    if (voucher.transactions.isEmpty()) View.VISIBLE else View.GONE
+                    if (voucher.isProduct) View.VISIBLE else View.GONE
 
             if (voucher.transactions.isNotEmpty()) {
                 tv_created.text = resources.getString(R.string.voucher_created,
@@ -270,11 +272,10 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
         }
 
 
-        when(vs.model.emailSend) {
+        when (vs.model.emailSend) {
             EmailSend.SEND -> showEmailSendDialog()
             EmailSend.SENT -> showEmailSentDialog()
             EmailSend.NOTHING -> Unit
-
         }
     }
 
@@ -316,7 +317,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
         type.paint.maskFilter = null
     }
 
-    private fun showEmailSentDialog(){
+    private fun showEmailSentDialog() {
         SendVoucherSuccessDialog(context!!) {
             sentEmailDialogShown.onNext(Unit)
         }.show()
@@ -346,7 +347,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
         startActivity(intent)
     }
 
-    private fun showEmailSendDialog(){
+    private fun showEmailSendDialog() {
         sendEmailDialog.show()
     }
 

@@ -16,7 +16,7 @@ abstract class LRPresenter<I, M, V : LRView<M>> : MviBasePresenter<V, LRViewStat
 
     protected val retryIntent: Observable<Any> = intent { it.retry() }
     protected val refreshIntent: Observable<Any> = intent { it.refresh() }
-    protected  val updateIntent: Observable<Any> = intent { it.updateData() }
+    protected val updateIntent: Observable<Any> = intent { it.updateData() }
 
     protected open fun loadRefreshPartialChanges(): Observable<LRPartialChange> = Observable.merge(
             Observable
@@ -30,7 +30,7 @@ abstract class LRPresenter<I, M, V : LRView<M>> : MviBasePresenter<V, LRViewStat
                                 .toObservable()
                                 .subscribeOn(Schedulers.io())
                                 .map<LRPartialChange> { LRPartialChange.InitialModelLoaded(it) }
-                                .onErrorReturn {throwable->
+                                .onErrorReturn { throwable ->
                                     throwable.printStackTrace()
                                     LRPartialChange.LoadingError(throwable)
                                 }

@@ -122,8 +122,8 @@ class DashboardActivity : SlidingPanelActivity(), DashboardContract.View {
         disposableHolder.disposeAll()
     }
 
-    fun showPopupQRFragment(address: String) {
-        addPopupFragment(QrFragment.newIntent(address, null, null), "QR code")
+    fun showPopupQRFragment(address: String, qrSubtitle: String? = null, qrDescription: String? = null) {
+        addPopupFragment(QrFragment.newIntent(address, qrSubtitle, qrDescription), "QR code")
     }
 
     override fun replaceFragment(fragment: Fragment, sharedViews: List<View>) {
