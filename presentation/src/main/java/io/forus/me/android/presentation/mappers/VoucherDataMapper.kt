@@ -9,14 +9,20 @@ class VoucherDataMapper(private val currencyDataMapper: CurrencyDataMapper,
                         private val transactionDataMapper: TransactionDataMapper,
                         private val productDataMapper: ProductDataMapper) : Mapper<VoucherDomain, Voucher>() {
     override fun transform(domainModel: VoucherDomain): Voucher {
-        if (domainModel == null) {
-            throw IllegalArgumentException("Cannot transform a null value")
-        }
 
         return with(domainModel) {
-            Voucher(isProduct, isUsed, address, name, organizationName,
-                    fundName, description, createdAt,
-                    currencyDataMapper.transform(currency), amount, logo,
+            Voucher(isProduct,
+                    isUsed,
+                    address,
+                    name,
+                    organizationName,
+                    fundName,
+                    fundWebShopUrl,
+                    description,
+                    createdAt,
+                    currencyDataMapper.transform(currency),
+                    amount,
+                    logo,
                     transactionDataMapper.transform(transactions) as List<Transaction>,
                     if (product != null) {
                         productDataMapper.transform(product!!)

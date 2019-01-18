@@ -29,6 +29,7 @@ import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.UIThread
 import io.forus.me.android.presentation.helpers.format
 import io.forus.me.android.presentation.internal.Injection
+import io.forus.me.android.presentation.mappers.*
 import io.forus.me.android.presentation.models.vouchers.Voucher
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
@@ -220,12 +221,16 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
         map_view?.onLowMemory()
     }
 
-    override fun createPresenter() = VoucherPresenter(
-            LoadVoucherUseCase(Injection.instance.vouchersRepository, JobExecutor(), UIThread()),
-            SendEmailUseCase(Injection.instance.vouchersRepository, JobExecutor(), UIThread()),
-            address,
-            voucher
-    )
+    override fun createPresenter(): VoucherPresenter {
+        val currencyDataMapper = CurrencyDataMapper()
+        return VoucherPresenter(
+                LoadVoucherUseCase(Injection.instance.vouchersRepository, JobExecutor(), UIThread()),
+                SendEmailUseCase(Injection.instance.vouchersRepository, JobExecutor(), UIThread()),
+                VoucherDataMapper(currencyDataMapper, TransactionDataMapper(currencyDataMapper, OrganizationDataMapper()), ProductDataMapper()),
+                address,
+                voucher
+        )
+    }
 
     override fun render(vs: LRViewState<VoucherModel>) {
         super.render(vs)
