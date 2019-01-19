@@ -1,6 +1,6 @@
 package io.forus.me.android.data.repository.settings
 
-class SettingsLocalDataSource(private val settings: SettingsDataSource): SettingsDataSource{
+class SettingsLocalDataSource(private val settings: SettingsDataSource) : SettingsDataSource {
 
     override fun clear() = settings.clear()
 
@@ -23,4 +23,12 @@ class SettingsLocalDataSource(private val settings: SettingsDataSource): Setting
     override fun isStartFromScannerEnabled(): Boolean = settings.isStartFromScannerEnabled()
 
     override fun setStartFromScannerEnabled(isEnabled: Boolean): Boolean = settings.setStartFromScannerEnabled(isEnabled)
+
+    override fun isSendCrashReportsEnabled(): Boolean {
+        return settings.isSendCrashReportsEnabled()
+    }
+
+    override fun setSendCrashReportsEnabled(isEnabled: Boolean): Boolean {
+        return settings.setSendCrashReportsEnabled(isEnabled)
+    }
 }

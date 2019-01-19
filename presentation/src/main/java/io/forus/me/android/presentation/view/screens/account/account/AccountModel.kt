@@ -8,5 +8,6 @@ data class AccountModel(
         val pinlockEnabled: Boolean = false,
         val fingerprintEnabled: Boolean = false,
         val startFromScanner: Boolean = false,
+        val sendCrashReportsEnabled: Boolean = false,
         val navigateToWelcome: Boolean = false
         )

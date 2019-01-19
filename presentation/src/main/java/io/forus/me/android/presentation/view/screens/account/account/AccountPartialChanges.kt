@@ -11,4 +11,6 @@ sealed class AccountPartialChanges : PartialChange {
 
     data class NavigateToWelcomeScreen(val value: Boolean) : AccountPartialChanges()
 
+    data class SendCrashReportsEnabled(val value: Boolean) : AccountPartialChanges()
+
 }

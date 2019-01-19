@@ -4,22 +4,24 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import com.crashlytics.android.Crashlytics
 import io.fabric.sdk.android.Fabric
-import io.forus.me.android.domain.models.account.Account
+import io.forus.me.android.data.executor.JobExecutor
+import io.forus.me.android.domain.interactor.CheckLoginUseCase
+import io.forus.me.android.domain.interactor.CheckSendCrashReportsEnabled
+import io.forus.me.android.domain.interactor.ExitIdentityUseCase
+import io.forus.me.android.domain.interactor.LoadAccountUseCase
 import io.forus.me.android.presentation.R
+import io.forus.me.android.presentation.UIThread
 import io.forus.me.android.presentation.helpers.reactivex.DisposableHolder
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.activity.SlidingPanelActivity
 import io.forus.me.android.presentation.view.fragment.QrFragment
-import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_dashboard.*
 
 
 class DashboardActivity : SlidingPanelActivity(), DashboardContract.View {
@@ -27,10 +29,11 @@ class DashboardActivity : SlidingPanelActivity(), DashboardContract.View {
     private var currentFragment: android.support.v4.app.Fragment? = null
     private var menu: Menu? = null
 
-    private var accountRepository = Injection.instance.accountRepository
     private var settings = Injection.instance.settingsDataSource
     private var fcmHandler = Injection.instance.fcmHandler
     private var disposableHolder = DisposableHolder()
+
+    private lateinit var presenter: DashboardContract.Presenter
 
     companion object {
         fun getCallingIntent(context: Context): Intent {
@@ -45,32 +48,15 @@ class DashboardActivity : SlidingPanelActivity(), DashboardContract.View {
         super.onCreate(savedInstanceState)
 
         replaceFragment(R.id.dashboard_content, DashboardFragment())
+        presenter = DashboardPresenter(this,
+                CheckLoginUseCase(Injection.instance.accountRepository, JobExecutor(), UIThread()),
+                LoadAccountUseCase(JobExecutor(), UIThread(), Injection.instance.accountRepository),
+                CheckSendCrashReportsEnabled(Injection.instance.accountRepository, JobExecutor(), UIThread()),
+                ExitIdentityUseCase(Injection.instance.accountRepository, JobExecutor(), UIThread()))
+        presenter.onCreate()
 
-        checkLogin()
         checkFCM()
         checkStartFromScanner()
-    }
-
-    private fun checkLogin() {
-        disposableHolder.add(Single.fromObservable(accountRepository.checkCurrentToken())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .map {
-                    if (!it) logout()
-                    else if (Fabric.isInitialized()) {
-                        accountRepository.getAccount()
-                                .subscribeOn(Schedulers.io())
-                                .observeOn(AndroidSchedulers.mainThread())
-                                .subscribe { a: Account? ->
-                                    a?.let { account ->
-
-                                        Crashlytics.setUserIdentifier(account.address)
-                                    }
-                                }
-                    }
-                }
-                .onErrorReturn { }
-                .subscribe())
     }
 
     private fun checkFCM() {
@@ -81,31 +67,16 @@ class DashboardActivity : SlidingPanelActivity(), DashboardContract.View {
     }
 
     override fun addUserId(id: String) {
-//        if (Fabric.isInitialized()) {
-//            Crashlytics.setUserIdentifier(id)
-//        }
+        if (Fabric.isInitialized()) {
+            Crashlytics.setUserIdentifier(id)
+        }
     }
 
-    override fun logout(){
-        disposableHolder.add(Single.fromObservable(accountRepository.exitIdentity())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .flatMap {
-                    try {
-                        Single.fromObservable(fcmHandler.clearFCMToken())
-                                .map {
-                                    navigator.navigateToWelcomeScreen(this)
-                                    finish()
-                                }
-                    } catch (e: Exception) {
-                        Log.e("DASH_LOGOUT", e.message, e)
-                        Single.just(it)
-                    }
-                }
-                .onErrorReturn { }
-                .subscribe())
+    override fun logout() {
+        fcmHandler.clearFCMToken()
+        navigator.navigateToWelcomeScreen(this)
+        finish()
     }
-
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         this.menu = menu
@@ -119,6 +90,7 @@ class DashboardActivity : SlidingPanelActivity(), DashboardContract.View {
 
     override fun onDestroy() {
         super.onDestroy()
+        presenter.onDestroy()
         disposableHolder.disposeAll()
     }
 

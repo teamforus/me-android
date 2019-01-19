@@ -1,15 +1,17 @@
 package io.forus.me.android.presentation.view.screens.dashboard
 
 import io.forus.me.android.domain.interactor.CheckLoginUseCase
-import io.forus.me.android.domain.interactor.UseCase
 import io.forus.me.android.domain.interactor.DefaultObserver
 import io.forus.me.android.domain.interactor.LoadAccountUseCase
+import io.forus.me.android.domain.interactor.UseCase
 import io.forus.me.android.domain.models.account.Account
 
 
 class DashboardPresenter(private var view: DashboardContract.View?,
                          private val checkLoginUseCase: UseCase<Boolean, CheckLoginUseCase.Params>,
-                         private val loadAccountUseCase: UseCase<Account, LoadAccountUseCase.Params>): DashboardContract.Presenter {
+                         private val loadAccountUseCase: UseCase<Account, LoadAccountUseCase.Params>,
+                         private val checkSendCrashReportsEnabledUseCase: UseCase<Boolean, Unit>,
+                         private val exitIdentityUseCase: UseCase<Boolean, Unit>) : DashboardContract.Presenter {
 
 
     override fun onCreate() {
@@ -25,8 +27,27 @@ class DashboardPresenter(private var view: DashboardContract.View?,
 
         override fun onNext(isLoggined: Boolean) {
             if (!isLoggined) {
-                this@DashboardPresenter.view?.logout()
+                exitIdentityUseCase.execute(ExitIdentityObserver(), Unit)
             } else {
+                checkSendCrashReportsEnabledUseCase.execute(CheckSendCrashReportsObserver(), Unit)
+            }
+        }
+    }
+
+    private inner class ExitIdentityObserver : DefaultObserver<Boolean?>() {
+
+        override fun onNext(t: Boolean) {
+            if (t) {
+                this@DashboardPresenter.view?.logout()
+            }
+        }
+
+    }
+
+    private inner class CheckSendCrashReportsObserver : DefaultObserver<Boolean>() {
+
+        override fun onNext(isEnabled: Boolean) {
+            if (isEnabled) {
                 loadAccountUseCase.execute(LoadAccountObserver(), LoadAccountUseCase.Params())
             }
         }

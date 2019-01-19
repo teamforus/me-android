@@ -1,11 +1,11 @@
 package io.forus.me.android.presentation.view.screens.account.account
 
+import io.forus.me.android.domain.repository.account.AccountRepository
+import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.base.lr.LRPartialChange
 import io.forus.me.android.presentation.view.base.lr.LRPresenter
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.base.lr.PartialChange
-import io.forus.me.android.domain.repository.account.AccountRepository
-import io.forus.me.android.presentation.internal.Injection
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -20,7 +20,7 @@ class AccountPresenter constructor(private val accountRepository: AccountReposit
             Single.fromObservable(accountRepository.getAccount()),
             Single.fromObservable(accountRepository.getSecurityOptions()),
             BiFunction { account, securityOptions ->
-                AccountModel(account, securityOptions.pinEnabled, securityOptions.fingerprintEnabled, securityOptions.startFromScanner)
+                AccountModel(account, securityOptions.pinEnabled, securityOptions.fingerprintEnabled, securityOptions.startFromScanner, securityOptions.sendCrashReportsEnabled)
             })
 
 
@@ -29,7 +29,7 @@ class AccountPresenter constructor(private val accountRepository: AccountReposit
 
     override fun bindIntents() {
 
-        val observable = Observable.merge(
+        val observable = Observable.mergeArray(
                 loadRefreshPartialChanges(),
                 intent { it.logout() }
                         .switchMap {
@@ -50,12 +50,12 @@ class AccountPresenter constructor(private val accountRepository: AccountReposit
                         },
 
                 intent { it.switchFingerprint() }
-                        .switchMap {newState ->
+                        .switchMap { newState ->
                             accountRepository.setFingerprintEnabled(newState)
                                     .subscribeOn(Schedulers.io())
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .map<PartialChange> { success ->
-                                        AccountPartialChanges.FingerprintEnabled(if(success) newState else !newState)
+                                        AccountPartialChanges.FingerprintEnabled(if (success) newState else !newState)
                                     }
                                     .onErrorReturn {
                                         LRPartialChange.LoadingError(it)
@@ -63,12 +63,25 @@ class AccountPresenter constructor(private val accountRepository: AccountReposit
                         },
 
                 intent { it.switchStartFromScanner() }
-                        .switchMap {newState ->
+                        .switchMap { newState ->
                             accountRepository.setStartFromScannerEnabled(newState)
                                     .subscribeOn(Schedulers.io())
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .map<PartialChange> { success ->
-                                        AccountPartialChanges.StartFromScannerEnabled(if(success) newState else !newState)
+                                        AccountPartialChanges.StartFromScannerEnabled(if (success) newState else !newState)
+                                    }
+                                    .onErrorReturn {
+                                        LRPartialChange.LoadingError(it)
+                                    }
+                        },
+
+                intent { it.switchSendCrashReports() }
+                        .switchMap { newState ->
+                            accountRepository.setSendCrashReportsEnabled(newState)
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .map<PartialChange> { success ->
+                                        AccountPartialChanges.SendCrashReportsEnabled(if (success) newState else !newState)
                                     }
                                     .onErrorReturn {
                                         LRPartialChange.LoadingError(it)
@@ -100,6 +113,7 @@ class AccountPresenter constructor(private val accountRepository: AccountReposit
             is AccountPartialChanges.NavigateToWelcomeScreen -> vs.copy(model = vs.model.copy(navigateToWelcome = true))
             is AccountPartialChanges.FingerprintEnabled -> vs.copy(model = vs.model.copy(fingerprintEnabled = change.value))
             is AccountPartialChanges.StartFromScannerEnabled -> vs.copy(model = vs.model.copy(startFromScanner = change.value))
+            is AccountPartialChanges.SendCrashReportsEnabled -> vs.copy(model = vs.model.copy(sendCrashReportsEnabled = change.value))
         }
 
     }
