@@ -10,6 +10,8 @@ interface SettingsDataSource {
 
     fun isPinEnabled(): Boolean
 
+    fun isSendCrashReportsEnabled(): Boolean
+
     fun setPin(pin: String): Boolean
 
     fun getPin(): String
@@ -23,4 +25,6 @@ interface SettingsDataSource {
     fun isStartFromScannerEnabled(): Boolean
 
     fun setStartFromScannerEnabled(isEnabled: Boolean): Boolean
+
+    fun setSendCrashReportsEnabled(isEnabled: Boolean): Boolean
 }

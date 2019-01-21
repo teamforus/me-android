@@ -207,4 +207,5 @@
     <string name="shopkeeper_phone_text">Telefoonnummer</string>
     <string name="send_email_title">Stuur e-mail</string>
     <string name="shopkeeper_provider_text">Aanbieder</string>
+    <string name="profile_send_crash_report">Stuur foutrapports</string>
 </resources>

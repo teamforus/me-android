@@ -43,6 +43,7 @@ interface AccountRepository {
 
     fun setStartFromScannerEnabled(isEnabled: Boolean): Observable<Boolean>
 
+    fun setSendCrashReportsEnabled(isEnabled: Boolean): Observable<Boolean>
 
     fun changePin(oldPin: String, newPin: String): Observable<Boolean>
 
@@ -51,6 +52,8 @@ interface AccountRepository {
 
 
     fun getAccount(): Observable<Account>
+
+    fun getSendCrashReportsEnabled(): Observable<Boolean>
 
 
     fun getSecurityOptions(): Observable<SecurityOptions>
