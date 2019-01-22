@@ -37,19 +37,20 @@
                     android:id="@+id/iv_logo"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:scaleType="centerCrop"
                     android:layout_centerInParent="true"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/ic_person_outlined" />
 
             </RelativeLayout>
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="5"
                     android:orientation="vertical">
 
                     <io.forus.me.android.presentation.view.component.text.TextView
@@ -57,6 +58,8 @@
                         style="@style/Subtitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
                         app:type="medium"
                         tools:text="Subtitle1" />
 
@@ -74,6 +77,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
                     <io.forus.me.android.presentation.view.component.text.TextView
@@ -96,7 +100,7 @@
 
                 </LinearLayout>
 
-            </RelativeLayout>
+            </LinearLayout>
 
         </LinearLayout>
 
