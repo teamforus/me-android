@@ -12,6 +12,7 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.subjects.ReplaySubject
+import io.reactivex.subjects.Subject
 import io.forus.me.android.domain.models.vouchers.Voucher as VoucherDomain
 
 
@@ -21,9 +22,10 @@ class VoucherPresenter constructor(private val loadVoucherUseCase: LoadVoucherUs
                                    private val address: String,
                                    private val voucher: Voucher? = null) : LRPresenter<Voucher, VoucherModel, VoucherView>() {
 
-    private val voucherSubject: ReplaySubject<Voucher> by lazy { ReplaySubject.create<Voucher>() }
+    private lateinit var voucherSubject: Subject<Voucher>
 
     override fun initialModelSingle(): Single<Voucher> {
+        voucherSubject = ReplaySubject.create<Voucher>()
         if (voucher != null) {
             voucherSubject.onNext(voucher)
             voucherSubject.onComplete()
@@ -35,10 +37,12 @@ class VoucherPresenter constructor(private val loadVoucherUseCase: LoadVoucherUs
     }
 
     override fun refreshModelSingle(): Single<Voucher> {
+        voucherSubject = ReplaySubject.create<Voucher>()
         loadVoucherUseCase.execute(LoadVoucherObserver(), LoadVoucherUseCase.Params.forVoucher(address))
+
         return voucherSubject.singleOrError()
     }
-  
+
     override fun VoucherModel.changeInitialModel(i: Voucher): VoucherModel = copy(item = i)
 
     override fun bindIntents() {
