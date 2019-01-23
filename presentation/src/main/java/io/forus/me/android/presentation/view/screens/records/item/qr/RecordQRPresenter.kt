@@ -1,11 +1,11 @@
 package io.forus.me.android.presentation.view.screens.records.item.qr
 
-import io.forus.me.android.presentation.view.base.lr.LRPresenter
-import io.forus.me.android.presentation.view.base.lr.LRViewState
-import io.forus.me.android.presentation.view.base.lr.PartialChange
 import io.forus.me.android.domain.models.records.Validation
 import io.forus.me.android.domain.repository.records.RecordsRepository
 import io.forus.me.android.presentation.helpers.reactivex.DisposableHolder
+import io.forus.me.android.presentation.view.base.lr.LRPresenter
+import io.forus.me.android.presentation.view.base.lr.LRViewState
+import io.forus.me.android.presentation.view.base.lr.PartialChange
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -48,7 +48,8 @@ class RecordQRPresenter constructor(private val recordId: Long, private val disp
                 false,
                 null,
                 false,
-                RecordQRModel())
+                RecordQRModel(),
+                false)
 
         subscribeViewState(
                 observable.scan(initialViewState, this::stateReducer)

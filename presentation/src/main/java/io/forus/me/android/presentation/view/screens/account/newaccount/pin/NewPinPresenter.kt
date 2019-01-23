@@ -60,7 +60,8 @@ class NewPinPresenter constructor(private val accountRepository: AccountReposito
                 false,
                 null,
                 false,
-                NewPinModel())
+                NewPinModel(),
+                false)
 
         subscribeViewState(
                 observable.scan(initialViewState, this::stateReducer)

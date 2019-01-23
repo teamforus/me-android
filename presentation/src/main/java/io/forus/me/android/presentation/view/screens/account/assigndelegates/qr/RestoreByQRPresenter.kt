@@ -39,7 +39,8 @@ class RestoreByQRPresenter constructor(private val disposableHolder: DisposableH
                 false,
                 null,
                 false,
-                RestoreByQRModel())
+                RestoreByQRModel(),
+                false)
 
         subscribeViewState(
                 observable.scan(initialViewState, this::stateReducer)

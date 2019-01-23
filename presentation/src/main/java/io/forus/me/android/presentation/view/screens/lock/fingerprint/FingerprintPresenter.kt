@@ -53,7 +53,8 @@ class FingerprintPresenter constructor(val accountRepository: AccountRepository)
                 false,
                 null,
                 false,
-                FingerprintModel())
+                FingerprintModel(),
+                false)
 
         subscribeViewState(
                 observable.scan(initialViewState, this::stateReducer)

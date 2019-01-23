@@ -1,18 +1,11 @@
 package io.forus.me.android.presentation.view.screens.vouchers.provider
 
-import io.forus.me.android.presentation.models.vouchers.Organization
+import io.forus.me.android.domain.repository.vouchers.VouchersRepository
+import io.forus.me.android.presentation.models.currency.Currency
+import io.forus.me.android.presentation.models.vouchers.*
 import io.forus.me.android.presentation.view.base.lr.LRPresenter
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.base.lr.PartialChange
-import io.forus.me.android.presentation.models.vouchers.VoucherProvider
-import io.forus.me.android.domain.repository.vouchers.VouchersRepository
-import io.forus.me.android.presentation.R.id.amount
-import io.forus.me.android.presentation.R.id.description
-import io.forus.me.android.presentation.R.id.name
-import io.forus.me.android.presentation.models.currency.Currency
-import io.forus.me.android.presentation.models.vouchers.ProductCategory
-import io.forus.me.android.presentation.models.vouchers.Transaction
-import io.forus.me.android.presentation.models.vouchers.Voucher
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -106,7 +99,8 @@ class ProviderPresenter constructor(private val vouchersRepository: VouchersRepo
                 false,
                 null,
                 false,
-                ProviderModel())
+                ProviderModel(),
+                false)
 
         subscribeViewState(
                 observable.scan(initialViewState, this::stateReducer)

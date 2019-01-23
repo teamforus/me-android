@@ -68,7 +68,8 @@ class RestoreByEmailPresenter constructor(private val token: String, private val
                 false,
                 null,
                 false,
-                RestoreByEmailModel())
+                RestoreByEmailModel(),
+                false)
 
         subscribeViewState(
                 observable.scan(initialViewState, this::stateReducer)
