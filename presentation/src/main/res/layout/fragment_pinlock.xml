@@ -61,7 +61,7 @@
         </io.forus.me.android.presentation.view.component.pinlock.IndicatorDots>
 
 
-        <RelativeLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -69,9 +69,8 @@
 
             <io.forus.me.android.presentation.view.component.pinlock.PinLockView
                 android:id="@+id/pin_lock_view"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
                 app:keypadButtonSize="@dimen/pinlock_keypad_button_size"
                 app:keypadDeleteButtonDrawable="@drawable/ic_del"
                 app:keypadDeleteButtonPressedColor="#C8C8C8"
@@ -80,6 +79,7 @@
                 app:keypadShowDeleteButton="true"
                 app:keypadTextColor="@color/forus_blue"
                 app:keypadTextSize="@dimen/pinlock_keypad_text_size"
+                android:layout_gravity="center_horizontal"
                 app:keypadVerticalSpacing="16dp"
                 app:pinLength="4" />
 
@@ -88,8 +88,8 @@
                 style="?android:attr/progressBarStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true" />
-        </RelativeLayout>
+                android:layout_gravity="center"/>
+        </FrameLayout>
 
         <Button
             android:id="@+id/logout_button"
