@@ -92,7 +92,8 @@ class VoucherPresenter constructor(private val loadVoucherUseCase: LoadVoucherUs
                 false,
                 null,
                 false,
-                VoucherModel())
+                VoucherModel(),
+                false)
 
 
         subscribeViewState(

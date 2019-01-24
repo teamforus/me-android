@@ -97,7 +97,8 @@ class AccountPresenter constructor(private val accountRepository: AccountReposit
                 false,
                 null,
                 false,
-                AccountModel())
+                AccountModel(),
+                false)
 
         subscribeViewState(
                 observable.scan(initialViewState, this::stateReducer)

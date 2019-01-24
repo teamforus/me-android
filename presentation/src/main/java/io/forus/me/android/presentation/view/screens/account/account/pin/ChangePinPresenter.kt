@@ -80,7 +80,8 @@ class ChangePinPresenter constructor(private val mode: ChangePinMode, private va
                 false,
                 null,
                 false,
-                ChangePinModel())
+                ChangePinModel(),
+                false)
 
         subscribeViewState(
                 observable.scan(initialViewState, this::stateReducer)

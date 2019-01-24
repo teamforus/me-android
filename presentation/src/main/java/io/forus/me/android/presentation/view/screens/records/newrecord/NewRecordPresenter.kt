@@ -87,7 +87,8 @@ class NewRecordPresenter constructor(private val recordRepository: RecordsReposi
                 false,
                 null,
                 false,
-                NewRecordModel())
+                NewRecordModel(),
+                false)
 
         subscribeViewState(
                 observable.scan(initialViewState, this::stateReducer)

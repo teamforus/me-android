@@ -1,10 +1,10 @@
 package io.forus.me.android.presentation.view.screens.assets
 
+import io.forus.me.android.domain.models.assets.Asset
+import io.forus.me.android.domain.repository.assets.AssetsRepository
 import io.forus.me.android.presentation.view.base.lr.LRPresenter
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.base.lr.PartialChange
-import io.forus.me.android.domain.models.assets.Asset
-import io.forus.me.android.domain.repository.assets.AssetsRepository
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 
@@ -39,7 +39,8 @@ class AssetsPresenter constructor(val assetsRepository: AssetsRepository) : LRPr
                 false,
                 null,
                 false,
-                AssetsModel())
+                AssetsModel(),
+                false)
 
         subscribeViewState(
                 observable.scan(initialViewState, this::stateReducer)

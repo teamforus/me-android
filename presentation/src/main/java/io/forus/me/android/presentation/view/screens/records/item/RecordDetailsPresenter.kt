@@ -92,7 +92,8 @@ class RecordDetailsPresenter constructor(private val recordId: Long, private val
                 false,
                 null,
                 false,
-                RecordDetailsModel())
+                RecordDetailsModel(),
+                false)
 
         subscribeViewState(
                 observable.scan(initialViewState, this::stateReducer)
