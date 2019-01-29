@@ -1,6 +1,5 @@
 package io.forus.me.android.data.repository.account.datasource.remote
 
-import io.forus.me.android.data.net.sign.SignService
 import com.gigawatt.android.data.net.sign.models.request.SignUp
 import io.forus.me.android.data.entity.account.Account
 import io.forus.me.android.data.entity.sign.request.AuthorizeCode
@@ -11,6 +10,7 @@ import io.forus.me.android.data.entity.sign.response.AccessToken
 import io.forus.me.android.data.entity.sign.response.IdentityPinResult
 import io.forus.me.android.data.entity.sign.response.IdentityTokenResult
 import io.forus.me.android.data.entity.sign.response.SignUpResult
+import io.forus.me.android.data.net.sign.SignService
 import io.forus.me.android.data.repository.account.datasource.AccountDataSource
 import io.forus.me.android.data.repository.datasource.RemoteDataSource
 import io.reactivex.Observable
@@ -75,7 +75,7 @@ class AccountRemoteDataSource(f: () -> SignService): AccountDataSource, RemoteDa
     }
 
     override fun registerPush(token: String): Observable<Boolean> {
-        return service.registerPush(RegisterPush(token)).map { _: Void? -> true }
+        return service.registerPush(RegisterPush(token)).map { true }
     }
 
     override fun getIdentity(): Observable<Account> {
