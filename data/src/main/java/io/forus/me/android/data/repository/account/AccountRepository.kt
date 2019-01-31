@@ -127,6 +127,7 @@ class AccountRepository(private val settingsDataSource: SettingsDataSource,
         }.toObservable()
     }
 
+
     override fun getAccount(): Observable<Account> {
         return Observable.zip(
                 recordsRepository.getRecords(),
