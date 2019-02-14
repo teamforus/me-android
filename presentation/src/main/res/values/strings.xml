@@ -192,7 +192,7 @@
     <string name="vouchers_pay_question">Are you sure you want to request €%1$s?</string>
     <string name="vouchers_pay_question_extra">Insufficient funds on the voucher. Please, request extra payment of €%1$s.</string>
     <string name="vouchers_apply_question">Are you sure you want to apply the voucher?</string>
-    <string name="vouchers_apply_success">Payment succeeded!</string>
+    <string name="vouchers_apply_success">Payment succeeded! The processing can take up to 3 business days.</string>
     <string name="voucher_is_used">Used voucher</string>
     <string name="voucher_created">Activated on %1$s</string>
     <string name="voucher_button_show_qr">Show QR-code</string>

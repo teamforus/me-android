@@ -187,7 +187,7 @@
     <string name="vouchers_pay_question_extra">Onvoldoende budget op de voucher. Vraag de klant of hij een bedrag van €%1$s wilt bijbetalen.</string>
     <string name="vouchers_apply_question">Weet je zeker dat je deze transactie wilt bevestigen?</string>
     <string name="voucher_is_used">GEBRUIKT</string>
-    <string name="vouchers_apply_success">Betaling geslaagd!</string>
+    <string name="vouchers_apply_success">Betaling geslaagd! De verwerking van de betaling kan maximaal 3 werkdagen duren.</string>
     <string name="voucher_created">Geactiveerd op %1$s</string>
     <string name="voucher_button_show_qr">Toon QR-code</string>
     <string name="voucher_send_email_success">Succes</string>
