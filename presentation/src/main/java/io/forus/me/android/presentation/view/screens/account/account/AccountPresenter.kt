@@ -20,7 +20,11 @@ class AccountPresenter constructor(private val accountRepository: AccountReposit
             Single.fromObservable(accountRepository.getAccount()),
             Single.fromObservable(accountRepository.getSecurityOptions()),
             BiFunction { account, securityOptions ->
-                AccountModel(account, securityOptions.pinEnabled, securityOptions.fingerprintEnabled, securityOptions.startFromScanner, securityOptions.sendCrashReportsEnabled)
+                AccountModel(account,
+                        securityOptions.pinEnabled,
+                        securityOptions.fingerprintEnabled,
+                        securityOptions.startFromScanner,
+                        securityOptions.sendCrashReportsEnabled)
             })
 
 

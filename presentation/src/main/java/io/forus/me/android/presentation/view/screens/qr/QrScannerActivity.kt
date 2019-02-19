@@ -80,6 +80,7 @@ class QrScannerActivity : FragmentActivity(), QRCodeReaderView.OnQRCodeReadListe
         } else {
             Snackbar.make(main_layout, resources.getString(R.string.qr_camera_permission_denied), Snackbar.LENGTH_SHORT)
                     .show()
+            onBackPressed()
         }
     }
 

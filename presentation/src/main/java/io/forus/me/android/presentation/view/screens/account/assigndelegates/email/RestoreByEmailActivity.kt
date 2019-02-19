@@ -37,10 +37,10 @@ class RestoreByEmailActivity : CommonActivity() {
         super.onCreate(savedInstanceState)
 
         if (savedInstanceState == null) {
-            if(intent.hasExtra(TOKEN_EXTRA)){
-                fragment = RestoreByEmailFragment.newIntent(intent.getStringExtra(TOKEN_EXTRA))
-            }
-            else fragment = RestoreByEmailFragment()
+            val token = intent.getStringExtra(TOKEN_EXTRA)
+            fragment = if(token != null){
+                RestoreByEmailFragment.newIntent(token)
+            } else RestoreByEmailFragment()
             addFragment(R.id.fragmentContainer, fragment)
         }
     }
