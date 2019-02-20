@@ -15,10 +15,25 @@
             app:umanoShadowHeight="0dp"
             app:umanoOverlay="true">
 
-            <FrameLayout
-                android:id="@+id/dashboard_content"
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="wrap_content">
+
+                <FrameLayout
+                    android:id="@+id/dashboard_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+                <FrameLayout
+                    android:id="@+id/dashboard_top_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+
+
+            </RelativeLayout>
+
 
 
 
