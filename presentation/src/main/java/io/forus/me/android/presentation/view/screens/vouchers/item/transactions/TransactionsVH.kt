@@ -15,15 +15,15 @@ class TransactionsVH(parent: ViewGroup)
 
     fun render(item: Transaction) = with(itemView) {
 
-        subtitle1.text = item.organization.name
+        subtitle1.text = item.organization?.name
         overline1.text = VoucherFragment.dateFormat.format(item.createdAt)
 
         subtitle2.text = "-${item.amount.toFloat().format(2)}"
         overline2.text = if(item.type == Transaction.Type.Product) resources.getString(R.string.vouchers_item_product)
                             else resources.getString(R.string.vouchers_transaction_payment)
 
-        if(!item.organization.logo.isBlank())
-            iv_logo.setImageUrl(item.organization.logo)
+        if(item.organization?.logo?.isBlank() == false)
+            iv_logo.setImageUrl(item.organization?.logo)
 
     }
 }

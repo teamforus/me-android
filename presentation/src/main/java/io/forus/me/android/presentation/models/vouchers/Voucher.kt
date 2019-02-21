@@ -8,16 +8,16 @@ import java.util.*
 
 class Voucher(var isProduct: Boolean,
               var isUsed: Boolean,
-              var address: String,
-              var name: String,
-              var organizationName: String,
-              var fundName: String,
-              var fundWebShopUrl: String,
+              var address: String?,
+              var name: String?,
+              var organizationName: String?,
+              var fundName: String?,
+              var fundWebShopUrl: String?,
               var description: String?,
-              var createdAt: Date,
-              var currency: Currency,
-              var amount: BigDecimal,
-              var logo: String,
+              var createdAt: Date?,
+              var currency: Currency?,
+              var amount: BigDecimal?,
+              var logo: String?,
               var transactions: List<Transaction>,
               val product: Product? = null) : Parcelable {
     constructor(parcel: Parcel) : this(
@@ -45,9 +45,7 @@ class Voucher(var isProduct: Boolean,
         parcel.writeString(fundName)
         parcel.writeString(fundWebShopUrl)
         parcel.writeString(description)
-        parcel.writeLong(createdAt.time)
         parcel.writeParcelable(currency, flags)
-        parcel.writeDouble(amount.toDouble())
         parcel.writeString(logo)
         parcel.writeTypedList(transactions)
         parcel.writeParcelable(product, flags)
@@ -66,5 +64,6 @@ class Voucher(var isProduct: Boolean,
             return arrayOfNulls(size)
         }
     }
+
 
 }

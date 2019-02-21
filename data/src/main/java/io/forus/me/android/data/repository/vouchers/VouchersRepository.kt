@@ -67,7 +67,7 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
             })
         }
         transactions.sortWith(Comparator { t1, t2 ->
-            -t1.createdAt.compareTo(t2.createdAt)
+            -(t1.createdAt?.compareTo(t2.createdAt) ?: 0)
         })
 
         var productMapped: Product? = null

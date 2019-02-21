@@ -94,10 +94,10 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map {
-                    if (!it.voucher.isProduct && it.allowedOrganizations.isEmpty()) {
+                    if (it?.voucher?.isProduct != true && it.allowedOrganizations.isEmpty()) {
                         if (scanner.hasWindowFocus())
                             ScanVoucherNotEligibleDialog(scanner, reactivateDecoding).show()
-                    } else if (!it.voucher.isProduct && it.voucher.amount.compareTo(BigDecimal.ZERO) == 0) {
+                    } else if (it.voucher.isProduct != true && (it.voucher.amount ?: 0.toBigDecimal()).compareTo(BigDecimal.ZERO) == 0) {
                         if (scanner.hasWindowFocus())
                             ScanVoucherEmptyDialog(scanner, reactivateDecoding).show()
                     } else {

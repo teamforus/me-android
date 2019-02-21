@@ -4,11 +4,11 @@ class ProductCategory {
 
     var id: Long
 
-    var key: String
+    var key: String?
 
-    var name: String
+    var name: String?
 
-    constructor(id: Long, key: String, name: String) {
+    constructor(id: Long, key: String?, name: String?) {
         this.id = id
         this.key = key
         this.name = name
