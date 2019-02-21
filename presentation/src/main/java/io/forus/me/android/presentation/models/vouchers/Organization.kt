@@ -4,13 +4,13 @@ import android.os.Parcel
 import android.os.Parcelable
 
 class Organization(var id: Long = -1L,
-                   var name: String = "",
-                   var logo: String = "",
-                   var lat: Double = 0.0,
-                   var lon: Double = 0.0,
-                   var address: String = "",
-                   var phone: String = "",
-                   var email: String = "") : Parcelable {
+                   var name: String? = "",
+                   var logo: String? = "",
+                   var lat: Double? = 0.0,
+                   var lon: Double? = 0.0,
+                   var address: String? = "",
+                   var phone: String? = "",
+                   var email: String? = "") : Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readLong(),
             parcel.readString(),
@@ -26,8 +26,8 @@ class Organization(var id: Long = -1L,
         parcel.writeLong(id)
         parcel.writeString(name)
         parcel.writeString(logo)
-        parcel.writeDouble(lat)
-        parcel.writeDouble(lon)
+        parcel.writeDouble(lat ?: 0.0)
+        parcel.writeDouble(lon  ?: 0.0)
         parcel.writeString(address)
         parcel.writeString(phone)
         parcel.writeString(email)

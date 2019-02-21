@@ -3,7 +3,7 @@ package io.forus.me.android.presentation.models.currency
 import android.os.Parcel
 import android.os.Parcelable
 
-class Currency(var name: String = "", var logoUrl: String = "") : Parcelable {
+class Currency(var name: String? = "", var logoUrl: String? = "") : Parcelable {
 
     constructor(parcel: Parcel) : this(parcel.readString()  ?: "", parcel.readString()  ?: "")
 

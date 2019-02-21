@@ -7,6 +7,9 @@ import io.forus.me.android.domain.models.vouchers.Product as ProductDomain
 
 class ProductDataMapper: Mapper<ProductDomain, Product>() {
     override fun transform(domainModel: ProductDomain): Product =
-            Product(domainModel.id, domainModel.organizationId, domainModel.productCategoryId, domainModel.name, domainModel.description, domainModel.price, domainModel.oldPrice, domainModel.totalAmount, domainModel.soldAmount, ProductCategory(domainModel.productCategory.id, domainModel.productCategory.key, domainModel.productCategory.name), Organization(domainModel.organization.id,
-                    domainModel.organization.name, domainModel.organization.logo, domainModel.organization.lat, domainModel.organization.lon, domainModel.organization.address, domainModel.organization.phone, domainModel.organization.email))
+            Product(domainModel.id, domainModel.organizationId, domainModel.productCategoryId, domainModel.name, domainModel.description, domainModel.price, domainModel.oldPrice, domainModel.totalAmount, domainModel.soldAmount, ProductCategory(domainModel.productCategory.id, domainModel.productCategory.key ?: "", domainModel.productCategory.name ?: ""),
+                    Organization(domainModel.organization.id,
+                    domainModel.organization.name ?: "",
+                            domainModel.organization.logo ?: "",
+                            domainModel.organization.lat ?: 0f.toDouble(), domainModel.organization.lon ?: 0f.toDouble(), domainModel.organization.address ?: "", domainModel.organization.phone ?: "", domainModel.organization.email ?: ""))
 }

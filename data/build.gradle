@@ -1,7 +1,7 @@
 buildscript {
   repositories {
-    mavenCentral()
     google()
+    mavenCentral()
   }
 
 }
@@ -9,11 +9,13 @@ buildscript {
 
 apply plugin: 'com.android.library'
 
+apply plugin: 'org.greenrobot.greendao'
+
+apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'me.tatarka.retrolambda'
-apply plugin: 'org.greenrobot.greendao'
 
 android {
   defaultPublishConfig "debug"

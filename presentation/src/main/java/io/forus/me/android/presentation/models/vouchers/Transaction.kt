@@ -6,7 +6,7 @@ import io.forus.me.android.presentation.models.currency.Currency
 import java.math.BigDecimal
 import java.util.*
 
-class Transaction(var id: String, var organization: Organization, var currency: Currency, var amount: BigDecimal, var createdAt: Date, var type: Type = Type.Payed) : Parcelable {
+class Transaction(var id: String, var organization: Organization?, var currency: Currency?, var amount: BigDecimal, var createdAt: Date?, var type: Type = Type.Payed) : Parcelable {
 
 
     constructor(parcel: Parcel) : this(
@@ -26,7 +26,7 @@ class Transaction(var id: String, var organization: Organization, var currency: 
         parcel.writeParcelable(organization, flags)
         parcel.writeParcelable(currency, flags)
         parcel.writeDouble(amount.toDouble())
-        parcel.writeLong(createdAt.time)
+        parcel.writeLong(createdAt?.time ?: 0)
         parcel.writeString(type.name)
     }
 

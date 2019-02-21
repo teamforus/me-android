@@ -269,7 +269,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
 
                     shopkeeper_phone.text = organization.phone
 
-                    val latLng = LatLng(organization.lat, organization.lon)
+                    val latLng = LatLng(organization?.lat ?: 0.0, organization?.lon ?: 0.0)
                     organizationLatLng = latLng
                     setMarker(latLng)
                 }

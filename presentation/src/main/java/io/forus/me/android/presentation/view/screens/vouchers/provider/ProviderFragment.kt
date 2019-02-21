@@ -116,7 +116,7 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
 
         if(vs.model.selectedOrganization != null){
             tv_organization_name.text = vs.model.selectedOrganization.name
-            if(!vs.model.selectedOrganization.logo.isBlank())
+            if(vs.model.selectedOrganization.logo?.isBlank() != true)
                 iv_organization_icon.setImageUrl(vs.model.selectedOrganization.logo)
         }
 
@@ -132,7 +132,7 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
         btn_make.isEnabled = vs.model.buttonIsActive
         btn_make.setOnClickListener {
             if(vs.model.item != null) {
-                payDialog(vs.model.item.voucher.isProduct, vs.model.selectedAmount, vs.model.item.voucher.amount)
+                payDialog(vs.model.item.voucher.isProduct, vs.model.selectedAmount, vs.model.item.voucher.amount ?: 0f.toBigDecimal())
             }
         }
 

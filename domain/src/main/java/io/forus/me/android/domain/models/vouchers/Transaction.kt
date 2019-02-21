@@ -8,17 +8,17 @@ class Transaction {
 
     var id: String
 
-    var organization: Organization
+    var organization: Organization?
 
-    var currency: Currency
+    var currency: Currency?
 
-    var amount: BigDecimal
+    var amount: BigDecimal?
 
-    var createdAt: Date
+    var createdAt: Date?
 
     var type: Type = Type.Payed
 
-    constructor(id: String, organization: Organization, currency: Currency, amount: BigDecimal, createdAt: Date, type: Type = Type.Payed) {
+    constructor(id: String, organization: Organization?, currency: Currency?, amount: BigDecimal?, createdAt: Date?, type: Type = Type.Payed) {
         this.id = id
         this.organization = organization
         this.currency = currency

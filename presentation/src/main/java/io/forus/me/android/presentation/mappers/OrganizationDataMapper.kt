@@ -6,5 +6,5 @@ import io.forus.me.android.domain.models.vouchers.Organization as OrganizationDo
 class OrganizationDataMapper : Mapper<OrganizationDomain, Organization>() {
 
     override fun transform(domainModel: OrganizationDomain) =
-            Organization(domainModel.id, domainModel.name, domainModel.logo)
+            Organization(domainModel.id, domainModel.name ?: "", domainModel.logo ?: "")
 }
