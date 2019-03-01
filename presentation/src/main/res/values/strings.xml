@@ -63,7 +63,7 @@
 
     <!-- New passcode screen -->
     <string name="passcode_title_create">Enter new pass code</string>
-    <string name="passcode_title_confirm">Enter your old passcode</string>
+    <string name="passcode_title_confirm">Enter old passcode</string>
     <string name="passcode_title_new_confirm">Confirm new pass code</string>
     <string name="passcode_title_create_identity_wait">Please wait</string>
     <string name="passcode_subtitle_create">Secure your profile by creating a passcode.</string>
