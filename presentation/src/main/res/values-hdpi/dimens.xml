@@ -3,4 +3,11 @@
 
     <dimen name="auth_pin_text_size">44.2sp</dimen>
 
+
+    <!--PIN -->
+
+
+    <dimen name="pinlock_keypad_button_size">60dp</dimen>
+    <dimen name="pinlock_keypad_text_size">34sp</dimen>
+
 </resources>

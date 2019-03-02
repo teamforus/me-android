@@ -18,7 +18,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="45dp">
+            android:layout_height="wrap_content">
 
             <io.forus.me.android.presentation.view.component.text.TextView
                 android:id="@+id/subtitle_action"
@@ -37,8 +37,8 @@
 
             <Button
                 android:id="@+id/btn_exit"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerInParent="true"
                 android:layout_marginEnd="0dp"
@@ -66,35 +66,35 @@
             app:dotDiameter="12dp"
             app:dotSpacing="19dp" />
 
-        <RelativeLayout
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center_horizontal">
 
             <io.forus.me.android.presentation.view.component.pinlock.PinLockView
                 android:id="@+id/pin_lock_view"
-                android:gravity="center_horizontal"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingStart="17dp"
-
-                app:pinLength="4"
-                app:keypadTextColor="@color/forus_blue"
-                app:keypadTextSize="34sp"
-                app:keypadButtonSize="72dp"
-                app:keypadVerticalSpacing="12dp"
-                app:keypadHorizontalSpacing="36dp"
+                app:keypadButtonSize="@dimen/pinlock_keypad_button_size"
                 app:keypadDeleteButtonDrawable="@drawable/ic_del"
+                app:keypadDeleteButtonPressedColor="#C8C8C8"
                 app:keypadDeleteButtonSize="34dp"
+                app:keypadHorizontalSpacing="24dp"
                 app:keypadShowDeleteButton="true"
-                app:keypadDeleteButtonPressedColor="#C8C8C8" />
+                app:keypadTextColor="@color/forus_blue"
+                app:keypadTextSize="@dimen/pinlock_keypad_text_size"
+                android:layout_gravity="center_horizontal"
+                app:keypadVerticalSpacing="16dp"
+                app:pinLength="4" />
 
             <ProgressBar
                 android:id="@+id/progressBar"
-                android:layout_centerVertical="true"
                 style="?android:attr/progressBarStyle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </RelativeLayout>
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"/>
+        </FrameLayout>
 
     </LinearLayout>
 
