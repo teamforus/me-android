@@ -145,8 +145,8 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
     }
 
     private fun onResultVoucherScanned(address: String) {
-        if (settingsDataSource.isPinEnabled()) {
-
+        // Hide finger print on voucher
+        if (false and settingsDataSource.isPinEnabled() ) {
             // Database will be opened later
             val useFingerprint = settingsDataSource.isFingerprintEnabled()
             navigator.navigateToCheckTransactionPin(scanner, ProviderActivity.getCallingIntent(scanner, address), useFingerprint)
