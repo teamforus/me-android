@@ -63,7 +63,7 @@ class NewPinFragment : ToolbarLRFragment<NewPinModel, NewPinView, NewPinPresente
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        skip.onNext(Unit)
         pin_lock_view.attachIndicatorDots(indicator_dots)
         pin_lock_view.setPinLockListener(object: PinLockListener{
             override fun onComplete(pin: String?) {
