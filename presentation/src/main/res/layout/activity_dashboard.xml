@@ -26,6 +26,10 @@
                     android:layout_height="match_parent"/>
 
 
+                <FrameLayout
+                    android:id="@+id/dashboard_top_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
 
             </RelativeLayout>
 
@@ -71,9 +75,6 @@
         </com.sothree.slidinguppanel.SlidingUpPanelLayout>
 
 
-    <FrameLayout
-        android:id="@+id/dashboard_top_content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+
 
 </android.support.v4.widget.DrawerLayout>
