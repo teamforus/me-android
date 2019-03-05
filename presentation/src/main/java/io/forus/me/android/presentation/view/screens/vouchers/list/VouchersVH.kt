@@ -16,7 +16,9 @@ class VouchersVH(parent: ViewGroup) : RecyclerView.ViewHolder(parent.inflate(R.l
 
         name.text = item.name
         organization_name.text = item.organizationName
-        value.text = "${item.currency?.name} ${item.amount?.toDouble().format(2)}"
+        if (!item.isProduct) {
+            value.text = "${item.currency?.name} ${item.amount?.toDouble().format(2)}"
+        }
         used.visibility = if(item.isProduct && item.isUsed) View.VISIBLE else View.GONE
 
         logo.setImageUrl(item.logo)

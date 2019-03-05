@@ -235,11 +235,13 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
     override fun render(vs: LRViewState<VoucherModel>) {
         super.render(vs)
 
-        name.text = vs.model.item?.name
-        type.text = vs.model.item?.organizationName
-        value.text = "${vs.model.item?.currency?.name} ${vs.model.item?.amount?.toDouble().format(2)}"
-
-        vs.model.item?.let { voucher ->
+        val item = vs.model.item
+        name.text = item?.name
+        type.text = item?.organizationName
+        if (item?.isProduct == false) {
+            value.text = "${item?.currency?.name} ${item?.amount?.toDouble().format(2)}"
+        }
+        item?.let { voucher ->
             setToolbarTitle(resources.getString(if (voucher.isProduct) R.string.vouchers_item_product else R.string.vouchers_item))
             adapter.transactions = voucher.transactions
             tv_transactions_title.visibility =
