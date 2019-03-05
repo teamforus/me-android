@@ -18,7 +18,7 @@ abstract class LRPresenter<I, M, V : LRView<M>> : MviBasePresenter<V, LRViewStat
     protected val refreshIntent: Observable<Any> = intent { it.refresh() }
     protected val updateIntent: Observable<Any> = intent { it.updateData() }
 
-    protected fun loadRefreshPartialChanges(): Observable<LRPartialChange> = Observable.merge(
+    protected open fun loadRefreshPartialChanges(): Observable<LRPartialChange> = Observable.merge(
             Observable
                     .merge(
                             Observable.just(Any()),

@@ -28,7 +28,8 @@
 
 
     <dimen name="auth_pin_text_size">48.2sp</dimen>
-
+    <dimen name="pinlock_keypad_button_size">72dp</dimen>
+    <dimen name="pinlock_keypad_text_size">34sp</dimen>
 
 
 </resources>

@@ -14,4 +14,8 @@ sealed class PinLockPartialChanges : PartialChange {
 
     data class Exit(val void: Unit) : PinLockPartialChanges()
 
+    data class ExitIdentity(val void: Unit): PinLockPartialChanges()
+
+    data class Nothing(val void: Unit)
+
 }

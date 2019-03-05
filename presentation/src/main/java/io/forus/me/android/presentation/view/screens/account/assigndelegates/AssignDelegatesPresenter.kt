@@ -41,7 +41,8 @@ class AssignDelegatesPresenter constructor(private val disposableHolder: Disposa
                 false,
                 null,
                 false,
-                AssignDelegatesAccountModel())
+                AssignDelegatesAccountModel(),
+                false)
 
         subscribeViewState(
                 observable.scan(initialViewState, this::stateReducer)

@@ -20,11 +20,16 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.jakewharton.rxbinding2.view.RxView
+import io.forus.me.android.data.executor.JobExecutor
+import io.forus.me.android.domain.interactor.LoadVoucherUseCase
+import io.forus.me.android.domain.interactor.SendEmailUseCase
 import io.forus.me.android.domain.models.qr.QrCode
 import io.forus.me.android.presentation.BuildConfig
 import io.forus.me.android.presentation.R
+import io.forus.me.android.presentation.UIThread
 import io.forus.me.android.presentation.helpers.format
 import io.forus.me.android.presentation.internal.Injection
+import io.forus.me.android.presentation.mappers.*
 import io.forus.me.android.presentation.models.vouchers.Voucher
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
@@ -175,7 +180,6 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
 
         var mapViewBundle = outState.getBundle(MAP_VIEW_BUNDLE_KEY)
         if (mapViewBundle == null) {
@@ -183,7 +187,8 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
             outState.putBundle(MAP_VIEW_BUNDLE_KEY, mapViewBundle)
         }
 
-        map_view.onSaveInstanceState(mapViewBundle)
+        map_view?.onSaveInstanceState(mapViewBundle)
+        super.onSaveInstanceState(outState)
     }
 
     override fun onResume() {
@@ -216,11 +221,16 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
         map_view?.onLowMemory()
     }
 
-    override fun createPresenter() = VoucherPresenter(
-            Injection.instance.vouchersRepository,
-            address,
-            voucher
-    )
+    override fun createPresenter(): VoucherPresenter {
+        val currencyDataMapper = CurrencyDataMapper()
+        return VoucherPresenter(
+                LoadVoucherUseCase(Injection.instance.vouchersRepository, JobExecutor(), UIThread()),
+                SendEmailUseCase(Injection.instance.vouchersRepository, JobExecutor(), UIThread()),
+                VoucherDataMapper(currencyDataMapper, TransactionDataMapper(currencyDataMapper, OrganizationDataMapper()), ProductDataMapper()),
+                address,
+                voucher
+        )
+    }
 
     override fun render(vs: LRViewState<VoucherModel>) {
         super.render(vs)
@@ -259,7 +269,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
 
                     shopkeeper_phone.text = organization.phone
 
-                    val latLng = LatLng(organization.lat, organization.lon)
+                    val latLng = LatLng(organization?.lat ?: 0.0, organization?.lon ?: 0.0)
                     organizationLatLng = latLng
                     setMarker(latLng)
                 }

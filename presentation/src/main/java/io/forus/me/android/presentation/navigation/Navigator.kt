@@ -12,9 +12,9 @@ import io.forus.me.android.presentation.models.vouchers.Voucher
 import io.forus.me.android.presentation.view.screens.account.account.AccountActivity
 import io.forus.me.android.presentation.view.screens.account.account.pin.ChangePinActivity
 import io.forus.me.android.presentation.view.screens.account.assigndelegates.AssignDelegatesAccountActivity
+import io.forus.me.android.presentation.view.screens.account.assigndelegates.email.RestoreByEmailActivity
 import io.forus.me.android.presentation.view.screens.account.newaccount.NewAccountActivity
 import io.forus.me.android.presentation.view.screens.account.newaccount.pin.NewPinActivity
-import io.forus.me.android.presentation.view.screens.account.assigndelegates.email.RestoreByEmailActivity
 import io.forus.me.android.presentation.view.screens.dashboard.DashboardActivity
 import io.forus.me.android.presentation.view.screens.lock.PinLockActivity
 import io.forus.me.android.presentation.view.screens.qr.QrScannerActivity
@@ -38,6 +38,13 @@ constructor()//empty
     fun navigateToDashboardPinlocked(context: Context?, useFingerprint: Boolean) {
         if (context != null) {
             val lockIntent = PinLockActivity.getCallingIntent(context, DashboardActivity.getCallingIntent(context), useFingerprint)
+            context.startActivity(lockIntent)
+        }
+    }
+
+    fun navigateToCheckTransactionPin(context: Context?,intent: Intent, useFingerprint: Boolean) {
+        if (context != null) {
+            val lockIntent = PinLockActivity.getCallingIntent(context, intent, useFingerprint)
             context.startActivity(lockIntent)
         }
     }

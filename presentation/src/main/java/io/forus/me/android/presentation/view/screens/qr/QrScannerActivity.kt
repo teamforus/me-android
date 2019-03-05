@@ -28,7 +28,7 @@ class QrScannerActivity : FragmentActivity(), QRCodeReaderView.OnQRCodeReadListe
     private var pointsOverlayView: PointsOverlayView? = null
 
     private var qrDecoder = Injection.instance.qrDecoder
-    private var qrActionProcessor = QrActionProcessor(this, Injection.instance.recordsRepository, Injection.instance.accountRepository, Injection.instance.vouchersRepository)
+    private var qrActionProcessor = QrActionProcessor(this, Injection.instance.recordsRepository, Injection.instance.accountRepository, Injection.instance.vouchersRepository, Injection.instance.settingsDataSource)
 
     private var decodingInProgress = AtomicBoolean()
     var reactivateDecoding = { decodingInProgress.set(false); qrCodeReaderView?.setQRDecodingEnabled(true); Unit }
@@ -78,8 +78,11 @@ class QrScannerActivity : FragmentActivity(), QRCodeReaderView.OnQRCodeReadListe
             Snackbar.make(main_layout, resources.getString(R.string.qr_camera_permission_granted), Snackbar.LENGTH_SHORT).show()
             initQRCodeReaderView()
         } else {
-            Snackbar.make(main_layout, resources.getString(R.string.qr_camera_permission_denied), Snackbar.LENGTH_SHORT)
-                    .show()
+//            Snackbar.make(main_layout, resources.getString(R.string.qr_camera_permission_denied), Snackbar.LENGTH_SHORT)
+//                    .show()
+
+            requestCameraPermission()
+
         }
     }
 

@@ -73,6 +73,9 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
     private val switchFingerprint = PublishSubject.create<Boolean>()
     override fun switchFingerprint(): Observable<Boolean> = switchFingerprint
 
+    private val switchSendCrashReports = PublishSubject.create<Boolean>()
+    override fun switchSendCrashReports(): Observable<Boolean> = switchSendCrashReports
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = inflater.inflate(R.layout.fragment_account_details, container, false)
 
 
@@ -129,6 +132,11 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
         start_from_scanner.setChecked(vs.model.startFromScanner)
         start_from_scanner.setOnClickListener {
             switchStartFromScanner.onNext(!vs.model.startFromScanner)
+        }
+
+        enable_send_crash_log.setChecked(vs.model.sendCrashReportsEnabled)
+        enable_send_crash_log.setOnClickListener {
+            switchSendCrashReports.onNext(!vs.model.sendCrashReportsEnabled)
         }
 
         if (vs.model.account?.address != null) {

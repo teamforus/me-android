@@ -105,9 +105,7 @@
     <string name="profile_logout">Log uit</string>
     <string name="profile_button_show_qr">Toon QR-code</string>
     <string name="profile_about_me">Over Me</string>
-    <string name="profile_about_me_text">De app Me werkt samen met het Forus platform en biedt de volgende mogelijkheden:\n \n  • 	inloggen op applicaties;\n
-	• 	vouchers beheren;\n
-	• 	profiel beheren\n \nDe applicatie biedt een duidelijk overzicht van vouchers en makkelijke en veilige manier van inloggen zonder wachtwoord.\n \nDe applicatie functioneert als een generieke stadspas waarmee men zich kan identificeren aan Platform Forus en betalingen kan verrichten.</string>
+    <string name="profile_about_me_text">Deze app is bedoelt om vouchers te beheren, betalingen te verrichten en in te loggen op verschillende applicaties. \n \nDeze app werkt samen met: \n \n• 	de Nijmegen webshop\n• 	de Westerkwartier webshop\n• 	de Forus generieke webshop\n \nLater zullen meerdere shops en andere applicaties worden toegevoegd.</string>
     <string name="profile_app_version">App versie</string>
     <string name="profile_about">Informatie</string>
 
@@ -120,7 +118,7 @@
     <string name="new_record_choose_the_category_text">Selecteer de categorie waaronder de nieuwe eigenschap moet worden toegevoegd</string>
     <string name="new_record_choose_the_type_text">Selecteer het type waaronder de nieuwe eigenschap moet worden toegevoegd</string>
     <string name="new_record_choose_the_value_text">Voer de inhoud van de eigenschap in</string>
-    <string name="new_record_value_hint">...</string>
+    <string name="new_record_value_hint">…</string>
     <string name="new_record_choose_validators_text">Selecteer de validators, die deze nieuwe eigenschap moet valideren.</string>
     <string name="new_record_value_text">Invoerveld</string>
     <string name="new_record_next_step">VOLGENDE</string>
@@ -189,13 +187,13 @@
     <string name="vouchers_pay_question_extra">Onvoldoende budget op de voucher. Vraag de klant of hij een bedrag van €%1$s wilt bijbetalen.</string>
     <string name="vouchers_apply_question">Weet je zeker dat je deze transactie wilt bevestigen?</string>
     <string name="voucher_is_used">GEBRUIKT</string>
-    <string name="vouchers_apply_success">Betaling geslaagd!</string>
+    <string name="vouchers_apply_success">Betaling geslaagd! De verwerking van de betaling kan maximaal 3 werkdagen duren.</string>
     <string name="voucher_created">Geactiveerd op %1$s</string>
     <string name="voucher_button_show_qr">Toon QR-code</string>
     <string name="voucher_send_email_success">Succes</string>
     <string name="voucher_send_email_description">De voucher is verzonden per mail</string>
     <string name="voucher_qr_code_subtitle">Dit is de QR-code van de Voucher</string>
-    <string name="voucher_qr_code_subtitle_with_fund_name">Dit is uw %s-voucher in de vorm van een QR-code</string>
+    <string name="voucher_qr_code_subtitle_with_fund_name">%s\nDit is uw  in de vorm van een QR-code</string>
     <string name="voucher_qr_code_description">Laat de aanbieder deze QR-Code scannen om een betaling te kunnen doen</string>
     <string name="voucher_email_to_me">E-mail naar mij</string>
     <string name="voucher_request">BEVESTIG</string>
@@ -207,4 +205,5 @@
     <string name="shopkeeper_phone_text">Telefoonnummer</string>
     <string name="send_email_title">Stuur e-mail</string>
     <string name="shopkeeper_provider_text">Aanbieder</string>
+    <string name="profile_send_crash_report">Stuur foutrapports</string>
 </resources>

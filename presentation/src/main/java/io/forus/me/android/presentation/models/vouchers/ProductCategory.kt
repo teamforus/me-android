@@ -3,7 +3,7 @@ package io.forus.me.android.presentation.models.vouchers
 import android.os.Parcel
 import android.os.Parcelable
 
-class ProductCategory(var id: Long, var key: String, var name: String) : Parcelable {
+class ProductCategory(var id: Long, var key: String?, var name: String?) : Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readLong(),
             parcel.readString() ?: "",

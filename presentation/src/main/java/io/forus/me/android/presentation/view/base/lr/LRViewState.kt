@@ -7,5 +7,6 @@ data class LRViewState<out M>(
         val refreshing: Boolean,
         val refreshingError: Throwable?,
         val closeScreen: Boolean,
-        val model: M
+        val model: M,
+        val exitIdentity: Boolean
 )

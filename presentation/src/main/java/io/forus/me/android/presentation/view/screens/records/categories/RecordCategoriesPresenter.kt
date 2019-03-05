@@ -31,7 +31,8 @@ class RecordCategoriesPresenter constructor(val recordsRepository: RecordsReposi
                 false,
                 null,
                 false,
-                RecordCategoriesModel())
+                RecordCategoriesModel(),
+                false)
 
         subscribeViewState(
                 observable.scan(initialViewState, this::stateReducer)

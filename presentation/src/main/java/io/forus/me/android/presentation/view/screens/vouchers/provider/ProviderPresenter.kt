@@ -1,18 +1,11 @@
 package io.forus.me.android.presentation.view.screens.vouchers.provider
 
-import io.forus.me.android.presentation.models.vouchers.Organization
+import io.forus.me.android.domain.repository.vouchers.VouchersRepository
+import io.forus.me.android.presentation.models.currency.Currency
+import io.forus.me.android.presentation.models.vouchers.*
 import io.forus.me.android.presentation.view.base.lr.LRPresenter
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.base.lr.PartialChange
-import io.forus.me.android.presentation.models.vouchers.VoucherProvider
-import io.forus.me.android.domain.repository.vouchers.VouchersRepository
-import io.forus.me.android.presentation.R.id.amount
-import io.forus.me.android.presentation.R.id.description
-import io.forus.me.android.presentation.R.id.name
-import io.forus.me.android.presentation.models.currency.Currency
-import io.forus.me.android.presentation.models.vouchers.ProductCategory
-import io.forus.me.android.presentation.models.vouchers.Transaction
-import io.forus.me.android.presentation.models.vouchers.Voucher
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -24,22 +17,22 @@ class ProviderPresenter constructor(private val vouchersRepository: VouchersRepo
     private var note = ""
 
     override fun initialModelSingle(): Single<VoucherProvider> = Single.fromObservable(vouchersRepository.getVoucherAsProvider(address).map {
-        VoucherProvider(Voucher(it.voucher.isProduct, it.voucher.isUsed, it.voucher.address, it.voucher.name, it.voucher.organizationName,
+        VoucherProvider(Voucher(it.voucher?.isProduct ?: false, it.voucher?.isUsed ?: false, it.voucher.address, it.voucher.name, it.voucher.organizationName,
                 it.voucher.fundName, it.voucher.fundWebShopUrl, it.voucher.description, it.voucher.createdAt,
-                Currency(it.voucher.currency.name, it.voucher.currency.logoUrl), it.voucher.amount, it.voucher.logo,
+                Currency(it.voucher.currency?.name, it.voucher.currency?.logoUrl), it.voucher.amount, it.voucher.logo,
                 it.voucher.transactions.map { transaction ->
                     Transaction(transaction.id,
-                            Organization(transaction.organization.id,
-                                    transaction.organization.name,
-                                    transaction.organization.logo,
-                                    transaction.organization.lat,
-                                    transaction.organization.lon,
-                                    transaction.organization.address,
-                                    transaction.organization.phone,
-                                    transaction.organization.email),
-                            Currency(transaction.currency.name,
-                                    transaction.currency.logoUrl),
-                            transaction.amount,
+                            Organization(transaction.organization?.id ?: 0,
+                                    transaction.organization?.name,
+                                    transaction.organization?.logo,
+                                    transaction.organization?.lat,
+                                    transaction.organization?.lon,
+                                    transaction.organization?.address,
+                                    transaction.organization?.phone,
+                                    transaction.organization?.email),
+                            Currency(transaction.currency?.name,
+                                    transaction.currency?.logoUrl),
+                            transaction?.amount ?: 0f.toBigDecimal(),
                             transaction.createdAt,
                             Transaction.Type.valueOf(transaction.type.name))
                 }),
@@ -106,7 +99,8 @@ class ProviderPresenter constructor(private val vouchersRepository: VouchersRepo
                 false,
                 null,
                 false,
-                ProviderModel())
+                ProviderModel(),
+                false)
 
         subscribeViewState(
                 observable.scan(initialViewState, this::stateReducer)

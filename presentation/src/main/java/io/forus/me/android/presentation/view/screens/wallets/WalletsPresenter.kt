@@ -1,10 +1,10 @@
 package io.forus.me.android.presentation.view.screens.wallets
 
+import io.forus.me.android.domain.models.wallets.Wallet
+import io.forus.me.android.domain.repository.wallets.WalletsRepository
 import io.forus.me.android.presentation.view.base.lr.LRPresenter
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.base.lr.PartialChange
-import io.forus.me.android.domain.models.wallets.Wallet
-import io.forus.me.android.domain.repository.wallets.WalletsRepository
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 
@@ -39,7 +39,8 @@ class WalletsPresenter constructor(val walletsRepository: WalletsRepository) : L
                 false,
                 null,
                 false,
-                WalletsModel())
+                WalletsModel(),
+                false)
 
         subscribeViewState(
                 observable.scan(initialViewState, this::stateReducer)

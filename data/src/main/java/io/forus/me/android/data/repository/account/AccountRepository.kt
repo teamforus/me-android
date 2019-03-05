@@ -10,8 +10,7 @@ import io.forus.me.android.domain.models.account.*
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
-import io.reactivex.functions.Function3
-import java.lang.IllegalStateException
+import io.reactivex.functions.Function4
 import java.util.concurrent.TimeUnit
 
 class AccountRepository(private val settingsDataSource: SettingsDataSource,
@@ -19,6 +18,7 @@ class AccountRepository(private val settingsDataSource: SettingsDataSource,
                         private val accountRemoteDataSource: AccountDataSource,
                         private val checkActivationDataSource: CheckActivationDataSource,
                         private val recordsRepository: RecordsRepository) : io.forus.me.android.domain.repository.account.AccountRepository {
+
 
     override fun newUser(model: NewAccountRequest): Observable<String> {
         val signUp = SignUp()
@@ -102,6 +102,14 @@ class AccountRepository(private val settingsDataSource: SettingsDataSource,
         return Single.fromCallable { settingsDataSource.setStartFromScannerEnabled(isEnabled); true }.toObservable()
     }
 
+    override fun setSendCrashReportsEnabled(isEnabled: Boolean): Observable<Boolean> {
+        return Single.fromCallable { settingsDataSource.setSendCrashReportsEnabled(isEnabled); true }.toObservable()
+    }
+
+    override fun getSendCrashReportsEnabled(): Observable<Boolean> {
+        return Single.fromObservable<Boolean> { settingsDataSource.isSendCrashReportsEnabled() }.toObservable()
+    }
+
     override fun changePin(oldPin: String, newPin: String): Observable<Boolean> {
         return Single.fromCallable{
             if(accountLocalDataSource.changePin(oldPin, newPin)) {
@@ -118,6 +126,7 @@ class AccountRepository(private val settingsDataSource: SettingsDataSource,
             true
         }.toObservable()
     }
+
 
     override fun getAccount(): Observable<Account> {
         return Observable.zip(
@@ -143,9 +152,8 @@ class AccountRepository(private val settingsDataSource: SettingsDataSource,
                 Single.just(settingsDataSource.isPinEnabled()),
                 Single.just(settingsDataSource.isFingerprintEnabled()),
                 Single.just(settingsDataSource.isStartFromScannerEnabled()),
-                Function3 { pinEnabled: Boolean, fingerprintEnabled: Boolean, startFromScannerEnabled: Boolean ->
-                    SecurityOptions(pinEnabled, fingerprintEnabled, startFromScannerEnabled)
-                }
+                Single.just(settingsDataSource.isSendCrashReportsEnabled()),
+                Function4<Boolean, Boolean, Boolean, Boolean, SecurityOptions> { pinEnabled, fingerprintEnabled, startFromScannerEnabled, sendCrashReportsEnabled -> SecurityOptions(sendCrashReportsEnabled, pinEnabled, fingerprintEnabled, startFromScannerEnabled) }
         ).toObservable()
     }
 

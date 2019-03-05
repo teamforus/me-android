@@ -1,10 +1,10 @@
 package io.forus.me.android.presentation.view.screens.records.list
 
+import io.forus.me.android.domain.models.records.Record
+import io.forus.me.android.domain.repository.records.RecordsRepository
 import io.forus.me.android.presentation.view.base.lr.LRPresenter
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.base.lr.PartialChange
-import io.forus.me.android.domain.models.records.Record
-import io.forus.me.android.domain.repository.records.RecordsRepository
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 
@@ -31,7 +31,8 @@ class RecordsPresenter constructor(private val recordCategoryId: Long, private v
                 false,
                 null,
                 false,
-                RecordsModel())
+                RecordsModel(),
+                false)
 
         subscribeViewState(
                 observable.scan(initialViewState, this::stateReducer)

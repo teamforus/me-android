@@ -49,7 +49,8 @@ class NewAccountPresenter constructor(private val accountRepository: AccountRepo
                 false,
                 null,
                 false,
-                NewAccountModel())
+                NewAccountModel(),
+                false)
 
         subscribeViewState(
                 observable.scan(initialViewState, this::stateReducer)

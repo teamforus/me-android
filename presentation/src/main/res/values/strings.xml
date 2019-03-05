@@ -63,7 +63,7 @@
 
     <!-- New passcode screen -->
     <string name="passcode_title_create">Enter new pass code</string>
-    <string name="passcode_title_confirm">Enter your old passcode</string>
+    <string name="passcode_title_confirm">Enter old passcode</string>
     <string name="passcode_title_new_confirm">Confirm new pass code</string>
     <string name="passcode_title_create_identity_wait">Please wait</string>
     <string name="passcode_subtitle_create">Secure your profile by creating a passcode.</string>
@@ -110,9 +110,7 @@
     <string name="profile_logout">Logout</string>
     <string name="profile_button_show_qr">My QR-code</string>
     <string name="profile_about_me">About Me</string>
-    <string name="profile_about_me_text">Me works together with the Forus platform and offers the following possibilities:\n \n • 	log in to applications;\n
-• 	manage vouchers;\n
-• 	manage profile.\n \nThe application provides a clear overview of vouchers and an easy and secure way of logging in without a password.\n \nThe application functions as a generic client that can be used with Platform Forus to make payments.</string>
+    <string name="profile_about_me_text">This app is intended to store vouchers, make payments and log in to different applications.\n \nThis app works together with:\n \n• 	the Nijmegen webshop;\n• 	the Westerkwartier webshop;\n• 	the Forus generic webshop.\n \nLater on several shops and applications will be added.</string>
     <string name="profile_app_version">App version</string>
     <string name="profile_support" translatable="false">Support</string>
     <string name="profile_about">About</string>
@@ -194,14 +192,14 @@
     <string name="vouchers_pay_question">Are you sure you want to request €%1$s?</string>
     <string name="vouchers_pay_question_extra">Insufficient funds on the voucher. Please, request extra payment of €%1$s.</string>
     <string name="vouchers_apply_question">Are you sure you want to apply the voucher?</string>
-    <string name="vouchers_apply_success">Payment succeeded!</string>
+    <string name="vouchers_apply_success">Payment succeeded! The processing can take up to 3 business days.</string>
     <string name="voucher_is_used">Used voucher</string>
     <string name="voucher_created">Activated on %1$s</string>
     <string name="voucher_button_show_qr">Show QR-code</string>
     <string name="voucher_send_email_success">Success</string>
     <string name="voucher_send_email_description">The voucher was sent to your mail</string>
     <string name="voucher_qr_code_subtitle">This is the QR-code of the Voucher</string>
-    <string name="voucher_qr_code_subtitle_with_fund_name">This is your %s voucher in the form of a QR-code</string>
+    <string name="voucher_qr_code_subtitle_with_fund_name">%s\nThis is your voucher in the form of a QR-code</string>
     <string name="voucher_qr_code_description">Let the shopkeeper scan this QR-code to make a payment</string>
     <string name="voucher_email_to_me">Email to me</string>
     <string name="send_feedback_email_dialog_title">Would you like to send us your feedback by e-mail?</string>
@@ -213,8 +211,7 @@
     <string name="shopkeeper_phone_text">Telephone</string>
     <string name="send_email_title">Send email</string>
     <string name="send_voucher_email_dialog_cancel_button">Cancel</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="default_notification_channel_id" translatable="false">Default</string>
+    <string name="profile_send_crash_report">Send crash reports</string>
 
 </resources>
