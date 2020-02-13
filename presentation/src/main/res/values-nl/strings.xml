@@ -206,4 +206,7 @@
     <string name="send_email_title">Stuur e-mail</string>
     <string name="shopkeeper_provider_text">Aanbieder</string>
     <string name="profile_send_crash_report">Stuur foutrapports</string>
+
+    <string name="session_expired_title">Deze sessie is verlopen.</string>
+    <string name="session_expired_description">Deze sessie is verlopen. Je wordt nu uitgelogd.</string>
 </resources>

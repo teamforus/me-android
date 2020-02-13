@@ -1,6 +1,7 @@
 package io.forus.me.android.data.net;
 
 import android.content.Context;
+import android.os.Build;
 
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
@@ -13,43 +14,54 @@ import io.forus.me.android.data.entity.sign.request.SignRecords;
 import io.forus.me.android.data.repository.account.datasource.local.AccountLocalDataSource;
 import io.forus.me.android.domain.converters.BooleanSerializer;
 import io.forus.me.android.domain.converters.DoubleSerializer;
+import kotlin.Unit;
 import okhttp3.HttpUrl;
 import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+
+
+
 public class MeServiceFactory {
 
-    private static AccountLocalDataSource accountLocalDataSource;
+
+    public static AccountLocalDataSource accountLocalDataSource;
+    private OnAccessListener onAccessListener;
 
 
 
     private static MeServiceFactory ourInstance;
 
+
     public static MeServiceFactory getInstance() {
         return ourInstance;
     }
 
-    private MeServiceFactory(AccountLocalDataSource accountLocalDataSource) {
+    private MeServiceFactory(AccountLocalDataSource accountLocalDataSource, OnAccessListener onAccessListener) {
         MeServiceFactory.accountLocalDataSource = accountLocalDataSource;
+        this.onAccessListener = onAccessListener;
     }
 
-    public static void init(Context context, AccountLocalDataSource accountLocalDataSource){
-        ourInstance = new MeServiceFactory(accountLocalDataSource);
+    public static void init(Context context, AccountLocalDataSource accountLocalDataSource, OnAccessListener onAccessListener){
+        ourInstance = new MeServiceFactory(accountLocalDataSource, onAccessListener);
     }
 
 
-    public <T> T createRetrofitService(final Class<T> clazz, final String endPoint){
-        return createRetrofitService(clazz, endPoint, null);
+    public <T> T createRetrofitService(final Class<T> clazz, final String endPoint, final boolean debug){
+        return createRetrofitService(clazz, endPoint, null, debug);
     }
 
-    public <T> T createRetrofitService(final Class<T> clazz, final String endPoint, final String customAccessToken) {
+    public <T> T createRetrofitService(final Class<T> clazz, final String endPoint, final String customAccessToken, final boolean debug) {
 
         okhttp3.OkHttpClient.Builder httpClient = new okhttp3.OkHttpClient.Builder();
 
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+        if (debug)
+            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+        else
+            logging.setLevel(HttpLoggingInterceptor.Level.NONE);
         httpClient.addInterceptor(logging);
         httpClient.addInterceptor(chain -> {
 
@@ -98,7 +110,7 @@ public class MeServiceFactory {
                 .baseUrl(endPoint)
 
                 .addConverterFactory(GsonConverterFactory.create(gson))
-                .addCallAdapterFactory(RxErrorHandlingCallAdapterFactory.create())
+                .addCallAdapterFactory(RxErrorHandlingCallAdapterFactory.create(this.onAccessListener))
                 .client(httpClient.build())
                 .build();
 

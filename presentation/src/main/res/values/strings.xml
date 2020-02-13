@@ -213,5 +213,7 @@
     <string name="send_voucher_email_dialog_cancel_button">Cancel</string>
     <string name="default_notification_channel_id" translatable="false">Default</string>
     <string name="profile_send_crash_report">Send crash reports</string>
+    <string name="session_expired_title">Your session has expired.</string>
+    <string name="session_expired_description">Your session has expired. You are being logged out.</string>
 
 </resources>

@@ -24,27 +24,31 @@ import rx.functions.Func1;
  */
 public class RxErrorHandlingCallAdapterFactory extends CallAdapter.Factory {
     private final RxJava2CallAdapterFactory mOriginalCallAdapterFactory;
+    private final  OnAccessListener onAccessListener;
 
-    private RxErrorHandlingCallAdapterFactory() {
+    private RxErrorHandlingCallAdapterFactory(OnAccessListener onAccessListener) {
         mOriginalCallAdapterFactory = RxJava2CallAdapterFactory.create();
+        this.onAccessListener = onAccessListener;
     }
 
-    public static CallAdapter.Factory create() {
-        return new RxErrorHandlingCallAdapterFactory();
+    public static CallAdapter.Factory create(OnAccessListener onAccessListener) {
+        return new RxErrorHandlingCallAdapterFactory(onAccessListener);
     }
 
     @Override
     public CallAdapter<?, ?> get(final Type returnType, final Annotation[] annotations, final Retrofit retrofit) {
-        return new RxCallAdapterWrapper<>(retrofit, mOriginalCallAdapterFactory.get(returnType, annotations, retrofit));
+        return new RxCallAdapterWrapper<>(retrofit, mOriginalCallAdapterFactory.get(returnType, annotations, retrofit), onAccessListener);
     }
 
     private static class RxCallAdapterWrapper<R> implements CallAdapter<R, Observable<R>> {
         private final Retrofit mRetrofit;
         private final CallAdapter<R, ?> mWrappedCallAdapter;
+        private final  OnAccessListener onAccessListener;
 
-        public RxCallAdapterWrapper(final Retrofit retrofit, final CallAdapter<R, ?> wrapped) {
+        public RxCallAdapterWrapper(final Retrofit retrofit, final CallAdapter<R, ?> wrapped, final  OnAccessListener onAccessListener) {
             mRetrofit = retrofit;
             mWrappedCallAdapter = wrapped;
+            this.onAccessListener = onAccessListener;
         }
 
         @Override
@@ -68,6 +72,9 @@ public class RxErrorHandlingCallAdapterFactory extends CallAdapter.Factory {
             if (throwable instanceof HttpException) {
                 final HttpException httpException = (HttpException) throwable;
                 final Response response = httpException.response();
+
+                if (response.code() == 401)
+                    this.onAccessListener.on401();
 
                 return RetrofitException.httpError(response.raw().request().url().toString(), response, mRetrofit);
             }

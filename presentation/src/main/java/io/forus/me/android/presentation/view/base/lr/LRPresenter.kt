@@ -60,7 +60,6 @@ abstract class LRPresenter<I, M, V : LRView<M>> : MviBasePresenter<V, LRViewStat
 
     @CallSuper
     protected open fun stateReducer(vs: LRViewState<M>, change: PartialChange): LRViewState<M> {
-        Log.d("AASSDD", "LRPresenter stateReducer $change")
         val viewState = vs.copy(closeScreen = false)
         if (change !is LRPartialChange) throw Exception()
         return when (change) {

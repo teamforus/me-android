@@ -58,9 +58,9 @@ constructor()//empty
     }
 
 
-    fun navigateToWelcomeScreen(context: Context?) {
+    fun navigateToWelcomeScreen(context: Context?, error_message: String? = null) {
         if (context != null) {
-            val intentToLaunch = WelcomeActivity.getCallingIntent(context)
+            val intentToLaunch = WelcomeActivity.getCallingIntent(context, error_message)
             intentToLaunch.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK)
             context.startActivity(intentToLaunch)
         }

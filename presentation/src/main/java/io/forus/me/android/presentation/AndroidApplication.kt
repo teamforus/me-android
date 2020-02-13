@@ -14,6 +14,7 @@ import com.google.firebase.iid.FirebaseInstanceId
 import io.fabric.sdk.android.Fabric
 import io.forus.me.android.data.net.MeServiceFactory
 import io.forus.me.android.presentation.internal.Injection
+import io.forus.me.android.presentation.services.AccessMiddleware
 
 
 //import com.squareup.leakcanary.LeakCanary
@@ -53,7 +54,7 @@ class AndroidApplication : Application() {
     private fun initRetrofit() {
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
-        MeServiceFactory.init(applicationContext, Injection.instance.accountLocalDataSource)
+        MeServiceFactory.init(applicationContext, Injection.instance.accountLocalDataSource, AccessMiddleware(this.applicationContext))
     }
 
     private fun initDb() {
