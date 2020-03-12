@@ -22,6 +22,7 @@ import io.forus.me.android.presentation.view.screens.records.item.RecordDetailsA
 import io.forus.me.android.presentation.view.screens.records.list.RecordsActivity
 import io.forus.me.android.presentation.view.screens.records.newrecord.NewRecordActivity
 import io.forus.me.android.presentation.view.screens.vouchers.item.VoucherActivity
+import io.forus.me.android.presentation.view.screens.vouchers.product_reservation.ProductReservationActivity
 import io.forus.me.android.presentation.view.screens.vouchers.provider.ProviderActivity
 import io.forus.me.android.presentation.view.screens.wallets.item.WalletDetailsActivity
 import io.forus.me.android.presentation.view.screens.welcome.WelcomeActivity
@@ -166,6 +167,14 @@ constructor()//empty
             context.startActivity(intentToLaunch)
         }
     }
+
+    fun navigateToProductReservation(context: Context?, voucherAddress: String) {
+        if (context != null) {
+            val intentToLaunch = ProductReservationActivity.getCallingIntent(context, voucherAddress)
+            context.startActivity(intentToLaunch)
+        }
+    }
+
 
     fun navigateToChangePin(caller: Fragment, mode: ChangePinMode, requestCode: Int){
         val context = caller.context

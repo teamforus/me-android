@@ -213,5 +213,7 @@
     <string name="send_voucher_email_dialog_cancel_button">Cancel</string>
     <string name="default_notification_channel_id" translatable="false">Default</string>
     <string name="profile_send_crash_report">Send crash reports</string>
+    <string name="qr_choose_reservation">Choose Reservation</string>
+    <string name="qr_reserved_offers">The offers below are reserved by the customer</string>
 
 </resources>

@@ -143,6 +143,13 @@
             android:windowSoftInputMode="adjustResize"></activity>
 
         <activity
+            android:name=".view.screens.vouchers.product_reservation.ProductReservationActivity"
+            android:label=""
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="adjustResize"></activity>
+
+
+        <activity
             android:name=".view.screens.account.account.pin.ChangePinActivity"
             android:label=""
             android:launchMode="singleTop"></activity>
