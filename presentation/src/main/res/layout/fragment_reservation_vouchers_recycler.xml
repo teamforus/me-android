@@ -9,9 +9,11 @@
    >
 
     <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/coordinator"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="57dp">
+        android:layout_marginBottom="20dp"
+        >
 
         <include layout="@layout/toolbar_view"/>
 
@@ -19,6 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_marginBottom="60dp"
             >
 
             <TextView
@@ -39,6 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/title"
             android:layout_marginTop="50dp"
+            android:layout_marginBottom="80dp"
             >
 
             <android.support.v7.widget.RecyclerView
@@ -49,7 +53,27 @@
 
         </io.forus.me.android.presentation.view.base.lr.LRPanelImpl>
 
+
+
         </RelativeLayout>
+
+        <Button
+            android:id="@+id/parentVoucherBt"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="0dp"
+
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/vouchers_complete_an_amount"
+            android:background="@color/colorAccent"
+            android:layout_below="@id/coordinator"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="4dp"
+            android:textColor="@color/colorPrimary"
+            />
+
+
 
     </android.support.design.widget.CoordinatorLayout>
 
@@ -63,5 +87,7 @@
         android:textColor="@color/body_1_87"
         android:lineSpacingExtra="7.9sp"
         android:text="@string/vouchers_no_items" />
+
+
 
 </RelativeLayout>

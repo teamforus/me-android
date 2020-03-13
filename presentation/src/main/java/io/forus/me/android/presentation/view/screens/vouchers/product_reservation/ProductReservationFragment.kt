@@ -29,13 +29,16 @@ class ProductReservationFragment : ToolbarLRFragment<ProductReservationModel, Pr
 
 
     private lateinit var address: String
+    private var showParentVoucher: Boolean = false
 
     companion object {
         private val VOUCHER_ADDRESS_EXTRA = "VOUCHER_ADDRESS_EXTRA"
+        private val SHOW_PARENT_VOUCHER = "SHOW_PARENT_VOUCHER"
 
-        fun newIntent(id: String): ProductReservationFragment = ProductReservationFragment().also {
+        fun newIntent(id: String, showParentVoucher: Boolean): ProductReservationFragment = ProductReservationFragment().also {
             val bundle = Bundle()
             bundle.putSerializable(VOUCHER_ADDRESS_EXTRA, id)
+            bundle.putSerializable(SHOW_PARENT_VOUCHER, showParentVoucher)
             it.arguments = bundle
         }
     }
@@ -59,7 +62,7 @@ class ProductReservationFragment : ToolbarLRFragment<ProductReservationModel, Pr
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = inflater.inflate(R.layout.fragment_reservation_vouchers_recycler, container, false).also {
 
         address = if (arguments == null) "" else arguments!!.getString(VOUCHER_ADDRESS_EXTRA, "")
-
+        showParentVoucher = if (arguments == null) false else arguments!!.getBoolean(SHOW_PARENT_VOUCHER, false)
 
         adapter = VouchersAdapter()
     }
@@ -75,6 +78,17 @@ class ProductReservationFragment : ToolbarLRFragment<ProductReservationModel, Pr
         }
         recycler.layoutManager = LinearLayoutManager(context)
         recycler.adapter = adapter
+
+        if (showParentVoucher) {
+            parentVoucherBt.visibility = View.VISIBLE
+            parentVoucherBt.setOnClickListener {
+                if (context != null) {
+                    navigator.navigateToVoucherProvider(context, address)
+                }
+            }
+        }else{
+            parentVoucherBt.visibility = View.GONE
+        }
 
     }
 

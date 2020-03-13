@@ -182,25 +182,16 @@ product_vouchers:
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map {
-                    /*if (it?.voucher?.isProduct != true && it.allowedOrganizations.isEmpty()) {
-                        if (scanner.hasWindowFocus())
-                            ScanVoucherNotEligibleDialog(scanner, reactivateDecoding).show()
-                    } else if (it.voucher.isProduct != true && (it.voucher.amount ?: 0.toBigDecimal()).compareTo(BigDecimal.ZERO) == 0) {
-                        if (scanner.hasWindowFocus())
-                            ScanVoucherEmptyDialog(scanner, reactivateDecoding).show()
-                    } else {
-                        onResultVoucherScanned(address)
-                    }*/
+
                     if (it!=null && it.size > 0){
                         //Show product vouchers list
-                        navigator.navigateToProductReservation(scanner, address)
+                        navigator.navigateToProductReservation(scanner, address,isAvialableScannedVoucher)
 
                     }else{
                        //Show voucher
                         navigator.navigateToVoucherProvider(scanner, address)
 
                     }
-
 
                 }
                 .onErrorReturn {

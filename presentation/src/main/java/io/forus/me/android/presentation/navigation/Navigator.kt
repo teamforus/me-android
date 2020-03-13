@@ -168,9 +168,9 @@ constructor()//empty
         }
     }
 
-    fun navigateToProductReservation(context: Context?, voucherAddress: String) {
+    fun navigateToProductReservation(context: Context?, voucherAddress: String, showParentVoucher: Boolean) {
         if (context != null) {
-            val intentToLaunch = ProductReservationActivity.getCallingIntent(context, voucherAddress)
+            val intentToLaunch = ProductReservationActivity.getCallingIntent(context, voucherAddress, showParentVoucher)
             context.startActivity(intentToLaunch)
         }
     }

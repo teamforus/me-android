@@ -215,5 +215,6 @@
     <string name="profile_send_crash_report">Send crash reports</string>
     <string name="qr_choose_reservation">Choose Reservation</string>
     <string name="qr_reserved_offers">The offers below are reserved by the customer</string>
+    <string name="vouchers_complete_an_amount">COMPLETE AN AMOUNT</string>
 
 </resources>
