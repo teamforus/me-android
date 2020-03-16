@@ -9,6 +9,8 @@ import io.forus.me.android.data.entity.sign.request.RegisterPush
 import io.forus.me.android.data.entity.sign.request.RestoreByEmail
 import io.forus.me.android.data.entity.sign.response.*
 import io.reactivex.Observable
+import okhttp3.Response
+import okhttp3.ResponseBody
 import retrofit2.http.*
 
 /**
@@ -31,7 +33,7 @@ interface SignService {
 
 
     @POST("api/v1/identity/proxy/email")
-    fun restoreByEmail(@Body restore: RestoreByEmail) : Observable<Success>
+    fun restoreByEmail(@Body restore: RestoreByEmail) : Observable<ResponseBody>
 
 
     @GET("api/v1/identity/proxy/authorize/email/app-me_app/{token}")

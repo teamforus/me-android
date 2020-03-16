@@ -1,5 +1,6 @@
 package io.forus.me.android.data.repository.account.datasource.remote
 
+import android.util.Log
 import com.gigawatt.android.data.net.sign.models.request.SignUp
 import io.forus.me.android.data.entity.account.Account
 import io.forus.me.android.data.entity.sign.request.AuthorizeCode
@@ -67,7 +68,9 @@ class AccountRemoteDataSource(f: () -> SignService): AccountDataSource, RemoteDa
 
     override fun restoreByEmail(email: String): Observable<Boolean> {
         val signUp = RestoreByEmail(email)
-        return service.restoreByEmail(signUp).map { it.success }
+        return service.restoreByEmail(signUp).map { Log.d("io.forus.me.dev","email_code="+it.string())
+            it.string() == "{}"
+        }
     }
 
     override fun restoreExchangeToken(token: String): Observable<AccessToken> {

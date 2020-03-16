@@ -3,6 +3,7 @@ package io.forus.me.android.presentation.view.screens.account.newaccount
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.text.Editable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -117,6 +118,8 @@ class NewAccountFragment : ToolbarLRFragment<NewAccountModel, NewAccountView, Ne
 
     override fun render(vs: LRViewState<NewAccountModel>) {
         super.render(vs)
+
+        Log.d("testforus","NewAccountRender")
 
         progressBar.visibility = if (vs.loading || vs.model.sendingRegistration) View.VISIBLE else View.INVISIBLE
 
