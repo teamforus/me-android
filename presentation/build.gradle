@@ -36,6 +36,7 @@ android {
 
         resValue "string", "maps_key", "$MAPS_KEY"
 
+
     }
 
     dexOptions {

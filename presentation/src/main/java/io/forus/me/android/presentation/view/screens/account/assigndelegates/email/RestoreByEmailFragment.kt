@@ -129,8 +129,9 @@ class RestoreByEmailFragment : ToolbarLRFragment<RestoreByEmailModel, RestoreByE
         email.isEditable = !(vs.model.sendingRestoreByEmailSuccess == true)
 
         if(vs.model.sendingRestoreByEmailSuccess == true && !instructionsAlreadyShown){
-            InstructionsDialog(context!!).show()
-            instructionsAlreadyShown = true
+           /* InstructionsDialog(context!!).show()
+            instructionsAlreadyShown = true*/
+            navigator.navigateToCheckEmail(context!!)
         }
 
         if(vs.model.sendingRestoreByEmail == true){
@@ -139,6 +140,8 @@ class RestoreByEmailFragment : ToolbarLRFragment<RestoreByEmailModel, RestoreByE
 
         if(vs.model.sendingRestoreByEmailError != null){
             email.setError(resources.getString(R.string.restore_email_not_found))
+
+            navigator.navigateToCheckEmail(context!!) //DELETE It!!!!!!!
         }
 
         if(vs.model.exchangeTokenError != null){
