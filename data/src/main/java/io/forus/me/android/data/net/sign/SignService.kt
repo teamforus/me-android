@@ -49,7 +49,7 @@ interface SignService {
 
 
     @GET("api/v1/identity/proxy/check-token")
-    fun checkToken(@Query("access_token") token: String): Observable<CheckTokenResult>
+    fun checkToken(@Header("Access-Token") token: String): Observable<CheckTokenResult>
 
 
     @POST("api/v1/platform/devices/register-push")
