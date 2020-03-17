@@ -113,14 +113,15 @@ class ProviderPresenter constructor(private val vouchersRepository: VouchersRepo
         if (change !is ProviderPartialChanges) return super.stateReducer(vs, change)
 
         return when (change) {
-            is ProviderPartialChanges.MakeTransactionEnd -> vs.copy(closeScreen = true, model = vs.model.copy(sendingMakeTransaction = false, makeTransactionError = null))
-            is ProviderPartialChanges.MakeTransactionStart -> vs.copy(model = vs.model.copy(sendingMakeTransaction = true, makeTransactionError = null))
+            is ProviderPartialChanges.MakeTransactionEnd -> vs.copy(closeScreen = true, model = vs.model.copy(sendingMakeTransaction = false, makeTransactionError = null), loading=false)
+            is ProviderPartialChanges.MakeTransactionStart -> vs.copy(model = vs.model.copy(sendingMakeTransaction = true, makeTransactionError = null), loading=true)
             is ProviderPartialChanges.MakeTransactionError -> vs.copy(model = vs.model.copy(sendingMakeTransaction = false, makeTransactionError = change.error))
             is ProviderPartialChanges.SetAmount -> vs.copy(model = vs.model.copy(selectedAmount = change.amount, makeTransactionError = null))
             is ProviderPartialChanges.SetNote -> {
                 note = change.note
                 vs.copy(model = vs.model.copy(selectedNote = change.note, makeTransactionError = null))
             }
+
         }
     }
 }
