@@ -64,6 +64,9 @@
                                     android:layout_marginTop="15dp"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:lines="1"
+                                    android:maxLines="1"
+                                    android:ellipsize="end"
                                     tools:text="Bike" />
 
                                 <io.forus.me.android.presentation.view.component.text.TextView
@@ -72,6 +75,9 @@
                                     android:layout_marginTop="4dp"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:lines="1"
+                                    android:maxLines="1"
+                                    android:ellipsize="end"
                                     tools:text="Initflow" />
 
                                 <io.forus.me.android.presentation.view.component.text.TextView
@@ -81,7 +87,12 @@
                                     android:layout_marginTop="4dp"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    tools:text="Kindpakket" />
+                                    android:lines="1"
+                                    android:maxLines="1"
+                                    android:ellipsize="end"
+                                    tools:text="Kindpakket"
+                                    android:visibility="gone"
+                                    />
 
                             </LinearLayout>
 
