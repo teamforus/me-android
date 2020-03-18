@@ -36,7 +36,7 @@ interface SignService {
     fun restoreByEmail(@Body restore: RestoreByEmail) : Observable<ResponseBody>
 
 
-    @GET("api/v1/identity/proxy/authorize/email/app-me_app/{token}")
+    @GET("api/v1/identity/proxy/email/exchange/{token}")
     fun restoreExchangeToken(@Path("token") token: String) : Observable<AccessToken>
 
 

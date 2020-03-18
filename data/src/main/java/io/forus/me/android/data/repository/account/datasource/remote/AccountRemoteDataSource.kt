@@ -68,8 +68,9 @@ class AccountRemoteDataSource(f: () -> SignService): AccountDataSource, RemoteDa
 
     override fun restoreByEmail(email: String): Observable<Boolean> {
         val signUp = RestoreByEmail(email)
-        return service.restoreByEmail(signUp).map { Log.d("io.forus.me.dev","email_code="+it.string())
-            it.string() == "{}"
+        return service.restoreByEmail(signUp).map {
+            val result = it.string();
+            result == "{}"
         }
     }
 
