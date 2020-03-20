@@ -15,6 +15,7 @@ import io.forus.me.android.presentation.view.screens.account.account.pin.ChangeP
 import io.forus.me.android.presentation.view.screens.account.assigndelegates.AssignDelegatesAccountActivity
 import io.forus.me.android.presentation.view.screens.account.assigndelegates.email.RestoreByEmailActivity
 import io.forus.me.android.presentation.view.screens.account.newaccount.NewAccountActivity
+import io.forus.me.android.presentation.view.screens.account.newaccount.confirmRegistration.ConfirmRegistrationActivity
 import io.forus.me.android.presentation.view.screens.account.newaccount.pin.NewPinActivity
 import io.forus.me.android.presentation.view.screens.dashboard.DashboardActivity
 import io.forus.me.android.presentation.view.screens.lock.PinLockActivity
@@ -111,6 +112,17 @@ constructor()//empty
             context.startActivity(intentToLaunch)
         }
     }
+
+
+    fun navigateToConfirmRegistration(context: Context?, accessToken: String) {
+        if (context != null) {
+            val intentToLaunch = ConfirmRegistrationActivity.getCallingIntent(context,accessToken)
+            context.startActivity(intentToLaunch)
+        }
+    }
+
+
+
 
     fun navigateToAccountRestoreByEmailExchangeToken(context: Context?, token: String) {
         if (context != null) {

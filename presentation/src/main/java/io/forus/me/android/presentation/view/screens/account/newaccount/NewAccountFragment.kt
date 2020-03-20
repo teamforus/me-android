@@ -129,8 +129,12 @@ class NewAccountFragment : ToolbarLRFragment<NewAccountModel, NewAccountView, Ne
             Snackbar.make(viewForSnackbar(), errorMessage, Snackbar.LENGTH_SHORT).show()
         }
 
-        if (vs.closeScreen && vs.model.accessToken != null) {
-            closeScreen(vs.model.accessToken)
+        if (vs.closeScreen && vs.model.isSuccess != null && vs.model.isSuccess) {
+
+            Log.d("forus","Registration_success");
+            navigator.navigateToCheckEmail(context!!)
+            activity?.finish()
+
         }
     }
 

@@ -18,8 +18,12 @@ import io.reactivex.Observable
 
 class AccountRemoteDataSource(f: () -> SignService): AccountDataSource, RemoteDataSource<SignService>(f) {
 
-    override fun createUser(signUp: SignUp): Observable<SignUpResult> {
-        return service.signup(signUp)
+
+    override fun createUser(signUp: SignUp): Observable<Boolean> {
+        return service.signup(signUp).map {
+            val result = it.string();
+            result == "{}"
+        }
     }
 
     override fun saveIdentity(token: String, pin: String){
@@ -76,6 +80,10 @@ class AccountRemoteDataSource(f: () -> SignService): AccountDataSource, RemoteDa
 
     override fun restoreExchangeToken(token: String): Observable<AccessToken> {
         return service.restoreExchangeToken(token);
+    }
+
+    override fun registerExchangeToken(token: String): Observable<AccessToken> {
+        return service.registerExchangeToken(token)
     }
 
     override fun registerPush(token: String): Observable<Boolean> {

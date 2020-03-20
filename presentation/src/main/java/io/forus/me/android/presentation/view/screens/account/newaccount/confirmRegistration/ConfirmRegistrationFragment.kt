@@ -1,0 +1,134 @@
+package io.forus.me.android.presentation.view.screens.account.newaccount.confirmRegistration
+
+import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import io.forus.me.android.presentation.R
+import io.forus.me.android.presentation.internal.Injection
+import io.forus.me.android.presentation.view.base.lr.LRViewState
+import io.forus.me.android.presentation.view.base.lr.LoadRefreshPanel
+import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
+import io.forus.me.android.presentation.view.screens.account.assigndelegates.email.RestoreByEmailModel
+import io.forus.me.android.presentation.view.screens.account.assigndelegates.email.RestoreByEmailPresenter
+import io.forus.me.android.presentation.view.screens.account.assigndelegates.email.RestoreByEmailView
+import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
+import kotlinx.android.synthetic.main.fragment_confirm_registration.*
+
+
+/**
+ * Fragment New User Account Screen.
+ */
+class ConfirmRegistrationFragment :  ToolbarLRFragment<ConfirmRegistrationModel, ConfirmRegistrationView, ConfirmRegistrationPresenter>(), ConfirmRegistrationView {
+
+
+    companion object {
+        private val TOKEN_EXTRA = "TOKEN_EXTRA"
+
+        fun newIntent(token: String): ConfirmRegistrationFragment = ConfirmRegistrationFragment().also {
+            val bundle = Bundle()
+            bundle.putString(TOKEN_EXTRA, token)
+            it.arguments = bundle
+        }
+    }
+
+    private var token: String = ""
+
+
+
+    private var instructionsAlreadyShown: Boolean = false
+
+    override val toolbarTitle: String
+        get() = ""
+
+    override val allowBack: Boolean
+        get() = false
+
+
+    override fun viewForSnackbar(): View = root
+
+    override fun loadRefreshPanel() = object : LoadRefreshPanel {
+        override fun retryClicks(): Observable<Any> = Observable.never()
+
+        override fun refreshes(): Observable<Any> = Observable.never()
+
+        override fun render(vs: LRViewState<*>) {
+
+        }
+    }
+
+
+
+    private val exchangeToken = PublishSubject.create<String>()
+    override fun exchangeToken() = exchangeToken
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
+            = inflater.inflate(R.layout.fragment_confirm_registration, container, false).also {
+
+        val bundle = this.arguments
+        if (bundle != null) {
+            token = bundle.getString(TOKEN_EXTRA, "")
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+    }
+
+    override fun createPresenter() = ConfirmRegistrationPresenter(
+            token,
+            Injection.instance.accountRepository
+    )
+
+
+    override fun render(vs: LRViewState<ConfirmRegistrationModel>) {
+        super.render(vs)
+
+       /* restore.visibility = if(vs.model.sendingRestoreByEmail == true || vs.model.sendingRestoreByEmailSuccess == true) View.INVISIBLE else View.VISIBLE
+        email_description.visibility = if(vs.model.sendingRestoreByEmailSuccess == true) View.VISIBLE else View.INVISIBLE
+        email.isEditable = !(vs.model.sendingRestoreByEmailSuccess == true)
+        */
+
+       /* if(vs.model.sendingRestoreByEmailSuccess == true && !instructionsAlreadyShown){
+            /* InstructionsDialog(context!!).show()
+             instructionsAlreadyShown = true*/
+            navigator.navigateToCheckEmail(context!!)
+        }*/
+
+      /*  if(vs.model.sendingRestoreByEmail == true){
+            (activity as? BaseActivity)?.hideSoftKeyboard()
+        }
+
+        if(vs.model.sendingRestoreByEmailError != null){
+            email.setError(resources.getString(R.string.restore_email_not_found))
+        }*/
+
+        if(vs.model.exchangeTokenError != null){
+            Log.d("forus","exchangeTokenError")
+            showToastMessage(resources.getString(R.string.restore_email_invalid_link))
+        }
+
+        if (vs.model.accessToken != null && vs.model.accessToken.isNotBlank()) {
+            Log.d("forus","accessToken.isNotBlank()")
+            closeScreen(vs.model.accessToken)
+        }
+    }
+
+    fun closeScreen(accessToken: String) {
+        navigator.navigateToPinNew(activity, accessToken)
+        activity?.finish()
+    }
+
+    fun exchangeToken(token: String) {
+        exchangeToken.onNext(token)
+    }
+}
+
