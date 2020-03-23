@@ -27,7 +27,6 @@ class ConfirmRegistrationPresenter constructor(private val token: String, privat
 
     override fun bindIntents() {
 
-        Log.d("meforus","RestoreByEmailPresenter**")
 
         val observable = Observable.merge(
 

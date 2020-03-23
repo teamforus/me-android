@@ -8,9 +8,7 @@ import io.forus.me.android.presentation.R
 
 import io.forus.me.android.presentation.view.activity.CommonActivity
 
-/**
- * Main application screen. This is the app entry point.
- */
+
 class ConfirmRegistrationActivity : CommonActivity() {
 
 

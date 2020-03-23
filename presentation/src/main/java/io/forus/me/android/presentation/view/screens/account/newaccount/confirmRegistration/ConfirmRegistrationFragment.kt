@@ -18,9 +18,7 @@ import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_confirm_registration.*
 
 
-/**
- * Fragment New User Account Screen.
- */
+
 class ConfirmRegistrationFragment :  ToolbarLRFragment<ConfirmRegistrationModel, ConfirmRegistrationView, ConfirmRegistrationPresenter>(), ConfirmRegistrationView {
 
 
@@ -92,24 +90,7 @@ class ConfirmRegistrationFragment :  ToolbarLRFragment<ConfirmRegistrationModel,
     override fun render(vs: LRViewState<ConfirmRegistrationModel>) {
         super.render(vs)
 
-       /* restore.visibility = if(vs.model.sendingRestoreByEmail == true || vs.model.sendingRestoreByEmailSuccess == true) View.INVISIBLE else View.VISIBLE
-        email_description.visibility = if(vs.model.sendingRestoreByEmailSuccess == true) View.VISIBLE else View.INVISIBLE
-        email.isEditable = !(vs.model.sendingRestoreByEmailSuccess == true)
-        */
 
-       /* if(vs.model.sendingRestoreByEmailSuccess == true && !instructionsAlreadyShown){
-            /* InstructionsDialog(context!!).show()
-             instructionsAlreadyShown = true*/
-            navigator.navigateToCheckEmail(context!!)
-        }*/
-
-      /*  if(vs.model.sendingRestoreByEmail == true){
-            (activity as? BaseActivity)?.hideSoftKeyboard()
-        }
-
-        if(vs.model.sendingRestoreByEmailError != null){
-            email.setError(resources.getString(R.string.restore_email_not_found))
-        }*/
 
         if(vs.model.exchangeTokenError != null){
             Log.d("forus","exchangeTokenError")
