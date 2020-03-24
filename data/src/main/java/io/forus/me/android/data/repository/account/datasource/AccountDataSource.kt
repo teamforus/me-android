@@ -12,7 +12,7 @@ import io.reactivex.Observable
 interface AccountDataSource {
 
 
-    fun createUser(signUp: SignUp): Observable<SignUpResult>
+    fun createUser(signUp: SignUp): Observable<Boolean>
 
 
     fun restoreByQrToken() : Observable<IdentityTokenResult>
@@ -22,6 +22,8 @@ interface AccountDataSource {
 
 
     fun restoreExchangeToken(token: String) : Observable<AccessToken>
+
+    fun registerExchangeToken(token: String) : Observable<AccessToken>
 
 
     fun restoreByPinCode() : Observable<IdentityPinResult>
