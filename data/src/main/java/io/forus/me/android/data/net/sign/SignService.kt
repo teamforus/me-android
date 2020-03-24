@@ -19,7 +19,7 @@ import retrofit2.http.*
 interface SignService {
 
     @POST("api/v1/identity")
-    fun signup(@Body signUp: SignUp) : Observable<SignUpResult>
+    fun signup(@Body signUp: SignUp) : Observable<ResponseBody>
 
     @GET("api/v1/identity")
     fun getIdentity(): Observable<Account>
@@ -35,9 +35,13 @@ interface SignService {
     @POST("api/v1/identity/proxy/email")
     fun restoreByEmail(@Body restore: RestoreByEmail) : Observable<ResponseBody>
 
-
+   // @GET("{{apiUrl}}/identity/validate/email")
     @GET("api/v1/identity/proxy/email/exchange/{token}")
     fun restoreExchangeToken(@Path("token") token: String) : Observable<AccessToken>
+
+
+    @GET("api/v1/identity/proxy/confirmation/exchange/{token}")
+    fun registerExchangeToken(@Path("token") token: String) : Observable<AccessToken>
 
 
     @POST("api/v1/identity/proxy/authorize/code")
