@@ -1,5 +1,6 @@
 package io.forus.me.android.presentation.view.screens.account.assigndelegates.email
 
+import android.util.Log
 import io.forus.me.android.domain.repository.account.AccountRepository
 import io.forus.me.android.presentation.view.base.lr.LRPresenter
 import io.forus.me.android.presentation.view.base.lr.LRViewState
@@ -25,6 +26,8 @@ class RestoreByEmailPresenter constructor(private val token: String, private val
     }
 
     override fun bindIntents() {
+
+        Log.d("meforus","RestoreByEmailPresenter**")
 
         val observable = Observable.merge(
 

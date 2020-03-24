@@ -129,8 +129,9 @@ class RestoreByEmailFragment : ToolbarLRFragment<RestoreByEmailModel, RestoreByE
         email.isEditable = !(vs.model.sendingRestoreByEmailSuccess == true)
 
         if(vs.model.sendingRestoreByEmailSuccess == true && !instructionsAlreadyShown){
-            InstructionsDialog(context!!).show()
-            instructionsAlreadyShown = true
+           /* InstructionsDialog(context!!).show()
+            instructionsAlreadyShown = true*/
+            navigator.navigateToCheckEmail(context!!)
         }
 
         if(vs.model.sendingRestoreByEmail == true){

@@ -65,6 +65,8 @@ public class MeServiceFactory {
                     .header("Authorization", token == null || token.isEmpty() ? "" :  "Bearer " + token )
                     .header("Content-Type", "application/json")
                     .header("Accept", "application/json")
+                    .header("Client-Key", "general")
+                    .header("Client-Type", "me_app-android")
                   //  .header("Origin", Constants.INSTANCE.getBASE_SERVICE_ENDPOINT())
                 //    .header("User-agent", Constants.getUserAgent())
                  //   .header("X-USER-OS", "Android")

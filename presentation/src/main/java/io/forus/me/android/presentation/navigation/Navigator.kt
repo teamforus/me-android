@@ -10,6 +10,7 @@ import io.forus.me.android.domain.models.wallets.Wallet
 import io.forus.me.android.presentation.models.ChangePinMode
 import io.forus.me.android.presentation.models.vouchers.Voucher
 import io.forus.me.android.presentation.view.screens.account.account.AccountActivity
+import io.forus.me.android.presentation.view.screens.account.account.check_email.CheckEmailActivity
 import io.forus.me.android.presentation.view.screens.account.account.pin.ChangePinActivity
 import io.forus.me.android.presentation.view.screens.account.assigndelegates.AssignDelegatesAccountActivity
 import io.forus.me.android.presentation.view.screens.account.assigndelegates.email.RestoreByEmailActivity
@@ -22,6 +23,7 @@ import io.forus.me.android.presentation.view.screens.records.item.RecordDetailsA
 import io.forus.me.android.presentation.view.screens.records.list.RecordsActivity
 import io.forus.me.android.presentation.view.screens.records.newrecord.NewRecordActivity
 import io.forus.me.android.presentation.view.screens.vouchers.item.VoucherActivity
+import io.forus.me.android.presentation.view.screens.vouchers.product_reservation.ProductReservationActivity
 import io.forus.me.android.presentation.view.screens.vouchers.provider.ProviderActivity
 import io.forus.me.android.presentation.view.screens.wallets.item.WalletDetailsActivity
 import io.forus.me.android.presentation.view.screens.welcome.WelcomeActivity
@@ -70,6 +72,13 @@ constructor()//empty
     fun navigateToAccountRestore(context: Context?) {
         if (context != null) {
             val intentToLaunch = AssignDelegatesAccountActivity.getCallingIntent(context)
+            context.startActivity(intentToLaunch)
+        }
+    }
+
+    fun navigateToCheckEmail(context: Context?) {
+        if (context != null) {
+            val intentToLaunch = CheckEmailActivity.getCallingIntent(context)
             context.startActivity(intentToLaunch)
         }
     }
@@ -166,6 +175,14 @@ constructor()//empty
             context.startActivity(intentToLaunch)
         }
     }
+
+    fun navigateToProductReservation(context: Context?, voucherAddress: String, showParentVoucher: Boolean) {
+        if (context != null) {
+            val intentToLaunch = ProductReservationActivity.getCallingIntent(context, voucherAddress, showParentVoucher)
+            context.startActivity(intentToLaunch)
+        }
+    }
+
 
     fun navigateToChangePin(caller: Fragment, mode: ChangePinMode, requestCode: Int){
         val context = caller.context

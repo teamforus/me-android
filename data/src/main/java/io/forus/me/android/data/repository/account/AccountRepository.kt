@@ -1,5 +1,6 @@
 package io.forus.me.android.data.repository.account
 
+import android.util.Log
 import com.gigawatt.android.data.net.sign.models.request.SignUp
 import io.forus.me.android.data.entity.sign.request.SignRecords
 import io.forus.me.android.data.repository.account.datasource.AccountDataSource
@@ -158,6 +159,7 @@ class AccountRepository(private val settingsDataSource: SettingsDataSource,
     }
 
     override fun checkCurrentToken(): Observable<Boolean>{
+        Log.d("forus","checkCurrentToken")
         return checkActivationDataSource.checkActivation(accountLocalDataSource.getCurrentToken())
     }
 

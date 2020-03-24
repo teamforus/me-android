@@ -12,6 +12,7 @@ import java.util.*
 
 class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : io.forus.me.android.domain.repository.vouchers.VouchersRepository {
 
+
     val dateLocaleFormat = SimpleDateFormat("MMM dd, yyyy HH:mm", Locale.US)
 
     private fun mapToSimple(voucher: io.forus.me.android.data.entity.vouchers.response.Voucher): Voucher {
@@ -116,6 +117,8 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
         return vouchersDataSource.listAllVouchers().map { it.map { mapToSimple(it) } }
     }
 
+
+
     override fun getVoucher(address: String): Observable<Voucher> {
         return vouchersDataSource.retrieveVoucher(address).map { mapToSimple(it) }
     }
@@ -123,6 +126,11 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
     override fun getVoucherAsProvider(address: String): Observable<VoucherProvider> {
         return vouchersDataSource.retrieveVoucherAsProvider(address).map { mapToProvider(it) }
     }
+
+    override fun getProductVouchersAsProvider(address: String): Observable<List<Voucher>> {
+        return vouchersDataSource.retrieveProductVouchersAsProvider(address).map { it.map { mapToSimple(it) } }
+    }
+
 
     override fun makeTransaction(address: String, amount: BigDecimal, note: String, organizationId: Long): Observable<Boolean> {
         return vouchersDataSource.makeTransaction(address, MakeTransaction(amount, note, organizationId)).map { true }
