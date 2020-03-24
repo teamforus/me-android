@@ -1,11 +1,16 @@
 package io.forus.me.android.data.net;
 
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import android.util.Log;
 
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import io.forus.me.android.data.entity.serializers.SignRecordsTypeAdapter;
@@ -24,7 +29,7 @@ public class MeServiceFactory {
     private static AccountLocalDataSource accountLocalDataSource;
 
 
-
+    private static Context context;
     private static MeServiceFactory ourInstance;
 
     public static MeServiceFactory getInstance() {
@@ -37,6 +42,7 @@ public class MeServiceFactory {
 
     public static void init(Context context, AccountLocalDataSource accountLocalDataSource){
         ourInstance = new MeServiceFactory(accountLocalDataSource);
+        MeServiceFactory.context = context;
     }
 
 
@@ -59,6 +65,11 @@ public class MeServiceFactory {
                     .newBuilder()
                     .build();
 
+
+
+            String userAgent = getUserAgent();
+            Log.d("forus","userAgent="+userAgent);
+
             String token =  customAccessToken!= null ? customAccessToken : accountLocalDataSource.getTokenString();
             Request request = original.newBuilder()
                     .url(url)
@@ -68,7 +79,7 @@ public class MeServiceFactory {
                     .header("Client-Key", "general")
                     .header("Client-Type", "me_app-android")
                   //  .header("Origin", Constants.INSTANCE.getBASE_SERVICE_ENDPOINT())
-                //    .header("User-agent", Constants.getUserAgent())
+                    .header("User-agent",userAgent)// Constants.getUserAgent())
                  //   .header("X-USER-OS", "Android")
                     .method(original.method(), original.body())
                     .build();
@@ -110,6 +121,29 @@ public class MeServiceFactory {
         return service;
     }
 
+
+    private String getUserAgent(){
+
+        String appName = context.getApplicationInfo().loadLabel(context.getPackageManager()).toString();
+        String appVersion = "";
+        try {
+            PackageInfo pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+            appVersion = pInfo.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
+
+        return String.format(Locale.US,
+                "%s/%s (Android %s; %s; %s %s; %s)",
+                appName,
+                appVersion,
+                Build.VERSION.RELEASE,
+                Build.MODEL,
+                Build.BRAND,
+                Build.DEVICE,
+                Locale.getDefault().getLanguage());
+    }
 
 
 
