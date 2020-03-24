@@ -89,13 +89,6 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
                     .show()
     }
 
-    /*
-    budget:
-{{apiUrl}}/platform/provider/vouchers/0xc87fbc0f088057b25b3831c7fc905bc36744f462
-product_vouchers:
-{{apiUrl}}/platform/provider/vouchers/0xc87fbc0f088057b25b3831c7fc905bc36744f462/product-vouchers
-
-     */
 
 
 
@@ -117,7 +110,6 @@ product_vouchers:
                 .onErrorReturn {
                     Log.e("QR_ACTION", "scan voucher_error", it)
                     if (scanner.hasWindowFocus()) {
-                        //ScanVoucherNotEligibleDialog(scanner, reactivateDecoding).show()
                         onResultVoucherScanned(address, false)
                     }
                 }
@@ -168,7 +160,6 @@ product_vouchers:
         } else {
             showToastMessage(resources.getString(R.string.qr_voucher_scanned))
             scanHasProductVouchers(address,isAvialableScannedVoucher)
-            //navigator.navigateToProductReservation(scanner, address)
             (android.os.Handler()).postDelayed({
                 reactivateDecoding()
             }, 1000)
@@ -177,7 +168,7 @@ product_vouchers:
 
 
     private fun scanHasProductVouchers(address: String, isAvialableScannedVoucher: Boolean) {
-        Log.d("testforus","scanHasProductVouchers 0")
+
         vouchersRepository.getProductVouchersAsProvider(address)//getVoucherAsProvider(address)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
