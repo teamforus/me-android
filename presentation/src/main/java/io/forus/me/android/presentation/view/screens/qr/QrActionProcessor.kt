@@ -51,22 +51,26 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
                                                 .subscribeOn(Schedulers.io())
                                                 .observeOn(AndroidSchedulers.mainThread())
                                                 .map { onResultValidationApproved() }
-                                                .onErrorReturn { onResultUnexpectedError() }
+                                                .onErrorReturn {
+                                                    onResultUnexpectedError() }
                                                 .subscribe()
                                     },
                                     {
                                         recordsRepository.declineValidation(validation.uuid!!)
                                                 .subscribeOn(Schedulers.io())
                                                 .observeOn(AndroidSchedulers.mainThread())
-                                                .map { onResultValidationDeclined() }
-                                                .onErrorReturn { onResultUnexpectedError() }
+                                                .map {
+                                                    onResultValidationDeclined() }
+                                                .onErrorReturn {
+                                                    onResultUnexpectedError() }
                                                 .subscribe()
                                     },
                                     reactivateDecoding)
                                     .show()
                     } else onResultValidationAlreadyDone()
                 }
-                .onErrorReturn { onResultUnexpectedError() }
+                .onErrorReturn {
+                    onResultUnexpectedError() }
                 .subscribe()
     }
 
@@ -77,11 +81,14 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
                         accountRepository.authorizeToken(token)
                                 .subscribeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread())
-                                .map { onResultIdentityRestored() }
+                                .map {
+                                    onResultIdentityRestored() }
                                 .onErrorReturn {
                                     if (it is RetrofitException && it.kind == RetrofitException.Kind.HTTP && it.responseCode == 402) {
                                         onResultTokenExpired()
-                                    } else onResultUnexpectedError()
+                                    } else {
+                                        onResultUnexpectedError()
+                                    }
                                 }
                                 .subscribe()
                     },
