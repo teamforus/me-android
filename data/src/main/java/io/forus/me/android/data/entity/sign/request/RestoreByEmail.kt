@@ -11,13 +11,10 @@ import java.io.Serializable
 
 class RestoreByEmail : Serializable{
 
-    @SerializedName("primary_email")
+    @SerializedName("email")
     @Expose
     var email: String
 
-    /*@SerializedName("source")
-    @Expose
-    var source: String = "app-me_app"*/
 
     constructor(email: String) {
         this.email = email

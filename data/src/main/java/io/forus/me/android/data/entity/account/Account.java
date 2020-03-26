@@ -7,6 +7,9 @@ public class Account {
     @SerializedName("address")
     private String address;
 
+    @SerializedName("email")
+    private String email;
+
     public Account() {}
 
     public Account(String address) {
@@ -19,5 +22,9 @@ public class Account {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getEmail() {
+        return email;
     }
 }
