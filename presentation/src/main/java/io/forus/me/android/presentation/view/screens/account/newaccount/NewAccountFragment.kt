@@ -119,7 +119,6 @@ class NewAccountFragment : ToolbarLRFragment<NewAccountModel, NewAccountView, Ne
     override fun render(vs: LRViewState<NewAccountModel>) {
         super.render(vs)
 
-        Log.d("testforus","NewAccountRender")
 
         progressBar.visibility = if (vs.loading || vs.model.sendingRegistration) View.VISIBLE else View.INVISIBLE
 
@@ -131,7 +130,6 @@ class NewAccountFragment : ToolbarLRFragment<NewAccountModel, NewAccountView, Ne
 
         if (vs.closeScreen && vs.model.isSuccess != null && vs.model.isSuccess) {
 
-            Log.d("forus","Registration_success");
             navigator.navigateToCheckEmail(context!!)
             activity?.finish()
 

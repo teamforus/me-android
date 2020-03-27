@@ -11,13 +11,6 @@ import retrofit2.http.Path
 interface VouchersService {
 
 
-    /*
- budget:
-{{apiUrl}}/platform/provider/vouchers/0xc87fbc0f088057b25b3831c7fc905bc36744f462
-product_vouchers:
-{{apiUrl}}/platform/provider/vouchers/0xc87fbc0f088057b25b3831c7fc905bc36744f462/product-vouchers
-
-  */
 
 
     @GET("api/v1/platform/vouchers")

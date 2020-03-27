@@ -31,6 +31,8 @@ class ProductReservationFragment : ToolbarLRFragment<ProductReservationModel, Pr
     private lateinit var address: String
     private var showParentVoucher: Boolean = false
 
+
+
     companion object {
         private val VOUCHER_ADDRESS_EXTRA = "VOUCHER_ADDRESS_EXTRA"
         private val SHOW_PARENT_VOUCHER = "SHOW_PARENT_VOUCHER"
@@ -97,6 +99,12 @@ class ProductReservationFragment : ToolbarLRFragment<ProductReservationModel, Pr
             Injection.instance.vouchersRepository , address
     )
 
+
+    override fun onResume() {
+        super.onResume()
+        super.updateModel()
+
+    }
 
     override fun render(vs: LRViewState<ProductReservationModel>) {
         super.render(vs)
