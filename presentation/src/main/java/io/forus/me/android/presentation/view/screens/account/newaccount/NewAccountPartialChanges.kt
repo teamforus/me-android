@@ -9,7 +9,7 @@ sealed class NewAccountPartialChanges : PartialChange {
 
     data class RegisterStart(val model: NewAccountRequest) : NewAccountPartialChanges()
 
-    data class RegisterEnd(val accessToken: String) : NewAccountPartialChanges()
+    data class RegisterEnd(val isSuccess: Boolean) : NewAccountPartialChanges()
 
     data class RegisterError(val error: Throwable) : NewAccountPartialChanges()
 }

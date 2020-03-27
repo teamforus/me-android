@@ -3,6 +3,7 @@ package io.forus.me.android.presentation.view.screens.account.newaccount
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.text.Editable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -118,6 +119,7 @@ class NewAccountFragment : ToolbarLRFragment<NewAccountModel, NewAccountView, Ne
     override fun render(vs: LRViewState<NewAccountModel>) {
         super.render(vs)
 
+
         progressBar.visibility = if (vs.loading || vs.model.sendingRegistration) View.VISIBLE else View.INVISIBLE
 
         if(vs.model.sendingRegistrationError != null) {
@@ -126,8 +128,11 @@ class NewAccountFragment : ToolbarLRFragment<NewAccountModel, NewAccountView, Ne
             Snackbar.make(viewForSnackbar(), errorMessage, Snackbar.LENGTH_SHORT).show()
         }
 
-        if (vs.closeScreen && vs.model.accessToken != null) {
-            closeScreen(vs.model.accessToken)
+        if (vs.closeScreen && vs.model.isSuccess != null && vs.model.isSuccess) {
+
+            navigator.navigateToCheckEmail(context!!)
+            activity?.finish()
+
         }
     }
 

@@ -89,6 +89,9 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
                     .show()
     }
 
+
+
+
     fun scanVoucher(address: String) {
         vouchersRepository.getVoucherAsProvider(address)
                 .subscribeOn(Schedulers.io())
@@ -101,13 +104,14 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
                         if (scanner.hasWindowFocus())
                             ScanVoucherEmptyDialog(scanner, reactivateDecoding).show()
                     } else {
-                        onResultVoucherScanned(address)
+                        onResultVoucherScanned(address, true)
                     }
                 }
                 .onErrorReturn {
                     Log.e("QR_ACTION", "scan voucher_error", it)
-                    if (scanner.hasWindowFocus())
-                        ScanVoucherNotEligibleDialog(scanner, reactivateDecoding).show()
+                    if (scanner.hasWindowFocus()) {
+                        onResultVoucherScanned(address, false)
+                    }
                 }
                 .subscribe()
     }
@@ -144,7 +148,7 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
         reactivateDecoding()
     }
 
-    private fun onResultVoucherScanned(address: String) {
+    private fun onResultVoucherScanned(address: String, isAvialableScannedVoucher: Boolean) {
         // Hide finger print on voucher
         if (false and settingsDataSource.isPinEnabled() ) {
             // Database will be opened later
@@ -155,12 +159,48 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
             }, 1000)
         } else {
             showToastMessage(resources.getString(R.string.qr_voucher_scanned))
-            navigator.navigateToVoucherProvider(scanner, address)
+            scanHasProductVouchers(address,isAvialableScannedVoucher)
             (android.os.Handler()).postDelayed({
                 reactivateDecoding()
             }, 1000)
         }
     }
+
+
+    private fun scanHasProductVouchers(address: String, isAvialableScannedVoucher: Boolean) {
+
+        vouchersRepository.getProductVouchersAsProvider(address)//getVoucherAsProvider(address)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map {
+
+                    if (it!=null && it.size > 0){
+                        //Show product vouchers list
+                        navigator.navigateToProductReservation(scanner, address,isAvialableScannedVoucher)
+
+                    }else{
+                       //Show voucher
+                        navigator.navigateToVoucherProvider(scanner, address)
+
+                    }
+
+                }
+                .onErrorReturn {
+                    if (scanner.hasWindowFocus()) {
+                        if(isAvialableScannedVoucher) {
+                            navigator.navigateToVoucherProvider(scanner, address)
+                        }else{
+                            ScanVoucherNotEligibleDialog(scanner, reactivateDecoding).show()
+                        }
+                    }
+                }
+                .subscribe()
+    }
+
+
+
+
+
 
     private fun onResultUnexpectedError() {
         showToastMessage(resources.getString(R.string.qr_unexpected_error))

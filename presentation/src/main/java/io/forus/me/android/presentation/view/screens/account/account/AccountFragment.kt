@@ -5,6 +5,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
 import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
@@ -46,6 +47,10 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
         get() = getString(R.string.dashboard_profile)
 
     override fun loadRefreshPanel() = lr_panel
+
+    val h = Handler()
+    var optionPincodeIsEnable = true
+
 
     private var isFingerprintHardwareAvailable = false
 
@@ -100,6 +105,8 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
         support_email.setOnClickListener {
             sendSupportEmailDialogBuilder.show()
         }
+
+        optionPincodeIsEnable = true
     }
 
     override fun createPresenter() = AccountPresenter(
@@ -118,12 +125,23 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
         change_digits.visibility = if (vs.model.pinlockEnabled) View.VISIBLE else View.GONE
         enable_pinlock.setChecked(vs.model.pinlockEnabled)
         enable_pinlock.setOnClickListener {
+            if (optionPincodeIsEnable) {
+
+
+            optionPincodeIsEnable = false
+            h.postDelayed(object : Runnable{
+                override fun run() {
+                    optionPincodeIsEnable = true
+                }
+            },1000)
             navigator.navigateToChangePin(this, if (vs.model.pinlockEnabled) ChangePinMode.REMOVE_OLD else ChangePinMode.SET_NEW, REQUEST_CHANGE_PIN)
+            }
         }
 
         enable_fingerprint.visibility = if (isFingerprintHardwareAvailable && vs.model.pinlockEnabled) View.VISIBLE else View.GONE
         enable_fingerprint.setChecked(vs.model.fingerprintEnabled)
         enable_fingerprint.setOnClickListener {
+
             if (services.hasEnrolledFingerprints()) {
                 switchFingerprint.onNext(!vs.model.fingerprintEnabled)
             } else showToastMessage(resources.getString(R.string.lock_no_fingerprints))
