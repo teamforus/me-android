@@ -1,5 +1,6 @@
 package io.forus.me.android.data.repository.account
 
+import android.util.Log
 import com.gigawatt.android.data.net.sign.models.request.SignUp
 import io.forus.me.android.data.entity.sign.request.SignRecords
 import io.forus.me.android.data.repository.account.datasource.AccountDataSource
@@ -20,14 +21,22 @@ class AccountRepository(private val settingsDataSource: SettingsDataSource,
                         private val recordsRepository: RecordsRepository) : io.forus.me.android.domain.repository.account.AccountRepository {
 
 
-    override fun newUser(model: NewAccountRequest): Observable<String> {
+    override fun registerExchangeToken(token: String): Observable<RequestDelegatesEmailModel> {
+        return accountRemoteDataSource.registerExchangeToken(token)
+                .map {
+                    RequestDelegatesEmailModel(it.accessToken)
+                }
+    }
+
+
+    override fun newUser(model: NewAccountRequest): Observable<Boolean> {
         val signUp = SignUp()
         signUp.pinCode = "1111"
         signUp.records = SignRecords(model.email, model.firstname, model.lastname, model.bsn, model.phoneNumber)
 
        return accountRemoteDataSource.createUser(signUp)
                 .flatMap {
-                    Observable.just(it.accessToken)
+                    Observable.just(it)
                 }.delay(50, TimeUnit.MILLISECONDS)
 
     }
@@ -158,6 +167,7 @@ class AccountRepository(private val settingsDataSource: SettingsDataSource,
     }
 
     override fun checkCurrentToken(): Observable<Boolean>{
+        Log.d("forus","checkCurrentToken")
         return checkActivationDataSource.checkActivation(accountLocalDataSource.getCurrentToken())
     }
 

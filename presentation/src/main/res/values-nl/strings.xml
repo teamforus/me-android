@@ -206,4 +206,13 @@
     <string name="send_email_title">Stuur e-mail</string>
     <string name="shopkeeper_provider_text">Aanbieder</string>
     <string name="profile_send_crash_report">Stuur foutrapports</string>
+    <string name="qr_choose_reservation">Kies reservering</string>
+    <string name="qr_reserved_offers">Onderstaande aanbiedingen zijn door de klant gereserveerd</string>
+    <string name="vouchers_complete_an_amount">VUL ZELF EEN BEDRAG IN</string>
+    <string name="check_email_has_been_sent_to_you">Bevestig uw\u00A0emailadres</string>
+    <string name="check_email_description">Klik op de link in de email die u heeft ontvangen op youremailaddress@forus.io om uw aanmelding af te maken \n</string>
+    <string name="cancel">Koppelen</string>
+    <string name="check_email_open_mail_app">Open mail app</string>
+    <string name="registering">Registering...</string>
+
 </resources>

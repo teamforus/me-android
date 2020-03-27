@@ -35,7 +35,7 @@ public class AccountLocalDataSource implements AccountDataSource, LocalDataSourc
 
     @NotNull
     @Override
-    public Observable<SignUpResult> createUser(@NotNull SignUp signUp) {
+    public Observable<Boolean> createUser(@NotNull SignUp signUp) {
         return null;
     }
 
@@ -152,5 +152,11 @@ public class AccountLocalDataSource implements AccountDataSource, LocalDataSourc
     @Override
     public String getCurrentToken() {
         return getTokenString();
+    }
+
+    @NotNull
+    @Override
+    public Observable<AccessToken> registerExchangeToken(@NotNull String token) {
+        return null;
     }
 }

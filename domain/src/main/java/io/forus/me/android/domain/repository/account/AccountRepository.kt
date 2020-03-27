@@ -5,7 +5,7 @@ import io.reactivex.Observable
 
 interface AccountRepository {
 
-    fun newUser(model: NewAccountRequest) : Observable<String>
+    fun newUser(model: NewAccountRequest) : Observable<Boolean>
 
 
     fun restoreByEmail(email: String) : Observable<Boolean>
@@ -27,6 +27,8 @@ interface AccountRepository {
 
 
     fun createIdentity(identity: Identity): Observable<Boolean>
+
+    fun  registerExchangeToken(token: String): Observable<RequestDelegatesEmailModel>
 
 
     fun registerFCMToken(token: String): Observable<Boolean>
