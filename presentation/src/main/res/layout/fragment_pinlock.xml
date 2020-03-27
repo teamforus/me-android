@@ -40,7 +40,9 @@
                 android:id="@+id/btn_exit"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:background="@drawable/ic_close" />
+                android:background="@drawable/ic_close"
+                android:visibility="gone"
+                />
         </RelativeLayout>
 
         <View
