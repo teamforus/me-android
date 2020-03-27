@@ -19,7 +19,6 @@ class AccessTokenChecker(val serviceEndpoint: String){
     fun startCheckingActivation(accessToken: String, activationComplete: PublishSubject<Unit>): Disposable{
         val checkActivationDataSource = CheckActivationDataSource(MeServiceFactory.getInstance().createRetrofitService(SignService::class.java, serviceEndpoint))
 
-        Log.d("forus","Check_activation")
 
         return checkActivationDataSource.checkActivation(accessToken)
                 .subscribeOn(Schedulers.io())
