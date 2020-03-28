@@ -96,7 +96,7 @@ android {
         prod {
             dimension "version"
             versionNameSuffix "-prod"
-            buildConfigField "String", SERVER_URL, "\"https://api.forus.link/\""
+            buildConfigField "String", SERVER_URL, "\"https://api.forus.io/\""
             buildConfigField "String", PREFIX_URL, "\"\""
             applicationId 'io.forus.me'
         }
