@@ -4,21 +4,10 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class ApiError {
-
-    @SerializedName("message")
-    private String message;
+public class ApiError extends BaseError{
 
     @SerializedName("errors")
     private Errors errors;
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
 
     public Errors getErrors() {
         return errors;
