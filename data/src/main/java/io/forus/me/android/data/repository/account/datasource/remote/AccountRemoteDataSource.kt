@@ -22,7 +22,7 @@ class AccountRemoteDataSource(f: () -> SignService): AccountDataSource, RemoteDa
     override fun createUser(signUp: SignUp): Observable<Boolean> {
         return service.signup(signUp).map {
             val result = it.string();
-            result == "{}"
+            result == "{}" || result.contains("\"access_token\"")
         }
     }
 
@@ -74,7 +74,7 @@ class AccountRemoteDataSource(f: () -> SignService): AccountDataSource, RemoteDa
         val signUp = RestoreByEmail(email)
         return service.restoreByEmail(signUp).map {
             val result = it.string();
-            result == "{}"
+            result == "{}" || result.contains("\"access_token\"") || result.contains("\"success\"")
         }
     }
 
