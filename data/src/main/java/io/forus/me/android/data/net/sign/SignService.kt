@@ -49,7 +49,7 @@ interface SignService {
 
 
     @POST("api/v1/identity/proxy/authorize/token")
-    fun authorizeToken(@Body authorizeToken: AuthorizeToken): Observable<Success>
+    fun authorizeToken(@Body authorizeToken: AuthorizeToken): Observable<ResponseBody>
 
 
     @GET("api/v1/identity/proxy/check-token")

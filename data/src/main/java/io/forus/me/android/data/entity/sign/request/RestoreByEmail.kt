@@ -11,7 +11,7 @@ import java.io.Serializable
 
 class RestoreByEmail : Serializable{
 
-    @SerializedName("primary_email")
+    @SerializedName("email")
     @Expose
     var email: String
 

@@ -14,10 +14,6 @@ public class SignRecordsTypeAdapter extends TypeAdapter<SignRecords> {
     @Override
     public void write(JsonWriter out, SignRecords value) throws IOException {
         out.beginObject();
-        if (!Strings.isNullOrEmpty(value.getEmail())) {
-            out.name("primary_email");
-            out.value(value.getEmail());
-        }
 
         if (!Strings.isNullOrEmpty(value.getFirstname())) {
             out.name("given_name");
