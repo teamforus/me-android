@@ -71,14 +71,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
             android:layout_alignParentTop="true"
-            android:text="@string/check_email_description"
             android:lineSpacingExtra="0sp"
             android:gravity="center_horizontal|top"
             android:textSize="16sp"
             android:textColor="@color/textColor"
+            android:layout_marginBottom="16dp"
             />
 
         <io.forus.me.android.presentation.view.component.buttons.Button
