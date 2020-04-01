@@ -1,9 +1,13 @@
 package io.forus.me.android.data.exception;
 
+import android.util.Log;
+
 import java.io.IOException;
 
 import io.forus.me.android.data.entity.common.ApiError;
+import io.forus.me.android.data.entity.common.BaseError;
 import io.forus.me.android.domain.exception.RetrofitException;
+import io.forus.me.android.domain.models.records.errors.BaseApiError;
 import io.forus.me.android.domain.models.records.errors.NewRecordCategoryError;
 import io.forus.me.android.domain.models.records.errors.NewRecordError;
 
@@ -17,5 +21,11 @@ public class RetrofitExceptionMapper extends io.forus.me.android.domain.exceptio
     public NewRecordCategoryError mapToNewRecordCategoryError(RetrofitException retrofitException) throws IOException {
         ApiError apiError = retrofitException.getErrorBodyAs(ApiError.class);
         return new NewRecordCategoryError(apiError.getMessage(), apiError.getErrors().getName());
+    }
+
+    @Override
+    public BaseApiError mapToBaseApiError(RetrofitException retrofitException) throws IOException {
+        BaseError apiError = retrofitException.getErrorBodyAs(BaseError.class);
+        return new BaseApiError(apiError.getMessage());
     }
 }
