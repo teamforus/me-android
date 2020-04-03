@@ -216,5 +216,7 @@
     <string name="check_email_open_mail_app">Open mail app</string>
     <string name="registering">Registering...</string>
     <string name="session_has_expired">Deze sessie is verlopen. Je wordt nu uitgelogd.</string>
+    <string name="dialog_no_internet_warning">Let op!</string>
+    <string name="dialog_no_internet_message">"Geen internet verbinding! "</string>
 
 </resources>

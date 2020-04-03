@@ -9,9 +9,8 @@ class NoInternetDialog(private val context: Context,
                        private val dismissListener: () -> Unit){
 
     private val dialog: MaterialDialog = MaterialDialog.Builder(context)
-            .title(R.string.qr_popup_error)
-            .content("No internet connection!")
-           // .icon(context.resources.getDrawable(R.drawable.ic_close))
+            .title(R.string.dialog_no_internet_warning)
+            .content(R.string.dialog_no_internet_message)
             .positiveText(context.resources.getString(R.string.me_ok))
             .dismissListener { dismissListener.invoke() }
             .contentColor(context.resources.getColor(R.color.error))
