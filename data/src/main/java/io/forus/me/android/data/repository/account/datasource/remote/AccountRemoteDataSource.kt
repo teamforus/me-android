@@ -1,5 +1,6 @@
 package io.forus.me.android.data.repository.account.datasource.remote
 
+import android.util.Log
 import com.gigawatt.android.data.net.sign.models.request.SignUp
 import io.forus.me.android.data.entity.account.Account
 import io.forus.me.android.data.entity.sign.request.AuthorizeCode
@@ -17,8 +18,12 @@ import io.reactivex.Observable
 
 class AccountRemoteDataSource(f: () -> SignService): AccountDataSource, RemoteDataSource<SignService>(f) {
 
-    override fun createUser(signUp: SignUp): Observable<SignUpResult> {
-        return service.signup(signUp)
+
+    override fun createUser(signUp: SignUp): Observable<Boolean> {
+        return service.signup(signUp).map {
+            val result = it.string();
+            result == "{}" || result.contains("\"access_token\"")
+        }
     }
 
     override fun saveIdentity(token: String, pin: String){
@@ -67,11 +72,18 @@ class AccountRemoteDataSource(f: () -> SignService): AccountDataSource, RemoteDa
 
     override fun restoreByEmail(email: String): Observable<Boolean> {
         val signUp = RestoreByEmail(email)
-        return service.restoreByEmail(signUp).map { it.success }
+        return service.restoreByEmail(signUp).map {
+            val result = it.string();
+            result == "{}" || result.contains("\"access_token\"") || result.contains("\"success\"")
+        }
     }
 
     override fun restoreExchangeToken(token: String): Observable<AccessToken> {
         return service.restoreExchangeToken(token);
+    }
+
+    override fun registerExchangeToken(token: String): Observable<AccessToken> {
+        return service.registerExchangeToken(token)
     }
 
     override fun registerPush(token: String): Observable<Boolean> {

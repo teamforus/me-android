@@ -10,12 +10,17 @@ import io.reactivex.Observable
 
 class VouchersRemoteDataSource(f: () -> VouchersService): VouchersDataSource, RemoteDataSource<VouchersService>(f) {
 
+
     override fun listAllVouchers(): Observable<List<Voucher>> {
         return service.listAllVouchers().map { it.data }
     }
 
     override fun retrieveVoucher(address: String): Observable<Voucher> {
         return service.getVoucher(address).map { it.data }
+    }
+
+    override fun retrieveProductVouchersAsProvider(address: String): Observable<List<Voucher>> {
+        return service.getProductVouchersAsProvider(address).map { it.data }
     }
 
     override fun retrieveVoucherAsProvider(address: String): Observable<Voucher> {

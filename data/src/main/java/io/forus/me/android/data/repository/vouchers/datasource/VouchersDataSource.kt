@@ -11,6 +11,8 @@ interface VouchersDataSource {
 
     fun retrieveVoucher(address: String): Observable<Voucher>
 
+    fun retrieveProductVouchersAsProvider(address: String): Observable<List<Voucher>>
+
     fun retrieveVoucherAsProvider(address: String): Observable<Voucher>
 
     fun makeTransaction(address: String, makeTransaction: MakeTransaction): Observable<Transaction>

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import io.forus.me.android.presentation.R
+import io.forus.me.android.presentation.helpers.SharedPref
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.activity.BaseActivity
 import io.forus.me.android.presentation.view.base.lr.LRViewState
@@ -106,6 +107,11 @@ class RestoreByEmailFragment : ToolbarLRFragment<RestoreByEmailModel, RestoreByE
         restore.setOnClickListener {
             email.showError = true
             if (viewIsValid) {
+
+                context?.let { it1 -> SharedPref.init(it1)
+                    SharedPref.write(SharedPref.RESTORE_EMAIL, email.getText());
+                };
+
                 registerAction.onNext(email.getText())
             }
         }
@@ -129,8 +135,8 @@ class RestoreByEmailFragment : ToolbarLRFragment<RestoreByEmailModel, RestoreByE
         email.isEditable = !(vs.model.sendingRestoreByEmailSuccess == true)
 
         if(vs.model.sendingRestoreByEmailSuccess == true && !instructionsAlreadyShown){
-            InstructionsDialog(context!!).show()
-            instructionsAlreadyShown = true
+
+            navigator.navigateToCheckEmail(context!!)
         }
 
         if(vs.model.sendingRestoreByEmail == true){
