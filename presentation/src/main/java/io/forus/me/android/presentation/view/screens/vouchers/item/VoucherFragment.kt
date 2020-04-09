@@ -159,7 +159,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
         val qrEncoded = QrCode(QrCode.Type.VOUCHER, address).toJson()
         iv_qr_icon.setQRText(qrEncoded)
         iv_qr_icon.setOnClickListener {
-            (activity as? DashboardActivity)?.showPopupQRFragment(qrEncoded, resources.getString(R.string.voucher_qr_code_subtitle_with_fund_name, voucher?.fundName))
+            (activity as? DashboardActivity)?.showPopupQRFragment(qrEncoded, resources.getString(R.string.voucher_qr_code_subtitle_with_fund_name , voucher?.fundName ))
         }
 
         toolbar.setNavigationOnClickListener {

@@ -97,7 +97,7 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
         return Voucher(isProduct, isUsed, voucher.address
                 ?: "", name, organizationName, voucher.fund?.name
                 ?: "", voucher.fund?.webShopUrl ?: "", description, createdAt!!, euro, amount,
-                productLogoUrl, transactions, productMapped)
+                productLogoUrl, transactions, productMapped, voucher.expireAtLocale ?: "")
 
     }
 

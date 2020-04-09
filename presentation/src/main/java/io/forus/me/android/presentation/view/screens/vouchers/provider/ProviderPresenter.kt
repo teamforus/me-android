@@ -35,7 +35,7 @@ class ProviderPresenter constructor(private val vouchersRepository: VouchersRepo
                             transaction?.amount ?: 0f.toBigDecimal(),
                             transaction.createdAt,
                             Transaction.Type.valueOf(transaction.type.name))
-                }),
+                }, null, ""),
 
                 it.allowedOrganizations.map { organization ->
                     Organization(organization.id,
