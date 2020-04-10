@@ -9,6 +9,7 @@ import android.support.customtabs.CustomTabsIntent
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -102,6 +103,9 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
     override val showInfo: Boolean
         get() = true
 
+    private val shortToken = PublishSubject.create<String>()
+    override fun getShortToken(): Observable<String> = shortToken
+
     override fun viewForSnackbar(): View = root
 
     override fun loadRefreshPanel() = lr_panel
@@ -141,19 +145,22 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
         rv_transactions.layoutManager = LinearLayoutManager(context)
         rv_transactions.adapter = adapter
 
-        info_button.setOnClickListener {
-            val url = when {
-                voucher?.product?.id != null ->
-                    "https://" + BuildConfig.PREFIX_URL + "zuidhorn.forus.io/#!/products/${voucher?.product?.id}"
-                voucher?.fundWebShopUrl?.isNotEmpty() == true -> voucher?.fundWebShopUrl
-                else -> "https://www.zuidhorn.nl/kindpakket"
 
+        info_button.setOnClickListener {
+            if(voucher!!.isProduct) {
+
+                val url: String = if(voucher?.product?.id != null && voucher?.fundWebShopUrl?.isNotEmpty()!!){
+                    voucher?.fundWebShopUrl + "products/" + voucher?.product?.id
+                }else{
+                    "https://kerstpakket.forus.io/"
+                }
+
+                openVoucherInfo(url)
+
+            }else{
+                shortToken.onNext("");
             }
 
-            val intentBuilder = CustomTabsIntent.Builder()
-            intentBuilder.setToolbarColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
-            val customTabsIntent = intentBuilder.build()
-            customTabsIntent.launchUrl(activity, Uri.parse(url))
         }
 
         val qrEncoded = QrCode(QrCode.Type.VOUCHER, address).toJson()
@@ -177,6 +184,13 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
         shopkeeper_email.setOnClickListener {
             emailToShopkeeper(shopkeeper_email.text.toString())
         }
+    }
+
+    private fun openVoucherInfo(url:String){
+        val intentBuilder = CustomTabsIntent.Builder()
+        intentBuilder.setToolbarColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
+        val customTabsIntent = intentBuilder.build()
+        customTabsIntent.launchUrl(activity, Uri.parse(url))
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -228,7 +242,8 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
                 SendEmailUseCase(Injection.instance.vouchersRepository, JobExecutor(), UIThread()),
                 VoucherDataMapper(currencyDataMapper, TransactionDataMapper(currencyDataMapper, OrganizationDataMapper()), ProductDataMapper()),
                 address,
-                voucher
+                voucher,
+                Injection.instance.accountRepository
         )
     }
 
@@ -275,6 +290,19 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
                 }
             }
         }
+
+        if(vs.model.shortToken != null){
+
+            val url: String = if( voucher?.fundWebShopUrl?.isNotEmpty()!! && vs.model.shortToken.isNotEmpty()){
+                voucher?.fundWebShopUrl + "auth-link?token=" + vs.model.shortToken
+            }else{
+                "https://kerstpakket.forus.io/"
+            }
+
+            openVoucherInfo(url)
+        }
+
+
 
 
         when (vs.model.emailSend) {
