@@ -110,7 +110,7 @@
     <string name="profile_logout">Logout</string>
     <string name="profile_button_show_qr">My QR-code</string>
     <string name="profile_about_me">About Me</string>
-    <string name="profile_about_me_text">This app is intended to store vouchers, make payments and log in to different applications.\n \nThis app works together with:\n \n• 	the Nijmegen webshop;\n• 	the Westerkwartier webshop;\n• 	the Forus generic webshop.\n \nLater on several shops and applications will be added.</string>
+    <string name="profile_about_me_text">This app is intended to store vouchers, make payments and log in to different applications.\n \nThis app works together with:\n \n• 	the Nijmegen webshop;\n• 	the Westerkwartier webshop;\n• 	the Forus generic webshop.\n• 	the Winterswijk webshop.\n• 	the Oost Gelre webshop.\n• 	the Berkelland webshop.\n• 	the Noordoostpolder webshop.\n  \nLater on several shops and applications will be added.</string>
     <string name="profile_app_version">App version</string>
     <string name="profile_support" translatable="false">Support</string>
     <string name="profile_about">About</string>
