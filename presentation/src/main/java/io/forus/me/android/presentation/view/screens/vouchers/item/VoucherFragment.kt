@@ -147,19 +147,9 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
 
 
         info_button.setOnClickListener {
-            if(voucher!!.isProduct) {
 
-                val url: String = if(voucher?.product?.id != null && voucher?.fundWebShopUrl?.isNotEmpty()!!){
-                    voucher?.fundWebShopUrl + "products/" + voucher?.product?.id
-                }else{
-                    "https://kerstpakket.forus.io/"
-                }
+            shortToken.onNext("");
 
-                openVoucherInfo(url)
-
-            }else{
-                shortToken.onNext("");
-            }
 
         }
 
@@ -186,12 +176,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
         }
     }
 
-    private fun openVoucherInfo(url:String){
-        val intentBuilder = CustomTabsIntent.Builder()
-        intentBuilder.setToolbarColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
-        val customTabsIntent = intentBuilder.build()
-        customTabsIntent.launchUrl(activity, Uri.parse(url))
-    }
+
 
     override fun onSaveInstanceState(outState: Bundle) {
 
@@ -291,13 +276,14 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
             }
         }
 
-        if(vs.model.shortToken != null){
+        if (vs.model.shortToken != null) {
 
-            val url: String = if( voucher?.fundWebShopUrl?.isNotEmpty()!! && vs.model.shortToken.isNotEmpty()){
-                voucher?.fundWebShopUrl + "auth-link?token=" + vs.model.shortToken
-            }else{
-                "https://kerstpakket.forus.io/"
+            val url: String = if (voucher?.fundWebShopUrl?.isNotEmpty()!! && vs.model.shortToken.isNotEmpty()) {
+                voucher?.fundWebShopUrl + "auth-link?token=" + vs.model.shortToken + "&target=voucher-" + voucher?.address
+            } else {
+                "https://forus.io/"
             }
+
 
             openVoucherInfo(url)
         }
@@ -311,6 +297,22 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
             EmailSend.NOTHING -> Unit
         }
     }
+
+
+    private fun openVoucherInfo(url: String) {
+        /*val intentBuilder = CustomTabsIntent.Builder()
+        intentBuilder.setToolbarColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
+        val customTabsIntent = intentBuilder.build()
+        customTabsIntent.launchUrl(activity, Uri.parse(url))*/
+
+        val i =  Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);
+    }
+
+
+
+
 
     override fun onMapReady(googleMap: GoogleMap?) {
         map = googleMap
