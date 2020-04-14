@@ -224,5 +224,6 @@
     <string name="registering">Registering...</string>
     <string name="session_has_expired">Your session has expired. You are being logged out.</string>
     <string name="success">Success</string>
+    <string name="voucher_dialog_choose_organization">Choose organization</string>
 
 </resources>

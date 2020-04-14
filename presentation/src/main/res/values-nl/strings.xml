@@ -217,5 +217,6 @@
     <string name="registering">Registering...</string>
     <string name="session_has_expired">Deze sessie is verlopen. Je wordt nu uitgelogd.</string>
     <string name="success">Succes!</string>
+    <string name="voucher_dialog_choose_organization">Kies een organisatie</string>
 
 </resources>

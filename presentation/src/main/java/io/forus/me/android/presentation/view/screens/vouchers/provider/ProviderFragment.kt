@@ -5,12 +5,14 @@ import android.support.design.widget.Snackbar
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import io.forus.me.android.domain.exception.RetrofitException
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.internal.Injection
+import io.forus.me.android.presentation.models.vouchers.Organization
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.forus.me.android.presentation.view.screens.qr.dialogs.ApproveValidationDialog
@@ -18,6 +20,7 @@ import io.forus.me.android.presentation.view.screens.vouchers.dialogs.VouchersAp
 import io.forus.me.android.presentation.view.screens.vouchers.provider.categories.CategoriesAdapter
 import io.forus.me.android.presentation.view.screens.vouchers.provider.dialogs.ApplyDialog
 import io.forus.me.android.presentation.view.screens.vouchers.provider.dialogs.ChargeDialog
+import io.forus.me.android.presentation.view.screens.vouchers.provider.dialogs.organizations_dialog.OrganizationsListDialog
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -27,6 +30,7 @@ import kotlinx.android.synthetic.main.view_organization.*
 import java.math.BigDecimal
 
 class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, ProviderPresenter>(), ProviderView {
+
 
     companion object {
         private val VOUCHER_ADDRESS_EXTRA = "VOUCHER_ADDRESS_EXTRA"
@@ -56,6 +60,9 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
 
     private val selectNote = PublishSubject.create<String>()
     override fun selectNote(): Observable<String> = selectNote
+
+    private val selectOrganization = PublishSubject.create<Organization>()
+    override fun selectOrganization(): Observable<Organization> = selectOrganization;
 
     private val charge = PublishSubject.create<BigDecimal>()
     override fun charge(): Observable<BigDecimal> = charge
@@ -97,6 +104,9 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
                 selectNote.onNext(s.toString())
             }
         })
+
+
+
     }
 
 
@@ -138,6 +148,10 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
                         ?: 0f.toBigDecimal())
             }
         }
+
+        container.setOnClickListener { OrganizationsListDialog(context!!, vs.model.item?.allowedOrganizations!!) {
+            selectOrganization.onNext(it)
+        }.show() }
 
 
         if (!(vs.model.selectedAmount.compareTo(BigDecimal.ZERO) == 0) && !vs.model.amountIsValid) amount.setError(resources.getString(R.string.vouchers_amount_invalid))
