@@ -1,5 +1,6 @@
 package io.forus.me.android.presentation.view.screens.vouchers.provider
 
+import android.util.Log
 import io.forus.me.android.domain.repository.vouchers.VouchersRepository
 import io.forus.me.android.presentation.models.currency.Currency
 import io.forus.me.android.presentation.models.vouchers.*
@@ -10,6 +11,7 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import java.util.*
 
 class ProviderPresenter constructor(private val vouchersRepository: VouchersRepository, private val address: String) : LRPresenter<VoucherProvider, ProviderModel, ProviderView>() {
 
@@ -17,7 +19,8 @@ class ProviderPresenter constructor(private val vouchersRepository: VouchersRepo
     private var note = ""
 
     override fun initialModelSingle(): Single<VoucherProvider> = Single.fromObservable(vouchersRepository.getVoucherAsProvider(address).map {
-        VoucherProvider(Voucher(it.voucher?.isProduct ?: false, it.voucher?.isUsed ?: false, it.voucher.address, it.voucher.name, it.voucher.organizationName,
+        VoucherProvider(Voucher(it.voucher?.isProduct ?: false, it.voucher?.isUsed
+                ?: false, it.voucher.address, it.voucher.name, it.voucher.organizationName,
                 it.voucher.fundName, it.voucher.fundWebShopUrl, it.voucher.description, it.voucher.createdAt,
                 Currency(it.voucher.currency?.name, it.voucher.currency?.logoUrl), it.voucher.amount, it.voucher.logo,
                 it.voucher.transactions.map { transaction ->
@@ -67,6 +70,8 @@ class ProviderPresenter constructor(private val vouchersRepository: VouchersRepo
 
         val observable = Observable.merge(
 
+                Arrays.asList(
+
                 loadRefreshPartialChanges(),
 
                 intent { it.selectAmount() }
@@ -74,6 +79,7 @@ class ProviderPresenter constructor(private val vouchersRepository: VouchersRepo
 
                 intent { it.selectNote() }
                         .map { ProviderPartialChanges.SetNote(it) },
+
 
                 intent { it.charge() }
                         .switchMap {
@@ -87,8 +93,12 @@ class ProviderPresenter constructor(private val vouchersRepository: VouchersRepo
                                         ProviderPartialChanges.MakeTransactionError(it)
                                     }
                                     .startWith(ProviderPartialChanges.MakeTransactionStart())
-                        }
+                        },
 
+
+                 intent { it.selectOrganization() }
+                        .map { ProviderPartialChanges.SelectOrganization(it) }
+                )
         )
 
 
@@ -113,15 +123,19 @@ class ProviderPresenter constructor(private val vouchersRepository: VouchersRepo
         if (change !is ProviderPartialChanges) return super.stateReducer(vs, change)
 
         return when (change) {
-            is ProviderPartialChanges.MakeTransactionEnd -> vs.copy(closeScreen = true, model = vs.model.copy(sendingMakeTransaction = false, makeTransactionError = null), loading=false)
-            is ProviderPartialChanges.MakeTransactionStart -> vs.copy(model = vs.model.copy(sendingMakeTransaction = true, makeTransactionError = null), loading=true)
+            is ProviderPartialChanges.MakeTransactionEnd -> vs.copy(closeScreen = true, model = vs.model.copy(sendingMakeTransaction = false, makeTransactionError = null), loading = false)
+            is ProviderPartialChanges.MakeTransactionStart -> vs.copy(model = vs.model.copy(sendingMakeTransaction = true, makeTransactionError = null), loading = true)
             is ProviderPartialChanges.MakeTransactionError -> vs.copy(model = vs.model.copy(sendingMakeTransaction = false, makeTransactionError = change.error))
             is ProviderPartialChanges.SetAmount -> vs.copy(model = vs.model.copy(selectedAmount = change.amount, makeTransactionError = null))
             is ProviderPartialChanges.SetNote -> {
                 note = change.note
                 vs.copy(model = vs.model.copy(selectedNote = change.note, makeTransactionError = null))
             }
+            is ProviderPartialChanges.SelectOrganization -> {
 
+                organizationId = change.organization.id
+                vs.copy(model = vs.model.copy(selectedOrganization = change.organization, makeTransactionError = null))
+            }
         }
     }
 }
