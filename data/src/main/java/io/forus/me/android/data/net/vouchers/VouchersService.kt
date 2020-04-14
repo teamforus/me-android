@@ -1,12 +1,11 @@
 package io.forus.me.android.data.net.vouchers
 
+import io.forus.me.android.data.entity.vouchers.request.MakeDemoTransaction
 import io.forus.me.android.data.entity.vouchers.request.MakeTransaction
 import io.forus.me.android.data.entity.vouchers.response.*
 import io.reactivex.Observable
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import okhttp3.ResponseBody
+import retrofit2.http.*
 
 interface VouchersService {
 
@@ -36,5 +35,9 @@ interface VouchersService {
 
     @POST("api/v1/platform/vouchers/{address}/send-email")
     fun sendEmail(@Path("address") address: String): Observable<Void>
+
+//platform/demo/transactions/  //body = ["state" : "accepted"] , testToken from QR
+    @PATCH("api/v1/platform/demo/transactions/{testToken}")
+    fun demoVoucher(@Path("testToken") testToken: String, @Body makeDemoTransaction: MakeDemoTransaction): Observable<DemoTransaction>
 
 }
