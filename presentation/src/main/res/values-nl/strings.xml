@@ -167,6 +167,8 @@
     <string name="qr_popup_restore_identity_title">Aanmelden</string>
     <string name="qr_popup_restore_identity_description">Wil je je aanmelden op dit apparaat of deze website?</string>
     <string name="qr_popup_error">Mislukt!</string>
+    <string name="profile_logout_dialog_title">Uitloggen</string>
+    <string name="profile_logout_dialog_content">Weet je zeker dat je uit wil loggen?</string>
 
     <!-- Vouchers -->
     <string name="vouchers_item">Voucher</string>
@@ -216,5 +218,9 @@
     <string name="check_email_open_mail_app">Open mail app</string>
     <string name="registering">Registering...</string>
     <string name="session_has_expired">Deze sessie is verlopen. Je wordt nu uitgelogd.</string>
+    <string name="success">Succes!</string>
+    <string name="voucher_dialog_choose_organization">Kies een organisatie</string>
+
+
 
 </resources>
