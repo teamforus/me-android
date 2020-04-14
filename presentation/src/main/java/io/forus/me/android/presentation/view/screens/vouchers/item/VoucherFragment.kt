@@ -150,7 +150,6 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
 
             shortToken.onNext("");
 
-
         }
 
         val qrEncoded = QrCode(QrCode.Type.VOUCHER, address).toJson()
@@ -175,7 +174,6 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
             emailToShopkeeper(shopkeeper_email.text.toString())
         }
     }
-
 
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -300,18 +298,12 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
 
 
     private fun openVoucherInfo(url: String) {
-        /*val intentBuilder = CustomTabsIntent.Builder()
-        intentBuilder.setToolbarColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
-        val customTabsIntent = intentBuilder.build()
-        customTabsIntent.launchUrl(activity, Uri.parse(url))*/
 
-        val i =  Intent(Intent.ACTION_VIEW);
+
+        val i = Intent(Intent.ACTION_VIEW);
         i.setData(Uri.parse(url));
         startActivity(i);
     }
-
-
-
 
 
     override fun onMapReady(googleMap: GoogleMap?) {
