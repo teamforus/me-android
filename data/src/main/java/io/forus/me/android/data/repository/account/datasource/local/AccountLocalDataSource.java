@@ -15,6 +15,7 @@ import io.forus.me.android.data.entity.database.TokenDao;
 import io.forus.me.android.data.entity.sign.response.AccessToken;
 import io.forus.me.android.data.entity.sign.response.IdentityPinResult;
 import io.forus.me.android.data.entity.sign.response.IdentityTokenResult;
+import io.forus.me.android.data.entity.sign.response.ShortTokenResult;
 import io.forus.me.android.data.entity.sign.response.SignUpResult;
 import io.forus.me.android.data.repository.account.datasource.AccountDataSource;
 import io.forus.me.android.data.repository.datasource.LocalDataSource;
@@ -157,6 +158,12 @@ public class AccountLocalDataSource implements AccountDataSource, LocalDataSourc
     @NotNull
     @Override
     public Observable<AccessToken> registerExchangeToken(@NotNull String token) {
+        return null;
+    }
+
+    @NotNull
+    @Override
+    public Observable<ShortTokenResult> getShortToken() {
         return null;
     }
 }
