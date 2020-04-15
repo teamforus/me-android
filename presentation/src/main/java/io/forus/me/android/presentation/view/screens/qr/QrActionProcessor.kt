@@ -13,6 +13,7 @@ import io.forus.me.android.domain.repository.vouchers.VouchersRepository
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.navigation.Navigator
+import io.forus.me.android.presentation.view.base.NoInternetDialog
 import io.forus.me.android.presentation.view.screens.qr.dialogs.*
 import io.forus.me.android.presentation.view.screens.vouchers.provider.ProviderActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -130,26 +131,32 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
                     Log.e("QR_ACTION", "scan voucher_error", it)
 
                     val error: Throwable = it
-                    if (error is RetrofitException && error.kind == RetrofitException.Kind.HTTP) {
 
-                        try {
-                            val newRecordError = retrofitExceptionMapper.mapToBaseApiError(error)
+                    if (error is io.forus.me.android.data.exception.RetrofitException && error.kind == RetrofitException.Kind.NETWORK) {
+                        NoInternetDialog(scanner, reactivateDecoding).show();
+                    } else {
 
-                            if (error.responseCode == 403) {
-                                canOnResultVoucherScanned = false
-                                val message = if (newRecordError.message == null) "" else newRecordError.message
-                                ScanVoucherBaseErrorDialog(message, scanner, reactivateDecoding).show()
+                        if (error is RetrofitException && error.kind == RetrofitException.Kind.HTTP) {
+
+                            try {
+                                val newRecordError = retrofitExceptionMapper.mapToBaseApiError(error)
+
+                                if (error.responseCode == 403) {
+                                    canOnResultVoucherScanned = false
+                                    val message = if (newRecordError.message == null) "" else newRecordError.message
+                                    ScanVoucherBaseErrorDialog(message, scanner, reactivateDecoding).show()
+                                }
+                            } catch (e: Exception) {
                             }
-                        } catch (e: Exception) {
+
+
                         }
 
+                        if (canOnResultVoucherScanned) {
 
-                    }
-
-                    if (canOnResultVoucherScanned) {
-
-                        if (scanner.hasWindowFocus()) {
-                            onResultVoucherScanned(address, false)
+                            if (scanner.hasWindowFocus()) {
+                                onResultVoucherScanned(address, false)
+                            }
                         }
                     }
                 }
