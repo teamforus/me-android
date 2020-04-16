@@ -2,6 +2,7 @@ package io.forus.me.android.data.repository.records
 
 import io.forus.me.android.data.repository.records.datasource.RecordsDataSource
 import io.forus.me.android.domain.models.records.*
+import io.forus.me.android.domain.models.vouchers.Organization
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
@@ -74,9 +75,17 @@ class RecordsRepository(private val recordsRemoteDataSource: RecordsDataSource) 
                     records.map {
                         val type = types.find { type -> type.key.equals(it.key) }
                         var category: RecordCategory? = null
+
                         if(it.recordCategoryId != null) category = categories.find { cat -> cat.id == it.recordCategoryId}
                         Record(it.id, it.value, it.order, type!!, category, it.valid ?: false,
-                                it.validations.map { Validation(Validation.State.valueOf(it.state.toString()), it.identityAddress, it.createdAt, it.updatedAt, it.uuid, it.value, it.key, it.name) })
+                                it.validations.map {
+
+                                    var organization: io.forus.me.android.domain.models.vouchers.Organization? = null
+                                    if(it.organization != null)
+                                    organization = Organization(it.organization.id,it.organization.name,null,null,null,
+                                            null,it.organization.phone,it.organization.email)
+                                    Validation(Validation.State.valueOf(it.state.toString()), it.identityAddress, it.createdAt, it.updatedAt, it.uuid, it.value, it.key, it.name,organization )
+                                })
                     }
                 }
         ).toObservable()
@@ -92,7 +101,12 @@ class RecordsRepository(private val recordsRemoteDataSource: RecordsDataSource) 
                                 list.map {
                                     val type = types.find { type -> type.key.equals(it.key) }
                                     Record(it.id, it.value, it.order, type!!, category, it.valid ?: false,
-                                            it.validations.map { Validation(Validation.State.valueOf(it.state.toString()), it.identityAddress, it.createdAt, it.updatedAt, it.uuid, it.value, it.key, it.name) })
+                                            it.validations.map {
+                                                var organization: io.forus.me.android.domain.models.vouchers.Organization? = null
+                                                if(it.organization != null)
+                                                 organization = Organization(it.organization.id,it.organization.name,null,null,null,
+                                                        null,it.organization.phone,it.organization.email)
+                                                Validation(Validation.State.valueOf(it.state.toString()), it.identityAddress, it.createdAt, it.updatedAt, it.uuid, it.value, it.key, it.name, organization) })
                                 }
                             }
                 }
@@ -117,7 +131,12 @@ class RecordsRepository(private val recordsRemoteDataSource: RecordsDataSource) 
                     getCategory(record.recordCategoryId)
                             .map {
                                 Record(record.id, record.value, record.order, type!!, it, record.valid ?: false,
-                                        record.validations.map { Validation(Validation.State.valueOf(it.state.toString()), it.identityAddress, it.createdAt, it.updatedAt, it.uuid, it.value, it.key, it.name) })
+                                        record.validations.map {
+                                            var organization: io.forus.me.android.domain.models.vouchers.Organization? = null
+                                            if(it.organization != null)
+                                             organization  = Organization(it.organization.id,it.organization.name,null,null,null,
+                                                    null,it.organization.phone,it.organization.email)
+                                            Validation(Validation.State.valueOf(it.state.toString()), it.identityAddress, it.createdAt, it.updatedAt, it.uuid, it.value, it.key, it.name, organization) })
                             }
                 }
         ).flatMapObservable {
@@ -131,7 +150,12 @@ class RecordsRepository(private val recordsRemoteDataSource: RecordsDataSource) 
     }
 
     override fun readValidation(uuid: String): Observable<Validation> {
-        return recordsRemoteDataSource.readValidation(uuid).map { Validation(Validation.State.valueOf(it.state.toString()), it.identityAddress, it.createdAt, it.updatedAt, it.uuid, it.value, it.key, it.name) }
+        return recordsRemoteDataSource.readValidation(uuid).map {
+            var organization: io.forus.me.android.domain.models.vouchers.Organization? = null
+            if(it.organization != null)
+             organization  = Organization(it.organization.id,it.organization.name,null,null,null,
+                    null,it.organization.phone,it.organization.email)
+            Validation(Validation.State.valueOf(it.state.toString()), it.identityAddress, it.createdAt, it.updatedAt, it.uuid, it.value, it.key, it.name, organization) }
     }
 
     override fun approveValidation(uuid: String): Observable<Boolean> {

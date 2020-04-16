@@ -109,6 +109,10 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
             sendSupportEmailDialogBuilder.show()
         }
 
+        headView.setOnClickListener {
+            navigator.navigateToRecordsList(context!!, null)
+        }
+
         optionPincodeIsEnable = true
     }
 

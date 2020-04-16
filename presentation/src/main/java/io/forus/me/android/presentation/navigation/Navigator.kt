@@ -167,7 +167,7 @@ constructor()//empty
         }
     }
 
-    fun navigateToRecordsList(context: Context?, recordCategory: RecordCategory) {
+    fun navigateToRecordsList(context: Context?, recordCategory: RecordCategory?) {
         if (context != null) {
             val intentToLaunch = RecordsActivity.getCallingIntent(context, recordCategory)
             context.startActivity(intentToLaunch)
@@ -180,6 +180,8 @@ constructor()//empty
             context.startActivity(intentToLaunch)
         }
     }
+
+
 
     fun navigateToVoucherProvider(context: Context?, voucherAddress: String) {
         if (context != null) {
