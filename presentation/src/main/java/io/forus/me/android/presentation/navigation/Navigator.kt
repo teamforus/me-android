@@ -11,6 +11,7 @@ import io.forus.me.android.presentation.models.ChangePinMode
 import io.forus.me.android.presentation.models.vouchers.Voucher
 import io.forus.me.android.presentation.view.screens.account.account.AccountActivity
 import io.forus.me.android.presentation.view.screens.account.account.check_email.CheckEmailActivity
+import io.forus.me.android.presentation.view.screens.account.account.login_signup_account.LogInSignUpActivity
 import io.forus.me.android.presentation.view.screens.account.account.pin.ChangePinActivity
 import io.forus.me.android.presentation.view.screens.account.assigndelegates.AssignDelegatesAccountActivity
 import io.forus.me.android.presentation.view.screens.account.assigndelegates.email.RestoreByEmailActivity
@@ -131,6 +132,32 @@ constructor()//empty
             context.startActivity(intentToLaunch)
         }
     }
+
+
+    fun navigateToLoginSignUp(context: Context?) {
+        if (context != null) {
+            val intentToLaunch = LogInSignUpActivity.getCallingIntent(context)
+            context.startActivity(intentToLaunch)
+        }
+    }
+
+
+
+
+    fun navigateToLoginSignUp(context: Context?, token: String) {
+        if (context != null) {
+            val intentToLaunch = LogInSignUpActivity.getCallingIntent(context, token)
+            intentToLaunch.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            context.startActivity(intentToLaunch)
+        }
+    }
+
+
+
+
+
+
+
 
     fun navigateToWallet(context: Context?, wallet: Wallet) {
         if (context != null) {

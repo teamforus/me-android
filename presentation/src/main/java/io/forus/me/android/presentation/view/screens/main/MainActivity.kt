@@ -37,12 +37,23 @@ class MainActivity : BaseActivity() {
             }
         }
         else {
-            navigateToWelcomeScreen()
+           // navigateToWelcomeScreen() //old behavior
+            navigateToLogInsignUpScreen()
         }
     }
 
     override fun onStop() {
         super.onStop()
+    }
+
+
+    /**
+     * Goes to the welcome screen.
+     */
+    private fun navigateToLogInsignUpScreen() {
+
+        this.navigator.navigateToLoginSignUp(this)
+        finish()
     }
 
     /**

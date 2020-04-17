@@ -48,6 +48,9 @@
     <string name="restore_email_not_found">Identity not found</string>
     <string name="restore_email_invalid_link">Invalid link</string>
     <string name="restore_title_qr" translatable="false">QR-Code</string>
+    <string name="restore_account_pair">Pair</string>
+    <string name="restore_account_login_other_device">Log in with other device</string>
+
 
     <!-- New account screen -->
     <string name="new_account_field_email">E-mail</string>
@@ -223,5 +226,6 @@
     <string name="check_email_open_mail_app">Open mail app</string>
     <string name="registering">Registering...</string>
     <string name="session_has_expired">Your session has expired. You are being logged out.</string>
+
 
 </resources>

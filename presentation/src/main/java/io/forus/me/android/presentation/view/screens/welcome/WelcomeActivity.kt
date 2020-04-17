@@ -7,6 +7,7 @@ import android.os.Bundle
 import io.forus.me.android.presentation.R
 
 import io.forus.me.android.presentation.view.activity.BaseActivity
+import io.forus.me.android.presentation.view.screens.account.account.login_signup_account.LogInSignUpFragment
 
 /**
  * Main application screen. This is the app entry point.
@@ -25,7 +26,8 @@ class WelcomeActivity : BaseActivity() {
         setContentView(R.layout.activity_layout)
 
         if (savedInstanceState == null) {
-            addFragment(R.id.fragmentContainer, WelcomeFragment())
+             //addFragment(R.id.fragmentContainer, WelcomeFragment()) old behavior
+            addFragment(R.id.fragmentContainer, LogInSignUpFragment())
         }
     }
 }

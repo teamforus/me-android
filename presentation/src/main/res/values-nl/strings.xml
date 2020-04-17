@@ -43,6 +43,8 @@
     <string name="restore_email_instructions">Er is een e-mail verstuurd naar uw e-mailadres waarmee u opnieuw kunt inloggen.</string>
     <string name="restore_email_not_found">Identity niet gevonden</string>
     <string name="restore_email_invalid_link">Ongeldige link</string>
+    <string name="restore_account_pair">Koppelen</string>
+    <string name="restore_account_login_other_device">Inloggen vanaf een ander apparaat</string>
 
     <!-- New account screen -->
     <string name="new_account_field_email">E-mail</string>
@@ -216,5 +218,6 @@
     <string name="check_email_open_mail_app">Open mail app</string>
     <string name="registering">Registering...</string>
     <string name="session_has_expired">Deze sessie is verlopen. Je wordt nu uitgelogd.</string>
+
 
 </resources>
