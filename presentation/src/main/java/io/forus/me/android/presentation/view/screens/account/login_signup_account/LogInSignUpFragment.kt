@@ -1,4 +1,4 @@
-package io.forus.me.android.presentation.view.screens.account.account.login_signup_account
+package io.forus.me.android.presentation.view.screens.account.login_signup_account
 
 import android.os.Bundle
 import android.text.Editable
@@ -14,9 +14,7 @@ import io.forus.me.android.presentation.view.base.lr.LoadRefreshPanel
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.fragment_account_details.*
 import kotlinx.android.synthetic.main.fragment_account_details.root
-import kotlinx.android.synthetic.main.fragment_account_restore_email.*
 import kotlinx.android.synthetic.main.fragment_login_sign_up.email
 import kotlinx.android.synthetic.main.fragment_login_sign_up.restore
 

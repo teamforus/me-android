@@ -1,6 +1,4 @@
-package io.forus.me.android.presentation.view.screens.account.account.login_signup_account
-
-import io.forus.me.android.domain.models.account.Account
+package io.forus.me.android.presentation.view.screens.account.login_signup_account
 
 
 data class LogInSignUpModel(

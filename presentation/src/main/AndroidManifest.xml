@@ -98,7 +98,7 @@
             android:launchMode="singleTop"></activity>
 
         <activity
-            android:name=".view.screens.account.account.login_signup_account.LogInSignUpActivity"
+            android:name="io.forus.me.android.presentation.view.screens.account.login_signup_account.LogInSignUpActivity"
             android:label="@string/app_blank_string"
             android:launchMode="singleTop"></activity>
 

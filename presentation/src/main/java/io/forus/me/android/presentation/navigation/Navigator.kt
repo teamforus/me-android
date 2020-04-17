@@ -11,7 +11,7 @@ import io.forus.me.android.presentation.models.ChangePinMode
 import io.forus.me.android.presentation.models.vouchers.Voucher
 import io.forus.me.android.presentation.view.screens.account.account.AccountActivity
 import io.forus.me.android.presentation.view.screens.account.account.check_email.CheckEmailActivity
-import io.forus.me.android.presentation.view.screens.account.account.login_signup_account.LogInSignUpActivity
+import io.forus.me.android.presentation.view.screens.account.login_signup_account.LogInSignUpActivity
 import io.forus.me.android.presentation.view.screens.account.account.pin.ChangePinActivity
 import io.forus.me.android.presentation.view.screens.account.assigndelegates.AssignDelegatesAccountActivity
 import io.forus.me.android.presentation.view.screens.account.assigndelegates.email.RestoreByEmailActivity

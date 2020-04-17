@@ -1,19 +1,13 @@
-package io.forus.me.android.presentation.view.screens.account.account.login_signup_account
+package io.forus.me.android.presentation.view.screens.account.login_signup_account
 
 import android.util.Log
 import io.forus.me.android.domain.repository.account.AccountRepository
-import io.forus.me.android.presentation.internal.Injection
-import io.forus.me.android.presentation.view.base.lr.LRPartialChange
 import io.forus.me.android.presentation.view.base.lr.LRPresenter
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.base.lr.PartialChange
-import io.forus.me.android.presentation.view.screens.account.assigndelegates.email.RestoreByEmailModel
-import io.forus.me.android.presentation.view.screens.account.assigndelegates.email.RestoreByEmailPartialChanges
-import io.forus.me.android.presentation.view.screens.account.assigndelegates.email.RestoreByEmailView
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 
 
@@ -77,7 +71,7 @@ class LogInSignUpPresenter constructor(private val token: String, private val ac
                 false,
                 null,
                 false,
-                io.forus.me.android.presentation.view.screens.account.account.login_signup_account.LogInSignUpModel(),
+                io.forus.me.android.presentation.view.screens.account.login_signup_account.LogInSignUpModel(),
                 false)
 
         subscribeViewState(

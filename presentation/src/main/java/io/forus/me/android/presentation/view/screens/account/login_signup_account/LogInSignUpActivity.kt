@@ -1,4 +1,4 @@
-package io.forus.me.android.presentation.view.screens.account.account.login_signup_account
+package io.forus.me.android.presentation.view.screens.account.login_signup_account
 
 
 import android.content.Context
