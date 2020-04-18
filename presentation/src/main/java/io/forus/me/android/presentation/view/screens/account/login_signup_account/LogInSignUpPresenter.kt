@@ -5,6 +5,7 @@ import io.forus.me.android.domain.repository.account.AccountRepository
 import io.forus.me.android.presentation.view.base.lr.LRPresenter
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.base.lr.PartialChange
+import io.forus.me.android.presentation.view.screens.account.newaccount.NewAccountPartialChanges
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -60,6 +61,25 @@ class LogInSignUpPresenter constructor(private val token: String, private val ac
                                     .onErrorReturn {
                                         LogInSignUpPartialChanges.ExchangeTokenError(it)
                                     }
+                        },
+
+                        intent { it.registerNewAccount() }
+                        .switchMap {
+                            accountRepository.newUser(it)
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .map<PartialChange> {
+                                        //NewAccountPartialChanges.RegisterEnd(it)
+                                        if(it) LogInSignUpPartialChanges.RestoreByEmailRequestEnd()
+                                        else LogInSignUpPartialChanges.RestoreByEmailRequestError(Exception(it.toString()))
+                                    }
+                                    .onErrorReturn {
+                                        //NewAccountPartialChanges.RegisterError(it)
+                                        LogInSignUpPartialChanges.RestoreByEmailRequestError(it)
+                                    }
+                                    .startWith(//NewAccountPartialChanges.RegisterStart(it)
+                                            LogInSignUpPartialChanges.RestoreByEmailRequestStart()
+                                    )
                         }
         )
 

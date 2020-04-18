@@ -2,9 +2,11 @@ package io.forus.me.android.presentation.view.screens.account.login_signup_accou
 
 import android.os.Bundle
 import android.text.Editable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import io.forus.me.android.domain.models.account.NewAccountRequest
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.helpers.SharedPref
 import io.forus.me.android.presentation.internal.Injection
@@ -15,6 +17,7 @@ import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_account_details.root
+import kotlinx.android.synthetic.main.fragment_account_new.*
 import kotlinx.android.synthetic.main.fragment_login_sign_up.email
 import kotlinx.android.synthetic.main.fragment_login_sign_up.restore
 
@@ -23,6 +26,7 @@ import kotlinx.android.synthetic.main.fragment_login_sign_up.restore
  * Fragment User Account Screen.
  */
 class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView, LogInSignUpPresenter>(), LogInSignUpView {
+
 
 
     companion object {
@@ -70,11 +74,18 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
         }
     }
 
+
+
     private val registerAction = PublishSubject.create<String>()
     override fun register() = registerAction
 
     private val exchangeToken = PublishSubject.create<String>()
     override fun exchangeToken() = exchangeToken
+
+
+    private val registerActionNewAccount = PublishSubject.create<NewAccountRequest>()
+    override fun registerNewAccount() = registerActionNewAccount
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
             = inflater.inflate(R.layout.fragment_login_sign_up, container, false).also {
@@ -130,6 +141,8 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
     override fun render(vs: LRViewState<LogInSignUpModel>) {
         super.render(vs)
 
+        Log.d("forus","RENDER")
+
         restore.visibility = if(vs.model.sendingRestoreByEmail == true || vs.model.sendingRestoreByEmailSuccess == true) View.INVISIBLE else View.VISIBLE
        // email_description.visibility = if(vs.model.sendingRestoreByEmailSuccess == true) View.VISIBLE else View.INVISIBLE
         email.isEditable = !(vs.model.sendingRestoreByEmailSuccess == true)
@@ -144,7 +157,18 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
         }
 
         if(vs.model.sendingRestoreByEmailError != null){
-            email.setError(resources.getString(R.string.restore_email_not_found))
+            //email.setError(resources.getString(R.string.restore_email_not_found))
+            //entry to registration new account
+            if (viewIsValid) {
+                registerActionNewAccount.onNext(NewAccountRequest(
+                        firstname = "",
+                        lastname = "",
+                        bsn = "",
+                        phoneNumber = "",
+                        email = email.getText()
+                )
+                )
+            }
         }
 
         if(vs.model.exchangeTokenError != null){
