@@ -18,8 +18,8 @@ import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_account_details.root
 import kotlinx.android.synthetic.main.fragment_account_new.*
+import kotlinx.android.synthetic.main.fragment_login_sign_up.*
 import kotlinx.android.synthetic.main.fragment_login_sign_up.email
-import kotlinx.android.synthetic.main.fragment_login_sign_up.restore
 
 
 /**
@@ -126,6 +126,12 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
                 registerAction.onNext(email.getText())
             }
         }
+
+        pair_device.setOnClickListener {
+            navigator.navigateToPairDevice(context!!)
+        }
+
+
     }
 
     override fun onDetach() {

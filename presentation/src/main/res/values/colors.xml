@@ -21,6 +21,10 @@
 
     <color name="IconBase">#ededf4</color>
 
+    <color name="pinBackground">#F5F5F5</color>
+
+
+
     <!--generated colors-->
     <color name="overline2">#3c4c62</color>
     <color name="overline4">#556d87</color>

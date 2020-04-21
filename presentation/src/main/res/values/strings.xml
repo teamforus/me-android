@@ -84,6 +84,12 @@
     <string name="passcode_subtitle_pinlock_checking">Checking</string>
     <string name="passcode_subtitle_pinlock_error">Wrong passcode</string>
 
+
+    <!-- PAIR DEVICE screen -->
+    <string name="pair_header">PAIR</string>
+    <string name="pair_title_pin">This is your pairing code</string>
+    <string name="pair_title_qr">Scan this QR-Code with another device you are already logged in</string>
+
     <!-- Lock fingerprint strings -->
     <string name="lock_no_fingerprints">No fingerprints available</string>
     <string name="lock_fingerprint_title">Fingerprint authentication</string>

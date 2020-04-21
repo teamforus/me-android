@@ -18,6 +18,7 @@ import io.forus.me.android.presentation.view.screens.account.assigndelegates.ema
 import io.forus.me.android.presentation.view.screens.account.newaccount.NewAccountActivity
 import io.forus.me.android.presentation.view.screens.account.newaccount.confirmRegistration.ConfirmRegistrationActivity
 import io.forus.me.android.presentation.view.screens.account.newaccount.pin.NewPinActivity
+import io.forus.me.android.presentation.view.screens.account.pair_device.PairDeviceActivity
 import io.forus.me.android.presentation.view.screens.dashboard.DashboardActivity
 import io.forus.me.android.presentation.view.screens.lock.PinLockActivity
 import io.forus.me.android.presentation.view.screens.qr.QrScannerActivity
@@ -74,6 +75,13 @@ constructor()//empty
     fun navigateToAccountRestore(context: Context?) {
         if (context != null) {
             val intentToLaunch = AssignDelegatesAccountActivity.getCallingIntent(context)
+            context.startActivity(intentToLaunch)
+        }
+    }
+
+    fun navigateToPairDevice(context: Context?) {
+        if (context != null) {
+            val intentToLaunch = PairDeviceActivity.getCallingIntent(context)
             context.startActivity(intentToLaunch)
         }
     }
