@@ -37,8 +37,8 @@ class MainActivity : BaseActivity() {
             }
         }
         else {
-            navigateToWelcomeScreen() //old behavior
-           // navigateToLogInsignUpScreen()
+            //navigateToWelcomeScreen() //old behavior
+            navigateToLogInsignUpScreen()
         }
     }
 

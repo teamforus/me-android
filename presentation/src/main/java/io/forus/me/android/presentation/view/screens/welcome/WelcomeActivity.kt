@@ -26,8 +26,7 @@ class WelcomeActivity : BaseActivity() {
         setContentView(R.layout.activity_layout)
 
         if (savedInstanceState == null) {
-             //addFragment(R.id.fragmentContainer, WelcomeFragment()) old behavior
-            addFragment(R.id.fragmentContainer, LogInSignUpFragment())
+            addFragment(R.id.fragmentContainer, WelcomeFragment())
         }
     }
 }
