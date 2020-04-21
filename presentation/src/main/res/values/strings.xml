@@ -110,10 +110,12 @@
     <string name="profile_logout">Logout</string>
     <string name="profile_button_show_qr">My QR-code</string>
     <string name="profile_about_me">About Me</string>
-    <string name="profile_about_me_text">This app is intended to store vouchers, make payments and log in to different applications.\n \nThis app works together with:\n \n• 	the Nijmegen webshop;\n• 	the Westerkwartier webshop;\n• 	the Forus generic webshop.\n \nLater on several shops and applications will be added.</string>
+    <string name="profile_about_me_text">This app is intended to store vouchers, make payments and log in to different applications.\n \nThis app works together with:\n \n• 	the Nijmegen webshop;\n• 	the Westerkwartier webshop;\n• 	the Forus generic webshop.\n• 	the Winterswijk webshop.\n• 	the Oost Gelre webshop.\n• 	the Berkelland webshop.\n• 	the Noordoostpolder webshop.\n  \nLater on several shops and applications will be added.</string>
     <string name="profile_app_version">App version</string>
     <string name="profile_support" translatable="false">Support</string>
     <string name="profile_about">About</string>
+    <string name="profile_logout_dialog_title">Logout</string>
+    <string name="profile_logout_dialog_content">Are you sure you want to log out?</string>
 
     <!-- New record screen -->
     <string name="new_record_title">New Record</string>
@@ -223,6 +225,9 @@
     <string name="check_email_open_mail_app">Open mail app</string>
     <string name="registering">Registering...</string>
     <string name="session_has_expired">Your session has expired. You are being logged out.</string>
+    <string name="dialog_no_internet_warning">Warning!</string>
+    <string name="dialog_no_internet_message">No internet connection</string>
+    <string name="success">Success</string>
     <string name="voucher_dialog_choose_organization">Choose organization</string>
     <string name="voucher_demo_transaction_operation_completed">Operation completed</string>
 

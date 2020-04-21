@@ -20,7 +20,9 @@ import io.forus.me.android.presentation.view.activity.BaseActivity
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.forus.me.android.presentation.view.screens.about.AboutMeFragment
+import io.forus.me.android.presentation.view.screens.account.account.dialogs.LogoutDialog
 import io.forus.me.android.presentation.view.screens.dashboard.DashboardActivity
+import io.forus.me.android.presentation.view.screens.qr.dialogs.RestoreIdentityDialog
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_account_details.*
@@ -95,7 +97,8 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
         }
 
         logout_view.setOnClickListener {
-            logout.onNext(true)
+            showConfirmLogoutDialog()
+
         }
 
         about_me.setOnClickListener {
@@ -107,6 +110,10 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
         }
 
         optionPincodeIsEnable = true
+    }
+
+    private fun showConfirmLogoutDialog() {
+        LogoutDialog(context!!) { logout.onNext(true) }.show();
     }
 
     override fun createPresenter() = AccountPresenter(
@@ -128,13 +135,13 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
             if (optionPincodeIsEnable) {
 
 
-            optionPincodeIsEnable = false
-            h.postDelayed(object : Runnable{
-                override fun run() {
-                    optionPincodeIsEnable = true
-                }
-            },1000)
-            navigator.navigateToChangePin(this, if (vs.model.pinlockEnabled) ChangePinMode.REMOVE_OLD else ChangePinMode.SET_NEW, REQUEST_CHANGE_PIN)
+                optionPincodeIsEnable = false
+                h.postDelayed(object : Runnable {
+                    override fun run() {
+                        optionPincodeIsEnable = true
+                    }
+                }, 1000)
+                navigator.navigateToChangePin(this, if (vs.model.pinlockEnabled) ChangePinMode.REMOVE_OLD else ChangePinMode.SET_NEW, REQUEST_CHANGE_PIN)
             }
         }
 

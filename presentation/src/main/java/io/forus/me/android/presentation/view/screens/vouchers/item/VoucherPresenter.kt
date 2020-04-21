@@ -2,6 +2,7 @@ package io.forus.me.android.presentation.view.screens.vouchers.item
 
 import io.forus.me.android.domain.interactor.LoadVoucherUseCase
 import io.forus.me.android.domain.interactor.SendEmailUseCase
+import io.forus.me.android.domain.repository.account.AccountRepository
 import io.forus.me.android.presentation.mappers.VoucherDataMapper
 import io.forus.me.android.presentation.models.vouchers.Voucher
 import io.forus.me.android.presentation.view.base.lr.LRPresenter
@@ -13,6 +14,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.subjects.ReplaySubject
 import io.reactivex.subjects.Subject
+import java.util.*
 import io.forus.me.android.domain.models.vouchers.Voucher as VoucherDomain
 
 
@@ -20,7 +22,8 @@ class VoucherPresenter constructor(private val loadVoucherUseCase: LoadVoucherUs
                                    private val sendEmailUseCase: SendEmailUseCase,
                                    private val voucherDataMapper: VoucherDataMapper,
                                    private val address: String,
-                                   private val voucher: Voucher? = null) : LRPresenter<Voucher, VoucherModel, VoucherView>() {
+                                   private val voucher: Voucher? = null,
+                                   private val accountRepository: AccountRepository) : LRPresenter<Voucher, VoucherModel, VoucherView>() {
 
     private lateinit var voucherSubject: Subject<Voucher>
 
@@ -48,6 +51,8 @@ class VoucherPresenter constructor(private val loadVoucherUseCase: LoadVoucherUs
     override fun bindIntents() {
 
         val observable = Observable.merge(
+
+                Arrays.asList(
                 loadRefreshPartialChanges(),
 
                 intent(VoucherView::sendEmail).map {
@@ -80,7 +85,20 @@ class VoucherPresenter constructor(private val loadVoucherUseCase: LoadVoucherUs
 
                 intent(VoucherView::sentEmailDialogShown).map {
                     VoucherPartialChanges.SendEmailDialogShown(Unit)
-                }
+                },
+
+
+                intent (VoucherView::getShortToken )
+                        .switchMap {
+                            accountRepository.getShortToken()
+                                    .subscribeOn(io.reactivex.schedulers.Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .map<PartialChange> {
+                                        VoucherPartialChanges.GetShortToken(it)
+                                    }
+
+                        }
+                )
 
         )
 
@@ -111,6 +129,7 @@ class VoucherPresenter constructor(private val loadVoucherUseCase: LoadVoucherUs
             is VoucherPartialChanges.SendEmailError -> vs.copy(loadingError = change.error)
             is VoucherPartialChanges.SendEmailDialogShown -> vs.copy(model = vs.model.copy(emailSend = EmailSend.NOTHING))
             is VoucherPartialChanges.SendEmailDialogShows -> vs.copy(model = vs.model.copy(emailSend = EmailSend.SEND))
+            is VoucherPartialChanges.GetShortToken -> vs.copy(model = vs.model.copy(shortToken = change.value))
         }
     }
 
