@@ -7,16 +7,14 @@ import io.forus.me.android.data.entity.sign.request.AuthorizeCode
 import io.forus.me.android.data.entity.sign.request.AuthorizeToken
 import io.forus.me.android.data.entity.sign.request.RegisterPush
 import io.forus.me.android.data.entity.sign.request.RestoreByEmail
-import io.forus.me.android.data.entity.sign.response.AccessToken
-import io.forus.me.android.data.entity.sign.response.IdentityPinResult
-import io.forus.me.android.data.entity.sign.response.IdentityTokenResult
-import io.forus.me.android.data.entity.sign.response.SignUpResult
+import io.forus.me.android.data.entity.sign.response.*
 import io.forus.me.android.data.net.sign.SignService
 import io.forus.me.android.data.repository.account.datasource.AccountDataSource
 import io.forus.me.android.data.repository.datasource.RemoteDataSource
 import io.reactivex.Observable
 
 class AccountRemoteDataSource(f: () -> SignService) : AccountDataSource, RemoteDataSource<SignService>(f) {
+
 
 
     override fun createUser(signUp: SignUp): Observable<Boolean> {
@@ -95,5 +93,9 @@ class AccountRemoteDataSource(f: () -> SignService) : AccountDataSource, RemoteD
 
     override fun getIdentity(): Observable<Account> {
         return service.getIdentity()
+    }
+
+    override fun getShortToken(): Observable<ShortTokenResult> {
+        return service.getShortToken()
     }
 }

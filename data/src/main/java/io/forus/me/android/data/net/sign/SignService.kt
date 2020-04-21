@@ -59,4 +59,7 @@ interface SignService {
     @POST("api/v1/platform/devices/register-push")
     fun registerPush(@Body token: RegisterPush): Observable<Void>
 
+    @POST("api/v1/identity/proxy/short-token")
+    fun getShortToken() : Observable<ShortTokenResult>
+
 }

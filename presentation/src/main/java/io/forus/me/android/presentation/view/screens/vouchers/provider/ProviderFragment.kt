@@ -1,5 +1,7 @@
 package io.forus.me.android.presentation.view.screens.vouchers.provider
 
+import android.content.DialogInterface
+import android.content.DialogInterface.OnDismissListener
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.widget.LinearLayoutManager
@@ -9,14 +11,20 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import io.forus.me.android.data.entity.common.ApiError
 import io.forus.me.android.domain.exception.RetrofitException
+import io.forus.me.android.domain.exception.RetrofitExceptionMapper
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.models.vouchers.Organization
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
+
+import io.forus.me.android.presentation.view.screens.qr.dialogs.ScanVoucherBaseErrorDialog
+
 import io.forus.me.android.presentation.view.screens.qr.dialogs.ApproveValidationDialog
 import io.forus.me.android.presentation.view.screens.vouchers.dialogs.VouchersApplySuccessDialog
+
 import io.forus.me.android.presentation.view.screens.vouchers.provider.categories.CategoriesAdapter
 import io.forus.me.android.presentation.view.screens.vouchers.provider.dialogs.ApplyDialog
 import io.forus.me.android.presentation.view.screens.vouchers.provider.dialogs.ChargeDialog
@@ -115,6 +123,7 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
             address
     )
 
+    private var retrofitExceptionMapper: RetrofitExceptionMapper = Injection.instance.retrofitExceptionMapper
 
     override fun render(vs: LRViewState<ProviderModel>) {
         super.render(vs)
@@ -158,8 +167,37 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
 
         if (vs.model.makeTransactionError != null) {
             val error: Throwable = vs.model.makeTransactionError
-            val errorMessage = if (error is RetrofitException && error.kind == RetrofitException.Kind.HTTP) R.string.vouchers_make_transaction_failure else R.string.app_error_text
-            Snackbar.make(viewForSnackbar(), errorMessage, Snackbar.LENGTH_SHORT).show()
+
+            var errorMessage = getString(R.string.app_error_text)
+
+            if (error is RetrofitException) {
+
+                if (error.responseCode == 422) {
+                    val detailsApiError = retrofitExceptionMapper.mapToDetailsApiError(error)
+                    if (detailsApiError != null && detailsApiError.errors != null) {
+                        errorMessage = detailsApiError.errorString
+                    }
+                }
+                if (error.responseCode == 403) {
+                    val baseError = retrofitExceptionMapper.mapToBaseApiError(error)
+                    val message = baseError.message
+                    if (baseError != null && baseError.message != null) {
+                        errorMessage = baseError.message
+                    }
+                }
+            }
+
+            ScanVoucherBaseErrorDialog(errorMessage, context!!, object : OnDismissListener, () -> Unit {
+                override fun invoke() {
+                    activity?.finish()
+                }
+
+                override fun onDismiss(p0: DialogInterface?) {
+                }
+            }).show()
+
+
+
         }
 
         if (vs.closeScreen) closeScreen()

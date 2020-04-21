@@ -1,5 +1,7 @@
 package io.forus.me.android.presentation.view.screens.qr
 
+import android.content.DialogInterface
+import android.support.design.widget.Snackbar
 import android.util.Log
 import io.forus.me.android.data.repository.settings.SettingsDataSource
 import io.forus.me.android.domain.exception.RetrofitException
@@ -11,6 +13,7 @@ import io.forus.me.android.domain.repository.vouchers.VouchersRepository
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.navigation.Navigator
+import io.forus.me.android.presentation.view.base.NoInternetDialog
 import io.forus.me.android.presentation.view.screens.qr.dialogs.*
 import io.forus.me.android.presentation.view.screens.vouchers.provider.ProviderActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -52,7 +55,8 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
                                                 .observeOn(AndroidSchedulers.mainThread())
                                                 .map { onResultValidationApproved() }
                                                 .onErrorReturn {
-                                                    onResultUnexpectedError() }
+                                                    onResultUnexpectedError()
+                                                }
                                                 .subscribe()
                                     },
                                     {
@@ -60,9 +64,11 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
                                                 .subscribeOn(Schedulers.io())
                                                 .observeOn(AndroidSchedulers.mainThread())
                                                 .map {
-                                                    onResultValidationDeclined() }
+                                                    onResultValidationDeclined()
+                                                }
                                                 .onErrorReturn {
-                                                    onResultUnexpectedError() }
+                                                    onResultUnexpectedError()
+                                                }
                                                 .subscribe()
                                     },
                                     reactivateDecoding)
@@ -70,7 +76,8 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
                     } else onResultValidationAlreadyDone()
                 }
                 .onErrorReturn {
-                    onResultUnexpectedError() }
+                    onResultUnexpectedError()
+                }
                 .subscribe()
     }
 
@@ -82,10 +89,11 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
                                 .subscribeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread())
                                 .map {
-                                    onResultIdentityRestored() }
+                                    onResultIdentityRestored()
+                                }
                                 .onErrorReturn {
                                     if (it is RetrofitException && it.kind == RetrofitException.Kind.HTTP && it.responseCode == 402) {
-                                        onResultTokenExpired()
+                                        onResultTokenExpired(it)
                                     } else {
                                         onResultUnexpectedError()
                                     }
@@ -123,26 +131,32 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
                     Log.e("QR_ACTION", "scan voucher_error", it)
 
                     val error: Throwable = it
-                    if (error is RetrofitException && error.kind == RetrofitException.Kind.HTTP) {
 
-                        try {
-                            val newRecordError = retrofitExceptionMapper.mapToBaseApiError(error)
+                    if (error is io.forus.me.android.data.exception.RetrofitException && error.kind == RetrofitException.Kind.NETWORK) {
+                        NoInternetDialog(scanner, reactivateDecoding).show();
+                    } else {
 
-                            if (error.responseCode == 403) {
-                                canOnResultVoucherScanned = false
-                                val message = if (newRecordError.message == null) "" else newRecordError.message
-                                ScanVoucherBaseErrorDialog(message, scanner, reactivateDecoding).show()
+                        if (error is RetrofitException && error.kind == RetrofitException.Kind.HTTP) {
+
+                            try {
+                                val newRecordError = retrofitExceptionMapper.mapToBaseApiError(error)
+
+                                if (error.responseCode == 403) {
+                                    canOnResultVoucherScanned = false
+                                    val message = if (newRecordError.message == null) "" else newRecordError.message
+                                    ScanVoucherBaseErrorDialog(message, scanner, reactivateDecoding).show()
+                                }
+                            } catch (e: Exception) {
                             }
-                        } catch (e: Exception) {
+
+
                         }
 
+                        if (canOnResultVoucherScanned) {
 
-                    }
-
-                    if (canOnResultVoucherScanned) {
-
-                        if (scanner.hasWindowFocus()) {
-                            onResultVoucherScanned(address, false)
+                            if (scanner.hasWindowFocus()) {
+                                onResultVoucherScanned(address, false)
+                            }
                         }
                     }
                 }
@@ -176,8 +190,20 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
         }, 1000)
     }
 
-    private fun onResultTokenExpired() {
-        showToastMessage(resources.getString(R.string.qr_identity_expired))
+    private fun onResultTokenExpired(error: Throwable) {
+        var errorMessage = resources.getString(R.string.qr_identity_expired)
+        if (error is RetrofitException) {
+            val baseError = retrofitExceptionMapper.mapToBaseApiError(error)
+            if (baseError != null && baseError.message != null) {
+                errorMessage = baseError.message
+            }
+        }
+
+        ScanVoucherBaseErrorDialog(errorMessage, scanner, object : DialogInterface.OnDismissListener,
+                () -> Unit {
+            override fun invoke() {}
+            override fun onDismiss(p0: DialogInterface?) {}
+        }).show()
         reactivateDecoding()
     }
 
@@ -230,11 +256,41 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
 
                             navigator.navigateToVoucherProvider(scanner, address)
                         } else {
-                            ScanVoucherNotEligibleDialog(scanner, reactivateDecoding).show()
+                            //ScanVoucherNotEligibleDialog(scanner, reactivateDecoding).show()
+
+                            processScannerError(it)
                         }
                     }
                 }
                 .subscribe()
+    }
+
+
+    private fun processScannerError(error: Throwable) {
+
+        var errorMessage = error.localizedMessage
+
+        if (error is RetrofitException) {
+
+            if (error.responseCode == 422) {
+                val detailsApiError = retrofitExceptionMapper.mapToDetailsApiError(error)
+                if (detailsApiError != null && detailsApiError.errors != null) {
+                    errorMessage = detailsApiError.errorString
+                }
+            }
+            if (error.responseCode == 403) {
+                val baseError = retrofitExceptionMapper.mapToBaseApiError(error)
+                if (baseError != null && baseError.message != null) {
+                    errorMessage = baseError.message
+                }
+            }
+        }
+
+        ScanVoucherBaseErrorDialog(errorMessage, scanner, object : DialogInterface.OnDismissListener,
+             () -> Unit {
+                 override fun invoke() {}
+                 override fun onDismiss(p0: DialogInterface?) {}
+        }).show()
     }
 
 
