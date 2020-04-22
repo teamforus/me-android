@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:background="@color/colorPrimary"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <include layout="@layout/toolbar_view"/>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="36dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    >
+
+
+                    <TextView
+                        android:id="@+id/title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginEnd="30dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="center_horizontal|top"
+                        tools:text="@string/restore_account_head"
+                        android:textColor="@color/textColor"
+                        android:textSize="32sp"
+                        />
+
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </ScrollView>
+
+        <ImageView
+            android:id="@+id/errorImage"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="19dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_error_outline_black_48dp"
+            android:tint="@color/error_email"
+            android:alpha="0.65"
+            android:layout_centerInParent="true"
+            />
+
+        <ImageView
+            android:id="@+id/successImage"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="19dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_success_restore_png"
+            android:layout_centerInParent="true"
+             />
+
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerInParent="true"
+            />
+
+
+        <RelativeLayout
+            android:id="@+id/rl_register"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_alignParentBottom="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <io.forus.me.android.presentation.view.component.buttons.Button
+                android:id="@+id/nextStep"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="@string/next_step" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>
+

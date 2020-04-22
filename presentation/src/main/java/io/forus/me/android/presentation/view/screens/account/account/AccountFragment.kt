@@ -164,7 +164,8 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
         }
 
         if (vs.model.navigateToWelcome) {
-            navigator.navigateToWelcomeScreen(activity)
+            //navigator.navigateToWelcomeScreen(activity)
+            navigator.navigateToLoginSignUp(activity)
             activity?.finish()
         }
 

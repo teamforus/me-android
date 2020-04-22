@@ -149,9 +149,11 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
 
         Log.d("forus","RENDER")
 
-        restore.visibility = if(vs.model.sendingRestoreByEmail == true || vs.model.sendingRestoreByEmailSuccess == true) View.INVISIBLE else View.VISIBLE
-       // email_description.visibility = if(vs.model.sendingRestoreByEmailSuccess == true) View.VISIBLE else View.INVISIBLE
-        email.isEditable = !(vs.model.sendingRestoreByEmailSuccess == true)
+        restore.isEnabled = vs.model.sendingRestoreByEmail != true
+
+        pair_device.isEnabled = vs.model.sendingRestoreByEmail != true
+        // email_description.visibility = if(vs.model.sendingRestoreByEmailSuccess == true) View.VISIBLE else View.INVISIBLE
+        email.isEditable = vs.model.sendingRestoreByEmail != true //!(vs.model.sendingRestoreByEmailSuccess == true)
 
         if(vs.model.sendingRestoreByEmailSuccess == true && !instructionsAlreadyShown){
 

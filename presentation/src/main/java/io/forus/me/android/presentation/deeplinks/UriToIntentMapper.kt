@@ -3,6 +3,7 @@ package io.forus.me.android.presentation.deeplinks
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import io.forus.me.android.presentation.navigation.Navigator
 
 class UriToIntentMapper(private val mContext: Context, private val navigator: Navigator) {
@@ -27,10 +28,12 @@ class UriToIntentMapper(private val mContext: Context, private val navigator: Na
     private fun mapAppLink(uri: Uri): Intent? {
         val host = uri.host!!.toLowerCase()
 
+        Log.d("forus", "host=$host") // host=identity-restore
         when (host) {
             "identity-restore" -> {
                 val bQuery = uri.getQueryParameter("token")
-                navigator.navigateToAccountRestoreByEmailExchangeToken(mContext, bQuery)
+                //navigator.navigateToAccountRestoreByEmailExchangeToken(mContext, bQuery) //old behavior
+                navigator.navigateToResoreAccountSuccess(mContext, bQuery)
             }
             "identity-confirmation" -> {
                 val bQuery = uri.getQueryParameter("token")

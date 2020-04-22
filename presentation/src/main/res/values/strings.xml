@@ -225,9 +225,17 @@
     <string name="qr_choose_reservation">Choose Reservation</string>
     <string name="qr_reserved_offers">The offers below are reserved by the customer</string>
     <string name="vouchers_complete_an_amount">COMPLETE AN AMOUNT</string>
-    <string name="check_email_has_been_sent_to_you">E-mail has been\u00A0sent\u00A0to you</string>
+
+    <!-- Check email -->
+    <string name="check_email_has_been_sent_to_you">Check your email</string>
     <string name="check_email_description_part1">Klik op de link in de email die u heeft ontvangen op</string>
     <string name="check_email_description_part2">om uw aanmelding af te maken \n</string>
+
+
+    <!-- Restore account success -->
+    <string name="restore_account_head">Successful registration!</string>
+
+    <string name="next_step">NEXT STEP</string>
     <string name="cancel">Cancel</string>
     <string name="check_email_open_mail_app">Open mail app</string>
     <string name="registering">Registering...</string>

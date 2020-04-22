@@ -19,6 +19,7 @@ import io.forus.me.android.presentation.view.screens.account.newaccount.NewAccou
 import io.forus.me.android.presentation.view.screens.account.newaccount.confirmRegistration.ConfirmRegistrationActivity
 import io.forus.me.android.presentation.view.screens.account.newaccount.pin.NewPinActivity
 import io.forus.me.android.presentation.view.screens.account.pair_device.PairDeviceActivity
+import io.forus.me.android.presentation.view.screens.account.restore_account_success.RestoreAccountSuccessActivity
 import io.forus.me.android.presentation.view.screens.dashboard.DashboardActivity
 import io.forus.me.android.presentation.view.screens.lock.PinLockActivity
 import io.forus.me.android.presentation.view.screens.qr.QrScannerActivity
@@ -160,10 +161,13 @@ constructor()//empty
         }
     }
 
-
-
-
-
+    fun navigateToResoreAccountSuccess(context: Context?, token: String) {
+        if (context != null) {
+            val intentToLaunch = RestoreAccountSuccessActivity.getCallingIntent(context, token)
+            intentToLaunch.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            context.startActivity(intentToLaunch)
+        }
+    }
 
 
 

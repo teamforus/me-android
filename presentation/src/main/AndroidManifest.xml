@@ -88,6 +88,11 @@
             android:launchMode="singleTop"></activity>
 
         <activity
+            android:name="io.forus.me.android.presentation.view.screens.account.restore_account_success.RestoreAccountSuccessActivity"
+            android:label="@string/app_blank_string"
+            android:launchMode="singleTop"></activity>
+
+        <activity
             android:name="io.forus.me.android.presentation.view.screens.account.newaccount.confirmRegistration.ConfirmRegistrationActivity"
             android:label="@string/app_blank_string"
             android:launchMode="singleTop"></activity>

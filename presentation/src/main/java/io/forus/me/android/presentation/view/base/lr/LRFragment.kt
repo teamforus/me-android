@@ -69,7 +69,8 @@ abstract class LRFragment<M, V : LRView<M>, P : MviBasePresenter<V, LRViewState<
                     override fun onDismissed(snackbar: Snackbar?, event: Int) {
                         super.onDismissed(snackbar, event)
 
-                        navigator.navigateToWelcomeScreen(activity)
+                        //navigator.navigateToWelcomeScreen(activity)
+                        navigator.navigateToLoginSignUp(activity)
                         activity?.finish()
                     }
                 })
