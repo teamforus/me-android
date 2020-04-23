@@ -225,6 +225,7 @@
     <string name="check_email_open_mail_app">Open mail app</string>
     <string name="registering">Registering...</string>
     <string name="session_has_expired">Your session has expired. You are being logged out.</string>
+    <string name="warning">Warning!</string>
     <string name="dialog_no_internet_warning">Warning!</string>
     <string name="dialog_no_internet_message">No internet connection</string>
     <string name="success">Success</string>
