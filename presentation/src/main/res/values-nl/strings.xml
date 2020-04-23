@@ -225,6 +225,11 @@
     <!-- Restore account success -->
     <string name="restore_account_head">Aanmelding geslaagd!</string>
 
+    <!-- Send crashlitics reports screen -->
+    <string name="send_report_head">Informatie delen</string>
+    <string name="send_report_description">Door uw identificatie nummer te delen, kunnen problemen beter en sneller worden opgelost, en kunnen de ontwikkelaars eventueel contact met u opnemen</string>
+
+
     <string name="next_step">VOLGENDE</string>
 
     <string name="cancel">Annuleren</string>

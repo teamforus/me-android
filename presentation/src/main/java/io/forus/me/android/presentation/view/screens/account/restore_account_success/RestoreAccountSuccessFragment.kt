@@ -51,7 +51,7 @@ class RestoreAccountSuccessFragment : ToolbarLRFragment<RestoreAccountSuccessMod
     private var instructionsAlreadyShown: Boolean = false
 
     override val toolbarTitle: String
-        get() = getString(R.string.restore_login)
+        get() = ""//getString(R.string.restore_login)
 
     override val allowBack: Boolean
         get() = true
@@ -104,6 +104,7 @@ class RestoreAccountSuccessFragment : ToolbarLRFragment<RestoreAccountSuccessMod
     override fun render(vs: LRViewState<RestoreAccountSuccessModel>) {
         super.render(vs)
 
+        returnToRegistration.visibility = View.GONE
 
 
         progress.visibility = if(vs.model.sendingRestoreByEmail == true) View.VISIBLE else View.INVISIBLE
@@ -122,6 +123,17 @@ class RestoreAccountSuccessFragment : ToolbarLRFragment<RestoreAccountSuccessMod
             (activity as? BaseActivity)?.hideSoftKeyboard()
         }
 
+        if (vs.model.accessToken != null && vs.model.accessToken.isNotBlank()) {
+            successImage.visibility = View.VISIBLE
+            title.text = getString(R.string.restore_account_head)
+            // closeScreen(vs.model.accessToken)
+            nextStep.visibility = View.VISIBLE
+        }else{
+            successImage.visibility = View.INVISIBLE
+            title.text = ""
+            nextStep.visibility = View.INVISIBLE
+           // nextStep.visibility = View.VISIBLE
+        }
 
 
         if(vs.model.exchangeTokenError != null){
@@ -144,7 +156,10 @@ class RestoreAccountSuccessFragment : ToolbarLRFragment<RestoreAccountSuccessMod
                 }
             }
             Log.d("forus","Error___"+message)
+            title.visibility = View.VISIBLE
             title.text = message
+
+            returnToRegistration.visibility = View.VISIBLE
 
         }else{
             errorImage.visibility = View.INVISIBLE
@@ -152,17 +167,11 @@ class RestoreAccountSuccessFragment : ToolbarLRFragment<RestoreAccountSuccessMod
 
 
 
-        if (vs.model.accessToken != null && vs.model.accessToken.isNotBlank()) {
-            successImage.visibility = View.VISIBLE
-            title.text = getString(R.string.restore_account_head)
-                   // closeScreen(vs.model.accessToken)
-            nextStep.visibility = View.VISIBLE
-        }else{
-            successImage.visibility = View.INVISIBLE
-            title.text = ""
-            nextStep.visibility = View.INVISIBLE
-        }
 
+        returnToRegistration.setOnClickListener {
+            navigator.navigateToLoginSignUp(activity)
+            activity?.finish()
+        }
 
         nextStep.setOnClickListener {
             if (vs.model.accessToken != null && vs.model.accessToken.isNotBlank()) {
@@ -172,7 +181,8 @@ class RestoreAccountSuccessFragment : ToolbarLRFragment<RestoreAccountSuccessMod
     }
 
     fun closeScreen(accessToken: String) {
-        navigator.navigateToPinNew(activity, accessToken)
+        //navigator.navigateToPinNew(activity, accessToken)//old behavior
+        navigator.navigateToSendReports(activity, accessToken)
         activity?.finish()
     }
 

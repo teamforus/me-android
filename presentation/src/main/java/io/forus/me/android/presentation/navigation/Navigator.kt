@@ -20,6 +20,7 @@ import io.forus.me.android.presentation.view.screens.account.newaccount.confirmR
 import io.forus.me.android.presentation.view.screens.account.newaccount.pin.NewPinActivity
 import io.forus.me.android.presentation.view.screens.account.pair_device.PairDeviceActivity
 import io.forus.me.android.presentation.view.screens.account.restore_account_success.RestoreAccountSuccessActivity
+import io.forus.me.android.presentation.view.screens.account.send_crash_reports.SendReportsActivity
 import io.forus.me.android.presentation.view.screens.dashboard.DashboardActivity
 import io.forus.me.android.presentation.view.screens.lock.PinLockActivity
 import io.forus.me.android.presentation.view.screens.qr.QrScannerActivity
@@ -146,6 +147,7 @@ constructor()//empty
     fun navigateToLoginSignUp(context: Context?) {
         if (context != null) {
             val intentToLaunch = LogInSignUpActivity.getCallingIntent(context)
+            //intentToLaunch.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             context.startActivity(intentToLaunch)
         }
     }
@@ -188,6 +190,13 @@ constructor()//empty
     fun navigateToVoucher(context: Context?, voucher: Voucher) {
         if (context != null) {
             val intentToLaunch = VoucherActivity.getCallingIntent(context, voucher)
+            context.startActivity(intentToLaunch)
+        }
+    }
+
+    fun navigateToSendReports(context: Context?, exchangeToken: String) {
+        if (context != null) {
+            val intentToLaunch = SendReportsActivity.getCallingIntent(context, exchangeToken)
             context.startActivity(intentToLaunch)
         }
     }

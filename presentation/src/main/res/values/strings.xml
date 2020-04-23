@@ -235,6 +235,11 @@
     <!-- Restore account success -->
     <string name="restore_account_head">Successful registration!</string>
 
+    <!-- Send crashlitics reports screen -->
+    <string name="send_report_head">Sharing information</string>
+    <string name="send_report_description">If you agree to share your id number for crash reports, our developers will see the exact problem that might happen with Me and solve it much faster.</string>
+
+
     <string name="next_step">NEXT STEP</string>
     <string name="cancel">Cancel</string>
     <string name="check_email_open_mail_app">Open mail app</string>

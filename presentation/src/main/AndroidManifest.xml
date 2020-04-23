@@ -113,6 +113,11 @@
             android:launchMode="singleTask"></activity>
 
         <activity
+            android:name=".view.screens.account.send_crash_reports.SendReportsActivity"
+            android:label="@string/app_blank_string"
+            android:launchMode="singleTask"></activity>
+
+        <activity
             android:name=".view.screens.account.newaccount.pin.NewPinActivity"
             android:label="@string/app_blank_string"
             android:launchMode="singleTask"></activity>
