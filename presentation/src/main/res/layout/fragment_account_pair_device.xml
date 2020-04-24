@@ -99,13 +99,15 @@
                 android:layout_marginRight="17dp"
                 android:text="@string/pair_title_qr"
                 android:gravity="center_horizontal"
-                android:textColor="@color/body_1" />
+                android:textColor="@color/body_1"
+                android:visibility="gone"
+                />
 
             <FrameLayout
                 android:id="@+id/container_qr_fr"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="0dp"
                 >
             </FrameLayout>
 
