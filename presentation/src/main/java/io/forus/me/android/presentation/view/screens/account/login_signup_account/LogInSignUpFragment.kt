@@ -147,7 +147,6 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
     override fun render(vs: LRViewState<LogInSignUpModel>) {
         super.render(vs)
 
-        Log.d("forus","RENDER")
 
         restore.isEnabled = vs.model.sendingRestoreByEmail != true
 

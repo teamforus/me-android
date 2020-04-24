@@ -87,7 +87,6 @@ class RestoreAccountSuccessFragment : ToolbarLRFragment<RestoreAccountSuccessMod
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //nextStep.active = false
     }
 
     override fun onDetach() {
@@ -109,11 +108,6 @@ class RestoreAccountSuccessFragment : ToolbarLRFragment<RestoreAccountSuccessMod
 
         progress.visibility = if(vs.model.sendingRestoreByEmail == true) View.VISIBLE else View.INVISIBLE
 
-
-        //successImage.visibility = if(vs.model.sendingRestoreByEmail == false && vs.model.sendingRestoreByEmailSuccess == true) View.VISIBLE else View.INVISIBLE
-
-        //restore.visibility = if(vs.model.sendingRestoreByEmail == true || vs.model.sendingRestoreByEmailSuccess == true) View.INVISIBLE else View.VISIBLE
-
         if(vs.model.sendingRestoreByEmailSuccess == true && !instructionsAlreadyShown){
 
             navigator.navigateToCheckEmail(context!!)
@@ -126,13 +120,11 @@ class RestoreAccountSuccessFragment : ToolbarLRFragment<RestoreAccountSuccessMod
         if (vs.model.accessToken != null && vs.model.accessToken.isNotBlank()) {
             successImage.visibility = View.VISIBLE
             title.text = getString(R.string.restore_account_head)
-            // closeScreen(vs.model.accessToken)
             nextStep.visibility = View.VISIBLE
         }else{
             successImage.visibility = View.INVISIBLE
             title.text = ""
             nextStep.visibility = View.INVISIBLE
-           // nextStep.visibility = View.VISIBLE
         }
 
 
@@ -155,7 +147,6 @@ class RestoreAccountSuccessFragment : ToolbarLRFragment<RestoreAccountSuccessMod
                 } catch (e: Exception) {
                 }
             }
-            Log.d("forus","Error___"+message)
             title.visibility = View.VISIBLE
             title.text = message
 
@@ -181,7 +172,6 @@ class RestoreAccountSuccessFragment : ToolbarLRFragment<RestoreAccountSuccessMod
     }
 
     fun closeScreen(accessToken: String) {
-        //navigator.navigateToPinNew(activity, accessToken)//old behavior
         navigator.navigateToSendReports(activity, accessToken)
         activity?.finish()
     }

@@ -19,8 +19,9 @@ class RestoreAccountSuccessPresenter constructor(private val token: String, priv
     override fun initialModelSingle(): Single<String?> {
         return if(token.isBlank())
             Single.just("")
-        else
-            Single.fromObservable(accountRepository.restoreExchangeToken(token).map { it.accessToken })
+        else {
+            Single.fromObservable(accountRepository.registerExchangeToken(token).map { it.accessToken })
+        }
     }
 
     override fun RestoreAccountSuccessModel.changeInitialModel(i: String?): RestoreAccountSuccessModel{
@@ -29,31 +30,15 @@ class RestoreAccountSuccessPresenter constructor(private val token: String, priv
 
     override fun bindIntents() {
 
-        Log.d("meforus","RestoreByEmailPresenter**")
 
         val observable = Observable.merge(
 
                 loadRefreshPartialChanges(),
 
-                intent { it.register() }
-                        .switchMap {
-                            accountRepository.restoreByEmail(it)
-                                    .subscribeOn(Schedulers.io())
-                                    .observeOn(AndroidSchedulers.mainThread())
-                                    .map<PartialChange> {
-                                        if(it) RestoreAccountSuccessPartialChanges.RestoreByEmailRequestEnd()
-                                        else RestoreAccountSuccessPartialChanges.RestoreByEmailRequestError(Exception(it.toString()))
-                                    }
-                                    .onErrorReturn {
-                                        RestoreAccountSuccessPartialChanges.RestoreByEmailRequestError(it)
-                                    }
-                                    .startWith(RestoreAccountSuccessPartialChanges.RestoreByEmailRequestStart())
-
-                        },
 
                 intent { it.exchangeToken() }
                         .flatMap {
-                            accountRepository.restoreExchangeToken(it)
+                            accountRepository.registerExchangeToken(it) //restoreExchangeToken(it)
                                     .subscribeOn(Schedulers.io())
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .map<PartialChange> {

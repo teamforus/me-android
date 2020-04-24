@@ -67,12 +67,14 @@
 
         <ImageView
             android:id="@+id/successImage"
-            android:layout_width="250dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_marginTop="19dp"
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
             android:src="@drawable/ic_success_restore_png" />
 
         <ProgressBar

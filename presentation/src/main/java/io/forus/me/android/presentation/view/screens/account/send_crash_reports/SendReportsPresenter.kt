@@ -41,6 +41,7 @@ class SendReportsPresenter constructor(private val accountRepository: AccountRep
 
                 intent { it.switchSendCrashReports() }
                         .switchMap { newState ->
+
                             accountRepository.setSendCrashReportsEnabled(newState)
                                     .subscribeOn(Schedulers.io())
                                     .observeOn(AndroidSchedulers.mainThread())

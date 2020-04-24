@@ -36,10 +36,9 @@ class SendReportsFragment : ToolbarLRFragment<SendReportsModel, SendReportsView,
 
 
 
-    private var instructionsAlreadyShown: Boolean = false
 
     override val toolbarTitle: String
-        get() = ""//getString(R.string.restore_login)
+        get() = ""
 
     override val allowBack: Boolean
         get() = true
@@ -74,7 +73,6 @@ class SendReportsFragment : ToolbarLRFragment<SendReportsModel, SendReportsView,
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //nextStep.active = false
     }
 
     override fun onDetach() {
@@ -85,7 +83,6 @@ class SendReportsFragment : ToolbarLRFragment<SendReportsModel, SendReportsView,
             Injection.instance.accountRepository
     )
 
-    private var retrofitExceptionMapper: RetrofitExceptionMapper = Injection.instance.retrofitExceptionMapper
 
 
     override fun render(vs: LRViewState<SendReportsModel>) {
@@ -96,13 +93,7 @@ class SendReportsFragment : ToolbarLRFragment<SendReportsModel, SendReportsView,
             switchSendCrashReports.onNext(!vs.model.sendCrashReportsEnabled)
         }
 
-        /*enable_send_crash_log.setChecked(vs.model.sendCrashReportsEnabled)
-        enable_send_crash_log.setOnClickListener {
-            switchSendCrashReports.onNext(!vs.model.sendCrashReportsEnabled)
-        }*/
-
         nextStep.setOnClickListener { closeScreen(token) }
-
 
     }
 

@@ -16,10 +16,12 @@ class LogInSignUpPresenter constructor(private val token: String, private val ac
         LRPresenter<String?, LogInSignUpModel, LogInSignUpView>() {
 
     override fun initialModelSingle(): Single<String?> {
-        return if(token.isBlank())
+        return if (token.isBlank())
             Single.just("")
-        else
-            Single.fromObservable(accountRepository.restoreExchangeToken(token).map { it.accessToken })    }
+        else {
+            Single.fromObservable(accountRepository.restoreExchangeToken(token).map { it.accessToken })
+        }
+    }
 
 
     override fun LogInSignUpModel.changeInitialModel(i: String?): LogInSignUpModel {
@@ -28,7 +30,6 @@ class LogInSignUpPresenter constructor(private val token: String, private val ac
 
     override fun bindIntents() {
 
-        Log.d("meforus","RestoreByEmailPresenter**")
 
         val observable = Observable.merge(
 
