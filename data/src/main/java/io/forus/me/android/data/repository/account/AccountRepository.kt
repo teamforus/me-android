@@ -20,7 +20,6 @@ class AccountRepository(private val settingsDataSource: SettingsDataSource,
                         private val checkActivationDataSource: CheckActivationDataSource,
                         private val recordsRepository: RecordsRepository) : io.forus.me.android.domain.repository.account.AccountRepository {
 
-
     override fun registerExchangeToken(token: String): Observable<RequestDelegatesEmailModel> {
         return accountRemoteDataSource.registerExchangeToken(token)
                 .map {
@@ -33,9 +32,9 @@ class AccountRepository(private val settingsDataSource: SettingsDataSource,
         val signUp = SignUp()
         signUp.email = model.email
         signUp.pinCode = "1111"
-        signUp.records = SignRecords( model.firstname, model.lastname, model.bsn, model.phoneNumber)
+        signUp.records = SignRecords(model.firstname, model.lastname, model.bsn, model.phoneNumber)
 
-       return accountRemoteDataSource.createUser(signUp)
+        return accountRemoteDataSource.createUser(signUp)
                 .flatMap {
                     Observable.just(it)
                 }.delay(50, TimeUnit.MILLISECONDS)
@@ -68,7 +67,7 @@ class AccountRepository(private val settingsDataSource: SettingsDataSource,
     }
 
     override fun authorizeCode(code: String): Observable<Boolean> {
-        return  accountRemoteDataSource.authorizeCode(code)
+        return accountRemoteDataSource.authorizeCode(code)
     }
 
     override fun authorizeToken(token: String): Observable<Boolean> {
@@ -79,7 +78,7 @@ class AccountRepository(private val settingsDataSource: SettingsDataSource,
         return Single.fromCallable {
             accountLocalDataSource.saveIdentity(identity.accessToken, identity.pin)
             settingsDataSource.clear()
-            if(!settingsDataSource.setPin(identity.pin))
+            if (!settingsDataSource.setPin(identity.pin))
                 throw IllegalStateException("PIN set error")
             true
 
@@ -96,12 +95,11 @@ class AccountRepository(private val settingsDataSource: SettingsDataSource,
 
     override fun checkPin(pin: String): Observable<Boolean> {
         return try {
-                Single.just(settingsDataSource.getPin() == pin)
-            }
-            catch(e: Exception){
-                Single.error<Boolean>(e)
-            }
-        .toObservable()
+            Single.just(settingsDataSource.getPin() == pin)
+        } catch (e: Exception) {
+            Single.error<Boolean>(e)
+        }
+                .toObservable()
     }
 
     override fun setFingerprintEnabled(isFingerprintEnabled: Boolean): Observable<Boolean> {
@@ -121,9 +119,9 @@ class AccountRepository(private val settingsDataSource: SettingsDataSource,
     }
 
     override fun changePin(oldPin: String, newPin: String): Observable<Boolean> {
-        return Single.fromCallable{
-            if(accountLocalDataSource.changePin(oldPin, newPin)) {
-                if(newPin == "") settingsDataSource.setFingerprintEnabled(false)
+        return Single.fromCallable {
+            if (accountLocalDataSource.changePin(oldPin, newPin)) {
+                if (newPin == "") settingsDataSource.setFingerprintEnabled(false)
                 settingsDataSource.setPin(newPin)
             } else false
         }.toObservable()
@@ -142,12 +140,12 @@ class AccountRepository(private val settingsDataSource: SettingsDataSource,
         return Observable.zip(
                 recordsRepository.getRecords(),
                 accountRemoteDataSource.getIdentity(),
-                BiFunction{ records, identity ->
+                BiFunction { records, identity ->
 
                     val account = Account()
-                   // val email = com.annimon.stream.Stream.of(records).filter { x->x.recordType.key == "primary_email" }.findFirst()
-                    val givanName = com.annimon.stream.Stream.of(records).filter { x->x.recordType.key == "given_name" }.findFirst()
-                    val familyName = com.annimon.stream.Stream.of(records).filter { x->x.recordType.key == "family_name" }.findFirst()
+                    // val email = com.annimon.stream.Stream.of(records).filter { x->x.recordType.key == "primary_email" }.findFirst()
+                    val givanName = com.annimon.stream.Stream.of(records).filter { x -> x.recordType.key == "given_name" }.findFirst()
+                    val familyName = com.annimon.stream.Stream.of(records).filter { x -> x.recordType.key == "family_name" }.findFirst()
                     account.name = (if (givanName.isPresent) "${givanName.get().value} " else "") + (if (familyName.isPresent) "${familyName.get().value}" else "")
                     //account.email = if (email.isPresent) email.get().value else ""
                     account.email = identity.email
@@ -168,11 +166,23 @@ class AccountRepository(private val settingsDataSource: SettingsDataSource,
         ).toObservable()
     }
 
-    override fun checkCurrentToken(): Observable<Boolean>{
+
+
+    override fun checkCurrentToken(): Observable<Boolean> {
+
         return checkActivationDataSource.checkActivation(accountLocalDataSource.getCurrentToken())
     }
 
     override fun unlockByFingerprint(): Observable<Boolean> {
         return Single.just(accountLocalDataSource.unlockIdentity(settingsDataSource.getPin())).toObservable()
     }
+
+    override fun getShortToken(): Observable<String> {
+        return accountRemoteDataSource.getShortToken()
+                .map {
+                    it.exchangeToken
+                }
+    }
+
+
 }

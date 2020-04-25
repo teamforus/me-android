@@ -82,7 +82,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:lineSpacingExtra="4sp"
-                        android:text="Forus, 2018"
+                        android:text="Forus, 2018-2020"
                         android:textColor="#6e7072"
                         android:textSize="14sp" />
                 </LinearLayout>

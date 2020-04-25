@@ -11,6 +11,7 @@ import io.forus.me.android.presentation.view.base.lr.LRFragment
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.base.lr.LoadRefreshPanel
 import io.forus.me.android.presentation.view.component.pinlock.PinLockListener
+import io.forus.me.android.presentation.view.screens.account.account.dialogs.LogoutDialog
 import io.forus.me.android.presentation.view.screens.lock.PinLockActivity
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
@@ -52,7 +53,7 @@ class PinLockFragment : LRFragment<PinLockModel, PinLockView, PinLockPresenter>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         logout_button.setOnClickListener {
-            logoutBtn.onNext(Unit)
+            showConfirmLogoutDialog()
         }
 
         pin_lock_view.attachIndicatorDots(indicator_dots)
@@ -68,6 +69,10 @@ class PinLockFragment : LRFragment<PinLockModel, PinLockView, PinLockPresenter>(
             }
 
         })
+    }
+
+    private fun showConfirmLogoutDialog() {
+        LogoutDialog(context!!) { logoutBtn.onNext(Unit) }.show();
     }
 
     override fun createPresenter() = PinLockPresenter(
