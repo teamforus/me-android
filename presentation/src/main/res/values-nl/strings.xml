@@ -79,7 +79,7 @@
     <string name="passcode_subtitle_pinlock_error">Verkeerde inlogcode</string>
 
     <!-- PAIR DEVICE screen -->
-    <string name="pair_header">Apparat koppelen</string>
+    <string name="pair_header">Apparaat koppelen</string>
     <string name="pair_title_pin">Dit is uw persoonlijke koppelcode</string>
     <string name="pair_title_qr">Scan deze QR-Code met een ander apparaat waar u al op aangemeld bent</string>
 
