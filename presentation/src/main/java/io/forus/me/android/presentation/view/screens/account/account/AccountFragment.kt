@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import io.forus.me.android.domain.models.qr.QrCode
 import io.forus.me.android.presentation.BuildConfig
 import io.forus.me.android.presentation.R
+import io.forus.me.android.presentation.helpers.SharedPref
 import io.forus.me.android.presentation.helpers.SystemServices
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.models.ChangePinMode
@@ -52,6 +53,7 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
 
     val h = Handler()
     var optionPincodeIsEnable = true
+    var preSavedOptionSendCrashLogIsEnable = false
 
 
     private var isFingerprintHardwareAvailable = false
@@ -110,15 +112,42 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
         }
 
         optionPincodeIsEnable = true
+
+        SharedPref.init(context!!)
+        preSavedOptionSendCrashLogIsEnable = SharedPref.read(SharedPref.OPTION_SEND_CRASH_REPORT, false)
+
+        if(preSavedOptionSendCrashLogIsEnable){
+            h.postDelayed(object : Runnable{
+                override fun run() {
+                    optionPincodeIsEnable = true
+                    enable_send_crash_log.setChecked(true)
+                    preSavedOptionSendCrashLogIsEnable = false
+                    SharedPref.write(SharedPref.OPTION_SEND_CRASH_REPORT,false)
+                    switchSendCrashReports.onNext(true)
+                }
+            },600)
+
+
+
+        }
     }
+
+    override fun createPresenter():AccountPresenter {
+
+        SharedPref.init(context!!)
+        preSavedOptionSendCrashLogIsEnable = SharedPref.read(SharedPref.OPTION_SEND_CRASH_REPORT, false)
+        val sendReport =  preSavedOptionSendCrashLogIsEnable
+        return AccountPresenter(
+                Injection.instance.accountRepository, sendReport
+        )
+    }
+
 
     private fun showConfirmLogoutDialog() {
         LogoutDialog(context!!) { logout.onNext(true) }.show();
     }
 
-    override fun createPresenter() = AccountPresenter(
-            Injection.instance.accountRepository
-    )
+
 
     override fun render(vs: LRViewState<AccountModel>) {
         super.render(vs)

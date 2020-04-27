@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import io.forus.me.android.domain.exception.RetrofitExceptionMapper
 import io.forus.me.android.presentation.R
+import io.forus.me.android.presentation.helpers.SharedPref
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.base.lr.LoadRefreshPanel
@@ -90,6 +91,11 @@ class SendReportsFragment : ToolbarLRFragment<SendReportsModel, SendReportsView,
 
         enable_send_crash_log.setChecked(vs.model.sendCrashReportsEnabled)
         enable_send_crash_log.setOnClickListener {
+
+            if(enable_send_crash_log.isChecked){
+                SharedPref.init(context!!)
+                SharedPref.write(SharedPref.OPTION_SEND_CRASH_REPORT,true)
+            }
             switchSendCrashReports.onNext(!vs.model.sendCrashReportsEnabled)
         }
 

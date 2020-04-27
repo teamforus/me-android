@@ -13,18 +13,33 @@ import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 
 
-class AccountPresenter constructor(private val accountRepository: AccountRepository) : LRPresenter<AccountModel, AccountModel, AccountView>() {
+class AccountPresenter constructor(private val accountRepository: AccountRepository,sendCrashReportsEnabled: Boolean) : LRPresenter<AccountModel, AccountModel, AccountView>() {
 
+
+    private var sendCrashReportsEnabled = false
+
+    init {
+        this.sendCrashReportsEnabled = sendCrashReportsEnabled
+    }
 
     override fun initialModelSingle(): Single<AccountModel> = Single.zip(
             Single.fromObservable(accountRepository.getAccount()),
             Single.fromObservable(accountRepository.getSecurityOptions()),
             BiFunction { account, securityOptions ->
-                AccountModel(account,
-                        securityOptions.pinEnabled,
-                        securityOptions.fingerprintEnabled,
-                        securityOptions.startFromScanner,
-                        securityOptions.sendCrashReportsEnabled)
+                if(sendCrashReportsEnabled) {
+                    sendCrashReportsEnabled = false
+                    AccountModel(account,
+                            securityOptions.pinEnabled,
+                            securityOptions.fingerprintEnabled,
+                            securityOptions.startFromScanner,
+                            true)
+                }else{
+                    AccountModel(account,
+                            securityOptions.pinEnabled,
+                            securityOptions.fingerprintEnabled,
+                            securityOptions.startFromScanner,
+                            securityOptions.sendCrashReportsEnabled)
+                }
             })
 
 
