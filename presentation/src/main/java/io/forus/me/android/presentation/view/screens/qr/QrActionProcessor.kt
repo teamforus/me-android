@@ -192,8 +192,6 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
                                     }
                                 } catch (e: Exception) {
                                 }
-
-
                             }
 
                             if (canOnResultVoucherScanned) {
@@ -203,12 +201,10 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
                                 }
                             }
                         }
-
-
                     }
                     .subscribe()
-        }
 
+        }
     }
 
     fun unknownQr() {
@@ -311,6 +307,7 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
                     }
                 }
                 .subscribe()
+
     }
 
 
