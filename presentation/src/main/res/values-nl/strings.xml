@@ -183,7 +183,7 @@
     <string name="vouchers_provider">Verzoek Betaling</string>
     <string name="vouchers_transactions">Geschiedenis</string>
     <string name="vouchers_transactions_empty">Nog geen transacties</string>
-    <string name="vouchers_no_items">Je hebt nog geen vouchers</string>
+    <string name="vouchers_no_items">Geen vouchers</string>
     <string name="vouchers_make_transaction">Verzoek betaling</string>
     <string name="vouchers_make_transaction_failure">Transactie mislukt</string>
     <string name="vouchers_transaction_payment">Betaald</string>
@@ -221,6 +221,7 @@
 
     <!-- Check email -->
     <string name="check_email_has_been_sent_to_you">Bevestig uw\u00A0emailadres</string>
+    <string name="check_email_has_been_sent_to_you">Er is een email naar je toegestuurd.</string>
     <string name="check_email_description_part1">Klik op de link in de email die u heeft ontvangen op</string>
     <string name="check_email_description_part2">om uw aanmelding af te maken \n</string>
 
@@ -236,7 +237,7 @@
 
     <string name="cancel">Annuleren</string>
     <string name="check_email_open_mail_app">Open mail app</string>
-    <string name="registering">Registering...</string>
+    <string name="registering">Registreren&#8230;</string>
     <string name="session_has_expired">Deze sessie is verlopen. Je wordt nu uitgelogd.</string>
     <string name="warning">Let op!</string>
     <string name="dialog_no_internet_warning">Let op!</string>
