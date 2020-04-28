@@ -28,7 +28,8 @@ class VoucherDataMapper(private val currencyDataMapper: CurrencyDataMapper,
                         productDataMapper.transform(product!!)
                     } else {
                         null
-                    })
+                    },
+                    expireDate ?: "")
         }
     }
 
