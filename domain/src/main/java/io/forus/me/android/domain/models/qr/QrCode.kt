@@ -9,7 +9,8 @@ class QrCode {
         @SerializedName("auth_token") AUTH_TOKEN("auth_token"),
         @SerializedName("voucher") VOUCHER("voucher"),
         @SerializedName("record") P2P_RECORD("record"),
-        @SerializedName("identity") P2P_IDENTITY("identity")
+        @SerializedName("identity") P2P_IDENTITY("identity"),
+        @SerializedName("demo_voucher") DEMO_VOUCHER("demo_voucher")
     }
 
     @SerializedName("type")

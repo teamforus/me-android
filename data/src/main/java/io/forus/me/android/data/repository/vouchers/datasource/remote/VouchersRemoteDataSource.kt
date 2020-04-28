@@ -1,12 +1,15 @@
 package io.forus.me.android.data.repository.vouchers.datasource.remote
 
+import io.forus.me.android.data.entity.vouchers.request.MakeDemoTransaction
 import io.forus.me.android.data.entity.vouchers.request.MakeTransaction
+import io.forus.me.android.data.entity.vouchers.response.DemoTransaction
 import io.forus.me.android.data.entity.vouchers.response.Transaction
 import io.forus.me.android.data.entity.vouchers.response.Voucher
 import io.forus.me.android.data.net.vouchers.VouchersService
 import io.forus.me.android.data.repository.datasource.RemoteDataSource
 import io.forus.me.android.data.repository.vouchers.datasource.VouchersDataSource
 import io.reactivex.Observable
+import okhttp3.ResponseBody
 
 class VouchersRemoteDataSource(f: () -> VouchersService): VouchersDataSource, RemoteDataSource<VouchersService>(f) {
 
@@ -33,5 +36,9 @@ class VouchersRemoteDataSource(f: () -> VouchersService): VouchersDataSource, Re
 
     override fun sendEmail(address: String): Observable<Boolean> {
         return service.sendEmail(address).map { _: Void? -> true }
+    }
+
+    override fun makeDemoTransaction(address: String, makeDemoTransaction: MakeDemoTransaction): Observable<DemoTransaction> {
+        return service.demoVoucher(address, makeDemoTransaction).map { it }
     }
 }

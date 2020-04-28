@@ -93,12 +93,10 @@ class ConfirmRegistrationFragment :  ToolbarLRFragment<ConfirmRegistrationModel,
 
 
         if(vs.model.exchangeTokenError != null){
-            Log.d("forus","exchangeTokenError")
             showToastMessage(resources.getString(R.string.restore_email_invalid_link))
         }
 
         if (vs.model.accessToken != null && vs.model.accessToken.isNotBlank()) {
-            Log.d("forus","accessToken.isNotBlank()")
             closeScreen(vs.model.accessToken)
         }
     }

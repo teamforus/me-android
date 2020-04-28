@@ -12,6 +12,7 @@ import android.view.Gravity
 import android.widget.*
 import android.widget.RelativeLayout
 import android.R.attr.gravity
+import android.graphics.Color
 import android.util.TypedValue
 import android.widget.LinearLayout
 import io.forus.me.android.presentation.view.component.FontType
@@ -20,11 +21,11 @@ import io.forus.me.android.presentation.view.component.FontType
 class PinView : FrameLayout {
 
 
-    private lateinit var  mRootView : View
+    private lateinit var mRootView: View
 
-    private lateinit var  mContainer : LinearLayout
+    private lateinit var mContainer: LinearLayout
 
-    private  var pin : String = ""
+    private var pin: String = ""
 
     private val tvList: MutableList<TextView> = mutableListOf()
 
@@ -40,14 +41,13 @@ class PinView : FrameLayout {
         init(context, attrs)
     }
 
-    private fun initNonStyle(context: Context,  attrs: AttributeSet?) {
+    private fun initNonStyle(context: Context, attrs: AttributeSet?) {
 
         init(context, attrs)
     }
 
 
-
-    private fun init(context: Context,  attrs: AttributeSet?) {
+    private fun init(context: Context, attrs: AttributeSet?) {
 
 
         val inflater = LayoutInflater.from(context)
@@ -68,7 +68,13 @@ class PinView : FrameLayout {
 
     }
 
-    fun setPin(pin: String){
+
+    public fun setPinBackground(color: Int) {
+        mContainer.setBackgroundColor(color)
+    }
+
+
+    fun setPin(pin: String) {
         var i = 0
         this.pin = pin
         for (item in pin) {
@@ -80,7 +86,7 @@ class PinView : FrameLayout {
     }
 
 
-    private fun addTextView(showdot: Boolean){
+    private fun addTextView(showdot: Boolean) {
         val lparams = LinearLayout.LayoutParams(
                 FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT)
 
@@ -102,7 +108,7 @@ class PinView : FrameLayout {
 
     }
 
-    private fun drawDots(){
+    private fun drawDots() {
 
         val parent = LinearLayout(context)
 
@@ -120,7 +126,6 @@ class PinView : FrameLayout {
 
         mContainer.addView(parent)
     }
-
 
 
 }

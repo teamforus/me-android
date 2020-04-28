@@ -10,5 +10,7 @@ sealed class QrDecoderResult {
 
     data class UnknownQr(val error: Throwable) : QrDecoderResult()
 
+    data class DemoVoucher(val testToken: String) : QrDecoderResult()
+
 }
 

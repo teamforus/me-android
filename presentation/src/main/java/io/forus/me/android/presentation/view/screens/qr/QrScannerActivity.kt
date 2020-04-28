@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.FragmentActivity
+import android.util.Log
 import android.widget.Toast
 import com.dlazaro66.qrcodereaderview.QRCodeReaderView
 import io.forus.me.android.presentation.R
@@ -97,11 +98,13 @@ class QrScannerActivity : FragmentActivity(), QRCodeReaderView.OnQRCodeReadListe
             //pointsOverlayView?.setPoints(points)
 
             val result = qrDecoder.decode(text)
+
             when(result){
                 is QrDecoderResult.ApproveValidation -> qrActionProcessor.approveValidation(result.uuid)
                 is QrDecoderResult.RestoreIdentity -> qrActionProcessor.restoreIdentity(result.token)
                 is QrDecoderResult.ScanVoucher -> qrActionProcessor.scanVoucher(result.address)
                 is QrDecoderResult.UnknownQr -> qrActionProcessor.unknownQr()
+                is QrDecoderResult.DemoVoucher -> qrActionProcessor.scanVoucher(result.testToken, true)
             }
         }
     }
