@@ -166,8 +166,10 @@ class AccountRepository(private val settingsDataSource: SettingsDataSource,
         ).toObservable()
     }
 
+
+
     override fun checkCurrentToken(): Observable<Boolean> {
-        Log.d("forus", "checkCurrentToken")
+
         return checkActivationDataSource.checkActivation(accountLocalDataSource.getCurrentToken())
     }
 

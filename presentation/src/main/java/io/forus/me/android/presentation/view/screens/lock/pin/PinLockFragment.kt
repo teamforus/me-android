@@ -83,7 +83,8 @@ class PinLockFragment : LRFragment<PinLockModel, PinLockView, PinLockPresenter>(
         super.render(vs)
 
         if (vs.exitIdentity) {
-            navigator.navigateToWelcomeScreen(context)
+            //navigator.navigateToWelcomeScreen(context)
+            navigator.navigateToLoginSignUp(context)
             activity?.finish()
         }
 
@@ -123,7 +124,8 @@ class PinLockFragment : LRFragment<PinLockModel, PinLockView, PinLockPresenter>(
     private fun closeScreen(success: Boolean) {
         if (success) (activity as? PinLockActivity)?.unlockSuccess()
         else {
-            navigator.navigateToWelcomeScreen(activity)
+            //navigator.navigateToWelcomeScreen(activity)
+            navigator.navigateToLoginSignUp(activity)
             activity?.finish()
         }
     }

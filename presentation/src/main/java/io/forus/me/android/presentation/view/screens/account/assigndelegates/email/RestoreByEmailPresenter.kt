@@ -17,8 +17,9 @@ class RestoreByEmailPresenter constructor(private val token: String, private val
     override fun initialModelSingle(): Single<String?> {
         return if(token.isBlank())
             Single.just("")
-        else
+        else {
             Single.fromObservable(accountRepository.restoreExchangeToken(token).map { it.accessToken })
+        }
     }
 
     override fun RestoreByEmailModel.changeInitialModel(i: String?): RestoreByEmailModel{
@@ -27,7 +28,6 @@ class RestoreByEmailPresenter constructor(private val token: String, private val
 
     override fun bindIntents() {
 
-        Log.d("meforus","RestoreByEmailPresenter**")
 
         val observable = Observable.merge(
 

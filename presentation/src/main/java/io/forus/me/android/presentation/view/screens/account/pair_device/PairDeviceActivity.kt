@@ -1,4 +1,4 @@
-package io.forus.me.android.presentation.view.screens.welcome
+package io.forus.me.android.presentation.view.screens.account.pair_device
 
 
 import android.content.Context
@@ -7,26 +7,30 @@ import android.os.Bundle
 import io.forus.me.android.presentation.R
 
 import io.forus.me.android.presentation.view.activity.BaseActivity
-import io.forus.me.android.presentation.view.screens.account.login_signup_account.LogInSignUpFragment
+import io.forus.me.android.presentation.view.activity.CommonActivity
 
 /**
- * Main application screen. This is the app entry point.
+ * Activity Pair Device.
  */
-class WelcomeActivity : BaseActivity() {
+class PairDeviceActivity : CommonActivity() {
 
 
     companion object {
+
+
         fun getCallingIntent(context: Context): Intent {
-            return Intent(context, WelcomeActivity::class.java)
+            return Intent(context, PairDeviceActivity::class.java)
         }
     }
 
+    override val viewID: Int
+        get() = R.layout.activity_layout
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_layout)
 
         if (savedInstanceState == null) {
-            addFragment(R.id.fragmentContainer, WelcomeFragment())
+            addFragment(R.id.fragmentContainer, PairDeviceFragment())
         }
     }
 }

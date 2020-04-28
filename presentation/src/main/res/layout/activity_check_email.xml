@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
@@ -17,45 +17,65 @@
             android:id="@+id/back"
             android:layout_width="36dp"
             android:layout_height="36dp"
-            android:src="@drawable/ic_back"
             android:layout_centerVertical="true"
             android:layout_marginStart="16dp"
-            />
+            android:src="@drawable/ic_back_blue" />
 
 
     </RelativeLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        app:layout_constraintTop_toBottomOf="@id/titleLayout"
+        >
 
 
     <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_marginEnd="30dp"
         android:layout_marginStart="30dp"
-        android:layout_alignParentTop="true"
         android:layout_marginTop="0dp"
-        android:text="@string/check_email_has_been_sent_to_you"
-        android:gravity="center_horizontal|top"
-        app:layout_constraintTop_toBottomOf="@id/titleLayout"
-        android:textSize="32sp"
-        android:textColor="@color/textColor"
+        android:layout_marginEnd="30dp"
         android:fontFamily="sans-serif-medium"
+        android:gravity="center_horizontal|top"
+        android:text="@string/check_email_has_been_sent_to_you"
+        android:textColor="@color/textColor"
+        android:textSize="32sp"
         />
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="12dp"
+        android:gravity="center_horizontal|top"
+        android:lineSpacingExtra="0sp"
+        android:textColor="@color/textColor"
+        android:textSize="16sp"
+        tools:text="Check your email" />
 
 
     <ImageView
         android:id="@+id/centerImage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_check_email_img"
-        app:layout_constraintTop_toBottomOf="@id/title"
-        android:scaleType="fitXY"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="19dp"
         android:adjustViewBounds="true"
-        android:layout_marginTop="8dp"
-        />
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_confirm_registration"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title" />
 
+    </LinearLayout>
 
 
     <RelativeLayout
@@ -66,21 +86,6 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
 
-        <TextView
-            android:id="@+id/description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_marginEnd="20dp"
-            android:layout_marginStart="20dp"
-            android:layout_alignParentTop="true"
-            android:lineSpacingExtra="0sp"
-            android:gravity="center_horizontal|top"
-            android:textSize="16sp"
-            android:textColor="@color/textColor"
-            android:layout_marginBottom="16dp"
-            />
-
         <io.forus.me.android.presentation.view.component.buttons.Button
             android:id="@+id/checkEmailBt"
             android:layout_width="match_parent"
@@ -89,11 +94,10 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:elevation="6dp"
-            android:layout_below="@id/description"
             android:text="@string/check_email_open_mail_app" />
 
         <io.forus.me.android.presentation.view.component.buttons.ButtonWhite
-            android:id="@+id/cancelBt"
+            android:id="@+id/pair_device"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/checkEmailBt"
@@ -101,7 +105,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:elevation="6dp"
-            android:text="@string/cancel" />
+            android:text="@string/restore_account_pair" />
 
     </RelativeLayout>
 

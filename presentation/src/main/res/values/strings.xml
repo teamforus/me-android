@@ -48,6 +48,9 @@
     <string name="restore_email_not_found">Identity not found</string>
     <string name="restore_email_invalid_link">Invalid link</string>
     <string name="restore_title_qr" translatable="false">QR-Code</string>
+    <string name="restore_account_pair">Pair</string>
+    <string name="restore_account_login_other_device">Log in with other device</string>
+
 
     <!-- New account screen -->
     <string name="new_account_field_email">E-mail</string>
@@ -80,6 +83,12 @@
     <string name="passcode_subtitle_pinlock_confirm">Confirm your identity</string>
     <string name="passcode_subtitle_pinlock_checking">Checking</string>
     <string name="passcode_subtitle_pinlock_error">Wrong passcode</string>
+
+
+    <!-- PAIR DEVICE screen -->
+    <string name="pair_header">PAIR</string>
+    <string name="pair_title_pin">This is your pairing code</string>
+    <string name="pair_title_qr">Scan this QR-Code with another device you are already logged in</string>
 
     <!-- Lock fingerprint strings -->
     <string name="lock_no_fingerprints">No fingerprints available</string>
@@ -218,9 +227,22 @@
     <string name="qr_choose_reservation">Choose Reservation</string>
     <string name="qr_reserved_offers">The offers below are reserved by the customer</string>
     <string name="vouchers_complete_an_amount">COMPLETE AN AMOUNT</string>
-    <string name="check_email_has_been_sent_to_you">E-mail has been\u00A0sent\u00A0to you</string>
+
+    <!-- Check email -->
+    <string name="check_email_has_been_sent_to_you">Check your email</string>
     <string name="check_email_description_part1">Klik op de link in de email die u heeft ontvangen op</string>
     <string name="check_email_description_part2">om uw aanmelding af te maken \n</string>
+
+
+    <!-- Restore account success -->
+    <string name="restore_account_head">Successful registration!</string>
+
+    <!-- Send crashlitics reports screen -->
+    <string name="send_report_head">Sharing information</string>
+    <string name="send_report_description">If you agree to share your id number for crash reports, our developers will see the exact problem that might happen with Me and solve it much faster.</string>
+
+
+    <string name="next_step">NEXT STEP</string>
     <string name="cancel">Cancel</string>
     <string name="check_email_open_mail_app">Open mail app</string>
     <string name="registering">Registering...</string>
@@ -231,5 +253,6 @@
     <string name="success">Success</string>
     <string name="voucher_dialog_choose_organization">Choose organization</string>
     <string name="voucher_demo_transaction_operation_completed">Operation completed</string>
+
 
 </resources>
