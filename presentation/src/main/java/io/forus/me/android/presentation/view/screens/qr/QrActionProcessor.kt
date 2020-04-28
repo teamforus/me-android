@@ -192,8 +192,6 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
                                     }
                                 } catch (e: Exception) {
                                 }
-
-
                             }
 
                             if (canOnResultVoucherScanned) {
