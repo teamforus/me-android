@@ -1,5 +1,7 @@
 package io.forus.me.android.data.repository.vouchers
 
+import android.util.Log
+import io.forus.me.android.data.entity.vouchers.request.MakeDemoTransaction
 import io.forus.me.android.data.entity.vouchers.request.MakeTransaction
 import io.forus.me.android.data.repository.vouchers.datasource.VouchersDataSource
 import io.forus.me.android.domain.models.currency.Currency
@@ -11,6 +13,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : io.forus.me.android.domain.repository.vouchers.VouchersRepository {
+
 
 
     val dateLocaleFormat = SimpleDateFormat("MMM dd, yyyy HH:mm", Locale.US)
@@ -138,5 +141,11 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
 
     override fun sendEmail(address: String): Observable<Boolean> {
         return vouchersDataSource.sendEmail(address)
+    }
+
+    override fun makeDemoTransaction(testToken: String): Observable<Boolean> {
+        return vouchersDataSource.makeDemoTransaction(testToken, MakeDemoTransaction("accepted")).map{
+           it.data.state == "accepted"
+        }
     }
 }

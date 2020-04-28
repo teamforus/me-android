@@ -230,5 +230,6 @@
     <string name="dialog_no_internet_message">No internet connection</string>
     <string name="success">Success</string>
     <string name="voucher_dialog_choose_organization">Choose organization</string>
+    <string name="voucher_demo_transaction_operation_completed">Operation completed</string>
 
 </resources>

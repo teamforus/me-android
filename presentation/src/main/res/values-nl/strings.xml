@@ -223,5 +223,6 @@
     <string name="dialog_no_internet_message">Geen internet verbinding</string>
     <string name="success">Succes!</string>
     <string name="voucher_dialog_choose_organization">Kies een organisatie</string>
+    <string name="voucher_demo_transaction_operation_completed">Test transactie succesvol afgerond</string>
 
 </resources>

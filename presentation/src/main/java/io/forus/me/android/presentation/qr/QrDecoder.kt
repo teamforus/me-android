@@ -16,6 +16,7 @@ class QrDecoder{
                 QrCode.Type.VOUCHER -> QrDecoderResult.ScanVoucher(qr.value)
                 QrCode.Type.P2P_RECORD -> QrDecoderResult.ApproveValidation(qr.value)
                 QrCode.Type.P2P_IDENTITY -> QrDecoderResult.UnknownQr(UnsupportedOperationException("Not implemented"))
+                QrCode.Type.DEMO_VOUCHER -> QrDecoderResult.DemoVoucher(qr.value)
             }
         }
         catch (e: Exception){
