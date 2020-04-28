@@ -107,35 +107,26 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
 
     private var retrofitExceptionMapper: RetrofitExceptionMapper = Injection.instance.retrofitExceptionMapper
 
-    fun scanVoucher(address: String) {
-        vouchersRepository.getVoucherAsProvider(address)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .map {
-                    if (it.voucher.isProduct != true && it.allowedOrganizations.isEmpty()) {
-                        if (scanner.hasWindowFocus())
-                            ScanVoucherNotEligibleDialog(scanner, reactivateDecoding).show()
+    fun scanVoucher(address: String, isDemoVoucher: Boolean? = false) {
 
-                    } else {
-                        val isAvailableScannedVoucher = !(it.voucher.isProduct != true && (
-                                it.voucher.amount
-                                        ?: 0.toBigDecimal()).compareTo(BigDecimal.ZERO) == 0)
-                        onResultVoucherScanned(address, isAvailableScannedVoucher)
-
+        if (isDemoVoucher != null && isDemoVoucher) {
+            vouchersRepository.makeDemoTransaction(address)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .map {
+                        if (it) {
+                            if (scanner.hasWindowFocus()) {
+                                ScanDemoTransactionDialog(scanner) {
+                                    reactivateDecoding()
+                                }.show()
+                            }
+                        } else {
+                            ScanVoucherBaseErrorDialog("", scanner, reactivateDecoding).show()
+                        }
                     }
-                }
-                .onErrorReturn {
-
-                    var canOnResultVoucherScanned = true
-
-                    Log.e("QR_ACTION", "scan voucher_error", it)
-
-                    val error: Throwable = it
-
-                    if (error is io.forus.me.android.data.exception.RetrofitException && error.kind == RetrofitException.Kind.NETWORK) {
-                        NoInternetDialog(scanner, reactivateDecoding).show();
-                    } else {
-
+                    .onErrorReturn {
+                        var canOnResultVoucherScanned = true
+                        val error: Throwable = it
                         if (error is RetrofitException && error.kind == RetrofitException.Kind.HTTP) {
 
                             try {
@@ -148,8 +139,6 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
                                 }
                             } catch (e: Exception) {
                             }
-
-
                         }
 
                         if (canOnResultVoucherScanned) {
@@ -159,8 +148,67 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
                             }
                         }
                     }
-                }
-                .subscribe()
+                    .subscribe()
+        } else {
+            vouchersRepository.getVoucherAsProvider(address)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .map {
+                        if (it.voucher.isProduct != true && it.allowedOrganizations.isEmpty()) {
+                            if (scanner.hasWindowFocus())
+                                ScanVoucherNotEligibleDialog(scanner, reactivateDecoding).show()
+
+                        } else {
+                            val isAvailableScannedVoucher = !(it.voucher.isProduct != true && (
+                                    it.voucher.amount
+                                            ?: 0.toBigDecimal()).compareTo(BigDecimal.ZERO) == 0)
+                            onResultVoucherScanned(address, isAvailableScannedVoucher)
+
+                        }
+                    }
+                    .onErrorReturn {
+
+                        var canOnResultVoucherScanned = true
+
+                        Log.e("QR_ACTION", "scan voucher_error", it)
+
+
+                        val error: Throwable = it
+
+                        if (error is io.forus.me.android.data.exception.RetrofitException && error.kind == RetrofitException.Kind.NETWORK) {
+                            NoInternetDialog(scanner, reactivateDecoding).show();
+                        } else {
+
+                            if (error is RetrofitException && error.kind == RetrofitException.Kind.HTTP) {
+
+
+                                try {
+                                    val newRecordError = retrofitExceptionMapper.mapToBaseApiError(error)
+
+                                    if (error.responseCode == 403) {
+                                        canOnResultVoucherScanned = false
+                                        val message = if (newRecordError.message == null) "" else newRecordError.message
+                                        ScanVoucherBaseErrorDialog(message, scanner, reactivateDecoding).show()
+                                    }
+                                } catch (e: Exception) {
+                                }
+
+
+                            }
+
+                            if (canOnResultVoucherScanned) {
+
+                                if (scanner.hasWindowFocus()) {
+                                    onResultVoucherScanned(address, false)
+                                }
+                            }
+                        }
+
+
+                    }
+                    .subscribe()
+        }
+
     }
 
     fun unknownQr() {
@@ -287,9 +335,9 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
         }
 
         ScanVoucherBaseErrorDialog(errorMessage, scanner, object : DialogInterface.OnDismissListener,
-             () -> Unit {
-                 override fun invoke() {}
-                 override fun onDismiss(p0: DialogInterface?) {}
+                () -> Unit {
+            override fun invoke() {}
+            override fun onDismiss(p0: DialogInterface?) {}
         }).show()
     }
 

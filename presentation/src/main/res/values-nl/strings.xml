@@ -43,6 +43,8 @@
     <string name="restore_email_instructions">Er is een e-mail verstuurd naar uw e-mailadres waarmee u opnieuw kunt inloggen.</string>
     <string name="restore_email_not_found">Identity niet gevonden</string>
     <string name="restore_email_invalid_link">Ongeldige link</string>
+    <string name="restore_account_pair">Koppelen</string>
+    <string name="restore_account_login_other_device">Inloggen vanaf een ander apparaat</string>
 
     <!-- New account screen -->
     <string name="new_account_field_email">E-mail</string>
@@ -75,6 +77,11 @@
     <string name="passcode_subtitle_pinlock_confirm">Vul je bestaande inlogcode in</string>
     <string name="passcode_subtitle_pinlock_checking">Bevestigen</string>
     <string name="passcode_subtitle_pinlock_error">Verkeerde inlogcode</string>
+
+    <!-- PAIR DEVICE screen -->
+    <string name="pair_header">Apparaat koppelen</string>
+    <string name="pair_title_pin">Dit is uw persoonlijke koppelcode</string>
+    <string name="pair_title_qr">Scan deze QR-Code met een ander apparaat waar u al op aangemeld bent</string>
 
     <!-- Lock fingerprint strings -->
     <string name="lock_no_fingerprints">Geen vingerafdrukken beschikbaar</string>
@@ -176,7 +183,7 @@
     <string name="vouchers_provider">Verzoek Betaling</string>
     <string name="vouchers_transactions">Geschiedenis</string>
     <string name="vouchers_transactions_empty">Nog geen transacties</string>
-    <string name="vouchers_no_items">Je hebt nog geen vouchers</string>
+    <string name="vouchers_no_items">Geen vouchers</string>
     <string name="vouchers_make_transaction">Verzoek betaling</string>
     <string name="vouchers_make_transaction_failure">Transactie mislukt</string>
     <string name="vouchers_transaction_payment">Betaald</string>
@@ -211,16 +218,32 @@
     <string name="qr_choose_reservation">Kies reservering</string>
     <string name="qr_reserved_offers">Onderstaande aanbiedingen zijn door de klant gereserveerd</string>
     <string name="vouchers_complete_an_amount">VUL ZELF EEN BEDRAG IN</string>
-    <string name="check_email_has_been_sent_to_you">Bevestig uw\u00A0emailadres</string>
+
+    <!-- Check email -->
+    <string name="check_email_has_been_sent_to_you">Er is een email naar je toegestuurd.</string>
     <string name="check_email_description_part1">Klik op de link in de email die u heeft ontvangen op</string>
     <string name="check_email_description_part2">om uw aanmelding af te maken \n</string>
+
+    <!-- Restore account success -->
+    <string name="restore_account_head">Aanmelding geslaagd!</string>
+
+    <!-- Send crashlitics reports screen -->
+    <string name="send_report_head">Informatie delen</string>
+    <string name="send_report_description">Door uw identificatie nummer te delen, kunnen problemen beter en sneller worden opgelost, en kunnen de ontwikkelaars eventueel contact met u opnemen</string>
+
+
+    <string name="next_step">VOLGENDE</string>
+
     <string name="cancel">Annuleren</string>
     <string name="check_email_open_mail_app">Open mail app</string>
-    <string name="registering">Registering...</string>
+    <string name="registering">Registreren&#8230;</string>
     <string name="session_has_expired">Deze sessie is verlopen. Je wordt nu uitgelogd.</string>
+    <string name="warning">Let op!</string>
     <string name="dialog_no_internet_warning">Let op!</string>
     <string name="dialog_no_internet_message">Geen internet verbinding</string>
     <string name="success">Succes!</string>
     <string name="voucher_dialog_choose_organization">Kies een organisatie</string>
+    <string name="voucher_demo_transaction_operation_completed">Test transactie succesvol afgerond</string>
+
 
 </resources>

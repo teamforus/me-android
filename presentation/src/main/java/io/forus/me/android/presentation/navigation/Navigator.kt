@@ -11,12 +11,16 @@ import io.forus.me.android.presentation.models.ChangePinMode
 import io.forus.me.android.presentation.models.vouchers.Voucher
 import io.forus.me.android.presentation.view.screens.account.account.AccountActivity
 import io.forus.me.android.presentation.view.screens.account.account.check_email.CheckEmailActivity
+import io.forus.me.android.presentation.view.screens.account.login_signup_account.LogInSignUpActivity
 import io.forus.me.android.presentation.view.screens.account.account.pin.ChangePinActivity
 import io.forus.me.android.presentation.view.screens.account.assigndelegates.AssignDelegatesAccountActivity
 import io.forus.me.android.presentation.view.screens.account.assigndelegates.email.RestoreByEmailActivity
 import io.forus.me.android.presentation.view.screens.account.newaccount.NewAccountActivity
 import io.forus.me.android.presentation.view.screens.account.newaccount.confirmRegistration.ConfirmRegistrationActivity
 import io.forus.me.android.presentation.view.screens.account.newaccount.pin.NewPinActivity
+import io.forus.me.android.presentation.view.screens.account.pair_device.PairDeviceActivity
+import io.forus.me.android.presentation.view.screens.account.restore_account_success.RestoreAccountSuccessActivity
+import io.forus.me.android.presentation.view.screens.account.send_crash_reports.SendReportsActivity
 import io.forus.me.android.presentation.view.screens.dashboard.DashboardActivity
 import io.forus.me.android.presentation.view.screens.lock.PinLockActivity
 import io.forus.me.android.presentation.view.screens.qr.QrScannerActivity
@@ -77,6 +81,13 @@ constructor()//empty
         }
     }
 
+    fun navigateToPairDevice(context: Context?) {
+        if (context != null) {
+            val intentToLaunch = PairDeviceActivity.getCallingIntent(context)
+            context.startActivity(intentToLaunch)
+        }
+    }
+
     fun navigateToCheckEmail(context: Context?) {
         if (context != null) {
             val intentToLaunch = CheckEmailActivity.getCallingIntent(context)
@@ -132,6 +143,36 @@ constructor()//empty
         }
     }
 
+
+    fun navigateToLoginSignUp(context: Context?) {
+        if (context != null) {
+            val intentToLaunch = LogInSignUpActivity.getCallingIntent(context)
+            //intentToLaunch.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            context.startActivity(intentToLaunch)
+        }
+    }
+
+
+
+
+    fun navigateToLoginSignUp(context: Context?, token: String) {
+        if (context != null) {
+            val intentToLaunch = LogInSignUpActivity.getCallingIntent(context, token)
+            intentToLaunch.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            context.startActivity(intentToLaunch)
+        }
+    }
+
+    fun navigateToResoreAccountSuccess(context: Context?, token: String) {
+        if (context != null) {
+            val intentToLaunch = RestoreAccountSuccessActivity.getCallingIntent(context, token)
+            intentToLaunch.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            context.startActivity(intentToLaunch)
+        }
+    }
+
+
+
     fun navigateToWallet(context: Context?, wallet: Wallet) {
         if (context != null) {
             val intentToLaunch = WalletDetailsActivity.getCallingIntent(context, wallet)
@@ -149,6 +190,13 @@ constructor()//empty
     fun navigateToVoucher(context: Context?, voucher: Voucher) {
         if (context != null) {
             val intentToLaunch = VoucherActivity.getCallingIntent(context, voucher)
+            context.startActivity(intentToLaunch)
+        }
+    }
+
+    fun navigateToSendReports(context: Context?, exchangeToken: String) {
+        if (context != null) {
+            val intentToLaunch = SendReportsActivity.getCallingIntent(context, exchangeToken)
             context.startActivity(intentToLaunch)
         }
     }

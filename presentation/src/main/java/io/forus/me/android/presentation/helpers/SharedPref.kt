@@ -9,6 +9,7 @@ object SharedPref {
     private var mSharedPref: SharedPreferences? = null
     val RESTORE_EMAIL = "RESTORE_EMAIL"
 
+    val OPTION_SEND_CRASH_REPORT = "SEND_CRASH_REPORT"
 
     fun init(context: Context) {
         if (mSharedPref == null)
