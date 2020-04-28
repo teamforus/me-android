@@ -173,38 +173,38 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
                         Log.e("QR_ACTION", "scan voucher_error", it)
 
 
-                       
+                        val error: Throwable = it
+
+                        if (error is io.forus.me.android.data.exception.RetrofitException && error.kind == RetrofitException.Kind.NETWORK) {
+                            NoInternetDialog(scanner, reactivateDecoding).show();
+                        } else {
+
+                            if (error is RetrofitException && error.kind == RetrofitException.Kind.HTTP) {
 
 
-                    val error: Throwable = it
+                                try {
+                                    val newRecordError = retrofitExceptionMapper.mapToBaseApiError(error)
 
-                    if (error is io.forus.me.android.data.exception.RetrofitException && error.kind == RetrofitException.Kind.NETWORK) {
-                        NoInternetDialog(scanner, reactivateDecoding).show();
-                    } else {
-
-                        if (error is RetrofitException && error.kind == RetrofitException.Kind.HTTP) {
-
-
-                            try {
-                                val newRecordError = retrofitExceptionMapper.mapToBaseApiError(error)
-
-                                if (error.responseCode == 403) {
-                                    canOnResultVoucherScanned = false
-                                    val message = if (newRecordError.message == null) "" else newRecordError.message
-                                    ScanVoucherBaseErrorDialog(message, scanner, reactivateDecoding).show()
+                                    if (error.responseCode == 403) {
+                                        canOnResultVoucherScanned = false
+                                        val message = if (newRecordError.message == null) "" else newRecordError.message
+                                        ScanVoucherBaseErrorDialog(message, scanner, reactivateDecoding).show()
+                                    }
+                                } catch (e: Exception) {
                                 }
-                            } catch (e: Exception) {
+
+
                             }
 
+                            if (canOnResultVoucherScanned) {
 
-                        }
-
-                        if (canOnResultVoucherScanned) {
-
-                            if (scanner.hasWindowFocus()) {
-                                onResultVoucherScanned(address, false)
+                                if (scanner.hasWindowFocus()) {
+                                    onResultVoucherScanned(address, false)
+                                }
                             }
                         }
+
+
                     }
                     .subscribe()
         }
@@ -335,9 +335,9 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
         }
 
         ScanVoucherBaseErrorDialog(errorMessage, scanner, object : DialogInterface.OnDismissListener,
-             () -> Unit {
-                 override fun invoke() {}
-                 override fun onDismiss(p0: DialogInterface?) {}
+                () -> Unit {
+            override fun invoke() {}
+            override fun onDismiss(p0: DialogInterface?) {}
         }).show()
     }
 
