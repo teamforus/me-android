@@ -1,6 +1,7 @@
 package io.forus.me.android.domain.models.records
 
 import com.google.gson.annotations.SerializedName
+import io.forus.me.android.domain.models.vouchers.Organization
 import java.util.*
 
 class Validation {
@@ -33,7 +34,10 @@ class Validation {
     @SerializedName("name")
     var name: String? = null
 
-    constructor(state: State, identityAddress: String?, createdAt: Date?, updatedAt: Date?, uuid: String?, value: String?, key: String?, name: String?) {
+    @SerializedName("organization")
+    var organization: Organization? = null
+
+    constructor(state: State, identityAddress: String?, createdAt: Date?, updatedAt: Date?, uuid: String?, value: String?, key: String?, name: String?, organization: Organization?) {
         this.state = state
         this.identityAddress = identityAddress
         this.createdAt = createdAt
@@ -42,6 +46,7 @@ class Validation {
         this.value = value
         this.key = key
         this.name = name
+        this.organization = organization
     }
 
     companion object {
