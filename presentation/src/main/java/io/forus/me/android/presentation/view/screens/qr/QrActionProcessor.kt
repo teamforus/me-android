@@ -1,7 +1,6 @@
 package io.forus.me.android.presentation.view.screens.qr
 
 import android.content.DialogInterface
-import android.support.design.widget.Snackbar
 import android.util.Log
 import io.forus.me.android.data.repository.settings.SettingsDataSource
 import io.forus.me.android.domain.exception.RetrofitException
@@ -15,6 +14,7 @@ import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.navigation.Navigator
 import io.forus.me.android.presentation.view.base.NoInternetDialog
 import io.forus.me.android.presentation.view.screens.qr.dialogs.*
+import io.forus.me.android.presentation.view.screens.records.dialogs.validators_list_dialog.ValidatorsListDialog
 import io.forus.me.android.presentation.view.screens.vouchers.provider.ProviderActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -41,41 +41,25 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
     private fun showToastMessage(message: String) = scanner.showToastMessage(message)
 
     fun approveValidation(uuid: String) {
+        Log.d("forus","approveValidation")
         recordsRepository.readValidation(uuid)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map { validation ->
+                    Log.d("forus","approveValidation-1")
                     if (validation.state == Validation.State.pending && validation.uuid != null) {
+                        Log.d("forus","approveValidation-2")
                         if (scanner.hasWindowFocus())
-                            ApproveValidationDialog(scanner,
-                                    validation,
-                                    {
-                                        recordsRepository.approveValidation(validation.uuid!!)
-                                                .subscribeOn(Schedulers.io())
-                                                .observeOn(AndroidSchedulers.mainThread())
-                                                .map { onResultValidationApproved() }
-                                                .onErrorReturn {
-                                                    onResultUnexpectedError()
-                                                }
-                                                .subscribe()
-                                    },
-                                    {
-                                        recordsRepository.declineValidation(validation.uuid!!)
-                                                .subscribeOn(Schedulers.io())
-                                                .observeOn(AndroidSchedulers.mainThread())
-                                                .map {
-                                                    onResultValidationDeclined()
-                                                }
-                                                .onErrorReturn {
-                                                    onResultUnexpectedError()
-                                                }
-                                                .subscribe()
-                                    },
-                                    reactivateDecoding)
-                                    .show()
-                    } else onResultValidationAlreadyDone()
+                            Log.d("forus","approveValidation-3")
+                        showChooseValidatorDialog(validation)
+
+                    } else{
+                        Log.d("forus","approveValidation-3")
+                        onResultValidationAlreadyDone()
+                    }
                 }
                 .onErrorReturn {
+                    Log.d("forus","approveValidation-err "+it.localizedMessage)
                     onResultUnexpectedError()
                 }
                 .subscribe()
@@ -269,6 +253,47 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
                 reactivateDecoding()
             }, 1000)
         }
+    }
+
+
+    private fun showChooseValidatorDialog(validation: Validation){
+        val validators = validation.organizationsAvailable
+        if(validators != null && validators.size > 0) {
+            ValidatorsListDialog(scanner, validators!! ){
+                //selectOrganization.onNext(it)
+
+                /*ApproveValidationDialog(scanner,
+                        validation,
+                        {
+                            Log.d("forus","approveValidation 1")
+                            recordsRepository.approveValidation(validation.uuid!!)
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .map { onResultValidationApproved() }
+                                    .onErrorReturn {
+                                        onResultUnexpectedError()
+                                    }
+                                    .subscribe()
+                        },
+                        {
+                            Log.d("forus","approveValidation 2")
+                            recordsRepository.declineValidation(validation.uuid!!)
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .map {
+                                        onResultValidationDeclined()
+                                    }
+                                    .onErrorReturn {
+                                        onResultUnexpectedError()
+                                    }
+                                    .subscribe()
+                        },
+                        reactivateDecoding)
+                        .show()*/
+            }.show()
+        }
+
+
     }
 
 

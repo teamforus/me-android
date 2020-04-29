@@ -139,6 +139,7 @@
     <string name="record_details_validation_request_error">Fout tijdens het verzenden van de validatieaanvraag</string>
     <string name="record_details_validation_approved">Validatie goedgekeurd</string>
     <string name="record_details_validation_declined">Validatie geweigerd</string>
+    <string name="choose_validator">Kies validator</string>
 
     <!-- Wallet details screen -->
     <string name="wallet_title_info">Eigendom informatie</string>
