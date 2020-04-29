@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.main.fragment_account_assign_delegates.pin_view
 import kotlinx.android.synthetic.main.fragment_account_details.root
 import kotlinx.android.synthetic.main.fragment_account_pair_device.*
 import io.forus.me.android.presentation.view.screens.account.assigndelegates.qr.RestoreByQRFragment
+import kotlinx.android.synthetic.main.toolbar_view.*
 
 
 /**
@@ -64,7 +65,7 @@ class PairDeviceFragment : ToolbarLRFragment<PairDeviceModel, PairDeviceView, Pa
                     null)
             fragmentTransaction.commit()
 
-
+        //profile_button.setBackgroundColor(ContextCompat.getColor(context!!, R.color.error_email))
 
         pin_view.setPinBackground(ContextCompat.getColor(context!!, R.color.pinBackground))
     }
