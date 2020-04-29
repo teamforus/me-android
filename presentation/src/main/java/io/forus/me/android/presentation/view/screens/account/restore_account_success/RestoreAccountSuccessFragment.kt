@@ -137,7 +137,7 @@ class RestoreAccountSuccessFragment : ToolbarLRFragment<RestoreAccountSuccessMod
             errorImage.visibility = View.VISIBLE
             var message = ""
 
-            val error: Throwable = vs.loadingError
+            val error: Throwable = vs.loadingError!!
             if (error is RetrofitException && error.kind == RetrofitException.Kind.HTTP) {
 
                 try {
