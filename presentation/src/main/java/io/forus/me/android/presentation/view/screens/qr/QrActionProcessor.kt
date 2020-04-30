@@ -41,25 +41,19 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
     private fun showToastMessage(message: String) = scanner.showToastMessage(message)
 
     fun approveValidation(uuid: String) {
-        Log.d("forus","approveValidation")
         recordsRepository.readValidation(uuid)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map { validation ->
-                    Log.d("forus","approveValidation-1")
                     if (validation.state == Validation.State.pending && validation.uuid != null) {
-                        Log.d("forus","approveValidation-2")
                         if (scanner.hasWindowFocus())
-                            Log.d("forus","approveValidation-3")
                         showChooseValidatorDialog(validation)
 
                     } else{
-                        Log.d("forus","approveValidation-3")
                         onResultValidationAlreadyDone()
                     }
                 }
                 .onErrorReturn {
-                    Log.d("forus","approveValidation-err "+it.localizedMessage)
                     onResultUnexpectedError()
                 }
                 .subscribe()
@@ -261,12 +255,10 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
         if(validators != null && validators.size > 0) {
             ValidatorsListDialog(scanner, validators!! ){
                 //selectOrganization.onNext(it)
-
-                /*ApproveValidationDialog(scanner,
+                ApproveValidationDialog(scanner,
                         validation,
                         {
-                            Log.d("forus","approveValidation 1")
-                            recordsRepository.approveValidation(validation.uuid!!)
+                            recordsRepository.approveValidation(validation.uuid!!, it.id)
                                     .subscribeOn(Schedulers.io())
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .map { onResultValidationApproved() }
@@ -276,7 +268,6 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
                                     .subscribe()
                         },
                         {
-                            Log.d("forus","approveValidation 2")
                             recordsRepository.declineValidation(validation.uuid!!)
                                     .subscribeOn(Schedulers.io())
                                     .observeOn(AndroidSchedulers.mainThread())
@@ -289,8 +280,11 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
                                     .subscribe()
                         },
                         reactivateDecoding)
-                        .show()*/
+                        .show()
+
             }.show()
+        }else{
+
         }
 
 

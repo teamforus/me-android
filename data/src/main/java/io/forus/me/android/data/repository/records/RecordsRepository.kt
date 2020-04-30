@@ -1,5 +1,6 @@
 package io.forus.me.android.data.repository.records
 
+import io.forus.me.android.data.entity.records.request.ValidateRecord
 import io.forus.me.android.data.repository.records.datasource.RecordsDataSource
 import io.forus.me.android.domain.models.records.*
 import io.forus.me.android.domain.models.vouchers.Organization
@@ -197,8 +198,9 @@ class RecordsRepository(private val recordsRemoteDataSource: RecordsDataSource) 
             Validation(Validation.State.valueOf(it.state.toString()), it.identityAddress, it.createdAt, it.updatedAt, it.uuid, it.value, it.key, it.name, organization, validatorsList) }
     }
 
-    override fun approveValidation(uuid: String): Observable<Boolean> {
-        return recordsRemoteDataSource.approveValidation(uuid).map { true }
+    override fun approveValidation(uuid: String, organization_id: Long): Observable<Boolean> {
+        val validateRecord = ValidateRecord(organization_id)
+        return recordsRemoteDataSource.approveValidation(uuid,validateRecord).map { true }
     }
 
     override fun declineValidation(uuid: String): Observable<Boolean> {
