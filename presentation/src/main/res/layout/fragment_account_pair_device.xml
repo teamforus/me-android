@@ -19,30 +19,6 @@
             android:gravity="center_horizontal"
             >
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <include layout="@layout/toolbar_view" />
-
-                <io.forus.me.android.presentation.view.component.images.AutoLoadImageView
-                    android:id="@+id/back_button"
-                    android:layout_width="@dimen/a11y_min_touch_target"
-                    android:layout_height="@dimen/a11y_min_touch_target"
-                    android:layout_gravity="center_vertical|start"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:foreground="?actionBarItemBackground"
-                    android:padding="@dimen/spacing_micro"
-                    android:src="@drawable/ic_back_blue"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:visibility="visible"
-                    />
-
-            </RelativeLayout>
-
 
 
             <LinearLayout
@@ -66,7 +42,7 @@
                         android:layout_marginTop="16dp"
                         android:foreground="?actionBarItemBackground"
                         android:padding="@dimen/spacing_micro"
-                        android:src="@drawable/ic_back_blue"
+                        android:src="@drawable/ic_back"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
