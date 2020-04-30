@@ -65,4 +65,7 @@ interface AccountRepository {
 
 
     fun unlockByFingerprint(): Observable<Boolean>
+
+
+    fun getShortToken() : Observable<String>
 }

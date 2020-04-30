@@ -2,6 +2,7 @@ package io.forus.me.android.presentation.view.screens.records.item
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,8 @@ import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
+import io.forus.me.android.presentation.view.screens.records.item.validations.ValidationAdapter
+import io.forus.me.android.presentation.view.screens.records.item.validations.ValidationViewModel
 import io.forus.me.android.presentation.view.screens.records.item.validators.ValidatorViewModel
 import io.forus.me.android.presentation.view.screens.records.item.validators.ValidatorsAdapter
 import io.reactivex.Observable
@@ -28,7 +31,7 @@ class RecordDetailsFragment : ToolbarLRFragment<RecordDetailsModel, RecordDetail
     }
 
     private var recordId: Long = 0
-    private lateinit var adapter: ValidatorsAdapter
+    private lateinit var adapter: ValidationAdapter//ValidatorsAdapter
 
     private val requestValidation = PublishSubject.create<Long>()
     override fun requestValidation(): Observable<Long> = requestValidation
@@ -51,9 +54,10 @@ class RecordDetailsFragment : ToolbarLRFragment<RecordDetailsModel, RecordDetail
             recordId = bundle.getLong(RECORD_ID_EXTRA)
         }
 
-        adapter = ValidatorsAdapter { item ->
+        adapter = ValidationAdapter {  }
+        /*adapter = ValidationAdapter { item ->
             if (item.status == ValidatorViewModel.Status.none && item.id != null) requestValidation.onNext(item.id!!)
-        }
+        }*/
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -62,6 +66,8 @@ class RecordDetailsFragment : ToolbarLRFragment<RecordDetailsModel, RecordDetail
         btn_show_qr.setOnClickListener {
             (activity as? RecordDetailsActivity)?.showPopupQRFragment(recordId)
         }
+
+
 
         recycler.layoutManager = LinearLayoutManager(context)
         recycler.adapter = adapter
@@ -79,7 +85,18 @@ class RecordDetailsFragment : ToolbarLRFragment<RecordDetailsModel, RecordDetail
         val record = vs.model.item
         type.text = record?.recordType?.name
         value.text = record?.value
-        adapter.items = vs.model.validators
+
+       /* Log.d("forus","adapter_1")
+        val validations: MutableList<ValidationViewModel> = mutableListOf()
+        Log.d("forus","adapter_2")
+        validations.add(ValidationViewModel(ValidationViewModel.Type.header.name))
+        Log.d("forus","adapter_3")
+        for(validation in record!!.validations){
+            validations.add(ValidationViewModel(validation))
+            Log.d("forus","adapter_*")
+        }
+        Log.d("forus","adapter_4")*/
+        adapter.items = vs.model.validations
 
         if(vs.model.requestValidationError != null){
             showToastMessage(resources.getString(R.string.record_details_validation_request_error))

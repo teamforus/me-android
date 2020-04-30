@@ -13,7 +13,7 @@ class RecordsPresenter constructor(private val recordCategoryId: Long, private v
 
 
     override fun initialModelSingle(): Single<List<Record>> =
-            Single.fromObservable(recordsRepository.getRecords(recordCategoryId))
+            Single.fromObservable(recordsRepository.getRecords())
 
 
     override fun RecordsModel.changeInitialModel(i: List<Record>): RecordsModel = copy(items = i)

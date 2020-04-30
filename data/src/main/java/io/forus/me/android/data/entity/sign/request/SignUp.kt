@@ -12,6 +12,10 @@ import java.io.Serializable
 
 class SignUp : Serializable{
 
+    @SerializedName("email")
+    @Expose
+    var email: String? = null
+
     @SerializedName("pin_code")
     @Expose
     var pinCode: String? = null

@@ -7,16 +7,14 @@ import io.forus.me.android.data.entity.sign.request.AuthorizeCode
 import io.forus.me.android.data.entity.sign.request.AuthorizeToken
 import io.forus.me.android.data.entity.sign.request.RegisterPush
 import io.forus.me.android.data.entity.sign.request.RestoreByEmail
-import io.forus.me.android.data.entity.sign.response.AccessToken
-import io.forus.me.android.data.entity.sign.response.IdentityPinResult
-import io.forus.me.android.data.entity.sign.response.IdentityTokenResult
-import io.forus.me.android.data.entity.sign.response.SignUpResult
+import io.forus.me.android.data.entity.sign.response.*
 import io.forus.me.android.data.net.sign.SignService
 import io.forus.me.android.data.repository.account.datasource.AccountDataSource
 import io.forus.me.android.data.repository.datasource.RemoteDataSource
 import io.reactivex.Observable
 
-class AccountRemoteDataSource(f: () -> SignService): AccountDataSource, RemoteDataSource<SignService>(f) {
+class AccountRemoteDataSource(f: () -> SignService) : AccountDataSource, RemoteDataSource<SignService>(f) {
+
 
 
     override fun createUser(signUp: SignUp): Observable<Boolean> {
@@ -26,11 +24,11 @@ class AccountRemoteDataSource(f: () -> SignService): AccountDataSource, RemoteDa
         }
     }
 
-    override fun saveIdentity(token: String, pin: String){
+    override fun saveIdentity(token: String, pin: String) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override  fun unlockIdentity(pin: String): Boolean{
+    override fun unlockIdentity(pin: String): Boolean {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
@@ -67,7 +65,10 @@ class AccountRemoteDataSource(f: () -> SignService): AccountDataSource, RemoteDa
     }
 
     override fun authorizeToken(token: String): Observable<Boolean> {
-        return service.authorizeToken(AuthorizeToken(token)).map { it.success }
+        return service.authorizeToken(AuthorizeToken(token)).map {
+            val result = it.string();
+            result == "{}"
+        }
     }
 
     override fun restoreByEmail(email: String): Observable<Boolean> {
@@ -92,5 +93,9 @@ class AccountRemoteDataSource(f: () -> SignService): AccountDataSource, RemoteDa
 
     override fun getIdentity(): Observable<Account> {
         return service.getIdentity()
+    }
+
+    override fun getShortToken(): Observable<ShortTokenResult> {
+        return service.getShortToken()
     }
 }

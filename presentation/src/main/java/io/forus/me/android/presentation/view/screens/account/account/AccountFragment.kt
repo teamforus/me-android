@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import io.forus.me.android.domain.models.qr.QrCode
 import io.forus.me.android.presentation.BuildConfig
 import io.forus.me.android.presentation.R
+import io.forus.me.android.presentation.helpers.SharedPref
 import io.forus.me.android.presentation.helpers.SystemServices
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.models.ChangePinMode
@@ -20,7 +21,9 @@ import io.forus.me.android.presentation.view.activity.BaseActivity
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.forus.me.android.presentation.view.screens.about.AboutMeFragment
+import io.forus.me.android.presentation.view.screens.account.account.dialogs.LogoutDialog
 import io.forus.me.android.presentation.view.screens.dashboard.DashboardActivity
+import io.forus.me.android.presentation.view.screens.qr.dialogs.RestoreIdentityDialog
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_account_details.*
@@ -50,6 +53,7 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
 
     val h = Handler()
     var optionPincodeIsEnable = true
+    var preSavedOptionSendCrashLogIsEnable = false
 
 
     private var isFingerprintHardwareAvailable = false
@@ -95,7 +99,8 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
         }
 
         logout_view.setOnClickListener {
-            logout.onNext(true)
+            showConfirmLogoutDialog()
+
         }
 
         about_me.setOnClickListener {
@@ -106,12 +111,47 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
             sendSupportEmailDialogBuilder.show()
         }
 
+        headView.setOnClickListener {
+            navigator.navigateToRecordsList(context!!, null)
+        }
+
         optionPincodeIsEnable = true
+
+        SharedPref.init(context!!)
+        preSavedOptionSendCrashLogIsEnable = SharedPref.read(SharedPref.OPTION_SEND_CRASH_REPORT, false)
+
+        if(preSavedOptionSendCrashLogIsEnable){
+            h.postDelayed(object : Runnable{
+                override fun run() {
+                    optionPincodeIsEnable = true
+                    enable_send_crash_log.setChecked(true)
+                    preSavedOptionSendCrashLogIsEnable = false
+                    SharedPref.write(SharedPref.OPTION_SEND_CRASH_REPORT,false)
+                    switchSendCrashReports.onNext(true)
+                }
+            },600)
+
+
+
+        }
     }
 
-    override fun createPresenter() = AccountPresenter(
-            Injection.instance.accountRepository
-    )
+    override fun createPresenter():AccountPresenter {
+
+        SharedPref.init(context!!)
+        preSavedOptionSendCrashLogIsEnable = SharedPref.read(SharedPref.OPTION_SEND_CRASH_REPORT, false)
+        val sendReport =  preSavedOptionSendCrashLogIsEnable
+        return AccountPresenter(
+                Injection.instance.accountRepository, sendReport
+        )
+    }
+
+
+    private fun showConfirmLogoutDialog() {
+        LogoutDialog(context!!) { logout.onNext(true) }.show();
+    }
+
+
 
     override fun render(vs: LRViewState<AccountModel>) {
         super.render(vs)
@@ -128,13 +168,13 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
             if (optionPincodeIsEnable) {
 
 
-            optionPincodeIsEnable = false
-            h.postDelayed(object : Runnable{
-                override fun run() {
-                    optionPincodeIsEnable = true
-                }
-            },1000)
-            navigator.navigateToChangePin(this, if (vs.model.pinlockEnabled) ChangePinMode.REMOVE_OLD else ChangePinMode.SET_NEW, REQUEST_CHANGE_PIN)
+                optionPincodeIsEnable = false
+                h.postDelayed(object : Runnable {
+                    override fun run() {
+                        optionPincodeIsEnable = true
+                    }
+                }, 1000)
+                navigator.navigateToChangePin(this, if (vs.model.pinlockEnabled) ChangePinMode.REMOVE_OLD else ChangePinMode.SET_NEW, REQUEST_CHANGE_PIN)
             }
         }
 
@@ -164,7 +204,8 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
         }
 
         if (vs.model.navigateToWelcome) {
-            navigator.navigateToWelcomeScreen(activity)
+            //navigator.navigateToWelcomeScreen(activity)
+            navigator.navigateToLoginSignUp(activity)
             activity?.finish()
         }
 

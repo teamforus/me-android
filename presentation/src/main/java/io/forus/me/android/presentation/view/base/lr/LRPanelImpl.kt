@@ -3,12 +3,15 @@ package io.forus.me.android.presentation.view.base.lr
 import android.content.Context
 import android.support.v4.widget.SwipeRefreshLayout
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
 import com.jakewharton.rxbinding2.view.RxView
+import io.forus.me.android.data.exception.RetrofitException
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.helpers.showIfNotYet
+import io.forus.me.android.presentation.view.base.NoInternetDialog
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.view_load_refresh.view.*
 
@@ -59,6 +62,13 @@ class LRPanelImpl @JvmOverloads constructor(context: Context, attrs: AttributeSe
         if (vs.loading) {
             LR_ViewAnimator.showIfNotYet(LAYER_LOADING)
         } else if (vs.loadingError != null) {
+
+            Log.d("networkError","LRPanelImpl networkError "+vs.loadingError!!::class)
+            if (vs.loadingError is RetrofitException && vs.loadingError.kind == io.forus.me.android.domain.exception.RetrofitException.Kind.NETWORK) {
+                if (context != null) NoInternetDialog(context!!, {}).show();
+            }
+
+
             LR_ViewAnimator.showIfNotYet(LAYER_ERROR)
         } else {
             LR_ViewAnimator.showIfNotYet(LAYER_MODEL)

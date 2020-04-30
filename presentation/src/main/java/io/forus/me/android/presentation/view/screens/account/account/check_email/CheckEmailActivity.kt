@@ -50,7 +50,7 @@ class CheckEmailActivity : CommonActivity() {
 
 
         back.setOnClickListener { finish() }
-        cancelBt.setOnClickListener { finish() }
+        pair_device.setOnClickListener { navigator.navigateToPairDevice(this@CheckEmailActivity) }
 
         checkEmailBt.setOnClickListener {
 

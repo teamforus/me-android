@@ -2,10 +2,7 @@ package io.forus.me.android.data.repository.account.datasource
 
 import com.gigawatt.android.data.net.sign.models.request.SignUp
 import io.forus.me.android.data.entity.account.Account
-import io.forus.me.android.data.entity.sign.response.AccessToken
-import io.forus.me.android.data.entity.sign.response.IdentityPinResult
-import io.forus.me.android.data.entity.sign.response.IdentityTokenResult
-import io.forus.me.android.data.entity.sign.response.SignUpResult
+import io.forus.me.android.data.entity.sign.response.*
 import io.reactivex.Observable
 
 
@@ -60,5 +57,8 @@ interface AccountDataSource {
 
 
     fun getCurrentToken(): String
+
+
+    fun getShortToken() : Observable<ShortTokenResult>
 
 }
