@@ -192,8 +192,6 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
                                     }
                                 } catch (e: Exception) {
                                 }
-
-
                             }
 
                             if (canOnResultVoucherScanned) {
@@ -254,6 +252,7 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
     }
 
     private fun onResultVoucherScanned(address: String, isAvailableScannedVoucher: Boolean) {
+
         // Hide finger print on voucher
         if (false and settingsDataSource.isPinEnabled()) {
             // Database will be opened later
@@ -284,13 +283,18 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
 
                     if (it.size > 0) {
                         //Show product vouchers list
-
                         navigator.navigateToProductReservation(scanner, address, isAvailableScannedVoucher)
 
 
                     } else {
-                        //Show voucher
-                        navigator.navigateToVoucherProvider(scanner, address)
+
+                        if(isAvailableScannedVoucher) {
+                            //Show voucher
+                            navigator.navigateToVoucherProvider(scanner, address)
+                        }else{
+                            if (scanner.hasWindowFocus())
+                                ScanVoucherEmptyDialog(scanner, reactivateDecoding).show()
+                        }
 
                     }
 

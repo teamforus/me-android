@@ -26,6 +26,11 @@ class RecordsFragment : ToolbarLRFragment<RecordsModel, RecordsView, RecordsPres
             bundle.putString(CATEGORY_NAME_EXTRA, recordCategoryName)
             it.arguments = bundle
         }
+
+        fun newIntent(): RecordsFragment = RecordsFragment().also {
+
+
+        }
     }
 
     override val allowBack: Boolean
@@ -56,7 +61,7 @@ class RecordsFragment : ToolbarLRFragment<RecordsModel, RecordsView, RecordsPres
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setToolbarTitle(recordCategoryName)
+       // setToolbarTitle(recordCategoryName)
 
         adapter = RecordsAdapter()
         adapter.clickListener = { item ->

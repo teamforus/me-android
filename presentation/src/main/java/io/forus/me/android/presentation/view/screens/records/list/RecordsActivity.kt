@@ -15,10 +15,12 @@ class RecordsActivity : CommonActivity() {
         val CATEGORY_ID_EXTRA = "CATEGORY_ID_EXTRA"
         val CATEGORY_NAME_EXTRA = "CATEGORY_NAME_EXTRA"
 
-        fun getCallingIntent(context: Context, recordCategory: RecordCategory): Intent {
+        fun getCallingIntent(context: Context, recordCategory: RecordCategory?): Intent {
             val intent = Intent(context, RecordsActivity::class.java)
-            intent.putExtra(CATEGORY_ID_EXTRA, recordCategory.id)
-            intent.putExtra(CATEGORY_NAME_EXTRA, recordCategory.name)
+            if(recordCategory!=null) {
+                intent.putExtra(CATEGORY_ID_EXTRA, recordCategory.id)
+                intent.putExtra(CATEGORY_NAME_EXTRA, recordCategory.name)
+            }
             return intent
         }
     }
@@ -35,10 +37,10 @@ class RecordsActivity : CommonActivity() {
         super.onCreate(savedInstanceState)
 
         if (savedInstanceState == null) {
-            val recordCategoryId = intent.getLongExtra(CATEGORY_ID_EXTRA, 0)
+            val recordCategoryId = intent.getLongExtra(CATEGORY_ID_EXTRA, -1)
             val recordCategoryName = intent.getStringExtra(CATEGORY_NAME_EXTRA)
 
-            fragment = RecordsFragment.newIntent(recordCategoryId, recordCategoryName)
+            fragment = RecordsFragment.newIntent()
             addFragment(R.id.fragmentContainer, fragment)
         }
     }

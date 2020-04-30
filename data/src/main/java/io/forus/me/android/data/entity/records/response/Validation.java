@@ -4,6 +4,8 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
 
+import io.forus.me.android.data.entity.validators.response.Organization;
+
 public class Validation {
 
     public enum State {
@@ -34,9 +36,12 @@ public class Validation {
     @SerializedName("name")
     private String name;
 
+    @SerializedName("organization")
+    private Organization organization;
+
     public Validation() { }
 
-    public Validation(State state, String identityAddress, Date createdAt, Date updatedAt, String uuid, String value, String key, String name) {
+    public Validation(State state, String identityAddress, Date createdAt, Date updatedAt, String uuid, String value, String key, String name, Organization organization) {
         this.state = state;
         this.identityAddress = identityAddress;
         this.createdAt = createdAt;
@@ -45,6 +50,7 @@ public class Validation {
         this.value = value;
         this.key = key;
         this.name = name;
+        this.organization = organization;
     }
 
     public State getState() {
@@ -109,5 +115,13 @@ public class Validation {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Organization getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(Organization organization) {
+        this.organization = organization;
     }
 }

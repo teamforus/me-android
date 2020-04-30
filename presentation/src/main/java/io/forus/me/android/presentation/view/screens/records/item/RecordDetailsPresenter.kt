@@ -8,6 +8,7 @@ import io.forus.me.android.domain.models.records.Validation
 import io.forus.me.android.domain.models.validators.SimpleValidator
 import io.forus.me.android.domain.repository.records.RecordsRepository
 import io.forus.me.android.domain.repository.validators.ValidatorsRepository
+import io.forus.me.android.presentation.view.screens.records.item.validations.ValidationViewModel
 import io.forus.me.android.presentation.view.screens.records.item.validators.ValidatorViewModel
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -18,7 +19,25 @@ import io.reactivex.schedulers.Schedulers
 class RecordDetailsPresenter constructor(private val recordId: Long, private val recordsRepository: RecordsRepository, private val validatorsRepository: ValidatorsRepository) : LRPresenter<RecordDetailsModel, RecordDetailsModel, RecordDetailsView>() {
 
 
-    override fun initialModelSingle(): Single<RecordDetailsModel> = Single.zip(
+    override fun initialModelSingle(): Single<RecordDetailsModel> = Single.fromObservable(
+            //recordsRepository.getCategoriesWithRecordCount()
+            recordsRepository.getRecord(recordId).map {
+
+
+                val allValidations = mutableListOf<ValidationViewModel>()
+                if (it.validations.isNotEmpty()) {
+                    allValidations.add(ValidationViewModel("Validations"))
+                    allValidations.addAll(it.validations.map { ValidationViewModel(it) })
+
+                }
+
+                if (allValidations.isEmpty()) allValidations.add(ValidationViewModel("You have no validations yet"))
+
+
+                RecordDetailsModel(item = it, validations = allValidations)
+            }
+    )
+    /*Single.zip(
             Single.fromObservable(recordsRepository.getRecord(recordId)),
             Single.fromObservable(validatorsRepository.getValidators()),
             Single.fromObservable(validatorsRepository.getValidators(recordId)),
@@ -58,10 +77,10 @@ class RecordDetailsPresenter constructor(private val recordId: Long, private val
 
                 RecordDetailsModel(item = record, validators = allValidations)
             }
-    )
+    )*/
 
 
-    override fun RecordDetailsModel.changeInitialModel(i: RecordDetailsModel): RecordDetailsModel = copy(item = i.item, validators = i.validators, requestValidationError = null)
+    override fun RecordDetailsModel.changeInitialModel(i: RecordDetailsModel): RecordDetailsModel = copy(item = i.item, validations = i.validations, requestValidationError = null)
 
     override fun bindIntents() {
 
@@ -70,7 +89,7 @@ class RecordDetailsPresenter constructor(private val recordId: Long, private val
                 loadRefreshPartialChanges(),
 
                 intent { it.requestValidation() }
-                        .switchMap {validatorId ->
+                        .switchMap { validatorId ->
                             validatorsRepository.requestValidation(recordId, validatorId)
                                     .subscribeOn(Schedulers.io())
                                     .observeOn(AndroidSchedulers.mainThread())
