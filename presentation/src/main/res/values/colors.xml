@@ -46,6 +46,8 @@
     <color name="slate">#3c4c62</color>
     <color name="darkGrey_Text_1">#2e3242</color>
     <color name="body_1_38">#61000000</color>
+    <color name="gray_subtitle">#777B82</color>
+
     <color name="tf_metal">#4b5461</color>
     <color name="gallery">#ececec</color>
     <color name="alabaster">#fbfbfb</color>
