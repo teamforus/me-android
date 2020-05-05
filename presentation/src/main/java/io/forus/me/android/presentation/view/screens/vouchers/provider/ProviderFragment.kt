@@ -3,15 +3,12 @@ package io.forus.me.android.presentation.view.screens.vouchers.provider
 import android.content.DialogInterface
 import android.content.DialogInterface.OnDismissListener
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import io.forus.me.android.data.entity.common.ApiError
 import io.forus.me.android.domain.exception.RetrofitException
 import io.forus.me.android.domain.exception.RetrofitExceptionMapper
 import io.forus.me.android.presentation.R
@@ -19,19 +16,13 @@ import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.models.vouchers.Organization
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
-
 import io.forus.me.android.presentation.view.screens.qr.dialogs.ScanVoucherBaseErrorDialog
-
-import io.forus.me.android.presentation.view.screens.qr.dialogs.ApproveValidationDialog
 import io.forus.me.android.presentation.view.screens.vouchers.dialogs.VouchersApplySuccessDialog
-
 import io.forus.me.android.presentation.view.screens.vouchers.provider.categories.CategoriesAdapter
 import io.forus.me.android.presentation.view.screens.vouchers.provider.dialogs.ApplyDialog
 import io.forus.me.android.presentation.view.screens.vouchers.provider.dialogs.ChargeDialog
 import io.forus.me.android.presentation.view.screens.vouchers.provider.dialogs.organizations_dialog.OrganizationsListDialog
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_voucher_provider.*
 import kotlinx.android.synthetic.main.view_organization.*
@@ -42,15 +33,18 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
 
     companion object {
         private val VOUCHER_ADDRESS_EXTRA = "VOUCHER_ADDRESS_EXTRA"
+        val IS_DEMO_VOUCHER = "IS_DEMO_VOUCHER"
 
-        fun newIntent(id: String): ProviderFragment = ProviderFragment().also {
+        fun newIntent(id: String, isDemoVoucher: Boolean? = false): ProviderFragment = ProviderFragment().also {
             val bundle = Bundle()
             bundle.putSerializable(VOUCHER_ADDRESS_EXTRA, id)
+            if(isDemoVoucher != null) bundle.putSerializable(IS_DEMO_VOUCHER, isDemoVoucher)
             it.arguments = bundle
         }
     }
 
     private lateinit var address: String
+    private  var isDemoVoucher: Boolean? = false
     private lateinit var categoriesAdapter: CategoriesAdapter
 
     override val toolbarTitle: String
@@ -75,9 +69,14 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
     private val charge = PublishSubject.create<BigDecimal>()
     override fun charge(): Observable<BigDecimal> = charge
 
+    private val demoCharge = PublishSubject.create<BigDecimal>()
+    override fun demoCharge(): Observable<BigDecimal> = demoCharge
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = inflater.inflate(R.layout.fragment_voucher_provider, container, false).also {
 
         address = if (arguments == null) "" else arguments!!.getString(VOUCHER_ADDRESS_EXTRA, "")
+
+        isDemoVoucher = if (arguments == null) false else arguments!!.getBoolean(IS_DEMO_VOUCHER, false)
 
         categoriesAdapter = CategoriesAdapter()
     }
@@ -113,14 +112,13 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
             }
         })
 
-
-
     }
 
 
     override fun createPresenter() = ProviderPresenter(
             Injection.instance.vouchersRepository,
-            address
+            address,
+            isDemoVoucher
     )
 
     private var retrofitExceptionMapper: RetrofitExceptionMapper = Injection.instance.retrofitExceptionMapper
@@ -204,6 +202,9 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
     }
 
     private fun payDialog(isProduct: Boolean, amount: BigDecimal, balance: BigDecimal) {
+        if(isDemoVoucher != null && isDemoVoucher!!){
+            demoCharge.onNext(BigDecimal.ZERO)
+        }else
         if (isProduct) {
             ApplyDialog(context!!) {
                 charge.onNext(BigDecimal.ZERO)
@@ -223,4 +224,5 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
         }.show()
 
     }
+
 }
