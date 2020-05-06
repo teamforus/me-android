@@ -25,6 +25,7 @@ ext {
   circleIndicatorVersion = '1.2.2@aar'
   materialDialogs = '0.9.6.0'
   gooleMapsVersion = '16.0.0'
+  playCoreVersion = '1.7.2'
 
   //Testing
   robolectricVersion = '3.1.1'
@@ -52,6 +53,7 @@ ext {
   fingerprintAuthVersion='1.0.1'
   firebaseCoreVersion='16.0.1'
   firebaseCloudMessageVersion='17.3.3'
+
 
   //Development
   leakCanaryVersion = '1.3.1'
@@ -97,7 +99,8 @@ ext {
       fabric:             "com.crashlytics.sdk.android:crashlytics:${rootProject.fabric}",
       firebaseCore:       "com.google.firebase:firebase-core:${rootProject.firebaseCoreVersion}",
       firebaseMessaging:       "com.google.firebase:firebase-messaging:${rootProject.firebaseCloudMessageVersion}",
-      googleMaps:       "com.google.android.gms:play-services-maps:${rootProject.gooleMapsVersion}"
+      googleMaps:       "com.google.android.gms:play-services-maps:${rootProject.gooleMapsVersion}",
+      playCore:           "com.google.android.play:core:${rootProject.playCoreVersion}"
 
   ]
 

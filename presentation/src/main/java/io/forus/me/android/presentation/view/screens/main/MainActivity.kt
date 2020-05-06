@@ -1,13 +1,22 @@
 package io.forus.me.android.presentation.view.screens.main
 
 
+import android.app.Activity
+import android.content.Intent
+import android.content.IntentSender
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
+import android.widget.Toast
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.activity.BaseActivity
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
-
+import com.google.android.play.core.appupdate.AppUpdateInfo
+import com.google.android.play.core.appupdate.AppUpdateManager
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory
+import com.google.android.play.core.install.model.AppUpdateType
+import com.google.android.play.core.install.model.UpdateAvailability
 
 
 /**
@@ -27,16 +36,17 @@ class MainActivity : BaseActivity() {
         val isGooglePlayAvailable = checkPlayServices()
         Log.d("GOOGLE_PLAY_AVAILABLE", isGooglePlayAvailable.toString())
 
-        if(db.exists()){
+        //Check inApp update
+        h.postDelayed({ this.initInAppUpdate() }, 2000)
+
+        if (db.exists()) {
             val locked = settings.isPinEnabled()
-            if(locked){
+            if (locked) {
                 navigateToPinlock()
-            }
-            else {
+            } else {
                 navigateToDashboard()
             }
-        }
-        else {
+        } else {
             //navigateToWelcomeScreen() //old behavior
             navigateToLogInsignUpScreen()
         }
@@ -97,6 +107,64 @@ class MainActivity : BaseActivity() {
         }
 
         return true
+    }
+
+
+    var h = Handler()
+
+    val MY_REQUEST_CODE = 2514
+
+    var appUpdateManager: AppUpdateManager? = null
+
+    private fun initInAppUpdate() {
+        appUpdateManager = AppUpdateManagerFactory.create(this@MainActivity)
+
+        if (appUpdateManager != null) return
+
+        val appUpdateInfoTask = appUpdateManager!!.appUpdateInfo
+        appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+                    && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)) {
+
+                try {
+                    updateApp(appUpdateInfo)
+                } catch (e: IntentSender.SendIntentException) {
+                    e.printStackTrace()
+                }
+            }
+        }
+
+        appUpdateInfoTask.addOnFailureListener { err ->
+            processInAppUpdateError(err.localizedMessage)
+        }
+    }
+
+
+    @Throws(IntentSender.SendIntentException::class)
+    private fun updateApp(appUpdateInfo: AppUpdateInfo) {
+        appUpdateManager!!.startUpdateFlowForResult(
+                // Pass the intent that is returned by 'getAppUpdateInfo()'.
+                appUpdateInfo,
+                // Or 'AppUpdateType.FLEXIBLE' for flexible updates.
+                AppUpdateType.IMMEDIATE,
+                // The current activity making the update request.
+                this,
+                // Include a request code to later monitor this update request.
+                MY_REQUEST_CODE)
+    }
+
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == MY_REQUEST_CODE) {
+            if (resultCode != Activity.RESULT_OK) {
+                processInAppUpdateError("")
+            }
+        }
+    }
+
+    private fun processInAppUpdateError(error: String){
+        Toast.makeText(this@MainActivity, "App update error. " + error, Toast.LENGTH_SHORT).show()
     }
 
 }

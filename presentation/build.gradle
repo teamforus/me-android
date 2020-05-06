@@ -182,6 +182,7 @@ dependencies {
     implementation presentationDependencies.firebaseCore
     implementation presentationDependencies.firebaseMessaging
     implementation presentationDependencies.googleMaps
+    implementation presentationDependencies.playCore
 
     implementation(presentationDependencies.fabric) {
         transitive = true
