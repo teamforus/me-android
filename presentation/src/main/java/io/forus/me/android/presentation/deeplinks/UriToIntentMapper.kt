@@ -33,13 +33,12 @@ class UriToIntentMapper(private val mContext: Context, private val navigator: Na
             "identity-restore" -> {
                 val bQuery = uri.getQueryParameter("token")
                 navigator.navigateToAccountRestoreByEmailExchangeToken(mContext, bQuery)
-               // navigator.navigateToResoreAccountSuccess(mContext, bQuery)
+
+
             }
             "identity-confirmation" -> {
                 val bQuery = uri.getQueryParameter("token")
-                //navigator.navigateToAccountRestoreByEmailExchangeToken(mContext, bQuery)
-               // navigator.navigateToConfirmRegistration(mContext, bQuery)
-                navigator.navigateToResoreAccountSuccess(mContext, bQuery)
+                navigator.navigateToResoreAccountSuccess(mContext, bQuery, true)
             }
         }
         return null
