@@ -126,7 +126,7 @@ class RecordsMockDataSource : RecordsDataSource{
         throw UnsupportedOperationException("Not implemented")
     }
 
-    override fun approveValidation(uuid: String): Observable<Success> {
+    override fun approveValidation(uuid: String,validateRecord: ValidateRecord): Observable<Success> {
         throw UnsupportedOperationException("Not implemented")
     }
 

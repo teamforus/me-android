@@ -61,7 +61,7 @@ interface RecordsDataSource {
     fun readValidation(uuid: String): Observable<Validation>
 
 
-    fun approveValidation(uuid: String): Observable<Success>
+    fun approveValidation(uuid: String,  validateRecord: ValidateRecord): Observable<Success>
 
 
     fun declineValidation(uuid: String): Observable<Success>

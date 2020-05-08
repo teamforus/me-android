@@ -68,7 +68,7 @@ interface RecordsService {
     fun readValidation(@Path("uuid") uuid: String) : Observable<Validation>
 
     @PATCH("api/v1/identity/record-validations/{uuid}/approve")
-    fun approveValidation(@Path("uuid") uuid: String) : Observable<Success>
+    fun approveValidation(@Path("uuid") uuid: String,@Body validateRecord: ValidateRecord) : Observable<Success>
 
     @PATCH("api/v1/identity/record-validations/{uuid}/decline")
     fun declineValidation(@Path("uuid") uuid: String) : Observable<Success>
