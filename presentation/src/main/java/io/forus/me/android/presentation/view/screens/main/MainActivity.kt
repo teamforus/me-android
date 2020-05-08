@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.widget.Toast
+import com.afollestad.materialdialogs.MaterialDialog
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.activity.BaseActivity
 import com.google.android.gms.common.ConnectionResult
@@ -17,6 +18,11 @@ import com.google.android.play.core.appupdate.AppUpdateManager
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.UpdateAvailability
+import io.forus.me.android.presentation.R
+import android.support.v4.content.ContextCompat.getSystemService
+
+
+
 
 
 /**
@@ -29,15 +35,18 @@ class MainActivity : BaseActivity() {
     private val db = Injection.instance.databaseHelper
     private val settings = Injection.instance.settingsDataSource
 
+    var PACKAGE_NAME: String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(io.forus.me.android.presentation.R.layout.activity_main)
 
+        PACKAGE_NAME = applicationContext.packageName
+
         val isGooglePlayAvailable = checkPlayServices()
-        Log.d("GOOGLE_PLAY_AVAILABLE", isGooglePlayAvailable.toString())
 
         //Check inApp update
-        h.postDelayed({ this.initInAppUpdate() }, 2000)
+        h.postDelayed({ this.initInAppUpdate() }, 1000)
 
         if (db.exists()) {
             val locked = settings.isPinEnabled()
@@ -50,10 +59,6 @@ class MainActivity : BaseActivity() {
             //navigateToWelcomeScreen() //old behavior
             navigateToLogInsignUpScreen()
         }
-    }
-
-    override fun onStop() {
-        super.onStop()
     }
 
 
@@ -117,9 +122,13 @@ class MainActivity : BaseActivity() {
     var appUpdateManager: AppUpdateManager? = null
 
     private fun initInAppUpdate() {
+        Log.d("forus","initInAppUpdate")
+        Toast.makeText(this@MainActivity, "initInAppUpdate", Toast.LENGTH_SHORT).show()
         appUpdateManager = AppUpdateManagerFactory.create(this@MainActivity)
 
-        if (appUpdateManager != null) return
+        if (appUpdateManager == null) return
+
+
 
         val appUpdateInfoTask = appUpdateManager!!.appUpdateInfo
         appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
@@ -128,6 +137,7 @@ class MainActivity : BaseActivity() {
 
                 try {
                     updateApp(appUpdateInfo)
+
                 } catch (e: IntentSender.SendIntentException) {
                     e.printStackTrace()
                 }
@@ -164,7 +174,8 @@ class MainActivity : BaseActivity() {
     }
 
     private fun processInAppUpdateError(error: String){
-        Toast.makeText(this@MainActivity, "App update error. " + error, Toast.LENGTH_SHORT).show()
+
+
     }
 
 }
