@@ -42,6 +42,12 @@ class RecordDetailsFragment : ToolbarLRFragment<RecordDetailsModel, RecordDetail
     override val toolbarTitle: String
         get() = getString(R.string.record_details_title)
 
+    override val showAccount: Boolean
+        get() = false
+
+    override val showInfo: Boolean
+        get() = false
+
     override fun viewForSnackbar(): View = root
 
     override fun loadRefreshPanel() = lr_panel
