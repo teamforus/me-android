@@ -98,7 +98,7 @@ class PairDeviceFragment : ToolbarLRFragment<PairDeviceModel, PairDeviceView, Pa
     }
 
     fun closeScreen(accessToken: String) {
-        navigator.navigateToPinNew(activity, accessToken)
+        navigator.navigateToResoreAccountSuccess(activity, accessToken, false)
         activity?.finish()
     }
 }
