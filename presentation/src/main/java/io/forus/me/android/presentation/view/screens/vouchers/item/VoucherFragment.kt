@@ -103,6 +103,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
     override val showInfo: Boolean
         get() = true
 
+    private var canShowInfo: Boolean = false
     private val shortToken = PublishSubject.create<String>()
     override fun getShortToken(): Observable<String> = shortToken
 
@@ -148,14 +149,17 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
 
         info_button.setOnClickListener {
 
+            Log.d("forus", "info_button_setOnClickListener")
+            canShowInfo = true
             shortToken.onNext("");
+
 
         }
 
         val qrEncoded = QrCode(QrCode.Type.VOUCHER, address).toJson()
         iv_qr_icon.setQRText(qrEncoded)
         iv_qr_icon.setOnClickListener {
-            (activity as? DashboardActivity)?.showPopupQRFragment(qrEncoded, resources.getString(R.string.voucher_qr_code_subtitle_with_fund_name , voucher?.fundName ))
+            (activity as? DashboardActivity)?.showPopupQRFragment(qrEncoded, resources.getString(R.string.voucher_qr_code_subtitle_with_fund_name, voucher?.fundName))
         }
 
         toolbar.setNavigationOnClickListener {
@@ -275,15 +279,17 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
         }
 
         if (vs.model.shortToken != null) {
+            if (canShowInfo) {
 
-            val url: String = if (voucher?.fundWebShopUrl?.isNotEmpty()!! && vs.model.shortToken.isNotEmpty()) {
-                voucher?.fundWebShopUrl + "auth-link?token=" + vs.model.shortToken + "&target=voucher-" + voucher?.address
-            } else {
-                "https://forus.io/"
+                val url: String = if (voucher?.fundWebShopUrl?.isNotEmpty()!! && vs.model.shortToken.isNotEmpty()) {
+                    voucher?.fundWebShopUrl + "auth-link?token=" + vs.model.shortToken + "&target=voucher-" + voucher?.address
+                } else {
+                    "https://forus.io/"
+                }
+
+                openVoucherInfo(url)
+                canShowInfo = false
             }
-
-
-            openVoucherInfo(url)
         }
 
 
