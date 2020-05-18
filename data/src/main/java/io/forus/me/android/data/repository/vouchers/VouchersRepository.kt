@@ -118,27 +118,27 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
 
     private fun getFakeVoucherProvider(): VoucherProvider {
         val date = Calendar.getInstance().getTime()
-        val currency = Currency("EUR", "transaction.currency?.logoUrl")
+        val currency = Currency("EUR", "")
 
-        val organization = Organization(0, "Fly Avia", "logo", 0.0, 0.0,
-                "address", "phone", "email@test.nl")
+        val organization = Organization(0, "Test bedrijf", "", 0.0, 0.0,
+                "", "", "")
         val organizationsList = mutableListOf<Organization>()
         organizationsList.add(organization)
         val transaction = Transaction("0", organization, currency, 0f.toBigDecimal(), date)
         val transactionList = mutableListOf<Transaction>()
         transactionList.add(transaction)
 
-        val productCategory = ProductCategory(0, "key", "name0")
+        val productCategory = ProductCategory(0, "", "")
         val productCategoryList = mutableListOf<ProductCategory>()
         productCategoryList.add(productCategory)
-        val product = Product(0, 0, 0, "prod_name", "descr",
+        val product = Product(0, 0, 0, "", "",
                 0f.toBigDecimal(), 0f.toBigDecimal(),
                 0, 0, productCategory, organization)
 
-        val voucher = Voucher(false, false, "Toerisme en reizen", "Toerisme en reizen",
-                "Rothschild LTD", "Toerisme fonds", "fund_url",
-                "description", date, currency, 1000.toBigDecimal(), "logo",
-                transactionList, product, "10.01.2024")
+        val voucher = Voucher(false, false, "", "Test bedrijf",
+                "", "", "",
+                "", date, currency, 1000.toBigDecimal(), "",
+                transactionList, product, "")
 
         return VoucherProvider(voucher, organizationsList, productCategoryList)
     }

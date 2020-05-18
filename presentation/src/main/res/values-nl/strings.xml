@@ -246,4 +246,7 @@
     <string name="voucher_demo_transaction_operation_completed">Test transactie succesvol afgerond</string>
 
 
+    <string name="test_transaction">Test transactie</string>
+    <string name="test_organisation">Test bedrijf</string>
+
 </resources>

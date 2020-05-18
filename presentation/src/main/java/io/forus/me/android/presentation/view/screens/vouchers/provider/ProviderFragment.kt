@@ -48,10 +48,13 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
     private lateinit var categoriesAdapter: CategoriesAdapter
 
     override val toolbarTitle: String
-        get() = getString(R.string.vouchers_provider)
+        get() = if(isDemoVoucher != null && isDemoVoucher!!) getString(R.string.test_transaction) else getString(R.string.vouchers_provider)
 
     override val allowBack: Boolean
         get() = true
+
+    override val showAccount: Boolean
+        get() = false
 
     override fun viewForSnackbar(): View = root
 
@@ -133,10 +136,14 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
         iv_icon.setImageUrl(vs.model.item?.voucher?.logo)
 
 
-        if (vs.model.selectedOrganization != null) {
-            tv_organization_name.text = vs.model.selectedOrganization.name
-            if (vs.model.selectedOrganization.logo?.isBlank() != true)
-                iv_organization_icon.setImageUrl(vs.model.selectedOrganization.logo)
+        if(isDemoVoucher!= null && isDemoVoucher!!) {
+            tv_organization_name.text = context!!.getString(R.string.check_email_open_mail_app)
+        }else{
+            if (vs.model.selectedOrganization != null) {
+                tv_organization_name.text = vs.model.selectedOrganization.name
+                if (vs.model.selectedOrganization.logo?.isBlank() != true)
+                    iv_organization_icon.setImageUrl(vs.model.selectedOrganization.logo)
+            }
         }
 
         if (vs.model.item != null) {

@@ -255,4 +255,8 @@
     <string name="voucher_demo_transaction_operation_completed">Operation completed</string>
 
 
+    <string name="test_transaction">Test transaction</string>
+    <string name="test_organisation">Test organisation</string>
+
+
 </resources>
