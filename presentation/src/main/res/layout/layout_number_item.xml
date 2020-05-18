@@ -3,7 +3,7 @@
     android:id="@+id/button"
     android:layout_width="54dp"
     android:layout_height="54dp"
-    android:background="?android:attr/selectableItemBackground"
+    android:background="?attr/selectableItemBackgroundBorderless"
     android:fontFamily="sans-serif"
     android:textColor="@color/textColor"
     android:textSize="34sp" />

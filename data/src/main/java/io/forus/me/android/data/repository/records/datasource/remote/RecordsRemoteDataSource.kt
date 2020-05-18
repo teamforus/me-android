@@ -45,7 +45,7 @@ class RecordsRemoteDataSource(f: () -> RecordsService): RecordsDataSource, Remot
 
     override fun readValidation(uuid: String): Observable<Validation> = service.readValidation(uuid)
 
-    override fun approveValidation(uuid: String): Observable<Success> = service.approveValidation(uuid)
+    override fun approveValidation(uuid: String, validateRecord: ValidateRecord): Observable<Success> = service.approveValidation(uuid,validateRecord)
 
     override fun declineValidation(uuid: String): Observable<Success> = service.declineValidation(uuid)
 }

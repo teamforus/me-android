@@ -1,58 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:id="@+id/root"
-    android:padding="@dimen/activity_horizontal_margin"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/activity_horizontal_margin">
 
-    <io.forus.me.android.presentation.view.component.images.QRCodeImageView
-        android:id="@+id/qrImage"
-        android:layout_marginBottom="5dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="5dp"
-        android:layout_width="350dp"
-        android:layout_height="350dp"
-        app:onColor="@android:color/black"
-        app:offColor="@android:color/white"/>
 
-    <io.forus.me.android.presentation.view.component.text.TextView
-        android:id="@+id/head"
-        style="@style/Body2Small"
-        android:textSize="20sp"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        app:type="bold"
-        android:text="@string/record_details_scan_deze_qr"
+
+    <LinearLayout
+        android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/activity_horizontal_margin">
+  
+
+
+        <io.forus.me.android.presentation.view.component.images.QRCodeImageView
+            android:id="@+id/qrImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:maxWidth="350dp"
+            android:maxHeight="350dp"
+            android:adjustViewBounds="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            app:offColor="@android:color/white"
+            app:onColor="@android:color/black" />
+      
+      
+        <io.forus.me.android.presentation.view.component.text.TextView
+            android:id="@+id/head"
+            style="@style/Body2Small"
+            android:textSize="20sp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            app:type="bold"
+            android:text="@string/record_details_scan_deze_qr"
         />
 
-    <io.forus.me.android.presentation.view.component.text.TextView
-        android:id="@+id/subtitle"
-        style="@style/Body2Small"
-        android:textSize="14sp"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        app:type="bold"
-        android:text="@string/record_details_scan_deze_qr"
-        />
+        <io.forus.me.android.presentation.view.component.text.TextView
+            android:id="@+id/subtitle"
+            style="@style/Body2Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="8dp"
+            android:gravity="center_horizontal"
+            android:text="@string/record_details_scan_deze_qr"
+            android:textSize="16sp"
+            app:type="bold" />
 
-    <io.forus.me.android.presentation.view.component.text.TextView
-        android:id="@+id/description"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:type="regular"
-        android:textColor="@color/gray_subtitle"
-        android:textSize="13.0sp"
-        android:text=""
-        />
+        <io.forus.me.android.presentation.view.component.text.TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:text=""
+            android:textColor="@color/body_1_87"
+            android:textSize="14.1sp"
+            app:type="regular" />
 
-</LinearLayout>
+    </LinearLayout>
+
+
+</ScrollView>

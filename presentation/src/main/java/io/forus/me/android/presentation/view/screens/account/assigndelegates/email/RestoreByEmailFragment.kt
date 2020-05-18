@@ -157,7 +157,8 @@ class RestoreByEmailFragment : ToolbarLRFragment<RestoreByEmailModel, RestoreByE
     }
 
     fun closeScreen(accessToken: String) {
-        navigator.navigateToPinNew(activity, accessToken)
+        //navigator.navigateToPinNew(activity, accessToken)
+        navigator.navigateToResoreAccountSuccess(activity, accessToken, false)
         activity?.finish()
     }
 

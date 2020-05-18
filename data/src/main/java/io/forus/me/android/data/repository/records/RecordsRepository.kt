@@ -1,5 +1,6 @@
 package io.forus.me.android.data.repository.records
 
+import io.forus.me.android.data.entity.records.request.ValidateRecord
 import io.forus.me.android.data.repository.records.datasource.RecordsDataSource
 import io.forus.me.android.domain.models.records.*
 import io.forus.me.android.domain.models.vouchers.Organization
@@ -84,7 +85,17 @@ class RecordsRepository(private val recordsRemoteDataSource: RecordsDataSource) 
                                     if(it.organization != null)
                                     organization = Organization(it.organization.id,it.organization.name,null,null,null,
                                             null,it.organization.phone,it.organization.email)
-                                    Validation(Validation.State.valueOf(it.state.toString()), it.identityAddress, it.createdAt, it.updatedAt, it.uuid, it.value, it.key, it.name,organization )
+
+                                    val validatorsList: MutableList<ValidatorOrganization> = mutableListOf()
+                                    if(it.validators != null && it.validators.size > 0){
+                                        for (validator in it.validators){
+                                            val validationOrg = ValidatorOrganization(validator.id, validator.name)
+                                            validatorsList.add(validationOrg)
+                                        }
+                                    }
+
+                                    Validation(Validation.State.valueOf(it.state.toString()), it.identityAddress, it.createdAt, it.updatedAt,
+                                            it.uuid, it.value, it.key, it.name,organization,validatorsList )
                                 })
                     }
                 }
@@ -106,7 +117,18 @@ class RecordsRepository(private val recordsRemoteDataSource: RecordsDataSource) 
                                                 if(it.organization != null)
                                                  organization = Organization(it.organization.id,it.organization.name,null,null,null,
                                                         null,it.organization.phone,it.organization.email)
-                                                Validation(Validation.State.valueOf(it.state.toString()), it.identityAddress, it.createdAt, it.updatedAt, it.uuid, it.value, it.key, it.name, organization) })
+
+                                                val validatorsList: MutableList<ValidatorOrganization> = mutableListOf()
+                                                if(it.validators != null && it.validators.size > 0){
+                                                    for (validator in it.validators){
+                                                        val validationOrg = ValidatorOrganization(validator.id, validator.name)
+                                                        validatorsList.add(validationOrg)
+                                                    }
+                                                }
+
+
+                                                Validation(Validation.State.valueOf(it.state.toString()), it.identityAddress, it.createdAt, it.updatedAt,
+                                                        it.uuid, it.value, it.key, it.name, organization, validatorsList) })
                                 }
                             }
                 }
@@ -136,7 +158,16 @@ class RecordsRepository(private val recordsRemoteDataSource: RecordsDataSource) 
                                             if(it.organization != null)
                                              organization  = Organization(it.organization.id,it.organization.name,null,null,null,
                                                     null,it.organization.phone,it.organization.email)
-                                            Validation(Validation.State.valueOf(it.state.toString()), it.identityAddress, it.createdAt, it.updatedAt, it.uuid, it.value, it.key, it.name, organization) })
+
+                                            val validatorsList: MutableList<ValidatorOrganization> = mutableListOf()
+                                            if(it.validators != null && it.validators.size > 0){
+                                                for (validator in it.validators){
+                                                    val validationOrg = ValidatorOrganization(validator.id, validator.name)
+                                                    validatorsList.add(validationOrg)
+                                                }
+                                            }
+
+                                            Validation(Validation.State.valueOf(it.state.toString()), it.identityAddress, it.createdAt, it.updatedAt, it.uuid, it.value, it.key, it.name, organization, validatorsList) })
                             }
                 }
         ).flatMapObservable {
@@ -155,11 +186,21 @@ class RecordsRepository(private val recordsRemoteDataSource: RecordsDataSource) 
             if(it.organization != null)
              organization  = Organization(it.organization.id,it.organization.name,null,null,null,
                     null,it.organization.phone,it.organization.email)
-            Validation(Validation.State.valueOf(it.state.toString()), it.identityAddress, it.createdAt, it.updatedAt, it.uuid, it.value, it.key, it.name, organization) }
+
+            val validatorsList: MutableList<ValidatorOrganization> = mutableListOf()
+            if(it.validators != null && it.validators.size > 0){
+                for (validator in it.validators){
+                    val validationOrg = ValidatorOrganization(validator.id, validator.name)
+                    validatorsList.add(validationOrg)
+                }
+            }
+
+            Validation(Validation.State.valueOf(it.state.toString()), it.identityAddress, it.createdAt, it.updatedAt, it.uuid, it.value, it.key, it.name, organization, validatorsList) }
     }
 
-    override fun approveValidation(uuid: String): Observable<Boolean> {
-        return recordsRemoteDataSource.approveValidation(uuid).map { true }
+    override fun approveValidation(uuid: String, organization_id: Long): Observable<Boolean> {
+        val validateRecord = ValidateRecord(organization_id)
+        return recordsRemoteDataSource.approveValidation(uuid,validateRecord).map { true }
     }
 
     override fun declineValidation(uuid: String): Observable<Boolean> {
