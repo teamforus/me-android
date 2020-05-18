@@ -6,6 +6,7 @@ import android.graphics.BlurMaskFilter
 import android.net.Uri
 import android.os.Bundle
 import android.support.customtabs.CustomTabsIntent
+import android.support.design.widget.Snackbar
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
@@ -39,6 +40,7 @@ import io.forus.me.android.presentation.view.screens.vouchers.item.dialogs.SendV
 import io.forus.me.android.presentation.view.screens.vouchers.item.transactions.TransactionsAdapter
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_voucher.*
 import kotlinx.android.synthetic.main.toolbar_view.*
 import java.text.SimpleDateFormat
@@ -161,6 +163,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
         toolbar.setNavigationOnClickListener {
             if (activity?.supportFragmentManager?.backStackEntryCount ?: 0 > 0) {
                 activity?.supportFragmentManager?.popBackStack()
+
             } else {
                 activity?.onBackPressed()
             }
@@ -173,6 +176,10 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
         shopkeeper_email.setOnClickListener {
             emailToShopkeeper(shopkeeper_email.text.toString())
         }
+
+        //val snack = ToastUtils.showUpdateAppToast("Wellcome snackbar 1", root, null).show()
+
+       // Snackbar.make(view, "Hello Snackbar", Snackbar.LENGTH_LONG).show();
     }
 
 

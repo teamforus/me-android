@@ -96,6 +96,7 @@ android {
         prod {
             dimension "version"
             versionNameSuffix "-prod"
+           // buildConfigField "String", SERVER_URL, "\"https://test.api.forus.rminds.dev/\""
             buildConfigField "String", SERVER_URL, "\"https://api.forus.io/\""
             buildConfigField "String", PREFIX_URL, "\"\""
             applicationId 'io.forus.me'
@@ -117,7 +118,8 @@ android {
         dev {
             dimension "version"
             versionNameSuffix "-dev"
-            buildConfigField "String", SERVER_URL, "\"https://dev.api.forus.io/\""
+            buildConfigField "String", SERVER_URL, "\"https://test.api.forus.rminds.dev/\""
+           // buildConfigField "String", SERVER_URL, "\"https://dev.api.forus.io/\""
             buildConfigField "String", PREFIX_URL, "\"dev.\""
             applicationId 'io.forus.me.dev'
         }

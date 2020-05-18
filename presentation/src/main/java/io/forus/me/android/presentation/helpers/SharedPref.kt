@@ -7,9 +7,10 @@ import android.app.Activity
 
 object SharedPref {
     private var mSharedPref: SharedPreferences? = null
-    val RESTORE_EMAIL = "RESTORE_EMAIL"
 
+    val RESTORE_EMAIL = "RESTORE_EMAIL"
     val OPTION_SEND_CRASH_REPORT = "SEND_CRASH_REPORT"
+    val OPTION_NEED_APP_UPDATE = "OPTION_NEED_APP_UPDATE"
 
     fun init(context: Context) {
         if (mSharedPref == null)

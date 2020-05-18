@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.IntentSender
 import android.os.Bundle
 import android.os.Handler
+import android.support.design.widget.Snackbar
 import android.util.Log
 import android.widget.Toast
 import com.afollestad.materialdialogs.MaterialDialog
@@ -20,9 +21,8 @@ import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.UpdateAvailability
 import io.forus.me.android.presentation.R
 import android.support.v4.content.ContextCompat.getSystemService
-
-
-
+import io.forus.me.android.presentation.helpers.SharedPref
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 /**
@@ -43,10 +43,14 @@ class MainActivity : BaseActivity() {
 
         PACKAGE_NAME = applicationContext.packageName
 
+        SharedPref.init(this@MainActivity)
+
         val isGooglePlayAvailable = checkPlayServices()
 
         //Check inApp update
-        h.postDelayed({ this.initInAppUpdate() }, 1000)
+        h.postDelayed({
+            this.initInAppUpdate()
+        }, 800)
 
         if (db.exists()) {
             val locked = settings.isPinEnabled()
@@ -122,12 +126,10 @@ class MainActivity : BaseActivity() {
     var appUpdateManager: AppUpdateManager? = null
 
     private fun initInAppUpdate() {
-        Log.d("forus","initInAppUpdate")
-        Toast.makeText(this@MainActivity, "initInAppUpdate", Toast.LENGTH_SHORT).show()
+
         appUpdateManager = AppUpdateManagerFactory.create(this@MainActivity)
 
         if (appUpdateManager == null) return
-
 
 
         val appUpdateInfoTask = appUpdateManager!!.appUpdateInfo
@@ -135,12 +137,17 @@ class MainActivity : BaseActivity() {
             if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
                     && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)) {
 
+
+                SharedPref.write(SharedPref.OPTION_NEED_APP_UPDATE, true)
                 try {
+                    //Toast.makeText(this@MainActivity, "initInAppUpdate success", Toast.LENGTH_SHORT).show()
                     updateApp(appUpdateInfo)
 
                 } catch (e: IntentSender.SendIntentException) {
                     e.printStackTrace()
                 }
+            } else {
+                SharedPref.write(SharedPref.OPTION_NEED_APP_UPDATE, false)
             }
         }
 
@@ -161,8 +168,8 @@ class MainActivity : BaseActivity() {
                 this,
                 // Include a request code to later monitor this update request.
                 MY_REQUEST_CODE)
-    }
 
+    }
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -173,9 +180,10 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    private fun processInAppUpdateError(error: String){
+    private fun processInAppUpdateError(error: String) {
 
-
+        Toast.makeText(this@MainActivity, "initInAppUpdate error $error", Toast.LENGTH_LONG).show()
     }
+
 
 }
