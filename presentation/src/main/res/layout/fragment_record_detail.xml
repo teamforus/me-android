@@ -73,12 +73,12 @@
 
     <LinearLayout
         android:layout_alignParentBottom="true"
-        android:background="@color/IconBase"
+        android:background="@drawable/layout_top_corners"
         android:layout_width="match_parent"
         android:gravity="center_horizontal"
         android:layout_height="wrap_content">
 
-        <io.forus.me.android.presentation.view.component.buttons.Button
+        <io.forus.me.android.presentation.view.component.buttons.ButtonWhite
             android:id="@+id/btn_show_qr"
             app:textSize="14.0"
             android:text="@string/record_details_button_show_qr"
@@ -86,8 +86,10 @@
             android:layout_marginRight="16dp"
             android:layout_marginTop="13dp"
             android:layout_marginBottom="11dp"
-            android:layout_width="328dp"
-            android:layout_height="36dp" />
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:drawableStart="@drawable/qr_blue"
+            />
 
     </LinearLayout>
 

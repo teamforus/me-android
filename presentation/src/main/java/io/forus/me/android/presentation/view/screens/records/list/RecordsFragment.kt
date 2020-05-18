@@ -36,6 +36,12 @@ class RecordsFragment : ToolbarLRFragment<RecordsModel, RecordsView, RecordsPres
     override val allowBack: Boolean
         get() = true
 
+    override val showAccount: Boolean
+        get() = false
+
+    override val showInfo: Boolean
+        get() = false
+
     override val toolbarTitle: String
         get() = getString(R.string.dashboard_records)
 
