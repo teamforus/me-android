@@ -15,7 +15,6 @@ import java.util.*
 class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : io.forus.me.android.domain.repository.vouchers.VouchersRepository {
 
 
-
     val dateLocaleFormat = SimpleDateFormat("MMM dd, yyyy HH:mm", Locale.US)
 
     private fun mapToSimple(voucher: io.forus.me.android.data.entity.vouchers.response.Voucher): Voucher {
@@ -116,10 +115,38 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
         return VoucherProvider(item, organizations, categories)
     }
 
+
+    private fun getFakeVoucherProvider(): VoucherProvider {
+        val date = Calendar.getInstance().getTime()
+        val currency = Currency("EUR", "")
+
+        val organization = Organization(0, "Test bedrijf", "", 0.0, 0.0,
+                "", "", "")
+        val organizationsList = mutableListOf<Organization>()
+        organizationsList.add(organization)
+        val transaction = Transaction("0", organization, currency, 0f.toBigDecimal(), date)
+        val transactionList = mutableListOf<Transaction>()
+        transactionList.add(transaction)
+
+        val productCategory = ProductCategory(0, "", "")
+        val productCategoryList = mutableListOf<ProductCategory>()
+        productCategoryList.add(productCategory)
+        val product = Product(0, 0, 0, "", "",
+                0f.toBigDecimal(), 0f.toBigDecimal(),
+                0, 0, productCategory, organization)
+
+        val voucher = Voucher(false, false, "", "Test bedrijf",
+                "", "", "",
+                "", date, currency, 1000.toBigDecimal(), "",
+                transactionList, product, "")
+
+        return VoucherProvider(voucher, organizationsList, productCategoryList)
+    }
+
+
     override fun getVouchers(): Observable<List<Voucher>> {
         return vouchersDataSource.listAllVouchers().map { it.map { mapToSimple(it) } }
     }
-
 
 
     override fun getVoucher(address: String): Observable<Voucher> {
@@ -128,6 +155,11 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
 
     override fun getVoucherAsProvider(address: String): Observable<VoucherProvider> {
         return vouchersDataSource.retrieveVoucherAsProvider(address).map { mapToProvider(it) }
+    }
+
+    override fun getTestVoucherAsProvider(): Observable<VoucherProvider> {
+
+        return Observable.just(getFakeVoucherProvider())
     }
 
     override fun getProductVouchersAsProvider(address: String): Observable<List<Voucher>> {
@@ -144,8 +176,8 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
     }
 
     override fun makeDemoTransaction(testToken: String): Observable<Boolean> {
-        return vouchersDataSource.makeDemoTransaction(testToken, MakeDemoTransaction("accepted")).map{
-           it.data.state == "accepted"
+        return vouchersDataSource.makeDemoTransaction(testToken, MakeDemoTransaction("accepted")).map {
+            it.data.state == "accepted"
         }
     }
 }

@@ -231,9 +231,9 @@ constructor()//empty
 
 
 
-    fun navigateToVoucherProvider(context: Context?, voucherAddress: String) {
+    fun navigateToVoucherProvider(context: Context?, voucherAddress: String,  isDemoVoucher: Boolean? = false) {
         if (context != null) {
-            val intentToLaunch = ProviderActivity.getCallingIntent(context, voucherAddress)
+            val intentToLaunch = ProviderActivity.getCallingIntent(context, voucherAddress,isDemoVoucher)
             context.startActivity(intentToLaunch)
         }
     }

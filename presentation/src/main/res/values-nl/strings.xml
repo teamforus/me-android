@@ -249,4 +249,7 @@
     <!--InApp Update -->
     <string name="snack_message">Er is een nieuwe update beschikbaar!</string>
 
+    <string name="test_transaction">Test transactie</string>
+    <string name="test_organisation">Test bedrijf</string>
+
 </resources>

@@ -13,6 +13,8 @@ interface VouchersRepository {
 
     fun getVoucherAsProvider(address: String): Observable<VoucherProvider>
 
+    fun getTestVoucherAsProvider(): Observable<VoucherProvider>
+
     fun getProductVouchersAsProvider(address: String): Observable<List<Voucher>>
 
     fun makeTransaction(address: String, amount: BigDecimal, note: String, organizationId: Long): Observable<Boolean>

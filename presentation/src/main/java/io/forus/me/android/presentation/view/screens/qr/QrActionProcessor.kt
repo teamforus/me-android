@@ -88,45 +88,7 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
     fun scanVoucher(address: String, isDemoVoucher: Boolean? = false) {
 
         if (isDemoVoucher != null && isDemoVoucher) {
-            vouchersRepository.makeDemoTransaction(address)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .map {
-                        if (it) {
-                            if (scanner.hasWindowFocus()) {
-                                ScanDemoTransactionDialog(scanner) {
-                                    reactivateDecoding()
-                                }.show()
-                            }
-                        } else {
-                            ScanVoucherBaseErrorDialog("", scanner, reactivateDecoding).show()
-                        }
-                    }
-                    .onErrorReturn {
-                        var canOnResultVoucherScanned = true
-                        val error: Throwable = it
-                        if (error is RetrofitException && error.kind == RetrofitException.Kind.HTTP) {
-
-                            try {
-                                val newRecordError = retrofitExceptionMapper.mapToBaseApiError(error)
-
-                                if (error.responseCode == 403) {
-                                    canOnResultVoucherScanned = false
-                                    val message = if (newRecordError.message == null) "" else newRecordError.message
-                                    ScanVoucherBaseErrorDialog(message, scanner, reactivateDecoding).show()
-                                }
-                            } catch (e: Exception) {
-                            }
-                        }
-
-                        if (canOnResultVoucherScanned) {
-
-                            if (scanner.hasWindowFocus()) {
-                                onResultVoucherScanned(address, false)
-                            }
-                        }
-                    }
-                    .subscribe()
+            navigator.navigateToVoucherProvider(scanner, address, true)
         } else {
             vouchersRepository.getVoucherAsProvider(address)
                     .subscribeOn(Schedulers.io())
