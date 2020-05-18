@@ -1,6 +1,7 @@
 package io.forus.me.android.presentation.view.screens.account.assigndelegates.qr
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -70,7 +71,9 @@ class RestoreByQRFragment : LRFragment<RestoreByQRModel, RestoreByQRView, Restor
     }
 
     fun closeScreen(accessToken: String) {
+        Log.d("forus","navigateToPinNew============================")
         navigator.navigateToPinNew(activity, accessToken)
+        navigator.navigateToResoreAccountSuccess(activity, accessToken, false)//accessToken)
         activity?.finish()
     }
 }

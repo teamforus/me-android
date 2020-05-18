@@ -13,14 +13,20 @@ import io.reactivex.schedulers.Schedulers
 /**
  * Created by maestrovs on 22.04.2020.
  */
-class RestoreAccountSuccessPresenter constructor(private val token: String, private val accountRepository: AccountRepository) :
+class RestoreAccountSuccessPresenter constructor(private val token: String, private val accountRepository: AccountRepository,private val isExchangeToken: Boolean) :
         LRPresenter<String?, RestoreAccountSuccessModel, RestoreAccountSuccessView>() {
 
     override fun initialModelSingle(): Single<String?> {
-        return if(token.isBlank())
-            Single.just("")
-        else {
-            Single.fromObservable(accountRepository.registerExchangeToken(token).map { it.accessToken })
+
+        if (isExchangeToken) {
+
+            return if (token.isBlank())
+                Single.just("")
+            else {
+                Single.fromObservable(accountRepository.registerExchangeToken(token).map { it.accessToken })
+            }
+        }else{
+            return  Single.just("")
         }
     }
 

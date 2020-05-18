@@ -163,9 +163,9 @@ constructor()//empty
         }
     }
 
-    fun navigateToResoreAccountSuccess(context: Context?, token: String) {
+    fun navigateToResoreAccountSuccess(context: Context?, token: String, isExchangeToken: Boolean) {
         if (context != null) {
-            val intentToLaunch = RestoreAccountSuccessActivity.getCallingIntent(context, token)
+            val intentToLaunch = RestoreAccountSuccessActivity.getCallingIntent(context, token, isExchangeToken)
             intentToLaunch.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             context.startActivity(intentToLaunch)
         }

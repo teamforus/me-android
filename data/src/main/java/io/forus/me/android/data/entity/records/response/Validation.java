@@ -3,6 +3,7 @@ package io.forus.me.android.data.entity.records.response;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
+import java.util.List;
 
 import io.forus.me.android.data.entity.validators.response.Organization;
 
@@ -39,9 +40,13 @@ public class Validation {
     @SerializedName("organization")
     private Organization organization;
 
+    @SerializedName("organizations_available")
+    private List<ValidatorOrganization> organizationsAvailable;
+
     public Validation() { }
 
-    public Validation(State state, String identityAddress, Date createdAt, Date updatedAt, String uuid, String value, String key, String name, Organization organization) {
+    public Validation(State state, String identityAddress, Date createdAt, Date updatedAt, String uuid, String value, String key, String name, Organization organization/*,
+    ValidatorOrganization organizationsAvailable*/) {
         this.state = state;
         this.identityAddress = identityAddress;
         this.createdAt = createdAt;
@@ -51,6 +56,7 @@ public class Validation {
         this.key = key;
         this.name = name;
         this.organization = organization;
+       // this.organizationsAvailable = organizationsAvailable;
     }
 
     public State getState() {
@@ -123,5 +129,10 @@ public class Validation {
 
     public void setOrganization(Organization organization) {
         this.organization = organization;
+    }
+
+
+    public List<ValidatorOrganization> getValidators() {
+        return organizationsAvailable;
     }
 }

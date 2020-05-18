@@ -139,6 +139,7 @@
     <string name="record_details_validation_request_error">Fout tijdens het verzenden van de validatieaanvraag</string>
     <string name="record_details_validation_approved">Validatie goedgekeurd</string>
     <string name="record_details_validation_declined">Validatie geweigerd</string>
+    <string name="choose_validator">Kies validator</string>
 
     <!-- Wallet details screen -->
     <string name="wallet_title_info">Eigendom informatie</string>
@@ -245,6 +246,8 @@
     <string name="voucher_dialog_choose_organization">Kies een organisatie</string>
     <string name="voucher_demo_transaction_operation_completed">Test transactie succesvol afgerond</string>
 
+    <!--InApp Update -->
+    <string name="snack_message">Er is een nieuwe update beschikbaar!</string>
 
     <string name="test_transaction">Test transactie</string>
     <string name="test_organisation">Test bedrijf</string>

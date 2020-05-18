@@ -6,6 +6,7 @@ import android.graphics.BlurMaskFilter
 import android.net.Uri
 import android.os.Bundle
 import android.support.customtabs.CustomTabsIntent
+import android.support.design.widget.Snackbar
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
@@ -39,6 +40,7 @@ import io.forus.me.android.presentation.view.screens.vouchers.item.dialogs.SendV
 import io.forus.me.android.presentation.view.screens.vouchers.item.transactions.TransactionsAdapter
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_voucher.*
 import kotlinx.android.synthetic.main.toolbar_view.*
 import java.text.SimpleDateFormat
@@ -103,6 +105,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
     override val showInfo: Boolean
         get() = true
 
+    private var canShowInfo: Boolean = false
     private val shortToken = PublishSubject.create<String>()
     override fun getShortToken(): Observable<String> = shortToken
 
@@ -148,19 +151,23 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
 
         info_button.setOnClickListener {
 
+            Log.d("forus", "info_button_setOnClickListener")
+            canShowInfo = true
             shortToken.onNext("");
+
 
         }
 
         val qrEncoded = QrCode(QrCode.Type.VOUCHER, address).toJson()
         iv_qr_icon.setQRText(qrEncoded)
         iv_qr_icon.setOnClickListener {
-            (activity as? DashboardActivity)?.showPopupQRFragment(qrEncoded, resources.getString(R.string.voucher_qr_code_subtitle_with_fund_name , voucher?.fundName ))
+            (activity as? DashboardActivity)?.showPopupQRFragment(qrEncoded, resources.getString(R.string.voucher_qr_code_subtitle_with_fund_name, voucher?.fundName))
         }
 
         toolbar.setNavigationOnClickListener {
             if (activity?.supportFragmentManager?.backStackEntryCount ?: 0 > 0) {
                 activity?.supportFragmentManager?.popBackStack()
+
             } else {
                 activity?.onBackPressed()
             }
@@ -173,6 +180,10 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
         shopkeeper_email.setOnClickListener {
             emailToShopkeeper(shopkeeper_email.text.toString())
         }
+
+        //val snack = ToastUtils.showUpdateAppToast("Wellcome snackbar 1", root, null).show()
+
+       // Snackbar.make(view, "Hello Snackbar", Snackbar.LENGTH_LONG).show();
     }
 
 
@@ -275,15 +286,17 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
         }
 
         if (vs.model.shortToken != null) {
+            if (canShowInfo) {
 
-            val url: String = if (voucher?.fundWebShopUrl?.isNotEmpty()!! && vs.model.shortToken.isNotEmpty()) {
-                voucher?.fundWebShopUrl + "auth-link?token=" + vs.model.shortToken + "&target=voucher-" + voucher?.address
-            } else {
-                "https://forus.io/"
+                val url: String = if (voucher?.fundWebShopUrl?.isNotEmpty()!! && vs.model.shortToken.isNotEmpty()) {
+                    voucher?.fundWebShopUrl + "auth-link?token=" + vs.model.shortToken + "&target=voucher-" + voucher?.address
+                } else {
+                    "https://forus.io/"
+                }
+
+                openVoucherInfo(url)
+                canShowInfo = false
             }
-
-
-            openVoucherInfo(url)
         }
 
 

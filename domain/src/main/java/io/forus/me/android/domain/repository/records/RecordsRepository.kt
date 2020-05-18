@@ -29,7 +29,7 @@ interface RecordsRepository {
     fun getRecords(recordCategoryId: Long): Observable<List<Record>>
 
 
-    fun newRecord(model: NewRecordRequest) : Observable<CreateRecordResponse>
+    fun newRecord(model: NewRecordRequest): Observable<CreateRecordResponse>
 
 
     fun getRecord(recordId: Long): Observable<Record>
@@ -41,7 +41,7 @@ interface RecordsRepository {
     fun readValidation(uuid: String): Observable<Validation>
 
 
-    fun approveValidation(uuid: String): Observable<Boolean>
+    fun approveValidation(uuid: String, organization_id: Long): Observable<Boolean>
 
 
     fun declineValidation(uuid: String): Observable<Boolean>

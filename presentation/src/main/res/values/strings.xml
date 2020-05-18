@@ -141,6 +141,7 @@
     <string name="new_record_next_step">NEXT STEP</string>
     <string name="new_record_submit">SUBMIT</string>
 
+
     <!-- Record details screen -->
     <string name="record_details_title">Record detail</string>
     <string name="record_details_title_validators">Validators</string>
@@ -149,6 +150,7 @@
     <string name="record_details_validation_request_error">Error while sending validation request</string>
     <string name="record_details_validation_approved">Validation approved</string>
     <string name="record_details_validation_declined">Validation declined</string>
+    <string name="choose_validator">Choose a validator</string>
 
     <!-- Wallet details screen -->
     <string name="wallet_title_info">Wallet info</string>
@@ -257,6 +259,8 @@
 
     <string name="test_transaction">Test transaction</string>
     <string name="test_organisation">Test organisation</string>
+
+    <string name="snack_message">New update is available,\n update your application!</string>
 
 
 </resources>
