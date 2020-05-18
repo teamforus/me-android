@@ -257,4 +257,8 @@
     <string name="voucher_demo_transaction_operation_completed">Operation completed</string>
 
 
+    <!--InApp Update -->
+    <string name="snack_message">New update is available,\n update your application!</string>
+
+
 </resources>
