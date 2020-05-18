@@ -245,5 +245,7 @@
     <string name="voucher_dialog_choose_organization">Kies een organisatie</string>
     <string name="voucher_demo_transaction_operation_completed">Test transactie succesvol afgerond</string>
 
+    <!--InApp Update -->
+    <string name="snack_message">Er is een nieuwe update beschikbaar!</string>
 
 </resources>

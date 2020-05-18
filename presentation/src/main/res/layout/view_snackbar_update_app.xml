@@ -42,7 +42,7 @@
                 android:gravity="start"
                 android:lines="2"
                 android:padding="8dp"
-                android:text="New update is available,\n update your application!"
+                android:text="@string/snack_message"
                 android:textColor="#28140c" />
 
 
