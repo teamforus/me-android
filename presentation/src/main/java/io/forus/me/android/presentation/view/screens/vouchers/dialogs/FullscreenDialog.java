@@ -17,17 +17,15 @@ import io.forus.me.android.presentation.R;
 
 public class FullscreenDialog extends DialogFragment {
 
-    public static final String TAG = "example_dialog";
-
     View rootView;
 
     private String title = "";
-
     private String description = "";
+    String positiveButtonText= "OK";
 
     SubmitClickListener submitClickListener;
 
-    public static FullscreenDialog display(FragmentManager fragmentManager, String title, String details, SubmitClickListener submitClickListener) {
+    public static FullscreenDialog display(FragmentManager fragmentManager, String title, String details, String positiveButtonText, SubmitClickListener submitClickListener) {
         FullscreenDialog fullscreenDialog = new FullscreenDialog();
         fullscreenDialog.title = title;
         fullscreenDialog.description = details;
@@ -59,7 +57,9 @@ public class FullscreenDialog extends DialogFragment {
         if (dialog != null) {
             int width = ViewGroup.LayoutParams.MATCH_PARENT;
             int height = ViewGroup.LayoutParams.MATCH_PARENT;
-            dialog.getWindow().setLayout(width, height);
+            if (dialog.getWindow() != null) {
+                dialog.getWindow().setLayout(width, height);
+            }
         }
     }
 
@@ -81,11 +81,14 @@ public class FullscreenDialog extends DialogFragment {
             }
         });
 
+        submitButton.setText(positiveButtonText);
+
         if (submitClickListener != null) {
             submitButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(submitClickListener != null){
+                    if (submitClickListener != null) {
+                        FullscreenDialog.this.dismiss();
                         submitClickListener.click(FullscreenDialog.this);
                     }
                 }
