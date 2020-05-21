@@ -362,10 +362,6 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
         FullscreenDialog.display(fragmentManager,context!!.resources.getString(R.string.voucher_send_email_success),
                 context!!.resources.getString(R.string.voucher_send_email_description),
                 context!!.resources.getString(R.string.me_ok)) { activity?.finish() }
-
-        /*SendVoucherSuccessDialog(context!!) {
-            sentEmailDialogShown.onNext(Unit)
-        }.show()*/
     }
 
     private fun setMarker(address: LatLng) {

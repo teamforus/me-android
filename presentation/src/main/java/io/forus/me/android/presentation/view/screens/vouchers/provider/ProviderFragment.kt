@@ -232,10 +232,6 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
                  context!!.resources.getString(R.string.vouchers_apply_success),
                  context!!.resources.getString(R.string.me_ok)) { activity?.finish() }
 
-        /*VouchersApplySuccessDialog(context!!) {
-            activity?.finish()
-        }.show()*/
-
     }
 
 }
