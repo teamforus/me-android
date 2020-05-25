@@ -36,6 +36,7 @@ import io.forus.me.android.presentation.models.vouchers.Voucher
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.forus.me.android.presentation.view.screens.dashboard.DashboardActivity
+import io.forus.me.android.presentation.view.screens.vouchers.dialogs.FullscreenDialog
 import io.forus.me.android.presentation.view.screens.vouchers.item.dialogs.SendVoucherSuccessDialog
 import io.forus.me.android.presentation.view.screens.vouchers.item.transactions.TransactionsAdapter
 import io.reactivex.Observable
@@ -372,9 +373,9 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
     }
 
     private fun showEmailSentDialog() {
-        SendVoucherSuccessDialog(context!!) {
-            sentEmailDialogShown.onNext(Unit)
-        }.show()
+        FullscreenDialog.display(fragmentManager,context!!.resources.getString(R.string.voucher_send_email_success),
+                context!!.resources.getString(R.string.voucher_send_email_description),
+                context!!.resources.getString(R.string.me_ok)) { activity?.finish() }
     }
 
     private fun setMarker(address: LatLng) {

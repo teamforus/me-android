@@ -17,6 +17,7 @@ import io.forus.me.android.presentation.models.vouchers.Organization
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.forus.me.android.presentation.view.screens.qr.dialogs.ScanVoucherBaseErrorDialog
+import io.forus.me.android.presentation.view.screens.vouchers.dialogs.FullscreenDialog
 import io.forus.me.android.presentation.view.screens.vouchers.dialogs.VouchersApplySuccessDialog
 import io.forus.me.android.presentation.view.screens.vouchers.provider.categories.CategoriesAdapter
 import io.forus.me.android.presentation.view.screens.vouchers.provider.dialogs.ApplyDialog
@@ -67,7 +68,7 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
     override fun selectNote(): Observable<String> = selectNote
 
     private val selectOrganization = PublishSubject.create<Organization>()
-    override fun selectOrganization(): Observable<Organization> = selectOrganization;
+    override fun selectOrganization(): Observable<Organization> = selectOrganization
 
     private val charge = PublishSubject.create<BigDecimal>()
     override fun charge(): Observable<BigDecimal> = charge
@@ -226,9 +227,10 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
     }
 
     private fun closeScreen() {
-        VouchersApplySuccessDialog(context!!) {
-            activity?.finish()
-        }.show()
+
+         FullscreenDialog.display(fragmentManager,context!!.resources.getString(R.string.success),
+                 context!!.resources.getString(R.string.vouchers_apply_success),
+                 context!!.resources.getString(R.string.me_ok)) { activity?.finish() }
 
     }
 
