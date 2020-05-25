@@ -8,11 +8,14 @@
     android:padding="@dimen/activity_horizontal_margin">
 
 
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="@dimen/activity_horizontal_margin">
+  
+
 
         <io.forus.me.android.presentation.view.component.images.QRCodeImageView
             android:id="@+id/qrImage"
@@ -26,6 +29,20 @@
             android:layout_marginBottom="5dp"
             app:offColor="@android:color/white"
             app:onColor="@android:color/black" />
+      
+      
+        <io.forus.me.android.presentation.view.component.text.TextView
+            android:id="@+id/head"
+            style="@style/Body2Small"
+            android:textSize="20sp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            app:type="bold"
+            android:text="@string/record_details_scan_deze_qr"
+        />
 
         <io.forus.me.android.presentation.view.component.text.TextView
             android:id="@+id/subtitle"
@@ -51,5 +68,6 @@
             app:type="regular" />
 
     </LinearLayout>
+
 
 </ScrollView>
