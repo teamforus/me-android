@@ -20,6 +20,7 @@ class Voucher(var isProduct: Boolean,
               var logo: String?,
               var transactions: List<Transaction>,
               val product: Product? = null,
+              val expired: Boolean = false,
               val expireDate: String?) : Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readByte() != 0.toByte(),
@@ -36,6 +37,7 @@ class Voucher(var isProduct: Boolean,
             parcel.readString() ?: "",
             parcel.createTypedArrayList(Transaction),
             parcel.readParcelable(Product::class.java.classLoader),
+            parcel.readByte() != 0.toByte(),
             parcel.readString() ?: "")
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -51,6 +53,7 @@ class Voucher(var isProduct: Boolean,
         parcel.writeString(logo)
         parcel.writeTypedList(transactions)
         parcel.writeParcelable(product, flags)
+        parcel.writeByte(if (expired) 1 else 0)
         parcel.writeString(expireDate)
     }
 
