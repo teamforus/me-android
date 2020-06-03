@@ -6,8 +6,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.afollestad.materialdialogs.MaterialDialog
 import io.forus.me.android.domain.models.account.NewAccountRequest
+import io.forus.me.android.presentation.BuildConfig
+import io.forus.me.android.presentation.api_config.ApiConfig
+import io.forus.me.android.presentation.api_config.ApiType
 import io.forus.me.android.presentation.R
+import io.forus.me.android.presentation.api_config.dialogs.ChooseApiDialog
+import io.forus.me.android.presentation.api_config.dialogs.CustomApiDialog
+import io.forus.me.android.presentation.api_config.dialogs.SaveApiAndRestartDialog
 import io.forus.me.android.presentation.helpers.SharedPref
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.activity.BaseActivity
@@ -17,7 +24,6 @@ import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_account_details.root
-import kotlinx.android.synthetic.main.fragment_account_new.*
 import kotlinx.android.synthetic.main.fragment_login_sign_up.*
 import kotlinx.android.synthetic.main.fragment_login_sign_up.email
 
@@ -26,7 +32,6 @@ import kotlinx.android.synthetic.main.fragment_login_sign_up.email
  * Fragment User Account Screen.
  */
 class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView, LogInSignUpPresenter>(), LogInSignUpView {
-
 
 
     companion object {
@@ -50,7 +55,7 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
 //                    email_repeat.setError("Emails should be the same")
 //                }
 //            }
-            return  validation
+            return validation
         }
 
     private var instructionsAlreadyShown: Boolean = false
@@ -75,7 +80,6 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
     }
 
 
-
     private val registerAction = PublishSubject.create<String>()
     override fun register() = registerAction
 
@@ -87,8 +91,7 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
     override fun registerNewAccount() = registerActionNewAccount
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
-            = inflater.inflate(R.layout.fragment_login_sign_up, container, false).also {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = inflater.inflate(R.layout.fragment_login_sign_up, container, false).also {
 
         val bundle = this.arguments
         if (bundle != null) {
@@ -102,7 +105,7 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
         email.showError = false
         restore.active = false
 
-        val listener = object: android.text.TextWatcher {
+        val listener = object : android.text.TextWatcher {
             override fun afterTextChanged(p0: Editable?) {}
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -119,7 +122,8 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
             email.showError = true
             if (viewIsValid) {
 
-                context?.let { it1 -> SharedPref.init(it1)
+                context?.let { it1 ->
+                    SharedPref.init(it1)
                     SharedPref.write(SharedPref.RESTORE_EMAIL, email.getText());
                 };
 
@@ -154,16 +158,16 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
         // email_description.visibility = if(vs.model.sendingRestoreByEmailSuccess == true) View.VISIBLE else View.INVISIBLE
         email.isEditable = vs.model.sendingRestoreByEmail != true //!(vs.model.sendingRestoreByEmailSuccess == true)
 
-        if(vs.model.sendingRestoreByEmailSuccess == true && !instructionsAlreadyShown){
+        if (vs.model.sendingRestoreByEmailSuccess == true && !instructionsAlreadyShown) {
 
             navigator.navigateToCheckEmail(context!!)
         }
 
-        if(vs.model.sendingRestoreByEmail == true){
+        if (vs.model.sendingRestoreByEmail == true) {
             (activity as? BaseActivity)?.hideSoftKeyboard()
         }
 
-        if(vs.model.sendingRestoreByEmailError != null){
+        if (vs.model.sendingRestoreByEmailError != null) {
             //email.setError(resources.getString(R.string.restore_email_not_found))
             //entry to registration new account
             if (viewIsValid) {
@@ -178,14 +182,48 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
             }
         }
 
-        if(vs.model.exchangeTokenError != null){
+        if (vs.model.exchangeTokenError != null) {
             showToastMessage(resources.getString(R.string.restore_email_invalid_link))
         }
 
         if (vs.model.accessToken != null && vs.model.accessToken.isNotBlank()) {
             closeScreen(vs.model.accessToken)
         }
+
+
+        if (BuildConfig.APPLICATION_ID.equals("io.forus.me")) {
+            devOptionsBt.visibility = View.GONE
+        } else {
+            devOptionsBt.visibility = View.VISIBLE
+            devOptionsBt.text = ApiConfig.getCurrentApiType().name
+            devOptionsBt.setOnClickListener {
+                ChooseApiDialog(context!!, MaterialDialog.ListCallback { dialog, itemView, position, text ->
+
+                    val newApiType = ApiConfig.stringToApiType(text.toString())
+                    devOptionsBt.text = newApiType.name
+                    if (newApiType == ApiType.OTHER) {
+                        CustomApiDialog(context!!, MaterialDialog.InputCallback { _, input ->
+                            SaveApiAndRestartDialog(context!!) {
+                                val customApiStr = input.toString()
+                                SharedPref.write(SharedPref.OPTION_CUSTOM_API_URL, customApiStr)
+                                SharedPref.write(SharedPref.OPTION_API_TYPE, newApiType.name)
+                                ApiConfig.changetoCustomApi(customApiStr)
+                            }.show()
+                        }, {}, {}).show()
+                    } else {
+                        SaveApiAndRestartDialog(context!!) {
+                            SharedPref.write(SharedPref.OPTION_API_TYPE, newApiType.name)
+                            ApiConfig.changeApi(newApiType)
+                        }.show()
+                    }
+
+                }) { }.show()
+            }
+        }
+
+
     }
+
 
     fun closeScreen(accessToken: String) {
         navigator.navigateToPinNew(activity, accessToken)

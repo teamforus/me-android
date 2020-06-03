@@ -21,6 +21,9 @@ import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.UpdateAvailability
 import io.forus.me.android.presentation.R
 import android.support.v4.content.ContextCompat.getSystemService
+import io.forus.me.android.presentation.BuildConfig
+import io.forus.me.android.presentation.api_config.ApiConfig
+import io.forus.me.android.presentation.api_config.ApiType
 import io.forus.me.android.presentation.helpers.SharedPref
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -44,6 +47,21 @@ class MainActivity : BaseActivity() {
         PACKAGE_NAME = applicationContext.packageName
 
         SharedPref.init(this@MainActivity)
+
+
+
+
+        if (!BuildConfig.APPLICATION_ID.equals("io.forus.me")) {
+            val savedApiOption = SharedPref.read(SharedPref.OPTION_API_TYPE,"") ?: ""
+            if (savedApiOption.isNotEmpty()) {
+                val apiType = ApiConfig.stringToApiType(savedApiOption)
+                if (apiType == ApiType.OTHER) {
+                    ApiConfig.changetoCustomApi(SharedPref.read(SharedPref.OPTION_CUSTOM_API_URL, BuildConfig.SERVER_URL))
+                } else {
+                    ApiConfig.changeApi(apiType)
+                }
+            }
+        }
 
         val isGooglePlayAvailable = checkPlayServices()
 
@@ -182,7 +200,7 @@ class MainActivity : BaseActivity() {
 
     private fun processInAppUpdateError(error: String) {
 
-        Toast.makeText(this@MainActivity, "initInAppUpdate error $error", Toast.LENGTH_LONG).show()
+      //  Toast.makeText(this@MainActivity, "initInAppUpdate error $error", Toast.LENGTH_LONG).show()
     }
 
 
