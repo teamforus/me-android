@@ -22,7 +22,7 @@ class SaveApiAndRestartDialog(private val context: Context,
             .negativeText(context.resources.getString(R.string.me_cancel))
             .onPositive { dialog, which ->
                 positiveCallback.invoke()
-                restartApp()
+
             }
             .build()
 
@@ -30,12 +30,5 @@ class SaveApiAndRestartDialog(private val context: Context,
         dialog.show()
     }
 
-    private fun restartApp() {
-        val mStartActivity = Intent(context, MainActivity::class.java)
-        val mPendingIntentId = 123456
-        val mPendingIntent = PendingIntent.getActivity(context, mPendingIntentId, mStartActivity, PendingIntent.FLAG_CANCEL_CURRENT)
-        val mgr = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent)
-        System.exit(0)
-    }
+
 }

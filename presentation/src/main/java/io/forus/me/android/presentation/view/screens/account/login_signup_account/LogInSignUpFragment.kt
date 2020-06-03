@@ -1,8 +1,8 @@
 package io.forus.me.android.presentation.view.screens.account.login_signup_account
 
 import android.os.Bundle
+import android.support.v4.text.HtmlCompat
 import android.text.Editable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,9 +12,9 @@ import io.forus.me.android.presentation.BuildConfig
 import io.forus.me.android.presentation.api_config.ApiConfig
 import io.forus.me.android.presentation.api_config.ApiType
 import io.forus.me.android.presentation.R
-import io.forus.me.android.presentation.api_config.dialogs.ChooseApiDialog
-import io.forus.me.android.presentation.api_config.dialogs.CustomApiDialog
-import io.forus.me.android.presentation.api_config.dialogs.SaveApiAndRestartDialog
+import io.forus.me.android.presentation.api_config.Utils
+import io.forus.me.android.presentation.api_config.check_api_status.CheckApiPresenter
+import io.forus.me.android.presentation.api_config.dialogs.*
 import io.forus.me.android.presentation.helpers.SharedPref
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.activity.BaseActivity
@@ -196,24 +196,54 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
         } else {
             devOptionsBt.visibility = View.VISIBLE
             devOptionsBt.text = ApiConfig.getCurrentApiType().name
+
+            val defaultApi = "https://api.forus.io/"
+            var storedOtherApiStr = SharedPref.read(SharedPref.OPTION_CUSTOM_API_URL, defaultApi)
+                    ?: defaultApi
+
             devOptionsBt.setOnClickListener {
                 ChooseApiDialog(context!!, MaterialDialog.ListCallback { dialog, itemView, position, text ->
 
                     val newApiType = ApiConfig.stringToApiType(text.toString())
                     devOptionsBt.text = newApiType.name
+
                     if (newApiType == ApiType.OTHER) {
-                        CustomApiDialog(context!!, MaterialDialog.InputCallback { _, input ->
-                            SaveApiAndRestartDialog(context!!) {
-                                val customApiStr = input.toString()
-                                SharedPref.write(SharedPref.OPTION_CUSTOM_API_URL, customApiStr)
-                                SharedPref.write(SharedPref.OPTION_API_TYPE, newApiType.name)
-                                ApiConfig.changetoCustomApi(customApiStr)
-                            }.show()
+
+                        CustomApiDialog(context!!, storedOtherApiStr, MaterialDialog.InputCallback { _, input ->
+
+                            val customApiStr = input.toString()
+                            storedOtherApiStr = customApiStr
+
+                            CheckApiPresenter(context!!).checkApi(customApiStr,
+                                    { result ->
+                                        run {
+                                            if (result) {
+                                                TestApiSuccessDialog(context!!, customApiStr) {
+                                                    SaveApiAndRestartDialog(context!!) {
+                                                        SharedPref.write(SharedPref.OPTION_CUSTOM_API_URL, customApiStr)
+                                                        SharedPref.write(SharedPref.OPTION_API_TYPE, newApiType.name)
+                                                        ApiConfig.changeToCustomApi(customApiStr)
+                                                        Utils.instance.restartApp(context!!)
+                                                    }.show()
+                                                }.show()
+                                            } else {
+                                                TestApiErrorDialog(context!!, "", {}).show()
+                                            }
+                                        }
+                                    },
+                                    { throwable ->
+                                        run {
+                                            TestApiErrorDialog(context!!, throwable.localizedMessage, {}).show()
+                                        }
+                                    }
+                            )
+
                         }, {}, {}).show()
                     } else {
                         SaveApiAndRestartDialog(context!!) {
                             SharedPref.write(SharedPref.OPTION_API_TYPE, newApiType.name)
                             ApiConfig.changeApi(newApiType)
+                            Utils.instance.restartApp(context!!)
                         }.show()
                     }
 

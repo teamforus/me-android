@@ -7,11 +7,15 @@ import io.forus.me.android.data.net.sign.SignService
 import io.forus.me.android.data.entity.database.DaoSession
 import io.forus.me.android.data.exception.RetrofitExceptionMapper
 import io.forus.me.android.data.net.MeServiceFactory
+import io.forus.me.android.data.net.common.CommonService
 import io.forus.me.android.data.net.validators.ValidatorsService
 import io.forus.me.android.data.net.vouchers.VouchersService
 import io.forus.me.android.data.repository.account.datasource.local.AccountLocalDataSource
 import io.forus.me.android.data.repository.account.datasource.remote.AccountRemoteDataSource
 import io.forus.me.android.data.repository.account.datasource.remote.CheckActivationDataSource
+import io.forus.me.android.data.repository.common.CommonRepository
+import io.forus.me.android.data.repository.common.datasource.CommonDataSource
+import io.forus.me.android.data.repository.common.datasource.CommonRemoteDataSource
 import io.forus.me.android.data.repository.records.RecordsRepository
 import io.forus.me.android.data.repository.records.datasource.mock.RecordsMockDataSource
 import io.forus.me.android.data.repository.records.datasource.remote.RecordsRemoteDataSource
@@ -67,6 +71,19 @@ class Injection private constructor() {
                 field = value
             }
         }
+
+
+
+
+    val commonRepository: CommonRepository by lazy {
+        return@lazy io.forus.me.android.data.repository.common.CommonRepository(commonRemoteDataSource)
+    }
+
+
+    private val commonRemoteDataSource: CommonRemoteDataSource by lazy {
+        return@lazy CommonRemoteDataSource{MeServiceFactory.getInstance().createRetrofitService(CommonService::class.java, ApiConfig.SERVER_URL) }
+    }
+
 
     val databaseHelper: DatabaseHelper by lazy {
         return@lazy DatabaseHelper(applicationContext!!)

@@ -33,7 +33,7 @@ public class ApiConfig {
 
     }
 
-    public static void changetoCustomApi(String customUrl){
+    public static void changeToCustomApi(String customUrl){
 
         SERVER_URL = customUrl;
 
