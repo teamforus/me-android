@@ -17,6 +17,8 @@ import io.forus.me.android.presentation.view.activity.CommonActivity
 import io.forus.me.android.presentation.view.adapters.MainViewPagerAdapter
 import io.forus.me.android.presentation.view.screens.account.account.AccountFragment
 import io.forus.me.android.presentation.view.screens.main.MainActivity
+import io.forus.me.android.presentation.view.screens.records.categories.RecordCategoriesFragment
+import io.forus.me.android.presentation.view.screens.records.list.RecordsFragment
 import io.forus.me.android.presentation.view.screens.vouchers.list.VouchersFragment
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 
@@ -72,8 +74,8 @@ class DashboardFragment : Fragment() {
             titles.add("")
             fragments.add(Fragment())
             titles.add("")
-            //fragments.add(RecordCategoriesFragment.newInstance())
-            fragments.add(AccountFragment())
+            fragments.add(RecordsFragment())
+            //fragments.add(AccountFragment())
             titles.add("")
 
             adapter = MainViewPagerAdapter(childFragmentManager, activity?.applicationContext,

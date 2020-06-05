@@ -12,7 +12,7 @@ import io.forus.me.android.presentation.helpers.FontCache
 import io.forus.me.android.presentation.view.component.FontType
 
 
-class Button : android.support.v7.widget.AppCompatButton {
+class ButtonNext : android.support.v7.widget.AppCompatButton {
 
     private var reverse : Boolean = false
     private var customTextSize: Float = 16f
@@ -37,14 +37,14 @@ class Button : android.support.v7.widget.AppCompatButton {
     }
 
     private fun initNonStyle(context: Context,  attrs: AttributeSet?) {
+
         init(context, attrs)
     }
 
 
 
     private fun init(context: Context,  attrs: AttributeSet?) {
-        this.minimumHeight = Converter.convertDpToPixel(55f, context)
-
+        this.minimumHeight = Converter.convertDpToPixel(40f, context)
 
         if (attrs != null) {
 
@@ -65,15 +65,16 @@ class Button : android.support.v7.widget.AppCompatButton {
     }
 
     private fun initFont(){
-        setTextColor(if (!active) ContextCompat.getColor(context, R.color.body_1_38) else (if (reverse) ContextCompat.getColor(context, R.color.colorAccent) else Color.WHITE))
+        setTextColor(if (!active) ContextCompat.getColor(context, R.color.body_1_38) else (if (reverse) ContextCompat.getColor(context, R.color.colorAccent) else ContextCompat.getColor(context, R.color.colorAccent)))
         setTextSize(TypedValue.COMPLEX_UNIT_DIP, customTextSize)
-        val fontType = FontType.Bold
+        val fontType = FontType.Regular
+
 
         typeface = FontCache.getTypeface(fontType.getFontPath(), context)
     }
 
     private fun initBackground(){
-        setBackgroundResource(if (!reverse && active)  R.drawable.button_main_raund else R.drawable.button_main_raund_reverse)
+        setBackgroundResource(if (!reverse && active )  R.drawable.button_main_round_blue else R.drawable.button_main_raund_reverse)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             this.stateListAnimator = null
         }

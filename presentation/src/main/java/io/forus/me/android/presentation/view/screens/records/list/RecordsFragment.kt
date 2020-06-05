@@ -9,6 +9,8 @@ import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
+import io.forus.me.android.presentation.view.screens.records.categories.RecordCategoriesFragment
+import io.forus.me.android.presentation.view.screens.records.create_record.CreateCategoryFlowActivity
 import kotlinx.android.synthetic.main.fragment_records_recycler.*
 
 /**
@@ -75,6 +77,10 @@ class RecordsFragment : ToolbarLRFragment<RecordsModel, RecordsView, RecordsPres
         }
         recycler.layoutManager = LinearLayoutManager(context)
         recycler.adapter = adapter
+
+        addRecordBt.setOnClickListener {
+            startActivity(CreateCategoryFlowActivity.getCallingIntent(context!!))
+        }
     }
 
 
