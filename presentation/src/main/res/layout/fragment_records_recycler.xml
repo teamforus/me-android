@@ -11,7 +11,9 @@
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginBottom="60dp"
+        >
 
 
 
@@ -26,7 +28,9 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+
+                />
         </io.forus.me.android.presentation.view.base.lr.LRPanelImpl>
 
 
@@ -38,7 +42,7 @@
             android:layout_alignParentBottom="true"
             android:layout_gravity="bottom|right"
             android:layout_marginRight="16dp"
-            android:layout_marginBottom="66dp"
+            android:layout_marginBottom="12dp"
             android:src="@drawable/ic_float_add_2x" />
 
 

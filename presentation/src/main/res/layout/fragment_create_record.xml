@@ -9,7 +9,7 @@
 
     <RelativeLayout
         android:id="@+id/nameRel"
-        android:layout_width="90dp"
+        android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:background="@drawable/shape_card_view_bottom">
 
@@ -18,6 +18,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:paddingRight="6dp"
+            android:paddingLeft="6dp"
             />
 
     </RelativeLayout>

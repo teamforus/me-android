@@ -12,10 +12,9 @@ import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.view.screens.records.item.RecordDetailsFragment
 import kotlinx.android.synthetic.main.fragment_create_record.*
 import android.text.Editable
+import android.text.InputType
 import android.text.TextWatcher
-
-
-
+import android.view.inputmethod.EditorInfo
 
 
 /**
@@ -24,19 +23,22 @@ import android.text.TextWatcher
 class CreateRecordFragment : Fragment() {
 
     companion object {
-         val RECORD_GROUP_ID_EXTRA = "RECORD_GROUP_ID_EXTRA"
-         val RECORD_GROUP_NAME_EXTRA = "RECORD_GROUP_NAME_EXTRA"
+        val RECORD_TYPE_KEY_EXTRA = "RECORD_TYPE_KEY_EXTRA"
+        val RECORD_TYPE_NAME_EXTRA = "RECORD_TYPE_NAME_EXTRA"
+        val RECORD_TYPE_TYPE_EXTRA = "RECORD_TYPE_TYPE_EXTRA"
 
-        fun newIntent(recordGroupId: Long, recordGroupName: String): RecordDetailsFragment = RecordDetailsFragment().also {
+        fun newIntent(recordTypeKey: String, recordTypepName: String, recordTypeType: String): RecordDetailsFragment = RecordDetailsFragment().also {
             val bundle = Bundle()
-            bundle.putSerializable(RECORD_GROUP_ID_EXTRA, recordGroupId)
-            bundle.putSerializable(RECORD_GROUP_NAME_EXTRA, recordGroupName)
+            bundle.putSerializable(RECORD_TYPE_KEY_EXTRA, recordTypeKey)
+            bundle.putSerializable(RECORD_TYPE_NAME_EXTRA, recordTypepName)
+            bundle.putSerializable(RECORD_TYPE_TYPE_EXTRA, recordTypeType)
             it.arguments = bundle
         }
     }
 
-    private var recorCategorydId: Long = 0
-    private var recorCategoryName: String = ""
+    private var recordTypeKey: String = ""
+    private var recordTypepName: String = ""
+    private var recordTypeType: String = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -44,12 +46,15 @@ class CreateRecordFragment : Fragment() {
 
         val bundle = this.arguments
         if (bundle != null) {
-            recorCategorydId = bundle.getLong(RECORD_GROUP_ID_EXTRA)
-            recorCategoryName =bundle.getString(RECORD_GROUP_NAME_EXTRA)
+            recordTypeKey = bundle.getString(RECORD_TYPE_KEY_EXTRA)
+            recordTypepName = bundle.getString(RECORD_TYPE_NAME_EXTRA)
+            recordTypeType = bundle.getString(RECORD_TYPE_TYPE_EXTRA)
         }
 
 
-        Log.d("forus","name = $recorCategoryName")
+        Log.d("forus", "name = $recordTypepName")
+
+
 
 
 
@@ -66,16 +71,31 @@ class CreateRecordFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        recordGroupNameTV.text = recorCategoryName
+        recordGroupNameTV.text = recordTypepName
 
+        when (recordTypeType) {
+            "string" -> {
+                recordNameEditText.maxLines = 1
+                recordNameEditText.inputType = InputType.TYPE_CLASS_TEXT
+                //recordNameEditText.imeOptions = EditorInfo.IME_ACTION_DONE
+            }
+            "text" -> {
+                recordNameEditText.maxLines = 1000
+                recordNameEditText.inputType = InputType.TYPE_CLASS_TEXT
+            }
+            "number" -> {
+                recordNameEditText.maxLines = 1
+                recordNameEditText.inputType = InputType.TYPE_CLASS_NUMBER
+            }
+        }
 
         recordNameEditText.addTextChangedListener(object : TextWatcher {
 
             override fun afterTextChanged(s: Editable) {
 
-               if(inputTextListener!=null) {
-                   inputTextListener!!.onTextInput(s.toString())
-               }
+                if (inputTextListener != null) {
+                    inputTextListener!!.onTextInput(s.toString())
+                }
             }
 
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}

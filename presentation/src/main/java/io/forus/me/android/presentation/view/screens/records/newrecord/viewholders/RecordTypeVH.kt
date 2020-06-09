@@ -14,8 +14,8 @@ class RecordTypeVH(parent: ViewGroup, private val clickListener: ((RecordType, I
 
     fun render(item:  RecordType, lastSelectedPosition: Int) = with(itemView) {
 
-        rb_select_type.isChecked = lastSelectedPosition == adapterPosition
-        tv_name.text = item.name
+        selectedCheckBox.setChecked (lastSelectedPosition == adapterPosition)
+        name.text = item.name
         root.setOnClickListener {
             clickListener?.invoke(item, adapterPosition)
         }

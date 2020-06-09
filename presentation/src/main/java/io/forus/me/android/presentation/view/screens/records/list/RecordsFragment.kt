@@ -5,13 +5,15 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.internal.Injection
+import io.forus.me.android.presentation.navigation.Navigator
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
-import io.forus.me.android.presentation.view.screens.records.categories.RecordCategoriesFragment
-import io.forus.me.android.presentation.view.screens.records.create_record.CreateCategoryFlowActivity
+import io.forus.me.android.presentation.view.screens.records.create_record.CreateRecordActivity
 import kotlinx.android.synthetic.main.fragment_records_recycler.*
+import kotlinx.android.synthetic.main.toolbar_view.*
 
 /**
  * Fragment Records Delegates Screen.
@@ -39,7 +41,7 @@ class RecordsFragment : ToolbarLRFragment<RecordsModel, RecordsView, RecordsPres
         get() = true
 
     override val showAccount: Boolean
-        get() = false
+        get() = true
 
     override val showInfo: Boolean
         get() = false
@@ -79,7 +81,11 @@ class RecordsFragment : ToolbarLRFragment<RecordsModel, RecordsView, RecordsPres
         recycler.adapter = adapter
 
         addRecordBt.setOnClickListener {
-            startActivity(CreateCategoryFlowActivity.getCallingIntent(context!!))
+            startActivity(CreateRecordActivity.getCallingIntent(context!!))
+        }
+
+        profile_button.setOnClickListener {
+            navigator.navigateToAccount(context!!)
         }
     }
 

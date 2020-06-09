@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_create_record"
-    app:startDestination="@id/recordCategoriesFragment2">
-    <fragment
-        android:id="@+id/recordCategoriesFragment2"
-        android:name="io.forus.me.android.presentation.view.screens.records.categories.RecordCategoriesFragment"
-        android:label="RecordCategoriesFragment" >
-        <action
-            android:id="@+id/action_recordCategoriesFragment2_to_createRecordFragment"
-            app:destination="@id/createRecordFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-    </fragment>
+    app:startDestination="@id/recordTypesFragment">
     <fragment
         android:id="@+id/createRecordFragment"
         android:name="io.forus.me.android.presentation.view.screens.records.create_record.create_record_fragment.CreateRecordFragment"
         android:label="CreateRecordFragment" >
+    </fragment>
+    <fragment
+        android:id="@+id/recordTypesFragment"
+        android:name="io.forus.me.android.presentation.view.screens.records.types.RecordTypesFragment"
+        android:label="RecordTypesFragment" >
+        <action
+            android:id="@+id/action_recordTypesFragment_to_createRecordFragment"
+            app:destination="@id/createRecordFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/wait_anim"
+            app:popEnterAnim="@anim/wait_anim"
+            app:popExitAnim="@anim/slide_in_right"
+            />
     </fragment>
 </navigation>
