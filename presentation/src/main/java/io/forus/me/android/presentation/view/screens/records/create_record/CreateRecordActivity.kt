@@ -111,8 +111,6 @@ class CreateRecordActivity : AppCompatActivity(), RecordTypesFragment.OnItemSele
                 try {
                     val detailsError = retrofitExceptionMapper.mapToDetailsApiError(error)
 
-                    Log.d("forus", "newRecordError ${detailsError.message}")
-                    Log.d("forus", "newRecordError ${detailsError.errorsString}")
 
                     CreateRecordErrorDialog(this@CreateRecordActivity,detailsError.message,detailsError.errorsString,
                             MaterialDialog.SingleButtonCallback { _, _ ->
