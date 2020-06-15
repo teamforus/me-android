@@ -1,5 +1,6 @@
 package io.forus.me.android.presentation.view.screens.records.item
 
+import android.content.Context
 import io.forus.me.android.presentation.view.base.lr.LRPresenter
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.base.lr.PartialChange
@@ -8,6 +9,7 @@ import io.forus.me.android.domain.models.records.Validation
 import io.forus.me.android.domain.models.validators.SimpleValidator
 import io.forus.me.android.domain.repository.records.RecordsRepository
 import io.forus.me.android.domain.repository.validators.ValidatorsRepository
+import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.view.screens.records.item.validations.ValidationViewModel
 import io.forus.me.android.presentation.view.screens.records.item.validators.ValidatorViewModel
 import io.reactivex.Observable
@@ -16,7 +18,7 @@ import io.reactivex.functions.Function3
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class RecordDetailsPresenter constructor(private val recordId: Long, private val recordsRepository: RecordsRepository, private val validatorsRepository: ValidatorsRepository) : LRPresenter<RecordDetailsModel, RecordDetailsModel, RecordDetailsView>() {
+class RecordDetailsPresenter constructor(private val context: Context, private val recordId: Long, private val recordsRepository: RecordsRepository, private val validatorsRepository: ValidatorsRepository) : LRPresenter<RecordDetailsModel, RecordDetailsModel, RecordDetailsView>() {
 
 
     override fun initialModelSingle(): Single<RecordDetailsModel> = Single.fromObservable(
@@ -26,12 +28,12 @@ class RecordDetailsPresenter constructor(private val recordId: Long, private val
 
                 val allValidations = mutableListOf<ValidationViewModel>()
                 if (it.validations.isNotEmpty()) {
-                    allValidations.add(ValidationViewModel("Validations"))
+                    allValidations.add(ValidationViewModel(context.getString(R.string.validations)))
                     allValidations.addAll(it.validations.map { ValidationViewModel(it) })
 
                 }
 
-                if (allValidations.isEmpty()) allValidations.add(ValidationViewModel("You have no validations yet"))
+                if (allValidations.isEmpty()) allValidations.add(ValidationViewModel(context.getString(R.string.validations_empty)))
 
 
                 RecordDetailsModel(item = it, validations = allValidations)

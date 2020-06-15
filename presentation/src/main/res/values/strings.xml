@@ -152,6 +152,10 @@
     <string name="record_details_validation_approved">Validation approved</string>
     <string name="record_details_validation_declined">Validation declined</string>
     <string name="choose_validator">Choose a validator</string>
+    <string name="validations">Validations</string>
+    <string name="validations_empty">You have no validations yet</string>
+
+
 
     <!-- Wallet details screen -->
     <string name="wallet_title_info">Wallet info</string>

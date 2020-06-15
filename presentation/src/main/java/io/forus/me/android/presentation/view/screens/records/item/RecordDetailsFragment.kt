@@ -79,7 +79,7 @@ class RecordDetailsFragment : ToolbarLRFragment<RecordDetailsModel, RecordDetail
         recycler.adapter = adapter
     }
 
-    override fun createPresenter() = RecordDetailsPresenter(
+    override fun createPresenter() = RecordDetailsPresenter(context!!,
             recordId,
             Injection.instance.recordsRepository,
             Injection.instance.validatorsRepository

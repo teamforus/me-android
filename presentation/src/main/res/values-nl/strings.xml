@@ -141,6 +141,8 @@
     <string name="record_details_validation_approved">Validatie goedgekeurd</string>
     <string name="record_details_validation_declined">Validatie geweigerd</string>
     <string name="choose_validator">Kies validator</string>
+    <string name="validations">Validaties</string>
+    <string name="validations_empty">U heeft nog geen validaties</string>
 
     <!-- Wallet details screen -->
     <string name="wallet_title_info">Eigendom informatie</string>
