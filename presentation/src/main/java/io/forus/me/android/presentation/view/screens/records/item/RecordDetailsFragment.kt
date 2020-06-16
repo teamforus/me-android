@@ -1,24 +1,30 @@
 package io.forus.me.android.presentation.view.screens.records.item
 
+import android.app.Activity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import io.forus.me.android.domain.exception.RetrofitException
+import io.forus.me.android.domain.exception.RetrofitExceptionMapper
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
+import io.forus.me.android.presentation.view.screens.qr.dialogs.ScanVoucherBaseErrorDialog
+import io.forus.me.android.presentation.view.screens.records.item.dialogs.DeleteRecordErrorDialog
+import io.forus.me.android.presentation.view.screens.records.item.dialogs.RecordModifyDialog
 import io.forus.me.android.presentation.view.screens.records.item.validations.ValidationAdapter
-import io.forus.me.android.presentation.view.screens.records.item.validations.ValidationViewModel
-import io.forus.me.android.presentation.view.screens.records.item.validators.ValidatorViewModel
-import io.forus.me.android.presentation.view.screens.records.item.validators.ValidatorsAdapter
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_record_detail.*
+import kotlinx.android.synthetic.main.toolbar_details_view.*
+import java.lang.Exception
 
-class RecordDetailsFragment : ToolbarLRFragment<RecordDetailsModel, RecordDetailsView, RecordDetailsPresenter>(), RecordDetailsView{
+class RecordDetailsFragment : ToolbarLRFragment<RecordDetailsModel, RecordDetailsView, RecordDetailsPresenter>(), RecordDetailsView {
+
 
     companion object {
         private val RECORD_ID_EXTRA = "RECORD_ID_EXTRA"
@@ -36,6 +42,16 @@ class RecordDetailsFragment : ToolbarLRFragment<RecordDetailsModel, RecordDetail
     private val requestValidation = PublishSubject.create<Long>()
     override fun requestValidation(): Observable<Long> = requestValidation
 
+    private var retrofitExceptionMapper: RetrofitExceptionMapper = Injection.instance.retrofitExceptionMapper
+
+
+    override fun editRecord(): Observable<Long> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    private val deleteRecord = PublishSubject.create<Long>()
+    override fun deleteRecord(): Observable<Long> = deleteRecord
+
     override val allowBack: Boolean
         get() = true
 
@@ -52,15 +68,14 @@ class RecordDetailsFragment : ToolbarLRFragment<RecordDetailsModel, RecordDetail
 
     override fun loadRefreshPanel() = lr_panel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?)
-        = inflater.inflate(R.layout.fragment_record_detail, container, false).also {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) = inflater.inflate(R.layout.fragment_record_detail, container, false).also {
 
         val bundle = this.arguments
         if (bundle != null) {
             recordId = bundle.getLong(RECORD_ID_EXTRA)
         }
 
-        adapter = ValidationAdapter {  }
+        adapter = ValidationAdapter { }
         /*adapter = ValidationAdapter { item ->
             if (item.status == ValidatorViewModel.Status.none && item.id != null) requestValidation.onNext(item.id!!)
         }*/
@@ -73,6 +88,15 @@ class RecordDetailsFragment : ToolbarLRFragment<RecordDetailsModel, RecordDetail
             (activity as? RecordDetailsActivity)?.showPopupQRFragment(recordId)
         }
 
+
+        delete_button.setOnClickListener {
+
+            RecordModifyDialog(activity as Activity, RecordModifyDialog.Action.DELETE) {
+                deleteRecord.onNext(recordId)
+            }.show();
+
+            //activity!!.finish()
+        }
 
 
         recycler.layoutManager = LinearLayoutManager(context)
@@ -92,20 +116,38 @@ class RecordDetailsFragment : ToolbarLRFragment<RecordDetailsModel, RecordDetail
         type.text = record?.recordType?.name
         value.text = record?.value
 
-       /* Log.d("forus","adapter_1")
-        val validations: MutableList<ValidationViewModel> = mutableListOf()
-        Log.d("forus","adapter_2")
-        validations.add(ValidationViewModel(ValidationViewModel.Type.header.name))
-        Log.d("forus","adapter_3")
-        for(validation in record!!.validations){
-            validations.add(ValidationViewModel(validation))
-            Log.d("forus","adapter_*")
-        }
-        Log.d("forus","adapter_4")*/
+
         adapter.items = vs.model.validations
 
-        if(vs.model.requestValidationError != null){
+        if (vs.model.requestValidationError != null) {
             showToastMessage(resources.getString(R.string.record_details_validation_request_error))
+        }
+
+        if (vs.model.recordDeleteSuccess != null) {
+            if (vs.model.recordDeleteSuccess) {
+                Log.d("forus", "Record was deleted!!")
+                activity!!.finish()
+            }
+        }
+
+        if (vs.model.recordDeleteError != null) {
+
+            val error = vs.model.recordDeleteError
+            var messageString = error.localizedMessage
+            if (error is RetrofitException) {
+
+                try {
+                    val delError = retrofitExceptionMapper.mapToBaseApiError(error)
+                    if (error.responseCode == 403) {
+                        messageString = if (delError.message == null) "" else delError.message
+                    }
+
+                } catch (e: Exception) {
+                }
+            }
+            Log.d("forus", "Record  delete error =$messageString")
+            DeleteRecordErrorDialog(messageString,context!!).show()
+
         }
     }
 }

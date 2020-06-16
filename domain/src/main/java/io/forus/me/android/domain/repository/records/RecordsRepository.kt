@@ -1,5 +1,6 @@
 package io.forus.me.android.domain.repository.records
 
+import com.sun.net.httpserver.Authenticator
 import io.forus.me.android.domain.models.records.*
 import io.reactivex.Observable
 
@@ -27,6 +28,10 @@ interface RecordsRepository {
 
 
     fun getRecords(recordCategoryId: Long): Observable<List<Record>>
+
+    fun deleteRecord(id: Long) : Observable<Boolean>
+
+   // fun updateRecord(id: Long, updateRecord: UpdateRecord) : Observable<Success>
 
 
     fun newRecord(model: NewRecordRequest): Observable<CreateRecordResponse>

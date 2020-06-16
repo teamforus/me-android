@@ -93,7 +93,7 @@
                 android:layout_width="@dimen/a11y_min_touch_target"
                 android:layout_height="@dimen/a11y_min_touch_target"
                 android:layout_gravity="center_vertical|end"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="4dp"
                 android:foreground="?actionBarItemBackground"
                 android:padding="@dimen/spacing_micro"
                 android:src="@drawable/ic_create_black_24dp"
