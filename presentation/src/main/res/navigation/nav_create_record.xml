@@ -19,5 +19,11 @@
             app:popEnterAnim="@anim/wait_anim"
             app:popExitAnim="@anim/slide_in_right"
             />
+
+        <argument
+            android:name="showList"
+            app:argType="integer"
+            android:defaultValue="1" />
+
     </fragment>
 </navigation>

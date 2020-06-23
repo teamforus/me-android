@@ -3,10 +3,15 @@ package io.forus.me.android.presentation.view.screens.records.create_record
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.NavigationView
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
+import android.view.MenuItem
 import androidx.navigation.NavOptions
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.afollestad.materialdialogs.MaterialDialog
 import io.forus.me.android.domain.exception.RetrofitException
 import io.forus.me.android.domain.exception.RetrofitExceptionMapper
@@ -18,6 +23,7 @@ import io.forus.me.android.presentation.view.base.NoInternetDialog
 import io.forus.me.android.presentation.view.screens.records.create_record.create_record_fragment.CreateRecordFragment
 import io.forus.me.android.presentation.view.screens.records.create_record.create_record_fragment.CreateRecordFragment.Companion.RECORD_TYPE_NAME_EXTRA
 import io.forus.me.android.presentation.view.screens.records.create_record.create_record_fragment.CreateRecordFragment.Companion.RECORD_INPUT_FIELD_TYPE_EXTRA
+import io.forus.me.android.presentation.view.screens.records.create_record.create_record_fragment.CreateRecordFragment.Companion.RECORD_TYPE_VALUE_EXTRA
 import io.forus.me.android.presentation.view.screens.records.create_record.create_record_fragment.CreateRecordModel
 import io.forus.me.android.presentation.view.screens.records.create_record.dialog.CreateRecordErrorDialog
 import io.forus.me.android.presentation.view.screens.records.create_record.dialog.CreateRecordSuccessDialog
@@ -26,20 +32,32 @@ import kotlinx.android.synthetic.main.activity_create_category_flow.*
 import java.lang.Exception
 
 
-class CreateRecordActivity : AppCompatActivity(), RecordTypesFragment.OnItemSelected, CreateRecordFragment.OnInputRecordNameText {
+class EditRecordActivity : AppCompatActivity(), RecordTypesFragment.OnItemSelected, CreateRecordFragment.OnInputRecordNameText {
 
 
     companion object {
 
-        fun getCallingIntent(context: Context): Intent {
-            val intent = Intent(context, CreateRecordActivity::class.java)
 
+        val RECORD_ID = "RECORD_ID"
+        val RECORD_TYPE = "RECORD_TYPE"
+        val RECORD_VALUE = "RECORD_VALUE"
+
+        fun getCallingIntent(context: Context, recordId: Long,recordType: String, recordValue: String): Intent {
+            val intent = Intent(context, EditRecordActivity::class.java)
+
+            intent.putExtra(RECORD_ID, recordId)
+            intent.putExtra(RECORD_TYPE, recordType)
+            intent.putExtra(RECORD_VALUE, recordValue)
             return intent
         }
     }
 
-    var step = 1
+
     var recordType: io.forus.me.android.domain.models.records.RecordType? = null
+
+    var recordId: Long? = null
+    var recordName = ""
+    var recordValue = ""
 
     var recordNameText: String? = null
 
@@ -56,42 +74,52 @@ class CreateRecordActivity : AppCompatActivity(), RecordTypesFragment.OnItemSele
                 .setPopExitAnim(R.anim.nav_default_pop_exit_anim)
                 .build()
 
-        statusNextButton(false)
-        statusCurrentStep(step)
-
-        nextBt.setOnClickListener {
-            if (step == 1) {
-                val args = Bundle()
-                if (recordType != null) {
-                   // args.putString(RECORD_TYPE_KEY_EXTRA, recordType!!.key)
-                    args.putString(RECORD_TYPE_NAME_EXTRA, recordType!!.name)
-                    args.putString(RECORD_INPUT_FIELD_TYPE_EXTRA, recordType!!.type)
-                    nav_host_fragment.findNavController().navigate(R.id.createRecordFragment, args, navOptions)
-                    step = 2
-
-                    statusNextButton(false)
-                    statusCurrentStep(step)
-                }
-            } else if (step == 2) {
-                if (recordNameText != null) {
-                    val model = CreateRecordModel(Injection.instance.recordsRepository)
-                    model.createRecord(NewRecordRequest(recordType, null, mutableListOf(), recordNameText!!), { createRecordResponse ->
-                        showSuccessDialog(recordType!!.name, recordNameText!!)
-                    }, { error ->
-                        parseError(error)
-                    })
-                }
-            }
+        if (savedInstanceState == null) {
+            recordId = intent.getLongExtra(RECORD_ID,-1)
+            recordName = intent.getStringExtra(RECORD_TYPE)
+            recordValue = intent.getStringExtra(RECORD_VALUE)
         }
 
 
+        val navController = findNavController(R.id.nav_host_fragment)
+        val bundle = Bundle()
+        bundle.putInt("showList", 0)
+
+        navController.setGraph(navController.graph, bundle)
+
+
+
+        statusNextButton(false)
+        statusCurrentStep(2)
+
+        nextBt.setOnClickListener {
+
+            if (recordNameText != null) {
+                val model = CreateRecordModel(Injection.instance.recordsRepository)
+                model.createRecord(NewRecordRequest(recordType, null, mutableListOf(), recordNameText!!), { createRecordResponse ->
+
+                    Log.d("forus","CREATED!")
+                    if(recordId != null) {
+                        model.deleteRecord(recordId!!, {
+                            Log.d("forus","REMOVED!")
+                            showSuccessDialog(recordType!!.name, recordNameText!!)
+                        }, { error ->
+                            parseError(error)
+                        })
+                    }
+                }, { error ->
+                    parseError(error)
+                })
+            }
+
+        }
 
 
         closeBt.setOnClickListener {
             finish()
-
         }
     }
+
 
     private fun showSuccessDialog(recordType: String, recordName: String) {
         CreateRecordSuccessDialog.display(supportFragmentManager, recordType,
@@ -101,30 +129,47 @@ class CreateRecordActivity : AppCompatActivity(), RecordTypesFragment.OnItemSele
     private fun parseError(error: Throwable) {
 
         if (error is io.forus.me.android.data.exception.RetrofitException && error.kind == RetrofitException.Kind.NETWORK) {
-            NoInternetDialog(this@CreateRecordActivity) { }.show();
+            NoInternetDialog(this@EditRecordActivity) { }.show();
         } else {
 
             if (error is RetrofitException && error.kind == RetrofitException.Kind.HTTP) {
-
 
                 try {
                     val detailsError = retrofitExceptionMapper.mapToDetailsApiError(error)
 
 
-                    CreateRecordErrorDialog(this@CreateRecordActivity,detailsError.message,detailsError.errorsString,
+                    CreateRecordErrorDialog(this@EditRecordActivity, detailsError.message, detailsError.errorsString,
                             MaterialDialog.SingleButtonCallback { _, _ ->
 
-                            } ).show()
-
+                            }).show()
 
 
                 } catch (e: Exception) {
                 }
 
-            } else {
             }
 
         }
+    }
+
+
+    override fun onRecordTypesLoaded(list: List<RecordType>) {
+
+        for (type in list) {
+            if (type.name == recordName) {
+                this.recordType = type
+                break
+            }
+        }
+
+        val args = Bundle()
+        args.putString(RECORD_TYPE_NAME_EXTRA, recordName)
+        args.putString(RECORD_TYPE_VALUE_EXTRA, recordValue)
+        if (recordType != null) args.putString(RECORD_INPUT_FIELD_TYPE_EXTRA, recordType!!.type)
+        nav_host_fragment.findNavController().navigate(R.id.createRecordFragment, args)
+        statusCurrentStep(2)
+
+
     }
 
 
@@ -134,13 +179,14 @@ class CreateRecordActivity : AppCompatActivity(), RecordTypesFragment.OnItemSele
     }
 
     override fun onRecordTypesFragmentResume() {
-        step = 1
+
         statusNextButton(false)
-        statusCurrentStep(step)
+        statusCurrentStep(2)
     }
 
 
     override fun onTextInput(text: String) {
+        Log.d("forus","onTextInput = $text")
         recordNameText = text
         if (recordNameText!!.isNotEmpty() && recordNameText!!.length > 0) {
             statusNextButton(true)
@@ -149,23 +195,20 @@ class CreateRecordActivity : AppCompatActivity(), RecordTypesFragment.OnItemSele
         }
     }
 
-    override fun onRecordTypesLoaded(list: List<RecordType>) {
-    }
-
     private fun statusNextButton(isActive: Boolean) {
         nextBt.isEnabled = isActive
-        nextBt.background = if (isActive) ContextCompat.getDrawable(this@CreateRecordActivity, R.drawable.button_main_round_blue)
-        else ContextCompat.getDrawable(this@CreateRecordActivity, R.drawable.button_main_raund_reverse)
-        nextBt.setTextColor(if (isActive) ContextCompat.getColor(this@CreateRecordActivity, R.color.colorAccent)
-        else ContextCompat.getColor(this@CreateRecordActivity, R.color.body_1_38))
+        nextBt.background = if (isActive) ContextCompat.getDrawable(this@EditRecordActivity, R.drawable.button_main_round_blue)
+        else ContextCompat.getDrawable(this@EditRecordActivity, R.drawable.button_main_raund_reverse)
+        nextBt.setTextColor(if (isActive) ContextCompat.getColor(this@EditRecordActivity, R.color.colorAccent)
+        else ContextCompat.getColor(this@EditRecordActivity, R.color.body_1_38))
     }
 
     private fun statusCurrentStep(step: Int) {
 
-        step1View.background = if (step == 1) ContextCompat.getDrawable(this@CreateRecordActivity, R.drawable.button_main_raund)
-        else ContextCompat.getDrawable(this@CreateRecordActivity, R.drawable.button_main_raund_reverse)
-        step2View.background = if (step == 2) ContextCompat.getDrawable(this@CreateRecordActivity, R.drawable.button_main_raund)
-        else ContextCompat.getDrawable(this@CreateRecordActivity, R.drawable.button_main_raund_reverse)
+        step1View.background = if (step == 1) ContextCompat.getDrawable(this@EditRecordActivity, R.drawable.button_main_raund)
+        else ContextCompat.getDrawable(this@EditRecordActivity, R.drawable.button_main_raund_reverse)
+        step2View.background = if (step == 2) ContextCompat.getDrawable(this@EditRecordActivity, R.drawable.button_main_raund)
+        else ContextCompat.getDrawable(this@EditRecordActivity, R.drawable.button_main_raund_reverse)
 
         nextBt.text = if (step == 1) getString(R.string.next_step) else getString(R.string.submit)
 

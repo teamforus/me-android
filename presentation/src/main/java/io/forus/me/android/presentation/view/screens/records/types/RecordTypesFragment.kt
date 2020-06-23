@@ -18,7 +18,8 @@ import io.forus.me.android.presentation.view.screens.records.categories.RecordCa
 
 import android.content.Context
 import io.forus.me.android.presentation.view.screens.records.newrecord.adapters.RecordTypesAdapter
-import io.forus.me.android.presentation.view.screens.records.types.RecordTypesPresenter
+
+
 
 
 class RecordTypesFragment : ToolbarLRFragment<RecordTypesModel, RecordTypesView, RecordTypesPresenter>(), RecordTypesView {
@@ -49,9 +50,9 @@ class RecordTypesFragment : ToolbarLRFragment<RecordTypesModel, RecordTypesView,
                 itemSelectListener!!.onItemSelected(it)
             }
         })
-
-
     }
+
+    var showList = true
 
     override fun onResume() {
         super.onResume()
@@ -61,25 +62,29 @@ class RecordTypesFragment : ToolbarLRFragment<RecordTypesModel, RecordTypesView,
         }
     }
 
-    public var itemSelectListener: OnItemSelected? = null
+    var itemSelectListener: OnItemSelected? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         Log.d("forus","onAttach_context = ${context::class}")
         itemSelectListener = context as OnItemSelected
+        Log.d("forus","itemSelectListener = ${itemSelectListener==null}")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        if(arguments != null) {
+            showList = arguments!!.getInt("showList") != 0
+        }
 
         val layoutManager = LinearLayoutManager(context)
         recycler.layoutManager = layoutManager
-        val dividerItemDecoration = FDividerItemDecoration(recycler.getContext(), R.drawable.shape_divider_item_record)
+        val dividerItemDecoration = FDividerItemDecoration(recycler.context, R.drawable.shape_divider_item_record)
 
         recycler.addItemDecoration(dividerItemDecoration)
 
-        recycler.adapter = adapter
+        if(showList) recycler.adapter = adapter
 
 
 
@@ -95,10 +100,21 @@ class RecordTypesFragment : ToolbarLRFragment<RecordTypesModel, RecordTypesView,
     override fun render(vs: LRViewState<RecordTypesModel>) {
         super.render(vs)
 
+        Log.d("forus","vs.model.items="+vs.model.items)
+        Log.d("forus","showList"+showList)
+        Log.d("forus","itemSelectListener==null=${itemSelectListener==null}")
+        if(vs.model.items.isNotEmpty() && !showList && itemSelectListener != null){
+            itemSelectListener!!.onRecordTypesLoaded(vs.model.items)
+
+        }
         adapter.items = vs.model.items
+
     }
 
     interface OnItemSelected {
+
+        fun onRecordTypesLoaded(list: List<io.forus.me.android.domain.models.records.RecordType>)
+
         fun onItemSelected(item: io.forus.me.android.domain.models.records.RecordType)
 
         fun onRecordTypesFragmentResume()

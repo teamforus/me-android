@@ -13,7 +13,7 @@ import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
-import io.forus.me.android.presentation.view.screens.qr.dialogs.ScanVoucherBaseErrorDialog
+import io.forus.me.android.presentation.view.screens.records.create_record.EditRecordActivity
 import io.forus.me.android.presentation.view.screens.records.item.dialogs.DeleteRecordErrorDialog
 import io.forus.me.android.presentation.view.screens.records.item.dialogs.RecordModifyDialog
 import io.forus.me.android.presentation.view.screens.records.item.validations.ValidationAdapter
@@ -89,6 +89,8 @@ class RecordDetailsFragment : ToolbarLRFragment<RecordDetailsModel, RecordDetail
         }
 
 
+
+
         delete_button.setOnClickListener {
 
             RecordModifyDialog(activity as Activity, RecordModifyDialog.Action.DELETE) {
@@ -129,6 +131,18 @@ class RecordDetailsFragment : ToolbarLRFragment<RecordDetailsModel, RecordDetail
                 activity!!.finish()
             }
         }
+
+        edit_button.setOnClickListener {
+
+            if(vs.model.item != null) {
+                Log.d("forus","RECORD_TYPE=${vs.model.item.recordType.name}")
+                Log.d("forus","RECORD_VALUE=${vs.model.item.value}")
+                startActivity(EditRecordActivity.getCallingIntent(context!!,vs.model.item.id, vs.model.item.recordType.name,vs.model.item.value))
+            }
+
+            //activity!!.finish()
+        }
+
 
         if (vs.model.recordDeleteError != null) {
 

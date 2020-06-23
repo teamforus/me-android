@@ -83,6 +83,8 @@ class RecordsFragment : ToolbarLRFragment<RecordsModel, RecordsView, RecordsPres
 
        // setToolbarTitle(recordCategoryName)
 
+
+
         adapter = RecordsAdapter()
         adapter.clickListener = { item ->
             //navigator.navigateToRecordDetailsForResult(context !! , item, LAUNCH_SECOND_ACTIVITY)

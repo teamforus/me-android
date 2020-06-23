@@ -14,7 +14,6 @@ import kotlinx.android.synthetic.main.fragment_create_record.*
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
-import android.view.inputmethod.EditorInfo
 
 
 /**
@@ -23,22 +22,25 @@ import android.view.inputmethod.EditorInfo
 class CreateRecordFragment : Fragment() {
 
     companion object {
-        val RECORD_TYPE_KEY_EXTRA = "RECORD_TYPE_KEY_EXTRA"
-        val RECORD_TYPE_NAME_EXTRA = "RECORD_TYPE_NAME_EXTRA"
-        val RECORD_TYPE_TYPE_EXTRA = "RECORD_TYPE_TYPE_EXTRA"
 
-        fun newIntent(recordTypeKey: String, recordTypepName: String, recordTypeType: String): RecordDetailsFragment = RecordDetailsFragment().also {
+        val RECORD_TYPE_NAME_EXTRA = "RECORD_TYPE_NAME_EXTRA"
+        val RECORD_TYPE_VALUE_EXTRA = "RECORD_TYPE_VALUE_EXTRA"
+        val RECORD_INPUT_FIELD_TYPE_EXTRA = "RECORD_INPUT_FIELD_TYPE_EXTRA"
+
+        fun newIntent( recordTypeName: String, recordValue: String, recordTypeType: String): RecordDetailsFragment = RecordDetailsFragment().also {
             val bundle = Bundle()
-            bundle.putSerializable(RECORD_TYPE_KEY_EXTRA, recordTypeKey)
-            bundle.putSerializable(RECORD_TYPE_NAME_EXTRA, recordTypepName)
-            bundle.putSerializable(RECORD_TYPE_TYPE_EXTRA, recordTypeType)
+
+            bundle.putSerializable(RECORD_TYPE_NAME_EXTRA, recordTypeName)
+            bundle.putSerializable(RECORD_TYPE_VALUE_EXTRA, recordValue)
+            bundle.putSerializable(RECORD_INPUT_FIELD_TYPE_EXTRA, recordTypeType)
             it.arguments = bundle
         }
     }
 
-    private var recordTypeKey: String = ""
-    private var recordTypepName: String = ""
-    private var recordTypeType: String = ""
+
+    private var recordTypeName: String = ""
+    private var recordValue: String = ""
+    private var recordInputFieldType: String = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -46,13 +48,15 @@ class CreateRecordFragment : Fragment() {
 
         val bundle = this.arguments
         if (bundle != null) {
-            recordTypeKey = bundle.getString(RECORD_TYPE_KEY_EXTRA)
-            recordTypepName = bundle.getString(RECORD_TYPE_NAME_EXTRA)
-            recordTypeType = bundle.getString(RECORD_TYPE_TYPE_EXTRA)
+
+            recordTypeName = bundle.getString(RECORD_TYPE_NAME_EXTRA) ?: ""
+            recordValue = bundle.getString(RECORD_TYPE_VALUE_EXTRA) ?: ""
+            recordInputFieldType = bundle.getString(RECORD_INPUT_FIELD_TYPE_EXTRA) ?: ""
+
         }
 
 
-        Log.d("forus", "name = $recordTypepName")
+        Log.d("forus", "name = $recordTypeName")
 
 
 
@@ -71,9 +75,15 @@ class CreateRecordFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        recordGroupNameTV.text = recordTypepName
+        recordGroupNameTV.text = recordTypeName
+        recordNameEditText.setText(recordValue)
+        if(inputTextListener!=null){
+            if(recordValue.isNotEmpty()){
+                inputTextListener!!.onTextInput(recordValue)
+            }
+        }
 
-        when (recordTypeType) {
+        when (recordInputFieldType) {
             "string" -> {
                 recordNameEditText.maxLines = 1
                 recordNameEditText.inputType = InputType.TYPE_CLASS_TEXT
