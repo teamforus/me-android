@@ -21,6 +21,7 @@ import io.forus.me.android.presentation.view.screens.records.create_record.creat
 import io.forus.me.android.presentation.view.screens.records.create_record.create_record_fragment.CreateRecordModel
 import io.forus.me.android.presentation.view.screens.records.create_record.dialog.CreateRecordErrorDialog
 import io.forus.me.android.presentation.view.screens.records.create_record.dialog.CreateRecordSuccessDialog
+import io.forus.me.android.presentation.view.screens.records.create_record.dialog.WaitDialog
 import io.forus.me.android.presentation.view.screens.records.types.RecordTypesFragment
 import kotlinx.android.synthetic.main.activity_create_category_flow.*
 import java.lang.Exception
@@ -44,6 +45,8 @@ class CreateRecordActivity : AppCompatActivity(), RecordTypesFragment.OnItemSele
     var recordNameText: String? = null
 
     private var retrofitExceptionMapper: RetrofitExceptionMapper = Injection.instance.retrofitExceptionMapper
+
+    var waitDialog: WaitDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,10 +77,14 @@ class CreateRecordActivity : AppCompatActivity(), RecordTypesFragment.OnItemSele
                 }
             } else if (step == 2) {
                 if (recordNameText != null) {
+                    waitDialog = WaitDialog(this@CreateRecordActivity)
+                    waitDialog!!.show()
                     val model = CreateRecordModel(Injection.instance.recordsRepository)
                     model.createRecord(NewRecordRequest(recordType, null, mutableListOf(), recordNameText!!), { createRecordResponse ->
+                        if(waitDialog!=null)waitDialog!!.dismiss()
                         showSuccessDialog(recordType!!.name, recordNameText!!)
                     }, { error ->
+                        if(waitDialog!=null)waitDialog!!.dismiss()
                         parseError(error)
                     })
                 }

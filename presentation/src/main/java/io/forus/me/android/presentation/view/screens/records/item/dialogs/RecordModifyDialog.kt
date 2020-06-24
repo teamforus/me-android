@@ -9,7 +9,7 @@ import android.widget.TextView
 import io.forus.me.android.presentation.R
 
 
-class RecordModifyDialog(private val context: Activity, val action: RecordModifyDialog.Action,  private val edit: () -> Unit) {
+class RecordModifyDialog(private val context: Activity, val action: Action,  private val edit: () -> Unit) {
 
     private var dialog: AlertDialog
 
@@ -28,8 +28,14 @@ class RecordModifyDialog(private val context: Activity, val action: RecordModify
         }
 
         ok_bt.text = when (action) {
-            Action.EDIT -> "EDIT"
-            Action.DELETE -> "DELETE"
+            Action.EDIT -> context.getString(R.string.dialog_button_edit)
+            Action.DELETE -> context.getString(R.string.dialog_button_archive)
+        }
+
+        val description  = dialogView.findViewById<TextView>(R.id.description)
+        description.text  = when (action) {
+            Action.EDIT -> context.getString(R.string.dialog_record_edit_description)
+            Action.DELETE -> context.getString(R.string.dialog_record_archive_description)
         }
 
         dialogBuilder.setView(dialogView)

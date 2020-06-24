@@ -144,6 +144,17 @@
     <string name="validations">Validaties</string>
     <string name="validations_empty">U heeft nog geen validaties</string>
 
+    <string name="dialog_record_edit_title">Wil je deze eigenschap bewerken?</string>
+    <string name="dialog_record_archive_title">Wil u deze eigenschap archiveren?</string>
+
+    <string name="dialog_record_edit_description">Alle validaties worden verwijderd. U dient opnieuw validaties aan te vragen voor de nieuwe eigenschap.</string>
+    <string name="dialog_record_archive_description">Alle validaties worden verwijderd.</string>
+
+    <string name="dialog_button_cancel">ANNULEER</string>
+    <string name="dialog_button_edit">BEWERK</string>
+    <string name="dialog_button_archive">VERWIJDER</string>
+
+
     <!-- Wallet details screen -->
     <string name="wallet_title_info">Eigendom informatie</string>
     <string name="wallet_current_balance">Huidige balans</string>
@@ -256,5 +267,7 @@
     <string name="test_transaction">Test transactie</string>
     <string name="test_organisation">Test bedrijf</string>
     <string name="submit">Bevestigen</string>
+
+    <string name="waiting">Waiting...</string>
 
 </resources>

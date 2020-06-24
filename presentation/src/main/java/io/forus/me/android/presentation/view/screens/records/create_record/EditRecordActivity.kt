@@ -3,15 +3,12 @@ package io.forus.me.android.presentation.view.screens.records.create_record
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.NavigationView
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import android.view.MenuItem
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.afollestad.materialdialogs.MaterialDialog
 import io.forus.me.android.domain.exception.RetrofitException
 import io.forus.me.android.domain.exception.RetrofitExceptionMapper
@@ -21,15 +18,15 @@ import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.base.NoInternetDialog
 import io.forus.me.android.presentation.view.screens.records.create_record.create_record_fragment.CreateRecordFragment
-import io.forus.me.android.presentation.view.screens.records.create_record.create_record_fragment.CreateRecordFragment.Companion.RECORD_TYPE_NAME_EXTRA
 import io.forus.me.android.presentation.view.screens.records.create_record.create_record_fragment.CreateRecordFragment.Companion.RECORD_INPUT_FIELD_TYPE_EXTRA
+import io.forus.me.android.presentation.view.screens.records.create_record.create_record_fragment.CreateRecordFragment.Companion.RECORD_TYPE_NAME_EXTRA
 import io.forus.me.android.presentation.view.screens.records.create_record.create_record_fragment.CreateRecordFragment.Companion.RECORD_TYPE_VALUE_EXTRA
 import io.forus.me.android.presentation.view.screens.records.create_record.create_record_fragment.CreateRecordModel
 import io.forus.me.android.presentation.view.screens.records.create_record.dialog.CreateRecordErrorDialog
 import io.forus.me.android.presentation.view.screens.records.create_record.dialog.CreateRecordSuccessDialog
+import io.forus.me.android.presentation.view.screens.records.create_record.dialog.WaitDialog
 import io.forus.me.android.presentation.view.screens.records.types.RecordTypesFragment
 import kotlinx.android.synthetic.main.activity_create_category_flow.*
-import java.lang.Exception
 
 
 class EditRecordActivity : AppCompatActivity(), RecordTypesFragment.OnItemSelected, CreateRecordFragment.OnInputRecordNameText {
@@ -52,6 +49,7 @@ class EditRecordActivity : AppCompatActivity(), RecordTypesFragment.OnItemSelect
         }
     }
 
+    var waitDialog: WaitDialog? = null
 
     var recordType: io.forus.me.android.domain.models.records.RecordType? = null
 
@@ -89,25 +87,27 @@ class EditRecordActivity : AppCompatActivity(), RecordTypesFragment.OnItemSelect
 
 
 
+
         statusNextButton(false)
         statusCurrentStep(2)
 
         nextBt.setOnClickListener {
 
+            waitDialog = WaitDialog(this@EditRecordActivity)
+            waitDialog!!.show()
             if (recordNameText != null) {
                 val model = CreateRecordModel(Injection.instance.recordsRepository)
                 model.createRecord(NewRecordRequest(recordType, null, mutableListOf(), recordNameText!!), { createRecordResponse ->
-
-                    Log.d("forus","CREATED!")
                     if(recordId != null) {
                         model.deleteRecord(recordId!!, {
-                            Log.d("forus","REMOVED!")
                             showSuccessDialog(recordType!!.name, recordNameText!!)
                         }, { error ->
+                            if(waitDialog!=null)waitDialog!!.dismiss()
                             parseError(error)
                         })
                     }
                 }, { error ->
+                    if(waitDialog!=null)waitDialog!!.dismiss()
                     parseError(error)
                 })
             }
@@ -119,6 +119,8 @@ class EditRecordActivity : AppCompatActivity(), RecordTypesFragment.OnItemSelect
             finish()
         }
     }
+
+
 
 
     private fun showSuccessDialog(recordType: String, recordName: String) {
@@ -213,6 +215,7 @@ class EditRecordActivity : AppCompatActivity(), RecordTypesFragment.OnItemSelect
         nextBt.text = if (step == 1) getString(R.string.next_step) else getString(R.string.submit)
 
     }
+
 
 
 }

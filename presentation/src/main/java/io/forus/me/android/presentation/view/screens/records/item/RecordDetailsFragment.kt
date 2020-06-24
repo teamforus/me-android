@@ -134,13 +134,15 @@ class RecordDetailsFragment : ToolbarLRFragment<RecordDetailsModel, RecordDetail
 
         edit_button.setOnClickListener {
 
+
+
             if(vs.model.item != null) {
-                Log.d("forus","RECORD_TYPE=${vs.model.item.recordType.name}")
-                Log.d("forus","RECORD_VALUE=${vs.model.item.value}")
-                startActivity(EditRecordActivity.getCallingIntent(context!!,vs.model.item.id, vs.model.item.recordType.name,vs.model.item.value))
+                RecordModifyDialog(activity as Activity, RecordModifyDialog.Action.EDIT) {
+                    startActivity(EditRecordActivity.getCallingIntent(context!!,vs.model.item.id, vs.model.item.recordType.name,vs.model.item.value))
+                    activity!!.finish()
+                }.show();
             }
 
-            //activity!!.finish()
         }
 
 
