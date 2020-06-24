@@ -63,6 +63,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:scaleType="center"
+                android:visibility="invisible"
                 />
 
         </RelativeLayout>
