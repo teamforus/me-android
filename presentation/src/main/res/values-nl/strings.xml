@@ -225,6 +225,7 @@
     <string name="check_email_has_been_sent_to_you">Er is een email naar je toegestuurd.</string>
     <string name="check_email_description_part1">Klik op de link in de email die u heeft ontvangen op</string>
     <string name="check_email_description_part2">om uw aanmelding af te maken \n</string>
+    <string name="check_your_email">Controleer uw e-mail.</string>
 
     <!-- Restore account success -->
     <string name="restore_account_head">Aanmelding geslaagd!</string>
