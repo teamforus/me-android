@@ -54,8 +54,9 @@ public class MeServiceFactory {
 
         okhttp3.OkHttpClient.Builder httpClient = new okhttp3.OkHttpClient.Builder();
 
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        MeHttpLoggingInterceptor logging = new MeHttpLoggingInterceptor(HttpLoggingInterceptor.Logger.DEFAULT);
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+        logging.setLogAccessToken(false);
         httpClient.addInterceptor(logging);
         httpClient.addInterceptor(chain -> {
 
