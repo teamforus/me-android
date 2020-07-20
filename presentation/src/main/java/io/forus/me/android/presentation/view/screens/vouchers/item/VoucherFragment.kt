@@ -316,6 +316,12 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
                 btn_email.visibility = View.INVISIBLE
                 iv_qr_icon.visibility = View.INVISIBLE
                 tv_voucher_expired.visibility = View.VISIBLE
+
+
+                if (voucher.expireDate?.isNotEmpty()!!) {
+                    tv_voucher_expired.text = String.format(resources.getString(R.string.voucher_qr_code_expired),
+                            voucher?.expireDate)
+                }
                // shopkeeper_call
             }else{
                 tv_voucher_expired.visibility = View.GONE

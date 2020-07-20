@@ -43,11 +43,14 @@ class QRCodeImageView : AutoLoadImageView {
 
 
 
-        var bitmap = QRCode.from(text)
+       /* var bitmap = QRCode.from(text)
                 //.withHint(EncodeHintType.MARGIN, 0)
                 .withColor(onColor, offColor)
                 //.withErrorCorrection(ErrorCorrectionLevel.H)
-                .withSize(size, size).bitmap()
+                .withSize(size, size).bitmap()*/
+
+        var bitmap = FQRCode.generate( context,text,
+                R.drawable.forus_white, size )
 
         var margin = 4
         if (size > 200) {
