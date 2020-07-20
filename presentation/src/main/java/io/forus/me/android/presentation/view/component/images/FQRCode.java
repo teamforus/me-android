@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class FQRCode {
-    public static float logoPercentage = 0.17f;
+    public static float logoPercentage = 0.23f;
 
 
     public static Bitmap generate(Context context, String content, int logoResId, int qrSize) {
