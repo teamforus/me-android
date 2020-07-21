@@ -17,16 +17,15 @@ import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_account_details.root
-import kotlinx.android.synthetic.main.fragment_account_new.*
-import kotlinx.android.synthetic.main.fragment_login_sign_up.*
-import kotlinx.android.synthetic.main.fragment_login_sign_up.email
+import kotlinx.android.synthetic.main.fragment_login_sign_up_nokia1.*
+import kotlinx.android.synthetic.main.fragment_login_sign_up_nokia1.email
+import android.util.DisplayMetrics
 
 
 /**
  * Fragment User Account Screen.
  */
 class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView, LogInSignUpPresenter>(), LogInSignUpView {
-
 
 
     companion object {
@@ -50,7 +49,7 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
 //                    email_repeat.setError("Emails should be the same")
 //                }
 //            }
-            return  validation
+            return validation
         }
 
     private var instructionsAlreadyShown: Boolean = false
@@ -75,7 +74,6 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
     }
 
 
-
     private val registerAction = PublishSubject.create<String>()
     override fun register() = registerAction
 
@@ -87,13 +85,24 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
     override fun registerNewAccount() = registerActionNewAccount
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
-            = inflater.inflate(R.layout.fragment_login_sign_up, container, false).also {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+
+
 
         val bundle = this.arguments
         if (bundle != null) {
             token = bundle.getString(TOKEN_EXTRA, "")
         }
+
+        val display = activity!!.getWindowManager().getDefaultDisplay()
+        val outMetrics = DisplayMetrics()
+        display.getMetrics(outMetrics)
+        val density = resources.displayMetrics.density
+        val dpHeight = outMetrics.heightPixels / density
+        val dpWidth = outMetrics.widthPixels / density
+        return if (dpWidth <= 320 || dpHeight < 522)
+            inflater.inflate(R.layout.fragment_login_sign_up_nokia1, container, false)
+        else inflater.inflate(R.layout.fragment_login_sign_up, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -102,7 +111,8 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
         email.showError = false
         restore.active = false
 
-        val listener = object: android.text.TextWatcher {
+
+        val listener = object : android.text.TextWatcher {
             override fun afterTextChanged(p0: Editable?) {}
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -119,7 +129,8 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
             email.showError = true
             if (viewIsValid) {
 
-                context?.let { it1 -> SharedPref.init(it1)
+                context?.let { it1 ->
+                    SharedPref.init(it1)
                     SharedPref.write(SharedPref.RESTORE_EMAIL, email.getText());
                 };
 
@@ -154,16 +165,16 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
         // email_description.visibility = if(vs.model.sendingRestoreByEmailSuccess == true) View.VISIBLE else View.INVISIBLE
         email.isEditable = vs.model.sendingRestoreByEmail != true //!(vs.model.sendingRestoreByEmailSuccess == true)
 
-        if(vs.model.sendingRestoreByEmailSuccess == true && !instructionsAlreadyShown){
+        if (vs.model.sendingRestoreByEmailSuccess == true && !instructionsAlreadyShown) {
 
             navigator.navigateToCheckEmail(context!!)
         }
 
-        if(vs.model.sendingRestoreByEmail == true){
+        if (vs.model.sendingRestoreByEmail == true) {
             (activity as? BaseActivity)?.hideSoftKeyboard()
         }
 
-        if(vs.model.sendingRestoreByEmailError != null){
+        if (vs.model.sendingRestoreByEmailError != null) {
             //email.setError(resources.getString(R.string.restore_email_not_found))
             //entry to registration new account
             if (viewIsValid) {
@@ -178,7 +189,7 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
             }
         }
 
-        if(vs.model.exchangeTokenError != null){
+        if (vs.model.exchangeTokenError != null) {
             showToastMessage(resources.getString(R.string.restore_email_invalid_link))
         }
 
