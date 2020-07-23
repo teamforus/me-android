@@ -131,6 +131,9 @@
     <string name="new_record_next_step">VOLGENDE</string>
     <string name="new_record_submit">BEVESTIG</string>
     <string name="record_created_successfully">Eigenschap is aangemaakt!</string>
+    <string name="choose_type">Kies type</string>
+    <string name="choose_type_description">Wat voor type eigenschap wilt u aanmaken?</string>
+    <string name="new_record">Nieuwe eigenschap</string>
 
     <!-- Record details screen -->
     <string name="record_details_title">Eigenschap details</string>
@@ -142,7 +145,7 @@
     <string name="record_details_validation_declined">Validatie geweigerd</string>
     <string name="choose_validator">Kies validator</string>
     <string name="validations">Validaties</string>
-    <string name="validations_empty">U heeft nog geen validaties</string>
+    <string name="validations_empty">Deze eigenschap heeft geen validaties</string>
 
     <string name="dialog_record_edit_title">Wil je deze eigenschap bewerken?</string>
     <string name="dialog_record_archive_title">Wil u deze eigenschap archiveren?</string>

@@ -141,7 +141,9 @@
     <string name="new_record_next_step">NEXT STEP</string>
     <string name="new_record_submit">SUBMIT</string>
     <string name="record_created_successfully">Record created successfully!</string>
-
+    <string name="choose_type">Choose Type</string>
+    <string name="choose_type_description">Select the type under which the new record type should be added</string>
+    <string name="new_record">New record</string>
 
     <!-- Record details screen -->
     <string name="record_details_title">Record detail</string>
