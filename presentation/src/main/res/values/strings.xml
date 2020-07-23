@@ -267,5 +267,20 @@
 
     <string name="snack_message">New update is available,\n update your application!</string>
 
+    <string name="api_prod" translatable="false">PROD</string>
+    <string name="api_staging" translatable="false">STAGING</string>
+    <string name="api_demo" translatable="false">DEMO</string>
+    <string name="api_dev" translatable="false">DEV</string>
+    <string name="api_other" translatable="false">OTHER</string>
+
+    <string-array name="api_items">
+        <item>@string/api_prod</item>
+        <item>@string/api_demo</item>
+        <item>@string/api_staging</item>
+        <item>@string/api_dev</item>
+        <item>@string/api_other</item>
+
+    </string-array>
+
 
 </resources>
