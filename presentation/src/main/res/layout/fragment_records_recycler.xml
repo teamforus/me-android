@@ -17,7 +17,7 @@
 
 
 
-            <include layout="@layout/toolbar_view"/>
+            <include layout="@layout/toolbar_view_records"/>
 
         <io.forus.me.android.presentation.view.base.lr.LRPanelImpl
             android:id="@+id/lr_panel"

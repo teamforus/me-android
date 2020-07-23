@@ -132,6 +132,7 @@ class RecordDetailsFragment : ToolbarLRFragment<RecordDetailsModel, RecordDetail
             }
         }
 
+        edit_button.visibility = View.INVISIBLE
         edit_button.setOnClickListener {
 
 

@@ -19,8 +19,8 @@ import io.forus.me.android.presentation.view.screens.records.item.RecordDetailsA
 import kotlinx.android.synthetic.main.fragment_records_recycler.*
 import kotlinx.android.synthetic.main.toolbar_view.*
 import io.forus.me.android.presentation.view.screens.records.list.RecordsPresenter
-
-
+import kotlinx.android.synthetic.main.toolbar_view.profile_button
+import kotlinx.android.synthetic.main.toolbar_view_records.*
 
 
 /**
@@ -51,7 +51,7 @@ class RecordsFragment : ToolbarLRFragment<RecordsModel, RecordsView, RecordsPres
         get() = true
 
     override val showAccount: Boolean
-        get() = true
+        get() = false
 
     override val showInfo: Boolean
         get() = false
@@ -113,6 +113,8 @@ class RecordsFragment : ToolbarLRFragment<RecordsModel, RecordsView, RecordsPres
     override fun render(vs: LRViewState<RecordsModel>) {
         super.render(vs)
         adapter.records = vs.model.items
+
+        archive_button.setOnClickListener {  }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
