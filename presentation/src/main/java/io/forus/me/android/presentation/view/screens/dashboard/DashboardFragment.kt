@@ -74,8 +74,8 @@ class DashboardFragment : Fragment() {
             titles.add("")
             fragments.add(Fragment())
             titles.add("")
-            fragments.add(RecordsFragment())
-            //fragments.add(AccountFragment())
+            //fragments.add(RecordsFragment())
+            fragments.add(AccountFragment())
             titles.add("")
 
             adapter = MainViewPagerAdapter(childFragmentManager, activity?.applicationContext,
