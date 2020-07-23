@@ -223,6 +223,7 @@
     <string name="voucher_qr_code_subtitle_with_fund_name">%s\nDit is uw  in de vorm van een QR-code</string>
     <string name="voucher_qr_code_description">Dit is uw voucher in de vorm van een QR-code\nlaat de aanbieder deze QR-code scannen om een betaling te kunnen doen.</string>
     <string name="voucher_qr_code_expired">Gebruik deze voucher voor %s</string>
+    <string name="voucher_expired">Voucher is verlopen</string>
     <string name="voucher_email_to_me">E-mail naar mij</string>
     <string name="voucher_request">BEVESTIG</string>
     <string name="send_voucher_email_dialog_title">Stuur de voucher naar uw e-mailadres?</string>
@@ -242,6 +243,7 @@
     <string name="check_email_has_been_sent_to_you">Er is een email naar je toegestuurd.</string>
     <string name="check_email_description_part1">Klik op de link in de email die u heeft ontvangen op</string>
     <string name="check_email_description_part2">om uw aanmelding af te maken \n</string>
+    <string name="check_your_email">Controleer uw e-mail.</string>
 
     <!-- Restore account success -->
     <string name="restore_account_head">Aanmelding geslaagd!</string>

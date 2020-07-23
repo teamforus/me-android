@@ -229,7 +229,8 @@
     <string name="voucher_qr_code_subtitle">This is the QR-code of the Voucher</string>
     <string name="voucher_qr_code_subtitle_with_fund_name">%s\nThis is your voucher in the form of a QR-code</string>
     <string name="voucher_qr_code_description">This is your voucher in the form of QR-code\nLet the shopkeeper scan it to make a payment</string>
-    <string name="voucher_qr_code_expired">This is your voucher in the form of a QR-code %s</string>
+    <string name="voucher_qr_code_expired">Use this voucher until:  %s</string>
+    <string name="voucher_expired">Voucher expired</string>
     <string name="voucher_email_to_me">Email to me</string>
     <string name="send_feedback_email_dialog_title">Would you like to send us your feedback by e-mail?</string>
     <string name="send_voucher_email_dialog_title">Send the voucher to your email?</string>
@@ -251,6 +252,7 @@
     <string name="check_email_has_been_sent_to_you">Check your email</string>
     <string name="check_email_description_part1">Klik op de link in de email die u heeft ontvangen op</string>
     <string name="check_email_description_part2">om uw aanmelding af te maken \n</string>
+    <string name="check_your_email">Check your email</string>
 
 
     <!-- Restore account success -->
@@ -279,10 +281,28 @@
 
     <string name="snack_message">New update is available,\n update your application!</string>
 
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="submit">Submit</string>
 
     <string name="waiting">Waiting...</string>
+
+    <string name="api_prod" translatable="false">PROD</string>
+    <string name="api_staging" translatable="false">STAGING</string>
+    <string name="api_demo" translatable="false">DEMO</string>
+    <string name="api_dev" translatable="false">DEV</string>
+    <string name="api_other" translatable="false">OTHER</string>
+
+    <string-array name="api_items">
+        <item>@string/api_prod</item>
+        <item>@string/api_demo</item>
+        <item>@string/api_staging</item>
+        <item>@string/api_dev</item>
+        <item>@string/api_other</item>
+
+    </string-array>
+
+
 
 </resources>

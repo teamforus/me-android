@@ -44,6 +44,7 @@ import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_voucher.*
 import kotlinx.android.synthetic.main.toolbar_view.*
+import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -164,17 +165,17 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
         iv_qr_icon.setOnClickListener {
 
 
-
             val fundName = voucher?.fundName
-            val title =resources.getString(R.string.voucher_qr_code_description)
+            val title = resources.getString(R.string.voucher_qr_code_description)
 
-            var qrDescription =  ""
-            if(voucher?.expireDate?.isNotEmpty()!!) {
+            var qrDescription = ""
+            if (voucher?.expireDate?.isNotEmpty()!!) {
+                Log.d("forus", "expiredData =${voucher?.expireDate}")
                 qrDescription = String.format(resources.getString(R.string.voucher_qr_code_expired), voucher?.expireDate);
+                Log.d("forus", "qrDescription =${qrDescription}")
             }
 
-                (activity as? DashboardActivity)?.showPopupQRFragment(qrEncoded,fundName,title,qrDescription )
-
+            (activity as? DashboardActivity)?.showPopupQRFragment(qrEncoded, fundName, title, qrDescription)
 
 
         }
@@ -198,7 +199,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
 
         //val snack = ToastUtils.showUpdateAppToast("Wellcome snackbar 1", root, null).show()
 
-       // Snackbar.make(view, "Hello Snackbar", Snackbar.LENGTH_LONG).show();
+        // Snackbar.make(view, "Hello Snackbar", Snackbar.LENGTH_LONG).show();
     }
 
 
@@ -256,14 +257,20 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
         )
     }
 
+
+
     override fun render(vs: LRViewState<VoucherModel>) {
         super.render(vs)
+
+        Log.d("forus", "render")
 
         name.text = vs.model.item?.name
         type.text = vs.model.item?.organizationName
         value.text = "${vs.model.item?.currency?.name} ${vs.model.item?.amount?.toDouble().format(2)}"
 
         vs.model.item?.let { voucher ->
+
+            Log.d("forus", "vs.model.item")
             setToolbarTitle(resources.getString(if (voucher.isProduct) R.string.vouchers_item_product else R.string.vouchers_item))
             adapter.transactions = voucher.transactions
             tv_transactions_title.visibility =
@@ -298,6 +305,22 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
                     setMarker(latLng)
                 }
             }
+
+            if (voucher.expired) {
+                //val isExpired = isVoucherExpired(voucher.expireDate!!)
+                //Log.d("forus", "Is_voucher_expired? $isExpired")
+
+                info_button.visibility = View.INVISIBLE
+
+                btn_email.isEnabled = false
+                btn_email.visibility = View.INVISIBLE
+                iv_qr_icon.visibility = View.INVISIBLE
+                tv_voucher_expired.visibility = View.VISIBLE
+               // shopkeeper_call
+            }else{
+                tv_voucher_expired.visibility = View.GONE
+            }
+
         }
 
         if (vs.model.shortToken != null) {
@@ -373,7 +396,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
     }
 
     private fun showEmailSentDialog() {
-        FullscreenDialog.display(fragmentManager,context!!.resources.getString(R.string.voucher_send_email_success),
+        FullscreenDialog.display(fragmentManager, context!!.resources.getString(R.string.voucher_send_email_success),
                 context!!.resources.getString(R.string.voucher_send_email_description),
                 context!!.resources.getString(R.string.me_ok)) { activity?.finish() }
     }
