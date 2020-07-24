@@ -118,8 +118,9 @@ android {
         dev {
             dimension "version"
             versionNameSuffix "-dev"
-            buildConfigField "String", SERVER_URL, "\"https://test.api.forus.rminds.dev/\""
-           // buildConfigField "String", SERVER_URL, "\"https://dev.api.forus.io/\""
+            buildConfigField "String", SERVER_URL, "\"https://staging.api.forus.io/\"" //TODO
+            //buildConfigField "String", SERVER_URL, "\"https://test.api.forus.rminds.dev/\""  //TODO
+           // buildConfigField "String", SERVER_URL, "\"https://dev.api.forus.io/\"" //TODO
             buildConfigField "String", PREFIX_URL, "\"dev.\""
             applicationId 'io.forus.me.dev'
         }
