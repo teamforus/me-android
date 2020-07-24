@@ -27,6 +27,9 @@ interface RecordsRepository {
     fun getRecords(): Observable<List<Record>>
 
 
+    fun getRecordsArchived(): Observable<List<Record>>
+
+
     fun getRecords(recordCategoryId: Long): Observable<List<Record>>
 
     fun deleteRecord(id: Long) : Observable<Boolean>

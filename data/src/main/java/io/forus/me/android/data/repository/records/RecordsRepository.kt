@@ -104,6 +104,41 @@ class RecordsRepository(private val recordsRemoteDataSource: RecordsDataSource) 
         ).toObservable()
     }
 
+    override fun getRecordsArchived(): Observable<List<Record>> {
+        return Single.zip(
+                Single.fromObservable(getCategories()),
+                Single.fromObservable(getRecordTypes()),
+                Single.fromObservable(recordsRemoteDataSource.getRecordsArchived()),
+                Function3 { categories: List<RecordCategory>, types: List<RecordType>, records: List<io.forus.me.android.data.entity.records.response.Record> ->
+                    records.map {
+                        val type = types.find { type -> type.key.equals(it.key) }
+                        var category: RecordCategory? = null
+
+                        if(it.recordCategoryId != null) category = categories.find { cat -> cat.id == it.recordCategoryId}
+                        Record(it.id, it.value, it.order, type!!, category, it.valid ?: false,
+                                it.validations.map {
+
+                                    var organization: io.forus.me.android.domain.models.vouchers.Organization? = null
+                                    if(it.organization != null)
+                                        organization = Organization(it.organization.id,it.organization.name,null,null,null,
+                                                null,it.organization.phone,it.organization.email)
+
+                                    val validatorsList: MutableList<ValidatorOrganization> = mutableListOf()
+                                    if(it.validators != null && it.validators.size > 0){
+                                        for (validator in it.validators){
+                                            val validationOrg = ValidatorOrganization(validator.id, validator.name)
+                                            validatorsList.add(validationOrg)
+                                        }
+                                    }
+
+                                    Validation(Validation.State.valueOf(it.state.toString()), it.identityAddress, it.createdAt, it.updatedAt,
+                                            it.uuid, it.value, it.key, it.name,organization,validatorsList )
+                                })
+                    }
+                }
+        ).toObservable()
+    }
+
     override fun getRecords(recordCategoryId: Long): Observable<List<Record>> {
         return Single.zip(
                 Single.fromObservable(getCategory(recordCategoryId)),
