@@ -49,8 +49,8 @@ class QRCodeImageView : AutoLoadImageView {
                 //.withErrorCorrection(ErrorCorrectionLevel.H)
                 .withSize(size, size).bitmap()*/
 
-        var bitmap = FQRCode.generate( context,text,
-                R.drawable.forus_white, size )
+        var bitmap = FQRCode.generateFromVectorImgResId( context,text,
+                R.drawable.ic_ic_forus_logo_backgr_w, size )
 
         var margin = 4
         if (size > 200) {

@@ -28,8 +28,19 @@ public class FQRCode {
     public static float logoPercentage = 0.23f;
 
 
-    public static Bitmap generate(Context context, String content, int logoResId, int qrSize) {
+    public static Bitmap generateFromVectorImgResId(Context context, String content, int logoResId, int qrSize) {
 
+        Bitmap bitmap = getBitmapFromVectorDrawable(context, logoResId);
+        return generate(content, bitmap, qrSize);
+    }
+
+    public static Bitmap generateFromPixelImgResId(Context context, String content, int logoResId, int qrSize) {
+
+        Bitmap bitmap = getBitmapFromResource(context, logoResId);
+        return generate(content, bitmap, qrSize);
+    }
+
+    public static Bitmap generate(String content, Bitmap iconBitmap, int qrSize) {
 
         Map<EncodeHintType, ErrorCorrectionLevel> hints = new HashMap<>();
         hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);
@@ -52,31 +63,9 @@ public class FQRCode {
             }
 
 
-            Drawable drawable = ContextCompat.getDrawable(context, logoResId);
-
-            Bitmap iconBitmap = null;
-
-            if (drawable != null && isVectorDrawable(drawable)) {
-                try {
-                    iconBitmap = getBitmapFromVectorDrawable(context, logoResId);
-                } catch (Exception e) {
-                    Log.d("forus", "Convert vector error " + e);
-                }
-            } else {
-
-                try {
-                    iconBitmap = BitmapFactory.decodeResource(context.getResources(),
-                            logoResId);
-                } catch (Exception e) {
-                    Log.d("forus", "Convert bitmap error " + e);
-                }
-            }
-
-
             if (logoPercentage > 0.5 || logoPercentage <= 0) logoPercentage = 0.17f;
 
             float logoSize = qrImage.getWidth() * logoPercentage;
-
 
             Bitmap combined = Bitmap.createBitmap(qrImage.getWidth(),
                     qrImage.getHeight(), qrImage.getConfig());
@@ -84,20 +73,25 @@ public class FQRCode {
 
             canvas.drawBitmap(qrImage, 0, 0, null);
 
-            if (iconBitmap != null && iconBitmap.getHeight() > 0) {
+            if (iconBitmap != null) {
 
                 Bitmap overly = getResizedBitmap(iconBitmap, (int) logoSize, (int) logoSize);
 
                 canvas.drawBitmap(overly, (int) ((width - logoSize) / 2), (int) ((height - logoSize) / 2),
                         null);
+
             }
-
-
             return combined;
+
         } catch (WriterException e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    private static Bitmap getBitmapFromResource(Context context, int logoResId) {
+        return BitmapFactory.decodeResource(context.getResources(),
+                logoResId);
     }
 
     private static boolean isVectorDrawable(@NonNull Drawable d) {
