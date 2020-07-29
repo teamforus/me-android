@@ -56,7 +56,10 @@ class RestoreAccountSuccessFragment : ToolbarLRFragment<RestoreAccountSuccessMod
         get() = ""//getString(R.string.restore_login)
 
     override val allowBack: Boolean
-        get() = true
+        get() = false
+
+    override val showAccount: Boolean
+        get() = false
 
 
     override fun viewForSnackbar(): View = root
@@ -144,7 +147,7 @@ class RestoreAccountSuccessFragment : ToolbarLRFragment<RestoreAccountSuccessMod
                     errorImage.visibility = View.VISIBLE
                     var message = ""
 
-                    val error: Throwable = vs.loadingError!!
+                    val error: Throwable = vs.loadingError
                     if (error is RetrofitException && error.kind == RetrofitException.Kind.HTTP) {
 
                         try {

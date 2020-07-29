@@ -39,7 +39,7 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
     }
 
     override val allowBack: Boolean
-        get() = true
+        get() = false
 
     override val showAccount: Boolean
         get() = false
