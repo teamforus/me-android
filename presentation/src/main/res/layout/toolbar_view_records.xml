@@ -97,12 +97,13 @@
                 android:foreground="?actionBarItemBackground"
                 android:padding="@dimen/spacing_micro"
                 android:src="@drawable/ic_archived_records"
-                android:visibility="visible"
+                android:visibility="gone"
                 android:clickable="true"
                 android:focusable="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                />
 
         </android.support.constraint.ConstraintLayout>
 

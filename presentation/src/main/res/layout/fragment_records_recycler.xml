@@ -1,37 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:id="@+id/root"
-    android:descendantFocusability="blocksDescendants"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/secondary200">
+    android:background="@color/secondary200"
+    android:descendantFocusability="blocksDescendants"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="60dp"
-        >
+        android:layout_marginBottom="60dp">
 
 
-
-            <include layout="@layout/toolbar_view_records"/>
+        <include layout="@layout/toolbar_view_records" />
 
         <io.forus.me.android.presentation.view.base.lr.LRPanelImpl
             android:id="@+id/lr_panel"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler"
+        <LinearLayout
+            android:id="@+id/lrl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:orientation="vertical">
 
-                />
-        </io.forus.me.android.presentation.view.base.lr.LRPanelImpl>
+
+                <LinearLayout
+                    android:id="@+id/tab1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackground"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/tab1title"
+                            android:layout_width="match_parent"
+                            android:layout_height="44dp"
+                            android:textColor="@color/colorAccent"
+                            android:gravity="center"
+                            android:text="@string/tab_records" />
+
+                        <View
+                            android:id="@+id/tab1divider"
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:background="@color/colorAccent" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/tab2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:background="?attr/selectableItemBackground"
+                        >
+
+                        <TextView
+                            android:id="@+id/tab2title"
+                            android:layout_width="match_parent"
+                            android:layout_height="44dp"
+                            android:gravity="center"
+                            android:text="@string/tab_archives" />
+
+                        <View
+                            android:id="@+id/tab2divider"
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:background="@color/silver" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+                    />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!--/io.forus.me.android.presentation.view.base.lr.LRPanelImpl-->
 
 
         <android.support.design.widget.FloatingActionButton
@@ -47,8 +128,6 @@
 
 
     </android.support.design.widget.CoordinatorLayout>
-
-
 
 
 </RelativeLayout>

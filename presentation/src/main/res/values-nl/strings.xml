@@ -157,6 +157,10 @@
     <string name="dialog_button_edit">BEWERK</string>
     <string name="dialog_button_archive">VERWIJDER</string>
 
+    <string name="tab_records">Mijn eigenschappen</string>
+    <string name="tab_archives">Archive</string>
+
+
 
     <!-- Wallet details screen -->
     <string name="wallet_title_info">Eigendom informatie</string>

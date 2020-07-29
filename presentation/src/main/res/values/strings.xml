@@ -145,6 +145,9 @@
     <string name="choose_type_description">Select the type under which the new record type should be added</string>
     <string name="new_record">New record</string>
 
+    <string name="tab_records">My records</string>
+    <string name="tab_archives">Archive</string>
+
     <!-- Record details screen -->
     <string name="record_details_title">Record detail</string>
     <string name="record_details_title_validators">Validators</string>
