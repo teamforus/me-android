@@ -8,7 +8,9 @@ import io.forus.me.android.presentation.view.screens.records.item.validators.Val
 data class RecordDetailsModel(
         val item: Record? = null,
         val validations: List<ValidationViewModel> = emptyList(),
-        val requestValidationError: Throwable? = null
+        val requestValidationError: Throwable? = null,
+        val recordDeleteSuccess: Boolean? = false,
+        val recordDeleteError: Throwable? = null
 )
 {
     fun changeStatus(validatorId: Long) : RecordDetailsModel {

@@ -193,7 +193,8 @@ class MainActivity : BaseActivity() {
 
     private fun processInAppUpdateError(error: String) {
 
-      //  Toast.makeText(this@MainActivity, "initInAppUpdate error $error", Toast.LENGTH_LONG).show()
+        //Toast.makeText(this@MainActivity, "initInAppUpdate error $error", Toast.LENGTH_LONG).show() TODO
+
     }
 
 

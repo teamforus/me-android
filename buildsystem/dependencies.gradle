@@ -26,6 +26,7 @@ ext {
   materialDialogs = '0.9.6.0'
   gooleMapsVersion = '16.0.0'
   playCoreVersion = '1.7.2'
+  nav_version = '1.0.0'
 
   //Testing
   robolectricVersion = '3.1.1'
@@ -99,8 +100,10 @@ ext {
       fabric:             "com.crashlytics.sdk.android:crashlytics:${rootProject.fabric}",
       firebaseCore:       "com.google.firebase:firebase-core:${rootProject.firebaseCoreVersion}",
       firebaseMessaging:       "com.google.firebase:firebase-messaging:${rootProject.firebaseCloudMessageVersion}",
-      googleMaps:       "com.google.android.gms:play-services-maps:${rootProject.gooleMapsVersion}",
-      playCore:           "com.google.android.play:core:${rootProject.playCoreVersion}"
+      googleMaps:         "com.google.android.gms:play-services-maps:${rootProject.gooleMapsVersion}",
+      playCore:           "com.google.android.play:core:${rootProject.playCoreVersion}",
+      navigationFragment: "android.arch.navigation:navigation-fragment-ktx:${nav_version}",
+      navigationUI:       "android.arch.navigation:navigation-ui-ktx:${nav_version}"
 
   ]
 

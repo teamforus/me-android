@@ -37,8 +37,6 @@ class Button : android.support.v7.widget.AppCompatButton {
     }
 
     private fun initNonStyle(context: Context,  attrs: AttributeSet?) {
-
-
         init(context, attrs)
     }
 

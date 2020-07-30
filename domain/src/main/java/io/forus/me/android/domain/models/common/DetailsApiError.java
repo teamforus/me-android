@@ -42,6 +42,8 @@ public class DetailsApiError {
         return errors;
     }
 
+
+
     @Override
     public String toString() {
         return "DetailsApiError{" +
@@ -55,6 +57,17 @@ public class DetailsApiError {
         for (String key : errors.keySet()) {
             String value = errors.get(key);
             String err = key + ": " + value + "\n";
+            msg.append(err);
+
+        }
+        return msg.toString();
+    }
+
+    public String getErrorsString(){
+        StringBuilder msg = new StringBuilder();
+        for (String key : errors.keySet()) {
+            String value = errors.get(key);
+            String err = value + "\n";
             msg.append(err);
 
         }
