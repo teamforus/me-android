@@ -49,7 +49,7 @@ class QRCodeImageView : AutoLoadImageView {
                 //.withErrorCorrection(ErrorCorrectionLevel.H)
                 .withSize(size, size).bitmap()*/
 
-        var bitmap = FQRCode.generateFromVectorImgResId( context,text,
+        var bitmap = FQRCode.generateFromVector( context,text,
                 R.drawable.ic_ic_forus_logo_backgr_w, size )
 
         var margin = 4

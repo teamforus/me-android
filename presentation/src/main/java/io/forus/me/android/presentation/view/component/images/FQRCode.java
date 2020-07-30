@@ -28,19 +28,7 @@ public class FQRCode {
     public static float logoPercentage = 0.23f;
 
 
-    public static Bitmap generateFromVectorImgResId(Context context, String content, int logoResId, int qrSize) {
-
-        Bitmap bitmap = getBitmapFromVectorDrawable(context, logoResId);
-        return generate(content, bitmap, qrSize);
-    }
-
-    public static Bitmap generateFromPixelImgResId(Context context, String content, int logoResId, int qrSize) {
-
-        Bitmap bitmap = getBitmapFromResource(context, logoResId);
-        return generate(content, bitmap, qrSize);
-    }
-
-    public static Bitmap generate(String content, Bitmap iconBitmap, int qrSize) {
+    public static Bitmap generateFromVector(Context context, String content, int drawableId, int qrSize) {
 
         Map<EncodeHintType, ErrorCorrectionLevel> hints = new HashMap<>();
         hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);
@@ -73,11 +61,11 @@ public class FQRCode {
 
             canvas.drawBitmap(qrImage, 0, 0, null);
 
+            Bitmap iconBitmap = getBitmapFromVectorDrawable(context, drawableId, (int) logoSize);
             if (iconBitmap != null) {
 
-                Bitmap overly = getResizedBitmap(iconBitmap, (int) logoSize, (int) logoSize);
 
-                canvas.drawBitmap(overly, (int) ((width - logoSize) / 2), (int) ((height - logoSize) / 2),
+                canvas.drawBitmap(iconBitmap, (int) ((width - logoSize) / 2), (int) ((height - logoSize) / 2),
                         null);
 
             }
@@ -89,17 +77,8 @@ public class FQRCode {
         return null;
     }
 
-    private static Bitmap getBitmapFromResource(Context context, int logoResId) {
-        return BitmapFactory.decodeResource(context.getResources(),
-                logoResId);
-    }
 
-    private static boolean isVectorDrawable(@NonNull Drawable d) {
-        return d instanceof VectorDrawableCompat;
-    }
-
-
-    public static Bitmap getBitmapFromVectorDrawable(Context context, int drawableId) {
+    private static Bitmap getBitmapFromVectorDrawable(Context context, int drawableId, int size) {
         Drawable drawable = ContextCompat.getDrawable(context, drawableId);
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             drawable = (DrawableCompat.wrap(drawable)).mutate();
@@ -108,7 +87,7 @@ public class FQRCode {
         Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
                 drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
-        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.setBounds(0, 0, size, size);
         drawable.draw(canvas);
 
         return bitmap;
