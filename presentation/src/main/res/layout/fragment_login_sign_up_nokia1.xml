@@ -18,13 +18,28 @@
             layout="@layout/toolbar_view"
             android:visibility="gone" />
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="8dp"
-            android:src="@drawable/ic_me_logo" />
+            <io.forus.me.android.presentation.view.component.buttons.ButtonWhite
+                android:id="@+id/devOptionsBt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dev"
+                android:visibility="gone" />
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/ic_me_logo" />
+
+
+        </RelativeLayout>
 
 
         <io.forus.me.android.presentation.view.component.text.TextView
