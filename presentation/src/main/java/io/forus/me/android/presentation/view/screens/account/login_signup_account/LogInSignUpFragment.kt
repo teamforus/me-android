@@ -24,8 +24,14 @@ import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_account_details.root
+
+import kotlinx.android.synthetic.main.fragment_login_sign_up_nokia1.*
+import kotlinx.android.synthetic.main.fragment_login_sign_up_nokia1.email
+import android.util.DisplayMetrics
+
 import kotlinx.android.synthetic.main.fragment_login_sign_up.*
 import kotlinx.android.synthetic.main.fragment_login_sign_up.email
+
 
 
 /**
@@ -91,12 +97,26 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
     override fun registerNewAccount() = registerActionNewAccount
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = inflater.inflate(R.layout.fragment_login_sign_up, container, false).also {
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+
+
+
 
         val bundle = this.arguments
         if (bundle != null) {
             token = bundle.getString(TOKEN_EXTRA, "")
         }
+
+        val display = activity!!.getWindowManager().getDefaultDisplay()
+        val outMetrics = DisplayMetrics()
+        display.getMetrics(outMetrics)
+        val density = resources.displayMetrics.density
+        val dpHeight = outMetrics.heightPixels / density
+        val dpWidth = outMetrics.widthPixels / density
+        return if (dpWidth <= 320 || dpHeight < 522)
+            inflater.inflate(R.layout.fragment_login_sign_up_nokia1, container, false)
+        else inflater.inflate(R.layout.fragment_login_sign_up, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -104,6 +124,7 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
 
         email.showError = false
         restore.active = false
+
 
         val listener = object : android.text.TextWatcher {
             override fun afterTextChanged(p0: Editable?) {}

@@ -1,6 +1,7 @@
 package io.forus.me.android.presentation.view.screens.account.send_crash_reports
 
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -69,6 +70,17 @@ class SendReportsFragment : ToolbarLRFragment<SendReportsModel, SendReportsView,
         if (bundle != null) {
             token = bundle.getString(TOKEN_EXTRA, "")
         }
+
+        val display = activity!!.getWindowManager().getDefaultDisplay()
+        val outMetrics = DisplayMetrics()
+        display.getMetrics(outMetrics)
+        val density = resources.displayMetrics.density
+        val dpHeight = outMetrics.heightPixels / density
+        val dpWidth = outMetrics.widthPixels / density
+        return if (dpWidth <= 320 || dpHeight < 522)
+            inflater.inflate(R.layout.fragment_send_reports_nokia1, container, false)
+        else inflater.inflate(R.layout.fragment_send_reports, container, false)
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
