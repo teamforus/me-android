@@ -6,10 +6,6 @@ import android.content.Intent
 import android.content.IntentSender
 import android.os.Bundle
 import android.os.Handler
-import android.support.design.widget.Snackbar
-import android.util.Log
-import android.widget.Toast
-import com.afollestad.materialdialogs.MaterialDialog
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.activity.BaseActivity
 import com.google.android.gms.common.ConnectionResult
@@ -19,10 +15,10 @@ import com.google.android.play.core.appupdate.AppUpdateManager
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.UpdateAvailability
-import io.forus.me.android.presentation.R
-import android.support.v4.content.ContextCompat.getSystemService
+import io.forus.me.android.presentation.BuildConfig
+import io.forus.me.android.presentation.api_config.ApiConfig
+import io.forus.me.android.presentation.api_config.ApiType
 import io.forus.me.android.presentation.helpers.SharedPref
-import kotlinx.android.synthetic.main.activity_main.*
 
 
 /**
@@ -44,6 +40,21 @@ class MainActivity : BaseActivity() {
         PACKAGE_NAME = applicationContext.packageName
 
         SharedPref.init(this@MainActivity)
+
+
+
+
+        if (!BuildConfig.APPLICATION_ID.equals("io.forus.me")) {
+            val savedApiOption = SharedPref.read(SharedPref.OPTION_API_TYPE,"") ?: ""
+            if (savedApiOption.isNotEmpty()) {
+                val apiType = ApiConfig.stringToApiType(savedApiOption)
+                if (apiType == ApiType.OTHER) {
+                    ApiConfig.changeToCustomApi(SharedPref.read(SharedPref.OPTION_CUSTOM_API_URL, BuildConfig.SERVER_URL))
+                } else {
+                    ApiConfig.changeApi(apiType)
+                }
+            }
+        }
 
         val isGooglePlayAvailable = checkPlayServices()
 
@@ -182,7 +193,8 @@ class MainActivity : BaseActivity() {
 
     private fun processInAppUpdateError(error: String) {
 
-        Toast.makeText(this@MainActivity, "initInAppUpdate error $error", Toast.LENGTH_LONG).show()
+        //Toast.makeText(this@MainActivity, "initInAppUpdate error $error", Toast.LENGTH_LONG).show() TODO
+
     }
 
 

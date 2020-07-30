@@ -27,6 +27,8 @@ class RecordsRemoteDataSource(f: () -> RecordsService): RecordsDataSource, Remot
 
     override fun getRecords(): Observable<List<Record>> = service.listAllRecords(null, null)
 
+    override fun getRecordsArchived(): Observable<List<Record>> = service.listArchivedRecords()
+
     override fun getRecords(categoryId: Long): Observable<List<Record>> = service.listAllRecords(null, categoryId)
 
     override fun getRecords(type: String): Observable<List<Record>> = service.listAllRecords(type, null)

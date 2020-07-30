@@ -9,6 +9,7 @@ import io.reactivex.Single
 
 class RecordsMockDataSource : RecordsDataSource{
 
+
     val types: MutableList<RecordType> = mutableListOf()
     val categories : MutableList<RecordCategory> = mutableListOf()
     val records : MutableList<Record> = mutableListOf()
@@ -83,6 +84,10 @@ class RecordsMockDataSource : RecordsDataSource{
     }
 
     override fun getRecords(): Observable<List<Record>> {
+        throw UnsupportedOperationException("Not implemented")
+    }
+
+    override fun getRecordsArchived(): Observable<List<Record>> {
         throw UnsupportedOperationException("Not implemented")
     }
 

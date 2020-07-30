@@ -67,7 +67,7 @@ class ButtonWhite : android.support.v7.widget.AppCompatButton {
     }
 
     private fun initFont(){
-        setTextColor(if (!active) ContextCompat.getColor(context, R.color.body_1_38) else (if (reverse) ContextCompat.getColor(context, R.color.colorAccent) else R.color.colorAccent))
+        setTextColor(if (!active) ContextCompat.getColor(context, R.color.body_1_38) else (if (reverse) ContextCompat.getColor(context, R.color.colorAccent) else ContextCompat.getColor(context,R.color.colorAccent)))
         setTextSize(TypedValue.COMPLEX_UNIT_DIP, customTextSize)
         val fontType = FontType.Bold
 

@@ -43,6 +43,10 @@ interface RecordsService {
     @GET("api/v1/identity/records")
     fun listAllRecords(@Query("type") type: String?, @Query("record_category_id") categoryId: Long?) : Observable<List<Record>>
 
+    @GET("api/v1/identity/records?deleted=1")
+    fun listArchivedRecords() : Observable<List<Record>>
+
+
     @POST("api/v1/identity/records")
     fun createRecord(@Query("type") type: String, @Body createRecord: CreateRecord) : Observable<Record>
 

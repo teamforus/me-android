@@ -37,6 +37,9 @@ interface RecordsDataSource {
     fun getRecords(): Observable<List<Record>>
 
 
+    fun getRecordsArchived(): Observable<List<Record>>
+
+
     fun getRecords(type: String): Observable<List<Record>>
 
 
@@ -47,6 +50,8 @@ interface RecordsDataSource {
 
 
     fun updateRecord(id: Long, updateRecord: UpdateRecord) : Observable<Success>
+
+
 
 
     fun deleteRecord(id: Long) : Observable<Success>
