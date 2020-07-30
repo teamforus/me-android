@@ -2,6 +2,7 @@ package io.forus.me.android.presentation.view.screens.records.categories
 
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.ViewGroup
 import io.forus.me.android.domain.models.records.Record
 import io.forus.me.android.domain.models.records.RecordCategory
@@ -22,7 +23,7 @@ class RecordCategoriesAdapter : RecyclerView.Adapter<RecordCategoriesVH>() {
             notifyDataSetChanged()
         }
 
-    
+
     init {
         setHasStableIds(true)
     }
@@ -34,6 +35,16 @@ class RecordCategoriesAdapter : RecyclerView.Adapter<RecordCategoriesVH>() {
 
         holder.render(items[position])
     }
+
     override fun getItemCount() = items.size
     override fun getItemId(position: Int) = position.toLong()
+
+
+    fun selectItem(item: RecordCategory) {
+
+        items.forEach {
+            it.selected = it.id == item.id
+        }
+        notifyDataSetChanged()
+    }
 }

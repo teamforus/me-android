@@ -29,6 +29,7 @@ class VoucherDataMapper(private val currencyDataMapper: CurrencyDataMapper,
                     } else {
                         null
                     },
+                    expired ?: false,
                     expireDate ?: "")
         }
     }

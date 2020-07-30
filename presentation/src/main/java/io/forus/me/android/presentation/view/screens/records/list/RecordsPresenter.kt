@@ -5,8 +5,11 @@ import io.forus.me.android.domain.repository.records.RecordsRepository
 import io.forus.me.android.presentation.view.base.lr.LRPresenter
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.base.lr.PartialChange
+import io.forus.me.android.presentation.view.screens.records.item.RecordDetailsPartialChanges
+import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 
 class RecordsPresenter constructor(private val recordCategoryId: Long, private val recordsRepository: RecordsRepository) : LRPresenter<List<Record>, RecordsModel, RecordsView>() {
@@ -21,7 +24,41 @@ class RecordsPresenter constructor(private val recordCategoryId: Long, private v
 
     override fun bindIntents() {
 
-        var observable = loadRefreshPartialChanges()
+        // var observable = loadRefreshPartialChanges()
+
+        val observable = Observable.merge(
+
+                loadRefreshPartialChanges(),
+
+                intent { it.records() }
+                        .switchMap { validatorId ->
+                            recordsRepository.getRecords()
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .map<PartialChange> {
+                                        RecordsPartialChanges.RequestRecordsSuccess(it)
+                                    }
+                                    .onErrorReturn {
+                                        RecordsPartialChanges.RequestError(it)
+
+                                    }
+                        },
+
+                intent { it.archives() }
+                        .switchMap { validatorId ->
+                            recordsRepository.getRecordsArchived()
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .map<PartialChange> {
+                                        RecordsPartialChanges.RequestArchivesSuccess(it)
+                                    }
+                                    .onErrorReturn {
+                                        RecordsPartialChanges.RequestError(it)
+
+                                    }
+                        }
+
+        )
 
 
         val initialViewState = LRViewState(
@@ -45,11 +82,20 @@ class RecordsPresenter constructor(private val recordCategoryId: Long, private v
         if (change !is RecordsPartialChanges) return super.stateReducer(vs, change)
 
         return when (change) {
+            is RecordsPartialChanges.RequestRecordsSuccess -> vs.copy(
+                    model = vs.model.copy(items = change.recordsR, requestError = null))
+            is RecordsPartialChanges.RequestArchivesSuccess -> vs.copy(
+                    model = vs.model.copy(archives = change.archiveR, requestError = null))
+            is RecordsPartialChanges.RequestError -> vs.copy(
+                    model = vs.model.copy(requestError = change.error))
+        }
+
+        /*return when (change) {
 
             else -> {
                 super.stateReducer(vs, change)
             }
-        }
+        }*/
 
     }
 }

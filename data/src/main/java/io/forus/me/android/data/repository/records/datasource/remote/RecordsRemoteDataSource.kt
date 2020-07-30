@@ -27,6 +27,8 @@ class RecordsRemoteDataSource(f: () -> RecordsService): RecordsDataSource, Remot
 
     override fun getRecords(): Observable<List<Record>> = service.listAllRecords(null, null)
 
+    override fun getRecordsArchived(): Observable<List<Record>> = service.listArchivedRecords()
+
     override fun getRecords(categoryId: Long): Observable<List<Record>> = service.listAllRecords(null, categoryId)
 
     override fun getRecords(type: String): Observable<List<Record>> = service.listAllRecords(type, null)
@@ -45,7 +47,7 @@ class RecordsRemoteDataSource(f: () -> RecordsService): RecordsDataSource, Remot
 
     override fun readValidation(uuid: String): Observable<Validation> = service.readValidation(uuid)
 
-    override fun approveValidation(uuid: String): Observable<Success> = service.approveValidation(uuid)
+    override fun approveValidation(uuid: String, validateRecord: ValidateRecord): Observable<Success> = service.approveValidation(uuid,validateRecord)
 
     override fun declineValidation(uuid: String): Observable<Success> = service.declineValidation(uuid)
 }

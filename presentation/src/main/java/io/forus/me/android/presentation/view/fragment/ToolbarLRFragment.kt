@@ -83,6 +83,7 @@ abstract class ToolbarLRFragment<M, V : LRView<M>, P : MviBasePresenter<V, LRVie
 
         if (!showAccount)
             profile_button.visibility = View.INVISIBLE
+        else profile_button.visibility = View.VISIBLE
 
         info_button.visibility = if(showInfo) View.VISIBLE else View.INVISIBLE
 

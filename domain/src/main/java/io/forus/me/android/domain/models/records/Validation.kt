@@ -37,7 +37,11 @@ class Validation {
     @SerializedName("organization")
     var organization: Organization? = null
 
-    constructor(state: State, identityAddress: String?, createdAt: Date?, updatedAt: Date?, uuid: String?, value: String?, key: String?, name: String?, organization: Organization?) {
+    @SerializedName("organizations_available")
+    var organizationsAvailable: List<ValidatorOrganization>? = null
+
+    constructor(state: State, identityAddress: String?, createdAt: Date?, updatedAt: Date?, uuid: String?, value: String?, key: String?, name: String?, organization: Organization?,
+                organizationsAvailable: List<ValidatorOrganization>?) {
         this.state = state
         this.identityAddress = identityAddress
         this.createdAt = createdAt
@@ -47,6 +51,7 @@ class Validation {
         this.key = key
         this.name = name
         this.organization = organization
+        this.organizationsAvailable = organizationsAvailable
     }
 
     companion object {

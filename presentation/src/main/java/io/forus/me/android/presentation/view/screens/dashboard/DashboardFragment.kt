@@ -1,6 +1,8 @@
 package io.forus.me.android.presentation.view.screens.dashboard
 
+import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.support.v4.app.Fragment
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,10 +10,15 @@ import android.view.View
 import android.view.ViewGroup
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter
+import com.example.snackbarexample.customsnackbar.chef.UpdateAppSnackbar
 import io.forus.me.android.presentation.R
+import io.forus.me.android.presentation.helpers.SharedPref
 import io.forus.me.android.presentation.view.activity.CommonActivity
 import io.forus.me.android.presentation.view.adapters.MainViewPagerAdapter
 import io.forus.me.android.presentation.view.screens.account.account.AccountFragment
+import io.forus.me.android.presentation.view.screens.main.MainActivity
+import io.forus.me.android.presentation.view.screens.records.categories.RecordCategoriesFragment
+import io.forus.me.android.presentation.view.screens.records.list.RecordsFragment
 import io.forus.me.android.presentation.view.screens.vouchers.list.VouchersFragment
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 
@@ -67,7 +74,7 @@ class DashboardFragment : Fragment() {
             titles.add("")
             fragments.add(Fragment())
             titles.add("")
-            //fragments.add(RecordCategoriesFragment.newInstance())
+            //fragments.add(RecordsFragment())
             fragments.add(AccountFragment())
             titles.add("")
 
@@ -79,7 +86,25 @@ class DashboardFragment : Fragment() {
 
         view_pager.adapter = adapter
         selectTab(currentPagerPosition, 0)
+
+
+        SharedPref.init(context!!)
+        val neesAppUpdate = SharedPref.read(SharedPref.OPTION_NEED_APP_UPDATE,false)
+        if(neesAppUpdate) {
+            h.postDelayed({
+                UpdateAppSnackbar
+                        .make(coordinator, View.OnClickListener {
+                            val intent = Intent(context!!, MainActivity::class.java)
+                            context!!.startActivity(intent)
+                            activity!!.finish()
+                        })
+                        .show()
+            }, 3000)
+        }
+
     }
+
+    val h = Handler()
 
     private fun selectTab(currentPagerPosition: Int, oldPosition: Int) {
         bottom_navigation.setCurrentItem(currentPagerPosition, false)

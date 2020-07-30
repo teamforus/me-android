@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/appbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary"
+    android:fitsSystemWindows="true"
+    android:stateListAnimator="@drawable/appbar_always_elevated"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+    app:elevation="0dp">
+
+    <android.support.design.widget.CollapsingToolbarLayout
+        android:id="@+id/collapsing_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/activity_horizontal_margin_small"
+        android:paddingBottom="@dimen/activity_horizontal_margin"
+        app:contentScrim="@color/colorPrimary"
+        app:expandedTitleMarginEnd="64dp"
+        app:expandedTitleMarginStart="48dp"
+        app:expandedTitleTextAppearance="@style/ActionBar.TitleTextStyle"
+        app:layout_scrollFlags="scroll|enterAlways|snap"
+        app:theme="@style/ToolbarStyle"
+        app:titleEnabled="false">
+
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                app:layout_collapseMode="pin"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:theme="@style/ToolbarStyle">
+
+
+            </android.support.v7.widget.Toolbar>
+
+            <io.forus.me.android.presentation.view.component.images.AutoLoadImageView
+                android:id="@+id/profile_button"
+                android:layout_width="@dimen/a11y_min_touch_target"
+                android:layout_height="@dimen/a11y_min_touch_target"
+                android:layout_gravity="center_vertical|start"
+                android:layout_marginStart="16dp"
+                android:foreground="?actionBarItemBackground"
+                android:padding="@dimen/spacing_micro"
+                android:src="@drawable/ic_person"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <io.forus.me.android.presentation.view.component.text.TextView
+                android:id="@+id/toolbar_title"
+                style="@style/Header6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:gravity="center_horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/info_button"
+                app:layout_constraintStart_toEndOf="@+id/profile_button"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_scrollFlags="scroll|snap"
+                app:type="medium"
+                tools:text="Title" />
+
+            <io.forus.me.android.presentation.view.component.images.AutoLoadImageView
+                android:id="@+id/info_button"
+                android:layout_width="@dimen/a11y_min_touch_target"
+                android:layout_height="@dimen/a11y_min_touch_target"
+                android:layout_gravity="center_vertical|end"
+                android:layout_marginEnd="16dp"
+                android:foreground="?actionBarItemBackground"
+                android:padding="@dimen/spacing_micro"
+                android:src="@drawable/ic_info_outline_24px"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <io.forus.me.android.presentation.view.component.images.AutoLoadImageView
+                android:id="@+id/archive_button"
+                android:layout_width="@dimen/a11y_min_touch_target"
+                android:layout_height="@dimen/a11y_min_touch_target"
+                android:layout_gravity="center_vertical|end"
+                android:layout_marginEnd="16dp"
+                android:foreground="?actionBarItemBackground"
+                android:padding="@dimen/spacing_micro"
+                android:src="@drawable/ic_archived_records"
+                android:visibility="gone"
+                android:clickable="true"
+                android:focusable="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.design.widget.CollapsingToolbarLayout>
+
+    <FrameLayout
+        android:id="@+id/subview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></FrameLayout>
+
+</android.support.design.widget.AppBarLayout>
+

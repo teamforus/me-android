@@ -13,6 +13,7 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.iid.FirebaseInstanceId
 import io.fabric.sdk.android.Fabric
 import io.forus.me.android.data.net.MeServiceFactory
+import io.forus.me.android.presentation.api_config.ApiConfig
 import io.forus.me.android.presentation.internal.Injection
 
 
@@ -27,6 +28,9 @@ class AndroidApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+
+        ApiConfig.SERVER_URL = BuildConfig.SERVER_URL
+
         this.initializeInjector()
         this.initializeLeakDetection()
         this.initRetrofit()

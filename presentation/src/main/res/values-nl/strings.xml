@@ -130,6 +130,10 @@
     <string name="new_record_value_text">Invoerveld</string>
     <string name="new_record_next_step">VOLGENDE</string>
     <string name="new_record_submit">BEVESTIG</string>
+    <string name="record_created_successfully">Eigenschap is aangemaakt!</string>
+    <string name="choose_type">Kies type</string>
+    <string name="choose_type_description">Wat voor type eigenschap wilt u aanmaken?</string>
+    <string name="new_record">Nieuwe eigenschap</string>
 
     <!-- Record details screen -->
     <string name="record_details_title">Eigenschap details</string>
@@ -139,6 +143,24 @@
     <string name="record_details_validation_request_error">Fout tijdens het verzenden van de validatieaanvraag</string>
     <string name="record_details_validation_approved">Validatie goedgekeurd</string>
     <string name="record_details_validation_declined">Validatie geweigerd</string>
+    <string name="choose_validator">Kies validator</string>
+    <string name="validations">Validaties</string>
+    <string name="validations_empty">Deze eigenschap heeft geen validaties</string>
+
+    <string name="dialog_record_edit_title">Wil je deze eigenschap bewerken?</string>
+    <string name="dialog_record_archive_title">Wil u deze eigenschap archiveren?</string>
+
+    <string name="dialog_record_edit_description">Alle validaties worden verwijderd. U dient opnieuw validaties aan te vragen voor de nieuwe eigenschap.</string>
+    <string name="dialog_record_archive_description">Alle validaties worden verwijderd.</string>
+
+    <string name="dialog_button_cancel">ANNULEER</string>
+    <string name="dialog_button_edit">BEWERK</string>
+    <string name="dialog_button_archive">VERWIJDER</string>
+
+    <string name="tab_records">Mijn eigenschappen</string>
+    <string name="tab_archives">Archief</string>
+
+
 
     <!-- Wallet details screen -->
     <string name="wallet_title_info">Eigendom informatie</string>
@@ -203,7 +225,9 @@
     <string name="voucher_send_email_description">De voucher is verzonden per mail</string>
     <string name="voucher_qr_code_subtitle">Dit is de QR-code van de Voucher</string>
     <string name="voucher_qr_code_subtitle_with_fund_name">%s\nDit is uw  in de vorm van een QR-code</string>
-    <string name="voucher_qr_code_description">Laat de aanbieder deze QR-Code scannen om een betaling te kunnen doen</string>
+    <string name="voucher_qr_code_description">Dit is uw voucher in de vorm van een QR-code\nlaat de aanbieder deze QR-code scannen om een betaling te kunnen doen.</string>
+    <string name="voucher_qr_code_expired">Gebruik deze voucher voor %s</string>
+    <string name="voucher_expired">Voucher is verlopen</string>
     <string name="voucher_email_to_me">E-mail naar mij</string>
     <string name="voucher_request">BEVESTIG</string>
     <string name="send_voucher_email_dialog_title">Stuur de voucher naar uw e-mailadres?</string>
@@ -223,6 +247,7 @@
     <string name="check_email_has_been_sent_to_you">Er is een email naar je toegestuurd.</string>
     <string name="check_email_description_part1">Klik op de link in de email die u heeft ontvangen op</string>
     <string name="check_email_description_part2">om uw aanmelding af te maken \n</string>
+    <string name="check_your_email">Controleer uw e-mail.</string>
 
     <!-- Restore account success -->
     <string name="restore_account_head">Aanmelding geslaagd!</string>
@@ -232,7 +257,7 @@
     <string name="send_report_description">Door uw identificatie nummer te delen, kunnen problemen beter en sneller worden opgelost, en kunnen de ontwikkelaars eventueel contact met u opnemen</string>
 
 
-    <string name="next_step">VOLGENDE</string>
+    <string name="next_step">Volgende</string>
 
     <string name="cancel">Annuleren</string>
     <string name="check_email_open_mail_app">Open mail app</string>
@@ -245,5 +270,13 @@
     <string name="voucher_dialog_choose_organization">Kies een organisatie</string>
     <string name="voucher_demo_transaction_operation_completed">Test transactie succesvol afgerond</string>
 
+    <!--InApp Update -->
+    <string name="snack_message">Er is een nieuwe update beschikbaar!</string>
+
+    <string name="test_transaction">Test transactie</string>
+    <string name="test_organisation">Test bedrijf</string>
+    <string name="submit">Bevestigen</string>
+
+    <string name="waiting">Waiting...</string>
 
 </resources>

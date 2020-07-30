@@ -17,6 +17,8 @@ class RecordCategory{
 
     var size: Long
 
+    var selected = false
+
     constructor(id: Long, name: String, order: Long, size: Long = 0) {
         this.id = id
         this.name = name

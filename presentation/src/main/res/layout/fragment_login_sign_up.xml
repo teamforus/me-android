@@ -24,15 +24,35 @@
             android:visibility="gone"
             />
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <ImageView
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/ic_me_logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            <io.forus.me.android.presentation.view.component.buttons.ButtonWhite
+                android:id="@+id/devOptionsBt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dev"
+                android:visibility="gone"
+                />
+
+
+            <ImageView
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ic_me_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                />
+
+
+        </RelativeLayout>
+
+
 
 
         <io.forus.me.android.presentation.view.component.text.TextView
+            android:id="@+id/tv_welcome"
             android:layout_marginTop="38dp"
             android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"

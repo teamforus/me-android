@@ -31,21 +31,23 @@ import java.lang.Exception
 /**
  * Created by maestrovs on 22.04.2020.
  */
-class RestoreAccountSuccessFragment : ToolbarLRFragment<RestoreAccountSuccessModel, RestoreAccountSuccessView, RestoreAccountSuccessPresenter>(), RestoreAccountSuccessView  {
+class RestoreAccountSuccessFragment : ToolbarLRFragment<RestoreAccountSuccessModel, RestoreAccountSuccessView, RestoreAccountSuccessPresenter>(), RestoreAccountSuccessView {
 
 
     companion object {
         private val TOKEN_EXTRA = "TOKEN_EXTRA"
+        private val IS_EXCHANGE_TOKEN = "IS_EXCHANGE_TOKEN"
 
-        fun newIntent(token: String): RestoreAccountSuccessFragment = RestoreAccountSuccessFragment().also {
+        fun newIntent(token: String, isExchangeToken: Boolean): RestoreAccountSuccessFragment = RestoreAccountSuccessFragment().also {
             val bundle = Bundle()
             bundle.putString(TOKEN_EXTRA, token)
+            bundle.putBoolean(IS_EXCHANGE_TOKEN, isExchangeToken)
             it.arguments = bundle
         }
     }
 
     private var token: String = ""
-
+    private var isExchangeToken: Boolean = true
 
 
     private var instructionsAlreadyShown: Boolean = false
@@ -54,7 +56,10 @@ class RestoreAccountSuccessFragment : ToolbarLRFragment<RestoreAccountSuccessMod
         get() = ""//getString(R.string.restore_login)
 
     override val allowBack: Boolean
-        get() = true
+        get() = false
+
+    override val showAccount: Boolean
+        get() = false
 
 
     override fun viewForSnackbar(): View = root
@@ -75,13 +80,14 @@ class RestoreAccountSuccessFragment : ToolbarLRFragment<RestoreAccountSuccessMod
     private val exchangeToken = PublishSubject.create<String>()
     override fun exchangeToken() = exchangeToken
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
-            = inflater.inflate(R.layout.fragment_account_restore_success, container, false).also {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = inflater.inflate(R.layout.fragment_account_restore_success, container, false).also {
 
         val bundle = this.arguments
         if (bundle != null) {
             token = bundle.getString(TOKEN_EXTRA, "")
+            isExchangeToken = bundle.getBoolean(IS_EXCHANGE_TOKEN)
         }
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -95,78 +101,98 @@ class RestoreAccountSuccessFragment : ToolbarLRFragment<RestoreAccountSuccessMod
 
     override fun createPresenter() = RestoreAccountSuccessPresenter(
             token,
-            Injection.instance.accountRepository
+            Injection.instance.accountRepository,
+            isExchangeToken
     )
+
     private var retrofitExceptionMapper: RetrofitExceptionMapper = Injection.instance.retrofitExceptionMapper
 
 
     override fun render(vs: LRViewState<RestoreAccountSuccessModel>) {
         super.render(vs)
 
-        returnToRegistration.visibility = View.GONE
+        if (isExchangeToken) {
+
+            returnToRegistration.visibility = View.GONE
 
 
-        progress.visibility = if(vs.model.sendingRestoreByEmail == true) View.VISIBLE else View.INVISIBLE
+            progress.visibility = if (vs.model.sendingRestoreByEmail == true) View.VISIBLE else View.INVISIBLE
 
-        if(vs.model.sendingRestoreByEmailSuccess == true && !instructionsAlreadyShown){
+            if (vs.model.sendingRestoreByEmailSuccess == true && !instructionsAlreadyShown) {
 
-            navigator.navigateToCheckEmail(context!!)
-        }
+                navigator.navigateToCheckEmail(context!!)
+            }
 
-        if(vs.model.sendingRestoreByEmail == true){
-            (activity as? BaseActivity)?.hideSoftKeyboard()
-        }
+            if (vs.model.sendingRestoreByEmail == true) {
+                (activity as? BaseActivity)?.hideSoftKeyboard()
+            }
 
-        if (vs.model.accessToken != null && vs.model.accessToken.isNotBlank()) {
-            successImage.visibility = View.VISIBLE
-            title.text = getString(R.string.restore_account_head)
-            nextStep.visibility = View.VISIBLE
-        }else{
-            successImage.visibility = View.INVISIBLE
-            title.text = ""
-            nextStep.visibility = View.INVISIBLE
-        }
+            if (vs.model.accessToken != null && vs.model.accessToken.isNotBlank()) {
+                successImage.visibility = View.VISIBLE
+                title.text = getString(R.string.restore_account_head)
+                nextStep.visibility = View.VISIBLE
+            } else {
+                successImage.visibility = View.INVISIBLE
+                title.text = ""
+                nextStep.visibility = View.INVISIBLE
+            }
 
 
-        if(vs.model.exchangeTokenError != null){
-            errorImage.visibility = View.VISIBLE
-            showToastMessage(resources.getString(R.string.restore_email_invalid_link))
-            title.text = getString(R.string.restore_email_invalid_link)
-        }else
-        if(vs.loadingError != null){
-            errorImage.visibility = View.VISIBLE
-            var message = ""
+            if (vs.model.exchangeTokenError != null) {
+                errorImage.visibility = View.VISIBLE
+                showToastMessage(resources.getString(R.string.restore_email_invalid_link))
+                title.text = getString(R.string.restore_email_invalid_link)
+            } else
+                if (vs.loadingError != null) {
+                    errorImage.visibility = View.VISIBLE
+                    var message = ""
 
-            val error: Throwable = vs.loadingError!!
-            if (error is RetrofitException && error.kind == RetrofitException.Kind.HTTP) {
+                    val error: Throwable = vs.loadingError
+                    if (error is RetrofitException && error.kind == RetrofitException.Kind.HTTP) {
 
-                try {
-                    val newRecordError = retrofitExceptionMapper.mapToBaseApiError(error)
-                         message = if (newRecordError.message == null) "" else newRecordError.message
+                        try {
+                            val newRecordError = retrofitExceptionMapper.mapToBaseApiError(error)
+                            message = if (newRecordError.message == null) "" else newRecordError.message
 
-                } catch (e: Exception) {
+                        } catch (e: Exception) {
+                        }
+                    }
+                    title.visibility = View.VISIBLE
+                    title.text = message
+
+                    returnToRegistration.visibility = View.VISIBLE
+
+                } else {
+                    errorImage.visibility = View.INVISIBLE
+                }
+
+
+
+
+            returnToRegistration.setOnClickListener {
+                navigator.navigateToLoginSignUp(activity)
+                activity?.finish()
+            }
+
+
+
+            nextStep.setOnClickListener {
+                if (vs.model.accessToken != null && vs.model.accessToken.isNotBlank()) {
+                    closeScreen(vs.model.accessToken)
                 }
             }
-            title.visibility = View.VISIBLE
-            title.text = message
 
-            returnToRegistration.visibility = View.VISIBLE
-
-        }else{
-            errorImage.visibility = View.INVISIBLE
-        }
-
-
-
-
-        returnToRegistration.setOnClickListener {
-            navigator.navigateToLoginSignUp(activity)
-            activity?.finish()
-        }
-
-        nextStep.setOnClickListener {
-            if (vs.model.accessToken != null && vs.model.accessToken.isNotBlank()) {
-                closeScreen(vs.model.accessToken)
+        } else {
+            progress.visibility = View.GONE
+            successImage.visibility = View.VISIBLE
+            returnToRegistration.visibility = View.GONE
+            errorImage.visibility = View.GONE
+            title.text = getString(R.string.restore_account_head)
+            nextStep.visibility = View.VISIBLE
+            nextStep.setOnClickListener {
+                if (token.isNotBlank()) {
+                    closeScreen(token)
+                }
             }
         }
     }
