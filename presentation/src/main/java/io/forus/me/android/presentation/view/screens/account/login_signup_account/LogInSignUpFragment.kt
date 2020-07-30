@@ -1,13 +1,20 @@
 package io.forus.me.android.presentation.view.screens.account.login_signup_account
 
 import android.os.Bundle
+import android.support.v4.text.HtmlCompat
 import android.text.Editable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.afollestad.materialdialogs.MaterialDialog
 import io.forus.me.android.domain.models.account.NewAccountRequest
+import io.forus.me.android.presentation.BuildConfig
+import io.forus.me.android.presentation.api_config.ApiConfig
+import io.forus.me.android.presentation.api_config.ApiType
 import io.forus.me.android.presentation.R
+import io.forus.me.android.presentation.api_config.Utils
+import io.forus.me.android.presentation.api_config.check_api_status.CheckApiPresenter
+import io.forus.me.android.presentation.api_config.dialogs.*
 import io.forus.me.android.presentation.helpers.SharedPref
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.activity.BaseActivity
@@ -17,9 +24,14 @@ import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_account_details.root
+
 import kotlinx.android.synthetic.main.fragment_login_sign_up_nokia1.*
 import kotlinx.android.synthetic.main.fragment_login_sign_up_nokia1.email
 import android.util.DisplayMetrics
+
+import kotlinx.android.synthetic.main.fragment_login_sign_up.*
+import kotlinx.android.synthetic.main.fragment_login_sign_up.email
+
 
 
 /**
@@ -85,7 +97,9 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
     override fun registerNewAccount() = registerActionNewAccount
 
 
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+
 
 
 
@@ -196,7 +210,71 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
         if (vs.model.accessToken != null && vs.model.accessToken.isNotBlank()) {
             closeScreen(vs.model.accessToken)
         }
+
+
+        if (BuildConfig.APPLICATION_ID.equals("io.forus.me")) {
+            devOptionsBt.visibility = View.GONE
+        } else {
+            devOptionsBt.visibility = View.VISIBLE
+            devOptionsBt.text = ApiConfig.getCurrentApiType().name
+
+            val defaultApi = "https://api.forus.io/"
+            var storedOtherApiStr = SharedPref.read(SharedPref.OPTION_CUSTOM_API_URL, defaultApi)
+                    ?: defaultApi
+
+            devOptionsBt.setOnClickListener {
+                ChooseApiDialog(context!!, MaterialDialog.ListCallback { dialog, itemView, position, text ->
+
+                    val newApiType = ApiConfig.stringToApiType(text.toString())
+                    devOptionsBt.text = newApiType.name
+
+                    if (newApiType == ApiType.OTHER) {
+
+                        CustomApiDialog(context!!, storedOtherApiStr, MaterialDialog.InputCallback { _, input ->
+
+                            val customApiStr = input.toString()
+                            storedOtherApiStr = customApiStr
+
+                            CheckApiPresenter(context!!).checkApi(customApiStr,
+                                    { result ->
+                                        run {
+                                            if (result) {
+                                                TestApiSuccessDialog(context!!, customApiStr) {
+                                                    SaveApiAndRestartDialog(context!!) {
+                                                        SharedPref.write(SharedPref.OPTION_CUSTOM_API_URL, customApiStr)
+                                                        SharedPref.write(SharedPref.OPTION_API_TYPE, newApiType.name)
+                                                        ApiConfig.changeToCustomApi(customApiStr)
+                                                        Utils.instance.restartApp(context!!)
+                                                    }.show()
+                                                }.show()
+                                            } else {
+                                                TestApiErrorDialog(context!!, "", {}).show()
+                                            }
+                                        }
+                                    },
+                                    { throwable ->
+                                        run {
+                                            TestApiErrorDialog(context!!, throwable.localizedMessage, {}).show()
+                                        }
+                                    }
+                            )
+
+                        }, {}, {}).show()
+                    } else {
+                        SaveApiAndRestartDialog(context!!) {
+                            SharedPref.write(SharedPref.OPTION_API_TYPE, newApiType.name)
+                            ApiConfig.changeApi(newApiType)
+                            Utils.instance.restartApp(context!!)
+                        }.show()
+                    }
+
+                }) { }.show()
+            }
+        }
+
+
     }
+
 
     fun closeScreen(accessToken: String) {
         navigator.navigateToPinNew(activity, accessToken)

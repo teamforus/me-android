@@ -140,7 +140,13 @@
     <string name="new_record_value_text">Value</string>
     <string name="new_record_next_step">NEXT STEP</string>
     <string name="new_record_submit">SUBMIT</string>
+    <string name="record_created_successfully">Record created successfully!</string>
+    <string name="choose_type">Choose Type</string>
+    <string name="choose_type_description">Select the type under which the new record type should be added</string>
+    <string name="new_record">New record</string>
 
+    <string name="tab_records">My records</string>
+    <string name="tab_archives">Archive</string>
 
     <!-- Record details screen -->
     <string name="record_details_title">Record detail</string>
@@ -151,6 +157,18 @@
     <string name="record_details_validation_approved">Validation approved</string>
     <string name="record_details_validation_declined">Validation declined</string>
     <string name="choose_validator">Choose a validator</string>
+    <string name="validations">Validations</string>
+    <string name="validations_empty">You have no validations yet</string>
+
+     <string name="dialog_record_edit_title">Would you like to archive record?</string>
+     <string name="dialog_record_archive_title">Would you like to archive record?</string>
+
+    <string name="dialog_record_edit_description">All validations for this record will be removed. You must select validators again for the edited record</string>
+    <string name="dialog_record_archive_description">All validations for this record will be removed.</string>
+
+    <string name="dialog_button_cancel">CANCEL</string>
+    <string name="dialog_button_edit">EDIT</string>
+    <string name="dialog_button_archive">ARCHIVE</string>
 
     <!-- Wallet details screen -->
     <string name="wallet_title_info">Wallet info</string>
@@ -233,7 +251,6 @@
     <string name="vouchers_complete_an_amount">COMPLETE AN AMOUNT</string>
 
 
-
     <!-- Check email -->
     <string name="check_email_has_been_sent_to_you">Check your email</string>
     <string name="check_email_description_part1">Klik op de link in de email die u heeft ontvangen op</string>
@@ -249,7 +266,7 @@
     <string name="send_report_description">If you agree to share your id number for crash reports, our developers will see the exact problem that might happen with Me and solve it much faster.</string>
 
 
-    <string name="next_step">NEXT STEP</string>
+    <string name="next_step">Next step</string>
     <string name="cancel">Cancel</string>
     <string name="check_email_open_mail_app">Open mail app</string>
     <string name="registering">Registering...</string>
@@ -266,6 +283,29 @@
     <string name="test_organisation">Test organisation</string>
 
     <string name="snack_message">New update is available,\n update your application!</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="submit">Submit</string>
+
+    <string name="waiting">Waiting...</string>
+
+    <string name="api_prod" translatable="false">PROD</string>
+    <string name="api_staging" translatable="false">STAGING</string>
+    <string name="api_demo" translatable="false">DEMO</string>
+    <string name="api_dev" translatable="false">DEV</string>
+    <string name="api_other" translatable="false">OTHER</string>
+
+    <string-array name="api_items">
+        <item>@string/api_prod</item>
+        <item>@string/api_demo</item>
+        <item>@string/api_staging</item>
+        <item>@string/api_dev</item>
+        <item>@string/api_other</item>
+
+    </string-array>
+
 
 
 </resources>

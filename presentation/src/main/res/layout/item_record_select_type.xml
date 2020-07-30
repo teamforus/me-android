@@ -2,53 +2,42 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-
-    android:id="@id/root"
-    android:focusable="true"
-    android:clickable="true"
-    android:orientation="vertical"
+    android:id="@+id/root"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="24dp"
-    android:layout_marginLeft="24dp">
+    android:layout_height="56dp"
+    android:background="?attr/selectableItemBackground"
+    android:orientation="horizontal"
+    android:clickable="true"
+    android:focusable="true"
 
-    <RelativeLayout
-        android:id="@+id/background"
-        android:layout_width="match_parent"
+    >
+
+
+    <io.forus.me.android.presentation.view.component.text.TextView
+        android:id="@+id/name"
+        style="@style/Subtitle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingEnd="25dp"
-        android:paddingRight="25dp"
-        android:paddingTop="19dp"
-        android:paddingBottom="19dp" >
+        android:layout_centerVertical="true"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="16dp"
+        app:type="medium"
+        tools:text="Nieuwe" />
 
-        <io.forus.me.android.presentation.view.component.text.TextView
-            android:id="@+id/tv_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="40dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:lineSpacingExtra="1sp"
-            android:textColor="@color/body_1_87"
-            android:textSize="15sp"
-            tools:text="Subtitle" />
 
-        <RadioButton
-            android:id="@+id/rb_select_type"
-            android:focusable="false"
-            android:clickable="false"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            />
-    </RelativeLayout>
+    <RadioButton
+        android:id="@+id/selectedCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="16dp"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:clickable="false"
+        />
 
-    <View
-        android:background="@color/border_color"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_alignBottom="@id/background"/>
 
 </RelativeLayout>

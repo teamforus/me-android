@@ -46,16 +46,17 @@ public class MeServiceFactory {
     }
 
 
-    public <T> T createRetrofitService(final Class<T> clazz, final String endPoint){
+    public <T> T createRetrofitService(final Class<T> clazz, final String endPoint) throws Exception {
         return createRetrofitService(clazz, endPoint, null);
     }
 
-    public <T> T createRetrofitService(final Class<T> clazz, final String endPoint, final String customAccessToken) {
+    public <T> T createRetrofitService(final Class<T> clazz, final String endPoint, final String customAccessToken) throws Exception{
 
         okhttp3.OkHttpClient.Builder httpClient = new okhttp3.OkHttpClient.Builder();
 
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        MeHttpLoggingInterceptor logging = new MeHttpLoggingInterceptor(HttpLoggingInterceptor.Logger.DEFAULT);
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+        logging.setLogAccessToken(false);
         httpClient.addInterceptor(logging);
         httpClient.addInterceptor(chain -> {
 

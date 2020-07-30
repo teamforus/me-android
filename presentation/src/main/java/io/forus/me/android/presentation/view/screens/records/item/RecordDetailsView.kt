@@ -7,4 +7,8 @@ interface RecordDetailsView : LRView<RecordDetailsModel> {
 
     fun requestValidation(): Observable<Long>
 
+    fun deleteRecord(): Observable<Long>
+
+    fun editRecord(): Observable<Long>
+
 }
