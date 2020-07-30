@@ -3,6 +3,7 @@ package io.forus.me.android.presentation.view.screens.account.login_signup_accou
 import android.os.Bundle
 import android.support.v4.text.HtmlCompat
 import android.text.Editable
+import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,14 +26,6 @@ import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_account_details.root
 
-import kotlinx.android.synthetic.main.fragment_login_sign_up_nokia1.*
-import kotlinx.android.synthetic.main.fragment_login_sign_up_nokia1.email
-import android.util.DisplayMetrics
-
-import kotlinx.android.synthetic.main.fragment_login_sign_up.*
-import kotlinx.android.synthetic.main.fragment_login_sign_up.email
-
-
 
 /**
  * Fragment User Account Screen.
@@ -50,11 +43,16 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
         }
     }
 
+    var email: io.forus.me.android.presentation.view.component.editors.EditText? = null
+    var restore: io.forus.me.android.presentation.view.component.buttons.Button? = null
+    var pair_device: io.forus.me.android.presentation.view.component.buttons.Button? = null
+    var devOptionsBt: io.forus.me.android.presentation.view.component.buttons.ButtonWhite? = null
+
     private var token: String = ""
 
     private val viewIsValid: Boolean
         get() {
-            val validation = email.validate() //&& email_repeat.validate()
+            val validation = email!!.validate() //&& email_repeat.validate()
 //            if (validation) {
 //                if (email.getText() != email_repeat.getText()) {
 //                    validation = false
@@ -97,10 +95,7 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
     override fun registerNewAccount() = registerActionNewAccount
 
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-
-
 
 
         val bundle = this.arguments
@@ -108,22 +103,30 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
             token = bundle.getString(TOKEN_EXTRA, "")
         }
 
+
         val display = activity!!.getWindowManager().getDefaultDisplay()
         val outMetrics = DisplayMetrics()
         display.getMetrics(outMetrics)
         val density = resources.displayMetrics.density
         val dpHeight = outMetrics.heightPixels / density
         val dpWidth = outMetrics.widthPixels / density
-        return if (dpWidth <= 320 || dpHeight < 522)
+        val rootView = if (dpWidth <= 320 || dpHeight < 522)
             inflater.inflate(R.layout.fragment_login_sign_up_nokia1, container, false)
         else inflater.inflate(R.layout.fragment_login_sign_up, container, false)
+
+        email = rootView.findViewById(R.id.email)
+        restore = rootView.findViewById(R.id.restore)
+        pair_device = rootView.findViewById(R.id.pair_device)
+        devOptionsBt = rootView.findViewById(R.id.devOptionsBt)
+
+        return rootView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        email.showError = false
-        restore.active = false
+        email!!.showError = false
+        restore!!.active = false
 
 
         val listener = object : android.text.TextWatcher {
@@ -132,27 +135,27 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                restore.active = viewIsValid
+                restore!!.active = viewIsValid
             }
         }
 
-        email.setTextChangedListener(listener)
+        email!!.setTextChangedListener(listener)
         //email_repeat.setTextChangedListener(listener)
 
-        restore.setOnClickListener {
-            email.showError = true
+        restore!!.setOnClickListener {
+            email!!.showError = true
             if (viewIsValid) {
 
                 context?.let { it1 ->
                     SharedPref.init(it1)
-                    SharedPref.write(SharedPref.RESTORE_EMAIL, email.getText());
+                    SharedPref.write(SharedPref.RESTORE_EMAIL, email!!.getText());
                 };
 
-                registerAction.onNext(email.getText())
+                registerAction.onNext(email!!.getText())
             }
         }
 
-        pair_device.setOnClickListener {
+        pair_device!!.setOnClickListener {
             navigator.navigateToPairDevice(context!!)
         }
 
@@ -173,11 +176,11 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
         super.render(vs)
 
 
-        restore.isEnabled = vs.model.sendingRestoreByEmail != true
+        restore!!.isEnabled = vs.model.sendingRestoreByEmail != true
 
-        pair_device.isEnabled = vs.model.sendingRestoreByEmail != true
+        pair_device!!.isEnabled = vs.model.sendingRestoreByEmail != true
         // email_description.visibility = if(vs.model.sendingRestoreByEmailSuccess == true) View.VISIBLE else View.INVISIBLE
-        email.isEditable = vs.model.sendingRestoreByEmail != true //!(vs.model.sendingRestoreByEmailSuccess == true)
+        email!!.isEditable = vs.model.sendingRestoreByEmail != true //!(vs.model.sendingRestoreByEmailSuccess == true)
 
         if (vs.model.sendingRestoreByEmailSuccess == true && !instructionsAlreadyShown) {
 
@@ -197,7 +200,7 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
                         lastname = "",
                         bsn = "",
                         phoneNumber = "",
-                        email = email.getText()
+                        email = email!!.getText()
                 )
                 )
             }
@@ -213,20 +216,20 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
 
 
         if (BuildConfig.APPLICATION_ID.equals("io.forus.me")) {
-            devOptionsBt.visibility = View.GONE
+            devOptionsBt!!.visibility = View.GONE
         } else {
-            devOptionsBt.visibility = View.VISIBLE
-            devOptionsBt.text = ApiConfig.getCurrentApiType().name
+            devOptionsBt!!.visibility = View.VISIBLE
+            devOptionsBt!!.text = ApiConfig.getCurrentApiType().name
 
             val defaultApi = "https://api.forus.io/"
             var storedOtherApiStr = SharedPref.read(SharedPref.OPTION_CUSTOM_API_URL, defaultApi)
                     ?: defaultApi
 
-            devOptionsBt.setOnClickListener {
+            devOptionsBt!!.setOnClickListener {
                 ChooseApiDialog(context!!, MaterialDialog.ListCallback { dialog, itemView, position, text ->
 
                     val newApiType = ApiConfig.stringToApiType(text.toString())
-                    devOptionsBt.text = newApiType.name
+                    devOptionsBt!!.text = newApiType.name
 
                     if (newApiType == ApiType.OTHER) {
 
