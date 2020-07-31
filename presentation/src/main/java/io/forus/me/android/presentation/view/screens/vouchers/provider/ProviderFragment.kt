@@ -161,6 +161,7 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
             if (vs.model.item != null) {
                 payDialog(vs.model.item.voucher.isProduct, vs.model.selectedAmount, vs.model.item.voucher.amount
                         ?: 0f.toBigDecimal())
+
             }
         }
 
@@ -206,7 +207,9 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
 
         }
 
-        if (vs.closeScreen) closeScreen()
+        if (vs.closeScreen && vs.model.makeTransactionError == null){
+            showScuccessDialog()
+        }
     }
 
     private fun payDialog(isProduct: Boolean, amount: BigDecimal, balance: BigDecimal) {
@@ -226,11 +229,19 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
         }
     }
 
-    private fun closeScreen() {
+    /*private fun closeScreen() {
 
          FullscreenDialog.display(fragmentManager,context!!.resources.getString(R.string.success),
                  context!!.resources.getString(R.string.vouchers_apply_success),
                  context!!.resources.getString(R.string.me_ok)) { activity?.finish() }
+
+    }*/
+
+    private fun showScuccessDialog() {
+
+        FullscreenDialog.display(fragmentManager,context!!.resources.getString(R.string.success),
+                context!!.resources.getString(R.string.vouchers_apply_success),
+                context!!.resources.getString(R.string.me_ok)) { activity?.finish() }
 
     }
 
