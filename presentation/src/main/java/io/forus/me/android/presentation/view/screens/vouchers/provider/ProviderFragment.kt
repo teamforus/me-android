@@ -182,7 +182,7 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
                 if (error.responseCode == 422) {
                     val detailsApiError = retrofitExceptionMapper.mapToDetailsApiError(error)
                     if (detailsApiError != null && detailsApiError.errors != null) {
-                        errorMessage = detailsApiError.errorString
+                        errorMessage = detailsApiError.errorStringWithoutKey
                     }
                 }
                 if (error.responseCode == 403) {
