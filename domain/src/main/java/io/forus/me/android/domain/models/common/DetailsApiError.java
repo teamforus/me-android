@@ -63,6 +63,17 @@ public class DetailsApiError {
         return msg.toString();
     }
 
+    public String getErrorStringWithoutKey() {
+        StringBuilder msg = new StringBuilder();
+        for (String key : errors.keySet()) {
+            String value = errors.get(key);
+            String err =  value + "\n";
+            msg.append(err);
+
+        }
+        return msg.toString();
+    }
+
     public String getErrorsString(){
         StringBuilder msg = new StringBuilder();
         for (String key : errors.keySet()) {

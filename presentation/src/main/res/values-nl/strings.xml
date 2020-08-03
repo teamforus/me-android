@@ -225,7 +225,7 @@
     <string name="voucher_send_email_description">De voucher is verzonden per mail</string>
     <string name="voucher_qr_code_subtitle">Dit is de QR-code van de Voucher</string>
     <string name="voucher_qr_code_subtitle_with_fund_name">%s\nDit is uw  in de vorm van een QR-code</string>
-    <string name="voucher_qr_code_description">Dit is uw voucher in de vorm van een QR-code\nlaat de aanbieder deze QR-code scannen om een betaling te kunnen doen.</string>
+    <string name="voucher_qr_code_description">Dit is uw voucher in de vorm van een QR-code \nLaat de aanbieder deze QR-code scannen om een betaling te kunnen doen.</string>
     <string name="voucher_qr_code_expired">Gebruik deze voucher voor %s</string>
     <string name="voucher_expired">Voucher is verlopen</string>
     <string name="voucher_email_to_me">E-mail naar mij</string>
