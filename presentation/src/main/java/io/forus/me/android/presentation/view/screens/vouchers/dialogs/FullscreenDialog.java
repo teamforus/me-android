@@ -67,7 +67,7 @@ public class FullscreenDialog extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        TextView titleTv = rootView.findViewById(R.id.title);
+        TextView titleTv = rootView.findViewById(R.id.titleTV);
         TextView descriptionTv = rootView.findViewById(R.id.description);
         io.forus.me.android.presentation.view.component.buttons.Button submitButton = rootView.findViewById(R.id.submitButton);
 

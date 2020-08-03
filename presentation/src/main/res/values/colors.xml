@@ -3,12 +3,11 @@
     <color name="colorPrimary">#ffffff</color>
     <color name="colorPrimaryDark">#f7f7f7</color>
     <color name="colorAccent">#315EFD</color>
-    
+
     <color name="windowsBackground">#f4f4f4</color>
 
 
     <color name="rippleColor">#bababa</color>
-
 
 
     <color name="transparent">#00000000</color>
@@ -26,8 +25,6 @@
     <color name="dividerBackground">#D8D8D8</color>
 
     <color name="switchBackground">#F8F8F8</color>
-
-
 
 
     <!--generated colors-->
@@ -58,7 +55,7 @@
     <color name="yellowish_orange">#fba31a</color>
 
 
-
-
     <color name="blue">#315efd</color>
+
+    <color name="black_overlay">#66000000</color>
 </resources>

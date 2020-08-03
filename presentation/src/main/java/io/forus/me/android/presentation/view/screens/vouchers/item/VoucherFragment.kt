@@ -348,7 +348,12 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
 
         when (vs.model.emailSend) {
             EmailSend.SEND -> showEmailSendDialog()
-            EmailSend.SENT -> showEmailSentDialog()
+            EmailSend.SENT -> {
+                FullscreenDialog.display(fragmentManager, context!!.resources.getString(R.string.voucher_send_email_success),
+                        context!!.resources.getString(R.string.voucher_send_email_description),
+                        context!!.resources.getString(R.string.me_ok)) {  sentEmailDialogShown.onNext(Unit)
+                }
+            }
             EmailSend.NOTHING -> Unit
         }
     }
@@ -401,11 +406,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
         type.paint.maskFilter = null
     }
 
-    private fun showEmailSentDialog() {
-        FullscreenDialog.display(fragmentManager, context!!.resources.getString(R.string.voucher_send_email_success),
-                context!!.resources.getString(R.string.voucher_send_email_description),
-                context!!.resources.getString(R.string.me_ok)) { activity?.finish() }
-    }
+
 
     private fun setMarker(address: LatLng) {
         val marker = MarkerOptions()
