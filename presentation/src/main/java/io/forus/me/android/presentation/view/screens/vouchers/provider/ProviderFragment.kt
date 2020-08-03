@@ -237,13 +237,7 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
         }
     }
 
-    /*private fun closeScreen() {
 
-         FullscreenDialog.display(fragmentManager,context!!.resources.getString(R.string.success),
-                 context!!.resources.getString(R.string.vouchers_apply_success),
-                 context!!.resources.getString(R.string.me_ok)) { activity?.finish() }
-
-    }*/
 
     private fun showScuccessDialog() {
 
