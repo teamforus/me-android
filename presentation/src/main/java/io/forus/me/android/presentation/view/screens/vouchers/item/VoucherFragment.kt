@@ -319,7 +319,9 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
 
 
                 if (voucher.expireDate?.isNotEmpty()!!) {
-                    tv_voucher_expired.text = String.format(resources.getString(R.string.voucher_qr_code_expired),
+
+                    tv_voucher_expired.text = if(voucher.expired) String.format(resources.getString(R.string.voucher_qr_code_expired),
+                            voucher?.expireDate) else String.format(resources.getString(R.string.voucher_qr_code_actual),
                             voucher?.expireDate)
                 }
                // shopkeeper_call
