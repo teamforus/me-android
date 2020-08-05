@@ -170,9 +170,10 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
 
             var qrDescription = ""
             if (voucher?.expireDate?.isNotEmpty()!!) {
-                Log.d("forus", "expiredData =${voucher?.expireDate}")
-                qrDescription = String.format(resources.getString(R.string.voucher_qr_code_expired), voucher?.expireDate);
-                Log.d("forus", "qrDescription =${qrDescription}")
+
+                qrDescription = if(voucher!!.expired) String.format(resources.getString(R.string.voucher_qr_code_expired),
+                        voucher?.expireDate) else String.format(resources.getString(R.string.voucher_qr_code_actual),
+                        voucher?.expireDate)
             }
 
             (activity as? DashboardActivity)?.showPopupQRFragment(qrEncoded, fundName, title, qrDescription)
