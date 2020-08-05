@@ -97,13 +97,28 @@ class QrScannerActivity : FragmentActivity(), QRCodeReaderView.OnQRCodeReadListe
             qrCodeReaderView?.setQRDecodingEnabled(false)
             //pointsOverlayView?.setPoints(points)
 
+            Log.d("forus","Scanned_text $text")
+
             val result = qrDecoder.decode(text)
+
 
             when(result){
                 is QrDecoderResult.ApproveValidation -> qrActionProcessor.approveValidation(result.uuid)
                 is QrDecoderResult.RestoreIdentity -> qrActionProcessor.restoreIdentity(result.token)
                 is QrDecoderResult.ScanVoucher -> qrActionProcessor.scanVoucher(result.address)
-                is QrDecoderResult.UnknownQr -> qrActionProcessor.unknownQr()
+                is QrDecoderResult.UnknownQr -> {
+                    if(text.length == 12) {
+                        try {
+                            val oldVoucherToken = text.toLong()
+                            qrActionProcessor.scanVoucher(oldVoucherToken.toString())
+                        } catch (e: Exception) {
+                            qrActionProcessor.unknownQr()
+                        }
+                    }else{
+                        qrActionProcessor.unknownQr()
+                    }
+
+                }
                 is QrDecoderResult.DemoVoucher -> qrActionProcessor.scanVoucher(result.testToken, true)
             }
         }
