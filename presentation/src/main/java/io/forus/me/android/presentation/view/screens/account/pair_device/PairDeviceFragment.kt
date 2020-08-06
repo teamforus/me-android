@@ -36,6 +36,9 @@ class PairDeviceFragment : ToolbarLRFragment<PairDeviceModel, PairDeviceView, Pa
     override val allowBack: Boolean
         get() = true
 
+    override val showAccount: Boolean
+        get() = false
+
     override fun loadRefreshPanel() = object : LoadRefreshPanel {
         override fun retryClicks(): Observable<Any> = Observable.never()
 
@@ -98,7 +101,7 @@ class PairDeviceFragment : ToolbarLRFragment<PairDeviceModel, PairDeviceView, Pa
     }
 
     fun closeScreen(accessToken: String) {
-        navigator.navigateToPinNew(activity, accessToken)
+        navigator.navigateToResoreAccountSuccess(activity, accessToken, false)
         activity?.finish()
     }
 }

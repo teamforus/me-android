@@ -1,9 +1,11 @@
 package io.forus.me.android.presentation.navigation
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
 import android.support.v4.app.Fragment
+import android.support.v7.app.AppCompatActivity
 import io.forus.me.android.domain.models.records.Record
 import io.forus.me.android.domain.models.records.RecordCategory
 import io.forus.me.android.domain.models.wallets.Wallet
@@ -163,9 +165,9 @@ constructor()//empty
         }
     }
 
-    fun navigateToResoreAccountSuccess(context: Context?, token: String) {
+    fun navigateToResoreAccountSuccess(context: Context?, token: String, isExchangeToken: Boolean) {
         if (context != null) {
-            val intentToLaunch = RestoreAccountSuccessActivity.getCallingIntent(context, token)
+            val intentToLaunch = RestoreAccountSuccessActivity.getCallingIntent(context, token, isExchangeToken)
             intentToLaunch.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             context.startActivity(intentToLaunch)
         }
@@ -222,18 +224,18 @@ constructor()//empty
         }
     }
 
-    fun navigateToRecordDetails(context: Context?, record: Record) {
+    fun navigateToRecordDetailsForResult(context: AppCompatActivity, record: Record, REQUEST_CODE: Int) {
         if (context != null) {
             val intentToLaunch = RecordDetailsActivity.getCallingIntent(context, record)
-            context.startActivity(intentToLaunch)
+            context.startActivityForResult(intentToLaunch,REQUEST_CODE)
         }
     }
 
 
 
-    fun navigateToVoucherProvider(context: Context?, voucherAddress: String) {
+    fun navigateToVoucherProvider(context: Context?, voucherAddress: String,  isDemoVoucher: Boolean? = false) {
         if (context != null) {
-            val intentToLaunch = ProviderActivity.getCallingIntent(context, voucherAddress)
+            val intentToLaunch = ProviderActivity.getCallingIntent(context, voucherAddress,isDemoVoucher)
             context.startActivity(intentToLaunch)
         }
     }

@@ -6,6 +6,7 @@ import android.graphics.BlurMaskFilter
 import android.net.Uri
 import android.os.Bundle
 import android.support.customtabs.CustomTabsIntent
+import android.support.design.widget.Snackbar
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
@@ -35,12 +36,15 @@ import io.forus.me.android.presentation.models.vouchers.Voucher
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.forus.me.android.presentation.view.screens.dashboard.DashboardActivity
+import io.forus.me.android.presentation.view.screens.vouchers.dialogs.FullscreenDialog
 import io.forus.me.android.presentation.view.screens.vouchers.item.dialogs.SendVoucherSuccessDialog
 import io.forus.me.android.presentation.view.screens.vouchers.item.transactions.TransactionsAdapter
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_voucher.*
 import kotlinx.android.synthetic.main.toolbar_view.*
+import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -103,6 +107,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
     override val showInfo: Boolean
         get() = true
 
+    private var canShowInfo: Boolean = false
     private val shortToken = PublishSubject.create<String>()
     override fun getShortToken(): Observable<String> = shortToken
 
@@ -148,19 +153,38 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
 
         info_button.setOnClickListener {
 
+            Log.d("forus", "info_button_setOnClickListener")
+            canShowInfo = true
             shortToken.onNext("");
+
 
         }
 
         val qrEncoded = QrCode(QrCode.Type.VOUCHER, address).toJson()
         iv_qr_icon.setQRText(qrEncoded)
         iv_qr_icon.setOnClickListener {
-            (activity as? DashboardActivity)?.showPopupQRFragment(qrEncoded, resources.getString(R.string.voucher_qr_code_subtitle_with_fund_name , voucher?.fundName ))
+
+
+            val fundName = voucher?.fundName
+            val title = resources.getString(R.string.voucher_qr_code_description)
+
+            var qrDescription = ""
+            if (voucher?.expireDate?.isNotEmpty()!!) {
+
+                qrDescription = if(voucher!!.expired) String.format(resources.getString(R.string.voucher_qr_code_expired),
+                        voucher?.expireDate) else String.format(resources.getString(R.string.voucher_qr_code_actual),
+                        voucher?.expireDate)
+            }
+
+            (activity as? DashboardActivity)?.showPopupQRFragment(qrEncoded, fundName, title, qrDescription)
+
+
         }
 
         toolbar.setNavigationOnClickListener {
             if (activity?.supportFragmentManager?.backStackEntryCount ?: 0 > 0) {
                 activity?.supportFragmentManager?.popBackStack()
+
             } else {
                 activity?.onBackPressed()
             }
@@ -173,6 +197,10 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
         shopkeeper_email.setOnClickListener {
             emailToShopkeeper(shopkeeper_email.text.toString())
         }
+
+        //val snack = ToastUtils.showUpdateAppToast("Wellcome snackbar 1", root, null).show()
+
+        // Snackbar.make(view, "Hello Snackbar", Snackbar.LENGTH_LONG).show();
     }
 
 
@@ -230,14 +258,20 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
         )
     }
 
+
+
     override fun render(vs: LRViewState<VoucherModel>) {
         super.render(vs)
+
+        Log.d("forus", "render")
 
         name.text = vs.model.item?.name
         type.text = vs.model.item?.organizationName
         value.text = "${vs.model.item?.currency?.name} ${vs.model.item?.amount?.toDouble().format(2)}"
 
         vs.model.item?.let { voucher ->
+
+            Log.d("forus", "vs.model.item")
             setToolbarTitle(resources.getString(if (voucher.isProduct) R.string.vouchers_item_product else R.string.vouchers_item))
             adapter.transactions = voucher.transactions
             tv_transactions_title.visibility =
@@ -272,18 +306,44 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
                     setMarker(latLng)
                 }
             }
+
+            if (voucher.expired) {
+                //val isExpired = isVoucherExpired(voucher.expireDate!!)
+                //Log.d("forus", "Is_voucher_expired? $isExpired")
+
+                info_button.visibility = View.INVISIBLE
+
+                btn_email.isEnabled = false
+                btn_email.visibility = View.INVISIBLE
+                iv_qr_icon.visibility = View.INVISIBLE
+                tv_voucher_expired.visibility = View.VISIBLE
+
+
+                if (voucher.expireDate?.isNotEmpty()!!) {
+
+                    tv_voucher_expired.text = if(voucher.expired) String.format(resources.getString(R.string.voucher_qr_code_expired),
+                            voucher?.expireDate) else String.format(resources.getString(R.string.voucher_qr_code_actual),
+                            voucher?.expireDate)
+                }
+               // shopkeeper_call
+            }else{
+                tv_voucher_expired.visibility = View.GONE
+            }
+
         }
 
         if (vs.model.shortToken != null) {
+            if (canShowInfo) {
 
-            val url: String = if (voucher?.fundWebShopUrl?.isNotEmpty()!! && vs.model.shortToken.isNotEmpty()) {
-                voucher?.fundWebShopUrl + "auth-link?token=" + vs.model.shortToken + "&target=voucher-" + voucher?.address
-            } else {
-                "https://forus.io/"
+                val url: String = if (voucher?.fundWebShopUrl?.isNotEmpty()!! && vs.model.shortToken.isNotEmpty()) {
+                    voucher?.fundWebShopUrl + "auth-link?token=" + vs.model.shortToken + "&target=voucher-" + voucher?.address
+                } else {
+                    "https://forus.io/"
+                }
+
+                openVoucherInfo(url)
+                canShowInfo = false
             }
-
-
-            openVoucherInfo(url)
         }
 
 
@@ -291,7 +351,12 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
 
         when (vs.model.emailSend) {
             EmailSend.SEND -> showEmailSendDialog()
-            EmailSend.SENT -> showEmailSentDialog()
+            EmailSend.SENT -> {
+                FullscreenDialog.display(fragmentManager, context!!.resources.getString(R.string.voucher_send_email_success),
+                        context!!.resources.getString(R.string.voucher_send_email_description),
+                        context!!.resources.getString(R.string.me_ok)) {  sentEmailDialogShown.onNext(Unit)
+                }
+            }
             EmailSend.NOTHING -> Unit
         }
     }
@@ -344,11 +409,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
         type.paint.maskFilter = null
     }
 
-    private fun showEmailSentDialog() {
-        SendVoucherSuccessDialog(context!!) {
-            sentEmailDialogShown.onNext(Unit)
-        }.show()
-    }
+
 
     private fun setMarker(address: LatLng) {
         val marker = MarkerOptions()

@@ -3,15 +3,12 @@ package io.forus.me.android.presentation.view.screens.vouchers.provider
 import android.content.DialogInterface
 import android.content.DialogInterface.OnDismissListener
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import io.forus.me.android.data.entity.common.ApiError
 import io.forus.me.android.domain.exception.RetrofitException
 import io.forus.me.android.domain.exception.RetrofitExceptionMapper
 import io.forus.me.android.presentation.R
@@ -19,45 +16,52 @@ import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.models.vouchers.Organization
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
-
 import io.forus.me.android.presentation.view.screens.qr.dialogs.ScanVoucherBaseErrorDialog
-
-import io.forus.me.android.presentation.view.screens.qr.dialogs.ApproveValidationDialog
+import io.forus.me.android.presentation.view.screens.vouchers.dialogs.FullscreenDialog
 import io.forus.me.android.presentation.view.screens.vouchers.dialogs.VouchersApplySuccessDialog
-
 import io.forus.me.android.presentation.view.screens.vouchers.provider.categories.CategoriesAdapter
 import io.forus.me.android.presentation.view.screens.vouchers.provider.dialogs.ApplyDialog
 import io.forus.me.android.presentation.view.screens.vouchers.provider.dialogs.ChargeDialog
 import io.forus.me.android.presentation.view.screens.vouchers.provider.dialogs.organizations_dialog.OrganizationsListDialog
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_voucher_provider.*
 import kotlinx.android.synthetic.main.view_organization.*
 import java.math.BigDecimal
+import android.content.Intent
+import io.forus.me.android.presentation.view.screens.vouchers.dialogs.SuccessDialogActivity
+import io.forus.me.android.presentation.view.screens.vouchers.provider.ProviderPresenter
+
+
+
 
 class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, ProviderPresenter>(), ProviderView {
 
 
     companion object {
         private val VOUCHER_ADDRESS_EXTRA = "VOUCHER_ADDRESS_EXTRA"
+        val IS_DEMO_VOUCHER = "IS_DEMO_VOUCHER"
 
-        fun newIntent(id: String): ProviderFragment = ProviderFragment().also {
+        fun newIntent(id: String, isDemoVoucher: Boolean? = false): ProviderFragment = ProviderFragment().also {
             val bundle = Bundle()
             bundle.putSerializable(VOUCHER_ADDRESS_EXTRA, id)
+            if(isDemoVoucher != null) bundle.putSerializable(IS_DEMO_VOUCHER, isDemoVoucher)
             it.arguments = bundle
         }
     }
 
     private lateinit var address: String
+    private  var isDemoVoucher: Boolean? = false
     private lateinit var categoriesAdapter: CategoriesAdapter
 
     override val toolbarTitle: String
-        get() = getString(R.string.vouchers_provider)
+        get() = if(isDemoVoucher != null && isDemoVoucher!!) getString(R.string.test_transaction) else getString(R.string.vouchers_provider)
 
     override val allowBack: Boolean
         get() = true
+
+    override val showAccount: Boolean
+        get() = false
 
     override fun viewForSnackbar(): View = root
 
@@ -70,14 +74,19 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
     override fun selectNote(): Observable<String> = selectNote
 
     private val selectOrganization = PublishSubject.create<Organization>()
-    override fun selectOrganization(): Observable<Organization> = selectOrganization;
+    override fun selectOrganization(): Observable<Organization> = selectOrganization
 
     private val charge = PublishSubject.create<BigDecimal>()
     override fun charge(): Observable<BigDecimal> = charge
 
+    private val demoCharge = PublishSubject.create<BigDecimal>()
+    override fun demoCharge(): Observable<BigDecimal> = demoCharge
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = inflater.inflate(R.layout.fragment_voucher_provider, container, false).also {
 
         address = if (arguments == null) "" else arguments!!.getString(VOUCHER_ADDRESS_EXTRA, "")
+
+        isDemoVoucher = if (arguments == null) false else arguments!!.getBoolean(IS_DEMO_VOUCHER, false)
 
         categoriesAdapter = CategoriesAdapter()
     }
@@ -113,14 +122,13 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
             }
         })
 
-
-
     }
 
 
     override fun createPresenter() = ProviderPresenter(
             Injection.instance.vouchersRepository,
-            address
+            address,
+            isDemoVoucher
     )
 
     private var retrofitExceptionMapper: RetrofitExceptionMapper = Injection.instance.retrofitExceptionMapper
@@ -135,10 +143,14 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
         iv_icon.setImageUrl(vs.model.item?.voucher?.logo)
 
 
-        if (vs.model.selectedOrganization != null) {
-            tv_organization_name.text = vs.model.selectedOrganization.name
-            if (vs.model.selectedOrganization.logo?.isBlank() != true)
-                iv_organization_icon.setImageUrl(vs.model.selectedOrganization.logo)
+        if(isDemoVoucher!= null && isDemoVoucher!!) {
+            tv_organization_name.text = context!!.getString(R.string.check_email_open_mail_app)
+        }else{
+            if (vs.model.selectedOrganization != null) {
+                tv_organization_name.text = vs.model.selectedOrganization.name
+                if (vs.model.selectedOrganization.logo?.isBlank() != true)
+                    iv_organization_icon.setImageUrl(vs.model.selectedOrganization.logo)
+            }
         }
 
         if (vs.model.item != null) {
@@ -155,6 +167,7 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
             if (vs.model.item != null) {
                 payDialog(vs.model.item.voucher.isProduct, vs.model.selectedAmount, vs.model.item.voucher.amount
                         ?: 0f.toBigDecimal())
+
             }
         }
 
@@ -175,7 +188,7 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
                 if (error.responseCode == 422) {
                     val detailsApiError = retrofitExceptionMapper.mapToDetailsApiError(error)
                     if (detailsApiError != null && detailsApiError.errors != null) {
-                        errorMessage = detailsApiError.errorString
+                        errorMessage = detailsApiError.errorStringWithoutKey
                     }
                 }
                 if (error.responseCode == 403) {
@@ -200,10 +213,17 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
 
         }
 
-        if (vs.closeScreen) closeScreen()
+        if (vs.closeScreen && vs.model.makeTransactionError == null){
+            showScuccessDialog()
+        }
+
+
     }
 
     private fun payDialog(isProduct: Boolean, amount: BigDecimal, balance: BigDecimal) {
+        if(isDemoVoucher != null && isDemoVoucher!!){
+            demoCharge.onNext(BigDecimal.ZERO)
+        }else
         if (isProduct) {
             ApplyDialog(context!!) {
                 charge.onNext(BigDecimal.ZERO)
@@ -217,10 +237,21 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
         }
     }
 
-    private fun closeScreen() {
-        VouchersApplySuccessDialog(context!!) {
-            activity?.finish()
-        }.show()
+
+
+    private fun showScuccessDialog() {
+
+        val i = SuccessDialogActivity.getCallingIntent(context!!,
+                context!!.resources.getString(R.string.success),
+                context!!.resources.getString(R.string.vouchers_apply_success),
+                context!!.resources.getString(R.string.me_ok))
+        activity?.finish()
+        activity?.startActivity(i)
+
+        /*FullscreenDialog.display(fragmentManager,context!!.resources.getString(R.string.success),
+                context!!.resources.getString(R.string.vouchers_apply_success),
+                context!!.resources.getString(R.string.me_ok)) { activity?.finish() }*/
 
     }
+
 }

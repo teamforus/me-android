@@ -10,4 +10,8 @@ sealed class RecordDetailsPartialChanges : PartialChange {
 
     data class RequestValidationError(val error: Throwable): RecordDetailsPartialChanges()
 
+    data class DeleteRecordSuccess(val success: Boolean): RecordDetailsPartialChanges()
+
+    data class DeleteRecordError(val error: Throwable): RecordDetailsPartialChanges()
+
 }

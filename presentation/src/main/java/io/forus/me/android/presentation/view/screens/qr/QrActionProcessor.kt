@@ -1,7 +1,6 @@
 package io.forus.me.android.presentation.view.screens.qr
 
 import android.content.DialogInterface
-import android.support.design.widget.Snackbar
 import android.util.Log
 import io.forus.me.android.data.repository.settings.SettingsDataSource
 import io.forus.me.android.domain.exception.RetrofitException
@@ -15,6 +14,7 @@ import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.navigation.Navigator
 import io.forus.me.android.presentation.view.base.NoInternetDialog
 import io.forus.me.android.presentation.view.screens.qr.dialogs.*
+import io.forus.me.android.presentation.view.screens.records.dialogs.validators_list_dialog.ValidatorsListDialog
 import io.forus.me.android.presentation.view.screens.vouchers.provider.ProviderActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -47,33 +47,11 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
                 .map { validation ->
                     if (validation.state == Validation.State.pending && validation.uuid != null) {
                         if (scanner.hasWindowFocus())
-                            ApproveValidationDialog(scanner,
-                                    validation,
-                                    {
-                                        recordsRepository.approveValidation(validation.uuid!!)
-                                                .subscribeOn(Schedulers.io())
-                                                .observeOn(AndroidSchedulers.mainThread())
-                                                .map { onResultValidationApproved() }
-                                                .onErrorReturn {
-                                                    onResultUnexpectedError()
-                                                }
-                                                .subscribe()
-                                    },
-                                    {
-                                        recordsRepository.declineValidation(validation.uuid!!)
-                                                .subscribeOn(Schedulers.io())
-                                                .observeOn(AndroidSchedulers.mainThread())
-                                                .map {
-                                                    onResultValidationDeclined()
-                                                }
-                                                .onErrorReturn {
-                                                    onResultUnexpectedError()
-                                                }
-                                                .subscribe()
-                                    },
-                                    reactivateDecoding)
-                                    .show()
-                    } else onResultValidationAlreadyDone()
+                        showChooseValidatorDialog(validation)
+
+                    } else{
+                        onResultValidationAlreadyDone()
+                    }
                 }
                 .onErrorReturn {
                     onResultUnexpectedError()
@@ -110,45 +88,7 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
     fun scanVoucher(address: String, isDemoVoucher: Boolean? = false) {
 
         if (isDemoVoucher != null && isDemoVoucher) {
-            vouchersRepository.makeDemoTransaction(address)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .map {
-                        if (it) {
-                            if (scanner.hasWindowFocus()) {
-                                ScanDemoTransactionDialog(scanner) {
-                                    reactivateDecoding()
-                                }.show()
-                            }
-                        } else {
-                            ScanVoucherBaseErrorDialog("", scanner, reactivateDecoding).show()
-                        }
-                    }
-                    .onErrorReturn {
-                        var canOnResultVoucherScanned = true
-                        val error: Throwable = it
-                        if (error is RetrofitException && error.kind == RetrofitException.Kind.HTTP) {
-
-                            try {
-                                val newRecordError = retrofitExceptionMapper.mapToBaseApiError(error)
-
-                                if (error.responseCode == 403) {
-                                    canOnResultVoucherScanned = false
-                                    val message = if (newRecordError.message == null) "" else newRecordError.message
-                                    ScanVoucherBaseErrorDialog(message, scanner, reactivateDecoding).show()
-                                }
-                            } catch (e: Exception) {
-                            }
-                        }
-
-                        if (canOnResultVoucherScanned) {
-
-                            if (scanner.hasWindowFocus()) {
-                                onResultVoucherScanned(address, false)
-                            }
-                        }
-                    }
-                    .subscribe()
+            navigator.navigateToVoucherProvider(scanner, address, true)
         } else {
             vouchersRepository.getVoucherAsProvider(address)
                     .subscribeOn(Schedulers.io())
@@ -270,6 +210,47 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
                 reactivateDecoding()
             }, 1000)
         }
+    }
+
+
+    private fun showChooseValidatorDialog(validation: Validation){
+        val validators = validation.organizationsAvailable
+        if(validators != null && validators.size > 0) {
+            ValidatorsListDialog(scanner, validators!! ){
+                //selectOrganization.onNext(it)
+                ApproveValidationDialog(scanner,
+                        validation,
+                        {
+                            recordsRepository.approveValidation(validation.uuid!!, it.id)
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .map { onResultValidationApproved() }
+                                    .onErrorReturn {
+                                        onResultUnexpectedError()
+                                    }
+                                    .subscribe()
+                        },
+                        {
+                            recordsRepository.declineValidation(validation.uuid!!)
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .map {
+                                        onResultValidationDeclined()
+                                    }
+                                    .onErrorReturn {
+                                        onResultUnexpectedError()
+                                    }
+                                    .subscribe()
+                        },
+                        reactivateDecoding)
+                        .show()
+
+            }.show()
+        }else{
+
+        }
+
+
     }
 
 

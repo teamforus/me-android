@@ -13,48 +13,94 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.util.*
 
-class ProviderPresenter constructor(private val vouchersRepository: VouchersRepository, private val address: String) : LRPresenter<VoucherProvider, ProviderModel, ProviderView>() {
+class ProviderPresenter constructor(private val vouchersRepository: VouchersRepository, private val address: String,
+                                    private val isDemoVoucher: Boolean? = false) : LRPresenter<VoucherProvider, ProviderModel, ProviderView>() {
 
     private var organizationId = 0L
     private var note = ""
 
-    override fun initialModelSingle(): Single<VoucherProvider> = Single.fromObservable(vouchersRepository.getVoucherAsProvider(address).map {
-        VoucherProvider(Voucher(it.voucher?.isProduct ?: false, it.voucher?.isUsed
-                ?: false, it.voucher.address, it.voucher.name, it.voucher.organizationName,
-                it.voucher.fundName, it.voucher.fundWebShopUrl, it.voucher.description, it.voucher.createdAt,
-                Currency(it.voucher.currency?.name, it.voucher.currency?.logoUrl), it.voucher.amount, it.voucher.logo,
-                it.voucher.transactions.map { transaction ->
-                    Transaction(transaction.id,
-                            Organization(transaction.organization?.id ?: 0,
-                                    transaction.organization?.name,
-                                    transaction.organization?.logo,
-                                    transaction.organization?.lat,
-                                    transaction.organization?.lon,
-                                    transaction.organization?.address,
-                                    transaction.organization?.phone,
-                                    transaction.organization?.email),
-                            Currency(transaction.currency?.name,
-                                    transaction.currency?.logoUrl),
-                            transaction?.amount ?: 0f.toBigDecimal(),
-                            transaction.createdAt,
-                            Transaction.Type.valueOf(transaction.type.name))
-                }, null, ""),
+    override fun initialModelSingle(): Single<VoucherProvider> {
 
-                it.allowedOrganizations.map { organization ->
-                    Organization(organization.id,
-                            organization.name,
-                            organization.logo,
-                            organization.lat,
-                            organization.lon,
-                            organization.address,
-                            organization.phone,
-                            organization.email)
-                },
+        if (isDemoVoucher != null && isDemoVoucher) {
 
-                it.allowedProductCategories.map { productCategory ->
-                    ProductCategory(productCategory.id, productCategory.key, productCategory.name)
-                })
-    })
+            return return Single.fromObservable(vouchersRepository.getTestVoucherAsProvider().map {
+                VoucherProvider(Voucher(it.voucher?.isProduct ?: false, it.voucher?.isUsed
+                        ?: false, it.voucher.address, it.voucher.name, it.voucher.organizationName,
+                        it.voucher.fundName, it.voucher.fundWebShopUrl, it.voucher.description, it.voucher.createdAt,
+                        Currency(it.voucher.currency?.name, it.voucher.currency?.logoUrl), it.voucher.amount, it.voucher.logo,
+                        it.voucher.transactions.map { transaction ->
+                            Transaction(transaction.id,
+                                    Organization(transaction.organization?.id ?: 0,
+                                            transaction.organization?.name,
+                                            transaction.organization?.logo,
+                                            transaction.organization?.lat,
+                                            transaction.organization?.lon,
+                                            transaction.organization?.address,
+                                            transaction.organization?.phone,
+                                            transaction.organization?.email),
+                                    Currency(transaction.currency?.name,
+                                            transaction.currency?.logoUrl),
+                                    transaction?.amount ?: 0f.toBigDecimal(),
+                                    transaction.createdAt,
+                                    Transaction.Type.valueOf(transaction.type.name))
+                        },  null, it.voucher.expired ?: false,""),
+
+                        it.allowedOrganizations.map { organization ->
+                            Organization(organization.id,
+                                    organization.name,
+                                    organization.logo,
+                                    organization.lat,
+                                    organization.lon,
+                                    organization.address,
+                                    organization.phone,
+                                    organization.email)
+                        },
+
+                        it.allowedProductCategories.map { productCategory ->
+                            ProductCategory(productCategory.id, productCategory.key, productCategory.name)
+                        })
+            })
+
+        } else {
+            return Single.fromObservable(vouchersRepository.getVoucherAsProvider(address).map {
+                VoucherProvider(Voucher(it.voucher?.isProduct ?: false, it.voucher?.isUsed
+                        ?: false, it.voucher.address, it.voucher.name, it.voucher.organizationName,
+                        it.voucher.fundName, it.voucher.fundWebShopUrl, it.voucher.description, it.voucher.createdAt,
+                        Currency(it.voucher.currency?.name, it.voucher.currency?.logoUrl), it.voucher.amount, it.voucher.logo,
+                        it.voucher.transactions.map { transaction ->
+                            Transaction(transaction.id,
+                                    Organization(transaction.organization?.id ?: 0,
+                                            transaction.organization?.name,
+                                            transaction.organization?.logo,
+                                            transaction.organization?.lat,
+                                            transaction.organization?.lon,
+                                            transaction.organization?.address,
+                                            transaction.organization?.phone,
+                                            transaction.organization?.email),
+                                    Currency(transaction.currency?.name,
+                                            transaction.currency?.logoUrl),
+                                    transaction?.amount ?: 0f.toBigDecimal(),
+                                    transaction.createdAt,
+                                    Transaction.Type.valueOf(transaction.type.name))
+                        }, null, it.voucher.expired ?: false,""),
+
+                        it.allowedOrganizations.map { organization ->
+                            Organization(organization.id,
+                                    organization.name,
+                                    organization.logo,
+                                    organization.lat,
+                                    organization.lon,
+                                    organization.address,
+                                    organization.phone,
+                                    organization.email)
+                        },
+
+                        it.allowedProductCategories.map { productCategory ->
+                            ProductCategory(productCategory.id, productCategory.key, productCategory.name)
+                        })
+            })
+        }
+    }
 
     override fun ProviderModel.changeInitialModel(i: VoucherProvider): ProviderModel {
         val organization = if (i.allowedOrganizations.isNotEmpty()) i.allowedOrganizations.get(0) else Organization(organizationId, i.voucher.organizationName, "", i.voucher.product?.organization?.lat
@@ -72,32 +118,50 @@ class ProviderPresenter constructor(private val vouchersRepository: VouchersRepo
 
                 Arrays.asList(
 
-                loadRefreshPartialChanges(),
+                        loadRefreshPartialChanges(),
 
-                intent { it.selectAmount() }
-                        .map { ProviderPartialChanges.SetAmount(it) },
+                        intent { it.selectAmount() }
+                                .map { ProviderPartialChanges.SetAmount(it) },
 
-                intent { it.selectNote() }
-                        .map { ProviderPartialChanges.SetNote(it) },
-
-
-                intent { it.charge() }
-                        .switchMap {
-                            vouchersRepository.makeTransaction(address, it, note, organizationId)
-                                    .subscribeOn(Schedulers.io())
-                                    .observeOn(AndroidSchedulers.mainThread())
-                                    .map<PartialChange> {
-                                        ProviderPartialChanges.MakeTransactionEnd()
-                                    }
-                                    .onErrorReturn {
-                                        ProviderPartialChanges.MakeTransactionError(it)
-                                    }
-                                    .startWith(ProviderPartialChanges.MakeTransactionStart())
-                        },
+                        intent { it.selectNote() }
+                                .map { ProviderPartialChanges.SetNote(it) },
 
 
-                 intent { it.selectOrganization() }
-                        .map { ProviderPartialChanges.SelectOrganization(it) }
+                        intent { it.charge() }
+                                .switchMap {
+                                    vouchersRepository.makeTransaction(address, it, note, organizationId)
+                                            .subscribeOn(Schedulers.io())
+                                            .observeOn(AndroidSchedulers.mainThread())
+                                            .map<PartialChange> {
+                                                ProviderPartialChanges.MakeTransactionEnd()
+                                            }
+                                            .onErrorReturn {
+                                                ProviderPartialChanges.MakeTransactionError(it)
+                                            }
+                                            .startWith(ProviderPartialChanges.MakeTransactionStart())
+                                },
+
+
+                        intent { it.selectOrganization() }
+                                .map { ProviderPartialChanges.SelectOrganization(it) },
+
+                        intent { it.demoCharge() }
+                                .switchMap {
+
+
+                                    vouchersRepository.makeDemoTransaction(address)
+                                            .subscribeOn(Schedulers.io())
+                                            .observeOn(AndroidSchedulers.mainThread())
+                                            .map<PartialChange> {
+                                                ProviderPartialChanges.MakeTransactionEnd()
+                                            }
+                                            .onErrorReturn {
+                                                ProviderPartialChanges.MakeTransactionError(it)
+                                            }
+                                            .startWith(ProviderPartialChanges.MakeTransactionStart())
+
+
+                                }
                 )
         )
 

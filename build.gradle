@@ -21,6 +21,7 @@ buildscript {
     classpath 'me.tatarka:gradle-retrolambda:3.2.3'
     classpath 'io.fabric.tools:gradle:1.25.4'
     classpath 'com.google.gms:google-services:4.0.1'
+
   }
 }
 
@@ -37,9 +38,9 @@ allprojects {
     jcenter()
   }
   ext {
-    androidVersionCode = 4
-    androidVersionName = "0.1.0"
-    androidBuildNumber = 2
+    androidVersionCode = 14
+    androidVersionName = "0.4.0"
+    androidBuildNumber = 1
     testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
     testApplicationId = 'io.forus.me.test'
   }

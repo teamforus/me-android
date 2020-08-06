@@ -1,7 +1,9 @@
 package io.forus.me.android.presentation.view.screens.records.categories
 
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.ViewGroup
+import android.widget.CompoundButton
 import io.forus.me.android.domain.models.records.RecordCategory
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.helpers.inflate
@@ -15,14 +17,15 @@ class RecordCategoriesVH(parent: ViewGroup, private val clickListener: ((RecordC
 
     fun render(item:  RecordCategory) = with(itemView) {
 
-        num_records.text = "${item.size} eigenschappen"
-        name.text = item.name
 
-        if(item.logo.isNotEmpty()) logo.setImageUrl(item.logo)
+        name.text = item.name
 
         root.setOnClickListener {
             clickListener?.invoke(item)
         }
 
+        selectedCheckBox.setChecked(item.selected)
     }
+
+
 }

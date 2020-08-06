@@ -29,7 +29,7 @@ class RecordTypesAdapter(private val clickListener: ((RecordType) -> Unit)?): Re
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = RecordTypeVH(parent) { recordType: RecordType, position: Int ->
         lastSelectedPosition = position
-        //notifyDataSetChanged()
+        notifyDataSetChanged()
         clickListener?.invoke(recordType)
     }
 

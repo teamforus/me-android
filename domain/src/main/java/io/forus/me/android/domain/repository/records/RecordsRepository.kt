@@ -1,5 +1,6 @@
 package io.forus.me.android.domain.repository.records
 
+import com.sun.net.httpserver.Authenticator
 import io.forus.me.android.domain.models.records.*
 import io.reactivex.Observable
 
@@ -26,10 +27,17 @@ interface RecordsRepository {
     fun getRecords(): Observable<List<Record>>
 
 
+    fun getRecordsArchived(): Observable<List<Record>>
+
+
     fun getRecords(recordCategoryId: Long): Observable<List<Record>>
 
+    fun deleteRecord(id: Long) : Observable<Boolean>
 
-    fun newRecord(model: NewRecordRequest) : Observable<CreateRecordResponse>
+   // fun updateRecord(id: Long, updateRecord: UpdateRecord) : Observable<Success>
+
+
+    fun newRecord(model: NewRecordRequest): Observable<CreateRecordResponse>
 
 
     fun getRecord(recordId: Long): Observable<Record>
@@ -41,7 +49,7 @@ interface RecordsRepository {
     fun readValidation(uuid: String): Observable<Validation>
 
 
-    fun approveValidation(uuid: String): Observable<Boolean>
+    fun approveValidation(uuid: String, organization_id: Long): Observable<Boolean>
 
 
     fun declineValidation(uuid: String): Observable<Boolean>

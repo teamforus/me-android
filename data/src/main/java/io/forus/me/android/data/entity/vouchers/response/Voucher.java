@@ -1,5 +1,7 @@
 package io.forus.me.android.data.entity.vouchers.response;
 
+import android.util.Log;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.math.BigDecimal;
@@ -26,6 +28,9 @@ public class Voucher {
 
     @SerializedName("created_at_locale")
     private String createdAtLocale;
+
+    @SerializedName("expired")
+    private boolean expired;
 
     @SerializedName("expire_at_locale")
     private String expireAtLocale;
@@ -65,12 +70,16 @@ public class Voucher {
 
     public Voucher() { }
 
-    public Voucher(Long fundId, String identityAddress, String address, Date createdAt, String createdAtLocale, String expireAtLocale, Long timestamp, Type type, Product product, BigDecimal amount, Fund fund, List<Transaction> transactions, List<Organization> allowedOrganizations, List<ProductCategory> allowedProductCategories, List<Product> allowedProducts, List<Voucher> childVouchers, List<Office> offices) {
+    public Voucher(Long fundId, String identityAddress, String address, Date createdAt, String createdAtLocale,
+                   boolean expired, String expireAtLocale, Long timestamp, Type type, Product product, BigDecimal amount,
+                   Fund fund, List<Transaction> transactions, List<Organization> allowedOrganizations, List<ProductCategory> allowedProductCategories,
+                   List<Product> allowedProducts, List<Voucher> childVouchers, List<Office> offices) {
         this.fundId = fundId;
         this.identityAddress = identityAddress;
         this.address = address;
         this.createdAt = createdAt;
         this.createdAtLocale = createdAtLocale;
+        this.expired = expired;
         this.expireAtLocale = expireAtLocale;
         this.timestamp = timestamp;
         this.type = type;
@@ -126,6 +135,8 @@ public class Voucher {
     }
 
     public String getExpireAtLocale() {
+
+        Log.d("forus","expire_at_locate="+expireAtLocale);
         return expireAtLocale;
     }
 
@@ -219,5 +230,13 @@ public class Voucher {
 
     public void setOffices(List<Office> offices) {
         this.offices = offices;
+    }
+
+    public boolean isExpired() {
+        return expired;
+    }
+
+    public void setExpired(boolean expired) {
+        this.expired = expired;
     }
 }
