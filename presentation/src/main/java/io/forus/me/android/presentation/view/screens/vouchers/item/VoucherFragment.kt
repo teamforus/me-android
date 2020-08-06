@@ -170,9 +170,10 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
 
             var qrDescription = ""
             if (voucher?.expireDate?.isNotEmpty()!!) {
-                Log.d("forus", "expiredData =${voucher?.expireDate}")
-                qrDescription = String.format(resources.getString(R.string.voucher_qr_code_expired), voucher?.expireDate);
-                Log.d("forus", "qrDescription =${qrDescription}")
+
+                qrDescription = if(voucher!!.expired) String.format(resources.getString(R.string.voucher_qr_code_expired),
+                        voucher?.expireDate) else String.format(resources.getString(R.string.voucher_qr_code_actual),
+                        voucher?.expireDate)
             }
 
             (activity as? DashboardActivity)?.showPopupQRFragment(qrEncoded, fundName, title, qrDescription)
@@ -319,7 +320,9 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
 
 
                 if (voucher.expireDate?.isNotEmpty()!!) {
-                    tv_voucher_expired.text = String.format(resources.getString(R.string.voucher_qr_code_expired),
+
+                    tv_voucher_expired.text = if(voucher.expired) String.format(resources.getString(R.string.voucher_qr_code_expired),
+                            voucher?.expireDate) else String.format(resources.getString(R.string.voucher_qr_code_actual),
                             voucher?.expireDate)
                 }
                // shopkeeper_call
@@ -348,7 +351,12 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
 
         when (vs.model.emailSend) {
             EmailSend.SEND -> showEmailSendDialog()
-            EmailSend.SENT -> showEmailSentDialog()
+            EmailSend.SENT -> {
+                FullscreenDialog.display(fragmentManager, context!!.resources.getString(R.string.voucher_send_email_success),
+                        context!!.resources.getString(R.string.voucher_send_email_description),
+                        context!!.resources.getString(R.string.me_ok)) {  sentEmailDialogShown.onNext(Unit)
+                }
+            }
             EmailSend.NOTHING -> Unit
         }
     }
@@ -401,11 +409,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
         type.paint.maskFilter = null
     }
 
-    private fun showEmailSentDialog() {
-        FullscreenDialog.display(fragmentManager, context!!.resources.getString(R.string.voucher_send_email_success),
-                context!!.resources.getString(R.string.voucher_send_email_description),
-                context!!.resources.getString(R.string.me_ok)) { activity?.finish() }
-    }
+
 
     private fun setMarker(address: LatLng) {
         val marker = MarkerOptions()

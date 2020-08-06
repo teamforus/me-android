@@ -160,8 +160,8 @@
     <string name="validations">Validations</string>
     <string name="validations_empty">You have no validations yet</string>
 
-     <string name="dialog_record_edit_title">Would you like to archive record?</string>
-     <string name="dialog_record_archive_title">Would you like to archive record?</string>
+    <string name="dialog_record_edit_title">Would you like to archive record?</string>
+    <string name="dialog_record_archive_title">Would you like to archive record?</string>
 
     <string name="dialog_record_edit_description">All validations for this record will be removed. You must select validators again for the edited record</string>
     <string name="dialog_record_archive_description">All validations for this record will be removed.</string>
@@ -232,7 +232,8 @@
     <string name="voucher_qr_code_subtitle">This is the QR-code of the Voucher</string>
     <string name="voucher_qr_code_subtitle_with_fund_name">%s\nThis is your voucher in the form of a QR-code</string>
     <string name="voucher_qr_code_description">This is your voucher in the form of QR-code\nLet the shopkeeper scan it to make a payment</string>
-    <string name="voucher_qr_code_expired">Use this voucher until:  %s</string>
+    <string name="voucher_qr_code_actual">Use this voucher until   %s</string>
+    <string name="voucher_qr_code_expired">This voucher has expired on  %s</string>
     <string name="voucher_expired">Voucher expired</string>
     <string name="voucher_email_to_me">Email to me</string>
     <string name="send_feedback_email_dialog_title">Would you like to send us your feedback by e-mail?</string>
@@ -306,6 +307,10 @@
 
     </string-array>
 
+    <string name="title_activity_fullscreen_success">FullscreenSuccessActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_success_dialog">SuccessDialogActivity</string>
 
 
 </resources>
