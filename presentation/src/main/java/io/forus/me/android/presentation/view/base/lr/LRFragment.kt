@@ -1,28 +1,19 @@
 package io.forus.me.android.presentation.view.base.lr
 
+import android.view.View
+import android.widget.Toast
 import androidx.annotation.CallSuper
 import com.google.android.material.snackbar.Snackbar
-import android.view.View
 import com.hannesdorfmann.mosby3.mvi.MviBasePresenter
 import com.hannesdorfmann.mosby3.mvi.MviFragment
-import io.reactivex.Observable
-import io.reactivex.subjects.PublishSubject
-import android.widget.Toast
+import io.forus.me.android.data.exception.RetrofitException
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.helpers.OnCompleteListener
 import io.forus.me.android.presentation.navigation.Navigator
-
-import android.R.id.message
-import androidx.annotation.NonNull
-import com.afollestad.materialdialogs.DialogAction
-import com.afollestad.materialdialogs.MaterialDialog
-import io.forus.me.android.presentation.view.base.lr.LRFragment
-import io.forus.me.android.presentation.view.screens.account.account.dialogs.SessionExpiredDialog
-import io.forus.me.android.presentation.view.screens.qr.dialogs.ScanVoucherNotEligibleDialog
-
-import io.forus.me.android.data.exception.RetrofitException
 import io.forus.me.android.presentation.view.base.NoInternetDialog
-
+import io.forus.me.android.presentation.view.screens.account.account.dialogs.SessionExpiredDialog
+import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
 
 
 abstract class LRFragment<M, V : LRView<M>, P : MviBasePresenter<V, LRViewState<M>>> : MviFragment<V, P>(), LRView<M> {
@@ -70,12 +61,12 @@ abstract class LRFragment<M, V : LRView<M>, P : MviBasePresenter<V, LRViewState<
             //401 Unauthorized
             if (vs.refreshingError.message != null && vs.refreshingError.message!!.contains("401 ")) {
                 if (context != null) {
-                    SessionExpiredDialog(context!!, MaterialDialog.SingleButtonCallback { _, _ ->
+                    SessionExpiredDialog(context!!) {
                         //navigator.navigateToWelcomeScreen(activity)
                         navigator.navigateToLoginSignUp(activity)
 
                         activity?.finish()
-                    }).show()
+                    }.show()
                 }
 
             } else 

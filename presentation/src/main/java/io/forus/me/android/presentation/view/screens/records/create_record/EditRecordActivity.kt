@@ -140,10 +140,8 @@ class EditRecordActivity : AppCompatActivity(), RecordTypesFragment.OnItemSelect
                     val detailsError = retrofitExceptionMapper.mapToDetailsApiError(error)
 
 
-                    CreateRecordErrorDialog(this@EditRecordActivity, detailsError.message, detailsError.errorsString,
-                            MaterialDialog.SingleButtonCallback { _, _ ->
-
-                            }).show()
+                    CreateRecordErrorDialog(this@EditRecordActivity, detailsError.message, detailsError.errorsString
+                    ) {   }.show()
 
 
                 } catch (e: Exception) {

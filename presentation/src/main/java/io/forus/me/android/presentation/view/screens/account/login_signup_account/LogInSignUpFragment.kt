@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.input.input
+import com.afollestad.materialdialogs.list.listItems
 import io.forus.me.android.domain.models.account.NewAccountRequest
 import io.forus.me.android.presentation.BuildConfig
 import io.forus.me.android.presentation.api_config.ApiConfig
@@ -25,6 +27,7 @@ import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_account_details.root
+import kotlinx.android.synthetic.main.view_edit_text.*
 
 
 /**
@@ -226,52 +229,82 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
                     ?: defaultApi
 
             devOptionsBt!!.setOnClickListener {
-                ChooseApiDialog(context!!, MaterialDialog.ListCallback { dialog, itemView, position, text ->
 
-                    val newApiType = ApiConfig.stringToApiType(text.toString())
-                    devOptionsBt!!.text = newApiType.name
+                MaterialDialog(context!!).show {
+                    listItems(R.array.api_items) { dialog, index, text ->
+                        val newApiType = ApiConfig.stringToApiType(text.toString())
+                        devOptionsBt!!.text = newApiType.name
 
-                    if (newApiType == ApiType.OTHER) {
-
-                        CustomApiDialog(context!!, storedOtherApiStr, MaterialDialog.InputCallback { _, input ->
-
-                            val customApiStr = input.toString()
-                            storedOtherApiStr = customApiStr
-
-                            CheckApiPresenter(context!!).checkApi(customApiStr,
-                                    { result ->
-                                        run {
-                                            if (result) {
-                                                TestApiSuccessDialog(context!!, customApiStr) {
-                                                    SaveApiAndRestartDialog(context!!) {
-                                                        SharedPref.write(SharedPref.OPTION_CUSTOM_API_URL, customApiStr)
-                                                        SharedPref.write(SharedPref.OPTION_API_TYPE, newApiType.name)
-                                                        ApiConfig.changeToCustomApi(customApiStr)
-                                                        Utils.instance.restartApp(context!!)
-                                                    }.show()
-                                                }.show()
-                                            } else {
-                                                TestApiErrorDialog(context!!, "", {}).show()
-                                            }
-                                        }
-                                    },
-                                    { throwable ->
-                                        run {
-                                            TestApiErrorDialog(context!!, throwable.localizedMessage, {}).show()
-                                        }
+                        if (newApiType == ApiType.OTHER) {
+                            MaterialDialog(context)
+                                    .message {
+                                        HtmlCompat.fromHtml(
+                                                "API format: <br/><b>https://{address}/</b> <i><font color='#DCDCDC'>api/v1/...</font></i>",
+                                                HtmlCompat.FROM_HTML_MODE_LEGACY)
                                     }
-                            )
+                                    .show {
+                                        input { dialog, text ->
+                                            val customApiStr = text.toString()
+                                            storedOtherApiStr = customApiStr
 
-                        }, {}, {}).show()
-                    } else {
-                        SaveApiAndRestartDialog(context!!) {
-                            SharedPref.write(SharedPref.OPTION_API_TYPE, newApiType.name)
-                            ApiConfig.changeApi(newApiType)
-                            Utils.instance.restartApp(context!!)
-                        }.show()
+                                            CheckApiPresenter(context).checkApi(customApiStr,
+                                                    { result ->
+                                                        run {
+                                                            if (result) {
+                                                                MaterialDialog(context)
+                                                                        .message { "Success test API server" }
+                                                                        .show {
+                                                                    positiveButton(R.string.me_ok) { dialog ->
+                                                                        MaterialDialog(context)
+                                                                                .message { "You must restart the application for the changes to take effect" }
+                                                                                .show {
+                                                                            positiveButton(R.string.me_ok) { dialog ->
+                                                                                SharedPref.write(SharedPref.OPTION_CUSTOM_API_URL, customApiStr)
+                                                                                SharedPref.write(SharedPref.OPTION_API_TYPE, newApiType.name)
+                                                                                ApiConfig.changeToCustomApi(customApiStr)
+                                                                                Utils.instance.restartApp(context)
+                                                                            }
+                                                                                    negativeButton { cancel() }
+                                                                        }
+                                                                    }
+                                                                }
+
+                                                            } else {
+                                                                MaterialDialog(context).message { "Error test API server" }
+                                                                .show {
+                                                                    negativeButton(R.string.cancel)
+                                                                }
+                                                            }
+                                                        }
+                                                    },
+                                                    { throwable ->
+                                                        run {
+                                                            MaterialDialog(context).message { throwable.localizedMessage }
+                                                                    .show {
+                                                                        negativeButton(R.string.cancel)
+                                                                    }
+                                                        }
+                                                    }
+                                            )
+                                        }
+                                        positiveButton(R.string.submit)
+                                    }
+
+
+                        } else {
+                            MaterialDialog(context)
+                                    .message { "You must restart the application for the changes to take effect" }
+                                    .show {
+                                        positiveButton(R.string.me_ok) { dialog ->
+                                            SharedPref.write(SharedPref.OPTION_API_TYPE, newApiType.name)
+                                            ApiConfig.changeApi(newApiType)
+                                            Utils.instance.restartApp(context)
+                                        }
+                                        negativeButton { cancel() }
+                                    }
+                        }
                     }
-
-                }) { }.show()
+                }
             }
         }
 

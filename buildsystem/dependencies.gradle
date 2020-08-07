@@ -23,7 +23,7 @@ ext {
   androidAnnotationsVersion = '21.0.3'
   arrowVersion = '1.0.0'
   circleIndicatorVersion = '1.2.2@aar'
-  materialDialogs = '0.9.6.0'
+  materialDialogs = '3.3.0'
   gooleMapsVersion = '16.0.0'
   playCoreVersion = '1.7.2'
   nav_version = '1.0.0'
@@ -96,6 +96,7 @@ ext {
           circleIndicator:    "me.relex:circleindicator:$rootProject.circleIndicatorVersion",
           qrReader:           "com.dlazaro66.qrcodereaderview:qrcodereaderview:${rootProject.qrReaderVersion}",
           materialDialogs:    "com.afollestad.material-dialogs:core:${rootProject.materialDialogs}",
+          materialDialogInput:"com.afollestad.material-dialogs:input:${rootProject.materialDialogs}",
           fingerprint:        "com.multidots:fingerprint-auth:${rootProject.fingerprintAuthVersion}",
           fabric:             "com.crashlytics.sdk.android:crashlytics:${rootProject.fabric}",
           firebaseCore:       "com.google.firebase:firebase-core:${rootProject.firebaseCoreVersion}",

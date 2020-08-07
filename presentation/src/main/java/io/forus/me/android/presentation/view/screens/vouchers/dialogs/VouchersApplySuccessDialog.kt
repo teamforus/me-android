@@ -8,7 +8,7 @@ import io.forus.me.android.presentation.R
 class VouchersApplySuccessDialog(private val context: Context,
                                  private val positiveCallback: () -> Unit){
 
-    private val dialog: MaterialDialog = MaterialDialog.Builder(context)
+   /* private val dialog: MaterialDialog = MaterialDialog.Builder(context)
             .title(context.resources.getString(R.string.success))
             .content(context.resources.getString(R.string.vouchers_apply_success))
             .positiveText(context.resources.getString(R.string.me_ok))
@@ -17,5 +17,5 @@ class VouchersApplySuccessDialog(private val context: Context,
 
     fun show(){
         dialog.show()
-    }
+    }*/
 }

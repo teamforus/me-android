@@ -8,7 +8,7 @@ import io.forus.me.android.presentation.R
 class ScanDemoTransactionDialog(private val context: Context,
                                 private val positiveCallback: () -> Unit){
 
-    private val dialog: MaterialDialog = MaterialDialog.Builder(context)
+    /*private val dialog: MaterialDialog = MaterialDialog.Builder(context)
             .title(context.resources.getString(R.string.voucher_send_email_success))
             .content(context.resources.getString(R.string.voucher_demo_transaction_operation_completed))
             .positiveText(context.resources.getString(R.string.me_ok))
@@ -22,5 +22,5 @@ class ScanDemoTransactionDialog(private val context: Context,
 
     fun dismiss(){
         dialog.dismiss()
-    }
+    }*/
 }

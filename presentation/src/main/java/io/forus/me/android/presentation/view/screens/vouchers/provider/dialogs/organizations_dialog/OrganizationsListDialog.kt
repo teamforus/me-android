@@ -6,15 +6,16 @@ import com.afollestad.materialdialogs.MaterialDialog
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.models.vouchers.Organization
 import androidx.recyclerview.widget.LinearLayoutManager
-
-
+import com.afollestad.materialdialogs.callbacks.onCancel
+import com.afollestad.materialdialogs.customview.customView
+import io.forus.me.android.presentation.view.component.text.TextView
 
 
 class OrganizationsListDialog(private val context: Context,
                               private val organizations: List<Organization>,
                               private val selectItemCallback: (Organization) -> Unit) {
 
-    private val dialog: MaterialDialog = MaterialDialog.Builder(context)
+   /*private val dialog: MaterialDialog = MaterialDialog.Builder(context)
             .title(context.resources.getString(R.string.voucher_dialog_choose_organization))
             .customView(R.layout.view_organizations_list, true)
             .negativeText(context.resources.getString(R.string.me_cancel))
@@ -35,10 +36,32 @@ class OrganizationsListDialog(private val context: Context,
         recycler!!.layoutManager = LinearLayoutManager(context)
         recycler.adapter = mAdapter
 
-    }
+    }*/
 
     fun show() {
-        dialog.show()
+        //dialog.show()
+        MaterialDialog(context)
+                .title(R.string.voucher_dialog_choose_organization)
+                .show {
+                    val view = this.customView()
+
+                    val recycler = view?.findViewById<RecyclerView>(R.id.recycler)
+
+                    val mAdapter = OrganizationsAdapter(organizations, object : OrganizationsAdapter.Callback {
+                        override fun onItemClicked(item: Organization) {
+                            selectItemCallback.invoke(item)
+                            dismiss()
+                        }
+                    })
+                    recycler!!.layoutManager = LinearLayoutManager(context)
+                    recycler.adapter = mAdapter
+
+
+
+                    onCancel { dismiss() }
+                }
+                .setContentView(R.layout.view_organizations_list)
+
 
     }
 

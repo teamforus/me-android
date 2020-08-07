@@ -7,7 +7,7 @@ import io.forus.me.android.presentation.R
 class SendVoucherSuccessDialog(private val context: Context,
                                    private val dismissListener: () -> Unit){
 
-    private val dialog: MaterialDialog = MaterialDialog.Builder(context)
+    /*private val dialog: MaterialDialog = MaterialDialog.Builder(context)
             .title(R.string.voucher_send_email_success)
             .content(R.string.voucher_send_email_description)
             .icon(context.resources.getDrawable(R.drawable.ic_baseline_check_24px))
@@ -17,5 +17,5 @@ class SendVoucherSuccessDialog(private val context: Context,
 
     fun show(){
         dialog.show()
-    }
+    }*/
 }

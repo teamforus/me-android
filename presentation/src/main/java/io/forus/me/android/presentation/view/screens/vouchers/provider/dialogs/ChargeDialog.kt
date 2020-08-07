@@ -2,7 +2,10 @@ package io.forus.me.android.presentation.view.screens.vouchers.provider.dialogs
 
 import android.content.Context
 import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.callbacks.onCancel
+import com.afollestad.materialdialogs.customview.customView
 import io.forus.me.android.presentation.R
+import io.forus.me.android.presentation.view.component.text.TextView
 import java.math.BigDecimal
 
 class ChargeDialog(private val context: Context,
@@ -10,7 +13,7 @@ class ChargeDialog(private val context: Context,
                    private val extra: BigDecimal,
                    private val positiveCallback: () -> Unit) {
 
-    private val dialog: MaterialDialog = MaterialDialog.Builder(context)
+   /* private val dialog: MaterialDialog = MaterialDialog.Builder(context)
             .title(context.resources.getString(R.string.vouchers_pay_title))
             .customView(if(extra.compareTo(BigDecimal.ZERO) == 0) R.layout.view_provider_charge else R.layout.view_provider_charge_extra, false)
             .positiveText(context.resources.getString(R.string.voucher_request))
@@ -27,9 +30,31 @@ class ChargeDialog(private val context: Context,
         if(extra.compareTo(BigDecimal.ZERO) != 0){
             tvExtra?.text = context.resources.getString(R.string.vouchers_pay_question_extra, extra.toString())
         }
-    }
+    }*/
 
     fun show(){
-        dialog.show()
+        //dialog.show()
+        MaterialDialog(context)
+                .title(R.string.vouchers_pay_title)
+                .show {
+                    val view = this.customView()
+                    val tvCharge = view?.findViewById<io.forus.me.android.presentation.view.component.text.TextView>(R.id.tv_charge)
+                    val tvExtra = view?.findViewById<io.forus.me.android.presentation.view.component.text.TextView>(R.id.tv_extra)
+
+                    tvCharge?.text = context.resources.getString(R.string.vouchers_pay_question, chargeAmount.toString())
+                    if(extra.compareTo(BigDecimal.ZERO) != 0){
+                        tvExtra?.text = context.resources.getString(R.string.vouchers_pay_question_extra, extra.toString())
+                    }
+                    positiveButton(R.string.voucher_request) { dialog ->
+                        positiveCallback.invoke()
+                    }
+                    negativeButton(R.string.cancel) { dialog ->
+                        dismiss()
+                    }
+
+                }
+                .setContentView(if(extra.compareTo(BigDecimal.ZERO) == 0) R.layout.view_provider_charge
+                else R.layout.view_provider_charge_extra)
+
     }
 }

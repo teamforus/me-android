@@ -184,6 +184,7 @@ dependencies {
     implementation presentationDependencies.glide
     implementation presentationDependencies.circleIndicator
     implementation presentationDependencies.materialDialogs
+    implementation presentationDependencies.materialDialogInput
     implementation presentationDependencies.fingerprint
     implementation presentationDependencies.firebaseCore
     implementation presentationDependencies.firebaseMessaging

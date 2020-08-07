@@ -6,7 +6,7 @@ import io.forus.me.android.presentation.R
 
 class InstructionsDialog(private val context: Context) {
 
-    private val dialog: MaterialDialog = MaterialDialog.Builder(context)
+    /*private val dialog: MaterialDialog = MaterialDialog.Builder(context)
             .title(context.resources.getString(R.string.restore_inloggen_by_email))
             .content(context.resources.getString(R.string.restore_email_instructions))
             .positiveText(context.resources.getString(R.string.me_ok))
@@ -14,5 +14,5 @@ class InstructionsDialog(private val context: Context) {
 
     fun show(){
         dialog.show()
-    }
+    }*/
 }

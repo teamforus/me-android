@@ -9,7 +9,7 @@ import io.forus.me.android.presentation.R
 
 class AboutMeDialog(private val context: Context){
 
-    private val dialog: MaterialDialog = MaterialDialog.Builder(context)
+    /*private val dialog: MaterialDialog = MaterialDialog.Builder(context)
             .title(context.getString(R.string.profile_about_me))
             .customView(R.layout.view_about_me, false)
             .positiveText(context.resources.getString(R.string.me_ok))
@@ -26,5 +26,5 @@ class AboutMeDialog(private val context: Context){
 
     fun show(){
         dialog.show()
-    }
+    }*/
 }

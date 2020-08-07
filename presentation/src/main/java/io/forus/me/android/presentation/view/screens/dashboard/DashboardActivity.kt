@@ -100,7 +100,7 @@ class DashboardActivity : SlidingPanelActivity(), DashboardContract.View {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return currentFragment?.onOptionsItemSelected(item) ?: false
+        return currentFragment?.onOptionsItemSelected(item!!) ?: false
     }
 
     override fun onDestroy() {
