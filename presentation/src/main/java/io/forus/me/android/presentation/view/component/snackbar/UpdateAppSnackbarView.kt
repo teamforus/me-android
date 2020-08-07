@@ -3,8 +3,8 @@ package com.example.snackbarexample.customsnackbar.chef
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Context
-import android.support.constraint.ConstraintLayout
-import android.support.design.snackbar.ContentViewCallback
+import androidx.constraintlayout.widget.ConstraintLayout
+import com.google.android.material.snackbar.ContentViewCallback
 import android.util.AttributeSet
 import android.view.View
 import android.view.animation.OvershootInterpolator

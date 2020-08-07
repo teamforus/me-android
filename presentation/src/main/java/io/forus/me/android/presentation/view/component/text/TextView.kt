@@ -1,7 +1,7 @@
 package io.forus.me.android.presentation.view.component.text
 
 import android.content.Context
-import android.support.v7.widget.AppCompatTextView
+import androidx.appcompat.widget.AppCompatTextView
 import android.util.AttributeSet
 import io.forus.me.android.presentation.R
 import android.graphics.Typeface

@@ -6,7 +6,7 @@ import android.content.Context
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.os.StrictMode
-import android.support.multidex.MultiDex
+import androidx.multidex.MultiDex
 import android.util.Log
 import com.crashlytics.android.Crashlytics
 import com.google.android.gms.tasks.OnCompleteListener

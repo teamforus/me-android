@@ -17,7 +17,7 @@
         android:background="@drawable/edit_text_rounded_corners">
     </RelativeLayout>
 
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_layout"
         android:layout_marginTop="4dp"
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
         app:hintTextAppearance="@style/EditTextHint"
         app:errorTextAppearance="@style/EditTextError">
 
-        <android.support.design.widget.TextInputEditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/text_edit"
             style="@style/EditTextField"
             android:layout_width="match_parent"
@@ -37,6 +37,6 @@
             tools:text="test@test.com" />
 
 
-    </android.support.design.widget.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
 </RelativeLayout>

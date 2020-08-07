@@ -3,7 +3,7 @@ package io.forus.me.android.presentation.view.screens.dashboard
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -28,7 +28,7 @@ class DashboardFragment : Fragment() {
 
     private var navigationAdapter: AHBottomNavigationAdapter? = null
 
-    private var currentFragment: android.support.v4.app.Fragment? = null
+    private var currentFragment: Fragment? = null
     private var currentPagerPosition = 0
 
     private var adapter: MainViewPagerAdapter? = null

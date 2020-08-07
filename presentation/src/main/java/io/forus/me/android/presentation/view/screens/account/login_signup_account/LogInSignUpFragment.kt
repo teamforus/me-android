@@ -1,7 +1,7 @@
 package io.forus.me.android.presentation.view.screens.account.login_signup_account
 
 import android.os.Bundle
-import android.support.v4.text.HtmlCompat
+import androidx.core.text.HtmlCompat
 import android.text.Editable
 import android.util.DisplayMetrics
 import android.view.LayoutInflater

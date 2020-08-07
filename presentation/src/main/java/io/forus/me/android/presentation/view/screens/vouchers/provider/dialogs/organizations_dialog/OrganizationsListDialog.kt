@@ -1,11 +1,11 @@
 package io.forus.me.android.presentation.view.screens.vouchers.provider.dialogs.organizations_dialog
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import com.afollestad.materialdialogs.MaterialDialog
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.models.vouchers.Organization
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 
 
 

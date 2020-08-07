@@ -1,23 +1,21 @@
 package io.forus.me.android.presentation.view.adapters;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import io.forus.me.android.presentation.view.fragment.BaseFragment;
-import io.forus.me.android.presentation.view.screens.property.PropertyFragment;
 
 
 public class MainViewPagerAdapter extends FragmentPagerAdapter {
 
-    private List<android.support.v4.app.Fragment> fragments;
+    private List<Fragment> fragments;
     private List<String> titles;
 
     private Fragment currentFragment;

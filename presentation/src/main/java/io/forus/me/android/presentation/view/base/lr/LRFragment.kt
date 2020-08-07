@@ -1,7 +1,7 @@
 package io.forus.me.android.presentation.view.base.lr
 
-import android.support.annotation.CallSuper
-import android.support.design.widget.Snackbar
+import androidx.annotation.CallSuper
+import com.google.android.material.snackbar.Snackbar
 import android.view.View
 import com.hannesdorfmann.mosby3.mvi.MviBasePresenter
 import com.hannesdorfmann.mosby3.mvi.MviFragment
@@ -13,7 +13,7 @@ import io.forus.me.android.presentation.helpers.OnCompleteListener
 import io.forus.me.android.presentation.navigation.Navigator
 
 import android.R.id.message
-import android.support.annotation.NonNull
+import androidx.annotation.NonNull
 import com.afollestad.materialdialogs.DialogAction
 import com.afollestad.materialdialogs.MaterialDialog
 import io.forus.me.android.presentation.view.base.lr.LRFragment

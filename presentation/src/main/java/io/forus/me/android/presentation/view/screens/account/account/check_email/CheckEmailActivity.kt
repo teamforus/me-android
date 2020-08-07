@@ -4,7 +4,7 @@ package io.forus.me.android.presentation.view.screens.account.account.check_emai
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.text.HtmlCompat
+import androidx.core.text.HtmlCompat
 import android.text.Html
 
 

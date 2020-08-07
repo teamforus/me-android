@@ -3,7 +3,7 @@ package io.forus.me.android.presentation.view.component.pinlock;
 import android.content.Context;
 import android.graphics.Rect;
 import android.os.Build;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;

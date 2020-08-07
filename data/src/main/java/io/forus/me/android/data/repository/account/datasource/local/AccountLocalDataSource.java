@@ -1,8 +1,9 @@
 package io.forus.me.android.data.repository.account.datasource.local;
 
+import androidx.annotation.NonNull;
+
 import com.gigawatt.android.data.net.sign.models.request.SignUp;
 
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -34,9 +35,9 @@ public class AccountLocalDataSource implements AccountDataSource, LocalDataSourc
         this.tokenDao = daoSession != null ? daoSession.getTokenDao() : null;
     }
 
-    @NotNull
+    @NonNull
     @Override
-    public Observable<Boolean> createUser(@NotNull SignUp signUp) {
+    public Observable<Boolean> createUser(@NonNull SignUp signUp) {
         return null;
     }
 
@@ -55,56 +56,56 @@ public class AccountLocalDataSource implements AccountDataSource, LocalDataSourc
 
     }
 
-    @NotNull
+    @NonNull
     @Override
-    public Observable<Boolean> restoreByEmail(@NotNull String email) {
+    public Observable<Boolean> restoreByEmail(@NonNull String email) {
         return null;
     }
 
-    @NotNull
+    @NonNull
     @Override
-    public Observable<AccessToken> restoreExchangeToken(@NotNull String token) {
+    public Observable<AccessToken> restoreExchangeToken(@NonNull String token) {
         return null;
     }
 
-    @NotNull
+    @NonNull
     @Override
     public Observable<IdentityPinResult> restoreByPinCode() {
         return null;
     }
 
-    @NotNull
+    @NonNull
     @Override
     public Observable<IdentityTokenResult> restoreByQrToken() {
         return null;
     }
 
-    @NotNull
+    @NonNull
     @Override
-    public Observable<Boolean> authorizeCode(@NotNull String code) {
+    public Observable<Boolean> authorizeCode(@NonNull String code) {
         return null;
     }
 
-    @NotNull
+    @NonNull
     @Override
-    public Observable<Boolean> authorizeToken(@NotNull String token) {
+    public Observable<Boolean> authorizeToken(@NonNull String token) {
         return null;
     }
 
-    @NotNull
+    @NonNull
     @Override
-    public Observable<Boolean> registerPush(@NotNull String token) {
+    public Observable<Boolean> registerPush(@NonNull String token) {
         return null;
     }
 
-    @NotNull
+    @NonNull
     @Override
     public Observable<Account> getIdentity() {
         return null;
     }
 
     @Override
-    public void saveIdentity(@NotNull String token, @NotNull String pin) {
+    public void saveIdentity(@NonNull String token, @NonNull String pin) {
         Database db = DatabaseManager.Companion.getInstance();
         db.delete();
         boolean opened = db.open(pin);
@@ -116,7 +117,7 @@ public class AccountLocalDataSource implements AccountDataSource, LocalDataSourc
         db.refresh();
     }
 
-    public boolean unlockIdentity(@NotNull String pin){
+    public boolean unlockIdentity(@NonNull String pin){
         Database db = DatabaseManager.Companion.getInstance();
         boolean success = db.open(pin);
         db.refresh();
@@ -129,12 +130,12 @@ public class AccountLocalDataSource implements AccountDataSource, LocalDataSourc
     }
 
     @Override
-    public boolean checkPin(@NotNull String pin) {
+    public boolean checkPin(@NonNull String pin) {
         return DatabaseManager.Companion.getInstance().checkPin(pin);
     }
 
     @Override
-    public boolean changePin(@NotNull String oldPin, @NotNull String newPin) {
+    public boolean changePin(@NonNull String oldPin, @NonNull String newPin) {
         if(checkPin(oldPin)){
             saveIdentity(getTokenString(), newPin);
             return true;
@@ -149,19 +150,19 @@ public class AccountLocalDataSource implements AccountDataSource, LocalDataSourc
         db.refresh();
     }
 
-    @NotNull
+    @NonNull
     @Override
     public String getCurrentToken() {
         return getTokenString();
     }
 
-    @NotNull
+    @NonNull
     @Override
-    public Observable<AccessToken> registerExchangeToken(@NotNull String token) {
+    public Observable<AccessToken> registerExchangeToken(@NonNull String token) {
         return null;
     }
 
-    @NotNull
+    @NonNull
     @Override
     public Observable<ShortTokenResult> getShortToken() {
         return null;

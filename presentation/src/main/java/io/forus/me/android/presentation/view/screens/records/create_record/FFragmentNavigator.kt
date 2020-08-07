@@ -2,7 +2,7 @@ package io.forus.me.android.presentation.view.screens.records.create_record
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v4.app.FragmentManager
+import androidx.fragment.app.FragmentManager
 
 import androidx.navigation.NavDestination
 import androidx.navigation.NavOptions

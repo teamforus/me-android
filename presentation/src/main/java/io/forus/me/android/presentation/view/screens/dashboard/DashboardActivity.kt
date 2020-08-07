@@ -6,7 +6,7 @@ import android.content.Intent
 import android.content.IntentSender
 import android.os.Bundle
 import android.os.Handler
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -38,7 +38,7 @@ import io.reactivex.schedulers.Schedulers
 
 class DashboardActivity : SlidingPanelActivity(), DashboardContract.View {
 
-    private var currentFragment: android.support.v4.app.Fragment? = null
+    private var currentFragment: Fragment? = null
     private var menu: Menu? = null
 
     private var settings = Injection.instance.settingsDataSource

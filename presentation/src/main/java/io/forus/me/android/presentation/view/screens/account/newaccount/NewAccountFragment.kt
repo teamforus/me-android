@@ -1,7 +1,7 @@
 package io.forus.me.android.presentation.view.screens.account.newaccount
 
 import android.os.Bundle
-import android.support.design.widget.Snackbar
+import com.google.android.material.snackbar.Snackbar
 import android.text.Editable
 import android.util.Log
 import android.view.LayoutInflater

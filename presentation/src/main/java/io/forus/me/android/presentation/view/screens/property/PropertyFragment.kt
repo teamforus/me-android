@@ -1,7 +1,7 @@
 
 package io.forus.me.android.presentation.view.screens.property
 
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.view.adapters.MainViewPagerAdapter
 import io.forus.me.android.presentation.view.fragment.BaseFragment

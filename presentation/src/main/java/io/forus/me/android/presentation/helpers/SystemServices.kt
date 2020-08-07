@@ -10,8 +10,8 @@ import android.hardware.fingerprint.FingerprintManager
 import android.os.Build
 import android.os.CancellationSignal
 import android.os.Handler
-import android.support.v4.hardware.fingerprint.FingerprintManagerCompat
-import android.support.v7.app.AlertDialog
+import androidx.core.hardware.fingerprint.FingerprintManagerCompat
+import androidx.appcompat.app.AlertDialog
 import io.forus.me.android.presentation.BuildConfig
 import io.forus.me.android.presentation.R
 
