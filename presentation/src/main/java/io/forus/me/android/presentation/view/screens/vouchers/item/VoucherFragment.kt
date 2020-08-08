@@ -115,6 +115,11 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
 
     override fun loadRefreshPanel() = lr_panel
 
+
+    override fun getVoucher(address: String): Observable<Unit> {
+        TODO("Not yet implemented")
+    }
+
     override fun sendEmail(): Observable<Unit> = RxView.clicks(btn_email).map { Unit }
 
     override fun showInfo(): Observable<Unit> = RxView.clicks(info_button).map { Unit }
@@ -127,7 +132,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
     override fun sentEmailDialogShown(): Observable<Unit> = sentEmailDialogShown
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = inflater.inflate(R.layout.fragment_voucher, container, false).also {
-
+        Log.d("forus11", "onCreateView")
         voucher = arguments?.getParcelable(VOUCHER_EXTRA)
         address = arguments?.getString(VOUCHER_ADDRESS_EXTRA, "") ?: ""
         adapter = TransactionsAdapter()
@@ -135,6 +140,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        Log.d("forus11", "onViewCreated")
         super.onViewCreated(view, savedInstanceState)
 //        val position = arguments?.getInt(POSITION_EXTRA, -1)
 //
@@ -153,7 +159,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
 
         info_button.setOnClickListener {
 
-            Log.d("forus", "info_button_setOnClickListener")
+            Log.d("forus11", "info_button_setOnClickListener")
             canShowInfo = true
             shortToken.onNext("");
 
@@ -205,7 +211,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
 
 
     override fun onSaveInstanceState(outState: Bundle) {
-
+        Log.d("forus11", "onSaveInstanceState")
         var mapViewBundle = outState.getBundle(MAP_VIEW_BUNDLE_KEY)
         if (mapViewBundle == null) {
             mapViewBundle = Bundle()
@@ -247,6 +253,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
     }
 
     override fun createPresenter(): VoucherPresenter {
+        Log.d("forus11", "createPresenter")
         val currencyDataMapper = CurrencyDataMapper()
         return VoucherPresenter(
                 LoadVoucherUseCase(Injection.instance.vouchersRepository, JobExecutor(), UIThread()),
@@ -263,7 +270,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
     override fun render(vs: LRViewState<VoucherModel>) {
         super.render(vs)
 
-        Log.d("forus", "render")
+        Log.d("forus11", "render")
 
         name.text = vs.model.item?.name
         type.text = vs.model.item?.organizationName
