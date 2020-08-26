@@ -46,7 +46,7 @@ ext {
   web3jVersion = '3.3.1-android'
   retrofitVersion='2.2.0'
   httpInspectorVersion='3.6.0'
-  greendaoVersion='3.2.2'
+  greendaoVersion='3.3.0'
   sqlcipherVersion='3.5.9@aar'
   ahbottomNavigationVersion='2.0.4'
   slidingUpPanelVersion='3.3.1'

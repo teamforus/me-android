@@ -11,8 +11,9 @@ apply plugin: 'com.android.library'
 
 apply plugin: 'org.greenrobot.greendao'
 
-apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
 apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'me.tatarka.retrolambda'
