@@ -1,7 +1,8 @@
 apply plugin: 'com.android.application'
 
-apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'org.greenrobot.greendao'
 apply plugin: 'io.fabric'
@@ -132,7 +133,8 @@ android {
             def project = "me"
             def SEP = "-"
             def flavor = variant.productFlavors[0].name
-            def buildType = variant.variantData.variantConfiguration.buildType.name
+            //def buildType = variant.variantData.variantConfiguration.buildType.name
+            def buildType = variant.buildType.name
             def version = variant.versionName
             def buildNumber = globalConfiguration.getAt("androidBuildNumber").toString()
             def newApkName = project + SEP + version + SEP + buildNumber + SEP + buildType + ".apk"
