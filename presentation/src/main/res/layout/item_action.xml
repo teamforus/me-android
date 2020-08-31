@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<io.forus.me.android.presentation.view.component.card.CommonCard
+    app:cardCornerRadius="@dimen/card_radius"
+    android:id="@+id/root"
+    android:layout_marginLeft="@dimen/activity_horizontal_margin_small"
+    android:layout_marginRight="@dimen/activity_horizontal_margin_small"
+    android:layout_marginTop="8dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    app:cardElevation="@dimen/card_elevation_medium"
+    app:cardUseCompatPadding="false"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/brightBackground"
+        >
+
+        <LinearLayout
+            android:layout_margin="16dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/icon"
+            >
+
+            <io.forus.me.android.presentation.view.component.text.TextView
+                android:id="@+id/type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="13sp"
+                android:textColor="@color/slate"
+                android:lineSpacingExtra="3sp"
+                tools:text="E-mail"
+                />
+
+
+            <io.forus.me.android.presentation.view.component.text.TextView
+                android:id="@+id/nameTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/body_1_87"
+                android:textSize="20.1sp"
+                app:type="medium"
+                tools:text="jamal@forus.io" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_action_icon"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="16dp"
+            />
+
+    </RelativeLayout>
+
+</io.forus.me.android.presentation.view.component.card.CommonCard>

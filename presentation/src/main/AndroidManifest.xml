@@ -21,9 +21,13 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".view.screens.vouchers.provider_actions.ActionsActivity"
+            android:label="@string/title_activity_actions"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".view.screens.vouchers.dialogs.SuccessDialogActivity"
             android:label="@string/title_activity_success_dialog"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.screens.vouchers.dialogs.FullscreenSuccessActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
