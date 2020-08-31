@@ -1,5 +1,6 @@
 package io.forus.me.android.presentation.view.screens.vouchers.provider_actions
 
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +8,7 @@ import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import io.forus.me.android.presentation.R
+import io.forus.me.android.presentation.databinding.ActivityActionsBinding
 import io.forus.me.android.presentation.view.screens.vouchers.provider_actions.adapter.ActionsAdapter
 import io.forus.me.android.presentation.view.screens.vouchers.provider_actions.model.ActionsViewModel
 
@@ -31,7 +33,7 @@ class ActionsActivity : AppCompatActivity() {
 
     lateinit var mainViewModel: ActionsViewModel
 
-    lateinit var binding: ActivityTransactionsStoryBinding
+    lateinit var binding: ActivityActionsBinding
 
 
     var transactionsAdapter: ActionsAdapter? = null
@@ -46,8 +48,7 @@ class ActionsActivity : AppCompatActivity() {
         // mainViewModel.docId = docId!!
         // mainViewModel.docType = docType
 
-        binding =
-                setContentView<ActivityTransactionsStoryBinding>(this@TransactionsActivity, R.layout.activity_actions)
+        binding = setContentView(R.layout.activity_actions)//iew<ActivityActionsBinding>(this@ActionsActivity, R.layout.activity_actions)
         binding.lifecycleOwner = this
         binding.model = mainViewModel
 
