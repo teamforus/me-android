@@ -50,7 +50,7 @@ class ProductReservationPresenter constructor(val vouchersRepository: VouchersRe
                 }
 
                 Voucher(isProduct ?: false, isUsed ?: false, address, name, organizationName,
-                        fundName, fundWebShopUrl, description, createdAt, Currency(currency?.name, currency?.logoUrl), amount, logo,
+                        fundName, fundType, fundWebShopUrl, description, createdAt, Currency(currency?.name, currency?.logoUrl), amount, logo,
                         transactionsMapped, product, expired ?: false, expireDate
                 )
             }

@@ -100,7 +100,8 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
 
         return Voucher(isProduct, isUsed, voucher.address
                 ?: "", name, organizationName, voucher.fund?.name
-                ?: "", voucher.fund?.webShopUrl ?: "", description, createdAt!!, euro, amount,
+                ?: "", voucher.fund?.type
+                ?: "",voucher.fund?.webShopUrl ?: "", description, createdAt!!, euro, amount,
                 productLogoUrl, transactions, productMapped, voucher.isExpired, voucher.expireAtLocale ?: "")
 
     }
@@ -161,7 +162,7 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
                 0, 0, productCategory, organization)
 
         val voucher = Voucher(false, false, "", "Test bedrijf",
-                "", "", "",
+                "", "", "","",
                 "", date, currency, 1000.toBigDecimal(), "",
                 transactionList, product, false,"")
 
