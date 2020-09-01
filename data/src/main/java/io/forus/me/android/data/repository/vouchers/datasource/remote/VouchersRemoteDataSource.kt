@@ -3,6 +3,7 @@ package io.forus.me.android.data.repository.vouchers.datasource.remote
 import io.forus.me.android.data.entity.vouchers.request.MakeDemoTransaction
 import io.forus.me.android.data.entity.vouchers.request.MakeTransaction
 import io.forus.me.android.data.entity.vouchers.response.DemoTransaction
+import io.forus.me.android.data.entity.vouchers.response.ProductAction
 import io.forus.me.android.data.entity.vouchers.response.Transaction
 import io.forus.me.android.data.entity.vouchers.response.Voucher
 import io.forus.me.android.data.net.vouchers.VouchersService
@@ -24,6 +25,10 @@ class VouchersRemoteDataSource(f: () -> VouchersService): VouchersDataSource, Re
 
     override fun retrieveProductVouchersAsProvider(address: String): Observable<List<Voucher>> {
         return service.getProductVouchersAsProvider(address).map { it.data }
+    }
+
+    override fun retrieveVoucherProductsActionsAsProvider(address: String): Observable<List<ProductAction>> {
+        return service.getActionProductsOfVoucherAsProvider(address).map { it.data }
     }
 
     override fun retrieveVoucherAsProvider(address: String): Observable<Voucher> {

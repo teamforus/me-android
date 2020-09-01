@@ -21,6 +21,10 @@ interface VouchersService {
     @GET("api/v1/platform/provider/vouchers/{address}/product-vouchers")
     fun getProductVouchersAsProvider(@Path("address") address: String): Observable<ListAllVouchers>
 
+    @GET("api/v1/platform/provider/vouchers/{address}/products")
+    fun getActionProductsOfVoucherAsProvider(@Path("address") address: String): Observable<ListAllProductsActions>
+
+
     @GET("api/v1/platform/vouchers/{address}/transactions")
     fun getTransactions(@Path("address") address: String): Observable<List<Transaction>>
 

@@ -3,6 +3,7 @@ package io.forus.me.android.data.repository.vouchers.datasource
 import io.forus.me.android.data.entity.vouchers.request.MakeDemoTransaction
 import io.forus.me.android.data.entity.vouchers.request.MakeTransaction
 import io.forus.me.android.data.entity.vouchers.response.DemoTransaction
+import io.forus.me.android.data.entity.vouchers.response.ProductAction
 import io.forus.me.android.data.entity.vouchers.response.Transaction
 import io.forus.me.android.data.entity.vouchers.response.Voucher
 import io.reactivex.Observable
@@ -15,6 +16,8 @@ interface VouchersDataSource {
     fun retrieveVoucher(address: String): Observable<Voucher>
 
     fun retrieveProductVouchersAsProvider(address: String): Observable<List<Voucher>>
+
+    fun retrieveVoucherProductsActionsAsProvider(address: String): Observable<List<ProductAction>>
 
     fun retrieveVoucherAsProvider(address: String): Observable<Voucher>
 

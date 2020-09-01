@@ -115,6 +115,29 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
         return VoucherProvider(item, organizations, categories)
     }
 
+    private fun mapToProductAction(productAction: io.forus.me.android.data.entity.vouchers.response.ProductAction): ProductAction {
+
+        val organization: Organization? = if (productAction.organization == null){ null }
+        else {
+            val org = productAction.organization
+            Organization(org.id, org.name, null,org.lat, org.lon,org.identityAddress, org.phone, org.email)
+        }
+
+        val productCategory: ProductCategory? = if (productAction.productCategory == null){ null }
+        else {
+            val prc = productAction.productCategory
+            ProductCategory(prc.id,prc.key, prc.name)
+        }
+
+        val photoUrl: String? =  if(productAction.photo != null && productAction.photo.sizes != null &&  productAction.photo.sizes.large != null) {
+            productAction.photo.sizes.large
+        } else { null }
+
+
+        return ProductAction(productAction.id,productAction.name, productAction.organizationId, productAction.price, productAction.priceUser,
+                photoUrl, organization, productCategory)
+    }
+
 
     private fun getFakeVoucherProvider(): VoucherProvider {
         val date = Calendar.getInstance().getTime()
@@ -164,6 +187,10 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
 
     override fun getProductVouchersAsProvider(address: String): Observable<List<Voucher>> {
         return vouchersDataSource.retrieveProductVouchersAsProvider(address).map { it.map { mapToSimple(it) } }
+    }
+
+    override fun getVoucherProductsActionsAsProvider(address: String): Observable<List<ProductAction>> {
+        return vouchersDataSource.retrieveVoucherProductsActionsAsProvider(address).map { it.map { mapToProductAction(it) } }
     }
 
 

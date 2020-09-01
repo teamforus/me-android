@@ -1,6 +1,5 @@
 package io.forus.me.android.presentation.navigation
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -32,6 +31,7 @@ import io.forus.me.android.presentation.view.screens.records.newrecord.NewRecord
 import io.forus.me.android.presentation.view.screens.vouchers.item.VoucherActivity
 import io.forus.me.android.presentation.view.screens.vouchers.product_reservation.ProductReservationActivity
 import io.forus.me.android.presentation.view.screens.vouchers.provider.ProviderActivity
+import io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actions.ActionsActivity
 import io.forus.me.android.presentation.view.screens.wallets.item.WalletDetailsActivity
 import io.forus.me.android.presentation.view.screens.welcome.WelcomeActivity
 import javax.inject.Inject
@@ -236,6 +236,13 @@ constructor()//empty
     fun navigateToVoucherProvider(context: Context?, voucherAddress: String,  isDemoVoucher: Boolean? = false) {
         if (context != null) {
             val intentToLaunch = ProviderActivity.getCallingIntent(context, voucherAddress,isDemoVoucher)
+            context.startActivity(intentToLaunch)
+        }
+    }
+
+    fun navigateToActionsVoucherProvider(context: Context?, voucherAddress: String) {
+        if (context != null) {
+            val intentToLaunch = ActionsActivity.getCallingIntent(context, voucherAddress)
             context.startActivity(intentToLaunch)
         }
     }

@@ -94,7 +94,7 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .map {
-                        if (it.voucher.isProduct != true && it.allowedOrganizations.isEmpty()) {
+                        /*if (it.voucher.isProduct != true && it.allowedOrganizations.isEmpty()) {
                             if (scanner.hasWindowFocus())
                                 ScanVoucherNotEligibleDialog(scanner, reactivateDecoding).show()
 
@@ -104,7 +104,9 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
                                             ?: 0.toBigDecimal()).compareTo(BigDecimal.ZERO) == 0)
                             onResultVoucherScanned(address, isAvailableScannedVoucher)
 
-                        }
+                        }*/
+
+                        navigator.navigateToActionsVoucherProvider(scanner, address)
                     }
                     .onErrorReturn {
 
