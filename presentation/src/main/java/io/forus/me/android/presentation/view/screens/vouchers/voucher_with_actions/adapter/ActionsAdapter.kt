@@ -1,27 +1,30 @@
 package io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actions.adapter
 
 import android.content.Context
-import android.graphics.Movie
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import io.forus.me.android.domain.models.vouchers.ProductAction
 import io.forus.me.android.presentation.R
-
+import java.text.NumberFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class ActionsAdapter(var items: ArrayList<ProductAction>, val callback: Callback) : RecyclerView.Adapter<ActionsAdapter.MainHolder>() {
 
     private val context: Context? = null
-    //private val movieList: List<Movie>? = null
+
     private val LOADING = 0
     private val ITEM = 1
     private var isLoadingAdded = false
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
-            = MainHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_action, parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = MainHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_action, parent, false))
 
     override fun getItemCount() = items.size
 
@@ -32,12 +35,31 @@ class ActionsAdapter(var items: ArrayList<ProductAction>, val callback: Callback
     inner class MainHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private val nameTV = itemView.findViewById<TextView>(R.id.nameTV)
-
+        private val priceTV = itemView.findViewById<TextView>(R.id.priceTV)
+        private val icon = itemView.findViewById<ImageView>(R.id.icon)
 
 
         fun bind(item: ProductAction) {
             nameTV.text = item.name
+            priceTV.text = NumberFormat.getCurrencyInstance(Locale("nl", "NL"))
+                    .format(item.priceUser!!.toDouble())
 
+            val url = item.photoURL
+            if (url != null && url.isNotEmpty()) {
+                Glide.with(context).load(url)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(icon)
+            }
+
+        }
+    }
+
+    fun formatDecimal(number: Float): String? {
+        val epsilon = 0.004f
+        return if (Math.abs(Math.round(number) - number) < epsilon) {
+            String.format("%10.0f", number)
+        } else {
+            String.format("%10.2f", number)
         }
     }
 
@@ -45,27 +67,6 @@ class ActionsAdapter(var items: ArrayList<ProductAction>, val callback: Callback
         fun onItemClicked(item: ProductAction)
     }
 
-    /*fun setList(goods: List<Foo>) {
-
-        Log.d("my","ADAPTER_goods_size = ${goods.size}")
-
-        items.clear();
-        items.addAll(goods);
-        this.notifyDataSetChanged();
-    }
-
-    fun addList(goods: List<Foo>) {
-
-        Log.d("my","ADAPTER_goods_size = ${goods.size}")
-
-        //items.clear();
-        items.addAll(goods);
-        this.notifyDataSetChanged();
-    }*/
-
-   /* override fun getItemCount(): Int {
-        return movieList?.size ?: 0
-    }*/
 
     override fun getItemViewType(position: Int): Int {
         return if (position == items!!.size - 1 && isLoadingAdded) LOADING else ITEM
@@ -73,18 +74,15 @@ class ActionsAdapter(var items: ArrayList<ProductAction>, val callback: Callback
 
     fun addLoadingFooter() {
         isLoadingAdded = true
-       // add(Movie())
+
     }
 
-    /*fun removeLoadingFooter() {
-        isLoadingAdded = false
-        val position = movieList!!.size - 1
-        val result = getItem(position)
-        if (result != null) {
-            movieList.removeAt(position)
-            notifyItemRemoved(position)
-        }
-    }*/
+
+    fun clearAll() {
+
+        items.clear()
+        notifyDataSetChanged()
+    }
 
     fun add(movie: ProductAction) {
         items.add(movie!!)

@@ -7,17 +7,24 @@ import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
+import android.support.v4.text.HtmlCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
+import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import io.forus.me.android.domain.models.vouchers.ProductAction
-import io.forus.me.android.domain.models.vouchers.Voucher
+import io.forus.me.android.domain.models.vouchers.VoucherProvider
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.databinding.ActivityActionsBinding
 import io.forus.me.android.presentation.helpers.PaginationScrollListener
 import io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actions.adapter.ActionsAdapter
 import io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actions.model.ActionsViewModel
 import kotlinx.android.synthetic.main.activity_actions.*
+import kotlinx.android.synthetic.main.toolbar_view.*
+import java.lang.Exception
 
 
 class ActionsActivity : AppCompatActivity() {
@@ -45,8 +52,7 @@ class ActionsActivity : AppCompatActivity() {
     var transactionsAdapter: ActionsAdapter? = null
 
 
-
-    private var currentPage = 0
+    private var currentPage = 1
     private var isLastPage = false
 
     private var isLoading = false
@@ -56,12 +62,23 @@ class ActionsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setSupportActionBar(findViewById(R.id.toolbar))
 
-        mainViewModel = ViewModelProviders.of(this).get(ActionsViewModel::class.java)// ViewModelProvider(this).get(TransactionsStoryViewModel::class.java)
+        mainViewModel = ViewModelProviders.of(this).get(ActionsViewModel::class.java)
         voucherAddress = intent.getSerializableExtra(VOUCHER_ADDRESS_EXTRA) as String
-         mainViewModel.voucherAddress = voucherAddress
+        mainViewModel.voucherAddress = voucherAddress
         binding = DataBindingUtil.setContentView<ActivityActionsBinding>(this@ActionsActivity, R.layout.activity_actions)
         binding.lifecycleOwner = this
         binding.model = mainViewModel
+
+        toolbar_title.text = getString(R.string.payment)
+        profile_button.setImageDrawable(ContextCompat.getDrawable(this@ActionsActivity, R.drawable.ic_back))
+        profile_button.setOnClickListener {
+            finish()
+        }
+
+        descrTV.text = HtmlCompat.fromHtml("<b>" + getString(R.string.choose_an_action_note) + "</b> " + getString(R.string.choose_an_action_descr),
+                HtmlCompat.FROM_HTML_MODE_LEGACY)
+
+
 
         transactionsAdapter = ActionsAdapter(arrayListOf(), object : ActionsAdapter.Callback {
             override fun onItemClicked(item: ProductAction) {
@@ -73,69 +90,105 @@ class ActionsActivity : AppCompatActivity() {
         llm.orientation = LinearLayoutManager.VERTICAL
 
 
+        /*mainViewModel.clearItems.observe(this, Observer {
+            Log.d("forus","Clear_items.. "+it)
+            if (it!! && mainViewModel != null) {
+                Log.d("forus","Clear_items")
+                try {
+                    transactionsAdapter!!.clearAll()
+                    currentPage = 1
+                //mainViewModel.getVoucherActionGoods(currentPage)
+                //this@ActionsActivity.currentPage += 1;
+                }catch (e: Exception){
+                    Log.d("forus","errr "+e.localizedMessage)
+                }
+            }
+
+        })*/
+
         mainViewModel.productActionsLiveData.observe(this, Observer {
 
-            if(it != null) {
-                transactionsAdapter!!.addAll(it);
+            if (it != null) {
+                canWork = true
+                transactionsAdapter!!.addAll(it)
             }
 
         })
 
         mainViewModel.voucher.observe(this, Observer {
-            if(it != null) {
+            if (it != null) {
                 refreshVoucherUI(it)
-                mainViewModel.getVoucherActionGoods(0)//fetchList(page)
-                //page++
+                mainViewModel.getVoucherActionGoods(currentPage)
+                this@ActionsActivity.currentPage += 1
             }
         })
 
         mainViewModel.getVoucherDetails()
 
 
-
-
-        val linearLayoutManager =  LinearLayoutManager(this@ActionsActivity , LinearLayoutManager.VERTICAL, false)
-        recycler.setLayoutManager(linearLayoutManager)
+        val linearLayoutManager = LinearLayoutManager(this@ActionsActivity, LinearLayoutManager.VERTICAL, false)
+        recycler.layoutManager = linearLayoutManager
         recycler.adapter = transactionsAdapter
 
         recycler.addOnScrollListener(object : PaginationScrollListener(linearLayoutManager) {
             override fun isLastPage(): Boolean {
-                return this@ActionsActivity.isLastPage;
+                return this@ActionsActivity.isLastPage
             }
 
             override fun loadMoreItems() {
-                this@ActionsActivity.isLoading = true;
-                this@ActionsActivity.currentPage += 1;
-                //loadNextPage();
+                this@ActionsActivity.isLoading = true
+                this@ActionsActivity.currentPage += 1
+
+
                 mainViewModel.getVoucherActionGoods(this@ActionsActivity.currentPage)
             }
 
             override fun isLoading(): Boolean {
-                return this@ActionsActivity.isLoading;
+                return this@ActionsActivity.isLoading
             }
         })
 
 
     }
 
-    fun refreshVoucherUI(voucher: Voucher){
-        tv_name.text = voucher.fundName
+    var canWork = true
 
-        organizationsSpinner
+    fun refreshVoucherUI(voucher: VoucherProvider) {
 
+        val orgNames: MutableList<String> = ArrayList()
 
-
-        val catNames: MutableList<String> = ArrayList()
-        catNames.add("Барсик")
-        catNames.add("Мурзик")
-        catNames.add("Рыжик")
+        for (org in voucher.allowedOrganizations) {
+            orgNames.add(org.name!!)
+        }
 
         val adapter = ArrayAdapter(this,
-                android.R.layout.simple_spinner_item, catNames)
+                android.R.layout.simple_spinner_item, orgNames)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
 
 
-        organizationsSpinner.setAdapter(adapter)
+        organizationsSpinner.adapter = adapter
+        organizationsSpinner.setSelection(0, false);
+        organizationsSpinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(p0: AdapterView<*>?) {}
+
+            override fun onItemSelected(p0: AdapterView<*>?, view: View?, p2: Int, p3: Long) {
+
+                if(canWork) {
+                    canWork = false
+                    val tv = view as android.support.v7.widget.AppCompatTextView
+                    val orgName = tv.text.toString()
+
+                    val id = mainViewModel.selectedOrgIdByName(orgName)
+                    Log.d("forus", "SELECT_ITEM=" + orgName + " id " + id)
+                    transactionsAdapter!!.clearAll()
+                    currentPage = 1
+                    mainViewModel.getVoucherActionGoods(currentPage)
+                     this@ActionsActivity.currentPage += 1;
+
+                }
+            }
+
+        }
     }
 }

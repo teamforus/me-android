@@ -18,7 +18,7 @@ interface VouchersRepository {
 
     fun getProductVouchersAsProvider(address: String): Observable<List<Voucher>>
 
-    fun getVoucherProductsActionsAsProvider(address: String): Observable<List<ProductAction>>
+    fun getVoucherProductsActionsAsProvider(address: String, organizationId: Long, page: Int, perPage: Int): Observable<List<ProductAction>>
 
     fun makeTransaction(address: String, amount: BigDecimal, note: String, organizationId: Long): Observable<Boolean>
 

@@ -27,8 +27,9 @@ class VouchersRemoteDataSource(f: () -> VouchersService): VouchersDataSource, Re
         return service.getProductVouchersAsProvider(address).map { it.data }
     }
 
-    override fun retrieveVoucherProductsActionsAsProvider(address: String): Observable<List<ProductAction>> {
-        return service.getActionProductsOfVoucherAsProvider(address).map { it.data }
+    override fun retrieveVoucherProductsActionsAsProvider(address: String, organizationId: Long, page: Int, perPage: Int): Observable<List<ProductAction>> {
+        return service.getActionProductsOfVoucherAsProvider(address, organization_id = organizationId.toString(),
+                page = page.toString(), perPage = perPage.toString()).map { it.data }
     }
 
     override fun retrieveVoucherAsProvider(address: String): Observable<Voucher> {

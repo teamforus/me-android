@@ -250,6 +250,12 @@
     <string name="qr_choose_reservation">Choose Reservation</string>
     <string name="qr_reserved_offers">The offers below are reserved by the customer</string>
     <string name="vouchers_complete_an_amount">COMPLETE AN AMOUNT</string>
+    <string name="choose_company">Kies bedrijf</string>
+    <string name="payment">Payment</string>
+    <string name="choose_an_action">Choose an action</string>
+    <string name="choose_an_action_note">Note: </string>
+    <string name="choose_an_action_descr">the customer must pay the amount at the till.</string>
+
 
 
     <!-- Check email -->

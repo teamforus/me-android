@@ -2,9 +2,10 @@
 <io.forus.me.android.presentation.view.component.card.CommonCard
     app:cardCornerRadius="@dimen/card_radius"
     android:id="@+id/root"
-    android:layout_marginLeft="@dimen/activity_horizontal_margin_small"
-    android:layout_marginRight="@dimen/activity_horizontal_margin_small"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
     android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
@@ -28,16 +29,6 @@
             android:layout_toLeftOf="@id/icon"
             >
 
-            <io.forus.me.android.presentation.view.component.text.TextView
-                android:id="@+id/type"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="13sp"
-                android:textColor="@color/slate"
-                android:lineSpacingExtra="3sp"
-                tools:text="E-mail"
-                />
-
 
             <io.forus.me.android.presentation.view.component.text.TextView
                 android:id="@+id/nameTV"
@@ -48,6 +39,16 @@
                 android:textSize="20.1sp"
                 app:type="medium"
                 tools:text="jamal@forus.io" />
+
+            <io.forus.me.android.presentation.view.component.text.TextView
+                android:id="@+id/priceTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/colorAccent"
+                android:textSize="20.1sp"
+                app:type="medium"
+                tools:text="€ 5,00" />
 
         </LinearLayout>
 

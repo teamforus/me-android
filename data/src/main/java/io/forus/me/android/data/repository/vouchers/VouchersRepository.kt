@@ -96,6 +96,8 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
         }
 
 
+
+
         return Voucher(isProduct, isUsed, voucher.address
                 ?: "", name, organizationName, voucher.fund?.name
                 ?: "", voucher.fund?.webShopUrl ?: "", description, createdAt!!, euro, amount,
@@ -189,8 +191,8 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
         return vouchersDataSource.retrieveProductVouchersAsProvider(address).map { it.map { mapToSimple(it) } }
     }
 
-    override fun getVoucherProductsActionsAsProvider(address: String): Observable<List<ProductAction>> {
-        return vouchersDataSource.retrieveVoucherProductsActionsAsProvider(address).map { it.map { mapToProductAction(it) } }
+    override fun getVoucherProductsActionsAsProvider(address: String, organizationId: Long,  page: Int, perPage: Int): Observable<List<ProductAction>> {
+        return vouchersDataSource.retrieveVoucherProductsActionsAsProvider(address, organizationId, page, perPage).map { it.map { mapToProductAction(it) } }
     }
 
 
