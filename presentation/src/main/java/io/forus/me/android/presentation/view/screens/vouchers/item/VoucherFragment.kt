@@ -32,6 +32,7 @@ import io.forus.me.android.presentation.UIThread
 import io.forus.me.android.presentation.helpers.format
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.mappers.*
+import io.forus.me.android.presentation.models.vouchers.FundType
 import io.forus.me.android.presentation.models.vouchers.Voucher
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
@@ -171,7 +172,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
             var qrDescription = ""
             if (voucher?.expireDate?.isNotEmpty()!!) {
 
-                qrDescription = if(voucher!!.expired) String.format(resources.getString(R.string.voucher_qr_code_expired),
+                qrDescription = if (voucher!!.expired) String.format(resources.getString(R.string.voucher_qr_code_expired),
                         voucher?.expireDate) else String.format(resources.getString(R.string.voucher_qr_code_actual),
                         voucher?.expireDate)
             }
@@ -259,17 +260,18 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
     }
 
 
-
     override fun render(vs: LRViewState<VoucherModel>) {
         super.render(vs)
 
         Log.d("forus", "render")
+
 
         name.text = vs.model.item?.name
         type.text = vs.model.item?.organizationName
         value.text = "${vs.model.item?.currency?.name} ${vs.model.item?.amount?.toDouble().format(2)}"
 
         vs.model.item?.let { voucher ->
+
 
             Log.d("forus", "vs.model.item")
             setToolbarTitle(resources.getString(if (voucher.isProduct) R.string.vouchers_item_product else R.string.vouchers_item))
@@ -321,14 +323,27 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
 
                 if (voucher.expireDate?.isNotEmpty()!!) {
 
-                    tv_voucher_expired.text = if(voucher.expired) String.format(resources.getString(R.string.voucher_qr_code_expired),
+                    tv_voucher_expired.text = if (voucher.expired) String.format(resources.getString(R.string.voucher_qr_code_expired),
                             voucher?.expireDate) else String.format(resources.getString(R.string.voucher_qr_code_actual),
                             voucher?.expireDate)
                 }
-               // shopkeeper_call
-            }else{
+                // shopkeeper_call
+            } else {
                 tv_voucher_expired.visibility = View.GONE
             }
+
+            if(voucher.fundType == FundType.subsidies.name) {
+                info_button.visibility = View.INVISIBLE
+
+
+                iv_qr_icon.visibility = View.VISIBLE
+
+                tv_voucher_expired.visibility = View.VISIBLE
+                tv_voucher_expired.visibility = View.GONE
+                value.visibility = View.GONE
+
+            }
+
 
         }
 
@@ -354,7 +369,8 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
             EmailSend.SENT -> {
                 FullscreenDialog.display(fragmentManager, context!!.resources.getString(R.string.voucher_send_email_success),
                         context!!.resources.getString(R.string.voucher_send_email_description),
-                        context!!.resources.getString(R.string.me_ok)) {  sentEmailDialogShown.onNext(Unit)
+                        context!!.resources.getString(R.string.me_ok)) {
+                    sentEmailDialogShown.onNext(Unit)
                 }
             }
             EmailSend.NOTHING -> Unit
@@ -408,7 +424,6 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
         name.paint.maskFilter = null
         type.paint.maskFilter = null
     }
-
 
 
     private fun setMarker(address: LatLng) {

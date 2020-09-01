@@ -11,6 +11,7 @@ import io.forus.me.android.domain.repository.records.RecordsRepository
 import io.forus.me.android.domain.repository.vouchers.VouchersRepository
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.internal.Injection
+import io.forus.me.android.presentation.models.vouchers.FundType
 import io.forus.me.android.presentation.navigation.Navigator
 import io.forus.me.android.presentation.view.base.NoInternetDialog
 import io.forus.me.android.presentation.view.screens.qr.dialogs.*
@@ -47,9 +48,9 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
                 .map { validation ->
                     if (validation.state == Validation.State.pending && validation.uuid != null) {
                         if (scanner.hasWindowFocus())
-                        showChooseValidatorDialog(validation)
+                            showChooseValidatorDialog(validation)
 
-                    } else{
+                    } else {
                         onResultValidationAlreadyDone()
                     }
                 }
@@ -94,19 +95,24 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .map {
-                        /*if (it.voucher.isProduct != true && it.allowedOrganizations.isEmpty()) {
-                            if (scanner.hasWindowFocus())
-                                ScanVoucherNotEligibleDialog(scanner, reactivateDecoding).show()
 
+                        if (it.voucher.fundType == FundType.subsidies.name) {
+                            navigator.navigateToActionsVoucherProvider(scanner, address)
                         } else {
-                            val isAvailableScannedVoucher = !(it.voucher.isProduct != true && (
-                                    it.voucher.amount
-                                            ?: 0.toBigDecimal()).compareTo(BigDecimal.ZERO) == 0)
-                            onResultVoucherScanned(address, isAvailableScannedVoucher)
+                            if (it.voucher.isProduct != true && it.allowedOrganizations.isEmpty()) {
+                                if (scanner.hasWindowFocus())
+                                    ScanVoucherNotEligibleDialog(scanner, reactivateDecoding).show()
 
-                        }*/
+                            } else {
+                                val isAvailableScannedVoucher = !(it.voucher.isProduct != true && (
+                                        it.voucher.amount
+                                                ?: 0.toBigDecimal()).compareTo(BigDecimal.ZERO) == 0)
+                                onResultVoucherScanned(address, isAvailableScannedVoucher)
 
-                        navigator.navigateToActionsVoucherProvider(scanner, address)
+                            }
+                        }
+
+
                     }
                     .onErrorReturn {
 
@@ -215,10 +221,10 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
     }
 
 
-    private fun showChooseValidatorDialog(validation: Validation){
+    private fun showChooseValidatorDialog(validation: Validation) {
         val validators = validation.organizationsAvailable
-        if(validators != null && validators.size > 0) {
-            ValidatorsListDialog(scanner, validators!! ){
+        if (validators != null && validators.size > 0) {
+            ValidatorsListDialog(scanner, validators!!) {
                 //selectOrganization.onNext(it)
                 ApproveValidationDialog(scanner,
                         validation,
@@ -248,7 +254,7 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
                         .show()
 
             }.show()
-        }else{
+        } else {
 
         }
 
@@ -271,10 +277,10 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
 
                     } else {
 
-                        if(isAvailableScannedVoucher) {
+                        if (isAvailableScannedVoucher) {
                             //Show voucher
                             navigator.navigateToVoucherProvider(scanner, address)
-                        }else{
+                        } else {
                             if (scanner.hasWindowFocus())
                                 ScanVoucherEmptyDialog(scanner, reactivateDecoding).show()
                         }

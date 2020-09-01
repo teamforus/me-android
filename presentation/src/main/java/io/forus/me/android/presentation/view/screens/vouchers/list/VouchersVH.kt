@@ -8,6 +8,7 @@ import io.forus.me.android.presentation.models.vouchers.Voucher
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.helpers.format
 import io.forus.me.android.presentation.helpers.inflate
+import io.forus.me.android.presentation.models.vouchers.FundType
 import kotlinx.android.synthetic.main.item_vouchers_list.view.*
 import kotlinx.android.synthetic.main.toolbar_view.*
 
@@ -16,7 +17,7 @@ class VouchersVH(parent: ViewGroup) : RecyclerView.ViewHolder(parent.inflate(R.l
 
     fun render(item: Voucher) = with(itemView) {
 
-        if(item.fundType == "subsidies") {
+        if(item.fundType == FundType.subsidies.name) {
             name.text = item.name
             organization_name.text = item.organizationName
             value.text = ""
