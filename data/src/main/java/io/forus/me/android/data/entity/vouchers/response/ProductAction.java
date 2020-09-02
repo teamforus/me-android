@@ -2,13 +2,14 @@ package io.forus.me.android.data.entity.vouchers.response;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 import io.forus.me.android.data.entity.vouchers.response.Logo;
 import io.forus.me.android.data.entity.vouchers.response.Organization;
 import io.forus.me.android.data.entity.vouchers.response.ProductCategory;
 
-public class ProductAction {
+public class ProductAction implements Serializable {
 
     @SerializedName("id")
     private long id;

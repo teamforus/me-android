@@ -1,6 +1,7 @@
 package io.forus.me.android.data.repository.vouchers
 
 import android.util.Log
+import io.forus.me.android.data.entity.vouchers.request.MakeActionTransaction
 import io.forus.me.android.data.entity.vouchers.request.MakeDemoTransaction
 import io.forus.me.android.data.entity.vouchers.request.MakeTransaction
 import io.forus.me.android.data.repository.vouchers.datasource.VouchersDataSource
@@ -199,6 +200,10 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
 
     override fun makeTransaction(address: String, amount: BigDecimal, note: String, organizationId: Long): Observable<Boolean> {
         return vouchersDataSource.makeTransaction(address, MakeTransaction(amount, note, organizationId)).map { true }
+    }
+
+    override fun makeActionTransaction(address: String,  note: String, productId: Long, organizationId: Long): Observable<Boolean> {
+        return vouchersDataSource.makeActionTransaction(address, MakeActionTransaction( productId,organizationId, note)).map { true }
     }
 
     override fun sendEmail(address: String): Observable<Boolean> {

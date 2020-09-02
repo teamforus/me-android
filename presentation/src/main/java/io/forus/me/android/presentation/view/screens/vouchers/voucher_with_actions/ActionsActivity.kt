@@ -22,6 +22,8 @@ import io.forus.me.android.presentation.databinding.ActivityActionsBinding
 import io.forus.me.android.presentation.helpers.PaginationScrollListener
 import io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actions.adapter.ActionsAdapter
 import io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actions.model.ActionsViewModel
+import io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actions.payment.ActionPaymentActivity
+import io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actions.payment.ProductSerializable
 import kotlinx.android.synthetic.main.activity_actions.*
 import kotlinx.android.synthetic.main.toolbar_view.*
 import java.lang.Exception
@@ -83,6 +85,8 @@ class ActionsActivity : AppCompatActivity() {
         transactionsAdapter = ActionsAdapter(arrayListOf(), object : ActionsAdapter.Callback {
             override fun onItemClicked(item: ProductAction) {
 
+                startActivity(ActionPaymentActivity.getCallingIntent(this@ActionsActivity,
+                        ProductSerializable(item.id!!, item.name, item.organization!!.name, item.organization!!.id, item.priceUser!!.toDouble()), voucherAddress!!))
             }
         })
 
@@ -90,21 +94,6 @@ class ActionsActivity : AppCompatActivity() {
         llm.orientation = LinearLayoutManager.VERTICAL
 
 
-        /*mainViewModel.clearItems.observe(this, Observer {
-            Log.d("forus","Clear_items.. "+it)
-            if (it!! && mainViewModel != null) {
-                Log.d("forus","Clear_items")
-                try {
-                    transactionsAdapter!!.clearAll()
-                    currentPage = 1
-                //mainViewModel.getVoucherActionGoods(currentPage)
-                //this@ActionsActivity.currentPage += 1;
-                }catch (e: Exception){
-                    Log.d("forus","errr "+e.localizedMessage)
-                }
-            }
-
-        })*/
 
         mainViewModel.productActionsLiveData.observe(this, Observer {
 

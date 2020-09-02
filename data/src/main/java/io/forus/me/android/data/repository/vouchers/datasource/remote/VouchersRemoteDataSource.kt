@@ -1,5 +1,6 @@
 package io.forus.me.android.data.repository.vouchers.datasource.remote
 
+import io.forus.me.android.data.entity.vouchers.request.MakeActionTransaction
 import io.forus.me.android.data.entity.vouchers.request.MakeDemoTransaction
 import io.forus.me.android.data.entity.vouchers.request.MakeTransaction
 import io.forus.me.android.data.entity.vouchers.response.DemoTransaction
@@ -39,6 +40,12 @@ class VouchersRemoteDataSource(f: () -> VouchersService): VouchersDataSource, Re
     override fun makeTransaction(address: String, makeTransaction: MakeTransaction): Observable<Transaction> {
         return service.makeTransaction(address, makeTransaction).map { it.data }
     }
+
+    override fun makeActionTransaction(address: String, makeTransaction: MakeActionTransaction): Observable<Transaction> {
+        return service.makeActionTransaction(address, makeTransaction).map { it.data }
+    }
+
+
 
     override fun sendEmail(address: String): Observable<Boolean> {
         return service.sendEmail(address).map { _: Void? -> true }

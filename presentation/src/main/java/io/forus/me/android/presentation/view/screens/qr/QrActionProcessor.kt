@@ -111,8 +111,6 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
 
                             }
                         }
-
-
                     }
                     .onErrorReturn {
 
@@ -257,7 +255,6 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
         } else {
 
         }
-
 
     }
 

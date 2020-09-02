@@ -51,17 +51,13 @@ class ActionsAdapter(var items: ArrayList<ProductAction>, val callback: Callback
                         .into(icon)
             }
 
+            itemView.setOnClickListener {
+                callback.onItemClicked(item)
+            }
+
         }
     }
 
-    fun formatDecimal(number: Float): String? {
-        val epsilon = 0.004f
-        return if (Math.abs(Math.round(number) - number) < epsilon) {
-            String.format("%10.0f", number)
-        } else {
-            String.format("%10.2f", number)
-        }
-    }
 
     interface Callback {
         fun onItemClicked(item: ProductAction)

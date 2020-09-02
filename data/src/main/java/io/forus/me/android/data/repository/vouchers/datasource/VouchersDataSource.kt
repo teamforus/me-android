@@ -1,5 +1,6 @@
 package io.forus.me.android.data.repository.vouchers.datasource
 
+import io.forus.me.android.data.entity.vouchers.request.MakeActionTransaction
 import io.forus.me.android.data.entity.vouchers.request.MakeDemoTransaction
 import io.forus.me.android.data.entity.vouchers.request.MakeTransaction
 import io.forus.me.android.data.entity.vouchers.response.DemoTransaction
@@ -22,6 +23,8 @@ interface VouchersDataSource {
     fun retrieveVoucherAsProvider(address: String): Observable<Voucher>
 
     fun makeTransaction(address: String, makeTransaction: MakeTransaction): Observable<Transaction>
+
+    fun makeActionTransaction(address: String, makeTransaction: MakeActionTransaction): Observable<Transaction>
 
     fun sendEmail(address: String): Observable<Boolean>
 
