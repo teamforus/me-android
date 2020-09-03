@@ -255,6 +255,10 @@
     <string name="choose_an_action">Choose an action</string>
     <string name="choose_an_action_note">Note: </string>
     <string name="choose_an_action_descr">the customer must pay the amount at the till.</string>
+    <string name="confirm_payment">Confirm payment</string>
+    <string name="has_the_customer">Has the customer</string>
+    <string name="paid_at_till">paid at the till?</string>
+
 
 
     <!-- Check email -->

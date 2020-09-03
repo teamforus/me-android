@@ -18,7 +18,7 @@ import java.text.NumberFormat
 import java.util.*
 
 
-class ActionPaymentViewModel : ViewModel() , Observable{
+class ActionPaymentViewModel : ViewModel(), Observable {
 
     var vouchersRepository: VouchersRepository = Injection.instance.vouchersRepository
 
@@ -27,14 +27,15 @@ class ActionPaymentViewModel : ViewModel() , Observable{
     @Bindable
     var note = MutableLiveData<String>()
 
-    private var product:ProductSerializable? = null
+    private var product: ProductSerializable? = null
 
     val productName = MutableLiveData<String>()
     val productPrice = MutableLiveData<String>()
     val orgName = MutableLiveData<String>()
 
-    val success = MutableLiveData<Boolean>()
-    val error = MutableLiveData<Throwable?>()
+    val confirmPayment = MutableLiveData<Boolean>()
+    val successPayment = MutableLiveData<Boolean>()
+    val errorPayment = MutableLiveData<Throwable?>()
 
     init {
 
@@ -43,24 +44,22 @@ class ActionPaymentViewModel : ViewModel() , Observable{
         orgName.value = ""
         note.value = ""
 
-        success.value = false
-        error.value = null
+        confirmPayment.value = false
+        successPayment.value = false
+        errorPayment.value = null
     }
 
-    public fun setProduct(product: ProductSerializable){
-        
+    public fun setProduct(product: ProductSerializable) {
+
         this.product = product
         refreshUI()
     }
 
     fun onSaveClick(view: View?) {
-        println("MainActivity.onSaveClick")
-        Log.d("forus","onSaveClick")
-        makeTransaction()
+        confirmPayment.postValue(true)
     }
 
-    private fun refreshUI()
-    {
+    private fun refreshUI() {
         productPrice.postValue(NumberFormat.getCurrencyInstance(Locale("nl", "NL"))
                 .format(product!!.price))
 
@@ -77,22 +76,17 @@ class ActionPaymentViewModel : ViewModel() , Observable{
 
     }
 
-    fun makeTransaction(){
+    fun makeTransaction() {
 
-        Log.d("forus","product!!.companyId="+product!!.companyId+" product!!.id="+product!!.id)
 
-        vouchersRepository.makeActionTransaction(voucherAddress!!,  note.value ?: "",
-                 product!!.id,product!!.companyId)
+        vouchersRepository.makeActionTransaction(voucherAddress!!, note.value ?: "",  product!!.id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map {
-
-                    Log.d("forus","12345ssSuccess_transaction")
-                    success.postValue(true)
-
+                    successPayment.postValue(true)
                 }
                 .onErrorReturn {
-                    Log.d("forus","12345sserr"+it.toString() )
+                    errorPayment.postValue(it)
                 }
                 .subscribe()
     }
@@ -107,6 +101,7 @@ class ActionPaymentViewModel : ViewModel() , Observable{
     override fun removeOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback) {
         callbacks.remove(callback)
     }
+
 
     /**
      * Notifies listeners that all properties of this instance have changed.
@@ -125,7 +120,6 @@ class ActionPaymentViewModel : ViewModel() , Observable{
     fun notifyPropertyChanged(fieldId: Int) {
         callbacks.notifyCallbacks(this, fieldId, null)
     }
-
 
 
 }

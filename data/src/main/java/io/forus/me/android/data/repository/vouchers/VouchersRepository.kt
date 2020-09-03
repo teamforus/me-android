@@ -202,8 +202,8 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
         return vouchersDataSource.makeTransaction(address, MakeTransaction(amount, note, organizationId)).map { true }
     }
 
-    override fun makeActionTransaction(address: String,  note: String, productId: Long, organizationId: Long): Observable<Boolean> {
-        return vouchersDataSource.makeActionTransaction(address, MakeActionTransaction( productId,organizationId, note)).map { true }
+    override fun makeActionTransaction(address: String,  note: String, productId: Long): Observable<Boolean> {
+        return vouchersDataSource.makeActionTransaction(address, MakeActionTransaction( productId, note)).map { true }
     }
 
     override fun sendEmail(address: String): Observable<Boolean> {

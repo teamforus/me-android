@@ -248,6 +248,9 @@
     <string name="choose_an_action">Kies een actie</string>
     <string name="choose_an_action_note">Let op: </string>
     <string name="choose_an_action_descr">de klant moet het bedrag aan de kassa betalen.</string>
+    <string name="confirm_payment">Bevestig betaling</string>
+    <string name="has_the_customer">Heeft de klant </string>
+    <string name="paid_at_till">betaald aan de kassa?</string>
 
     <!-- Check email -->
     <string name="check_email_has_been_sent_to_you">Er is een email naar je toegestuurd.</string>
