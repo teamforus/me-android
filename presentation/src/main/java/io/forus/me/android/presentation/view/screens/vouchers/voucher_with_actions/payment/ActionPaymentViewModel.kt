@@ -37,12 +37,15 @@ class ActionPaymentViewModel : ViewModel(), Observable {
     val successPayment = MutableLiveData<Boolean>()
     val errorPayment = MutableLiveData<Throwable?>()
 
+    val progress = MutableLiveData<Boolean>()
+
     init {
 
         productName.value = ""
         productPrice.value = ""
         orgName.value = ""
         note.value = ""
+        progress.value = false
 
         confirmPayment.value = false
         successPayment.value = false
@@ -78,14 +81,16 @@ class ActionPaymentViewModel : ViewModel(), Observable {
 
     fun makeTransaction() {
 
-
+        progress.postValue(true)
         vouchersRepository.makeActionTransaction(voucherAddress!!, note.value ?: "",  product!!.id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map {
+                    progress.postValue(false)
                     successPayment.postValue(true)
                 }
                 .onErrorReturn {
+                    progress.postValue(false)
                     errorPayment.postValue(it)
                 }
                 .subscribe()

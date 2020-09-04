@@ -5,6 +5,7 @@
 
     <data>
 
+        <import type="android.view.View" />
         <variable
             name="model"
             type="io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actions.payment.ActionPaymentViewModel" />
@@ -170,6 +171,7 @@
                     android:layout_marginTop="16dp"
                     android:inputType="textMultiLine"
                     android:text="@={model.note}"
+                    android:imeOptions="actionDone"
                     android:autofillHints="" />
 
 
@@ -195,9 +197,21 @@
                 android:layout_height="45dp"
                 android:layout_marginBottom="6dp"
                 android:onClick="@{(view) -> model.onSaveClick(view)}"
+                android:visibility="@{model.progress.booleanValue() ? View.GONE : View.VISIBLE}"
                 android:text="@string/vouchers_make_transaction" />
 
         </RelativeLayout>
+
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="@{model.progress.booleanValue() ? View.VISIBLE : View.GONE}"
+            android:layout_centerInParent="true"/>
 
 
     </RelativeLayout>
