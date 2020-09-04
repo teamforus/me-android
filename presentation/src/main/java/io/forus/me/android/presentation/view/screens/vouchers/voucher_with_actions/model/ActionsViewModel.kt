@@ -92,7 +92,7 @@ class ActionsViewModel : ViewModel() {
 
     public fun getVoucherDetails() {
 
-        vouchersRepository.getVoucherAsProvider("0xa27c3637b0b6ac12efe57df136d7774809d61c6f")//voucherAddress!!)//getVoucherAsProvider(address)
+        vouchersRepository.getVoucherAsProvider(voucherAddress!!)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map {
@@ -113,7 +113,7 @@ class ActionsViewModel : ViewModel() {
 
         Log.d("forus", "VOUSHER_ADDRESS=" + voucherAddress+ " orgId = "+organizationId)
         if (organizationId != null) {
-            vouchersRepository.getVoucherProductsActionsAsProvider("0xa27c3637b0b6ac12efe57df136d7774809d61c6f", organizationId!!, page, perPage)//voucherAddress!!)//getVoucherAsProvider(address)
+            vouchersRepository.getVoucherProductsActionsAsProvider(voucherAddress!!, organizationId!!, page, perPage)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .map {

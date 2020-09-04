@@ -88,7 +88,7 @@ class ActionsActivity : AppCompatActivity() {
                 startActivity(ActionPaymentActivity.getCallingIntent(this@ActionsActivity,
                         ProductSerializable(item.id!!, item.name, item.organization!!.name, item.organization!!.id, item.priceUser!!.toDouble()), voucherAddress!!))
             }
-        })
+        }, this@ActionsActivity)
 
         val llm = LinearLayoutManager(this)
         llm.orientation = LinearLayoutManager.VERTICAL

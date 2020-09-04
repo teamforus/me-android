@@ -16,9 +16,9 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class ActionsAdapter(var items: ArrayList<ProductAction>, val callback: Callback) : RecyclerView.Adapter<ActionsAdapter.MainHolder>() {
+class ActionsAdapter(var items: ArrayList<ProductAction>, val callback: Callback,val context: Context) : RecyclerView.Adapter<ActionsAdapter.MainHolder>() {
 
-    private val context: Context? = null
+
 
     private val LOADING = 0
     private val ITEM = 1
