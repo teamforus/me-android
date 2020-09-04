@@ -97,7 +97,7 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
                     .map {
 
                         if (it.voucher.fundType == FundType.subsidies.name) {
-                            navigator.navigateToActionsVoucherProvider(scanner, address)
+                            navigator.navigateToActionsVoucherProvider(scanner, it.voucher.address!!)
                         } else {
                             if (it.voucher.isProduct != true && it.allowedOrganizations.isEmpty()) {
                                 if (scanner.hasWindowFocus())

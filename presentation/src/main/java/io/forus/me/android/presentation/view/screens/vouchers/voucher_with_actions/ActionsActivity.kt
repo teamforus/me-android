@@ -108,7 +108,7 @@ class ActionsActivity : AppCompatActivity() {
             if (it != null) {
                 refreshVoucherUI(it)
                 mainViewModel.getVoucherActionGoods(currentPage)
-                this@ActionsActivity.currentPage += 1
+                //this@ActionsActivity.currentPage += 1
             }
         })
 
@@ -126,10 +126,10 @@ class ActionsActivity : AppCompatActivity() {
 
             override fun loadMoreItems() {
                 this@ActionsActivity.isLoading = true
-                this@ActionsActivity.currentPage += 1
 
 
                 mainViewModel.getVoucherActionGoods(this@ActionsActivity.currentPage)
+                this@ActionsActivity.currentPage += 1
             }
 
             override fun isLoading(): Boolean {
