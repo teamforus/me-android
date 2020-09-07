@@ -252,7 +252,8 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
         return VoucherPresenter(
                 LoadVoucherUseCase(Injection.instance.vouchersRepository, JobExecutor(), UIThread()),
                 SendEmailUseCase(Injection.instance.vouchersRepository, JobExecutor(), UIThread()),
-                VoucherDataMapper(currencyDataMapper, TransactionDataMapper(currencyDataMapper, OrganizationDataMapper()), ProductDataMapper()),
+                VoucherDataMapper(currencyDataMapper, TransactionDataMapper(currencyDataMapper, OrganizationDataMapper(),
+                ProductDataMapper()), ProductDataMapper()),
                 address,
                 voucher,
                 Injection.instance.accountRepository
@@ -275,6 +276,9 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
 
             Log.d("forus", "vs.model.item")
             setToolbarTitle(resources.getString(if (voucher.isProduct) R.string.vouchers_item_product else R.string.vouchers_item))
+            if(voucher.fundType == FundType.subsidies.name){
+                adapter.isActionsVoucher = true
+            }
             adapter.transactions = voucher.transactions
             tv_transactions_title.visibility =
                     if (voucher.isProduct || voucher.transactions.isEmpty()) View.GONE else View.VISIBLE

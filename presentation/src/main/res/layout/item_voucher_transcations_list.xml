@@ -12,104 +12,109 @@
     app:cardElevation="0dp"
     app:cardUseCompatPadding="false">
 
-    <RelativeLayout
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:background="@color/brightBackground"
+        android:orientation="horizontal"
+        android:paddingStart="10dp"
 
-        <LinearLayout
-            android:id="@+id/background"
-            android:layout_width="match_parent"
+        android:paddingEnd="16dp"
+        >
+
+        <RelativeLayout
+            android:id="@+id/icon"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="@drawable/circle_empty"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <io.forus.me.android.presentation.view.component.images.CircleImageView
+                android:id="@+id/iv_logo"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_centerInParent="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_person_outlined" />
+
+        </RelativeLayout>
+
+
+        <io.forus.me.android.presentation.view.component.text.TextView
+            android:id="@+id/subtitle1"
+            style="@style/Subtitle"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@color/brightBackground"
-            android:paddingStart="10dp"
-            android:paddingTop="18dp"
-            android:paddingEnd="16dp"
-            android:paddingBottom="18dp">
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="0dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            app:layout_constraintEnd_toStartOf="@+id/subtitle2"
+            app:layout_constraintStart_toEndOf="@id/icon"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="18dp"
+            app:type="medium"
+            tools:text="Subtitle1" />
 
-            <RelativeLayout
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:layout_marginEnd="20dp"
-                android:background="@drawable/circle_empty">
+        <io.forus.me.android.presentation.view.component.text.TextView
+            android:id="@+id/overline1"
+            style="@style/Overline4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_horizontal_margin_small"
+            android:layout_marginBottom="18dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/overline2"
+            app:layout_constraintStart_toStartOf="@id/subtitle1"
+            app:layout_constraintTop_toBottomOf="@id/subtitle1"
+            android:ellipsize="end"
+            tools:text="Overline1" />
 
-                <io.forus.me.android.presentation.view.component.images.CircleImageView
-                    android:id="@+id/iv_logo"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_centerInParent="true"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_person_outlined" />
 
-            </RelativeLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="5"
-                    android:orientation="vertical">
 
-                    <io.forus.me.android.presentation.view.component.text.TextView
-                        android:id="@+id/subtitle1"
-                        style="@style/Subtitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        app:type="medium"
-                        tools:text="Subtitle1" />
+            <io.forus.me.android.presentation.view.component.text.TextView
+                android:id="@+id/subtitle2"
+                style="@style/Subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                app:type="medium"
+                tools:text="Subtitle2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/subtitle1"
+                app:layout_constraintBottom_toBottomOf="@id/subtitle1"
+                android:layout_marginEnd="16dp"
+                />
 
-                    <io.forus.me.android.presentation.view.component.text.TextView
-                        android:id="@+id/overline1"
-                        style="@style/Overline4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/activity_horizontal_margin_small"
-                        tools:text="Overline1" />
+            <io.forus.me.android.presentation.view.component.text.TextView
+                android:id="@+id/overline2"
+                style="@style/Overline4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginTop="@dimen/activity_horizontal_margin_small"
+                app:layout_constraintEnd_toEndOf="@id/subtitle2"
+                app:layout_constraintTop_toTopOf="@id/overline1"
+                app:layout_constraintBottom_toBottomOf="@id/overline1"
 
-                </LinearLayout>
+                tools:text="Overline4" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
 
-                    <io.forus.me.android.presentation.view.component.text.TextView
-                        android:id="@+id/subtitle2"
-                        style="@style/Subtitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end"
-                        app:type="medium"
-                        tools:text="Subtitle2" />
 
-                    <io.forus.me.android.presentation.view.component.text.TextView
-                        android:id="@+id/overline2"
-                        style="@style/Overline4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end"
-                        android:layout_marginTop="@dimen/activity_horizontal_margin_small"
-                        tools:text="Overline4" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_alignBottom="@id/background"
             android:layout_marginStart="16dp"
-            android:background="@color/border_color" />
-    </RelativeLayout>
+            android:background="@color/border_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+    </android.support.constraint.ConstraintLayout>
 
 </io.forus.me.android.presentation.view.component.card.CommonCard>

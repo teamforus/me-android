@@ -29,9 +29,25 @@ class ProductReservationPresenter constructor(val vouchersRepository: VouchersRe
                             it.organization?.phone ?: "",
                             it.organization?.email ?: "")
 
+                    val product:io.forus.me.android.presentation.models.vouchers.Product? =
+                            if(it.product == null){ null }else{
+                                Product(it.product!!.id, it.product!!.organizationId,
+                                        it.product!!.productCategoryId,
+                                        it.product!!.name,it.product!!.description,
+                                        it.product!!.price,
+                                        it.product!!.oldPrice, it.product!!.totalAmount,
+                                        it.product!!.soldAmount,
+                                        ProductCategory(it.product!!.productCategory.id,
+                                                it.product!!.productCategory.key,
+                                                it.product!!.productCategory.name),organization)
+                            }
+
+
                     Transaction(it.id, organization,
                             Currency(it.currency?.name ?: "", it.currency?.logoUrl ?: ""),
-                            it?.amount ?: 0f.toBigDecimal(), it.createdAt, Transaction.Type.valueOf(it.type.name))
+                            it?.amount ?: 0f.toBigDecimal(), it.createdAt,
+                            Transaction.Type.valueOf(it.type.name),
+                    product)
                 }
 
                 val domainProduct = domainVoucher.product

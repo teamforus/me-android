@@ -18,13 +18,17 @@ class Transaction {
 
     var type: Type = Type.Payed
 
-    constructor(id: String, organization: Organization?, currency: Currency?, amount: BigDecimal?, createdAt: Date?, type: Type = Type.Payed) {
+    var product: Product?
+
+    constructor(id: String, organization: Organization?, currency: Currency?, amount: BigDecimal?, createdAt: Date?,
+                product: Product?) {
         this.id = id
         this.organization = organization
         this.currency = currency
         this.amount = amount
         this.createdAt = createdAt
         this.type = type
+        this.product = product
     }
 
 

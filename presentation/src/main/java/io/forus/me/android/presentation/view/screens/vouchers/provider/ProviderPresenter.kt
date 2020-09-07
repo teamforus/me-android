@@ -1,6 +1,7 @@
 package io.forus.me.android.presentation.view.screens.vouchers.provider
 
 import android.util.Log
+import io.forus.me.android.domain.models.vouchers.Product
 import io.forus.me.android.domain.repository.vouchers.VouchersRepository
 import io.forus.me.android.presentation.models.currency.Currency
 import io.forus.me.android.presentation.models.vouchers.*
@@ -42,7 +43,7 @@ class ProviderPresenter constructor(private val vouchersRepository: VouchersRepo
                                             transaction.currency?.logoUrl),
                                     transaction?.amount ?: 0f.toBigDecimal(),
                                     transaction.createdAt,
-                                    Transaction.Type.valueOf(transaction.type.name))
+                                    Transaction.Type.valueOf(transaction.type.name), null)
                         },  null, it.voucher.expired ?: false,""),
 
                         it.allowedOrganizations.map { organization ->
@@ -63,25 +64,45 @@ class ProviderPresenter constructor(private val vouchersRepository: VouchersRepo
 
         } else {
             return Single.fromObservable(vouchersRepository.getVoucherAsProvider(address).map {
+
+
+
+
+
                 VoucherProvider(Voucher(it.voucher?.isProduct ?: false, it.voucher?.isUsed
                         ?: false, it.voucher.address, it.voucher.name, it.voucher.organizationName,
                         it.voucher.fundName, it.voucher.fundType, it.voucher.fundWebShopUrl, it.voucher.description, it.voucher.createdAt,
                         Currency(it.voucher.currency?.name, it.voucher.currency?.logoUrl), it.voucher.amount, it.voucher.logo,
                         it.voucher.transactions.map { transaction ->
-                            Transaction(transaction.id,
-                                    Organization(transaction.organization?.id ?: 0,
-                                            transaction.organization?.name,
-                                            transaction.organization?.logo,
-                                            transaction.organization?.lat,
-                                            transaction.organization?.lon,
-                                            transaction.organization?.address,
-                                            transaction.organization?.phone,
-                                            transaction.organization?.email),
+
+                            val organization =  Organization(transaction.organization?.id ?: 0,
+                                    transaction.organization?.name,
+                                    transaction.organization?.logo,
+                                    transaction.organization?.lat,
+                                    transaction.organization?.lon,
+                                    transaction.organization?.address,
+                                    transaction.organization?.phone,
+                                    transaction.organization?.email)
+
+                            val product:io.forus.me.android.presentation.models.vouchers.Product? = if(transaction.product == null){ null }else {
+                                Product(transaction.product!!.id,
+                                        transaction.product!!.organizationId,transaction.product!!.productCategoryId,
+                                        transaction.product!!.name,transaction.product!!.description,
+                                        transaction.product!!.price,transaction.product!!.oldPrice,
+                                        transaction.product!!.totalAmount,transaction.product!!.soldAmount,
+                                        ProductCategory(transaction.product!!.productCategory.id,
+                                                transaction.product!!.productCategory.key,
+                                                transaction.product!!.productCategory.name), organization)
+                            }
+
+
+
+                            Transaction(transaction.id,organization,
                                     Currency(transaction.currency?.name,
                                             transaction.currency?.logoUrl),
                                     transaction?.amount ?: 0f.toBigDecimal(),
                                     transaction.createdAt,
-                                    Transaction.Type.valueOf(transaction.type.name))
+                                    Transaction.Type.valueOf(transaction.type.name), product)
                         }, null, it.voucher.expired ?: false,""),
 
                         it.allowedOrganizations.map { organization ->

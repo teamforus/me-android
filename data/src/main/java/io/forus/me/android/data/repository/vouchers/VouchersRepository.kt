@@ -53,21 +53,55 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
 
         val transactions = mutableListOf<Transaction>()
         if (voucher.transactions != null) {
+
+
+
             transactions.addAll(voucher.transactions.map {
+
+                val product = if(it.product == null){ null }else {
+                    Product(it.product.id,it.product.organizationId,
+                            it.product.productCategoryId,
+                            it.product.name, it.product.description,
+                            it.product.price, it.product.oldPrice,
+                            it.product.totalAmount, it.product.soldAmount,
+                            ProductCategory(it.product.productCategory.id,
+                                    it.product.productCategory.key,
+                                    it.product.productCategory.name),
+                    Organization(it.product.organization.id,it.product.organization.name,
+                            it.product.organization.logo.sizes.thumbnail,it.product.organization.lat,
+                            it.product.organization.lon,it.product.organization.identityAddress,
+                            it.product.organization.phone,it.product.organization.email))
+                }
+
                 Transaction(it.address, Organization(it.organization.id, it.organization.name, it.organization?.logo?.sizes?.large
                         ?: "", it.organization?.lat ?: 0.0, it.organization?.lon
                         ?: 0.0, it.organization?.identityAddress ?: "", it.organization?.phone
-                        ?: "", it.organization?.email ?: ""), euro, it.amount, it.createdAt)
+                        ?: "", it.organization?.email ?: ""), euro, it.amount, it.createdAt, product
+                        )
             })
         }
 
         if (voucher.childVouchers != null) {
             transactions.addAll(voucher.childVouchers.map { childVoucher ->
                 val organization = childVoucher.product?.organization
+                val product = if(voucher.product == null){ null }else {
+                    Product(voucher.product.id,voucher.product.organizationId,
+                            voucher.product.productCategoryId,
+                            voucher.product.name, voucher.product.description,
+                            voucher.product.price, voucher.product.oldPrice,
+                            voucher.product.totalAmount, voucher.product.soldAmount,
+                            ProductCategory(voucher.product.productCategory.id,
+                                    voucher.product.productCategory.key,
+                                    voucher.product.productCategory.name),
+                            Organization(voucher.product.organization.id,voucher.product.organization.name,
+                                    voucher.product.organization.logo.sizes.thumbnail,voucher.product.organization.lat,
+                                    voucher.product.organization.lon,voucher.product.organization.identityAddress,
+                                    voucher.product.organization.phone,voucher.product.organization.email))
+                }
                 Transaction("", Organization(childVoucher.product.organizationId, childVoucher.product.name, "", organization?.lat
                         ?: 0.0, organization?.lon ?: 0.0, organization?.identityAddress
                         ?: "", organization?.phone ?: "", organization?.email
-                        ?: ""), euro, childVoucher.amount, childVoucher.createdAt, Transaction.Type.Product)
+                        ?: ""), euro, childVoucher.amount, childVoucher.createdAt, product)
             })
         }
         transactions.sortWith(Comparator { t1, t2 ->
@@ -151,7 +185,7 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
                 "", "", "")
         val organizationsList = mutableListOf<Organization>()
         organizationsList.add(organization)
-        val transaction = Transaction("0", organization, currency, 0f.toBigDecimal(), date)
+        val transaction = Transaction("0", organization, currency, 0f.toBigDecimal(), date, null)
         val transactionList = mutableListOf<Transaction>()
         transactionList.add(transaction)
 
