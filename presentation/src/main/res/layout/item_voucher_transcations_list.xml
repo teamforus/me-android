@@ -97,11 +97,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:layout_marginTop="@dimen/activity_horizontal_margin_small"
                 app:layout_constraintEnd_toEndOf="@id/subtitle2"
                 app:layout_constraintTop_toTopOf="@id/overline1"
                 app:layout_constraintBottom_toBottomOf="@id/overline1"
-
                 tools:text="Overline4" />
 
 

@@ -25,11 +25,11 @@ class TransactionsVH(parent: ViewGroup)
             }
         } else item.organization?.name
         overline1.text = if (isActionsVoucher) {
-            if (item.product != null) {
-                item.product!!.description
-            } else {
-                ""
-            }
+            if (item.product != null ) {
+                if(item.product!!.organization != null) {
+                    item.product!!.organization!!.name
+                }else{ ""}
+            } else { ""}
         } else VoucherFragment.dateFormat.format(item.createdAt)
 
 
