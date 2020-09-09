@@ -108,11 +108,11 @@ class ActionsActivity : AppCompatActivity() {
             if (it != null) {
                 refreshVoucherUI(it)
                 mainViewModel.getVoucherActionGoods(currentPage)
-                //this@ActionsActivity.currentPage += 1
+                this@ActionsActivity.currentPage += 1
             }
         })
 
-        mainViewModel.getVoucherDetails()
+
 
 
         val linearLayoutManager = LinearLayoutManager(this@ActionsActivity, LinearLayoutManager.VERTICAL, false)
@@ -137,7 +137,7 @@ class ActionsActivity : AppCompatActivity() {
             }
         })
 
-
+        mainViewModel.getVoucherDetails()
     }
 
     var canWork = true
