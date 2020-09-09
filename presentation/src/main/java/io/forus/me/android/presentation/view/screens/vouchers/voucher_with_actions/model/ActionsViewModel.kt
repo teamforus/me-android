@@ -61,9 +61,8 @@ class ActionsViewModel : ViewModel() {
 
     var init = true
 
-    //  android:onItemSelected="@{(parent,view,pos,id)->model.onSelectItem(parent,view,pos,id)}"
+
     fun onSelectItem(parent: AdapterView<*>?, view: View?, pos: Int, id: Long) {
-       // Log.d("forus", "Clear_items orgName=" + orgName + " organizationId=" + organizationId)
         if(init){
             init = false
         }else {
@@ -91,7 +90,6 @@ class ActionsViewModel : ViewModel() {
     }
 
     public fun getVoucherDetails() {
-
         vouchersRepository.getVoucherAsProvider(voucherAddress!!)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -111,20 +109,16 @@ class ActionsViewModel : ViewModel() {
 
     public fun getVoucherActionGoods( page: Int) {
 
-        Log.d("forus", "VOUSHER_ADDRESS=" + voucherAddress+ " orgId = "+organizationId)
         if (organizationId != null) {
             vouchersRepository.getVoucherProductsActionsAsProvider(voucherAddress!!, organizationId!!, page, perPage)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .map {
 
-                        Log.d("forus", "ProductActionsSize= " + it.size)
-
                         val arr: MutableList<ProductAction> = mutableListOf()
                         arr.addAll(it)
                         productActionsLiveData.postValue(arr)
                         init = true
-
 
                     }
                     .onErrorReturn {
