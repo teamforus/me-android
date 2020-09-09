@@ -13,5 +13,5 @@ class TransactionDataMapper(private val currencyDataMapper: CurrencyDataMapper,
                     if (domainModel.currency != null) currencyDataMapper.transform(domainModel.currency) else null,
                     domainModel.amount ?: 0f.toBigDecimal(), domainModel.createdAt,
                     Transaction.Type.valueOf(domainModel.type.name),
-                    if (domainModel.organization != null) productDataMapper.transform(domainModel.product!!) else null)
+                    if (domainModel.product != null) productDataMapper.transform(domainModel.product!!) else null)
 }
