@@ -1,73 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="78dp"
+    android:layout_marginLeft="@dimen/activity_horizontal_margin_small"
+    android:layout_marginTop="@dimen/activity_horizontal_margin_small"
+    android:layout_marginRight="@dimen/activity_horizontal_margin_small"
+    android:layout_marginBottom="4dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="vertical"
+    app:cardBackgroundColor="@color/brightBackground"
+    app:cardCornerRadius="@dimen/card_radius"
+    app:cardElevation="@dimen/card_elevation_small"
+    app:cardUseCompatPadding="false">
 
-    <data>
-        <import type="android.view.View" />
-
-        <variable
-            name="model"
-            type="io.forus.me.android.presentation.view.screens.vouchers.transactions_log.viewmodels.TransactionsLogViewModel" />
-    </data>
-
-    <RelativeLayout
-        android:id="@+id/root"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/secondary200"
-        android:descendantFocusability="blocksDescendants"
+        android:layout_height="match_parent">
+
+        <io.forus.me.android.presentation.view.component.images.CircleImageView
+            android:id="@+id/logo"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/circle_empty"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="16dp"
+            tools:src="@color/alto" />
+
+
+        <io.forus.me.android.presentation.view.component.text.TextView
+            android:id="@+id/nameTV"
+            style="@style/CardTitle4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toEndOf="@+id/logo"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="16dp"
+            app:type="medium"
+            tools:text="Kindpakket" />
+
+        <io.forus.me.android.presentation.view.component.text.TextView
+            android:id="@+id/value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/blue"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/nameTV"
+            app:layout_constraintBottom_toBottomOf="@id/nameTV"
+            android:layout_marginEnd="16dp"
+            app:type="bold"
+            tools:text="€ 456,66" />
+
+        <io.forus.me.android.presentation.view.component.text.TextView
+            android:id="@+id/organization_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="16dp"
+            android:lineSpacingExtra="3sp"
+            android:textColor="@color/slate"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/logo"
+            app:layout_constraintTop_toBottomOf="@+id/nameTV"
+            tools:text=" 10 dagen geldig" />
+
+        <io.forus.me.android.presentation.view.component.text.TextView
+            android:id="@+id/used"
+            android:textColor="@color/slate"
+            android:textSize="12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="pending"
+            app:layout_constraintBottom_toBottomOf="@+id/organization_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/organization_name"
+            app:type="regular" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <LinearLayout
+        android:background="?selectableItemBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/activity_horizontal_margin"
         android:orientation="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <android.support.design.widget.CoordinatorLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="60dp">
-
-
-            <include layout="@layout/toolbar_view_records" />
-
-            <io.forus.me.android.presentation.view.base.lr.LRPanelImpl
-                android:id="@+id/lr_panel"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
-            <LinearLayout
-                android:id="@+id/lrl"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/recycler"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-
-                        />
-
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <!--/io.forus.me.android.presentation.view.base.lr.LRPanelImpl-->
+        android:visibility="gone"
+        >
 
 
 
 
-        </android.support.design.widget.CoordinatorLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp">
 
 
-    </RelativeLayout>
-</layout>
+
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+
+
+</android.support.v7.widget.CardView>
