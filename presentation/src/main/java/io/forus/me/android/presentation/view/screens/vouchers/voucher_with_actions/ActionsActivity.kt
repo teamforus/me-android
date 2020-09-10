@@ -90,10 +90,6 @@ class ActionsActivity : AppCompatActivity() {
             }
         }, this@ActionsActivity)
 
-        val llm = LinearLayoutManager(this)
-        llm.orientation = LinearLayoutManager.VERTICAL
-
-
 
         mainViewModel.productActionsLiveData.observe(this, Observer {
 
@@ -111,8 +107,6 @@ class ActionsActivity : AppCompatActivity() {
                 this@ActionsActivity.currentPage += 1
             }
         })
-
-
 
 
         val linearLayoutManager = LinearLayoutManager(this@ActionsActivity, LinearLayoutManager.VERTICAL, false)

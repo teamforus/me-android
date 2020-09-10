@@ -2,14 +2,20 @@ package io.forus.me.android.presentation.view.screens.vouchers.transactions_log.
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import io.forus.me.android.presentation.view.screens.vouchers.transactions_log.Foo
+import io.forus.me.android.domain.models.vouchers.ProductAction
+import io.forus.me.android.domain.models.vouchers.Transaction
+import io.forus.me.android.domain.repository.vouchers.VouchersRepository
+import io.forus.me.android.presentation.internal.Injection
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 class TransactionsLogViewModel : ViewModel() {
 
 
-    //var goodsPaginationSource: GoodsListDataSource? = null
+    var vouchersRepository: VouchersRepository = Injection.instance.vouchersRepository
 
-    var transactionsLiveData: MutableLiveData<MutableList<Foo>> = MutableLiveData()
+
+    var transactionsLiveData: MutableLiveData<MutableList<Transaction>> = MutableLiveData()
 
 
     /*val config: PagedList.Config = PagedList.Config.Builder()
@@ -50,27 +56,30 @@ class TransactionsLogViewModel : ViewModel() {
     }
 
 
-    //fun getTransactions(): LiveData<List<Foo>> = transactionsLiveData
+    val perPage: Int = 10
 
-    public fun fetchList() {
+    public fun getTransactions(from: String, page: Int) {
 
-        val list : MutableList<Foo> = mutableListOf()
-        list.add(Foo(1,"1"))
-        list.add(Foo(1,"2"))
-        list.add(Foo(1,"3"))
 
-        //val liveFoo : MutableLiveData<List<Foo>> = MutableLiveData()
-        //transactionsLiveData.value!!.clear()
-        transactionsLiveData.postValue(list)//value!!.addAll(list)
+        vouchersRepository.getTransactionsLogAsProvider(from, page, perPage)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map {
 
+                    val arr: MutableList<Transaction> = mutableListOf()
+                    arr.addAll(it)
+                    transactionsLiveData.postValue(arr)
+                    // init = true
+
+                }
+                .onErrorReturn {
+
+                }
+                .subscribe()
     }
-
-
-    fun refresh() {
-        // goodsPaginationSource!!.invalidate()
-    }
-
-
-
-
 }
+
+
+
+
+

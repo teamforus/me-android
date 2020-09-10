@@ -68,11 +68,6 @@ class ActionsAdapter(var items: ArrayList<ProductAction>, val callback: Callback
         return if (position == items!!.size - 1 && isLoadingAdded) LOADING else ITEM
     }
 
-    fun addLoadingFooter() {
-        isLoadingAdded = true
-
-    }
-
 
     fun clearAll() {
 
@@ -80,8 +75,8 @@ class ActionsAdapter(var items: ArrayList<ProductAction>, val callback: Callback
         notifyDataSetChanged()
     }
 
-    fun add(movie: ProductAction) {
-        items.add(movie!!)
+    fun add(item: ProductAction) {
+        items.add(item!!)
         notifyItemInserted(items!!.size - 1)
     }
 

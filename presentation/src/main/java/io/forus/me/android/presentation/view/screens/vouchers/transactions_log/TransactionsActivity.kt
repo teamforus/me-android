@@ -9,14 +9,18 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import io.forus.me.android.domain.models.vouchers.Transaction
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.databinding.ActivityActionsBinding
 import io.forus.me.android.presentation.databinding.ActivityTransactionsLogBinding
+import io.forus.me.android.presentation.helpers.PaginationScrollListener
 import io.forus.me.android.presentation.view.screens.vouchers.transactions_log.adapter.TransactionsLogAdapter
 import io.forus.me.android.presentation.view.screens.vouchers.transactions_log.viewmodels.TransactionsLogViewModel
 import io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actions.ActionsActivity
 import io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actions.model.ActionsViewModel
+import kotlinx.android.synthetic.main.activity_actions.*
 import kotlinx.android.synthetic.main.activity_transactions_log.*
+import kotlinx.android.synthetic.main.activity_transactions_log.recycler
 import kotlinx.android.synthetic.main.toolbar_view_records.*
 
 class TransactionsActivity : AppCompatActivity() {
@@ -36,6 +40,14 @@ class TransactionsActivity : AppCompatActivity() {
             return intent
         }
     }
+
+    var canWork = true
+    private var currentPage = 1
+    private var isLastPage = false
+
+    private var isLoading = false
+    var itemCount = 0
+
 
     lateinit var mainViewModel: TransactionsLogViewModel
 
@@ -64,7 +76,7 @@ class TransactionsActivity : AppCompatActivity() {
         profile_button.setOnClickListener { finish() }
 
         transactionsAdapter = TransactionsLogAdapter(arrayListOf(), object : TransactionsLogAdapter.Callback {
-            override fun onItemClicked(item: Foo) {
+            override fun onItemClicked(item: Transaction) {
 
             }
         })
@@ -75,10 +87,36 @@ class TransactionsActivity : AppCompatActivity() {
         recycler.adapter = transactionsAdapter
 
         mainViewModel.transactionsLiveData.observe(this, Observer {
-            transactionsAdapter!!.setList(it!!)
+            if (it != null) {
+                canWork = true
+                transactionsAdapter!!.addAll(it)
+            }
         })
 
-        mainViewModel.fetchList()
+        val linearLayoutManager = LinearLayoutManager(this@TransactionsActivity, LinearLayoutManager.VERTICAL, false)
+        recycler.layoutManager = linearLayoutManager
+        recycler.adapter = transactionsAdapter
+
+        recycler.addOnScrollListener(object : PaginationScrollListener(linearLayoutManager) {
+            override fun isLastPage(): Boolean {
+                return this@TransactionsActivity.isLastPage
+            }
+
+            override fun loadMoreItems() {
+                this@TransactionsActivity.isLoading = true
+
+
+                mainViewModel.getTransactions("2020-09-01",this@TransactionsActivity.currentPage)
+                this@TransactionsActivity.currentPage += 1
+            }
+
+            override fun isLoading(): Boolean {
+                return this@TransactionsActivity.isLoading
+            }
+        })
+
+        mainViewModel.getTransactions("2020-09-01",this@TransactionsActivity.currentPage)
+        this@TransactionsActivity.currentPage += 1
 
 
     }

@@ -12,7 +12,9 @@ import io.forus.me.android.presentation.models.vouchers.Voucher
 import io.forus.me.android.presentation.view.activity.BaseActivity
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.forus.me.android.presentation.view.screens.vouchers.item.VoucherFragment
+import io.forus.me.android.presentation.view.screens.vouchers.transactions_log.TransactionsActivity
 import kotlinx.android.synthetic.main.fragment_vouchers_recycler.*
+import kotlinx.android.synthetic.main.toolbar_view.*
 
 /**
  * Fragment Vouchers Delegates Screen.
@@ -37,6 +39,10 @@ class VouchersFragment : ToolbarLRFragment<VouchersModel, VouchersView, Vouchers
     override val showAccount: Boolean
         get() = false
 
+    override val showInfo: Boolean
+        get() = true
+
+
     override fun viewForSnackbar(): View = root
 
     override fun loadRefreshPanel() = lr_panel
@@ -53,6 +59,11 @@ class VouchersFragment : ToolbarLRFragment<VouchersModel, VouchersView, Vouchers
         }
         recycler.layoutManager = LinearLayoutManager(context)
         recycler.adapter = adapter
+
+        info_button.setImageResource(R.drawable.ic_transactions)
+        info_button.setOnClickListener {
+            startActivity(TransactionsActivity.getCallingIntent(context!!))
+        }
 
     }
 

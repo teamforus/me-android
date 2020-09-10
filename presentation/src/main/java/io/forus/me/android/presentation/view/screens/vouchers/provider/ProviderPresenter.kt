@@ -85,14 +85,14 @@ class ProviderPresenter constructor(private val vouchersRepository: VouchersRepo
                                     transaction.organization?.email)
 
                             val product:io.forus.me.android.presentation.models.vouchers.Product? = if(transaction.product == null){ null }else {
-                                Product(transaction.product!!.id,
-                                        transaction.product!!.organizationId,transaction.product!!.productCategoryId,
+                                io.forus.me.android.presentation.models.vouchers.Product(transaction.product?.id?:-1L,
+                                        transaction.product!!.organizationId!!,transaction.product!!.productCategoryId!!,
                                         transaction.product!!.name,transaction.product!!.description,
-                                        transaction.product!!.price,transaction.product!!.oldPrice,
-                                        transaction.product!!.totalAmount,transaction.product!!.soldAmount,
-                                        ProductCategory(transaction.product!!.productCategory.id,
-                                                transaction.product!!.productCategory.key,
-                                                transaction.product!!.productCategory.name), organization)
+                                        transaction.product!!.price!!,transaction.product!!.oldPrice!!,
+                                        transaction.product!!.totalAmount!!,transaction.product!!.soldAmount!!,
+                                        ProductCategory(transaction.product!!.productCategory?.id?:-1L,
+                                                transaction.product!!.productCategory?.key,
+                                                transaction.product!!.productCategory?.name), organization)
                             }
 
 

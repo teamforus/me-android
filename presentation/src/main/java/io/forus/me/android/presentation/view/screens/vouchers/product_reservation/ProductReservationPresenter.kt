@@ -13,6 +13,7 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import java.math.BigDecimal
 
 class ProductReservationPresenter constructor(val vouchersRepository: VouchersRepository, val voucherAddress: String) : LRPresenter<List<Voucher>, ProductReservationModel, ProductReservationView>() {
 
@@ -31,15 +32,15 @@ class ProductReservationPresenter constructor(val vouchersRepository: VouchersRe
 
                     val product:io.forus.me.android.presentation.models.vouchers.Product? =
                             if(it.product == null){ null }else{
-                                Product(it.product!!.id, it.product!!.organizationId,
-                                        it.product!!.productCategoryId,
+                                Product(it.product!!.id?:-1L, it.product!!.organizationId?:-1L,
+                                        it.product!!.productCategoryId?:-1L,
                                         it.product!!.name,it.product!!.description,
-                                        it.product!!.price,
-                                        it.product!!.oldPrice, it.product!!.totalAmount,
-                                        it.product!!.soldAmount,
-                                        ProductCategory(it.product!!.productCategory.id,
-                                                it.product!!.productCategory.key,
-                                                it.product!!.productCategory.name),organization)
+                                        it.product!!.price?: BigDecimal(-1),
+                                        it.product!!.oldPrice?: BigDecimal(-1), it.product!!.totalAmount?:-1L,
+                                        it.product!!.soldAmount?:-1L,
+                                        ProductCategory(it.product!!.productCategory?.id?:-1L,
+                                                it.product!!.productCategory?.key,
+                                                it.product!!.productCategory?.name),organization)
                             }
 
 
@@ -53,16 +54,17 @@ class ProductReservationPresenter constructor(val vouchersRepository: VouchersRe
                 val domainProduct = domainVoucher.product
                 val product = when (domainProduct) {
                     null -> null
-                    else -> Product(domainProduct.id,
-                            domainProduct.organizationId,
-                            domainProduct.productCategoryId,
+                    else -> Product(domainProduct.id?:-1L,
+                            domainProduct.organizationId?:-1L,
+                            domainProduct.productCategoryId?:-1L,
                             domainProduct.name, domainProduct.description,
-                            domainProduct.price, domainProduct.oldPrice,
-                            domainProduct.totalAmount, domainProduct.soldAmount,
-                            ProductCategory(    domainProduct.productCategory.id,
-                                    domainProduct.productCategory.key, domainProduct.productCategory.name),
-                            Organization(domainProduct.organization.id,
-                                    domainProduct.organization.name, domainProduct.organization.logo, domainProduct.organization.lat, domainProduct.organization.lon, domainProduct.organization.address, domainProduct.organization.phone, domainProduct.organization.email))
+                            domainProduct.price?: BigDecimal(-1), domainProduct.oldPrice?: BigDecimal(-1),
+                            domainProduct.totalAmount?:-1L, domainProduct.soldAmount?:-1L,
+                            ProductCategory(    domainProduct.productCategory?.id?:-1L,
+                                    domainProduct.productCategory?.key, domainProduct.productCategory?.name),
+                            Organization(domainProduct.organization?.id?:-1L,
+                                    domainProduct.organization?.name, domainProduct.organization?.logo, domainProduct.organization?.lat,
+                                    domainProduct.organization?.lon, domainProduct.organization?.address, domainProduct.organization?.phone, domainProduct.organization?.email))
                 }
 
                 Voucher(isProduct ?: false, isUsed ?: false, address, name, organizationName,
