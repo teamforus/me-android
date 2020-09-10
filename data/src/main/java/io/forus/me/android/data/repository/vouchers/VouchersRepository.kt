@@ -76,7 +76,7 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
                 Transaction(it.address, Organization(it.organization.id, it.organization.name, it.organization?.logo?.sizes?.large
                         ?: "", it.organization?.lat ?: 0.0, it.organization?.lon
                         ?: 0.0, it.organization?.identityAddress ?: "", it.organization?.phone
-                        ?: "", it.organization?.email ?: ""), euro, it.amount, it.createdAt, product
+                        ?: "", it.organization?.email ?: ""), euro, it.amount, it.createdAt, product, it.state
                         )
             })
         }
@@ -101,7 +101,7 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
                 Transaction("", Organization(childVoucher.product.organizationId, childVoucher.product.name, "", organization?.lat
                         ?: 0.0, organization?.lon ?: 0.0, organization?.identityAddress
                         ?: "", organization?.phone ?: "", organization?.email
-                        ?: ""), euro, childVoucher.amount, childVoucher.createdAt, product)
+                        ?: ""), euro, childVoucher.amount, childVoucher.createdAt, product, null )
             })
         }
         transactions.sortWith(Comparator { t1, t2 ->
@@ -176,6 +176,29 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
                 photoUrl, organization, productCategory)
     }
 
+    private fun mapToLogTransaction(transaction: io.forus.me.android.data.entity.vouchers.response.Transaction): Transaction {
+
+        val organization: Organization? = if (transaction.organization == null){ null }
+        else {
+            val org = transaction.organization
+            Organization(org.id, org.name, null,org.lat, org.lon,org.identityAddress, org.phone, org.email)
+        }
+
+
+
+        val product: Product? = if (transaction.product == null){ null }
+        else {
+            val prc = transaction.product
+            Product(prc.id, prc.organizationId, null, prc.name, null, prc.price, null,null,null,null,null)
+        }
+
+
+
+
+        return Transaction(transaction.id.toString(), organization, null , transaction.amount, transaction.createdAt, product, transaction.state)
+
+    }
+
 
     private fun getFakeVoucherProvider(): VoucherProvider {
         val date = Calendar.getInstance().getTime()
@@ -185,7 +208,7 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
                 "", "", "")
         val organizationsList = mutableListOf<Organization>()
         organizationsList.add(organization)
-        val transaction = Transaction("0", organization, currency, 0f.toBigDecimal(), date, null)
+        val transaction = Transaction("0", organization, currency, 0f.toBigDecimal(), date, null, null)
         val transactionList = mutableListOf<Transaction>()
         transactionList.add(transaction)
 
@@ -231,6 +254,9 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
         return vouchersDataSource.retrieveVoucherProductsActionsAsProvider(address, organizationId, page, perPage).map { it.map { mapToProductAction(it) } }
     }
 
+    override fun getTransactionsLogAsProvider(from: String,  page: Int, perPage: Int): Observable<List<Transaction>> {
+        return vouchersDataSource.retrieveTransactionsLogAsProvider(from, page, perPage).map { it.map { mapToLogTransaction(it) } }
+    }
 
     override fun makeTransaction(address: String, amount: BigDecimal, note: String, organizationId: Long): Observable<Boolean> {
         return vouchersDataSource.makeTransaction(address, MakeTransaction(amount, note, organizationId)).map { true }

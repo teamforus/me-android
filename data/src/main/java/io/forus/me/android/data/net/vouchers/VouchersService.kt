@@ -26,6 +26,10 @@ interface VouchersService {
     fun getActionProductsOfVoucherAsProvider(@Path("address") address: String, @Query("organization_id") organization_id: String,
                                              @Query("page") page: String, @Query("per_page") perPage: String): Observable<ListAllProductsActions>
 
+    @GET("api/v1/platform/provider/transactions")
+    fun getTransactionsLogAsProvider(@Query("from") from: String,
+                                             @Query("page") page: String, @Query("per_page") perPage: String): Observable<ListAllTransactions>
+
 
     @GET("api/v1/platform/vouchers/{address}/transactions")
     fun getTransactions(@Path("address") address: String): Observable<List<Transaction>>

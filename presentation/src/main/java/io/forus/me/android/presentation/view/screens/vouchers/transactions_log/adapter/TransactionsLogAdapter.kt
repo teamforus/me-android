@@ -9,12 +9,18 @@ import android.widget.TextView
 import io.forus.me.android.domain.models.vouchers.ProductAction
 import io.forus.me.android.domain.models.vouchers.Transaction
 import io.forus.me.android.presentation.R
+import io.forus.me.android.presentation.view.screens.vouchers.item.VoucherFragment
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class TransactionsLogAdapter(var items: ArrayList<Transaction>, val callback: Callback) : RecyclerView.Adapter<TransactionsLogAdapter.MainHolder>() {
 
     private val LOADING = 0
     private val ITEM = 1
     private var isLoadingAdded = false
+
+    val dateFormat = SimpleDateFormat("d MMMM, HH:mm", Locale.getDefault())
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
             = MainHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_transactions_list, parent, false))
@@ -27,12 +33,17 @@ class TransactionsLogAdapter(var items: ArrayList<Transaction>, val callback: Ca
 
     inner class MainHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        private val nameTV = itemView.findViewById<TextView>(R.id.nameTV)
-
+        private val subtitle1 = itemView.findViewById<TextView>(R.id.subtitle1)
+        private val subtitle2 = itemView.findViewById<TextView>(R.id.subtitle2)
+        private val overline1 = itemView.findViewById<TextView>(R.id.overline1)
+        private val overline2 = itemView.findViewById<TextView>(R.id.overline2)
 
 
         fun bind(item: Transaction) {
-            nameTV.text = item.product?.name
+            subtitle1.text = item.product?.name
+            subtitle2.text = item.amount?.toString()
+            overline1.text = VoucherFragment.dateFormat.format(item.createdAt)
+            overline2.text =item.state
 
         }
     }

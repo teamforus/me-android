@@ -33,6 +33,11 @@ class VouchersRemoteDataSource(f: () -> VouchersService): VouchersDataSource, Re
                 page = page.toString(), perPage = perPage.toString()).map { it.data }
     }
 
+    override fun retrieveTransactionsLogAsProvider(from: String, page: Int, perPage: Int): Observable<List<Transaction>> {
+        return service.getTransactionsLogAsProvider(from = from,
+                page = page.toString(), perPage = perPage.toString()).map { it.data }
+    }
+
     override fun retrieveVoucherAsProvider(address: String): Observable<Voucher> {
         return service.getVoucherAsProvider(address).map { it.data }
     }

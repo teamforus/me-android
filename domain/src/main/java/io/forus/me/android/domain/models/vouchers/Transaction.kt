@@ -20,8 +20,10 @@ class Transaction {
 
     var product: Product?
 
+    var state: String?
+
     constructor(id: String, organization: Organization?, currency: Currency?, amount: BigDecimal?, createdAt: Date?,
-                product: Product?) {
+                product: Product?, state: String?) {
         this.id = id
         this.organization = organization
         this.currency = currency
@@ -29,6 +31,7 @@ class Transaction {
         this.createdAt = createdAt
         this.type = type
         this.product = product
+        this.state = state
     }
 
 
