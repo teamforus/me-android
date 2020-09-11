@@ -42,8 +42,8 @@ class TransactionsLogAdapter(var items: ArrayList<Transaction>, val callback: Ca
         fun bind(item: Transaction) {
             subtitle1.text = item.product?.name
             subtitle2.text = item.amount?.toString()
-            overline1.text = VoucherFragment.dateFormat.format(item.createdAt)
-            overline2.text =item.state
+            overline1.text = dateFormat.format(item.createdAt)
+            overline2.text = item.state
 
         }
     }

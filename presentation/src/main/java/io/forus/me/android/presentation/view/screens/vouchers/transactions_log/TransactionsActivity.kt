@@ -5,25 +5,25 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.View
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import io.forus.me.android.domain.models.vouchers.Transaction
 import io.forus.me.android.presentation.R
-import io.forus.me.android.presentation.databinding.ActivityActionsBinding
 import io.forus.me.android.presentation.databinding.ActivityTransactionsLogBinding
 import io.forus.me.android.presentation.helpers.PaginationScrollListener
 import io.forus.me.android.presentation.view.screens.vouchers.transactions_log.adapter.TransactionsLogAdapter
 import io.forus.me.android.presentation.view.screens.vouchers.transactions_log.viewmodels.TransactionsLogViewModel
-import io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actions.ActionsActivity
-import io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actions.model.ActionsViewModel
-import kotlinx.android.synthetic.main.activity_actions.*
 import kotlinx.android.synthetic.main.activity_transactions_log.*
-import kotlinx.android.synthetic.main.activity_transactions_log.recycler
 import kotlinx.android.synthetic.main.toolbar_view_records.*
+import java.text.SimpleDateFormat
+import java.util.*
 
-class TransactionsActivity : AppCompatActivity() {
+
+class TransactionsActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
 
 
     companion object {
@@ -90,8 +90,24 @@ class TransactionsActivity : AppCompatActivity() {
             if (it != null) {
                 canWork = true
                 transactionsAdapter!!.addAll(it)
+                if(it.size == 0){
+                    this@TransactionsActivity.currentPage = 1
+                }
             }
         })
+
+
+        buttonDatePicker.setOnClickListener {
+            val now: Calendar = Calendar.getInstance()
+            val dpd = DatePickerDialog.newInstance(
+                    this,
+                    mainViewModel.calendarFrom.value!!.get(Calendar.YEAR),
+                    mainViewModel.calendarFrom.value!!.get(Calendar.MONTH),
+                    mainViewModel.calendarFrom.value!!.get(Calendar.DAY_OF_MONTH)
+            )
+            dpd.show(fragmentManager, "Datepickerdialog")
+
+        }
 
         val linearLayoutManager = LinearLayoutManager(this@TransactionsActivity, LinearLayoutManager.VERTICAL, false)
         recycler.layoutManager = linearLayoutManager
@@ -106,7 +122,7 @@ class TransactionsActivity : AppCompatActivity() {
                 this@TransactionsActivity.isLoading = true
 
 
-                mainViewModel.getTransactions("2020-09-01",this@TransactionsActivity.currentPage)
+                mainViewModel.getTransactions( this@TransactionsActivity.currentPage)
                 this@TransactionsActivity.currentPage += 1
             }
 
@@ -115,9 +131,20 @@ class TransactionsActivity : AppCompatActivity() {
             }
         })
 
-        mainViewModel.getTransactions("2020-09-01",this@TransactionsActivity.currentPage)
+        mainViewModel.getTransactions(this@TransactionsActivity.currentPage)
         this@TransactionsActivity.currentPage += 1
 
 
     }
+
+    override fun onDateSet(view: DatePickerDialog?, year: Int, monthOfYear: Int, dayOfMonth: Int) {
+        val calendar: Calendar = GregorianCalendar(year, monthOfYear, dayOfMonth)
+        calendar.get(Calendar.DATE)
+        mainViewModel.setCalendar(calendar)
+        mainViewModel.getTransactions( this@TransactionsActivity.currentPage)
+        this@TransactionsActivity.currentPage += 1
+
+    }
+
+
 }

@@ -2,12 +2,14 @@ package io.forus.me.android.presentation.view.screens.vouchers.transactions_log.
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import io.forus.me.android.domain.models.vouchers.ProductAction
+import android.util.Log
 import io.forus.me.android.domain.models.vouchers.Transaction
 import io.forus.me.android.domain.repository.vouchers.VouchersRepository
 import io.forus.me.android.presentation.internal.Injection
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import java.text.SimpleDateFormat
+import java.util.*
 
 class TransactionsLogViewModel : ViewModel() {
 
@@ -17,19 +19,9 @@ class TransactionsLogViewModel : ViewModel() {
 
     var transactionsLiveData: MutableLiveData<MutableList<Transaction>> = MutableLiveData()
 
+    val dateFormatForDisplay = SimpleDateFormat("d MMM YYYY", Locale.getDefault())
+    val dateFormatForApi = SimpleDateFormat("YYYY-dd-MM", Locale.getDefault())
 
-    /*val config: PagedList.Config = PagedList.Config.Builder()
-            .setPageSize(10)
-            .setEnablePlaceholders(false)
-            .build()*/
-
-    /*var circleOptions: CircleOptions? = null
-        get() = field
-        set(value) {
-            field = value
-        }*/
-
-    val sortString = MutableLiveData<String>()
 
     val progress = MutableLiveData<Boolean>()
     val showWaitDialog = MutableLiveData<Boolean>()
@@ -40,40 +32,52 @@ class TransactionsLogViewModel : ViewModel() {
     val showUnknownError = MutableLiveData<Boolean>()
 
 
+    val calendarFrom = MutableLiveData<Calendar>()
+    val calendarStringForDisplay = MutableLiveData<String>()
+    val calendarStringForApi = MutableLiveData<String>()
+
     init {
-
-        //circleOptions = CircleOptions(null,null)
-
-        //transactionsLiveData.value
-
-        //sortString.value = SortOrderTitle.title(SortOrder.DESC)
 
         progress.value = true
         showWaitDialog.value = false
         isRefreshing.value = false
         showNetworkError.value = false
 
+        val cal = Calendar.getInstance()
+        cal.add(Calendar.MONTH, -1)
+
+        calendarFrom.value = cal
+        calendarStringForDisplay.value = ""
+        calendarStringForApi.value = dateFormatForApi.format(cal.time)
+
+        setCalendar(cal)
+
+    }
+
+    fun setCalendar(cal: Calendar){
+
+        calendarFrom.value = cal
+        calendarStringForDisplay.postValue(dateFormatForDisplay.format(calendarFrom.value!!.time))
+        calendarStringForApi.postValue(dateFormatForApi.format(calendarFrom.value!!.time))
     }
 
 
     val perPage: Int = 10
 
-    public fun getTransactions(from: String, page: Int) {
-
-
-        vouchersRepository.getTransactionsLogAsProvider(from, page, perPage)
+    fun getTransactions(page: Int) {
+        progress.postValue(true)
+        vouchersRepository.getTransactionsLogAsProvider(calendarStringForApi.value!!, page, perPage)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map {
-
+                    progress.postValue(false)
                     val arr: MutableList<Transaction> = mutableListOf()
                     arr.addAll(it)
                     transactionsLiveData.postValue(arr)
-                    // init = true
 
                 }
                 .onErrorReturn {
-
+                    progress.postValue(false)
                 }
                 .subscribe()
     }
