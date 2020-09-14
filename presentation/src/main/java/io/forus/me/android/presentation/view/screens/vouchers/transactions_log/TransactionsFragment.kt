@@ -2,7 +2,6 @@ package io.forus.me.android.presentation.view.screens.vouchers.transactions_log
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
-import android.graphics.BlurMaskFilter
 import android.os.Bundle
 import android.support.annotation.Nullable
 import android.support.v4.app.Fragment
@@ -16,13 +15,9 @@ import io.forus.me.android.domain.models.vouchers.Transaction
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.databinding.ActivityTransactionsLogBinding
 import io.forus.me.android.presentation.helpers.PaginationScrollListener
-import io.forus.me.android.presentation.view.screens.account.assigndelegates.qr.RestoreByQRFragment
-import io.forus.me.android.presentation.view.screens.dashboard.DashboardActivity
 import io.forus.me.android.presentation.view.screens.vouchers.transactions_log.adapter.TransactionsLogAdapter
-import io.forus.me.android.presentation.view.screens.vouchers.transactions_log.details.TransactionDetailsFragment
 import io.forus.me.android.presentation.view.screens.vouchers.transactions_log.viewmodels.TransactionsLogViewModel
 import kotlinx.android.synthetic.main.activity_transactions_log.*
-import kotlinx.android.synthetic.main.fragment_voucher.*
 import kotlinx.android.synthetic.main.toolbar_view_records.*
 import java.util.*
 
@@ -97,14 +92,9 @@ class TransactionsFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
         transactionsAdapter = TransactionsLogAdapter(arrayListOf(), object : TransactionsLogAdapter.Callback {
             override fun onItemClicked(item: Transaction) {
-                try {
-                 //  showPopupQRFragment("dfg","dfgd","dfgdf","dfgdf")
 
-                    (activity as? TransactionsActivity)?.showPopupTransactionDetailsFragment(item)
+                (activity as? TransactionsActivity)?.showPopupTransactionDetailsFragment(item)
 
-                } catch (e: Exception) {
-                    Log.d("forus", "Exp = " + e.toString())
-                }
             }
         })
 
@@ -148,7 +138,6 @@ class TransactionsFragment : Fragment(), DatePickerDialog.OnDateSetListener {
             }
 
             override fun loadMoreItems() {
-                Log.d("forus", "=================loadMoreItems")
                 this@TransactionsFragment.isLoading = true
                 mustReplaceTransactionsList = false
 
@@ -191,13 +180,13 @@ class TransactionsFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
     fun unblurBackground() {
 
-       /* name.setLayerType(View.LAYER_TYPE_NONE, null)
-        type.setLayerType(View.LAYER_TYPE_NONE, null)
-        value.setLayerType(View.LAYER_TYPE_NONE, null)
+        /* name.setLayerType(View.LAYER_TYPE_NONE, null)
+         type.setLayerType(View.LAYER_TYPE_NONE, null)
+         value.setLayerType(View.LAYER_TYPE_NONE, null)
 
-        value.paint.maskFilter = null
-        name.paint.maskFilter = null
-        type.paint.maskFilter = null*/
+         value.paint.maskFilter = null
+         name.paint.maskFilter = null
+         type.paint.maskFilter = null*/
     }
 
 
