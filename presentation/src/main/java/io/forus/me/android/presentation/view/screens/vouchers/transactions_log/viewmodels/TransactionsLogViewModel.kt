@@ -20,7 +20,7 @@ class TransactionsLogViewModel : ViewModel() {
     var transactionsLiveData: MutableLiveData<MutableList<Transaction>> = MutableLiveData()
 
     val dateFormatForDisplay = SimpleDateFormat("d MMM YYYY", Locale.getDefault())
-    val dateFormatForApi = SimpleDateFormat("YYYY-dd-MM", Locale.getDefault())
+    val dateFormatForApi = SimpleDateFormat("YYYY-MM-dd", Locale.getDefault())
 
 
     val progress = MutableLiveData<Boolean>()
@@ -35,6 +35,8 @@ class TransactionsLogViewModel : ViewModel() {
     val calendarFrom = MutableLiveData<Calendar>()
     val calendarStringForDisplay = MutableLiveData<String>()
     val calendarStringForApi = MutableLiveData<String>()
+
+
 
     init {
 
@@ -57,12 +59,12 @@ class TransactionsLogViewModel : ViewModel() {
     fun setCalendar(cal: Calendar){
 
         calendarFrom.value = cal
-        calendarStringForDisplay.postValue(dateFormatForDisplay.format(calendarFrom.value!!.time))
-        calendarStringForApi.postValue(dateFormatForApi.format(calendarFrom.value!!.time))
+        calendarStringForDisplay.value = (dateFormatForDisplay.format(calendarFrom.value!!.time))
+        calendarStringForApi.value = (dateFormatForApi.format(calendarFrom.value!!.time))
     }
 
 
-    val perPage: Int = 10
+    val perPage: Int = 20
 
     fun getTransactions(page: Int) {
         progress.postValue(true)

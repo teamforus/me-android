@@ -33,6 +33,7 @@ class TransactionsLogAdapter(var items: ArrayList<Transaction>, val callback: Ca
 
     inner class MainHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+        private val root = itemView.findViewById<View>(R.id.root)
         private val subtitle1 = itemView.findViewById<TextView>(R.id.subtitle1)
         private val subtitle2 = itemView.findViewById<TextView>(R.id.subtitle2)
         private val overline1 = itemView.findViewById<TextView>(R.id.overline1)
@@ -44,6 +45,8 @@ class TransactionsLogAdapter(var items: ArrayList<Transaction>, val callback: Ca
             subtitle2.text = item.amount?.toString()
             overline1.text = dateFormat.format(item.createdAt)
             overline2.text = item.state
+
+            root.setOnClickListener { callback.onItemClicked(item) }
 
         }
     }
