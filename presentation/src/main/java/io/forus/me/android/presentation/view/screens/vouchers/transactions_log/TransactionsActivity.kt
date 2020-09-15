@@ -34,6 +34,8 @@ class TransactionsActivity : SlidingPanelActivity() {
         }
     }
 
+    override val height: Float
+        get() = 448f
 
 
     private lateinit var fragment: TransactionsFragment
@@ -47,6 +49,7 @@ class TransactionsActivity : SlidingPanelActivity() {
 
             addFragment(R.id.fragmentContainer, fragment)
         }
+
 
         sliding_layout.addPanelSlideListener(object : SlidingUpPanelLayout.PanelSlideListener {
             override fun onPanelSlide(panel: View?, slideOffset: Float) {}
