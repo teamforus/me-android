@@ -10,6 +10,7 @@ import io.forus.me.android.domain.models.vouchers.ProductAction
 import io.forus.me.android.domain.models.vouchers.Transaction
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.view.screens.vouchers.item.VoucherFragment
+import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -42,7 +43,7 @@ class TransactionsLogAdapter(var items: ArrayList<Transaction>, val callback: Ca
 
         fun bind(item: Transaction) {
             subtitle1.text = item.product?.name
-            subtitle2.text = item.amount?.toString()
+            subtitle2.text = NumberFormat.getCurrencyInstance(Locale("nl", "NL")).format(item.amount?.toDouble())
             overline1.text = dateFormat.format(item.createdAt)
             overline2.text = item.state
 

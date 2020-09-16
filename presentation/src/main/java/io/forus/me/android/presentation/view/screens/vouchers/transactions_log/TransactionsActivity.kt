@@ -69,7 +69,7 @@ class TransactionsActivity : SlidingPanelActivity() {
 
     fun showPopupTransactionDetailsFragment(item: Transaction){
 
-        val titleStr = "  Date"//getString(R.string.mdtp_date)
+        val titleStr = "   Date"//getString(R.string.mdtp_date)
         val dateStr = "  "+dateFormat.format(item.createdAt)
         val spannable = SpannableString(titleStr+"\n"+dateStr)
         spannable.setSpan(

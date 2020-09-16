@@ -48,12 +48,23 @@
                 android:orientation="vertical"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+                <View
+                    android:id="@+id/divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="2.5dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginBottom="0dp"
+                    android:background="@drawable/shape_shadow_gradient"
+
+                    />
+
 
                 <LinearLayout
                     android:id="@+id/filter"
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
-                    android:layout_alignParentTop="true"
+                    android:layout_below="@id/divider"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
@@ -69,7 +80,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:background="@drawable/shape_text_view_blue"
+                        android:background="@drawable/shape_text_view_gray"
                         android:clickable="true"
                         android:focusable="true"
                         android:fontFamily="sans-serif-medium"

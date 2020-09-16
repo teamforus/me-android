@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="64dp"
     android:clickable="true"
     android:focusable="true"
     android:orientation="vertical"
@@ -20,14 +20,14 @@
         android:orientation="horizontal"
         android:paddingStart="10dp"
 
-        android:paddingEnd="16dp"
-        >
+        android:paddingEnd="16dp">
 
         <RelativeLayout
             android:id="@+id/icon"
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:background="@drawable/circle_empty"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -37,75 +37,69 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_centerInParent="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_arrow_bottom"
                 android:padding="4dp"
-                />
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_arrow_bottom" />
 
         </RelativeLayout>
 
 
-        <io.forus.me.android.presentation.view.component.text.TextView
+        <TextView
             android:id="@+id/subtitle1"
-            style="@style/Subtitle"
+            style="@style/Subtitle4"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="24dp"
             android:layout_marginStart="10dp"
+            android:layout_marginTop="14dp"
             android:layout_marginEnd="10dp"
             android:ellipsize="end"
+            android:fontFamily="@font/fgoogle_sans_regular"
             android:maxLines="1"
             app:layout_constraintEnd_toStartOf="@+id/subtitle2"
             app:layout_constraintStart_toEndOf="@id/icon"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="18dp"
-            app:type="medium"
             tools:text="Subtitle1" />
 
         <io.forus.me.android.presentation.view.component.text.TextView
             android:id="@+id/overline1"
-            style="@style/Overline4"
+            style="@style/Overline5"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_horizontal_margin_small"
+            android:layout_height="15dp"
+            android:layout_marginTop="3dp"
             android:layout_marginBottom="18dp"
+            android:ellipsize="end"
+            android:letterSpacing="0.03"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/overline2"
             app:layout_constraintStart_toStartOf="@id/subtitle1"
             app:layout_constraintTop_toBottomOf="@id/subtitle1"
-            android:ellipsize="end"
             tools:text="Overline1" />
 
 
-
-
-
-        <io.forus.me.android.presentation.view.component.text.TextView
+        <TextView
             android:id="@+id/subtitle2"
-            style="@style/Subtitle"
+            style="@style/Subtitle4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:textColor="@color/blue"
-            app:type="bold"
-            tools:text="€ 456,66"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/fgoogle_sans_regular"
+            android:textColor="@color/textColor"
+            app:layout_constraintBottom_toBottomOf="@id/subtitle1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/subtitle1"
-            app:layout_constraintBottom_toBottomOf="@id/subtitle1"
-            android:layout_marginEnd="16dp"
-            />
+            tools:text="€ 456,66" />
 
         <io.forus.me.android.presentation.view.component.text.TextView
             android:id="@+id/overline2"
-            style="@style/Overline4"
+            style="@style/Overline5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
+            app:layout_constraintBottom_toBottomOf="@id/overline1"
             app:layout_constraintEnd_toEndOf="@id/subtitle2"
             app:layout_constraintTop_toTopOf="@id/overline1"
-            app:layout_constraintBottom_toBottomOf="@id/overline1"
             tools:text="Overline4" />
-
-
 
 
         <View
@@ -114,8 +108,7 @@
             android:layout_alignBottom="@id/background"
             android:layout_marginStart="16dp"
             android:background="@color/border_color"
-            app:layout_constraintBottom_toBottomOf="parent"
-            />
+            app:layout_constraintBottom_toBottomOf="parent" />
     </android.support.constraint.ConstraintLayout>
 
 </io.forus.me.android.presentation.view.component.card.CommonCard>
