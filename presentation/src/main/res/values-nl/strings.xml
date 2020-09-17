@@ -161,6 +161,14 @@
     <string name="tab_archives">Archief</string>
 
 
+    <!-- Transactions -->
+    <string name="transactions">transacties</string>
+    <string name="transaction_details">transactie details</string>
+    <string name="fund">fond</string>
+    <string name="provider">aanbieder</string>
+    <string name="date">datum</string>
+    <string name="from">van</string>
+
 
     <!-- Wallet details screen -->
     <string name="wallet_title_info">Eigendom informatie</string>

@@ -2,10 +2,14 @@ package io.forus.me.android.presentation.view.screens.vouchers.transactions_log
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Typeface
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
+import android.support.v4.content.res.ResourcesCompat
 import android.text.Spannable
 import android.text.SpannableString
+import android.text.SpannableStringBuilder
+import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
 import android.view.View
@@ -13,6 +17,7 @@ import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import io.forus.me.android.domain.models.vouchers.Transaction
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.view.activity.SlidingPanelActivity
+import io.forus.me.android.presentation.view.component.CustomTypefaceSpan
 import io.forus.me.android.presentation.view.screens.vouchers.transactions_log.details.TransactionDetailsFragment
 import kotlinx.android.synthetic.main.activity_toolbar_sliding_panel.*
 import java.text.NumberFormat
@@ -69,9 +74,16 @@ class TransactionsActivity : SlidingPanelActivity() {
 
     fun showPopupTransactionDetailsFragment(item: Transaction){
 
+        //val font = Typeface.createFromAsset(assets, R.font.fgoogle_sans_regular)
+        val typeface = ResourcesCompat.getFont(this@TransactionsActivity, R.font.fgoogle_sans_regular);
+
         val titleStr = "   Date"//getString(R.string.mdtp_date)
         val dateStr = "  "+dateFormat.format(item.createdAt)
-        val spannable = SpannableString(titleStr+"\n"+dateStr)
+        val totalStr = titleStr+"\n"+dateStr
+        val spannable = SpannableString(totalStr)
+
+
+
         spannable.setSpan(
                 ForegroundColorSpan(ContextCompat.getColor(TransactionsActivity@this, R.color.body_1_38)),
                 0, titleStr.length,
@@ -81,6 +93,8 @@ class TransactionsActivity : SlidingPanelActivity() {
                 RelativeSizeSpan(0.6f),
                 0, titleStr.length,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+        spannable.setSpan(CustomTypefaceSpan("", typeface!!), 0, totalStr.length, Spanned.SPAN_EXCLUSIVE_INCLUSIVE)
 
 
         addPopupFragment(TransactionDetailsFragment.newIntent(item.id, item.organization?.name, item.product?.organization?.name,

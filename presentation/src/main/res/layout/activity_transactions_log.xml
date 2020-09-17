@@ -73,7 +73,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
                         android:gravity="center"
-                        android:text="FROM" />
+                        android:textAllCaps="true"
+                        android:text="@string/from" />
 
                     <TextView
                         android:id="@+id/buttonDatePicker"

@@ -170,6 +170,14 @@
     <string name="dialog_button_edit">EDIT</string>
     <string name="dialog_button_archive">ARCHIVE</string>
 
+    <!-- Transactions -->
+    <string name="transactions">transactions</string>
+    <string name="transaction_details">transaction details</string>
+    <string name="fund">fund</string>
+    <string name="provider">provider</string>
+    <string name="date">date</string>
+    <string name="from">from</string>
+
     <!-- Wallet details screen -->
     <string name="wallet_title_info">Wallet info</string>
     <string name="wallet_current_balance">Current Balance</string>
