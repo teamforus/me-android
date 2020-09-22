@@ -311,6 +311,7 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="title_activity_success_dialog">SuccessDialogActivity</string>
+    <string name="tooltip_create_record">Tik hier om een nieuw &#10; record te maken</string>
 
 
 </resources>

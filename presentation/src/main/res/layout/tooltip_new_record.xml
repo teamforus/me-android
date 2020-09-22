@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/brightBackground"
         android:padding="3dp"
-        android:text="@string/new_record">
+        android:text="Tik hier om een nieuw\n record te maken">
 
     </TextView>
 

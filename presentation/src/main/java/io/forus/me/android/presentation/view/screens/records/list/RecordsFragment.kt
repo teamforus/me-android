@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import io.forus.me.android.presentation.R
+import io.forus.me.android.presentation.helpers.Converter
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
@@ -112,19 +113,20 @@ class RecordsFragment : ToolbarLRFragment<RecordsModel, RecordsView, RecordsPres
 
         SimpleTooltip.Builder(context!!)
                 .anchorView(addRecordBt)
-                .text(R.string.new_record)
+                //.text(R.string.tooltip_create_record)
+                .text("Tik hier om een nieuw\n record te maken")
                 .gravity(Gravity.START)
                 .dismissOnOutsideTouch(true)
                 .dismissOnInsideTouch(true)
                 .modal(true)
                 .animated(true)
-                .animationDuration(1500)
-                //.animationPadding(SimpleTooltipUtils.pxFromDp(8f))
-                .transparentOverlay(false)
+                .animationDuration(1000)
+                .animationPadding(SimpleTooltipUtils.pxFromDp(Converter.convertDpToPixel(1f, context!!).toFloat()))
+                .transparentOverlay(true)
+                .arrowWidth(Converter.convertDpToPixel(10f, context!!).toFloat())
+                .arrowHeight(Converter.convertDpToPixel(7f, context!!).toFloat())
                 .contentView(R.layout.tooltip_new_record, R.id.tooltipText)//
                 //.focusable(true)
-                .padding(20f)
-                .margin(20f)
                 .build()
                 .show()
     }
