@@ -110,11 +110,6 @@ class RecordsFragment : ToolbarLRFragment<RecordsModel, RecordsView, RecordsPres
             navigator.navigateToAccount(context!!)
         }
 
-
-
-
-
-
         SimpleTooltip.Builder(context!!)
                 .anchorView(addRecordBt)
                 .text(R.string.new_record)
@@ -122,7 +117,7 @@ class RecordsFragment : ToolbarLRFragment<RecordsModel, RecordsView, RecordsPres
                 .dismissOnOutsideTouch(true)
                 .dismissOnInsideTouch(true)
                 .modal(true)
-                .animated(false)
+                .animated(true)
                 .animationDuration(1500)
                 //.animationPadding(SimpleTooltipUtils.pxFromDp(8f))
                 .transparentOverlay(false)
@@ -132,8 +127,6 @@ class RecordsFragment : ToolbarLRFragment<RecordsModel, RecordsView, RecordsPres
                 .margin(20f)
                 .build()
                 .show()
-
-
     }
 
 
@@ -166,7 +159,6 @@ class RecordsFragment : ToolbarLRFragment<RecordsModel, RecordsView, RecordsPres
             tab2divider.setBackgroundColor(ContextCompat.getColor(context!!, R.color.silver))
             isRecords = true
             records.onNext(0)
-
             addRecordBt.show()
         }
 
@@ -178,7 +170,6 @@ class RecordsFragment : ToolbarLRFragment<RecordsModel, RecordsView, RecordsPres
             tab2divider.setBackgroundColor(ContextCompat.getColor(context!!, R.color.colorAccent))
             isRecords = false
             archives.onNext(0)
-
             addRecordBt.hide()
         }
     }
@@ -187,7 +178,6 @@ class RecordsFragment : ToolbarLRFragment<RecordsModel, RecordsView, RecordsPres
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         updateModel()
-
     }
 }
 
