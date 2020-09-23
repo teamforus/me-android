@@ -111,10 +111,11 @@ class RecordsFragment : ToolbarLRFragment<RecordsModel, RecordsView, RecordsPres
             navigator.navigateToAccount(context!!)
         }
 
+        val text = getString(R.string.tooltip_create_record)
+
         SimpleTooltip.Builder(context!!)
                 .anchorView(addRecordBt)
-                //.text(R.string.tooltip_create_record)
-                .text("Tik hier om een nieuw\n record te maken")
+                .text(text)
                 .gravity(Gravity.START)
                 .dismissOnOutsideTouch(true)
                 .dismissOnInsideTouch(true)
@@ -126,7 +127,6 @@ class RecordsFragment : ToolbarLRFragment<RecordsModel, RecordsView, RecordsPres
                 .arrowWidth(Converter.convertDpToPixel(10f, context!!).toFloat())
                 .arrowHeight(Converter.convertDpToPixel(7f, context!!).toFloat())
                 .contentView(R.layout.tooltip_new_record, R.id.tooltipText)//
-                //.focusable(true)
                 .build()
                 .show()
     }

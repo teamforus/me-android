@@ -10,8 +10,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/brightBackground"
+        android:gravity="center"
         android:padding="3dp"
-        android:text="Tik hier om een nieuw\n record te maken">
+        tools:text="Tik hier om een nieuw\n record te maken">
 
     </TextView>
 

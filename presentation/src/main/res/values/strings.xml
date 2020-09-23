@@ -147,6 +147,7 @@
 
     <string name="tab_records">My records</string>
     <string name="tab_archives">Archive</string>
+    <string name="tooltip_create_record">Tap here to create\na new record</string>
 
     <!-- Record details screen -->
     <string name="record_details_title">Record detail</string>
@@ -311,7 +312,7 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="title_activity_success_dialog">SuccessDialogActivity</string>
-    <string name="tooltip_create_record">Tik hier om een nieuw &#10; record te maken</string>
+
 
 
 </resources>
