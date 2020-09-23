@@ -2,6 +2,7 @@ package io.forus.me.android.presentation.view.screens.records.list
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Gravity
@@ -10,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.helpers.Converter
+import io.forus.me.android.presentation.helpers.SharedPref
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
@@ -88,7 +90,9 @@ class RecordsFragment : ToolbarLRFragment<RecordsModel, RecordsView, RecordsPres
         return view
     }
 
-
+    var builder: SimpleTooltip.Builder? = null
+    var addRecordTooltip: SimpleTooltip? = null
+    val h = Handler()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -113,22 +117,35 @@ class RecordsFragment : ToolbarLRFragment<RecordsModel, RecordsView, RecordsPres
 
         val text = getString(R.string.tooltip_create_record)
 
-        SimpleTooltip.Builder(context!!)
-                .anchorView(addRecordBt)
-                .text(text)
-                .gravity(Gravity.START)
-                .dismissOnOutsideTouch(true)
-                .dismissOnInsideTouch(true)
-                .modal(true)
-                .animated(true)
-                .animationDuration(1000)
-                .animationPadding(SimpleTooltipUtils.pxFromDp(Converter.convertDpToPixel(1f, context!!).toFloat()))
-                .transparentOverlay(true)
-                .arrowWidth(Converter.convertDpToPixel(10f, context!!).toFloat())
-                .arrowHeight(Converter.convertDpToPixel(7f, context!!).toFloat())
-                .contentView(R.layout.tooltip_new_record, R.id.tooltipText)//
-                .build()
-                .show()
+        if (SharedPref.read(SharedPref.OPTION_SHOW_TOOLTIP_ADD_RECORD,true)) {
+            SharedPref.write(SharedPref.OPTION_SHOW_TOOLTIP_ADD_RECORD, false)
+            builder = SimpleTooltip.Builder(context!!)
+                    .anchorView(addRecordBt)
+                    .text(text)
+                    .gravity(Gravity.START)
+                    .dismissOnOutsideTouch(false)
+                    .dismissOnInsideTouch(true)
+                    .modal(false)
+                    .animated(true)
+                    .animationDuration(1000)
+                    .animationPadding(SimpleTooltipUtils.pxFromDp(Converter.convertDpToPixel(1f, context!!).toFloat()))
+                    .transparentOverlay(true)
+                    .arrowWidth(Converter.convertDpToPixel(10f, context!!).toFloat())
+                    .arrowHeight(Converter.convertDpToPixel(7f, context!!).toFloat())
+                    .contentView(R.layout.tooltip_new_record, R.id.tooltipText)//
+
+
+            addRecordTooltip = builder!!.build()
+            addRecordTooltip!!.show()
+
+
+            h.postDelayed({
+
+                addRecordTooltip.let {
+                    it?.dismiss()
+                }
+            }, 30000)
+        }
     }
 
 
