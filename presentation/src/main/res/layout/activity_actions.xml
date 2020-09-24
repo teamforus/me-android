@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+
+        <variable
+            name="model"
+            type="io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actions.model.ActionsViewModel" />
+    </data>
+
+    <RelativeLayout
+
+        android:id="@+id/root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary">
+
+        <android.support.design.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include layout="@layout/toolbar_view" />
+
+
+
+                <android.support.v4.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:id="@+id/voucherDetailsLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:visibility="gone">
+
+                            <android.support.v7.widget.CardView
+                                android:layout_width="match_parent"
+                                android:layout_height="100dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginBottom="8dp"
+                                app:cardBackgroundColor="@color/brightBackground"
+                                app:cardCornerRadius="@dimen/card_radius"
+                                app:cardElevation="@dimen/card_elevation_small">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="100dp"
+                                        android:layout_marginEnd="140dp"
+                                        android:layout_marginRight="140dp"
+                                        android:orientation="vertical"
+                                        android:paddingStart="16dp">
+
+                                        <io.forus.me.android.presentation.view.component.text.TextView
+                                            android:id="@+id/tv_name"
+                                            style="@style/CardTitle4"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="15dp"
+                                            android:ellipsize="end"
+                                            android:lines="1"
+                                            android:maxLines="1"
+                                            app:type="medium"
+                                            tools:text="Bike" />
+
+                                        <io.forus.me.android.presentation.view.component.text.TextView
+                                            android:id="@+id/tv_organization"
+                                            style="@style/BackToCaption"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="4dp"
+                                            android:ellipsize="end"
+                                            android:lines="1"
+                                            android:maxLines="1"
+                                            tools:text="Initflow" />
+
+                                        <io.forus.me.android.presentation.view.component.text.TextView
+                                            android:id="@+id/tv_fund"
+                                            style="@style/Subtitle"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="4dp"
+                                            android:ellipsize="end"
+                                            android:lines="1"
+                                            android:maxLines="1"
+                                            android:visibility="gone"
+                                            app:type="medium"
+                                            tools:text="Kindpakket" />
+
+                                    </LinearLayout>
+
+                                    <io.forus.me.android.presentation.view.component.images.AutoLoadImageView
+                                        android:id="@+id/iv_icon"
+                                        android:layout_width="40dp"
+                                        android:layout_height="40dp"
+                                        android:layout_alignParentTop="true"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_marginLeft="17dp"
+                                        android:layout_marginTop="17dp"
+                                        android:layout_marginRight="17dp"
+                                        android:layout_marginBottom="17dp"
+                                        android:src="@drawable/circle_empty" />
+
+                                    <io.forus.me.android.presentation.view.component.text.TextView
+                                        android:id="@+id/used"
+                                        style="@style/UsedVoucher"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_below="@+id/iv_icon"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_marginRight="17dp"
+                                        android:text="@string/voucher_is_used"
+                                        android:visibility="gone"
+                                        app:type="regular" />
+
+                                </RelativeLayout>
+
+                            </android.support.v7.widget.CardView>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                                android:orientation="vertical">
+
+                                <include layout="@layout/view_organization" />
+
+                                <io.forus.me.android.presentation.view.component.editors.EditTextOutlined
+                                    android:id="@+id/amount"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="16dp"
+                                    android:inputType="numberDecimal"
+                                    app:hint="@string/vouchers_amount"
+                                    app:validationError="@string/me_validation_error_decimal"
+                                    app:validationRegex="decimal" />
+
+                                <io.forus.me.android.presentation.view.component.editors.EditTextOutlined
+                                    android:id="@+id/note"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="16dp"
+                                    android:inputType="textMultiLine"
+                                    app:hint="@string/vouchers_note"
+                                    app:validationRegex="none" />
+
+                                <io.forus.me.android.presentation.view.component.text.TextView
+                                    style="@style/Headline6"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="5dp"
+                                    android:text="@string/vouchers_product_categories"
+                                    android:visibility="gone"
+                                    app:type="medium" />
+
+                                <android.support.v7.widget.RecyclerView
+                                    android:id="@+id/rv_categories"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginBottom="52dp"
+                                    android:visibility="gone" />
+
+                            </LinearLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/rl_make"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="16dp"
+                                android:layout_marginTop="16dp"
+                                android:layout_marginRight="16dp">
+
+                                <io.forus.me.android.presentation.view.component.buttons.Button
+                                    android:id="@+id/btn_make"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="45dp"
+                                    android:layout_marginBottom="6dp"
+                                    android:text="@string/vouchers_make_transaction" />
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:id="@+id/actionsLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <android.support.v7.widget.CardView
+                                android:layout_width="match_parent"
+                                android:layout_height="100dp"
+                                android:layout_marginLeft="16dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginRight="16dp"
+                                android:layout_marginBottom="8dp"
+                                app:cardBackgroundColor="@color/brightBackground"
+                                app:cardCornerRadius="@dimen/card_radius"
+                                app:cardElevation="@dimen/card_elevation_small">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="80dp"
+                                        android:layout_marginEnd="140dp"
+                                        android:layout_marginRight="140dp"
+                                        android:orientation="vertical"
+                                        android:layout_centerVertical="true"
+                                        android:paddingStart="16dp">
+
+                                        <io.forus.me.android.presentation.view.component.text.TextView
+                                            android:id="@+id/tv_action_name"
+                                            style="@style/CardTitle4"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="12dp"
+                                            android:ellipsize="end"
+                                            android:lines="1"
+                                            android:maxLines="1"
+                                            app:type="medium"
+                                            android:text="@{model.actionName}"
+                                            tools:text="Action name"
+                                            />
+
+                                        <io.forus.me.android.presentation.view.component.text.TextView
+                                            android:id="@+id/tv_action_organization"
+                                            style="@style/BackToCaption"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="4dp"
+                                            android:ellipsize="end"
+                                            android:lines="1"
+                                            android:maxLines="1"
+                                            android:text="@{model.fundName}"
+                                            tools:text="Action details" />
+
+
+                                    </LinearLayout>
+
+                                    <io.forus.me.android.presentation.view.component.images.AutoLoadImageView
+                                        android:id="@+id/iv_action_icon"
+                                        android:layout_width="50dp"
+                                        android:layout_height="50dp"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_marginLeft="17dp"
+                                        android:layout_marginTop="17dp"
+                                        android:layout_marginRight="17dp"
+                                        android:layout_marginBottom="17dp"
+                                        android:layout_centerVertical="true"
+                                        android:src="@drawable/ic_action_icon" />
+
+
+
+                                </RelativeLayout>
+
+                            </android.support.v7.widget.CardView>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="3dp"
+                                android:layout_marginTop="6dp"
+                                android:layout_marginBottom="12dp"
+                                android:background="@drawable/shape_shadow_gradient"
+                                android:alpha="0.8"
+                                />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingBottom="16dp"
+                                android:orientation="vertical">
+
+
+
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="5dp"
+                                    android:text="@string/choose_an_action"
+                                    android:visibility="visible"
+                                    android:textSize="24sp"
+                                    android:textColor="@color/body_1"
+                                    android:fontFamily="sans-serif-medium"
+                                    android:layout_marginLeft="16dp"
+                                    android:layout_marginRight="16dp"
+                                    tools:text="Vandaag" />
+
+                                <TextView
+                                    android:id="@+id/descrTV"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="5dp"
+                                    android:text="@string/choose_an_action_descr"
+                                    android:visibility="visible"
+                                    android:textSize="13sp"
+                                    android:textColor="#1C212A"
+                                    android:letterSpacing="0.01"
+                                    android:layout_marginLeft="16dp"
+                                    android:layout_marginRight="16dp"
+                                    tools:text="@string/choose_an_action_descr" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:text="@string/choose_company"
+                                    android:visibility="visible"
+                                    android:textSize="16sp"
+                                    android:textColor="#292F3A"
+                                    android:fontFamily="sans-serif-medium"
+                                    android:layout_marginLeft="16dp"
+                                    android:layout_marginRight="16dp"
+                                     />
+
+                                <Spinner
+                                    android:id="@+id/organizationsSpinner"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_marginRight="16dp"
+                                    />
+
+                                <android.support.v7.widget.RecyclerView
+                                    android:id="@+id/recycler"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginBottom="52dp"
+                                    android:visibility="visible"
+                                    />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                </android.support.v4.widget.NestedScrollView>
+
+
+
+        </android.support.design.widget.CoordinatorLayout>
+
+    </RelativeLayout>
+</layout>
+
+

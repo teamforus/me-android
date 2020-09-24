@@ -22,15 +22,20 @@ public class Fund {
     @SerializedName("logo")
     private Logo logo;
 
+    @SerializedName("type")
+    private String type;
+
+
     public Fund() { }
 
-    public Fund(Long id, String name, String state, String webShopUrl, Organization organization, Logo logo) {
+    public Fund(Long id, String name, String state, String webShopUrl, Organization organization, Logo logo, String type) {
         this.id = id;
         this.name = name;
         this.state = state;
         this.webShopUrl = webShopUrl;
         this.organization = organization;
         this.logo = logo;
+        this.type = type;
     }
 
     public Long getId() {
@@ -79,5 +84,13 @@ public class Fund {
 
     public void setWebShopUrl(String webShopUrl) {
         this.webShopUrl = webShopUrl;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

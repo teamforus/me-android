@@ -161,6 +161,14 @@
     <string name="tab_archives">Archief</string>
 
 
+    <!-- Transactions -->
+    <string name="transactions">transacties</string>
+    <string name="transaction_details">transactie details</string>
+    <string name="fund">fond</string>
+    <string name="provider">aanbieder</string>
+    <string name="date">datum</string>
+    <string name="from">van</string>
+
 
     <!-- Wallet details screen -->
     <string name="wallet_title_info">Eigendom informatie</string>
@@ -243,6 +251,14 @@
     <string name="qr_choose_reservation">Kies reservering</string>
     <string name="qr_reserved_offers">Onderstaande aanbiedingen zijn door de klant gereserveerd</string>
     <string name="vouchers_complete_an_amount">VUL ZELF EEN BEDRAG IN</string>
+    <string name="choose_company">Kies bedrijf</string>
+    <string name="payment">Betaling</string>
+    <string name="choose_an_action">Kies een actie</string>
+    <string name="choose_an_action_note">Let op: </string>
+    <string name="choose_an_action_descr">de klant moet het bedrag aan de kassa betalen.</string>
+    <string name="confirm_payment">Bevestig betaling</string>
+    <string name="has_the_customer">Heeft de klant </string>
+    <string name="paid_at_till">betaald aan de kassa?</string>
 
     <!-- Check email -->
     <string name="check_email_has_been_sent_to_you">Er is een email naar je toegestuurd.</string>
