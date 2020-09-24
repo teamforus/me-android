@@ -22,6 +22,7 @@ class TransactionsAdapter : RecyclerView.Adapter<TransactionsVH>() {
             notifyDataSetChanged()
         }
 
+    var isActionsVoucher = false
     
     init {
         setHasStableIds(true)
@@ -38,7 +39,7 @@ class TransactionsAdapter : RecyclerView.Adapter<TransactionsVH>() {
     }
 
     override fun onBindViewHolder(holder: TransactionsVH, position: Int) {
-
+        holder.isActionsVoucher = isActionsVoucher
         holder.render(transactions[position])
     }
     override fun getItemCount() = transactions.size

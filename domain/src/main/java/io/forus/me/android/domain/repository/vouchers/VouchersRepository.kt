@@ -1,5 +1,7 @@
 package io.forus.me.android.domain.repository.vouchers
 
+import io.forus.me.android.domain.models.vouchers.ProductAction
+import io.forus.me.android.domain.models.vouchers.Transaction
 import io.forus.me.android.domain.models.vouchers.Voucher
 import io.forus.me.android.domain.models.vouchers.VoucherProvider
 import io.reactivex.Observable
@@ -17,7 +19,13 @@ interface VouchersRepository {
 
     fun getProductVouchersAsProvider(address: String): Observable<List<Voucher>>
 
+    fun getVoucherProductsActionsAsProvider(address: String, organizationId: Long, page: Int, perPage: Int): Observable<List<ProductAction>>
+
+    fun getTransactionsLogAsProvider(from: String, page: Int, perPage: Int): Observable<List<Transaction>>
+
     fun makeTransaction(address: String, amount: BigDecimal, note: String, organizationId: Long): Observable<Boolean>
+
+    fun makeActionTransaction(address: String,  note: String, productId: Long): Observable<Boolean>
 
     fun sendEmail(address: String): Observable<Boolean>
 

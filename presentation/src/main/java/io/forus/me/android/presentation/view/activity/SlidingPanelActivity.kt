@@ -2,6 +2,7 @@ package io.forus.me.android.presentation.view.activity
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.text.Spannable
 import android.view.View
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import io.forus.me.android.presentation.R
@@ -34,6 +35,12 @@ abstract class SlidingPanelActivity : CommonActivity() {
     }
 
     protected fun addPopupFragment(fragment: Fragment, title: String){
+        replaceFragment(R.id.fragmentPanelContainer, fragment)
+        sliding_panel_title.text = title
+        sliding_layout.panelState = SlidingUpPanelLayout.PanelState.EXPANDED
+    }
+
+    protected fun addPopupFragment(fragment: Fragment, title: Spannable){
         replaceFragment(R.id.fragmentPanelContainer, fragment)
         sliding_panel_title.text = title
         sliding_layout.panelState = SlidingUpPanelLayout.PanelState.EXPANDED

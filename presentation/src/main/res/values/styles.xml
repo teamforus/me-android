@@ -252,6 +252,12 @@
         <item name="android:textColor">@color/overline4</item>
     </style>
 
+    <style name="Overline5">
+        <item name="android:textSize">12sp</item>
+        <item name="android:lineSpacingExtra">3sp</item>
+        <item name="android:textColor">@color/darkGrey_Text_1</item>
+    </style>
+
     <style name="Overline2">
         <item name="android:textSize">13sp</item>
         <item name="android:lineSpacingExtra">3sp</item>
@@ -286,6 +292,12 @@
         <item name="android:textSize">14.1sp</item>
         <item name="android:textColor">@color/body1_60</item>
         <item name="android:lineSpacingExtra">9.9sp</item>
+    </style>
+
+    <style name="Subtitle4">
+        <item name="android:textSize">16.07sp</item>
+        <item name="android:textColor">@color/darkGrey_Text_1</item>
+        <item name="android:lineSpacingExtra">4.0sp</item>
     </style>
 
     <style name="ShareButtonBody">
