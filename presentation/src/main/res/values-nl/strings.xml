@@ -134,6 +134,7 @@
     <string name="choose_type">Kies type</string>
     <string name="choose_type_description">Wat voor type eigenschap wilt u aanmaken?</string>
     <string name="new_record">Nieuwe eigenschap</string>
+    <string name="tooltip_create_record">Tik hier om een nieuw\nrecord te maken</string>
 
     <!-- Record details screen -->
     <string name="record_details_title">Eigenschap details</string>

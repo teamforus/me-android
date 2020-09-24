@@ -12,7 +12,7 @@
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="60dp">
+        android:layout_marginBottom="0dp">
 
 
         <include layout="@layout/toolbar_view_records" />
@@ -38,7 +38,7 @@
 
 
                 <LinearLayout
-
+                    android:id="@+id/headTabs"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -124,7 +124,9 @@
             android:layout_gravity="bottom|right"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="12dp"
-            android:src="@drawable/ic_float_add_2x" />
+            android:src="@drawable/ic_float_add_2x"
+            android:tooltipText="Tooltip text goes here"
+            />
 
 
     </android.support.design.widget.CoordinatorLayout>
