@@ -115,6 +115,7 @@
     <string name="profile_about_me_text">Deze app is bedoelt om vouchers te beheren, betalingen te verrichten en in te loggen op verschillende applicaties. \n \nDeze app werkt samen met: \n \n• 	de Nijmegen webshop\n• 	de Westerkwartier webshop\n• 	de Forus generieke webshop\n• 	de Winterswijk\n• 	de Oost Gelre webshop\n• 	de Berkelland webshop\n• 	de Noordoostpolder webshop\n \nLater zullen meerdere shops en andere applicaties worden toegevoegd.</string>
     <string name="profile_app_version">App versie</string>
     <string name="profile_about">Informatie</string>
+    <string name="email_support">support@forus.io</string>
 
     <!-- New record screen -->
     <string name="new_record_title">Nieuwe eigenschap</string>
@@ -245,7 +246,7 @@
     <string name="voucher_email_to_me">E-mail naar mij</string>
     <string name="voucher_request">BEVESTIG</string>
     <string name="send_voucher_email_dialog_title">Stuur de voucher naar uw e-mailadres?</string>
-    <string name="send_feedback_email_dialog_title">Wilt u ons verbeterpunten per mail versturen?</string>
+    <string name="send_feedback_email_dialog_title">Heeft u vragen of opmerkingen? Neem contact op!</string>
     <string name="send_voucher_email_dialog_positive_button">Bevestig</string>
     <string name="send_voucher_email_dialog_cancel_button">Annuleer</string>
     <string name="shopkeeper_address_text">Adres</string>
