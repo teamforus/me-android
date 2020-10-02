@@ -163,11 +163,15 @@
 
 
     <!-- Transactions -->
+    <string name="transactions_title">Transacties</string>
     <string name="transactions">transacties</string>
-    <string name="transaction_details">transactie details</string>
+    <string name="transaction_details">Transactie details</string>
     <string name="fund">fond</string>
     <string name="provider">aanbieder</string>
     <string name="date">datum</string>
+    <string name="date_title">Datum</string>
+    <string name="fund_title">Fonds</string>
+    <string name="provider_title">Aanbieder</string>
     <string name="from">van</string>
 
 

@@ -172,11 +172,15 @@
     <string name="dialog_button_archive">ARCHIVE</string>
 
     <!-- Transactions -->
+    <string name="transactions_title">Transactions</string>
     <string name="transactions">transactions</string>
-    <string name="transaction_details">transaction details</string>
+    <string name="transaction_details">Transaction details</string>
     <string name="fund">fund</string>
     <string name="provider">provider</string>
     <string name="date">date</string>
+    <string name="date_title">Datum</string>
+    <string name="fund_title">Funds</string>
+    <string name="provider_title">Provider</string>
     <string name="from">from</string>
 
     <!-- Wallet details screen -->

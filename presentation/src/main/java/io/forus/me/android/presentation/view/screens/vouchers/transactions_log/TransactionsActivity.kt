@@ -77,7 +77,7 @@ class TransactionsActivity : SlidingPanelActivity() {
         //val font = Typeface.createFromAsset(assets, R.font.fgoogle_sans_regular)
         val typeface = ResourcesCompat.getFont(this@TransactionsActivity, R.font.fgoogle_sans_regular);
 
-        val titleStr = "   Date"//getString(R.string.mdtp_date)
+        val titleStr = "   "+getString(R.string.date_title)
         val dateStr = "  "+dateFormat.format(item.createdAt)
         val totalStr = titleStr+"\n"+dateStr
         val spannable = SpannableString(totalStr)
