@@ -97,7 +97,8 @@ class TransactionsActivity : SlidingPanelActivity() {
         spannable.setSpan(CustomTypefaceSpan("", typeface!!), 0, totalStr.length, Spanned.SPAN_EXCLUSIVE_INCLUSIVE)
 
 
-        addPopupFragment(TransactionDetailsFragment.newIntent(item.id, item.organization?.name, item.product?.organization?.name,
+        addPopupFragment(TransactionDetailsFragment.newIntent(item.id, item.fund?.organization?.name ,
+                item.organization?.name,
                 NumberFormat.getCurrencyInstance(Locale("nl", "NL"))
                         .format(item.amount), item.state), spannable)
 
