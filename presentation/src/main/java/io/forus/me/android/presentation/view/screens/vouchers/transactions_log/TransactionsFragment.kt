@@ -90,7 +90,7 @@ class TransactionsFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         toolbar_title.text = getString(R.string.transactions_title)
         profile_button.setOnClickListener { activity!!.finish() }
 
-        transactionsAdapter = TransactionsLogAdapter(arrayListOf(), object : TransactionsLogAdapter.Callback {
+        transactionsAdapter = TransactionsLogAdapter(requireContext(),arrayListOf(), object : TransactionsLogAdapter.Callback {
             override fun onItemClicked(item: Transaction) {
 
                 (activity as? TransactionsActivity)?.showPopupTransactionDetailsFragment(item)
