@@ -174,6 +174,8 @@
     <string name="fund_title">Fonds</string>
     <string name="provider_title">Aanbieder</string>
     <string name="from">van</string>
+    <string name="status_success">Succes</string>
+    <string name="status_pending">In afwachting</string>
 
 
     <!-- Wallet details screen -->

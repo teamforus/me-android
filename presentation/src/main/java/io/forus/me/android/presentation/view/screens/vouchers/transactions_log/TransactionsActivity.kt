@@ -96,11 +96,18 @@ class TransactionsActivity : SlidingPanelActivity() {
 
         spannable.setSpan(CustomTypefaceSpan("", typeface!!), 0, totalStr.length, Spanned.SPAN_EXCLUSIVE_INCLUSIVE)
 
+        var state = ""
+        when(item.state){
+          "success" -> getString(R.string.status_success)
+          "pending" -> getString(R.string.status_pending)
+           else -> state = item.state?:""
+        }
+
 
         addPopupFragment(TransactionDetailsFragment.newIntent(item.id, item.fund?.organization?.name ,
                 item.organization?.name,
                 NumberFormat.getCurrencyInstance(Locale("nl", "NL"))
-                        .format(item.amount), item.state), spannable)
+                        .format(item.amount), state), spannable)
 
 
     }

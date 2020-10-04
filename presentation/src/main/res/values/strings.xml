@@ -183,6 +183,8 @@
     <string name="fund_title">Funds</string>
     <string name="provider_title">Provider</string>
     <string name="from">from</string>
+    <string name="status_success">Success</string>
+    <string name="status_pending">Pending</string>
 
     <!-- Wallet details screen -->
     <string name="wallet_title_info">Wallet info</string>
