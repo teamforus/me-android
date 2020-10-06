@@ -74,9 +74,7 @@ class ActionsViewModel : ViewModel() {
 
             val orgName = tv.text.toString()
             organizationId = selectedOrgIdByName(orgName)
-            Log.d("forus", "Clear_items orgName=" + orgName + " organizationId=" + organizationId)
             clearItems.postValue(true)
-            //clearItems.postValue(false)
         }
 
     }
@@ -120,14 +118,6 @@ class ActionsViewModel : ViewModel() {
                         arr.addAll(it)
                         productActionsLiveData.postValue(arr)
                         init = true
-
-                        /*if(arr.isEmpty()){
-                            Log.d("123456"," Actions is empty")
-                            productsListIsEmpty.postValue(true)
-                        }else{
-                            Log.d("123456"," Actions is ok")
-                            productsListIsEmpty.postValue(false)
-                        }*/
 
 
                         if(productActionsLiveData.value != null) {

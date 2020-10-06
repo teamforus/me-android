@@ -170,7 +170,6 @@ class ActionsActivity : AppCompatActivity() {
                     val orgName = tv.text.toString()
 
                     val id = mainViewModel.selectedOrgIdByName(orgName)
-                    Log.d("forus", "SELECT_ITEM=" + orgName + " id " + id)
                     transactionsAdapter!!.clearAll()
                     currentPage = 1
                     mainViewModel.getVoucherActionGoods(currentPage)
