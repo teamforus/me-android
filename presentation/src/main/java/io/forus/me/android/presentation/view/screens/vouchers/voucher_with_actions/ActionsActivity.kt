@@ -96,6 +96,13 @@ class ActionsActivity : AppCompatActivity() {
             if (it != null) {
                 canWork = true
                 transactionsAdapter!!.addAll(it)
+
+                if (transactionsAdapter!!.items.isEmpty()) {
+                    mainViewModel.productsListIsEmpty.postValue(true)
+                } else {
+                    mainViewModel.productsListIsEmpty.postValue(false)
+
+                }
             }
 
         })

@@ -111,19 +111,35 @@ class ActionsViewModel : ViewModel() {
     }
 
     public fun getVoucherActionGoods( page: Int) {
-
         if (organizationId != null) {
             vouchersRepository.getVoucherProductsActionsAsProvider(voucherAddress!!, organizationId!!, page, perPage)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .map {
-
                         val arr: MutableList<ProductAction> = mutableListOf()
                         arr.addAll(it)
                         productActionsLiveData.postValue(arr)
                         init = true
 
-                        productsListIsEmpty.postValue(it.isEmpty())
+                        /*if(arr.isEmpty()){
+                            Log.d("123456"," Actions is empty")
+                            productsListIsEmpty.postValue(true)
+                        }else{
+                            Log.d("123456"," Actions is ok")
+                            productsListIsEmpty.postValue(false)
+                        }*/
+
+
+                        if(productActionsLiveData.value != null) {
+                            if (productActionsLiveData.value!!.isEmpty()) {
+                                productsListIsEmpty.postValue(true)
+                            } else {
+                                productsListIsEmpty.postValue(false)
+
+                            }
+                        }else {
+                            productsListIsEmpty.postValue(true)
+                        }
 
                     }
                     .onErrorReturn {
