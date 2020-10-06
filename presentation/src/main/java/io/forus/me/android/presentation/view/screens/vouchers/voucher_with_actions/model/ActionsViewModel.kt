@@ -19,6 +19,7 @@ class ActionsViewModel : ViewModel() {
     var vouchersRepository: VouchersRepository = Injection.instance.vouchersRepository
 
     var productActionsLiveData: MutableLiveData<MutableList<ProductAction>> = MutableLiveData()
+    var productsListIsEmpty = MutableLiveData<Boolean>()
 
 
     var voucherAddress: String? = null
@@ -46,6 +47,8 @@ class ActionsViewModel : ViewModel() {
 
 
         voucher.value = null
+
+        productsListIsEmpty.value = false
 
         progress.value = true
         showWaitDialog.value = false
@@ -119,6 +122,8 @@ class ActionsViewModel : ViewModel() {
                         arr.addAll(it)
                         productActionsLiveData.postValue(arr)
                         init = true
+
+                        productsListIsEmpty.postValue(it.isEmpty())
 
                     }
                     .onErrorReturn {
