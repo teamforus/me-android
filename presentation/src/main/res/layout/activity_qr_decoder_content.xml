@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.screens.qr.QrScannerActivity"
-    android:background="#000000"
+    android:background="#55000000"
     >
 
     <!--com.dlazaro66.qrcodereaderview.QRCodeReaderView
@@ -30,7 +30,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/qr_frame"

@@ -1,4 +1,4 @@
-package io.forus.me.android.presentation.view.screens.qr
+package io.forus.me.android.presentation.view.screens.qr.zxzing_qr_scan
 
 import android.content.DialogInterface
 import android.util.Log
@@ -22,13 +22,13 @@ import io.reactivex.schedulers.Schedulers
 import java.lang.Exception
 import java.math.BigDecimal
 
-class QrActionProcessor(private val scanner: QrScannerActivity,
-                        private val recordsRepository: RecordsRepository,
-                        private val accountRepository: AccountRepository,
-                        private val vouchersRepository: VouchersRepository,
-                        private val settingsDataSource: SettingsDataSource) {
+class ZxQrActionProcessor(private val scanner: QRzxzingScannerActivity,
+                          private val recordsRepository: RecordsRepository,
+                          private val accountRepository: AccountRepository,
+                          private val vouchersRepository: VouchersRepository,
+                          private val settingsDataSource: SettingsDataSource) {
 
-    private val resources by lazy {
+   /* private val resources by lazy {
         return@lazy scanner.resources
     }
 
@@ -61,11 +61,9 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
     }
 
     fun restoreIdentity(token: String) {
-        Log.d("forusQR", "restore identity $token")
         if (scanner.hasWindowFocus())
-            Log.d("forusQR", "restore identity 1")
             RestoreIdentityDialog(scanner,
-                    {       Log.d("forusQR", "restore identity 2")
+                    {
                         accountRepository.authorizeToken(token)
                                 .subscribeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread())
@@ -336,6 +334,6 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
     private fun onResultUnexpectedError() {
         showToastMessage(resources.getString(R.string.qr_unexpected_error))
         reactivateDecoding()
-    }
+    }*/
 
 }

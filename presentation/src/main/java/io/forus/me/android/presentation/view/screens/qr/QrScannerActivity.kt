@@ -18,6 +18,7 @@ import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.qr.QrDecoderResult
 import io.forus.me.android.presentation.view.component.qr.PointsOverlayView
+import io.forus.me.android.presentation.view.screens.qr.zxzing_qr_scan.QRzxzingScannerActivity
 import kotlinx.android.synthetic.main.activity_qr_decoder.*
 import java.util.concurrent.atomic.AtomicBoolean
 
@@ -36,6 +37,7 @@ class QrScannerActivity : FragmentActivity()/*, QRCodeReaderView.OnQRCodeReadLis
     private var decodingInProgress = AtomicBoolean()
     var reactivateDecoding = { decodingInProgress.set(false);
         //qrCodeReaderView?.setQRDecodingEnabled(true);
+        initQRCodeReaderView()
         Unit }
 
     companion object {
@@ -49,8 +51,7 @@ class QrScannerActivity : FragmentActivity()/*, QRCodeReaderView.OnQRCodeReadLis
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_qr_decoder)
-
-
+        //reactivateDecoding
 
     }
 
@@ -59,7 +60,11 @@ class QrScannerActivity : FragmentActivity()/*, QRCodeReaderView.OnQRCodeReadLis
         overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
                 == PackageManager.PERMISSION_GRANTED) {
-            initQRCodeReaderView()
+
+            if(!decodingInProgress.get()) {
+            //initQRCodeReaderView()
+            reactivateDecoding()
+            }
         } else {
             requestCameraPermission()
         }
@@ -106,8 +111,10 @@ class QrScannerActivity : FragmentActivity()/*, QRCodeReaderView.OnQRCodeReadLis
     }*/
 
     fun decodeScanResult(text: String){
-        Log.d("forus", "Scanned_text $text")
+        Log.d("forusQR", "Scanned_text $text")
+        Toast.makeText(applicationContext,"WERWER asadfgadf agadfgadfg",Toast.LENGTH_LONG).show()
 
+        decodingInProgress.set(true)
         val result = qrDecoder.decode(text)
 
 
@@ -152,6 +159,7 @@ class QrScannerActivity : FragmentActivity()/*, QRCodeReaderView.OnQRCodeReadLis
     var integrator : IntentIntegrator? = null
 
     private fun initQRCodeReaderView() {
+
         val content = layoutInflater.inflate(R.layout.activity_qr_decoder_content, main_layout, true)
 
         //qrCodeReaderView = content.findViewById(R.id.qrdecoderview)
@@ -170,7 +178,7 @@ class QrScannerActivity : FragmentActivity()/*, QRCodeReaderView.OnQRCodeReadLis
 
          integrator = IntentIntegrator(this);
         integrator!!.setOrientationLocked(true);
-        integrator!!.setCaptureActivity(CaptureActivityPortrait::class.java)
+        integrator!!.setCaptureActivity(QRzxzingScannerActivity::class.java)
         integrator!!.initiateScan();
 
 
