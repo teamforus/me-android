@@ -16,10 +16,10 @@
     <string name="me_cancel">ANNULEER</string>
 
     <!-- Dashboard -->
-    <string name="dashboard_property">Vouchers</string>
+    <string name="dashboard_property">Tegoeden</string>
     <string name="dashboard_qr">QR</string>
     <string name="dashboard_records">Eigenschappen</string>
-    <string name="dashboard_vouchers">Vouchers</string>
+    <string name="dashboard_vouchers">Tegoeden</string>
     <string name="dashboard_currency">Tokens</string>
     <string name="dashboard_assets">Bezit</string>
     <string name="dashboard_profile">Profiel</string>
@@ -35,7 +35,7 @@
     <string name="restore_scan_deze_qr">Scan deze QR-Code met een ander apparaat waar je al op ingelogd bent</string>
     <string name="restore_inloggen_via_email">Inloggen via e-mail</string>
     <string name="restore_inloggen_via_qr">Ander apparaat toevoegen</string>
-    <string name="restore_auth_code">Autorisatie code</string>
+    <string name="restore_auth_code">Koppelcode</string>
     <string name="restore_auth_code_description">Log in op de webshop, klik op je profiel en klik op autoriseer apparaat en vul deze code in.</string>
     <string name="restore_inloggen_by_email">Bevestig</string>
     <string name="restore_email_description">Vul je e-mailadres in om inloggegevens te ontvangen</string>
@@ -112,7 +112,7 @@
     <string name="profile_logout">Log uit</string>
     <string name="profile_button_show_qr">Toon QR-code</string>
     <string name="profile_about_me">Over Me</string>
-    <string name="profile_about_me_text">Deze app is bedoelt om vouchers te beheren, betalingen te verrichten en in te loggen op verschillende applicaties. \n \nDeze app werkt samen met: \n \n• 	de Nijmegen webshop\n• 	de Westerkwartier webshop\n• 	de Forus generieke webshop\n• 	de Winterswijk\n• 	de Oost Gelre webshop\n• 	de Berkelland webshop\n• 	de Noordoostpolder webshop\n \nLater zullen meerdere shops en andere applicaties worden toegevoegd.</string>
+    <string name="profile_about_me_text">Deze app is bedoelt om tegoeden te beheren, betalingen te verrichten en in te loggen op verschillende applicaties. \n \nDeze app werkt samen met: \n \n• 	de Nijmegen webshop\n• 	de Westerkwartier webshop\n• 	de Forus generieke webshop\n• 	de Winterswijk\n• 	de Oost Gelre webshop\n• 	de Berkelland webshop\n• 	de Noordoostpolder webshop\n • 	de Stadjerpas webshop\n \nLater zullen meerdere shops en andere applicaties worden toegevoegd.</string>
     <string name="profile_app_version">App versie</string>
     <string name="profile_about">Informatie</string>
 
@@ -121,12 +121,12 @@
     <string name="new_record_title_choose_category">Kies categorie</string>
     <string name="new_record_title_choose_type">Kies Type</string>
     <string name="new_record_title_choose_text">Tekst</string>
-    <string name="new_record_title_choose_validators">Validators</string>
+    <string name="new_record_title_choose_validators">Beoordelaars</string>
     <string name="new_record_choose_the_category_text">Selecteer de categorie waaronder de nieuwe eigenschap moet worden toegevoegd</string>
     <string name="new_record_choose_the_type_text">Selecteer het type waaronder de nieuwe eigenschap moet worden toegevoegd</string>
     <string name="new_record_choose_the_value_text">Voer de inhoud van de eigenschap in</string>
     <string name="new_record_value_hint">…</string>
-    <string name="new_record_choose_validators_text">Selecteer de validators, die deze nieuwe eigenschap moet valideren.</string>
+    <string name="new_record_choose_validators_text">Selecteer de beoordelaar, die deze nieuwe eigenschap moet beoordelen.</string>
     <string name="new_record_value_text">Invoerveld</string>
     <string name="new_record_next_step">VOLGENDE</string>
     <string name="new_record_submit">BEVESTIG</string>
@@ -138,21 +138,21 @@
 
     <!-- Record details screen -->
     <string name="record_details_title">Eigenschap details</string>
-    <string name="record_details_title_validators">Validators</string>
+    <string name="record_details_title_validators">Beoordelaar</string>
     <string name="record_details_button_show_qr">QR-CODE</string>
     <string name="record_details_scan_deze_qr">Scan deze QR-Code</string>
     <string name="record_details_validation_request_error">Fout tijdens het verzenden van de validatieaanvraag</string>
-    <string name="record_details_validation_approved">Validatie goedgekeurd</string>
-    <string name="record_details_validation_declined">Validatie geweigerd</string>
-    <string name="choose_validator">Kies validator</string>
-    <string name="validations">Validaties</string>
-    <string name="validations_empty">Deze eigenschap heeft geen validaties</string>
+    <string name="record_details_validation_approved">Aanvraag goedgekeurd</string>
+    <string name="record_details_validation_declined">Aanvraag geweigerd</string>
+    <string name="choose_validator">Kies beoordelaar</string>
+    <string name="validations">Beoordelingen</string>
+    <string name="validations_empty">Deze eigenschap heeft geen beoordelingen</string>
 
     <string name="dialog_record_edit_title">Wil je deze eigenschap bewerken?</string>
     <string name="dialog_record_archive_title">Wil u deze eigenschap archiveren?</string>
 
-    <string name="dialog_record_edit_description">Alle validaties worden verwijderd. U dient opnieuw validaties aan te vragen voor de nieuwe eigenschap.</string>
-    <string name="dialog_record_archive_description">Alle validaties worden verwijderd.</string>
+    <string name="dialog_record_edit_description">Alle beoordelingen worden verwijderd. U dient opnieuw beoordelingen aan te vragen voor de nieuwe eigenschap.</string>
+    <string name="dialog_record_archive_description">Alle beoordelingen worden verwijderd.</string>
 
     <string name="dialog_button_cancel">ANNULEER</string>
     <string name="dialog_button_edit">BEWERK</string>
@@ -192,9 +192,9 @@
     <string name="qr_validation_already_done">Al gevalideerd</string>
     <string name="qr_identity_restored">Je bent succesvol ingelogd</string>
     <string name="qr_identity_expired">Validatietoken is verlopen</string>
-    <string name="qr_voucher_scanned">Voucher gescand</string>
-    <string name="qr_voucher_access_denied"> Je bent niet gerechtigd of de voucher is al gebruikt</string>
-    <string name="qr_voucher_empty">De voucher is op! Geen transacties kunnen gedaan worden.</string>
+    <string name="qr_voucher_scanned">Tegoed gescand</string>
+    <string name="qr_voucher_access_denied"> Je bent niet gerechtigd of de tegoed is al gebruikt</string>
+    <string name="qr_voucher_empty">De tegoed is op! Geen transacties kunnen gedaan worden.</string>
     <string name="qr_unknown_type">Onbekende QR-code</string>
     <string name="qr_unexpected_error">Onverwachte fout</string>
     <string name="qr_popup_approve_validation_title">Eigenschap validatie</string>
@@ -209,12 +209,12 @@
     <string name="profile_logout_dialog_content">Weet je zeker dat je uit wil loggen?</string>
 
     <!-- Vouchers -->
-    <string name="vouchers_item">Voucher</string>
+    <string name="vouchers_item">Tegoed</string>
     <string name="vouchers_item_product">Aanbieding</string>
     <string name="vouchers_provider">Verzoek Betaling</string>
     <string name="vouchers_transactions">Geschiedenis</string>
     <string name="vouchers_transactions_empty">Nog geen transacties</string>
-    <string name="vouchers_no_items">Geen vouchers</string>
+    <string name="vouchers_no_items">Geen tegoeden</string>
     <string name="vouchers_make_transaction">Verzoek betaling</string>
     <string name="vouchers_make_transaction_failure">Transactie mislukt</string>
     <string name="vouchers_transaction_payment">Betaald</string>
@@ -224,23 +224,23 @@
     <string name="vouchers_amount_invalid">Ongeldige hoeveelheid</string>
     <string name="vouchers_pay_title">Bevestig transactie</string>
     <string name="vouchers_pay_question">Is het bedrag van €%1$s correct?</string>
-    <string name="vouchers_pay_question_extra">Onvoldoende budget op de voucher. Vraag de klant of hij een bedrag van €%1$s wilt bijbetalen.</string>
+    <string name="vouchers_pay_question_extra">Onvoldoende budget op de tegoed. Vraag de klant of hij een bedrag van €%1$s wilt bijbetalen.</string>
     <string name="vouchers_apply_question">Weet je zeker dat je deze transactie wilt bevestigen?</string>
     <string name="voucher_is_used">GEBRUIKT</string>
     <string name="vouchers_apply_success">Betaling geslaagd! De verwerking van de betaling kan maximaal 3 werkdagen duren.</string>
     <string name="voucher_created">Geactiveerd op %1$s</string>
     <string name="voucher_button_show_qr">Toon QR-code</string>
     <string name="voucher_send_email_success">Succes</string>
-    <string name="voucher_send_email_description">De voucher is verzonden per mail</string>
-    <string name="voucher_qr_code_subtitle">Dit is de QR-code van de Voucher</string>
+    <string name="voucher_send_email_description">Het tegoed is verzonden per mail</string>
+    <string name="voucher_qr_code_subtitle">Dit is de QR-code van het tegoed</string>
     <string name="voucher_qr_code_subtitle_with_fund_name">%s\nDit is uw  in de vorm van een QR-code</string>
-    <string name="voucher_qr_code_description">Dit is uw voucher in de vorm van een QR-code \nLaat de aanbieder deze QR-code scannen om een betaling te kunnen doen.</string>
-    <string name="voucher_qr_code_actual">Gebruik deze voucher voor  %s</string>
-    <string name="voucher_qr_code_expired">Deze voucher is verlopen op %s</string>
-    <string name="voucher_expired">Voucher is verlopen</string>
+    <string name="voucher_qr_code_description">Dit is uw tegoed in de vorm van een QR-code \nLaat de aanbieder deze QR-code scannen om een betaling te kunnen doen.</string>
+    <string name="voucher_qr_code_actual">Gebruik dit tegoed voor  %s</string>
+    <string name="voucher_qr_code_expired">Dit tegoed is verlopen op %s</string>
+    <string name="voucher_expired">Tegoed is verlopen</string>
     <string name="voucher_email_to_me">E-mail naar mij</string>
     <string name="voucher_request">BEVESTIG</string>
-    <string name="send_voucher_email_dialog_title">Stuur de voucher naar uw e-mailadres?</string>
+    <string name="send_voucher_email_dialog_title">Stuur het tegoed naar uw e-mailadres?</string>
     <string name="send_feedback_email_dialog_title">Wilt u ons verbeterpunten per mail versturen?</string>
     <string name="send_voucher_email_dialog_positive_button">Bevestig</string>
     <string name="send_voucher_email_dialog_cancel_button">Annuleer</string>
@@ -262,9 +262,9 @@
     <string name="paid_at_till">betaald aan de kassa?</string>
 
     <!-- Check email -->
-    <string name="check_email_has_been_sent_to_you">Er is een email naar je toegestuurd.</string>
-    <string name="check_email_description_part1">Klik op de link in de email die u heeft ontvangen op</string>
-    <string name="check_email_description_part2">om uw aanmelding af te maken \n</string>
+    <string name="check_email_has_been_sent_to_you">Er is een e-mail onderweg!</string>
+    <string name="check_email_description_part1">Er is een e-mail gestuurd naar</string>
+    <string name="check_email_description_part2">.\n Klik op de link in de e-mail om u aan te melden.\n</string>
     <string name="check_your_email">Controleer uw e-mail.</string>
 
     <!-- Restore account success -->
@@ -272,7 +272,7 @@
 
     <!-- Send crashlitics reports screen -->
     <string name="send_report_head">Informatie delen</string>
-    <string name="send_report_description">Door uw identificatie nummer te delen, kunnen problemen beter en sneller worden opgelost, en kunnen de ontwikkelaars eventueel contact met u opnemen</string>
+    <string name="send_report_description">Door uw identificatienummer te delen, kunnen problemen beter en sneller worden opgelost, en kunnen de ontwikkelaars eventueel contact met u opnemen</string>
 
 
     <string name="next_step">Volgende</string>
