@@ -35,6 +35,11 @@ class QrScannerActivity : FragmentActivity()/*, QRCodeReaderView.OnQRCodeReadLis
     private var qrActionProcessor = QrActionProcessor(this, Injection.instance.recordsRepository, Injection.instance.accountRepository, Injection.instance.vouchersRepository, Injection.instance.settingsDataSource)
 
     private var decodingInProgress = AtomicBoolean()
+    var allowReactivate = { decodingInProgress.set(false);
+        //qrCodeReaderView?.setQRDecodingEnabled(true);
+        Log.d("forusQR","allowReactivate ${decodingInProgress.get()}")
+
+        Unit }
     var reactivateDecoding = { decodingInProgress.set(false);
         //qrCodeReaderView?.setQRDecodingEnabled(true);
         initQRCodeReaderView()
@@ -61,6 +66,7 @@ class QrScannerActivity : FragmentActivity()/*, QRCodeReaderView.OnQRCodeReadLis
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
                 == PackageManager.PERMISSION_GRANTED) {
 
+            Log.d("forusQR","onResume ${decodingInProgress.get()}")
             if(!decodingInProgress.get()) {
             //initQRCodeReaderView()
             reactivateDecoding()
@@ -111,8 +117,6 @@ class QrScannerActivity : FragmentActivity()/*, QRCodeReaderView.OnQRCodeReadLis
     }*/
 
     fun decodeScanResult(text: String){
-        Log.d("forusQR", "Scanned_text $text")
-        Toast.makeText(applicationContext,"WERWER asadfgadf agadfgadfg",Toast.LENGTH_LONG).show()
 
         decodingInProgress.set(true)
         val result = qrDecoder.decode(text)

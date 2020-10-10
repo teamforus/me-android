@@ -32,6 +32,10 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
         return@lazy scanner.resources
     }
 
+    private val allowReactivateScanner by lazy {
+        return@lazy scanner.allowReactivate
+    }
+
     private val reactivateDecoding by lazy {
         return@lazy scanner.reactivateDecoding
     }
@@ -89,7 +93,8 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
     private var retrofitExceptionMapper: RetrofitExceptionMapper = Injection.instance.retrofitExceptionMapper
 
     fun scanVoucher(address: String, isDemoVoucher: Boolean? = false) {
-
+        Log.d("forusQR","allowReactivate....")
+        scanner.allowReactivate()
         if (isDemoVoucher != null && isDemoVoucher) {
             navigator.navigateToVoucherProvider(scanner, address, true)
         } else {
@@ -229,6 +234,7 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
                 ApproveValidationDialog(scanner,
                         validation,
                         {
+                            scanner.allowReactivate()
                             recordsRepository.approveValidation(validation.uuid!!, it.id)
                                     .subscribeOn(Schedulers.io())
                                     .observeOn(AndroidSchedulers.mainThread())
@@ -239,6 +245,7 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
                                     .subscribe()
                         },
                         {
+                            scanner.allowReactivate()
                             recordsRepository.declineValidation(validation.uuid!!)
                                     .subscribeOn(Schedulers.io())
                                     .observeOn(AndroidSchedulers.mainThread())
@@ -255,7 +262,7 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
 
             }.show()
         } else {
-
+            scanner.allowReactivate()
         }
 
     }
