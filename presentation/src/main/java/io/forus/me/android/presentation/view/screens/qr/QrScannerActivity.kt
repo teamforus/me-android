@@ -1,10 +1,12 @@
 package io.forus.me.android.presentation.view.screens.qr
 
 //import com.dlazaro66.qrcodereaderview.QRCodeReaderView
+//import com.google.zxing.integration.android.IntentIntegrator
 import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.PointF
 import android.os.Bundle
 import android.os.Handler
 import android.support.design.widget.Snackbar
@@ -13,37 +15,40 @@ import android.support.v4.app.FragmentActivity
 import android.util.Log
 import android.view.KeyEvent
 import android.widget.Toast
-import com.google.zxing.integration.android.IntentIntegrator
+import com.dlazaro66.qrcodereaderview.QRCodeReaderView
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.qr.QrDecoderResult
 import io.forus.me.android.presentation.view.component.qr.PointsOverlayView
-import io.forus.me.android.presentation.view.screens.qr.zxzing_qr_scan.QRzxzingScannerActivity
 import kotlinx.android.synthetic.main.activity_qr_decoder.*
+import kotlinx.android.synthetic.main.activity_qr_decoder.main_layout
+import kotlinx.android.synthetic.main.activity_qr_decoder_content.*
 import java.util.concurrent.atomic.AtomicBoolean
 
 
-class QrScannerActivity : FragmentActivity()/*, QRCodeReaderView.OnQRCodeReadListener*/ {
+class QrScannerActivity : FragmentActivity(), QRCodeReaderView.OnQRCodeReadListener /*, QRCodeReaderView.OnQRCodeReadListener*/ {
 
 
     private val MY_PERMISSION_REQUEST_CAMERA = 0
 
-    //private var qrCodeReaderView: QRCodeReaderView? = null
     private var pointsOverlayView: PointsOverlayView? = null
 
     private var qrDecoder = Injection.instance.qrDecoder
     private var qrActionProcessor = QrActionProcessor(this, Injection.instance.recordsRepository, Injection.instance.accountRepository, Injection.instance.vouchersRepository, Injection.instance.settingsDataSource)
 
     private var decodingInProgress = AtomicBoolean()
-    var allowReactivate = { decodingInProgress.set(false);
-        //qrCodeReaderView?.setQRDecodingEnabled(true);
-        Log.d("forusQR","allowReactivate ${decodingInProgress.get()}")
-
-        Unit }
-    var reactivateDecoding = { decodingInProgress.set(false);
-        //qrCodeReaderView?.setQRDecodingEnabled(true);
-        initQRCodeReaderView()
-        Unit }
+    var allowReactivate = {
+        decodingInProgress.set(false);
+        Unit
+    }
+    var reactivateDecoding = {
+        decodingInProgress.set(false);
+        if(qrCodeReaderView == null) {
+            initQRCodeReaderView()
+        }
+        qrCodeReaderView!!.startCamera()
+        Unit
+    }
 
     companion object {
         fun getCallingIntent(context: Context): Intent {
@@ -52,11 +57,12 @@ class QrScannerActivity : FragmentActivity()/*, QRCodeReaderView.OnQRCodeReadLis
     }
 
 
+    private var qrCodeReaderView: QRCodeReaderView? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_qr_decoder)
-        //reactivateDecoding
 
     }
 
@@ -66,22 +72,20 @@ class QrScannerActivity : FragmentActivity()/*, QRCodeReaderView.OnQRCodeReadLis
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
                 == PackageManager.PERMISSION_GRANTED) {
 
-            Log.d("forusQR","onResume ${decodingInProgress.get()}")
-            if(!decodingInProgress.get()) {
-            //initQRCodeReaderView()
-            reactivateDecoding()
+            if (!decodingInProgress.get()) {
+                reactivateDecoding()
             }
         } else {
             requestCameraPermission()
         }
-       // qrCodeReaderView?.setQRDecodingEnabled(true)
+
     }
 
     override fun onPause() {
         super.onPause()
         overridePendingTransition(R.anim.slide_in_down, R.anim.slide_out_down);
 
-        //qrCodeReaderView?.setQRDecodingEnabled(false)
+
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>,
@@ -94,35 +98,21 @@ class QrScannerActivity : FragmentActivity()/*, QRCodeReaderView.OnQRCodeReadLis
             Snackbar.make(main_layout, resources.getString(R.string.qr_camera_permission_granted), Snackbar.LENGTH_SHORT).show()
             initQRCodeReaderView()
         } else {
-//            Snackbar.make(main_layout, resources.getString(R.string.qr_camera_permission_denied), Snackbar.LENGTH_SHORT)
-//                    .show()
 
             requestCameraPermission()
 
         }
     }
 
-    // Called when a QR is decoded
-    // "text" : the text encoded in QR
-    // "points" : points where QR control points are placed
-    /*override fun onQRCodeRead(text: String, points: Array<PointF>) {
 
-        if(decodingInProgress.compareAndSet(false, true)){
+    fun decodeScanResult(text: String) {
 
-            qrCodeReaderView?.setQRDecodingEnabled(false)
-            //pointsOverlayView?.setPoints(points)
-
-
-        }
-    }*/
-
-    fun decodeScanResult(text: String){
-
+        qrCodeReaderView!!.stopCamera()
         decodingInProgress.set(true)
         val result = qrDecoder.decode(text)
 
 
-        when(result){
+        when (result) {
             is QrDecoderResult.ApproveValidation -> qrActionProcessor.approveValidation(result.uuid)
             is QrDecoderResult.RestoreIdentity -> qrActionProcessor.restoreIdentity(result.token)
             is QrDecoderResult.ScanVoucher -> qrActionProcessor.scanVoucher(result.address)
@@ -144,8 +134,8 @@ class QrScannerActivity : FragmentActivity()/*, QRCodeReaderView.OnQRCodeReadLis
     }
 
 
-    fun showToastMessage(message: String){
-        if(hasWindowFocus())
+    fun showToastMessage(message: String) {
+        if (hasWindowFocus())
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
@@ -160,7 +150,7 @@ class QrScannerActivity : FragmentActivity()/*, QRCodeReaderView.OnQRCodeReadLis
         }
     }
 
-    var integrator : IntentIntegrator? = null
+    // var integrator : IntentIntegrator? = null
 
     private fun initQRCodeReaderView() {
 
@@ -169,66 +159,45 @@ class QrScannerActivity : FragmentActivity()/*, QRCodeReaderView.OnQRCodeReadLis
         //qrCodeReaderView = content.findViewById(R.id.qrdecoderview)
         pointsOverlayView = content.findViewById(R.id.points_overlay_view)
 
-       // val zxing_barcode_scanner: com.journeyapps.barcodescanner.DecoratedBarcodeView  = content.findViewById(R.id.zxing_barcode_scanner)
-       // zxing_barcode_scanner.resume()
-
-
-
-
-       /* qrCodeReaderView?.setAutofocusInterval(1500L)
-        qrCodeReaderView?.setOnQRCodeReadListener(this)
-        qrCodeReaderView?.setBackCamera()
-        qrCodeReaderView?.startCamera()*/
-
-         integrator = IntentIntegrator(this);
-        integrator!!.setOrientationLocked(true);
-        integrator!!.setCaptureActivity(QRzxzingScannerActivity::class.java)
-        integrator!!.initiateScan();
-
-
-
-       /* val integrator = IntentIntegrator(this)
-        integrator.setDesiredBarcodeFormats(IntentIntegrator.PDF_417)
-        integrator.setPrompt("Scan a barcode")
-        //integrator.setCameraId(0) // Use a specific camera of the device
-
-        integrator.setOrientationLocked(true)
-        integrator.setBeepEnabled(true)
-        integrator.setCaptureActivity(CaptureActivityPortrait::class.java)
-        integrator.initiateScan()*/
-
+        qrCodeReaderView = content.findViewById(R.id.qrCodeReaderView);
+        initQRView()
 
         Snackbar.make(main_layout, resources.getString(R.string.qr_scan_help), Snackbar.LENGTH_LONG)
                 .show()
+    }
+
+
+    fun initQRView() {
+        qrCodeReaderView!!.setOnQRCodeReadListener(this);
+
+        // Use this function to enable/disable decoding
+        qrCodeReaderView!!.setQRDecodingEnabled(true);
+
+        // Use this function to change the autofocus interval (default is 5 secs)
+        qrCodeReaderView!!.setAutofocusInterval(2000L);
+
+        // Use this function to enable/disable Torch
+        qrCodeReaderView!!.setTorchEnabled(true);
+
+        // Use this function to set front camera preview
+        qrCodeReaderView!!.setFrontCamera();
+
+        // Use this function to set back camera preview
+        qrCodeReaderView!!.setBackCamera();
+
+
     }
 
     val h = Handler()
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 
-        if(data != null) {
+        if (data != null) {
             val returnValue = data!!.getStringExtra("result")
-            if(returnValue != null && returnValue=="back"){
+            if (returnValue != null && returnValue == "back") {
                 finish()
             }
         }
-
-
-
-        val result = IntentIntegrator.parseActivityResult(requestCode,
-                resultCode, data)
-        if (result != null) {
-            if (result.contents == null) {
-                //scan have an error
-            } else {
-
-                decodeScanResult(result.contents)
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data)
-        }
-
-
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
@@ -249,6 +218,13 @@ class QrScannerActivity : FragmentActivity()/*, QRCodeReaderView.OnQRCodeReadLis
     override fun onStop() {
         super.onStop()
         active = false
+    }
+
+    override fun onQRCodeRead(text: String?, points: Array<out PointF>?) {
+        Log.d("forusQR", "Result = $text")
+        if (text != null) {
+            decodeScanResult(text)
+        }
     }
 
 }

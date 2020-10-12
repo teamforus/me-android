@@ -215,15 +215,14 @@ dependencies {
     implementation 'com.github.douglasjunior:android-simple-tooltip:0.2.3'
     implementation 'com.wdullaer:materialdatetimepicker:3.6.4'
 
-    implementation 'me.dm7.barcodescanner:zxing:1.9.13'
+ /*   implementation 'me.dm7.barcodescanner:zxing:1.9.13'
     implementation 'com.journeyapps:zxing-android-embedded:3.6.0@aar'
-    //implementation 'com.google.zxing:core:3.3.3'
-
-    //implementation 'com.journeyapps:zxing-android-embedded:3.6.0@aar'
-
-    implementation 'com.google.zxing:core:3.3.3'
 
 
+    implementation 'com.google.zxing:core:3.3.3'*/
 
-    //implementation 'com.journeyapps:zxing-android-integration:2.0.1@aar'
+    implementation ('com.dlazaro66.qrcodereaderview:qrcodereaderview:2.0.3@aar'){
+        transitive = true
+    }
+
 }

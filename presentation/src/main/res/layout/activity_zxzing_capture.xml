@@ -13,13 +13,13 @@
         android:layout_centerInParent="true"
         android:visibility="visible">
 
-        <com.journeyapps.barcodescanner.DecoratedBarcodeView
+        <!--com.journeyapps.barcodescanner.DecoratedBarcodeView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/zxing_barcode_scanner"
             android:layout_centerInParent="true"
             app:zxing_preview_scaling_strategy="centerCrop"
-            app:zxing_use_texture_view="false"/>
+            app:zxing_use_texture_view="false"/-->
 
         <ImageView
             android:id="@+id/qr_frame"
