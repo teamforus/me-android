@@ -96,6 +96,13 @@ class ActionsActivity : AppCompatActivity() {
             if (it != null) {
                 canWork = true
                 transactionsAdapter!!.addAll(it)
+
+                if (transactionsAdapter!!.items.isEmpty()) {
+                    mainViewModel.productsListIsEmpty.postValue(true)
+                } else {
+                    mainViewModel.productsListIsEmpty.postValue(false)
+
+                }
             }
 
         })
@@ -163,7 +170,6 @@ class ActionsActivity : AppCompatActivity() {
                     val orgName = tv.text.toString()
 
                     val id = mainViewModel.selectedOrgIdByName(orgName)
-                    Log.d("forus", "SELECT_ITEM=" + orgName + " id " + id)
                     transactionsAdapter!!.clearAll()
                     currentPage = 1
                     mainViewModel.getVoucherActionGoods(currentPage)

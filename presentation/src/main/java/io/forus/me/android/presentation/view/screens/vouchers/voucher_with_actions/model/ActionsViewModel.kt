@@ -19,6 +19,7 @@ class ActionsViewModel : ViewModel() {
     var vouchersRepository: VouchersRepository = Injection.instance.vouchersRepository
 
     var productActionsLiveData: MutableLiveData<MutableList<ProductAction>> = MutableLiveData()
+    var productsListIsEmpty = MutableLiveData<Boolean>()
 
 
     var voucherAddress: String? = null
@@ -47,6 +48,8 @@ class ActionsViewModel : ViewModel() {
 
         voucher.value = null
 
+        productsListIsEmpty.value = false
+
         progress.value = true
         showWaitDialog.value = false
         isRefreshing.value = false
@@ -71,9 +74,7 @@ class ActionsViewModel : ViewModel() {
 
             val orgName = tv.text.toString()
             organizationId = selectedOrgIdByName(orgName)
-            Log.d("forus", "Clear_items orgName=" + orgName + " organizationId=" + organizationId)
             clearItems.postValue(true)
-            //clearItems.postValue(false)
         }
 
     }
@@ -108,17 +109,27 @@ class ActionsViewModel : ViewModel() {
     }
 
     public fun getVoucherActionGoods( page: Int) {
-
         if (organizationId != null) {
             vouchersRepository.getVoucherProductsActionsAsProvider(voucherAddress!!, organizationId!!, page, perPage)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .map {
-
                         val arr: MutableList<ProductAction> = mutableListOf()
                         arr.addAll(it)
                         productActionsLiveData.postValue(arr)
                         init = true
+
+
+                        if(productActionsLiveData.value != null) {
+                            if (productActionsLiveData.value!!.isEmpty()) {
+                                productsListIsEmpty.postValue(true)
+                            } else {
+                                productsListIsEmpty.postValue(false)
+
+                            }
+                        }else {
+                            productsListIsEmpty.postValue(true)
+                        }
 
                     }
                     .onErrorReturn {
