@@ -147,6 +147,7 @@
 
     <string name="tab_records">My records</string>
     <string name="tab_archives">Archive</string>
+    <string name="tooltip_create_record">Tap here to create\na new record</string>
 
     <!-- Record details screen -->
     <string name="record_details_title">Record detail</string>
@@ -169,6 +170,14 @@
     <string name="dialog_button_cancel">CANCEL</string>
     <string name="dialog_button_edit">EDIT</string>
     <string name="dialog_button_archive">ARCHIVE</string>
+
+    <!-- Transactions -->
+    <string name="transactions">transactions</string>
+    <string name="transaction_details">transaction details</string>
+    <string name="fund">fund</string>
+    <string name="provider">provider</string>
+    <string name="date">date</string>
+    <string name="from">from</string>
 
     <!-- Wallet details screen -->
     <string name="wallet_title_info">Wallet info</string>
@@ -250,6 +259,15 @@
     <string name="qr_choose_reservation">Choose Reservation</string>
     <string name="qr_reserved_offers">The offers below are reserved by the customer</string>
     <string name="vouchers_complete_an_amount">COMPLETE AN AMOUNT</string>
+    <string name="choose_company">Kies bedrijf</string>
+    <string name="payment">Payment</string>
+    <string name="choose_an_action">Choose an action</string>
+    <string name="choose_an_action_note">Note: </string>
+    <string name="choose_an_action_descr">the customer must pay the amount at the till.</string>
+    <string name="confirm_payment">Confirm payment</string>
+    <string name="has_the_customer">Has the customer</string>
+    <string name="paid_at_till">paid at the till?</string>
+    <string name="empty_actions_list">No balance for your actions</string>
 
 
     <!-- Check email -->
@@ -311,7 +329,15 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="title_activity_success_dialog">SuccessDialogActivity</string>
-    <string name="save">Save</string>
+    <string name="title_activity_actions">ActionsActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
 
 </resources>
