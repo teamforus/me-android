@@ -1,5 +1,6 @@
 package io.forus.me.android.presentation.view.screens.vouchers.transactions_log.adapter
 
+import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,7 +16,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class TransactionsLogAdapter(var items: ArrayList<Transaction>, val callback: Callback) : RecyclerView.Adapter<TransactionsLogAdapter.MainHolder>() {
+class TransactionsLogAdapter(val context: Context, var items: ArrayList<Transaction>,
+                             val callback: Callback) : RecyclerView.Adapter<TransactionsLogAdapter.MainHolder>() {
 
     private val LOADING = 0
     private val ITEM = 1
@@ -45,6 +47,15 @@ class TransactionsLogAdapter(var items: ArrayList<Transaction>, val callback: Ca
             subtitle1.text = item.product?.name
             subtitle2.text = NumberFormat.getCurrencyInstance(Locale("nl", "NL")).format(item.amount?.toDouble())
             overline1.text = dateFormat.format(item.createdAt)
+
+            var state = ""
+            when(item.state){
+                "success" -> context.getString(R.string.status_success)
+                "pending" -> context.getString(R.string.status_pending)
+                else -> state = item.state?:""
+            }
+
+
             overline2.text = item.state
 
             root.setOnClickListener { callback.onItemClicked(item) }

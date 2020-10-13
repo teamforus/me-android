@@ -77,7 +77,7 @@ class TransactionsActivity : SlidingPanelActivity() {
         //val font = Typeface.createFromAsset(assets, R.font.fgoogle_sans_regular)
         val typeface = ResourcesCompat.getFont(this@TransactionsActivity, R.font.fgoogle_sans_regular);
 
-        val titleStr = "   Date"//getString(R.string.mdtp_date)
+        val titleStr = "   "+getString(R.string.date_title)
         val dateStr = "  "+dateFormat.format(item.createdAt)
         val totalStr = titleStr+"\n"+dateStr
         val spannable = SpannableString(totalStr)
@@ -96,10 +96,18 @@ class TransactionsActivity : SlidingPanelActivity() {
 
         spannable.setSpan(CustomTypefaceSpan("", typeface!!), 0, totalStr.length, Spanned.SPAN_EXCLUSIVE_INCLUSIVE)
 
+        var state = ""
+        when(item.state){
+          "success" -> getString(R.string.status_success)
+          "pending" -> getString(R.string.status_pending)
+           else -> state = item.state?:""
+        }
 
-        addPopupFragment(TransactionDetailsFragment.newIntent(item.id, item.organization?.name, item.product?.organization?.name,
+
+        addPopupFragment(TransactionDetailsFragment.newIntent(item.id, item.fund?.organization?.name ,
+                item.organization?.name,
                 NumberFormat.getCurrencyInstance(Locale("nl", "NL"))
-                        .format(item.amount), item.state), spannable)
+                        .format(item.amount), state), spannable)
 
 
     }

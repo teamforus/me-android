@@ -86,10 +86,10 @@ class TransactionsFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
         info_button.visibility = View.INVISIBLE
         profile_button.setImageResource(R.drawable.ic_back)
-        toolbar_title.text = "Transactions"
+        toolbar_title.text = getString(R.string.transactions_title)
         profile_button.setOnClickListener { activity!!.finish() }
 
-        transactionsAdapter = TransactionsLogAdapter(arrayListOf(), object : TransactionsLogAdapter.Callback {
+        transactionsAdapter = TransactionsLogAdapter(requireContext(),arrayListOf(), object : TransactionsLogAdapter.Callback {
             override fun onItemClicked(item: Transaction) {
 
                 (activity as? TransactionsActivity)?.showPopupTransactionDetailsFragment(item)
