@@ -279,8 +279,6 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
             if(voucher.fundType == FundType.subsidies.name){
                 adapter.isActionsVoucher = true
             }
-
-
             adapter.transactions = voucher.transactions
             tv_transactions_title.visibility =
                     if (voucher.isProduct || voucher.transactions.isEmpty()) View.GONE else View.VISIBLE

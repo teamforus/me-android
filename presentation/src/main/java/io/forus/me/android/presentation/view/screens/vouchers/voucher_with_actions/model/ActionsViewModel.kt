@@ -115,9 +115,7 @@ class ActionsViewModel : ViewModel() {
                     .observeOn(AndroidSchedulers.mainThread())
                     .map {
                         val arr: MutableList<ProductAction> = mutableListOf()
-                        Log.d("forusAc","it=${it.size}")
                         arr.addAll(it)
-                        Log.d("forusAc","arr=${arr.size}")
                         productActionsLiveData.postValue(arr)
                         init = true
 

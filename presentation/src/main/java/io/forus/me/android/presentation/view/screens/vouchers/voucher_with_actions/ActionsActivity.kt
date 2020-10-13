@@ -96,7 +96,7 @@ class ActionsActivity : AppCompatActivity() {
             if (it != null) {
                 canWork = true
                 transactionsAdapter!!.addAll(it)
-                Log.d("forusAc","transactionsAdapter=${transactionsAdapter!!.itemCount}")
+
                 if (transactionsAdapter!!.items.isEmpty()) {
                     mainViewModel.productsListIsEmpty.postValue(true)
                 } else {
