@@ -285,10 +285,13 @@
                                 android:alpha="0.8"
                                 />
 
+
+
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:paddingBottom="16dp"
+                                android:visibility="@{!model.productsListIsEmpty.booleanValue() ? View.VISIBLE : View.GONE}"
                                 android:orientation="vertical">
 
 
@@ -353,6 +356,22 @@
                                     />
 
                             </LinearLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:text="@string/empty_actions_list"
+                                android:visibility="@{model.productsListIsEmpty.booleanValue() ? View.VISIBLE : View.GONE}"
+                                android:textSize="20sp"
+                                android:textColor="@color/body_1"
+                                android:fontFamily="sans-serif-medium"
+                                android:layout_marginLeft="16dp"
+                                android:layout_marginRight="16dp"
+                                tools:text="@string/empty_actions_list"
+                                tools:visiblity="gone"/>
+
+
 
                         </LinearLayout>
 
