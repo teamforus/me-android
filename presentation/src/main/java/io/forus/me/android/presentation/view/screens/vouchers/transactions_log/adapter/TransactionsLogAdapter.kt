@@ -47,17 +47,11 @@ class TransactionsLogAdapter(val context: Context, var items: ArrayList<Transact
             subtitle1.text = item.product?.name
             subtitle2.text = NumberFormat.getCurrencyInstance(Locale("nl", "NL")).format(item.amount?.toDouble())
             overline1.text = dateFormat.format(item.createdAt)
-
-            var state = ""
             when(item.state){
-                "success" -> context.getString(R.string.status_success)
-                "pending" -> context.getString(R.string.status_pending)
-                else -> state = item.state?:""
+                "success" -> overline2.text = context.getString(R.string.status_success)
+                "pending" -> overline2.text = context.getString(R.string.status_pending)
+                else ->  overline2.text = "++"
             }
-
-
-            overline2.text = item.state
-
             root.setOnClickListener { callback.onItemClicked(item) }
 
         }
