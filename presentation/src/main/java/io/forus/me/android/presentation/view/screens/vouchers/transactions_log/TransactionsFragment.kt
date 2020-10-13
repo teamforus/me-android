@@ -71,7 +71,6 @@ class TransactionsFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     }
 
 
-//var circlesOptions: CircleOptions? = null
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

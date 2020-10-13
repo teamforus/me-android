@@ -274,6 +274,7 @@
     <string name="confirm_payment">Confirm payment</string>
     <string name="has_the_customer">Has the customer</string>
     <string name="paid_at_till">paid at the till?</string>
+    <string name="empty_actions_list">No balance for your actions</string>
 
 
     <!-- Check email -->
@@ -344,7 +345,6 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-
 
 
 </resources>

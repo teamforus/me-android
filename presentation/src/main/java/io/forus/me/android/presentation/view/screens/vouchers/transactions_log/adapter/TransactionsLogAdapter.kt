@@ -69,7 +69,6 @@ class TransactionsLogAdapter(val context: Context, var items: ArrayList<Transact
 
     fun setList(goods: List<Transaction>) {
 
-        Log.d("my","ADAPTER_goods_size = ${goods.size}")
 
         items.clear();
         items.addAll(goods);
