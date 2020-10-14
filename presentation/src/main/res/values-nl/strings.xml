@@ -268,6 +268,7 @@
     <string name="has_the_customer">Heeft de klant </string>
     <string name="paid_at_till">betaald aan de kassa?</string>
     <string name="empty_actions_list">Geen saldo voor uw acties</string>
+    <string name="free">Gratis</string>
 
     <!-- Check email -->
     <string name="check_email_has_been_sent_to_you">Er is een e-mail onderweg!</string>
