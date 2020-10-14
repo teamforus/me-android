@@ -104,7 +104,7 @@ class TransactionsActivity : SlidingPanelActivity() {
         }
 
 
-        addPopupFragment(TransactionDetailsFragment.newIntent(item.id, item.fund?.organization?.name ,
+        addPopupFragment(TransactionDetailsFragment.newIntent(item.id, item.fund?.name ,
                 item.organization?.name,
                 NumberFormat.getCurrencyInstance(Locale("nl", "NL"))
                         .format(item.amount), state), spannable)
