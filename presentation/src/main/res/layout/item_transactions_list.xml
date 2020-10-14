@@ -99,7 +99,7 @@
             app:layout_constraintBottom_toBottomOf="@id/overline1"
             app:layout_constraintEnd_toEndOf="@id/subtitle2"
             app:layout_constraintTop_toTopOf="@id/overline1"
-            tools:text="Overline4" />
+            tools:text="@string/status_pending" />
 
 
         <View
