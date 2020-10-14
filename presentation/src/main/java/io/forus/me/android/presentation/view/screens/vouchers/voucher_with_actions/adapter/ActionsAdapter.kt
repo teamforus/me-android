@@ -2,6 +2,7 @@ package io.forus.me.android.presentation.view.screens.vouchers.voucher_with_acti
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -76,6 +77,12 @@ class ActionsAdapter(var items: ArrayList<ProductAction>, val callback: Callback
     }
 
     fun add(item: ProductAction) {
+        items.map {
+
+            if(item.id == it.id){
+                return
+            }
+        }
         items.add(item!!)
         notifyItemInserted(items!!.size - 1)
     }
