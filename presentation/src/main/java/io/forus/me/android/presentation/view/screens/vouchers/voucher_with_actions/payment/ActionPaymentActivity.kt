@@ -85,7 +85,7 @@ class ActionPaymentActivity : AppCompatActivity() {
         mainViewModel.confirmPayment.observe(this@ActionPaymentActivity, Observer {
             if (!it!!) return@Observer
             ApplyActionTransactionDialog(this@ActionPaymentActivity, NumberFormat.getCurrencyInstance(Locale("nl", "NL"))
-                    .format(product!!.price)+"?") {
+                    .format(product!!.price)+"?", (product!!.price == 0.0)) {
                 mainViewModel.makeTransaction()
             }.show()
         })
