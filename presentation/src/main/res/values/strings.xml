@@ -125,6 +125,7 @@
     <string name="profile_about">About</string>
     <string name="profile_logout_dialog_title">Logout</string>
     <string name="profile_logout_dialog_content">Are you sure you want to log out?</string>
+    <string name="email_support">support@forus.io</string>
 
     <!-- New record screen -->
     <string name="new_record_title">New Record</string>
@@ -147,6 +148,7 @@
 
     <string name="tab_records">My records</string>
     <string name="tab_archives">Archive</string>
+    <string name="tooltip_create_record">Tap here to create\na new record</string>
 
     <!-- Record details screen -->
     <string name="record_details_title">Record detail</string>
@@ -169,6 +171,20 @@
     <string name="dialog_button_cancel">CANCEL</string>
     <string name="dialog_button_edit">EDIT</string>
     <string name="dialog_button_archive">ARCHIVE</string>
+
+    <!-- Transactions -->
+    <string name="transactions_title">Transactions</string>
+    <string name="transactions">transactions</string>
+    <string name="transaction_details">Transaction details</string>
+    <string name="fund">fund</string>
+    <string name="provider">provider</string>
+    <string name="date">date</string>
+    <string name="date_title">Datum</string>
+    <string name="fund_title">Funds</string>
+    <string name="provider_title">Provider</string>
+    <string name="from">from</string>
+    <string name="status_success">Success</string>
+    <string name="status_pending">Pending</string>
 
     <!-- Wallet details screen -->
     <string name="wallet_title_info">Wallet info</string>
@@ -236,7 +252,7 @@
     <string name="voucher_qr_code_expired">This voucher has expired on  %s</string>
     <string name="voucher_expired">Voucher expired</string>
     <string name="voucher_email_to_me">Email to me</string>
-    <string name="send_feedback_email_dialog_title">Would you like to send us your feedback by e-mail?</string>
+    <string name="send_feedback_email_dialog_title">Do you have any questions or feedback? Contact us!</string>
     <string name="send_voucher_email_dialog_title">Send the voucher to your email?</string>
     <string name="send_voucher_email_dialog_positive_button">Send</string>
     <string name="voucher_request">REQUEST</string>
@@ -250,6 +266,17 @@
     <string name="qr_choose_reservation">Choose Reservation</string>
     <string name="qr_reserved_offers">The offers below are reserved by the customer</string>
     <string name="vouchers_complete_an_amount">COMPLETE AN AMOUNT</string>
+    <string name="choose_company">Kies bedrijf</string>
+    <string name="payment">Payment</string>
+    <string name="choose_an_action">Choose an action</string>
+    <string name="choose_an_action_note">Note: </string>
+    <string name="choose_an_action_descr">the customer must pay the amount at the till.</string>
+    <string name="confirm_payment">Confirm payment</string>
+    <string name="has_the_customer">Has the customer</string>
+    <string name="paid_at_till">paid at the till?</string>
+    <string name="empty_actions_list">No balance for your actions</string>
+    <string name="free">Free</string>
+    <string name="free_product">This product is free, no additional payment is required.</string>
 
 
     <!-- Check email -->
@@ -311,6 +338,15 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="title_activity_success_dialog">SuccessDialogActivity</string>
+    <string name="title_activity_actions">ActionsActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
 
 </resources>

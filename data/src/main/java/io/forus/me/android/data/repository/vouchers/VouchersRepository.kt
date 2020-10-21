@@ -1,6 +1,7 @@
 package io.forus.me.android.data.repository.vouchers
 
 import android.util.Log
+import io.forus.me.android.data.entity.vouchers.request.MakeActionTransaction
 import io.forus.me.android.data.entity.vouchers.request.MakeDemoTransaction
 import io.forus.me.android.data.entity.vouchers.request.MakeTransaction
 import io.forus.me.android.data.repository.vouchers.datasource.VouchersDataSource
@@ -52,21 +53,64 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
 
         val transactions = mutableListOf<Transaction>()
         if (voucher.transactions != null) {
+
+
             transactions.addAll(voucher.transactions.map {
+
+                val fund = Fund(it.fund.id, it.fund.name, it.fund.organization?.id, null,
+                        Organization(it.organization.id, it.organization.name, null, null, null, null, null, null))
+
+                val product = if (it.product == null) {
+                    null
+                } else {
+                    Product(it.product.id, it.product.organizationId,
+                            it.product.productCategoryId,
+                            it.product.name, it.product.description,
+                            it.product.price, it.product.oldPrice,
+                            it.product.totalAmount, it.product.soldAmount,
+                            ProductCategory(it.product.productCategory.id,
+                                    it.product.productCategory.key,
+                                    it.product.productCategory.name),
+                            Organization(it.product.organization.id, it.product.organization.name,
+                                    it.product.organization.logo.sizes.thumbnail, it.product.organization.lat,
+                                    it.product.organization.lon, it.product.organization.identityAddress,
+                                    it.product.organization.phone, it.product.organization.email))
+                }
+
                 Transaction(it.address, Organization(it.organization.id, it.organization.name, it.organization?.logo?.sizes?.large
                         ?: "", it.organization?.lat ?: 0.0, it.organization?.lon
                         ?: 0.0, it.organization?.identityAddress ?: "", it.organization?.phone
-                        ?: "", it.organization?.email ?: ""), euro, it.amount, it.createdAt)
+                        ?: "", it.organization?.email
+                        ?: ""), euro, it.amount, it.createdAt, product, it.state,
+                        fund)
             })
         }
 
         if (voucher.childVouchers != null) {
             transactions.addAll(voucher.childVouchers.map { childVoucher ->
+
+
                 val organization = childVoucher.product?.organization
+                val product = if (voucher.product == null) {
+                    null
+                } else {
+                    Product(voucher.product.id, voucher.product.organizationId,
+                            voucher.product.productCategoryId,
+                            voucher.product.name, voucher.product.description,
+                            voucher.product.price, voucher.product.oldPrice,
+                            voucher.product.totalAmount, voucher.product.soldAmount,
+                            ProductCategory(voucher.product.productCategory.id,
+                                    voucher.product.productCategory.key,
+                                    voucher.product.productCategory.name),
+                            Organization(voucher.product.organization.id, voucher.product.organization.name,
+                                    voucher.product.organization.logo.sizes.thumbnail, voucher.product.organization.lat,
+                                    voucher.product.organization.lon, voucher.product.organization.identityAddress,
+                                    voucher.product.organization.phone, voucher.product.organization.email))
+                }
                 Transaction("", Organization(childVoucher.product.organizationId, childVoucher.product.name, "", organization?.lat
                         ?: 0.0, organization?.lon ?: 0.0, organization?.identityAddress
                         ?: "", organization?.phone ?: "", organization?.email
-                        ?: ""), euro, childVoucher.amount, childVoucher.createdAt, Transaction.Type.Product)
+                        ?: ""), euro, childVoucher.amount, childVoucher.createdAt, product, null, null)
             })
         }
         transactions.sortWith(Comparator { t1, t2 ->
@@ -96,10 +140,14 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
         }
 
 
+
+
         return Voucher(isProduct, isUsed, voucher.address
                 ?: "", name, organizationName, voucher.fund?.name
+                ?: "", voucher.fund?.type
                 ?: "", voucher.fund?.webShopUrl ?: "", description, createdAt!!, euro, amount,
-                productLogoUrl, transactions, productMapped, voucher.isExpired, voucher.expireAtLocale ?: "")
+                productLogoUrl, transactions, productMapped, voucher.isExpired, voucher.expireAtLocale
+                ?: "")
 
     }
 
@@ -115,6 +163,64 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
         return VoucherProvider(item, organizations, categories)
     }
 
+    private fun mapToProductAction(productAction: io.forus.me.android.data.entity.vouchers.response.ProductAction): ProductAction {
+
+        val organization: Organization? = if (productAction.organization == null) {
+            null
+        } else {
+            val org = productAction.organization
+            Organization(org.id, org.name, null, org.lat, org.lon, org.identityAddress, org.phone, org.email)
+        }
+
+        val productCategory: ProductCategory? = if (productAction.productCategory == null) {
+            null
+        } else {
+            val prc = productAction.productCategory
+            ProductCategory(prc.id, prc.key, prc.name)
+        }
+
+        val photoUrl: String? = if (productAction.photo != null && productAction.photo.sizes != null && productAction.photo.sizes.large != null) {
+            productAction.photo.sizes.large
+        } else {
+            null
+        }
+
+
+        return ProductAction(productAction.id, productAction.name, productAction.organizationId, productAction.price, productAction.priceUser,
+                photoUrl, organization, productCategory)
+    }
+
+    private fun mapToLogTransaction(transaction: io.forus.me.android.data.entity.vouchers.response.Transaction): Transaction {
+
+
+        val fund = Fund(transaction.fund.id, transaction.fund.name, transaction.fund.organization?.id, null,
+                Organization(transaction.organization.id, transaction.organization.name, null, null, null, null, null, null))
+
+
+        val organization: Organization? = if (transaction.organization == null) {
+            null
+        } else {
+            val org = transaction.organization
+            Organization(org.id, org.name, null, org.lat, org.lon, org.identityAddress, org.phone, org.email)
+        }
+
+
+        val product: Product? = if (transaction.product == null) {
+            null
+        } else {
+            val prc = transaction.product
+            Product(prc.id, prc.organizationId, null, prc.name, null, prc.price,
+                    null, null, null, null, null)
+        }
+
+
+
+
+        return Transaction(transaction.id.toString(), organization, null, transaction.amount,
+                transaction.createdAt, product, transaction.state, fund)
+
+    }
+
 
     private fun getFakeVoucherProvider(): VoucherProvider {
         val date = Calendar.getInstance().getTime()
@@ -124,7 +230,8 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
                 "", "", "")
         val organizationsList = mutableListOf<Organization>()
         organizationsList.add(organization)
-        val transaction = Transaction("0", organization, currency, 0f.toBigDecimal(), date)
+        val transaction = Transaction("0", organization, currency, 0f.toBigDecimal(), date, null,
+                null, null)
         val transactionList = mutableListOf<Transaction>()
         transactionList.add(transaction)
 
@@ -136,9 +243,9 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
                 0, 0, productCategory, organization)
 
         val voucher = Voucher(false, false, "", "Test bedrijf",
-                "", "", "",
+                "", "", "", "",
                 "", date, currency, 1000.toBigDecimal(), "",
-                transactionList, product, false,"")
+                transactionList, product, false, "")
 
         return VoucherProvider(voucher, organizationsList, productCategoryList)
     }
@@ -166,9 +273,20 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
         return vouchersDataSource.retrieveProductVouchersAsProvider(address).map { it.map { mapToSimple(it) } }
     }
 
+    override fun getVoucherProductsActionsAsProvider(address: String, organizationId: Long, page: Int, perPage: Int): Observable<List<ProductAction>> {
+        return vouchersDataSource.retrieveVoucherProductsActionsAsProvider(address, organizationId, page, perPage).map { it.map { mapToProductAction(it) } }
+    }
+
+    override fun getTransactionsLogAsProvider(from: String, page: Int, perPage: Int): Observable<List<Transaction>> {
+        return vouchersDataSource.retrieveTransactionsLogAsProvider(from, page, perPage).map { it.map { mapToLogTransaction(it) } }
+    }
 
     override fun makeTransaction(address: String, amount: BigDecimal, note: String, organizationId: Long): Observable<Boolean> {
         return vouchersDataSource.makeTransaction(address, MakeTransaction(amount, note, organizationId)).map { true }
+    }
+
+    override fun makeActionTransaction(address: String, note: String, productId: Long): Observable<Boolean> {
+        return vouchersDataSource.makeActionTransaction(address, MakeActionTransaction(productId, note)).map { true }
     }
 
     override fun sendEmail(address: String): Observable<Boolean> {

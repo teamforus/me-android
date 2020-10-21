@@ -184,7 +184,7 @@
                         android:id="@+id/support_email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:valuecard_text="feedback@forus.io"
+                        app:valuecard_text="@string/email_support"
                         app:valuecard_title="@string/profile_support" />
 
                     <io.forus.me.android.presentation.view.component.card.SettingsCard

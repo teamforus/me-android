@@ -1,7 +1,8 @@
 apply plugin: 'com.android.application'
 
-apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'org.greenrobot.greendao'
 apply plugin: 'io.fabric'
@@ -45,12 +46,13 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     kotlinOptions {
         languageVersion = "1.3"
+        jvmTarget = '1.8'
     }
 
     packagingOptions {
@@ -132,7 +134,8 @@ android {
             def project = "me"
             def SEP = "-"
             def flavor = variant.productFlavors[0].name
-            def buildType = variant.variantData.variantConfiguration.buildType.name
+            //def buildType = variant.variantData.variantConfiguration.buildType.name
+            def buildType = variant.buildType.name
             def version = variant.versionName
             def buildNumber = globalConfiguration.getAt("androidBuildNumber").toString()
             def newApkName = project + SEP + version + SEP + buildNumber + SEP + buildType + ".apk"
@@ -147,6 +150,7 @@ greendao {
 }
 
 dependencies {
+    implementation 'android.arch.lifecycle:extensions:1.1.1'
     def presentationDependencies = rootProject.ext.presentationDependencies
     def presentationTestDependencies = rootProject.ext.presentationTestDependencies
     def developmentDependencies = rootProject.ext.developmentDependencies
@@ -204,8 +208,21 @@ dependencies {
 
     //Development
     implementation developmentDependencies.leakCanary
-    implementation(presentationDependencies.qrReader) {
+    /*implementation(presentationDependencies.qrReader) {
+        transitive = true
+    }*/
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'com.github.douglasjunior:android-simple-tooltip:0.2.3'
+    implementation 'com.wdullaer:materialdatetimepicker:3.6.4'
+
+ /*   implementation 'me.dm7.barcodescanner:zxing:1.9.13'
+    implementation 'com.journeyapps:zxing-android-embedded:3.6.0@aar'
+
+
+    implementation 'com.google.zxing:core:3.3.3'*/
+
+    implementation ('com.dlazaro66.qrcodereaderview:qrcodereaderview:2.0.3@aar'){
         transitive = true
     }
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+
 }

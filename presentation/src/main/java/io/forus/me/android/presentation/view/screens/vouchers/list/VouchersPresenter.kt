@@ -8,6 +8,7 @@ import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.base.lr.PartialChange
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
+import java.math.BigDecimal
 
 class VouchersPresenter constructor(val vouchersRepository: VouchersRepository) : LRPresenter<List<Voucher>, VouchersModel, VouchersView>() {
 
@@ -17,6 +18,7 @@ class VouchersPresenter constructor(val vouchersRepository: VouchersRepository) 
             with(domainVoucher) {
 
                 val transactionsMapped = transactions.map {
+
                     val organization = Organization(it.organization?.id ?: 0,
                             it.organization?.name ?: "", it.organization?.logo ?: "",
                             it.organization?.lat ?: 0.0, it.organization?.lon ?: 0.0,
@@ -24,28 +26,47 @@ class VouchersPresenter constructor(val vouchersRepository: VouchersRepository) 
                             it.organization?.phone ?: "",
                             it.organization?.email ?: "")
 
+                    val product:io.forus.me.android.presentation.models.vouchers.Product? =
+                            if(it.product == null){ null }else{
+                                Product(it.product!!.id?:-1L, it.product!!.organizationId?:-1L,
+                                        it.product!!.productCategoryId?:-1L,
+                                        it.product!!.name,it.product!!.description,
+                                        it.product!!.price?: BigDecimal(-1),
+                                        it.product!!.oldPrice?:BigDecimal(-1), it.product!!.totalAmount?:-1L,
+                                        it.product!!.soldAmount?:-1L,
+                                        ProductCategory(it.product?.productCategory?.id?:-1L,
+                                                it.product?.productCategory?.key?:"",
+                                                it.product?.productCategory?.name?:""),organization)
+                            }
+
+
+
                     Transaction(it.id, organization,
                             Currency(it.currency?.name ?: "", it.currency?.logoUrl ?: ""),
-                            it?.amount ?: 0f.toBigDecimal(), it.createdAt, Transaction.Type.valueOf(it.type.name))
+                            it?.amount ?: 0f.toBigDecimal(), it.createdAt,
+                            Transaction.Type.valueOf(it.type.name), product)
                 }
 
                 val domainProduct = domainVoucher.product
                 val product = when (domainProduct) {
                     null -> null
-                    else -> Product(domainProduct.id,
-                            domainProduct.organizationId,
-                            domainProduct.productCategoryId,
+                    else -> Product(domainProduct.id ?:-1L,
+                            domainProduct.organizationId?:-1L,
+                            domainProduct.productCategoryId?:-1L,
                             domainProduct.name, domainProduct.description,
-                            domainProduct.price, domainProduct.oldPrice,
-                            domainProduct.totalAmount, domainProduct.soldAmount,
-                            ProductCategory(    domainProduct.productCategory.id,
-                                    domainProduct.productCategory.key, domainProduct.productCategory.name),
-                            Organization(domainProduct.organization.id,
-                            domainProduct.organization.name, domainProduct.organization.logo, domainProduct.organization.lat, domainProduct.organization.lon, domainProduct.organization.address, domainProduct.organization.phone, domainProduct.organization.email))
+                            domainProduct.price?: BigDecimal(-1), domainProduct.oldPrice?: BigDecimal(-1),
+                            domainProduct.totalAmount?:-1L, domainProduct.soldAmount?:-1L,
+                            if(domainProduct.productCategory != null){
+                            ProductCategory(    domainProduct.productCategory!!.id,
+                                    domainProduct!!.productCategory!!.key, domainProduct!!.productCategory!!.name)}else{null},
+                            if(domainProduct.organization!=null){
+                            Organization(domainProduct.organization!!.id,
+                            domainProduct.organization!!.name, domainProduct.organization!!.logo, domainProduct.organization!!.lat, domainProduct.organization!!.lon,
+                                    domainProduct.organization!!.address, domainProduct.organization!!.phone, domainProduct.organization!!.email)}else{null})
                 }
 
                 Voucher(isProduct ?: false, isUsed ?: false, address, name, organizationName,
-                        fundName, fundWebShopUrl, description, createdAt, Currency(currency?.name, currency?.logoUrl), amount, logo,
+                        fundName, fundType,fundWebShopUrl, description, createdAt, Currency(currency?.name, currency?.logoUrl), amount, logo,
                         transactionsMapped, product, expired ?: false, expireDate
                         )
             }

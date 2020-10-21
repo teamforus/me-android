@@ -1,5 +1,6 @@
 package io.forus.me.android.domain.models.common;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
@@ -25,7 +26,25 @@ public class DetailsApiError {
         Set<Map.Entry<String, JsonElement>> entrySet = errorsJson.entrySet();
         for (Map.Entry<String, JsonElement> entry : entrySet) {
             String key = entry.getKey();
-            String value = entry.getValue().getAsString();
+            String value = "";
+            try {
+                value = entry.getValue().getAsString();
+            } catch (Exception e) {
+                Object valObj = entry.getValue();
+                if (valObj instanceof JsonArray) {
+                    for (int i = 0; i < ((JsonArray) valObj).size(); i++) {
+                        Object item = ((JsonArray) valObj).get(i);
+                        try {
+                            String str = item.toString();
+                            value = value + str;
+                            value = value + "\n";
+                        } catch (Exception ignored) {
+                        }
+                    }
+                } else {
+                    value = entry.getValue().toString();
+                }
+            }
             errors.put(key, value);
         }
     }
@@ -41,7 +60,6 @@ public class DetailsApiError {
     public HashMap<String, String> getErrors() {
         return errors;
     }
-
 
 
     @Override
@@ -67,14 +85,14 @@ public class DetailsApiError {
         StringBuilder msg = new StringBuilder();
         for (String key : errors.keySet()) {
             String value = errors.get(key);
-            String err =  value + "\n";
+            String err = value + "\n";
             msg.append(err);
 
         }
         return msg.toString();
     }
 
-    public String getErrorsString(){
+    public String getErrorsString() {
         StringBuilder msg = new StringBuilder();
         for (String key : errors.keySet()) {
             String value = errors.get(key);
