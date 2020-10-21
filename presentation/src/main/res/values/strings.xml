@@ -275,6 +275,7 @@
     <string name="has_the_customer">Has the customer</string>
     <string name="paid_at_till">paid at the till?</string>
     <string name="empty_actions_list">No balance for your actions</string>
+    <string name="free">Free</string>
     <string name="free_product">This product is free, no additional payment is required.</string>
 
 

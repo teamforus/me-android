@@ -17,8 +17,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class ActionsAdapter(var items: ArrayList<ProductAction>, val callback: Callback,val context: Context) : RecyclerView.Adapter<ActionsAdapter.MainHolder>() {
-
+class ActionsAdapter(var items: ArrayList<ProductAction>, val callback: Callback, val context: Context) : RecyclerView.Adapter<ActionsAdapter.MainHolder>() {
 
 
     private val LOADING = 0
@@ -42,8 +41,12 @@ class ActionsAdapter(var items: ArrayList<ProductAction>, val callback: Callback
 
         fun bind(item: ProductAction) {
             nameTV.text = item.name
-            priceTV.text = NumberFormat.getCurrencyInstance(Locale("nl", "NL"))
-                    .format(item.priceUser!!.toDouble())
+            priceTV.text = if (item.priceUser!!.toDouble() == 0.0) {
+                context.getString(R.string.free)
+            } else {
+                NumberFormat.getCurrencyInstance(Locale("nl", "NL"))
+                        .format(item.priceUser!!.toDouble())
+            }
 
             val url = item.photoURL
             if (url != null && url.isNotEmpty()) {
