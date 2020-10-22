@@ -7,6 +7,9 @@ import java.util.Date;
 
 public class Transaction {
 
+    @SerializedName("id")
+    private Long id;
+
     @SerializedName("organization_id")
     private Long organizationId;
 
@@ -37,9 +40,19 @@ public class Transaction {
     @SerializedName("product")
     private Product product;
 
+    @SerializedName("fund")
+    private Fund fund;
+
+
+    @SerializedName("state")
+    private String state;
+
+
     public Transaction() { }
 
-    public Transaction(Long organizationId, Long productId, BigDecimal amount, String address, Date createdAt, Date updatedAt, String date, Long timestamp, Organization organization, Product product) {
+    public Transaction(Long id, Long organizationId, Long productId, BigDecimal amount, String address, Date createdAt, Date updatedAt, String date, Long timestamp,
+                       Organization organization, Product product, Fund fund, String state) {
+        this.id = id;
         this.organizationId = organizationId;
         this.productId = productId;
         this.amount = amount;
@@ -50,6 +63,16 @@ public class Transaction {
         this.timestamp = timestamp;
         this.organization = organization;
         this.product = product;
+        this.fund = fund;
+        this.state = state;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getOrganizationId() {
@@ -130,5 +153,21 @@ public class Transaction {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    public Fund getFund() {
+        return fund;
+    }
+
+    public void setFund(Fund fund) {
+        this.fund = fund;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 }

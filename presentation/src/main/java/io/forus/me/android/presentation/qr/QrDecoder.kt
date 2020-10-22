@@ -3,7 +3,7 @@ package io.forus.me.android.presentation.qr
 import com.google.gson.GsonBuilder
 import io.forus.me.android.domain.models.qr.QrCode
 
-class QrDecoder{
+class QrDecoder{ 
 
     private val gson = GsonBuilder().create()
 

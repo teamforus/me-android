@@ -124,6 +124,16 @@
 
                     </android.support.v7.widget.CardView>
 
+                    <View
+                        android:id="@+id/cardDivider"
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="0dp"
+                        android:background="@drawable/shape_shadow_gradient"
+                        android:alpha="0.8"
+                        />
+
                     <LinearLayout
                         android:orientation="vertical"
                         android:layout_width="match_parent"

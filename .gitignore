@@ -73,3 +73,5 @@ old_forus
 .idea
 output.json
 
+*.DS_Store
+
