@@ -151,6 +151,7 @@ greendao {
 
 dependencies {
     implementation 'android.arch.lifecycle:extensions:1.1.1'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     def presentationDependencies = rootProject.ext.presentationDependencies
     def presentationTestDependencies = rootProject.ext.presentationTestDependencies
     def developmentDependencies = rootProject.ext.developmentDependencies
@@ -224,5 +225,8 @@ dependencies {
     implementation ('com.dlazaro66.qrcodereaderview:qrcodereaderview:2.0.3@aar'){
         transitive = true
     }
+
+
+    implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:3.0.0'
 
 }

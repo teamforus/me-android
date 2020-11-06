@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_gravity="center_vertical"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="66dp"
+        >
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:adjustViewBounds="true"
+            android:cropToPadding="true"
+            android:src="@drawable/img_onboard_login_qr" />
+
+
+        <io.forus.me.android.presentation.view.component.text.TextView
+            android:layout_marginTop="38dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/onboard_login_qr_title"
+            android:textSize="36sp"
+            android:textColor="#de000000"
+            app:type="bold" />
+
+        <io.forus.me.android.presentation.view.component.text.TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textSize="16sp"
+            android:textColor="#000000"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/onboard_login_qr_text1"
+            android:lineSpacingExtra="4sp"
+            android:translationY="-1.82sp"
+            android:lines="2"
+            android:gravity="center"
+            />
+
+
+
+
+    </LinearLayout>
+
+</ScrollView>

@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.IntentSender
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.activity.BaseActivity
 import com.google.android.gms.common.ConnectionResult
@@ -19,6 +20,7 @@ import io.forus.me.android.presentation.BuildConfig
 import io.forus.me.android.presentation.api_config.ApiConfig
 import io.forus.me.android.presentation.api_config.ApiType
 import io.forus.me.android.presentation.helpers.SharedPref
+import io.forus.me.android.presentation.view.screens.onboarding_screens.OnboardActivity
 
 
 /**
@@ -27,6 +29,8 @@ import io.forus.me.android.presentation.helpers.SharedPref
 class MainActivity : BaseActivity() {
 
     private val PLAY_SERVICES_RESOLUTION_REQUEST = 9000
+
+    private val ONBOARD_INTENT_REQUEST_CODE = 2354
 
     private val db = Injection.instance.databaseHelper
     private val settings = Injection.instance.settingsDataSource
@@ -63,7 +67,19 @@ class MainActivity : BaseActivity() {
             this.initInAppUpdate()
         }, 800)
 
+
+        //navigateToOnboardScreens()
+        navigateToMainContentScreens()
+    }
+
+
+
+
+
+
+    fun navigateToMainContentScreens(){
         if (db.exists()) {
+           SharedPref.write(SharedPref.IS_MUST_SHOW_ONBOARD_SCREENS, false)
             val locked = settings.isPinEnabled()
             if (locked) {
                 navigateToPinlock()
@@ -71,9 +87,19 @@ class MainActivity : BaseActivity() {
                 navigateToDashboard()
             }
         } else {
-            //navigateToWelcomeScreen() //old behavior
-            navigateToLogInsignUpScreen()
+            Log.d("forus","IS_MUST_SHOW_ONBOARD_SCREENS2 = ${SharedPref.read(SharedPref.IS_MUST_SHOW_ONBOARD_SCREENS,true)}")
+            val isMustShowOnboardScreen = SharedPref.read(SharedPref.IS_MUST_SHOW_ONBOARD_SCREENS, true)
+            Log.d("forus","IS_MUST_SHOW_ONBOARD_SCREENS3 = ${SharedPref.read(SharedPref.IS_MUST_SHOW_ONBOARD_SCREENS,true)}")
+            if(isMustShowOnboardScreen){
+                navigateToOnboardScreens()
+            }else {
+                navigateToLogInsignUpScreen()
+            }
         }
+    }
+
+    fun navigateToOnboardScreens(){
+        startActivityForResult(OnboardActivity.getCallingIntent(this),ONBOARD_INTENT_REQUEST_CODE)
     }
 
 
@@ -85,6 +111,7 @@ class MainActivity : BaseActivity() {
         this.navigator.navigateToLoginSignUp(this)
         finish()
     }
+
 
     /**
      * Goes to the welcome screen.
@@ -187,6 +214,13 @@ class MainActivity : BaseActivity() {
         if (requestCode == MY_REQUEST_CODE) {
             if (resultCode != Activity.RESULT_OK) {
                 processInAppUpdateError("")
+            }
+        }else if(requestCode == ONBOARD_INTENT_REQUEST_CODE){
+            if (resultCode != Activity.RESULT_OK) {
+                Log.d("forus","ONBOARD_INTENT_REQUEST_CODE")
+                SharedPref.write(SharedPref.IS_MUST_SHOW_ONBOARD_SCREENS, false)
+                Log.d("forus","IS_MUST_SHOW_ONBOARD_SCREENS = ${SharedPref.read(SharedPref.IS_MUST_SHOW_ONBOARD_SCREENS,true)}")
+                navigateToMainContentScreens()
             }
         }
     }
