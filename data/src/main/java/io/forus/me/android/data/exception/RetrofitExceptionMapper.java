@@ -10,6 +10,7 @@ import io.forus.me.android.data.entity.common.DetailsError;
 import io.forus.me.android.domain.exception.RetrofitException;
 import io.forus.me.android.domain.models.common.DetailsApiError;
 import io.forus.me.android.domain.models.records.errors.BaseApiError;
+import io.forus.me.android.domain.models.records.errors.EmailError;
 import io.forus.me.android.domain.models.records.errors.NewRecordCategoryError;
 import io.forus.me.android.domain.models.records.errors.NewRecordError;
 
@@ -23,6 +24,11 @@ public class RetrofitExceptionMapper extends io.forus.me.android.domain.exceptio
     public NewRecordCategoryError mapToNewRecordCategoryError(RetrofitException retrofitException) throws IOException {
         ApiError apiError = retrofitException.getErrorBodyAs(ApiError.class);
         return new NewRecordCategoryError(apiError.getMessage(), apiError.getErrors().getName());
+    }
+
+    public EmailError mapToApiError(RetrofitException retrofitException) throws IOException {
+        ApiError apiError = retrofitException.getErrorBodyAs(ApiError.class);
+        return new EmailError(apiError.getMessage(), apiError.getErrors().getEmail());
     }
 
     @Override
