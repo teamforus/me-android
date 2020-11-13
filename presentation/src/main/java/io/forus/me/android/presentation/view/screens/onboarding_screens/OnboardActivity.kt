@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.ViewPager
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.View
 import io.forus.me.android.presentation.R
@@ -27,6 +28,9 @@ class OnboardActivity : BaseActivity() {
         fun getCallingIntent(context: Context): Intent {
             return Intent(context, OnboardActivity::class.java)
         }
+
+
+
     }
 
     var pagerAdapter: MyFragmentPagerAdapter? = null
@@ -124,4 +128,6 @@ class OnboardActivity : BaseActivity() {
                     }
                 })
     }
+
+
 }
