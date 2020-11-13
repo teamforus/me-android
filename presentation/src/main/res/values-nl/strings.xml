@@ -38,6 +38,7 @@
     <string name="onboard_login_qr_text1">Log gemakkelijk in. Gebruik Me om de QR-code op de website te scannen zodat je veilig kan inloggen.</string>
     <string name="onboard_next">Volgende</string>
     <string name="onboard_login">Aanmelden</string>
+    <string name="onboard_skip">Overslaan</string>
 
     <!-- Welcome screen -->
     <string name="welcome_create_account">Aanmaken</string>

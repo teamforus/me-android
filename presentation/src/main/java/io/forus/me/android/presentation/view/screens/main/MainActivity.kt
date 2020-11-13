@@ -68,7 +68,6 @@ class MainActivity : BaseActivity() {
         }, 800)
 
 
-        //navigateToOnboardScreens()
         navigateToMainContentScreens()
     }
 
@@ -87,9 +86,7 @@ class MainActivity : BaseActivity() {
                 navigateToDashboard()
             }
         } else {
-            Log.d("forus","IS_MUST_SHOW_ONBOARD_SCREENS2 = ${SharedPref.read(SharedPref.IS_MUST_SHOW_ONBOARD_SCREENS,true)}")
             val isMustShowOnboardScreen = SharedPref.read(SharedPref.IS_MUST_SHOW_ONBOARD_SCREENS, true)
-            Log.d("forus","IS_MUST_SHOW_ONBOARD_SCREENS3 = ${SharedPref.read(SharedPref.IS_MUST_SHOW_ONBOARD_SCREENS,true)}")
             if(isMustShowOnboardScreen){
                 navigateToOnboardScreens()
             }else {

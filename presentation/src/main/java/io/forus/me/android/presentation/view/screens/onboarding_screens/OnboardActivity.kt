@@ -36,6 +36,7 @@ class OnboardActivity : BaseActivity() {
         setContentView(R.layout.activity_onboard)
 
         backBt.visibility = View.INVISIBLE
+        skipBt.visibility = View.INVISIBLE
 
         pagerAdapter = MyFragmentPagerAdapter(supportFragmentManager)
         pager.adapter = pagerAdapter
@@ -44,8 +45,11 @@ class OnboardActivity : BaseActivity() {
             override fun onPageSelected(position: Int) {
                 if (position == 0) {
                     animateView(backBt, false);
+                    animateView(skipBt, false);
+
                 } else {
                     animateView(backBt, true);
+                    animateView(skipBt, true);
                 }
                 nextBt.text = if (position == PAGE_COUNT - 1) {
                     getString(R.string.onboard_login)
@@ -76,6 +80,10 @@ class OnboardActivity : BaseActivity() {
                 pager.setCurrentItem(newPosition, true)
             }
         }
+
+        skipBt.setOnClickListener {
+            finish()
+        }
     }
 
 
@@ -98,7 +106,7 @@ class OnboardActivity : BaseActivity() {
     }
 
     private fun animateView(view: View, isVisible: Boolean) {
-        backBt.animate()
+        view.animate()
                 .alpha(if (isVisible) {
                     1.0f
                 } else {
@@ -108,7 +116,7 @@ class OnboardActivity : BaseActivity() {
                 .setListener(object : AnimatorListenerAdapter() {
                     override fun onAnimationEnd(animation: Animator?) {
                         super.onAnimationEnd(animation)
-                        backBt.visibility = if (isVisible) {
+                        view.visibility = if (isVisible) {
                             View.VISIBLE
                         } else {
                             View.INVISIBLE
