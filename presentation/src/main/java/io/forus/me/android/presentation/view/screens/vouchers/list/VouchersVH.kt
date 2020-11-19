@@ -22,7 +22,11 @@ class VouchersVH(parent: ViewGroup) : RecyclerView.ViewHolder(parent.inflate(R.l
             organization_name.text = item.organizationName
             value.text = ""
             used.visibility = View.INVISIBLE
-            logo.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_action_icon))
+            if (item.logo != null) {
+                if (item.logo!!.isNotEmpty()) {
+                    logo.setImageUrl(item.logo)
+                }
+            }
         }else{
 
             name.text = item.name
