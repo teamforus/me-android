@@ -90,8 +90,7 @@ class MainActivity : BaseActivity() {
             if(isMustShowOnboardScreen){
                 navigateToOnboardScreens()
             }else {
-                //navigateToLogInsignUpScreen()
-                navigateToOnboardScreens()
+                navigateToLogInsignUpScreen()
             }
         }
     }
