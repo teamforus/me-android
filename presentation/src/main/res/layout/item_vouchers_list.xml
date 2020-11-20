@@ -59,11 +59,11 @@
                 tools:text="€ 456,66" />
 
             <io.forus.me.android.presentation.view.component.text.TextView
-                android:id="@+id/used"
+                android:id="@+id/usedOrExpiredLb"
                 style="@style/UsedVoucher"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
+                android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
                 android:text="@string/voucher_is_used"
                 app:type="regular" />
