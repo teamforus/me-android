@@ -49,15 +49,6 @@ class VouchersVH(parent: ViewGroup) : RecyclerView.ViewHolder(parent.inflate(R.l
                 value.text = "${item.currency?.name} ${item.amount?.toDouble().format(2)}"
             }
 
-
-
-            if (item.expired) {
-                value.text = "Expired"
-            } else {
-
-            }
-
-
         }
 
     }
