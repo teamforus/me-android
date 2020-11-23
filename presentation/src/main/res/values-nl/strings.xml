@@ -271,6 +271,9 @@
     <string name="free">Gratis</string>
     <string name="free_product">Deze actie is gratis, er hoeft niet bijbetaald te worden.</string>
 
+    <!--Voucher map-->
+    <string name="show_map">Bekijk kaart</string>
+
     <!-- Check email -->
     <string name="check_email_has_been_sent_to_you">Er is een e-mail onderweg!</string>
     <string name="check_email_description_part1">Er is een e-mail gestuurd naar</string>

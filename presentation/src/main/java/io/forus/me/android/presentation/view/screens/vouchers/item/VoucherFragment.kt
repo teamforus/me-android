@@ -5,9 +5,6 @@ import android.content.Intent
 import android.graphics.BlurMaskFilter
 import android.net.Uri
 import android.os.Bundle
-import android.support.customtabs.CustomTabsIntent
-import android.support.design.widget.Snackbar
-import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
@@ -26,7 +23,6 @@ import io.forus.me.android.data.executor.JobExecutor
 import io.forus.me.android.domain.interactor.LoadVoucherUseCase
 import io.forus.me.android.domain.interactor.SendEmailUseCase
 import io.forus.me.android.domain.models.qr.QrCode
-import io.forus.me.android.presentation.BuildConfig
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.UIThread
 import io.forus.me.android.presentation.helpers.format
@@ -38,14 +34,11 @@ import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.forus.me.android.presentation.view.screens.dashboard.DashboardActivity
 import io.forus.me.android.presentation.view.screens.vouchers.dialogs.FullscreenDialog
-import io.forus.me.android.presentation.view.screens.vouchers.item.dialogs.SendVoucherSuccessDialog
 import io.forus.me.android.presentation.view.screens.vouchers.item.transactions.TransactionsAdapter
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_voucher.*
 import kotlinx.android.synthetic.main.toolbar_view.*
-import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -253,7 +246,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
                 LoadVoucherUseCase(Injection.instance.vouchersRepository, JobExecutor(), UIThread()),
                 SendEmailUseCase(Injection.instance.vouchersRepository, JobExecutor(), UIThread()),
                 VoucherDataMapper(currencyDataMapper, TransactionDataMapper(currencyDataMapper, OrganizationDataMapper(),
-                ProductDataMapper()), ProductDataMapper()),
+                        ProductDataMapper()), ProductDataMapper(), OfficeDataMapper()),
                 address,
                 voucher,
                 Injection.instance.accountRepository
@@ -267,11 +260,16 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
         Log.d("forus", "render")
 
 
+
+
         name.text = vs.model.item?.name
         type.text = vs.model.item?.organizationName
         value.text = "${vs.model.item?.currency?.name} ${vs.model.item?.amount?.toDouble().format(2)}"
 
         vs.model.item?.let { voucher ->
+
+
+
 
 
             Log.d("forus", "vs.model.item")
@@ -299,6 +297,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
                     shopkeeper_title.text = organization.name
                     shopkeeper_address.text = organization.address
                     shopkeeper_email.text = organization.email
+                    shopkeeper_email.visibility = if((organization.email?:"").isNotEmpty()) View.VISIBLE else View.GONE
 
                     Glide.with(this)
                             .load(organization.logo)
@@ -310,6 +309,13 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
                     val latLng = LatLng(organization?.lat ?: 0.0, organization?.lon ?: 0.0)
                     organizationLatLng = latLng
                     setMarker(latLng)
+                }
+
+                val officesList =  voucher.offices
+                if(officesList.isNotEmpty()){
+                    val officesAdapter = OfficesAdapter(officesList, context!!)
+                    viewPager.adapter = officesAdapter
+                    viewPager.setPadding(16, 20, 130, 20)
                 }
             }
 

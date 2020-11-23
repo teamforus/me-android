@@ -24,6 +24,10 @@
 
     <color name="dividerBackground">#D8D8D8</color>
 
+    <color name="cardMapBackground">#F1F1F1</color>
+    <color name="cardMapTextColor">#DE000000
+    </color>
+
     <color name="switchBackground">#F8F8F8</color>
 
 

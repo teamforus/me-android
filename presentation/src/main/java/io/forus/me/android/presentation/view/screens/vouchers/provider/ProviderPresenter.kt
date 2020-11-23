@@ -24,6 +24,8 @@ class ProviderPresenter constructor(private val vouchersRepository: VouchersRepo
 
         if (isDemoVoucher != null && isDemoVoucher) {
 
+            val officesList = mutableListOf<Office>()
+
             return return Single.fromObservable(vouchersRepository.getTestVoucherAsProvider().map {
                 VoucherProvider(Voucher(it.voucher?.isProduct ?: false, it.voucher?.isUsed
                         ?: false, it.voucher.address, it.voucher.name, it.voucher.organizationName,
@@ -44,7 +46,7 @@ class ProviderPresenter constructor(private val vouchersRepository: VouchersRepo
                                     transaction?.amount ?: 0f.toBigDecimal(),
                                     transaction.createdAt,
                                     Transaction.Type.valueOf(transaction.type.name), null)
-                        },  null, it.voucher.expired ?: false,""),
+                        },  null, it.voucher.expired ?: false,"", officesList),
 
                         it.allowedOrganizations.map { organization ->
                             Organization(organization.id,
@@ -65,7 +67,18 @@ class ProviderPresenter constructor(private val vouchersRepository: VouchersRepo
         } else {
             return Single.fromObservable(vouchersRepository.getVoucherAsProvider(address).map {
 
+                val officesList = mutableListOf<Office>()
+                val officesMapped = it.voucher.offices.map {
+                    val organization = Organization(it.organization?.id ?: 0,
+                            it.organization?.name ?: "", it.organization?.logo ?: "",
+                            it.organization?.lat ?: 0.0, it.organization?.lon ?: 0.0,
+                            it.organization?.address ?: "",
+                            it.organization?.phone ?: "",
+                            it.organization?.email ?: "")
 
+                    officesList.add(Office(it.id,it.organizationId,it.address,it.phone,it.lat,it.lon,it.photo,organization))
+
+                }
 
 
 
@@ -103,7 +116,7 @@ class ProviderPresenter constructor(private val vouchersRepository: VouchersRepo
                                     transaction?.amount ?: 0f.toBigDecimal(),
                                     transaction.createdAt,
                                     Transaction.Type.valueOf(transaction.type.name), product)
-                        }, null, it.voucher.expired ?: false,""),
+                        }, null, it.voucher.expired ?: false,"", officesList),
 
                         it.allowedOrganizations.map { organization ->
                             Organization(organization.id,

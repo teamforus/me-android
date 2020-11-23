@@ -65,9 +65,22 @@ class VouchersPresenter constructor(val vouchersRepository: VouchersRepository) 
                                     domainProduct.organization!!.address, domainProduct.organization!!.phone, domainProduct.organization!!.email)}else{null})
                 }
 
+                val officesList = mutableListOf<Office>()
+                val officesMapped = offices.map {
+                    val organization = Organization(it.organization?.id ?: 0,
+                            it.organization?.name ?: "", it.organization?.logo ?: "",
+                            it.organization?.lat ?: 0.0, it.organization?.lon ?: 0.0,
+                            it.organization?.address ?: "",
+                            it.organization?.phone ?: "",
+                            it.organization?.email ?: "")
+
+                    officesList.add(Office(it.id,it.organizationId,it.address,it.phone,it.lat,it.lon,it.photo,organization))
+
+                }
+
                 Voucher(isProduct ?: false, isUsed ?: false, address, name, organizationName,
                         fundName, fundType,fundWebShopUrl, description, createdAt, Currency(currency?.name, currency?.logoUrl), amount, logo,
-                        transactionsMapped, product, expired ?: false, expireDate
+                        transactionsMapped, product, expired ?: false, expireDate , officesList
                         )
             }
         }
