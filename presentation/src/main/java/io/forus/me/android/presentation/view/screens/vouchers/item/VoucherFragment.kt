@@ -36,6 +36,7 @@ import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.forus.me.android.presentation.view.screens.dashboard.DashboardActivity
 import io.forus.me.android.presentation.view.screens.vouchers.dialogs.FullscreenDialog
+import io.forus.me.android.presentation.view.screens.vouchers.item.offices_adapter.OfficesAdapter
 import io.forus.me.android.presentation.view.screens.vouchers.item.transactions.TransactionsAdapter
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
@@ -151,7 +152,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
 
             Log.d("forus", "info_button_setOnClickListener")
             canShowInfo = true
-            shortToken.onNext("");
+            shortToken.onNext("")
 
 
         }
@@ -306,7 +307,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
 
                     shopkeeper_phone.text = organization.phone
 
-                    val latLng = LatLng(organization?.lat ?: 0.0, organization?.lon ?: 0.0)
+                    val latLng = LatLng(organization.lat ?: 0.0, organization.lon ?: 0.0)
                     organizationLatLng = latLng
                     setMarker(latLng)
                 }
@@ -316,18 +317,25 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
                 val officesList = voucher.offices
                 val myOffices = mutableListOf<Office>()
                 myOffices.addAll(officesList)
-                myOffices.add(Office(654,456,"My addr","123",51.8108991,6.8482727,"",null, mutableListOf()))
+                myOffices.add(Office(654, 456, "Fake test address", "123", 51.8108991, 6.8482727, "", null, mutableListOf()))
                 if (myOffices.isNotEmpty()) {
                     val officesAdapter = OfficesAdapter(myOffices, context!!)
+                    officesAdapter.showMapCallback =  object : OfficesAdapter.ShowMapCallback{
+                        override fun showMap(office: Office){
+                            if(office.lat != null && office.lon != null) {
+                                showGoogleMaps(office.lat!!, office.lon!!)
+                            }
+                        }
+                    }
                     val officesCnt = myOffices.size
-                    branchesTV.text = getResources().getQuantityString(R.plurals.branches, officesCnt, officesCnt)
+                    branchesTV.text = resources.getQuantityString(R.plurals.branches, officesCnt, officesCnt)
 
                     viewPager.adapter = officesAdapter
                     viewPager.setPadding(16, 20, 130, 20)
                     viewPager.setOnPageChangeListener(object : ViewPager.OnPageChangeListener {
                         override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
                             val office = if (position >= 0 && position < myOffices.size) myOffices[position] else myOffices[0]
-                            Log.d("forus","Select office: ${office.address} Lat=${office.lat} Lon=${office.lon}")
+                            Log.d("forus", "Select office: ${office.address} Lat=${office.lat} Lon=${office.lon}")
                             val latLng = LatLng(office.lat ?: 0.0, office.lon ?: 0.0)
                             organizationLatLng = latLng
                             setMarker(latLng)
@@ -336,6 +344,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
                         override fun onPageSelected(position: Int) {}
                         override fun onPageScrollStateChanged(state: Int) {}
                     })
+
 
                 }else{
                     branchesTV.visibility = View.GONE
@@ -359,8 +368,8 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
                 if (voucher.expireDate?.isNotEmpty()!!) {
 
                     tv_voucher_expired.text = if (voucher.expired) String.format(resources.getString(R.string.voucher_qr_code_expired),
-                            voucher?.expireDate) else String.format(resources.getString(R.string.voucher_qr_code_actual),
-                            voucher?.expireDate)
+                            voucher.expireDate) else String.format(resources.getString(R.string.voucher_qr_code_actual),
+                            voucher.expireDate)
                 }
                 // shopkeeper_call
             } else {
@@ -413,12 +422,22 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
     }
 
 
+    private fun showGoogleMaps(lat: Double, lon: Double){
+        val gmmIntentUri = Uri.parse("geo:${lat.toString()},${lon.toString()}")
+        val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+        mapIntent.setPackage("com.google.android.apps.maps")
+        if (mapIntent.resolveActivity(context!!.packageManager) != null) {
+            startActivity(mapIntent)
+        }
+    }
+
+
     private fun openVoucherInfo(url: String) {
 
 
-        val i = Intent(Intent.ACTION_VIEW);
-        i.setData(Uri.parse(url));
-        startActivity(i);
+        val i = Intent(Intent.ACTION_VIEW)
+        i.data = Uri.parse(url)
+        startActivity(i)
     }
 
 

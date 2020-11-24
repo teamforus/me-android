@@ -1,9 +1,7 @@
-package io.forus.me.android.presentation.view.screens.vouchers.item
+package io.forus.me.android.presentation.view.screens.vouchers.item.offices_adapter
 
 import android.content.Context
-import android.content.res.Resources
 import android.support.v4.view.PagerAdapter
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +9,6 @@ import android.widget.TextView
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.models.vouchers.Office
 import io.forus.me.android.presentation.models.vouchers.Schedule
-import java.util.*
 
 class OfficesAdapter(private val items: List<Office>, private val context: Context) : PagerAdapter() {
     private var layoutInflater: LayoutInflater? = null
@@ -23,6 +20,8 @@ class OfficesAdapter(private val items: List<Office>, private val context: Conte
         return view == obj
     }
 
+    var showMapCallback : ShowMapCallback? = null
+
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         layoutInflater = LayoutInflater.from(context)
         val view = layoutInflater!!.inflate(R.layout.item_office, container, false)
@@ -32,7 +31,15 @@ class OfficesAdapter(private val items: List<Office>, private val context: Conte
         val timeTV: TextView = view.findViewById(R.id.timeTV)
 
 
+
         val office = items[position]
+
+        showMapTV.setOnClickListener {
+            if(showMapCallback != null){
+                showMapCallback!!.showMap(office)
+            }
+        }
+
 
         addressTV.text = office.address
         phoneTV.text = office.phone
@@ -93,63 +100,9 @@ class OfficesAdapter(private val items: List<Office>, private val context: Conte
     }
 
 
-    class DaysGroup {
 
-        val group = mutableListOf<Schedule>()
 
-        fun addSchedule(schedule: Schedule) {
-            group.add(schedule)
-        }
-
-        fun isDayCompatibleInGroup(schedule: Schedule): Boolean {
-
-            if (group.isNotEmpty()) {
-                if (group[0].startTime == schedule.startTime && group[0].endTime == schedule.endTime) {
-                    group.add(schedule)
-                    return true
-                } else {
-                    return false
-                }
-            } else {
-                return true
-            }
-        }
-
-        fun scheduleText(ctx: Context): String {
-            return when {
-                group.isEmpty() -> {
-                    ""
-                }
-                group.size == 1 -> {
-                    val day = group.first()
-                    getDayOfWeekName(ctx, day.weekDay.toInt()) + ": " + day.startTime + " - " + day.endTime
-                }
-                else -> {
-                    val firstDay = group.first()
-                    val lastDay = group.last()
-                    (getDayOfWeekName(ctx, firstDay.weekDay.toInt()) + " - " + getDayOfWeekName(ctx, lastDay.weekDay.toInt()) + ": "
-                            + firstDay.startTime + " - " + firstDay.endTime)
-                }
-            }
-        }
-
-        fun isEmptyGroup():Boolean{
-            return group.isEmpty()
-        }
-
-        fun getDayOfWeekName(context: Context, day: Int): String {
-
-            when (day) {
-                0 -> return context.getString(R.string.monday)
-                1 -> return context.getString(R.string.tuesday)
-                2 -> return context.getString(R.string.wednesday)
-                3 -> return context.getString(R.string.thursday)
-                4 -> return context.getString(R.string.friday)
-                5 -> return context.getString(R.string.saturday)
-                6 -> return context.getString(R.string.sunday)
-                else -> return ""
-            }
-        }
-
+    public interface ShowMapCallback{
+        fun showMap(office: Office)
     }
 }

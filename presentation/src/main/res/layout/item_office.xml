@@ -59,6 +59,9 @@
                 android:text="@string/show_map"
                 android:textSize="12sp"
                 android:textColor="@color/colorAccent"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 />
 
         </RelativeLayout>
