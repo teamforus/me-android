@@ -126,6 +126,7 @@
             android:textColor="@color/cardMapTextColor"
             android:maxLines="3"
             android:ellipsize="end"
+            android:lineSpacingExtra="4sp"
             tools:text="Mandaag – Vrijdag: 08:00 – 16 uur Zaterdag: 12:00 – 20:59"
             />
 

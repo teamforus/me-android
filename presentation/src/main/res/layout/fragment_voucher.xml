@@ -353,7 +353,7 @@
                                 android:gravity="top"
                                 android:textSize="17.07sp"
                                 android:textColor="@color/cardMapTextColor"
-                                android:text="2 Branches"/>
+                                tools:text="2 Branches"/>
 
                             <android.support.v4.view.ViewPager
                                 android:id="@+id/viewPager"
@@ -376,7 +376,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="7dp"
-                        android:descendantFocusability="blocksDescendants" />
+                        android:descendantFocusability="blocksDescendants"
+                        />
 
 
                 </LinearLayout>

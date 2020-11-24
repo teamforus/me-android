@@ -69,6 +69,14 @@ class ProviderPresenter constructor(private val vouchersRepository: VouchersRepo
 
                 val officesList = mutableListOf<Office>()
                 val officesMapped = it.voucher.offices.map {
+
+                    val schedulers = mutableListOf<io.forus.me.android.presentation.models.vouchers.Schedule>()
+                    if(it.schedulers != null){
+                        it.schedulers!!.map {
+                            schedulers.add(io.forus.me.android.presentation.models.vouchers.Schedule(it.id,it.officeId ?:-1L,it.weekDay?:0,it.startTime,it.endTime))
+                        }
+                    }
+
                     val organization = Organization(it.organization?.id ?: 0,
                             it.organization?.name ?: "", it.organization?.logo ?: "",
                             it.organization?.lat ?: 0.0, it.organization?.lon ?: 0.0,
@@ -76,7 +84,7 @@ class ProviderPresenter constructor(private val vouchersRepository: VouchersRepo
                             it.organization?.phone ?: "",
                             it.organization?.email ?: "")
 
-                    officesList.add(Office(it.id,it.organizationId,it.address,it.phone,it.lat,it.lon,it.photo,organization))
+                    officesList.add(Office(it.id,it.organizationId,it.address,it.phone,it.lat,it.lon,it.photo,organization,schedulers))
 
                 }
 

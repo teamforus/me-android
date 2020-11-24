@@ -7,4 +7,5 @@ class Office(var id: Long,
              var lat: Double?,
              var lon: Double?,
              var photo: String?,
-             var organization: Organization?)
+             var organization: Organization?,
+             var schedulers: List<Schedule>?)

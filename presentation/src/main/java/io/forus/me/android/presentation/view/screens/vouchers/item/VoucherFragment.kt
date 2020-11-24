@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.BlurMaskFilter
 import android.net.Uri
 import android.os.Bundle
+import android.support.v4.view.ViewPager
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
@@ -29,6 +30,7 @@ import io.forus.me.android.presentation.helpers.format
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.mappers.*
 import io.forus.me.android.presentation.models.vouchers.FundType
+import io.forus.me.android.presentation.models.vouchers.Office
 import io.forus.me.android.presentation.models.vouchers.Voucher
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
@@ -246,7 +248,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
                 LoadVoucherUseCase(Injection.instance.vouchersRepository, JobExecutor(), UIThread()),
                 SendEmailUseCase(Injection.instance.vouchersRepository, JobExecutor(), UIThread()),
                 VoucherDataMapper(currencyDataMapper, TransactionDataMapper(currencyDataMapper, OrganizationDataMapper(),
-                        ProductDataMapper()), ProductDataMapper(), OfficeDataMapper()),
+                        ProductDataMapper()), ProductDataMapper(), OfficeDataMapper(SchedulerDataMapper())),
                 address,
                 voucher,
                 Injection.instance.accountRepository
@@ -269,12 +271,9 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
         vs.model.item?.let { voucher ->
 
 
-
-
-
             Log.d("forus", "vs.model.item")
             setToolbarTitle(resources.getString(if (voucher.isProduct) R.string.vouchers_item_product else R.string.vouchers_item))
-            if(voucher.fundType == FundType.subsidies.name){
+            if (voucher.fundType == FundType.subsidies.name) {
                 adapter.isActionsVoucher = true
             }
             adapter.transactions = voucher.transactions
@@ -297,7 +296,8 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
                     shopkeeper_title.text = organization.name
                     shopkeeper_address.text = organization.address
                     shopkeeper_email.text = organization.email
-                    shopkeeper_email.visibility = if((organization.email?:"").isNotEmpty()) View.VISIBLE else View.GONE
+                    shopkeeper_email.visibility = if ((organization.email
+                                    ?: "").isNotEmpty()) View.VISIBLE else View.GONE
 
                     Glide.with(this)
                             .load(organization.logo)
@@ -311,13 +311,38 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
                     setMarker(latLng)
                 }
 
-                val officesList =  voucher.offices
-                if(officesList.isNotEmpty()){
-                    val officesAdapter = OfficesAdapter(officesList, context!!)
+
+
+                val officesList = voucher.offices
+                val myOffices = mutableListOf<Office>()
+                myOffices.addAll(officesList)
+                myOffices.add(Office(654,456,"My addr","123",51.8108991,6.8482727,"",null, mutableListOf()))
+                if (myOffices.isNotEmpty()) {
+                    val officesAdapter = OfficesAdapter(myOffices, context!!)
+                    val officesCnt = myOffices.size
+                    branchesTV.text = getResources().getQuantityString(R.plurals.branches, officesCnt, officesCnt)
+
                     viewPager.adapter = officesAdapter
                     viewPager.setPadding(16, 20, 130, 20)
+                    viewPager.setOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+                        override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+                            val office = if (position >= 0 && position < myOffices.size) myOffices[position] else myOffices[0]
+                            Log.d("forus","Select office: ${office.address} Lat=${office.lat} Lon=${office.lon}")
+                            val latLng = LatLng(office.lat ?: 0.0, office.lon ?: 0.0)
+                            organizationLatLng = latLng
+                            setMarker(latLng)
+                        }
+
+                        override fun onPageSelected(position: Int) {}
+                        override fun onPageScrollStateChanged(state: Int) {}
+                    })
+
+                }else{
+                    branchesTV.visibility = View.GONE
                 }
             }
+
+
 
             if (voucher.expired) {
                 //val isExpired = isVoucherExpired(voucher.expireDate!!)
@@ -342,7 +367,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
                 tv_voucher_expired.visibility = View.GONE
             }
 
-            if(voucher.fundType == FundType.subsidies.name) {
+            if (voucher.fundType == FundType.subsidies.name) {
                 info_button.visibility = View.INVISIBLE
 
 
@@ -443,7 +468,9 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
         map?.addMarker(marker)
                 ?.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.shop_location))
 
-        map?.moveCamera(CameraUpdateFactory.newLatLng(address))
+
+            map?.moveCamera(CameraUpdateFactory.newLatLng(address))
+
     }
 
     private fun emailToShopkeeper(email: String) {

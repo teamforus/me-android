@@ -11,7 +11,8 @@ class Office(var id: Long = -1L,
              var lat: Double? = 0.0,
              var lon: Double? = 0.0,
              var photo: String? = "",
-             var organization: Organization?) : Parcelable {
+             var organization: Organization?,
+             var schedulers: List<Schedule>) : Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readLong(),
             parcel.readLong(),
@@ -20,8 +21,8 @@ class Office(var id: Long = -1L,
             parcel.readDouble(),
             parcel.readDouble(),
             parcel.readString(),
-            parcel.readParcelable(Organization::class.java.classLoader)?: Organization()
-    ) {
+            parcel.readParcelable(Organization::class.java.classLoader) ?: Organization(),
+            parcel.createTypedArrayList(Schedule)) {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -30,9 +31,10 @@ class Office(var id: Long = -1L,
         parcel.writeString(address)
         parcel.writeString(phone)
         parcel.writeDouble(lat ?: 0.0)
-        parcel.writeDouble(lon  ?: 0.0)
+        parcel.writeDouble(lon ?: 0.0)
         parcel.writeString(photo)
         parcel.writeParcelable(organization, flags)
+        parcel.writeTypedList(schedulers)
     }
 
     override fun describeContents(): Int {

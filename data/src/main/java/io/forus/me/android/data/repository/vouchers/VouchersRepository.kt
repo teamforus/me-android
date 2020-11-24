@@ -142,14 +142,24 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
 
 
 
+
         val offices = mutableListOf<io.forus.me.android.domain.models.vouchers.Office>()
         if (voucher.offices != null) {
             voucher.offices.map {
+
+                val schedulers = mutableListOf<Schedule>()
+                if(it.schedule != null){
+                    it.schedule.map {
+                        schedulers.add(Schedule(it.id,it.officeId,it.weekDay,it.startTime,it.endTime))
+                    }
+                }
+
                 var organization = Organization(it.organization.id,
                         it.organization.name, organizationLogoUrl, it.organization.lat,
                         it.organization.lon, it.organization.identityAddress ?: "",
                         it.organization.phone ?: "", it.organization.email ?: "")
-                offices.add(Office(it.id,it.organizationId,it.address,it.phone,it.lat,it.lon,it.phone,organization))
+                offices.add(Office(it.id,it.organizationId,it.address,it.phone,it.lat,it.lon,it.phone,organization,schedulers
+                ))
             }
         }
 
