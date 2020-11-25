@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -150,7 +149,6 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
 
         info_button.setOnClickListener {
 
-            Log.d("forus", "info_button_setOnClickListener")
             canShowInfo = true
             shortToken.onNext("")
 
@@ -260,9 +258,6 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
     override fun render(vs: LRViewState<VoucherModel>) {
         super.render(vs)
 
-        Log.d("forus", "render")
-
-
 
 
         name.text = vs.model.item?.name
@@ -272,7 +267,6 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
         vs.model.item?.let { voucher ->
 
 
-            Log.d("forus", "vs.model.item")
             setToolbarTitle(resources.getString(if (voucher.isProduct) R.string.vouchers_item_product else R.string.vouchers_item))
             if (voucher.fundType == FundType.subsidies.name) {
                 adapter.isActionsVoucher = true
@@ -317,7 +311,6 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
                 val officesList = voucher.offices
                 val myOffices = mutableListOf<Office>()
                 myOffices.addAll(officesList)
-                myOffices.add(Office(654, 456, "Fake test address", "123", 51.8108991, 6.8482727, "", null, mutableListOf()))
                 if (myOffices.isNotEmpty()) {
                     val officesAdapter = OfficesAdapter(myOffices, context!!)
                     officesAdapter.showMapCallback =  object : OfficesAdapter.ShowMapCallback{
@@ -335,7 +328,6 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
                     viewPager.setOnPageChangeListener(object : ViewPager.OnPageChangeListener {
                         override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
                             val office = if (position >= 0 && position < myOffices.size) myOffices[position] else myOffices[0]
-                            Log.d("forus", "Select office: ${office.address} Lat=${office.lat} Lon=${office.lon}")
                             val latLng = LatLng(office.lat ?: 0.0, office.lon ?: 0.0)
                             organizationLatLng = latLng
                             setMarker(latLng)
@@ -354,8 +346,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
 
 
             if (voucher.expired) {
-                //val isExpired = isVoucherExpired(voucher.expireDate!!)
-                //Log.d("forus", "Is_voucher_expired? $isExpired")
+
 
                 info_button.visibility = View.INVISIBLE
 
