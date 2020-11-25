@@ -2,6 +2,7 @@ package io.forus.me.android.presentation.view.screens.vouchers.item.offices_adap
 
 import android.content.Context
 import android.support.v4.view.PagerAdapter
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,7 +45,7 @@ class OfficesAdapter(private val items: List<Office>, private val context: Conte
         addressTV.text = office.address
         phoneTV.text = office.phone
 
-        val groupSchedulers = groupSchedulers(office.schedulers)
+        val groupSchedulers = groupSchedulers2(office.schedulers)
         var schedulersText = ""
 
 
@@ -61,7 +62,37 @@ class OfficesAdapter(private val items: List<Office>, private val context: Conte
         return view
     }
 
+    //Group by schedule time only any days
+    fun groupSchedulers2(schedulers: List<Schedule>): List<DaysGroup> {
+        val groups = mutableListOf<DaysGroup>()
 
+        for (i in 0 until (schedulers.size)) {
+            val gr = schedulers[i]
+
+            if(gr.startTime.isNullOrEmpty() || gr.endTime.isNullOrEmpty()) {
+
+            }else{
+
+                var searchCompatibleGroup = false
+
+                for(group in groups){
+                    if (group.isDayCompatibleInGroup(gr)) {
+                        group.addSchedule(gr)
+                        searchCompatibleGroup = true
+                    }
+                }
+                if(!searchCompatibleGroup) {
+                    val group = DaysGroup()
+                     groups.add(group)
+                    group.addSchedule(gr)
+                }
+            }
+        }
+
+        return groups
+    }
+
+    //Group by schedule time only neighbor days
     fun groupSchedulers(schedulers: List<Schedule>): List<DaysGroup> {
         val groups = mutableListOf<DaysGroup>()
         var group = DaysGroup()

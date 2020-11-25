@@ -18,9 +18,20 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
 
     val dateLocaleFormat = SimpleDateFormat("MMM dd, yyyy HH:mm", Locale.US)
 
+
+    private fun voucherIsUsed(voucher: io.forus.me.android.data.entity.vouchers.response.Voucher): Boolean{
+        return if(voucher.isUsed != null){
+            voucher.isUsed
+        }else{
+            val isProduct = voucher.type == io.forus.me.android.data.entity.vouchers.response.Voucher.Type.product
+            isProduct && voucher.transactions != null && voucher.transactions.isNotEmpty()
+        }
+    }
+
     private fun mapToSimple(voucher: io.forus.me.android.data.entity.vouchers.response.Voucher): Voucher {
         val isProduct = voucher.type == io.forus.me.android.data.entity.vouchers.response.Voucher.Type.product
-        val isUsed = isProduct && voucher.transactions != null && voucher.transactions.isNotEmpty()
+        //val isUsed = isProduct && voucher.transactions != null && voucher.transactions.isNotEmpty()
+        val isUsed = voucherIsUsed(voucher)
 
         val name = if (isProduct) voucher.product.name else voucher.fund.name
         val organizationName = if (isProduct) voucher.product.organization.name else voucher.fund.organization.name
