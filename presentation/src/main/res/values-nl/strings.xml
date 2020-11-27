@@ -177,6 +177,28 @@
     <string name="status_success">Succes</string>
     <string name="status_pending">In afwachting</string>
 
+    <!-- Privacy & security -->
+    <string name="privacy_and_security">Privacy and security</string>
+    <string name="privacy">Privacy</string>
+    <string name="privacy_text1">Manage your personal properties and share easily the information needed to qualify for a subsidy.</string>
+    <string name="privacy_title2">The source of information</string>
+    <string name="privacy_text2">The information has been added by an organisation where you have applied for a subsidy, or by an organisation that supports it. For example, By Your congregation.
+</string>
+    <string name="privacy_title3">Storing data</string>
+    <string name="privacy_text3"></string>
+    <string name="privacy_title4">Storing data</string>
+    <string name="privacy_text4"></string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="privacy_title5">Storing data</string>
+    <string name="privacy_text5"></string>
+    <string name="privacy_request_your_data_by_email">Request your data by email</string>
+    <string name="privacy_request_delete_your_data">Request to delete your data</string>
+    <string name="privacy_text6">If you want to claim your rights or you have general questions or feedback please do reach our support</string>
+    <string name="privacy_send_email_to_support_forus">Privileges</string>
+    <string name="privacy_text7">Read all about your privacy rights with the Dutch Data Protection Authority</string>
+    <string name="privacy_data_protection_authority">Data protection authority</string>
+    <string name="privacy_send_email_to">Send a email to </string>
+
 
     <!-- Wallet details screen -->
     <string name="wallet_title_info">Eigendom informatie</string>
