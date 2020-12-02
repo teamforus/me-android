@@ -43,10 +43,10 @@
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="0dp"
                         android:layout_marginEnd="20dp"
-                        android:fontFamily="sans-serif-medium"
                         android:gravity="center_horizontal|top"
                         android:text="@string/send_report_head"
                         android:textColor="@color/textColor"
+                        android:fontFamily="@font/google_sans_medium"
                         android:textSize="32sp" />
 
 
@@ -60,6 +60,7 @@
                         android:gravity="center_horizontal|top"
                         android:text="@string/send_report_description"
                         android:textColor="@color/textColor"
+                        android:fontFamily="@font/google_sans_regular"
                         android:textSize="16sp" />
 
                 </LinearLayout>
@@ -107,8 +108,8 @@
                     android:layout_height="56dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
-                    android:fontFamily="sans-serif-medium"
                     android:text="@string/profile_send_crash_report"
+                    android:fontFamily="@font/google_sans_medium"
                     android:textSize="16sp">
 
                 </android.support.v7.widget.SwitchCompat>

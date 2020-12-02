@@ -305,7 +305,7 @@
                                     android:visibility="visible"
                                     android:textSize="24sp"
                                     android:textColor="@color/body_1"
-                                    android:fontFamily="sans-serif-medium"
+                                    android:fontFamily="@font/google_sans_medium"
                                     android:layout_marginLeft="16dp"
                                     android:layout_marginRight="16dp"
                                     tools:text="Vandaag" />
@@ -322,6 +322,7 @@
                                     android:letterSpacing="0.01"
                                     android:layout_marginLeft="16dp"
                                     android:layout_marginRight="16dp"
+                                    android:fontFamily="@font/google_sans_regular"
                                     tools:text="@string/choose_an_action_descr" />
 
                                 <TextView
@@ -332,7 +333,7 @@
                                     android:visibility="visible"
                                     android:textSize="16sp"
                                     android:textColor="#292F3A"
-                                    android:fontFamily="sans-serif-medium"
+                                    android:fontFamily="@font/google_sans_medium"
                                     android:layout_marginLeft="16dp"
                                     android:layout_marginRight="16dp"
                                      />
@@ -365,7 +366,7 @@
                                 android:visibility="@{model.productsListIsEmpty.booleanValue() ? View.VISIBLE : View.GONE}"
                                 android:textSize="20sp"
                                 android:textColor="@color/body_1"
-                                android:fontFamily="sans-serif-medium"
+                                android:fontFamily="@font/google_sans_medium"
                                 android:layout_marginLeft="16dp"
                                 android:layout_marginRight="16dp"
                                 tools:text="@string/empty_actions_list"
