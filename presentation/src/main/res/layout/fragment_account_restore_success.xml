@@ -40,9 +40,9 @@
                         android:layout_marginStart="30dp"
                         android:layout_marginTop="0dp"
                         android:layout_marginEnd="30dp"
-                        android:fontFamily="sans-serif-medium"
                         android:gravity="center_horizontal|top"
                         android:text="@string/restore_account_head"
+                        android:fontFamily="@font/google_sans_medium"
                         android:textColor="@color/textColor"
                         android:textSize="32sp" />
 

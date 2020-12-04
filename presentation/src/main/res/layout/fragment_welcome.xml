@@ -31,6 +31,7 @@
             android:text="@string/welcome_greeting"
             android:textSize="36sp"
             android:textColor="#de000000"
+            android:fontFamily="@font/google_sans_regular"
             app:type="bold" />
 
         <io.forus.me.android.presentation.view.component.text.TextView

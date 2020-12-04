@@ -26,6 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
+                android:fontFamily="@font/google_sans_regular"
                 app:navigationIcon="@drawable/ic_close_black_24dp" />
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
@@ -50,6 +51,7 @@
                 android:lineSpacingExtra="6sp"
                 android:text="@string/profile_about_me_text"
                 android:textColor="@color/body_1_87"
+                android:fontFamily="@font/google_sans_regular"
                 android:textSize="15sp" />
 
             <LinearLayout
@@ -75,6 +77,7 @@
                         android:lineSpacingExtra="5sp"
                         android:text="@string/app_name"
                         android:textColor="#1e2024"
+                        android:fontFamily="@font/google_sans_regular"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -83,6 +86,7 @@
                         android:layout_height="wrap_content"
                         android:lineSpacingExtra="4sp"
                         android:text="Forus, 2018-2020"
+                        android:fontFamily="@font/google_sans_regular"
                         android:textColor="#6e7072"
                         android:textSize="14sp" />
                 </LinearLayout>
