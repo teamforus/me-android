@@ -279,6 +279,27 @@
     <string name="free_product">This product is free, no additional payment is required.</string>
 
 
+    <!--Voucher map-->
+    <string name="show_map">Show Map</string>
+
+    <plurals name="branches">
+        <item quantity="one">%1$d branch</item>
+        <item quantity="two">%1$d branches</item>
+        <item quantity="few">%1$d branches</item>
+        <item quantity="many">%1$d branches</item>
+        <item quantity="other">%1$d branches</item>
+    </plurals>
+
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
+
+
+
     <!-- Check email -->
     <string name="check_email_has_been_sent_to_you">Check your email</string>
     <string name="check_email_description_part1">Klik op de link in de email die u heeft ontvangen op</string>

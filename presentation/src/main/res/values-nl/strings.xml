@@ -271,6 +271,23 @@
     <string name="free">Gratis</string>
     <string name="free_product">Deze actie is gratis, er hoeft niet bijbetaald te worden.</string>
 
+    <!--Voucher map-->
+    <string name="show_map">Bekijk kaart</string>
+
+    <plurals name="branches">
+        <item quantity="one">%1$d vestiging</item>
+        <item quantity="many">%1$d vestigingen</item>
+        <item quantity="other">%1$d vestigingen</item>
+    </plurals>
+
+    <string name="monday">Maandag</string>
+    <string name="tuesday">Dinsdag</string>
+    <string name="wednesday">Woensdag</string>
+    <string name="thursday">Donderdag</string>
+    <string name="friday">Vrijdag</string>
+    <string name="saturday">Zaterdag</string>
+    <string name="sunday">Zondag</string>
+
     <!-- Check email -->
     <string name="check_email_has_been_sent_to_you">Er is een e-mail onderweg!</string>
     <string name="check_email_description_part1">Er is een e-mail gestuurd naar</string>

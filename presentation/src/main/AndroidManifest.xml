@@ -52,7 +52,9 @@
             android:value="fe3a4b53f20261187b2c79dcd278c3ef76e6a7de" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/maps_key" />
+            android:value="fe3a4b53f20261187b2c79dcd278c3ef76e6a7de"
+             />
+        <!--android:value="@string/maps_key"-->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_stat_account_circle" />
