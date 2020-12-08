@@ -21,7 +21,7 @@ class VouchersVH(parent: ViewGroup) : RecyclerView.ViewHolder(parent.inflate(R.l
             name.text = item.name
             organization_name.text = item.organizationName
             value.text = ""
-            used.visibility = View.INVISIBLE
+            usedOrExpiredLb.visibility = View.INVISIBLE
             if (item.logo != null) {
                 if (item.logo!!.isNotEmpty()) {
                     logo.setImageUrl(item.logo)
@@ -31,10 +31,23 @@ class VouchersVH(parent: ViewGroup) : RecyclerView.ViewHolder(parent.inflate(R.l
 
             name.text = item.name
             organization_name.text = item.organizationName
-            value.text = "${item.currency?.name} ${item.amount?.toDouble().format(2)}"
-            used.visibility = if (item.isProduct && item.isUsed) View.VISIBLE else View.GONE
 
             logo.setImageUrl(item.logo)
+
+            if (item.isProduct && item.isUsed) {
+                value.visibility = View.GONE
+                usedOrExpiredLb.visibility = View.VISIBLE
+                usedOrExpiredLb.text = usedOrExpiredLb.context.getString(R.string.voucher_is_used)
+            } else if (item.expired) {
+                value.visibility = View.GONE
+                usedOrExpiredLb.visibility = View.VISIBLE
+                usedOrExpiredLb.text = usedOrExpiredLb.context.getString(R.string.voucher_expired)
+
+            } else {
+                value.visibility = View.VISIBLE
+                usedOrExpiredLb.visibility = View.GONE
+                value.text = "${item.currency?.name} ${item.amount?.toDouble().format(2)}"
+            }
 
         }
 
