@@ -63,6 +63,7 @@
                             android:layout_height="44dp"
                             android:gravity="center"
                             android:text="@string/tab_records"
+                            android:fontFamily="@font/google_sans_regular"
                             android:textColor="@color/colorAccent" />
 
                         <View
@@ -87,6 +88,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="44dp"
                             android:gravity="center"
+                            android:fontFamily="@font/google_sans_regular"
                             android:text="@string/tab_archives" />
 
                         <View

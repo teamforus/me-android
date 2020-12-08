@@ -71,7 +71,7 @@
             android:lineSpacingExtra="1sp"
             android:layout_gravity="center_horizontal"
             android:text="@string/welcome_set_up_your_identity"
-            app:type="bold"
+            app:type="regular"
             />
 
 
@@ -81,6 +81,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="17dp"
             app:hint="@string/new_account_field_email"
+            android:fontFamily="@font/google_sans_regular"
             app:validationRegex="email"
             app:validationError="@string/me_validation_error_email_is_invalid"
             android:inputType="textEmailAddress"/>
@@ -90,6 +91,7 @@
             android:layout_marginTop="0dp"
             android:text="@string/qr_popup_restore_identity_title"
             android:layout_width="match_parent"
+            android:fontFamily="@font/google_sans_regular"
             android:layout_height="wrap_content" />
 
         <io.forus.me.android.presentation.view.component.text.TextView
@@ -99,6 +101,7 @@
             android:gravity="center"
             android:layout_marginTop="26dp"
             android:text="@string/restore_account_login_other_device"
+            android:fontFamily="@font/google_sans_regular"
             app:type="medium" />
 
 
@@ -107,6 +110,7 @@
             android:layout_marginTop="14dp"
             android:text="@string/restore_account_pair"
             app:reverse="true"
+            android:fontFamily="@font/google_sans_regular"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>

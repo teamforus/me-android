@@ -13,10 +13,10 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="32dp"
         android:layout_marginTop="22dp"
-        android:fontFamily="sans-serif-medium"
         android:text="@string/dialog_record_edit_title"
         app:layout_constraintEnd_toStartOf="@+id/icon"
         app:layout_constraintStart_toStartOf="parent"
+        android:fontFamily="@font/google_sans_medium"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
@@ -62,11 +62,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/title"
             android:textColor="#305dfb"
-            android:fontFamily="sans-serif-medium"
             android:textSize="15sp"
             android:clickable="true"
             android:focusable="true"
             android:background="?attr/selectableItemBackgroundBorderless"
+            android:fontFamily="@font/google_sans_medium"
             />
 
         <TextView
@@ -79,7 +79,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/title"
             android:textColor="#305dfb"
-            android:fontFamily="sans-serif-medium"
+            android:fontFamily="@font/google_sans_medium"
             android:textSize="15sp"
             android:clickable="true"
             android:focusable="true"

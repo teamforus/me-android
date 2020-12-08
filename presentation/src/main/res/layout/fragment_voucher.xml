@@ -262,6 +262,7 @@
                                 android:lineSpacingExtra="5.9sp"
                                 android:text="@string/shopkeeper_address_text"
                                 android:textColor="@color/body1_60"
+                                android:fontFamily="@font/google_sans_regular"
                                 android:textSize="14.1sp" />
 
                             <TextView
@@ -303,6 +304,7 @@
                                         android:lineSpacingExtra="5.9sp"
                                         android:text="@string/shopkeeper_phone_text"
                                         android:textColor="@color/body1_60"
+                                        android:fontFamily="@font/google_sans_regular"
                                         android:textSize="14.1sp" />
 
                                     <TextView
@@ -314,6 +316,7 @@
                                         android:layout_marginEnd="@dimen/activity_horizontal_margin"
                                         android:lineSpacingExtra="7.9sp"
                                         android:textColor="@color/body_1_87"
+                                        android:fontFamily="@font/google_sans_regular"
                                         android:textSize="16.1sp"
                                         tools:text="0615261612" />
                                 </LinearLayout>
@@ -340,6 +343,7 @@
                                 android:lineSpacingExtra="7.9sp"
                                 android:padding="@dimen/activity_horizontal_margin"
                                 android:textColor="#315efd"
+                                android:fontFamily="@font/google_sans_regular"
                                 android:textSize="16.1sp" />
                         </LinearLayout>
                     </android.support.v7.widget.CardView>
