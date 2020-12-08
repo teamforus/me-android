@@ -40,6 +40,7 @@ import io.forus.me.android.presentation.view.screens.vouchers.item.transactions.
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_voucher.*
+import kotlinx.android.synthetic.main.item_vouchers_list.view.*
 import kotlinx.android.synthetic.main.toolbar_view.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -247,7 +248,9 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
                 LoadVoucherUseCase(Injection.instance.vouchersRepository, JobExecutor(), UIThread()),
                 SendEmailUseCase(Injection.instance.vouchersRepository, JobExecutor(), UIThread()),
                 VoucherDataMapper(currencyDataMapper, TransactionDataMapper(currencyDataMapper, OrganizationDataMapper(),
-                        ProductDataMapper()), ProductDataMapper(), OfficeDataMapper(SchedulerDataMapper())),
+
+                 ProductDataMapper()), ProductDataMapper(), OfficeDataMapper(SchedulerDataMapper())),
+
                 address,
                 voucher,
                 Injection.instance.accountRepository
@@ -262,7 +265,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
 
         name.text = vs.model.item?.name
         type.text = vs.model.item?.organizationName
-        value.text = "${vs.model.item?.currency?.name} ${vs.model.item?.amount?.toDouble().format(2)}"
+
 
         vs.model.item?.let { voucher ->
 
@@ -345,31 +348,62 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
 
 
 
+
             if (voucher.expired) {
 
 
-                info_button.visibility = View.INVISIBLE
 
+            if (voucher.isProduct && voucher.isUsed || voucher.expired) {
+
+                info_button.visibility = View.INVISIBLE
                 btn_email.isEnabled = false
-                btn_email.visibility = View.INVISIBLE
+                btn_email.visibility = View.GONE
                 iv_qr_icon.visibility = View.INVISIBLE
                 tv_voucher_expired.visibility = View.VISIBLE
 
+                value.visibility = View.GONE
+                usedOrExpiredLb.visibility = View.VISIBLE
 
-                if (voucher.expireDate?.isNotEmpty()!!) {
+                if (voucher.isProduct && voucher.isUsed) {
+
+                    usedOrExpiredLb.text = usedOrExpiredLb.context.getString(R.string.voucher_is_used)
+                } else if (voucher.expired) {
+
+                    //usedOrExpiredLb.text = usedOrExpiredLb.context.getString(R.string.voucher_expired)
+
+                    if (voucher.expireDate?.isNotEmpty()!!) {
+
+                        usedOrExpiredLb.text = if (voucher.expired) String.format(resources.getString(R.string.voucher_qr_code_expired),
+                                voucher?.expireDate) else String.format(resources.getString(R.string.voucher_qr_code_actual),
+                                voucher?.expireDate)
+
+                        tv_voucher_expired.visibility = View.GONE
+                        // tv_voucher_expired.text = if (voucher.expired) String.format(resources.getString(R.string.voucher_qr_code_expired),
+                        //                            voucher?.expireDate) else String.format(resources.getString(R.string.voucher_qr_code_actual),
+                        //                            voucher?.expireDate)
+                    }
+
 
                     tv_voucher_expired.text = if (voucher.expired) String.format(resources.getString(R.string.voucher_qr_code_expired),
                             voucher.expireDate) else String.format(resources.getString(R.string.voucher_qr_code_actual),
                             voucher.expireDate)
+
                 }
-                // shopkeeper_call
             } else {
                 tv_voucher_expired.visibility = View.GONE
+                value.visibility = View.VISIBLE
+                usedOrExpiredLb.visibility = View.GONE
+                value.text = "${vs.model.item?.currency?.name} ${vs.model.item?.amount?.toDouble().format(2)}"
             }
+
 
             if (voucher.fundType == FundType.subsidies.name) {
                 info_button.visibility = View.INVISIBLE
 
+
+
+            if (voucher.fundType == FundType.subsidies.name) {
+                info_button.visibility = View.INVISIBLE
 
                 iv_qr_icon.visibility = View.VISIBLE
 

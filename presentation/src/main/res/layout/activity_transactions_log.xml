@@ -74,6 +74,7 @@
                         android:layout_marginLeft="16dp"
                         android:gravity="center"
                         android:textAllCaps="true"
+                        android:fontFamily="@font/google_sans_regular"
                         android:text="@string/from" />
 
                     <TextView
@@ -84,7 +85,6 @@
                         android:background="@drawable/shape_text_view_gray"
                         android:clickable="true"
                         android:focusable="true"
-                        android:fontFamily="sans-serif-medium"
                         android:gravity="center"
                         android:paddingLeft="6dp"
                         android:paddingTop="3dp"
@@ -92,6 +92,7 @@
                         android:paddingBottom="3dp"
                         android:text="@{model.calendarStringForDisplay}"
                         android:textColor="@color/brightBackground"
+                        android:fontFamily="@font/google_sans_regular"
                         tools:text="2020-09-01" />
 
 

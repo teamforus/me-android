@@ -12,6 +12,7 @@
         android:textColor="@color/brightBackground"
         android:gravity="center"
         android:padding="3dp"
+        android:fontFamily="@font/google_sans_regular"
         tools:text="Tik hier om een nieuw\n record te maken">
 
     </TextView>

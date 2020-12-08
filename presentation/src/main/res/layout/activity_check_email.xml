@@ -59,10 +59,10 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="0dp"
         android:layout_marginEnd="30dp"
-        android:fontFamily="sans-serif-medium"
         android:gravity="center_horizontal|top"
         android:text="@string/check_your_email"
         android:textColor="@color/textColor"
+        android:fontFamily="@font/google_sans_medium"
         android:textSize="32sp"
         />
 
@@ -76,6 +76,7 @@
         android:gravity="center_horizontal|top"
         android:lineSpacingExtra="0sp"
         android:textColor="@color/textColor"
+        android:fontFamily="@font/google_sans_regular"
         android:textSize="16sp"
         tools:text="Check your email" />
 
@@ -103,6 +104,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
+
             android:elevation="6dp"
             android:text="@string/check_email_open_mail_app" />
 

@@ -88,6 +88,7 @@
                         android:layout_weight="1"
                         android:layout_marginRight="11dp"
                         android:text="@string/wallet_send"
+                        android:fontFamily="@font/google_sans_medium"
                         android:background="#f1f1f1"/>
 
                     <Button
@@ -95,6 +96,7 @@
                         android:layout_height="36dp"
                         android:layout_weight="1"
                         android:layout_marginLeft="11dp"
+                        android:fontFamily="@font/google_sans_medium"
                         android:text="@string/wallet_receive"
                         android:background="#f1f1f1"/>
 
