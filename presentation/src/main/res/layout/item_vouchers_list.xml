@@ -23,27 +23,12 @@
         android:background="?selectableItemBackground">
 
 
-        <io.forus.me.android.presentation.view.component.text.TextView
-            android:id="@+id/name"
-            style="@style/CardTitle4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="80dp"
-            android:layout_marginTop="@dimen/activity_horizontal_margin_small"
-            app:type="medium"
-            tools:text="Kindpakket" />
-
-        <io.forus.me.android.presentation.view.component.text.TextView
-            android:id="@+id/organization_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
-            android:lineSpacingExtra="3sp"
-            android:textColor="@color/slate"
-            android:textSize="12sp"
-            tools:text=" 10 dagen geldig" />
 
 
+
+
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="72dp"
@@ -60,15 +45,46 @@
                 tools:text="Kindpakket" />
 
             <io.forus.me.android.presentation.view.component.text.TextView
-
-                android:id="@+id/usedOrExpiredLb"
-                style="@style/UsedVoucher"
+                android:id="@+id/organization_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:text="@string/voucher_is_used"
-                app:type="regular" />
+                android:layout_marginTop="3dp"
+                android:lineSpacingExtra="3sp"
+                android:textColor="@color/slate"
+                android:textSize="12sp"
+                tools:text="10 dagen geldig" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp">
+
+
+                <io.forus.me.android.presentation.view.component.text.TextView
+
+                    android:id="@+id/usedOrExpiredLb"
+                    style="@style/UsedVoucher"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/voucher_is_used"
+                    app:type="regular" />
+
+                <io.forus.me.android.presentation.view.component.text.TextView
+                    android:id="@+id/value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:lineSpacingExtra="2sp"
+                    android:translationY="-0.78sp"
+                    android:textColor="@color/cardMapTextColor"
+                    android:textSize="16.07sp"
+                    tools:text="10 dagen geldig" />
+
+            </RelativeLayout>
+
+
 
         </LinearLayout>
 

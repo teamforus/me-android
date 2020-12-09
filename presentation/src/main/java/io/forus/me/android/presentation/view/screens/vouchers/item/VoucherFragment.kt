@@ -310,15 +310,14 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
                 }
 
 
-
                 val officesList = voucher.offices
                 val myOffices = mutableListOf<Office>()
                 myOffices.addAll(officesList)
                 if (myOffices.isNotEmpty()) {
                     val officesAdapter = OfficesAdapter(myOffices, context!!)
-                    officesAdapter.showMapCallback =  object : OfficesAdapter.ShowMapCallback{
-                        override fun showMap(office: Office){
-                            if(office.lat != null && office.lon != null) {
+                    officesAdapter.showMapCallback = object : OfficesAdapter.ShowMapCallback {
+                        override fun showMap(office: Office) {
+                            if (office.lat != null && office.lon != null) {
                                 showGoogleMaps(office.lat!!, office.lon!!)
                             }
                         }
@@ -341,7 +340,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
                     })
 
 
-                }else{
+                } else {
                     branchesTV.visibility = View.GONE
                 }
             }
@@ -352,97 +351,98 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
             if (voucher.expired) {
 
 
+                if (voucher.isProduct && voucher.isUsed || voucher.expired) {
 
-            if (voucher.isProduct && voucher.isUsed || voucher.expired) {
+                    info_button.visibility = View.INVISIBLE
+                    btn_email.isEnabled = false
+                    btn_email.visibility = View.GONE
+                    iv_qr_icon.visibility = View.INVISIBLE
+                    tv_voucher_expired.visibility = View.VISIBLE
 
-                info_button.visibility = View.INVISIBLE
-                btn_email.isEnabled = false
-                btn_email.visibility = View.GONE
-                iv_qr_icon.visibility = View.INVISIBLE
-                tv_voucher_expired.visibility = View.VISIBLE
+                    value.visibility = View.GONE
+                    usedOrExpiredLb.visibility = View.VISIBLE
 
-                value.visibility = View.GONE
-                usedOrExpiredLb.visibility = View.VISIBLE
+                    if (voucher.isProduct && voucher.isUsed) {
 
-                if (voucher.isProduct && voucher.isUsed) {
+                        usedOrExpiredLb.text = usedOrExpiredLb.context.getString(R.string.voucher_is_used)
+                    } else if (voucher.expired) {
 
-                    usedOrExpiredLb.text = usedOrExpiredLb.context.getString(R.string.voucher_is_used)
-                } else if (voucher.expired) {
+                        //usedOrExpiredLb.text = usedOrExpiredLb.context.getString(R.string.voucher_expired)
 
-                    //usedOrExpiredLb.text = usedOrExpiredLb.context.getString(R.string.voucher_expired)
+                        if (voucher.expireDate?.isNotEmpty()!!) {
 
-                    if (voucher.expireDate?.isNotEmpty()!!) {
+                            usedOrExpiredLb.text = if (voucher.expired) String.format(resources.getString(R.string.voucher_qr_code_expired),
+                                    voucher?.expireDate) else String.format(resources.getString(R.string.voucher_qr_code_actual),
+                                    voucher?.expireDate)
 
-                        usedOrExpiredLb.text = if (voucher.expired) String.format(resources.getString(R.string.voucher_qr_code_expired),
-                                voucher?.expireDate) else String.format(resources.getString(R.string.voucher_qr_code_actual),
-                                voucher?.expireDate)
+                            tv_voucher_expired.visibility = View.GONE
+                            // tv_voucher_expired.text = if (voucher.expired) String.format(resources.getString(R.string.voucher_qr_code_expired),
+                            //                            voucher?.expireDate) else String.format(resources.getString(R.string.voucher_qr_code_actual),
+                            //                            voucher?.expireDate)
+                        }
 
+
+                        tv_voucher_expired.text = if (voucher.expired) String.format(resources.getString(R.string.voucher_qr_code_expired),
+                                voucher.expireDate) else String.format(resources.getString(R.string.voucher_qr_code_actual),
+                                voucher.expireDate)
+
+                    }
+                } else {
+                    tv_voucher_expired.visibility = View.GONE
+                    value.visibility = View.VISIBLE
+                    usedOrExpiredLb.visibility = View.GONE
+                    value.text = "${vs.model.item?.currency?.name} ${vs.model.item?.amount?.toDouble().format(2)}"
+                }
+
+
+                if (voucher.fundType == FundType.subsidies.name) {
+                    info_button.visibility = View.INVISIBLE
+
+
+
+                    if (voucher.fundType == FundType.subsidies.name) {
+                        info_button.visibility = View.INVISIBLE
+
+                        iv_qr_icon.visibility = View.VISIBLE
+
+                        tv_voucher_expired.visibility = View.VISIBLE
                         tv_voucher_expired.visibility = View.GONE
-                        // tv_voucher_expired.text = if (voucher.expired) String.format(resources.getString(R.string.voucher_qr_code_expired),
-                        //                            voucher?.expireDate) else String.format(resources.getString(R.string.voucher_qr_code_actual),
-                        //                            voucher?.expireDate)
+                        value.visibility = View.GONE
+
                     }
 
 
-                    tv_voucher_expired.text = if (voucher.expired) String.format(resources.getString(R.string.voucher_qr_code_expired),
-                            voucher.expireDate) else String.format(resources.getString(R.string.voucher_qr_code_actual),
-                            voucher.expireDate)
-
-                }
-            } else {
-                tv_voucher_expired.visibility = View.GONE
-                value.visibility = View.VISIBLE
-                usedOrExpiredLb.visibility = View.GONE
-                value.text = "${vs.model.item?.currency?.name} ${vs.model.item?.amount?.toDouble().format(2)}"
-            }
-
-
-            if (voucher.fundType == FundType.subsidies.name) {
-                info_button.visibility = View.INVISIBLE
-
-
-
-            if (voucher.fundType == FundType.subsidies.name) {
-                info_button.visibility = View.INVISIBLE
-
-                iv_qr_icon.visibility = View.VISIBLE
-
-                tv_voucher_expired.visibility = View.VISIBLE
-                tv_voucher_expired.visibility = View.GONE
-                value.visibility = View.GONE
-
-            }
-
-
-        }
-
-        if (vs.model.shortToken != null) {
-            if (canShowInfo) {
-
-                val url: String = if (voucher?.fundWebShopUrl?.isNotEmpty()!! && vs.model.shortToken.isNotEmpty()) {
-                    voucher?.fundWebShopUrl + "auth-link?token=" + vs.model.shortToken + "&target=voucher-" + voucher?.address
-                } else {
-                    "https://forus.io/"
                 }
 
-                openVoucherInfo(url)
-                canShowInfo = false
-            }
-        }
+                if (vs.model.shortToken != null) {
+                    if (canShowInfo) {
+
+                        val url: String = if (voucher?.fundWebShopUrl?.isNotEmpty()!! && vs.model.shortToken.isNotEmpty()) {
+                            voucher?.fundWebShopUrl + "auth-link?token=" + vs.model.shortToken + "&target=voucher-" + voucher?.address
+                        } else {
+                            "https://forus.io/"
+                        }
+
+                        openVoucherInfo(url)
+                        canShowInfo = false
+                    }
+                }
 
 
 
 
-        when (vs.model.emailSend) {
-            EmailSend.SEND -> showEmailSendDialog()
-            EmailSend.SENT -> {
-                FullscreenDialog.display(fragmentManager, context!!.resources.getString(R.string.voucher_send_email_success),
-                        context!!.resources.getString(R.string.voucher_send_email_description),
-                        context!!.resources.getString(R.string.me_ok)) {
-                    sentEmailDialogShown.onNext(Unit)
+                when (vs.model.emailSend) {
+                    EmailSend.SEND -> showEmailSendDialog()
+                    EmailSend.SENT -> {
+                        FullscreenDialog.display(fragmentManager, context!!.resources.getString(R.string.voucher_send_email_success),
+                                context!!.resources.getString(R.string.voucher_send_email_description),
+                                context!!.resources.getString(R.string.me_ok)) {
+                            sentEmailDialogShown.onNext(Unit)
+                        }
+                    }
+                    EmailSend.NOTHING -> Unit
                 }
             }
-            EmailSend.NOTHING -> Unit
         }
     }
 
@@ -534,6 +534,8 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
     private fun showEmailSendDialog() {
         sendEmailDialog.show()
     }
+
+
 
 }
 

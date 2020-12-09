@@ -19,8 +19,8 @@ class VouchersVH(parent: ViewGroup) : RecyclerView.ViewHolder(parent.inflate(R.l
 
         if(item.fundType == FundType.subsidies.name) {
             name.text = item.name
-            organization_name.text = item.organizationName
-            value.text = ""
+           // organization_name.text = item.organizationName
+           // value.text = ""
             usedOrExpiredLb.visibility = View.INVISIBLE
             if (item.logo != null) {
                 if (item.logo!!.isNotEmpty()) {
