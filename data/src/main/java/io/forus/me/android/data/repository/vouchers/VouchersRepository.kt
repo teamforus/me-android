@@ -74,6 +74,10 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
                 val product = if (it.product == null) {
                     null
                 } else {
+
+                    val logo = if(it.product.organization.logo != null){ it.product.organization.logo.sizes.thumbnail }
+                    else{ null }
+
                     Product(it.product.id, it.product.organizationId,
                             it.product.productCategoryId,
                             it.product.name, it.product.description,
@@ -83,7 +87,7 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
                                     it.product.productCategory.key,
                                     it.product.productCategory.name),
                             Organization(it.product.organization.id, it.product.organization.name,
-                                    it.product.organization.logo.sizes.thumbnail, it.product.organization.lat,
+                                    logo, it.product.organization.lat,
                                     it.product.organization.lon, it.product.organization.identityAddress,
                                     it.product.organization.phone, it.product.organization.email))
                 }
