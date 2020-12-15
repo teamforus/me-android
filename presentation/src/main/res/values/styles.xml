@@ -15,6 +15,16 @@
 
     </style>
 
+    <!-- Default theme for activities that don't actually display a UI; that
+        is, they finish themselves before being resumed.  -->
+    <style name="NoDisplayTheme">
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:windowNoDisplay">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
+
     <style name="AppTheme.ProgressBar">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>

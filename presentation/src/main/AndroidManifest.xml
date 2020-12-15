@@ -79,7 +79,7 @@
             android:launchMode="singleInstance"
             android:noHistory="true"
             android:screenOrientation="unspecified"
-            android:theme="@android:style/Theme.NoDisplay">
+            android:theme="@style/NoDisplayTheme">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
