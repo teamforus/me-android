@@ -127,6 +127,16 @@
     <string name="profile_logout_dialog_content">Are you sure you want to log out?</string>
     <string name="email_support">support@forus.io</string>
 
+
+    <!-- Price agreement -->
+    <string name="price_agreement">Price agreement</string>
+    <string name="price_agreement_total_price">Total price</string>
+    <string name="price_agreement_discount_by_provider_">Discount by </string>
+    <string name="price_agreement_contribution_by_sponsor_">Contribution by</string>
+    <string name="price_agreement_paid_out_by_sponsor_">Paid out by</string>
+    <string name="price_agreement_total_to_pay">Total which customer needs to pay</string>
+    <string name="price_agreement_no_price">No price</string>
+
     <!-- New record screen -->
     <string name="new_record_title">New Record</string>
     <string name="new_record_title_choose_category">Choose Category</string>

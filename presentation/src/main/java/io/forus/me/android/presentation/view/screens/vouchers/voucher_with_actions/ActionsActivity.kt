@@ -86,7 +86,8 @@ class ActionsActivity : AppCompatActivity() {
             override fun onItemClicked(item: ProductAction) {
 
                 startActivity(ActionPaymentActivity.getCallingIntent(this@ActionsActivity,
-                        ProductSerializable(item.id!!, item.name, item.organization!!.name, item.organization!!.id, item.priceUser!!.toDouble()), voucherAddress!!))
+                        ProductSerializable(item.id!!, item.name, item.organization!!.name, item.organization!!.id, item.priceUser!!.toDouble(),
+                                0.0,0.0), voucherAddress!!))
             }
         }, this@ActionsActivity)
 

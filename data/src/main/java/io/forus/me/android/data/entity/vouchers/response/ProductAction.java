@@ -33,8 +33,8 @@ public class ProductAction implements Serializable {
     @SerializedName("price_user")
     private BigDecimal priceUser;
 
-    //@SerializedName("price_old")
-    //private BigDecimal priceOld;
+    @SerializedName("price_old")
+    private BigDecimal priceOld;
 
     //@SerializedName("expire_at")
     //private String expireAt;

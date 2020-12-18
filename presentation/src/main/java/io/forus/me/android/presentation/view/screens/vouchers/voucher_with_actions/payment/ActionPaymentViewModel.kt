@@ -34,6 +34,7 @@ class ActionPaymentViewModel : ViewModel(), Observable {
     val orgName = MutableLiveData<String>()
 
     val confirmPayment = MutableLiveData<Boolean>()
+    val showPriceAgreement = MutableLiveData<Boolean>()
     val successPayment = MutableLiveData<Boolean>()
     val errorPayment = MutableLiveData<Throwable?>()
 
@@ -48,6 +49,7 @@ class ActionPaymentViewModel : ViewModel(), Observable {
         progress.value = false
 
         confirmPayment.value = false
+        showPriceAgreement.value = false
         successPayment.value = false
         errorPayment.value = null
     }
@@ -61,6 +63,12 @@ class ActionPaymentViewModel : ViewModel(), Observable {
     fun onSaveClick(view: View?) {
         confirmPayment.postValue(true)
     }
+
+    fun onPricesClick(view: View?) {
+        Log.d("forus","+++++++++price_agreement1")
+        showPriceAgreement.postValue(true)
+    }
+
 
     private fun refreshUI() {
         productPrice.postValue(NumberFormat.getCurrencyInstance(Locale("nl", "NL"))
