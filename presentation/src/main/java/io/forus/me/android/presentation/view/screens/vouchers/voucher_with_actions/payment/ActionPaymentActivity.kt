@@ -18,19 +18,23 @@ import kotlinx.android.synthetic.main.activity_toolbar_sliding_panel.*
 import kotlinx.android.synthetic.main.toolbar_view.*
 
 
-class ActionPaymentActivity  : BaseActivity() {
+class ActionPaymentActivity : BaseActivity() {
 
 
     companion object {
 
         const val ACTION_PRODUCT_EXTRA = "ACTION_PRODUCT_EXTRA"
         const val VOUCHER_ADDRESS_EXTRA = "VOUCHER_ADDRESS_EXTRA"
+        const val VOUCHER_FUND_NAME_EXTRA = "VOUCHER_ADDRESS_EXTRA"
 
-        fun getCallingIntent(context: Context, product: ProductSerializable, voucherAddress: String): Intent {
+        fun getCallingIntent(context: Context, product: ProductSerializable, voucherAddress: String, fundName: String): Intent {
             val intent = Intent(context, ActionPaymentActivity::class.java)
             val bundle = Bundle()
             bundle.putSerializable(ACTION_PRODUCT_EXTRA, product)
             intent.putExtra(VOUCHER_ADDRESS_EXTRA, voucherAddress)
+
+            intent.putExtra(VOUCHER_FUND_NAME_EXTRA, fundName)
+
             intent.putExtras(bundle)
 
             return intent
@@ -38,9 +42,9 @@ class ActionPaymentActivity  : BaseActivity() {
     }
 
 
-
     var voucherAddress: String? = null
     var product: ProductSerializable? = null
+    var fundName: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,10 +54,12 @@ class ActionPaymentActivity  : BaseActivity() {
         intent.extras.let {
             product = it.getSerializable(ACTION_PRODUCT_EXTRA) as ProductSerializable
             voucherAddress = intent.getSerializableExtra(ActionsActivity.VOUCHER_ADDRESS_EXTRA) as String
+
+            fundName = intent.getSerializableExtra(VOUCHER_FUND_NAME_EXTRA) as String
         }
 
         product.let {
-            replaceFragment(R.id.dashboard_content, ActionPaymentFragment.newIntent(product!!,voucherAddress!!))
+            replaceFragment(R.id.dashboard_content, ActionPaymentFragment.newIntent(product!!, voucherAddress!!))
 
         }
 
@@ -72,7 +78,7 @@ class ActionPaymentActivity  : BaseActivity() {
     }
 
 
-     fun addPopupFragment(fragment: Fragment, title: String){
+    fun addPopupFragment(fragment: Fragment, title: String) {
         replaceFragment(R.id.fragmentPanelContainer, fragment)
         sliding_panel_title.text = title
         sliding_layout.panelState = SlidingUpPanelLayout.PanelState.EXPANDED
@@ -91,11 +97,11 @@ override fun replaceFragment(fragment: Fragment, sharedViews: List<View>) {
 }*/
 
 
-   /* protected fun replaceFragment(containerViewId: Int, fragment: Fragment) {
-        supportFragmentManager
-                .beginTransaction()
-                .replace(containerViewId, fragment)
-                .commit()
-    }*/
+    /* protected fun replaceFragment(containerViewId: Int, fragment: Fragment) {
+         supportFragmentManager
+                 .beginTransaction()
+                 .replace(containerViewId, fragment)
+                 .commit()
+     }*/
 
 }

@@ -47,7 +47,7 @@
             android:background="@drawable/corner_card_background"
             android:orientation="vertical"
             android:visibility="visible"
-            android:minHeight="380dp"
+            android:minHeight="480dp"
             android:layout_marginTop="26dp"
 
             >
@@ -62,7 +62,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:letterSpacing="0.01"
-                    android:text="@string/dashboard_qr"
                     android:textColor="@color/body_1_87"
                     android:textSize="20sp"
                     app:type="medium" />

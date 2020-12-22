@@ -34,7 +34,20 @@ public class ProductAction implements Serializable {
     private BigDecimal priceUser;
 
     @SerializedName("price_old")
-    private BigDecimal priceOld;
+    private BigDecimal price_old;
+
+
+    @SerializedName("no_price")
+    private boolean no_price;
+
+    @SerializedName("no_price_type")
+    private String no_price_type;
+
+
+    @SerializedName("no_price_discount")
+    private BigDecimal no_price_discount;
+
+
 
     //@SerializedName("expire_at")
     //private String expireAt;
@@ -56,7 +69,8 @@ public class ProductAction implements Serializable {
     public ProductAction() {
     }
 
-    public ProductAction(long id, String name, long organizationId, BigDecimal price, BigDecimal priceUser, Logo photo, Organization organization, ProductCategory productCategory) {
+    public ProductAction(long id, String name, long organizationId, BigDecimal price, BigDecimal priceUser,BigDecimal priceOld, boolean noPrice,
+                         String noPriceType, BigDecimal noPriceDiscount, Logo photo,  Organization organization, ProductCategory productCategory) {
         this.id = id;
         this.name = name;
         this.organizationId = organizationId;
@@ -65,6 +79,11 @@ public class ProductAction implements Serializable {
         this.photo = photo;
         this.organization = organization;
         this.productCategory = productCategory;
+
+        this.price_old = priceOld;
+        this.no_price = noPrice;
+        this.no_price_type = noPriceType;
+        this.no_price_discount = noPriceDiscount;
     }
 
     public long getId() {
@@ -129,5 +148,37 @@ public class ProductAction implements Serializable {
 
     public void setProductCategory(ProductCategory productCategory) {
         this.productCategory = productCategory;
+    }
+
+    public BigDecimal getPrice_old() {
+        return price_old;
+    }
+
+    public void setPrice_old(BigDecimal price_old) {
+        this.price_old = price_old;
+    }
+
+    public boolean isNo_price() {
+        return no_price;
+    }
+
+    public void setNo_price(boolean no_price) {
+        this.no_price = no_price;
+    }
+
+    public String getNo_price_type() {
+        return no_price_type;
+    }
+
+    public void setNo_price_type(String no_price_type) {
+        this.no_price_type = no_price_type;
+    }
+
+    public BigDecimal getNo_price_discount() {
+        return no_price_discount;
+    }
+
+    public void setNo_price_discount(BigDecimal no_price_discount) {
+        this.no_price_discount = no_price_discount;
     }
 }

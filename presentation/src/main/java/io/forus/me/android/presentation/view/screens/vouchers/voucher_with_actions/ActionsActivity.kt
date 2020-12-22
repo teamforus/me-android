@@ -27,6 +27,7 @@ import io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actio
 import kotlinx.android.synthetic.main.activity_actions.*
 import kotlinx.android.synthetic.main.toolbar_view.*
 import java.lang.Exception
+import java.math.BigDecimal
 
 
 class ActionsActivity : AppCompatActivity() {
@@ -85,9 +86,16 @@ class ActionsActivity : AppCompatActivity() {
         transactionsAdapter = ActionsAdapter(arrayListOf(), object : ActionsAdapter.Callback {
             override fun onItemClicked(item: ProductAction) {
 
+
+
+
                 startActivity(ActionPaymentActivity.getCallingIntent(this@ActionsActivity,
-                        ProductSerializable(item.id!!, item.name, item.organization!!.name, item.organization!!.id, item.priceUser!!.toDouble(),
-                                0.0,0.0), voucherAddress!!))
+                        ProductSerializable(item.id!!, item.name, item.organization!!.name,
+                                item.organization!!.id, item.priceUser,
+                                item.priceOld,
+                                item.noPrice?:false , item.noPriceType,
+                                item.noPriceDiscount ,
+                                item.priceUser), voucherAddress!!,mainViewModel.fundName.value?:""))
             }
         }, this@ActionsActivity)
 

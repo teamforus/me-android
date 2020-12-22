@@ -131,11 +131,15 @@
     <!-- Price agreement -->
     <string name="price_agreement">Price agreement</string>
     <string name="price_agreement_total_price">Total price</string>
-    <string name="price_agreement_discount_by_provider_">Discount by </string>
-    <string name="price_agreement_contribution_by_sponsor_">Contribution by</string>
-    <string name="price_agreement_paid_out_by_sponsor_">Paid out by</string>
+    <string name="price_agreement_discount_by_provider_">Discount by %1$s</string>
+    <string name="price_agreement_contribution_by_sponsor_">Contribution by %1$s</string>
+    <string name="price_agreement_paid_out_by_sponsor_">Paid out by %1$s</string>
     <string name="price_agreement_total_to_pay">Total which customer needs to pay</string>
     <string name="price_agreement_no_price">No price</string>
+    <string name="price_agreement_n_v_t">n.v.t.</string>
+    <string name="price_agreement_paid_by_customer">Paid by customer</string>
+
+
 
     <!-- New record screen -->
     <string name="new_record_title">New Record</string>

@@ -28,13 +28,15 @@ class ActionPaymentFragment : BaseFragment() {
 
         const val ACTION_PRODUCT_EXTRA = "ACTION_PRODUCT_EXTRA"
         const val VOUCHER_ADDRESS_EXTRA = "VOUCHER_ADDRESS_EXTRA"
+        const val VOUCHER_FUND_NAME_EXTRA = "VOUCHER_ADDRESS_EXTRA"
 
-        fun getCallingIntent(context: Context, product: ProductSerializable, voucherAddress: String): Intent {
+        fun getCallingIntent(context: Context, product: ProductSerializable, voucherAddress: String, fundName: String): Intent {
             val intent = Intent(context, ActionPaymentActivity::class.java)
             val bundle = Bundle()
             bundle.putSerializable(ACTION_PRODUCT_EXTRA, product)
             intent.putExtra(VOUCHER_ADDRESS_EXTRA, voucherAddress)
             intent.putExtras(bundle)
+            intent.putExtra(VOUCHER_FUND_NAME_EXTRA, fundName)
 
             return intent
         }
@@ -55,7 +57,7 @@ class ActionPaymentFragment : BaseFragment() {
     var voucherAddress: String? = null
     var product: ProductSerializable? = null
 
-
+    var fundName: String? = null
 
 
    /* override fun getLayoutID(): Int {
@@ -73,6 +75,8 @@ class ActionPaymentFragment : BaseFragment() {
             if (bundle != null) {
                 voucherAddress = bundle.getString(VOUCHER_ADDRESS_EXTRA, "")
                 product = bundle.getSerializable(ACTION_PRODUCT_EXTRA)  as ProductSerializable
+
+                fundName = bundle.getString(VOUCHER_FUND_NAME_EXTRA,"")
 
             }
 
@@ -92,7 +96,7 @@ class ActionPaymentFragment : BaseFragment() {
             mainViewModel.confirmPayment.observe(requireActivity(), Observer {
                 if (!it!!) return@Observer
                 ApplyActionTransactionDialog(requireActivity(), NumberFormat.getCurrencyInstance(Locale("nl", "NL"))
-                        .format(product!!.price)+"?", (product!!.price == 0.0)) {
+                        .format(product!!.price)+"?", (product!!.price.toDouble() == 0.0)) {
                     mainViewModel.makeTransaction()
                 }.show()
             })
@@ -119,7 +123,7 @@ class ActionPaymentFragment : BaseFragment() {
             mainViewModel.showPriceAgreement.observe(requireActivity(), Observer {
                 if (!it!!) return@Observer
                 Log.d("forus","Click price agreement")
-                (requireActivity() as ActionPaymentActivity).addPopupFragment(PriceAgreementFragment.newIntent(product!!), "QR code")
+                (requireActivity() as ActionPaymentActivity).addPopupFragment(PriceAgreementFragment.newIntent(product!!, fundName!!), "")
                 //showPopupQRFragment(QrCode(QrCode.Type.P2P_IDENTITY, vs.model.account.address).toJson())
                 // }.show()
             })

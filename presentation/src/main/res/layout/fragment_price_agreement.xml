@@ -30,7 +30,10 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="22dp"
-                android:src="@drawable/ic_close_black_24dp" />
+                android:src="@drawable/ic_close_black_24dp"
+                android:background="@color/blue"
+                android:visibility="gone"
+                />
 
 
             <io.forus.me.android.presentation.view.component.text.TextView
@@ -70,14 +73,15 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:layout_below="@id/tv_provider"
-                android:layout_marginTop="22dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:background="@color/cardMapBackground"
-                android:layout_marginBottom="35dp"
+                android:paddingBottom="35dp"
+                android:padding="16dp"
                 android:gravity="start|left">
 
 
@@ -93,7 +97,8 @@
                     style="@style/Overline6"
                     android:layout_gravity="center_vertical|left"
                     android:layout_width="match_parent"
-                    android:layout_height="14dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="14dp"
                     android:text="@string/price_agreement_total_price" />
 
                 <io.forus.me.android.presentation.view.component.text.TextView
@@ -101,7 +106,7 @@
                     style="@style/Subtitle6"
                     android:layout_gravity="center_vertical|left"
                     android:layout_width="match_parent"
-                    android:layout_height="21dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
                     android:text="@{model.totalPrice}"
                     tools:text="20.00" />
@@ -110,7 +115,8 @@
                     style="@style/Overline6"
                     android:layout_gravity="center_vertical|left"
                     android:layout_width="match_parent"
-                    android:layout_height="14dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="14dp"
                     android:layout_marginTop="14dp"
                     android:text="@{model.discountByProviderName}"
                     tools:text="@string/price_agreement_discount_by_provider_" />
@@ -120,17 +126,18 @@
                     style="@style/Subtitle6"
                     android:layout_gravity="center_vertical|left"
                     android:layout_width="match_parent"
-                    android:layout_height="21dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
                     android:text="@{model.discountByProviderPrice}"
                     tools:text="30.00" />
 
                 <io.forus.me.android.presentation.view.component.text.TextView
                     style="@style/Overline6"
-                    android:layout_gravity="center_vertical|left"
                     android:layout_width="match_parent"
-                    android:layout_height="14dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|left"
                     android:layout_marginTop="14dp"
+                    android:minHeight="14dp"
                     android:text="@{model.contributionBySponsorName}"
                     tools:text="@string/price_agreement_contribution_by_sponsor_" />
 
@@ -139,7 +146,7 @@
                     style="@style/Subtitle6"
                     android:layout_gravity="center_vertical|left"
                     android:layout_width="match_parent"
-                    android:layout_height="21dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
                     android:text="@{model.contributionBySponsorPrice}"
                     tools:text="30.00" />
@@ -149,7 +156,8 @@
                     android:layout_gravity="center_vertical|left"
                     android:layout_width="match_parent"
                     android:fontFamily="@font/google_sans_medium"
-                    android:layout_height="14dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="14dp"
                     android:layout_marginTop="14dp"
                     android:text="@string/price_agreement_total_to_pay" />
 
@@ -159,7 +167,7 @@
                     android:layout_gravity="center_vertical|left"
                     android:fontFamily="@font/google_sans_medium"
                     android:layout_width="match_parent"
-                    android:layout_height="21dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
                     android:text="@{model.userPrice}"
                     tools:text="30.00" />

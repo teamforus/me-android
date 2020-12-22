@@ -120,11 +120,13 @@
     <!-- Price agreement -->
     <string name="price_agreement">Prijsafspraak</string>
     <string name="price_agreement_total_price">Totaalprijs</string>
-    <string name="price_agreement_discount_by_provider_">Korting vanuit</string>
-    <string name="price_agreement_contribution_by_sponsor_">Bijdrage vanuit</string>
-    <string name="price_agreement_paid_out_by_sponsor_">Bijdrage vanuit</string>
+    <string name="price_agreement_discount_by_provider_">Korting vanuit %1$s</string>
+    <string name="price_agreement_contribution_by_sponsor_">Bijdrage vanuit %1$s</string>
+    <string name="price_agreement_paid_out_by_sponsor_">Bijdrage vanuit %1$s</string>
     <string name="price_agreement_total_to_pay">Resterend bedrag voor de klant</string>
     <string name="price_agreement_no_price">Geen prijs</string>
+    <string name="price_agreement_n_v_t">n.v.t.</string>
+    <string name="price_agreement_paid_by_customer">Betaald door klant</string>
 
     <!-- New record screen -->
     <string name="new_record_title">Nieuwe eigenschap</string>

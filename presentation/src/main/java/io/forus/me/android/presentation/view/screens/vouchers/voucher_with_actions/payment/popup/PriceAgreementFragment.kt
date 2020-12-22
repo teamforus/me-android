@@ -3,6 +3,7 @@ package io.forus.me.android.presentation.view.screens.vouchers.voucher_with_acti
 import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,10 +27,12 @@ class PriceAgreementFragment : BaseFragment() {
     companion object {
 
         const val ACTION_PRODUCT_EXTRA = "ACTION_PRODUCT_EXTRA"
+        const val VOUCHER_FUND_NAME_EXTRA = "VOUCHER_ADDRESS_EXTRA"
 
-        fun newIntent(product: ProductSerializable): PriceAgreementFragment = PriceAgreementFragment().also {
+        fun newIntent(product: ProductSerializable, fundName: String): PriceAgreementFragment = PriceAgreementFragment().also {
             val bundle = Bundle()
             bundle.putSerializable(ACTION_PRODUCT_EXTRA, product)
+            bundle.putString(VOUCHER_FUND_NAME_EXTRA, fundName)
             it.arguments = bundle
         }
     }
@@ -37,34 +40,65 @@ class PriceAgreementFragment : BaseFragment() {
         return R.layout.fragment_price_agreement
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-
-    }
 
     var product: ProductSerializable? = null
+    var fundName: String? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return super.onCreateView(inflater, container, savedInstanceState).also{
             val bundle = this.arguments
             if (bundle != null) {
                 product = bundle.getSerializable(ActionPaymentFragment.ACTION_PRODUCT_EXTRA)  as ProductSerializable
+                fundName = bundle.getString(ActionPaymentFragment.VOUCHER_FUND_NAME_EXTRA,"")
             }
+            //binding = DataBindingUtil.inflate(
+                 //   inflater, R.layout.fragment_price_agreement, container, false)
 
-            mainViewModel = ViewModelProviders.of(this).get(PriceAgreementViewModel::class.java)
+            val viewRoot = LayoutInflater.from(requireContext()).inflate(R.layout.fragment_price_agreement, null)
+            binding = FragmentPriceAgreementBinding.bind(viewRoot)//inflate()//(inflater, viewRoot!!,  false)
+            val view = binding.root
 
-            product.let {
-                mainViewModel.setProduct(it!!)
-            }
+            return view
 
-
-            binding = DataBindingUtil.inflate(
-                    inflater, R.layout.fragment_action_payment, container, false)
-            val view: View = binding.getRoot()
-            binding.model = mainViewModel
         }
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        mainViewModel = ViewModelProviders.of(this).get(PriceAgreementViewModel::class.java)
+
+        product.let {
+            mainViewModel.setProduct(it!!,fundName!!)
+        }
+
+
+
+        val view: View = binding.getRoot()
+        binding.lifecycleOwner = this
+        binding.model = mainViewModel
+    }
+
+
+
+    /* override fun onCreateView(
+             inflater: LayoutInflater,
+             container: ViewGroup?,
+             savedInstanceState: Bundle?
+     ): View? {
+         Log.d("my", "onCreateView_____")
+         mainViewModel =
+                 ViewModelProviders.of(this).get(PriceAgreementViewModel::class.java)
+         val root = inflater.inflate(R.layout.fragment_price_agreement, container, false)
+         //val textView: TextView = root.findViewById(R.id.text_dashboard)
+
+        /* mainViewModel.text.observe(viewLifecycleOwner, Observer {
+             //  textView.text = it
+         })*/
+
+
+         return root
+     }*/
 
     override fun initUI() {
         //if(qrHead.isNotBlank()) head.text = qrHead
