@@ -17,11 +17,13 @@ public class ProductSerializable implements Serializable {
     BigDecimal priceUser;
     long companyId;
 
+    String photoURL;
+
 
     public ProductSerializable(long id, String name, String companyName, long companyId, BigDecimal price,
                                BigDecimal oldPrice,
                                boolean noPrice, String noPriceType, BigDecimal noPriceDiscount,
-                               BigDecimal priceUser) {
+                               BigDecimal priceUser, String photoURL) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -32,6 +34,7 @@ public class ProductSerializable implements Serializable {
         this.noPriceType = noPriceType;
         this.noPriceDiscount = noPriceDiscount;
         this.priceUser = priceUser;
+        this.photoURL = photoURL;
 
     }
 
@@ -90,5 +93,13 @@ public class ProductSerializable implements Serializable {
 
     public void setPriceUser(BigDecimal priceUser) {
         this.priceUser = priceUser;
+    }
+
+    public String getPhotoURL() {
+        return photoURL;
+    }
+
+    public void setPhotoURL(String photoURL) {
+        this.photoURL = photoURL;
     }
 }

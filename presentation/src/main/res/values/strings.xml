@@ -285,11 +285,16 @@
     <string name="choose_an_action">Choose an action</string>
     <string name="choose_an_action_note">Note: </string>
     <string name="choose_an_action_descr">the customer must pay the amount at the till.</string>
-    <string name="confirm_payment">Confirm payment</string>
+    <string name="confirm_payment">Submit payment</string>
     <string name="has_the_customer">Has the customer</string>
     <string name="paid_at_till">paid at the till?</string>
     <string name="empty_actions_list">No balance for your actions</string>
     <string name="free">Free</string>
+    <string name="price">Price</string>
+    <string name="submit_price_title">Klant betaalt</string>
+    <string name="submit_price_subtitle">at the register</string>
+
+    <string name="discount">Discount</string>
     <string name="free_product">This product is free, no additional payment is required.</string>
 
 

@@ -280,7 +280,11 @@
     <string name="paid_at_till">betaald aan de kassa?</string>
     <string name="empty_actions_list">Geen saldo voor uw acties</string>
     <string name="free">Gratis</string>
+    <string name="price">Prijs</string>
+    <string name="discount">Korting</string>
     <string name="free_product">Deze actie is gratis, er hoeft niet bijbetaald te worden.</string>
+    <string name="submit_price_title">Customer pays</string>
+    <string name="submit_price_subtitle">aan de kassa</string>
 
     <!--Voucher map-->
     <string name="show_map">Bekijk kaart</string>

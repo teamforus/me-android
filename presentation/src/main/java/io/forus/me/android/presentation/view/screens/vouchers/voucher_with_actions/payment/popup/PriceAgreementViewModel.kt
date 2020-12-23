@@ -74,7 +74,7 @@ class PriceAgreementViewModel(application: Application) : AndroidViewModel(appli
         totalPrice.value = if (product!!.oldPrice == null) {
             nvtStr
         } else {
-            NumberFormat.getCurrencyInstance(Locale("nl", "NL")).format(product!!.oldPrice)
+            NumberFormat.getCurrencyInstance(Locale("nl", "NL")).format(product!!.oldPrice.toDouble())
         }
 
         discountByProviderName.value = resources.getString(R.string.price_agreement_discount_by_provider_,
@@ -84,7 +84,7 @@ class PriceAgreementViewModel(application: Application) : AndroidViewModel(appli
             nvtStr
         } else {
             val providerDiscount = product!!.oldPrice!! - product!!.price
-            NumberFormat.getCurrencyInstance(Locale("nl", "NL")).format(providerDiscount)
+            NumberFormat.getCurrencyInstance(Locale("nl", "NL")).format(providerDiscount.toDouble())
         }
 
 
@@ -92,7 +92,7 @@ class PriceAgreementViewModel(application: Application) : AndroidViewModel(appli
             nvtStr
         } else {
             val sponsorDiscount = product!!.price!! - product!!.priceUser
-            NumberFormat.getCurrencyInstance(Locale("nl", "NL")).format(sponsorDiscount)
+            NumberFormat.getCurrencyInstance(Locale("nl", "NL")).format(sponsorDiscount.toDouble())
         }
 
         contributionBySponsorName.value = resources.getString(R.string.price_agreement_contribution_by_sponsor_,
@@ -101,7 +101,7 @@ class PriceAgreementViewModel(application: Application) : AndroidViewModel(appli
         val priceUserStr = if (product!!.priceUser == null) {
             nvtStr
         } else {
-            NumberFormat.getCurrencyInstance(Locale("nl", "NL")).format(product!!.priceUser)
+            NumberFormat.getCurrencyInstance(Locale("nl", "NL")).format(product!!.priceUser.toDouble())
         }
 
         userPrice.value = priceUserStr

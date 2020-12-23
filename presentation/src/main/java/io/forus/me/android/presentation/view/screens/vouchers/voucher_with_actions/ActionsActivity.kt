@@ -91,11 +91,11 @@ class ActionsActivity : AppCompatActivity() {
 
                 startActivity(ActionPaymentActivity.getCallingIntent(this@ActionsActivity,
                         ProductSerializable(item.id!!, item.name, item.organization!!.name,
-                                item.organization!!.id, item.priceUser,
+                                item.organization!!.id, item.price,
                                 item.priceOld,
                                 item.noPrice?:false , item.noPriceType,
                                 item.noPriceDiscount ,
-                                item.priceUser), voucherAddress!!,mainViewModel.fundName.value?:""))
+                                item.priceUser, item.photoURL), voucherAddress!!,mainViewModel.fundName.value?:""))
             }
         }, this@ActionsActivity)
 
