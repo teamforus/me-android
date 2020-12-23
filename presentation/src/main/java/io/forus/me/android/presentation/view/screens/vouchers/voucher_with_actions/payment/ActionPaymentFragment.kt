@@ -161,7 +161,7 @@ class ActionPaymentFragment : BaseFragment() {
                 title = getString(R.string.discount)
                 toPay = if (product!!.noPriceDiscount != null) {
                     NumberFormat.getCurrencyInstance(Locale("nl", "NL"))
-                            .format(product!!.noPriceDiscount.toDouble())
+                            .format(product!!.noPriceDiscount.toDouble())+"%"
                 } else {
                     getString(R.string.price_agreement_n_v_t)
                 }
