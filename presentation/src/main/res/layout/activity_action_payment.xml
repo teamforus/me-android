@@ -6,9 +6,7 @@
     android:layout_height="match_parent"
     >
 
-    <include
-        android:id="@+id/title0"
-        layout="@layout/toolbar_view" />
+
 
     <com.sothree.slidinguppanel.SlidingUpPanelLayout
         android:id="@+id/sliding_layout"
@@ -17,7 +15,7 @@
         android:gravity="bottom"
         app:umanoPanelHeight="0dp"
         app:umanoShadowHeight="0dp"
-        android:layout_below="@+id/title0"
+
         app:umanoOverlay="true">
 
 
@@ -25,10 +23,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <include
+                android:id="@+id/title0"
+                layout="@layout/toolbar_view" />
+
             <FrameLayout
                 android:id="@+id/dashboard_content"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:layout_below="@+id/title0"
+                />
 
 
             <FrameLayout
