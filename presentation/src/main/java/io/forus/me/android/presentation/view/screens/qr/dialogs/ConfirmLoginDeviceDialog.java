@@ -6,10 +6,13 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import io.forus.me.android.presentation.R;
@@ -38,8 +41,21 @@ public class ConfirmLoginDeviceDialog extends DialogFragment {
         setStyle(DialogFragment.STYLE_NORMAL, R.style.AppTheme_FullScreenDialog);
     }
 
+     boolean  isSmallScreen = false;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        display.getMetrics(outMetrics);
+        float density = getResources().getDisplayMetrics().density;
+        float dpHeight = outMetrics.heightPixels / density;
+        float dpWidth = outMetrics.widthPixels / density;
+
+        if (dpWidth <= 320 || dpHeight < 522){
+            isSmallScreen = true;
+        }
 
         rootView = inflater.inflate(R.layout.dialog_confirm_login_device, container, false);
 
@@ -66,6 +82,10 @@ public class ConfirmLoginDeviceDialog extends DialogFragment {
 
         io.forus.me.android.presentation.view.component.buttons.Button submitButton = rootView.findViewById(R.id.submitButton);
 
+        LinearLayout imageL = rootView.findViewById(R.id.imageL);
+        if(isSmallScreen){
+            imageL.setVisibility(View.INVISIBLE);
+        }
 
         rootView.findViewById(R.id.closeBt).setOnClickListener(view12 -> {
             if (submitClickListener != null) {
