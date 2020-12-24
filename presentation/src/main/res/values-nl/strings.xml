@@ -312,6 +312,12 @@
     <!-- Restore account success -->
     <string name="restore_account_head">Aanmelding geslaagd!</string>
 
+    <!--Confirm login device dialog-->
+    <string name="confirm_login_device_title">Probeer je in te loggen op een apparaat?</string>
+    <string name="confirm_login_device_subtitle">Scan alleen QR-codes vanaf je eigen apparaten. Gebruik nooit een code die een andere gebruiiker naar je heeft gestuurd.</string>
+    <string name="confirm_login_device_confirm">Ja, ik wil inloggen</string>
+    <string name="confirm_login_device_cancel">annuleren</string>
+
     <!-- Send crashlitics reports screen -->
     <string name="send_report_head">Informatie delen</string>
     <string name="send_report_description">Door uw identificatienummer te delen, kunnen problemen beter en sneller worden opgelost, en kunnen de ontwikkelaars eventueel contact met u opnemen</string>
