@@ -65,11 +65,9 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
     }
 
     fun restoreIdentity(token: String) {
-        Log.d("forusQR", "restore identity $token")
         if (scanner.hasWindowFocus())
-            Log.d("forusQR", "restore identity 1")
             RestoreIdentityDialog(scanner,
-                    {       Log.d("forusQR", "restore identity 2")
+                    {
                         accountRepository.authorizeToken(token)
                                 .subscribeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread())

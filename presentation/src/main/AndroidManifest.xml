@@ -37,11 +37,7 @@
             android:name=".view.screens.vouchers.dialogs.SuccessDialogActivity"
             android:label="@string/title_activity_success_dialog"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".view.screens.vouchers.dialogs.FullscreenSuccessActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_fullscreen_success"
-            android:theme="@style/FullscreenTheme" />
+
         <activity
             android:name=".view.screens.records.create_record.CreateRecordActivity"
             android:launchMode="singleTop"
@@ -107,12 +103,7 @@
             android:screenOrientation="portrait"
             android:stateNotNeeded="true"
             tools:replace="android:screenOrientation" />
-        <activity
-            android:name=".view.screens.qr.zxzing_qr_scan.QRzxzingScannerActivity"
-            android:screenOrientation="portrait"
-            android:stateNotNeeded="true"
-            android:theme="@style/Theme.AppCompat.Transparent.NoActionBar"
-            android:windowSoftInputMode="stateAlwaysHidden" />
+
         <activity
             android:name=".view.screens.account.assigndelegates.email.RestoreByEmailActivity"
             android:label="@string/app_blank_string"
