@@ -59,7 +59,8 @@ class ActionPaymentActivity : BaseActivity() {
         }
 
         product.let {
-            replaceFragment(R.id.dashboard_content, ActionPaymentFragment.newIntent(product!!, voucherAddress!!))
+            replaceFragment(R.id.dashboard_content, ActionPaymentFragment.newIntent(product!!, voucherAddress!!,fundName!!
+            ))
 
         }
 

@@ -194,7 +194,7 @@
                         android:layout_centerVertical="true"
                         android:letterSpacing="0.03"
                         android:lineSpacingExtra="13sp"
-                        android:text="Price agreement"
+                        android:text="@string/price_agreement"
                         android:textColor="@color/blue"
                         android:textSize="15sp"
                         tools:text="Price agreement" />
@@ -217,8 +217,11 @@
             android:visibility="gone" />
 
 
-        <EditText
-            android:id="@+id/note"
+
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/name_text_input"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@id/below"
@@ -227,16 +230,25 @@
             android:layout_marginTop="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="40dp"
-            android:background="@drawable/shape_input_text_blue"
-            android:fontFamily="@font/google_sans_regular"
             android:gravity="top|left"
-            android:inputType="textMultiLine"
-            android:lines="8"
-            android:maxLines="10"
-            android:minLines="6"
-            android:padding="16dp"
-            android:scrollbars="vertical"
-            android:text="@={model.note}" />
+            >
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/note"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/price_agreement_notitie"
+                android:text="@={model.note}"
+                android:inputType="textMultiLine"
+                android:lines="8"
+                android:maxLines="10"
+                android:minLines="6"
+                android:padding="16dp"
+                android:scrollbars="vertical"
+                android:fontFamily="@font/google_sans_regular"
+                android:gravity="top|left"
+                />
+        </android.support.design.widget.TextInputLayout>
 
 
         <ProgressBar

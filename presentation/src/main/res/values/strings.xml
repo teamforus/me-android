@@ -138,6 +138,7 @@
     <string name="price_agreement_no_price">No price</string>
     <string name="price_agreement_n_v_t">n.v.t.</string>
     <string name="price_agreement_paid_by_customer">Paid by customer</string>
+    <string name="price_agreement_notitie">Note</string>
 
 
 
@@ -291,7 +292,7 @@
     <string name="empty_actions_list">No balance for your actions</string>
     <string name="free">Free</string>
     <string name="price">Price</string>
-    <string name="submit_price_title">Klant betaalt</string>
+    <string name="submit_price_title">Customer pays</string>
     <string name="submit_price_subtitle">at the register</string>
 
     <string name="discount">Discount</string>

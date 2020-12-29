@@ -1,5 +1,7 @@
 package io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actions.payment
 //import io.forus.me.android.data.entity.vouchers.response.Voucher
+import android.app.Application
+import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.databinding.Bindable
@@ -9,6 +11,7 @@ import android.util.Log
 import android.view.View
 import io.forus.me.android.domain.models.vouchers.ProductAction
 import io.forus.me.android.domain.repository.vouchers.VouchersRepository
+import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.base.lr.PartialChange
 import io.forus.me.android.presentation.view.screens.vouchers.provider.ProviderPartialChanges
@@ -18,7 +21,7 @@ import java.text.NumberFormat
 import java.util.*
 
 
-class ActionPaymentViewModel : ViewModel(), Observable {
+class ActionPaymentViewModel(application: Application) : AndroidViewModel(application), Observable {
 
     var vouchersRepository: VouchersRepository = Injection.instance.vouchersRepository
 
@@ -65,14 +68,28 @@ class ActionPaymentViewModel : ViewModel(), Observable {
     }
 
     fun onPricesClick(view: View?) {
-        Log.d("forus","+++++++++price_agreement1")
         showPriceAgreement.postValue(true)
     }
 
 
     private fun refreshUI() {
-        productPrice.postValue(NumberFormat.getCurrencyInstance(Locale("nl", "NL"))
-                .format(product!!.price))
+
+        val resources = getApplication<Application>().resources
+
+
+        val priceValue: String = if (product!!.noPrice) {
+            if (product!!.noPriceType == NoPriceType.free.name) {
+                resources.getString(R.string.free)
+            } else {
+                NumberFormat.getCurrencyInstance(Locale("nl", "NL"))
+                        .format(product!!.priceUser)
+            }
+        } else {
+            NumberFormat.getCurrencyInstance(Locale("nl", "NL"))
+                    .format(product!!.priceUser)
+        }
+
+        productPrice.postValue(priceValue)
 
         productName.postValue(product!!.name)
 

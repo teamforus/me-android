@@ -27,7 +27,7 @@ class PriceAgreementFragment : BaseFragment() {
     companion object {
 
         const val ACTION_PRODUCT_EXTRA = "ACTION_PRODUCT_EXTRA"
-        const val VOUCHER_FUND_NAME_EXTRA = "VOUCHER_ADDRESS_EXTRA"
+        const val VOUCHER_FUND_NAME_EXTRA = "VOUCHER_FUND_NAME_EXTRA"
 
         fun newIntent(product: ProductSerializable, fundName: String): PriceAgreementFragment = PriceAgreementFragment().also {
             val bundle = Bundle()

@@ -31,9 +31,9 @@ class ActionPaymentFragment : BaseFragment() {
 
         const val ACTION_PRODUCT_EXTRA = "ACTION_PRODUCT_EXTRA"
         const val VOUCHER_ADDRESS_EXTRA = "VOUCHER_ADDRESS_EXTRA"
-        const val VOUCHER_FUND_NAME_EXTRA = "VOUCHER_ADDRESS_EXTRA"
+        const val VOUCHER_FUND_NAME_EXTRA = "VOUCHER_FUND_NAME_EXTRA"
 
-        fun getCallingIntent(context: Context, product: ProductSerializable, voucherAddress: String, fundName: String): Intent {
+        /*fun getCallingIntent(context: Context, product: ProductSerializable, voucherAddress: String, fundName: String): Intent {
             val intent = Intent(context, ActionPaymentActivity::class.java)
             val bundle = Bundle()
             bundle.putSerializable(ACTION_PRODUCT_EXTRA, product)
@@ -42,12 +42,13 @@ class ActionPaymentFragment : BaseFragment() {
             intent.putExtra(VOUCHER_FUND_NAME_EXTRA, fundName)
 
             return intent
-        }
+        }*/
 
-        fun newIntent(product: ProductSerializable, voucherAddress: String): ActionPaymentFragment = ActionPaymentFragment().also {
+        fun newIntent(product: ProductSerializable, voucherAddress: String,fundName: String): ActionPaymentFragment = ActionPaymentFragment().also {
             val bundle = Bundle()
             bundle.putSerializable(ACTION_PRODUCT_EXTRA, product)
             bundle.putString(VOUCHER_ADDRESS_EXTRA, voucherAddress)
+            bundle.putString(VOUCHER_FUND_NAME_EXTRA, fundName)
             it.arguments = bundle
         }
     }

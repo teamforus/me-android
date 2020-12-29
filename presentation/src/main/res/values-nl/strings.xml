@@ -127,6 +127,7 @@
     <string name="price_agreement_no_price">Geen prijs</string>
     <string name="price_agreement_n_v_t">n.v.t.</string>
     <string name="price_agreement_paid_by_customer">Betaald door klant</string>
+    <string name="price_agreement_notitie">Notitie</string>
 
     <!-- New record screen -->
     <string name="new_record_title">Nieuwe eigenschap</string>
@@ -283,7 +284,7 @@
     <string name="price">Prijs</string>
     <string name="discount">Korting</string>
     <string name="free_product">Deze actie is gratis, er hoeft niet bijbetaald te worden.</string>
-    <string name="submit_price_title">Customer pays</string>
+    <string name="submit_price_title">Klant betaalt</string>
     <string name="submit_price_subtitle">aan de kassa</string>
 
     <!--Voucher map-->
