@@ -303,7 +303,7 @@
     <string name="saturday">Zaterdag</string>
     <string name="sunday">Zondag</string>
 
-    <!-- Check email -->
+    <!-- Check email -->        
     <string name="check_email_has_been_sent_to_you">Er is een e-mail onderweg!</string>
     <string name="check_email_description_part1">Er is een e-mail gestuurd naar</string>
     <string name="check_email_description_part2">.\n Klik op de link in de e-mail om u aan te melden.\n</string>
@@ -314,7 +314,7 @@
 
     <!--Confirm login device dialog-->
     <string name="confirm_login_device_title">Probeer je in te loggen op een apparaat?</string>
-    <string name="confirm_login_device_subtitle">Scan alleen QR-codes vanaf je eigen apparaten. Gebruik nooit een code die een andere gebruiiker naar je heeft gestuurd.</string>
+    <string name="confirm_login_device_subtitle">Scan alleen QR-codes direct vanuit je browser of een ander eigen apparaat. Gebruik nooit een code die een andere gebruiker naar je heeft gestuurd.</string>
     <string name="confirm_login_device_confirm">Ja, ik wil inloggen</string>
     <string name="confirm_login_device_cancel">annuleren</string>
 
