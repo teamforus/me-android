@@ -329,6 +329,12 @@
     <!-- Restore account success -->
     <string name="restore_account_head">Successful registration!</string>
 
+    <!--Confirm login device dialog-->
+    <string name="confirm_login_device_title">Do you want to login on this device?</string>
+    <string name="confirm_login_device_subtitle">Scan only QR-codes on devices you own or temporarily use. Never scan a code which was sent or shown by another person.</string>
+    <string name="confirm_login_device_confirm">yes, i want to login</string>
+    <string name="confirm_login_device_cancel">no thanks</string>
+
     <!-- Send crashlitics reports screen -->
     <string name="send_report_head">Sharing information</string>
     <string name="send_report_description">If you agree to share your id number for crash reports, our developers will see the exact problem that might happen with Me and solve it much faster.</string>
