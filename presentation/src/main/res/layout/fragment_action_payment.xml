@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="model"
+            type="io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actions.payment.ActionPaymentViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/card_view"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="8dp"
+            app:cardBackgroundColor="@color/brightBackground"
+            app:cardCornerRadius="@dimen/card_radius"
+            app:cardElevation="@dimen/card_elevation_small">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_toStartOf="@+id/iv_action_icon"
+                    android:orientation="vertical"
+                    android:paddingStart="16dp">
+
+                    <io.forus.me.android.presentation.view.component.text.TextView
+                        android:id="@+id/tv_action_name"
+                        style="@style/CardTitle4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:ellipsize="end"
+                        android:lines="1"
+                        android:maxLines="1"
+                        android:text="@{model.productName}"
+                        app:type="medium"
+                        tools:text="Action name" />
+
+                    <io.forus.me.android.presentation.view.component.text.TextView
+                        android:id="@+id/tv_action_organization"
+                        style="@style/Body2Left"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:ellipsize="end"
+                        android:lines="1"
+                        android:maxLines="1"
+                        android:text="@{model.productPrice}"
+                        android:textColor="@color/textColor"
+                        tools:text="Action details" />
+
+
+                </LinearLayout>
+
+                <io.forus.me.android.presentation.view.component.images.AutoLoadImageView
+                    android:id="@+id/iv_action_icon"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="17dp"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginRight="17dp"
+                    android:layout_marginBottom="17dp"
+                    android:src="@drawable/ic_action_icon" />
+
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <View
+            android:id="@+id/cardDivider"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_below="@id/card_view"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="0dp"
+            android:alpha="0.8"
+            android:background="@drawable/shape_shadow_gradient" />
+
+        <LinearLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cardDivider"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/orgView"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <RelativeLayout
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true">
+
+                    <io.forus.me.android.presentation.view.component.images.AutoLoadImageView
+                        android:id="@+id/iv_organization_icon"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/ic_person_outlined" />
+
+                </RelativeLayout>
+
+                <io.forus.me.android.presentation.view.component.text.TextView
+                    android:id="@+id/tv_organization_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="42dp"
+                    android:letterSpacing="0.03"
+                    android:lineSpacingExtra="13sp"
+                    android:text="@{model.orgName}"
+                    android:textColor="@color/body_1_87"
+                    android:textSize="15sp"
+                    tools:text="DenyK" />
+
+
+            </RelativeLayout>
+
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="14dp"
+                android:layout_marginEnd="16dp"
+                app:cardBackgroundColor="#EAF0FF"
+                app:cardCornerRadius="10dp">
+
+                <RelativeLayout
+                    android:id="@+id/priceAgreementView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center_vertical"
+                    android:onClick="@{(view) -> model.onPricesClick(view)}"
+                    android:orientation="horizontal">
+
+
+                    <io.forus.me.android.presentation.view.component.images.AutoLoadImageView
+                        android:id="@+id/jghjgjhhg"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerInParent="true"
+                        android:layout_marginEnd="4dp"
+                        android:layout_toStartOf="@+id/priceAgreementLb"
+                        android:src="@drawable/ic_euro_1" />
+
+                    <io.forus.me.android.presentation.view.component.text.TextView
+                        android:id="@+id/priceAgreementLb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:letterSpacing="0.03"
+                        android:lineSpacingExtra="13sp"
+                        android:text="@string/price_agreement"
+                        android:textColor="@color/blue"
+                        android:textSize="15sp"
+                        tools:text="Price agreement" />
+
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/container"
+            android:layout_marginLeft="16dp"
+            android:background="#dadbdd"
+            android:visibility="gone" />
+
+
+
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/name_text_input"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/below"
+            android:layout_below="@id/container"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="40dp"
+            android:gravity="top|left"
+            >
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/note"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/price_agreement_notitie"
+                android:text="@={model.note}"
+                android:inputType="textMultiLine"
+                android:lines="8"
+                android:maxLines="10"
+                android:minLines="6"
+                android:padding="16dp"
+                android:scrollbars="vertical"
+                android:fontFamily="@font/google_sans_regular"
+                android:gravity="top|left"
+                />
+        </android.support.design.widget.TextInputLayout>
+
+
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="@{model.progress.booleanValue() ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/below"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginBottom="-20dp"
+            app:cardBackgroundColor="@color/brightBackground"
+            app:cardCornerRadius="@dimen/card_radius"
+            app:cardElevation="@dimen/card_elevation_small">
+
+
+            <RelativeLayout
+                android:id="@+id/rl_make"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="16dp">
+
+                <io.forus.me.android.presentation.view.component.buttons.Button
+                    android:id="@+id/btn_make"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginBottom="6dp"
+                    android:onClick="@{(view) -> model.onSaveClick(view)}"
+                    android:text="@string/vouchers_make_transaction"
+                    android:visibility="@{model.progress.booleanValue() ? View.GONE : View.VISIBLE}" />
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+
+    </RelativeLayout>
+</layout>
+

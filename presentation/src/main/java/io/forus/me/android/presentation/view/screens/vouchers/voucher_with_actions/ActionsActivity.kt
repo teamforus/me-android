@@ -27,6 +27,7 @@ import io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actio
 import kotlinx.android.synthetic.main.activity_actions.*
 import kotlinx.android.synthetic.main.toolbar_view.*
 import java.lang.Exception
+import java.math.BigDecimal
 
 
 class ActionsActivity : AppCompatActivity() {
@@ -77,7 +78,7 @@ class ActionsActivity : AppCompatActivity() {
             finish()
         }
 
-        descrTV.text = HtmlCompat.fromHtml("<b>" + getString(R.string.choose_an_action_note) + "</b> " + getString(R.string.choose_an_action_descr),
+        descrTV.text = HtmlCompat.fromHtml(getString(R.string.choose_an_action_descr),
                 HtmlCompat.FROM_HTML_MODE_LEGACY)
 
 
@@ -85,8 +86,16 @@ class ActionsActivity : AppCompatActivity() {
         transactionsAdapter = ActionsAdapter(arrayListOf(), object : ActionsAdapter.Callback {
             override fun onItemClicked(item: ProductAction) {
 
+
+
+
                 startActivity(ActionPaymentActivity.getCallingIntent(this@ActionsActivity,
-                        ProductSerializable(item.id!!, item.name, item.organization!!.name, item.organization!!.id, item.priceUser!!.toDouble()), voucherAddress!!))
+                        ProductSerializable(item.id!!, item.name, item.organization!!.name,
+                                item.organization!!.id, item.price,
+                                item.priceOld,
+                                item.noPrice?:false , item.noPriceType,
+                                item.noPriceDiscount ,
+                                item.priceUser, item.photoURL), voucherAddress!!,mainViewModel.fundName.value?:""))
             }
         }, this@ActionsActivity)
 

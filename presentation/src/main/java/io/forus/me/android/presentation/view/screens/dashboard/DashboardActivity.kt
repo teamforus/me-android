@@ -113,6 +113,7 @@ class DashboardActivity : SlidingPanelActivity(), DashboardContract.View {
         addPopupFragment(QrFragment.newIntent(address, qrHead, qrSubtitle, qrDescription), "QR code")
     }
 
+
     override fun replaceFragment(fragment: Fragment, sharedViews: List<View>) {
         super.replaceFragment(R.id.dashboard_top_content, fragment, sharedViews, true)
     }

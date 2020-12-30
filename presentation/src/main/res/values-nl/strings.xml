@@ -117,6 +117,18 @@
     <string name="profile_about">Informatie</string>
     <string name="email_support">support@forus.io</string>
 
+    <!-- Price agreement -->
+    <string name="price_agreement">Prijsafspraak</string>
+    <string name="price_agreement_total_price">Totaalprijs</string>
+    <string name="price_agreement_discount_by_provider_">Korting vanuit %1$s</string>
+    <string name="price_agreement_contribution_by_sponsor_">Bijdrage vanuit %1$s</string>
+    <string name="price_agreement_paid_out_by_sponsor_">Bijdrage vanuit %1$s</string>
+    <string name="price_agreement_total_to_pay">Wat de klant betaalt</string>
+    <string name="price_agreement_no_price">Geen prijs</string>
+    <string name="price_agreement_n_v_t">n.v.t.</string>
+    <string name="price_agreement_paid_by_customer">Betaald door klant</string>
+    <string name="price_agreement_notitie">Notitie</string>
+
     <!-- New record screen -->
     <string name="new_record_title">Nieuwe eigenschap</string>
     <string name="new_record_title_choose_category">Kies categorie</string>
@@ -218,7 +230,7 @@
     <!-- Vouchers -->
     <string name="vouchers_item">Tegoed</string>
     <string name="vouchers_item_product">Aanbieding</string>
-    <string name="vouchers_provider">Verzoek Betaling</string>
+    <string name="vouchers_provider">Verzoek betaling</string>
     <string name="vouchers_transactions">Geschiedenis</string>
     <string name="vouchers_transactions_empty">Nog geen transacties</string>
     <string name="vouchers_no_items">Geen tegoeden</string>
@@ -255,21 +267,24 @@
     <string name="shopkeeper_phone_text">Telefoonnummer</string>
     <string name="send_email_title">Stuur e-mail</string>
     <string name="shopkeeper_provider_text">Aanbieder</string>
-    <string name="profile_send_crash_report">Stuur foutrapports</string>
+    <string name="profile_send_crash_report">Stuur foutrapportages</string>
     <string name="qr_choose_reservation">Kies reservering</string>
     <string name="qr_reserved_offers">Onderstaande aanbiedingen zijn door de klant gereserveerd</string>
     <string name="vouchers_complete_an_amount">VUL ZELF EEN BEDRAG IN</string>
-    <string name="choose_company">Kies bedrijf</string>
+    <string name="choose_company">Kies organisatie</string>
     <string name="payment">Betaling</string>
     <string name="choose_an_action">Kies een actie</string>
-    <string name="choose_an_action_note">Let op: </string>
-    <string name="choose_an_action_descr">de klant moet het bedrag aan de kassa betalen.</string>
+    <string name="choose_an_action_descr">Laat de klant het bedrag aan de kassa betalen.</string>
     <string name="confirm_payment">Bevestig betaling</string>
     <string name="has_the_customer">Heeft de klant </string>
     <string name="paid_at_till">betaald aan de kassa?</string>
     <string name="empty_actions_list">Geen saldo voor uw acties</string>
     <string name="free">Gratis</string>
+    <string name="price">Prijs</string>
+    <string name="discount">Korting</string>
     <string name="free_product">Deze actie is gratis, er hoeft niet bijbetaald te worden.</string>
+    <string name="submit_price_title">Klant betaalt</string>
+    <string name="submit_price_subtitle">aan de kassa</string>
 
     <!--Voucher map-->
     <string name="show_map">Bekijk kaart</string>
@@ -288,7 +303,7 @@
     <string name="saturday">Zaterdag</string>
     <string name="sunday">Zondag</string>
 
-    <!-- Check email -->
+    <!-- Check email -->        
     <string name="check_email_has_been_sent_to_you">Er is een e-mail onderweg!</string>
     <string name="check_email_description_part1">Er is een e-mail gestuurd naar</string>
     <string name="check_email_description_part2">.\n Klik op de link in de e-mail om u aan te melden.\n</string>
@@ -296,6 +311,12 @@
 
     <!-- Restore account success -->
     <string name="restore_account_head">Aanmelding geslaagd!</string>
+
+    <!--Confirm login device dialog-->
+    <string name="confirm_login_device_title">Probeer je in te loggen op een apparaat?</string>
+    <string name="confirm_login_device_subtitle">Scan alleen QR-codes direct vanuit je browser of een ander eigen apparaat. Gebruik nooit een code die een andere gebruiker naar je heeft gestuurd.</string>
+    <string name="confirm_login_device_confirm">Ja, ik wil inloggen</string>
+    <string name="confirm_login_device_cancel">annuleren</string>
 
     <!-- Send crashlitics reports screen -->
     <string name="send_report_head">Informatie delen</string>

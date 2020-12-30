@@ -28,7 +28,9 @@
             android:name="org.apache.http.legacy"
             android:required="false" />
 
-        <activity android:name=".view.screens.vouchers.voucher_with_actions.payment.ActionPaymentActivity" />
+        <activity android:name=".view.screens.vouchers.voucher_with_actions.payment.ActionPaymentActivity"
+            android:windowSoftInputMode="adjustPan"
+            />
         <activity
             android:name=".view.screens.vouchers.voucher_with_actions.ActionsActivity"
             android:label="@string/title_activity_actions"

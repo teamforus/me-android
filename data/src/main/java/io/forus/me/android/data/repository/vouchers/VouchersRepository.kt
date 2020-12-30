@@ -222,7 +222,10 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
         }
 
 
-        return ProductAction(productAction.id, productAction.name, productAction.organizationId, productAction.price, productAction.priceUser,
+        return ProductAction(productAction.id, productAction.name, productAction.organizationId,
+                productAction.price, productAction.priceUser,
+                productAction.price_old, productAction.isNo_price, productAction.no_price_type,
+                productAction.no_price_discount,
                 photoUrl, organization, productCategory)
     }
 
