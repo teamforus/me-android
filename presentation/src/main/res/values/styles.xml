@@ -268,6 +268,13 @@
         <item name="android:textColor">@color/darkGrey_Text_1</item>
     </style>
 
+    <style name="Overline6">
+        <item name="android:textSize">12sp</item>
+        <item name="android:lineSpacingExtra">0sp</item>
+        <item name="android:textColor">@color/overline6_color</item>
+    </style>
+
+
     <style name="Overline2">
         <item name="android:textSize">13sp</item>
         <item name="android:lineSpacingExtra">3sp</item>
@@ -310,6 +317,19 @@
         <item name="android:lineSpacingExtra">4.0sp</item>
     </style>
 
+    <style name="Subtitle5" parent="@android:style/TextAppearance">
+        <item name="android:textSize">12.05sp</item>
+        <item name="android:letterSpacing">0.03</item>
+        <item name="android:textColor">@color/forus_blue</item>
+    </style>
+
+    <style name="Subtitle6">
+        <item name="android:textSize">15.00sp</item>
+        <item name="android:textColor">@color/textColor</item>
+        <item name="android:letterSpacing">0.03</item>
+        <item name="android:lineSpacingExtra">2.0sp</item>
+    </style>
+
     <style name="ShareButtonBody">
         <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/body_1_87</item>
@@ -327,6 +347,8 @@
         <item name="android:textSize">12.1sp</item>
         <item name="android:textColor">@color/forus_blue</item>
     </style>
+
+
 
     <style name="EditTextError" parent="@android:style/TextAppearance">
         <item name="android:textSize">12.1sp</item>

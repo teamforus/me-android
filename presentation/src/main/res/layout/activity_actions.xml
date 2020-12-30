@@ -325,18 +325,6 @@
                                     android:fontFamily="@font/google_sans_regular"
                                     tools:text="@string/choose_an_action_descr" />
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="10dp"
-                                    android:text="@string/choose_company"
-                                    android:visibility="visible"
-                                    android:textSize="16sp"
-                                    android:textColor="#292F3A"
-                                    android:fontFamily="@font/google_sans_medium"
-                                    android:layout_marginLeft="16dp"
-                                    android:layout_marginRight="16dp"
-                                     />
 
                                 <Spinner
                                     android:id="@+id/organizationsSpinner"
