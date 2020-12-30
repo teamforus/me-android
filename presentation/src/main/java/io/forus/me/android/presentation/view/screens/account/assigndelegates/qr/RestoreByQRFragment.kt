@@ -71,7 +71,6 @@ class RestoreByQRFragment : LRFragment<RestoreByQRModel, RestoreByQRView, Restor
     }
 
     fun closeScreen(accessToken: String) {
-        Log.d("forus","navigateToPinNew============================")
         navigator.navigateToPinNew(activity, accessToken)
         navigator.navigateToResoreAccountSuccess(activity, accessToken, false)//accessToken)
         activity?.finish()

@@ -65,6 +65,7 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
     }
 
     fun restoreIdentity(token: String) {
+
         Log.d("forusQR", "restore identity $token")
 
 

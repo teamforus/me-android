@@ -192,7 +192,6 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
         email!!.isEditable = vs.model.sendingRestoreByEmail != true //!(vs.model.sendingRestoreByEmailSuccess == true)
 
         if (vs.model.sendingRestoreByEmailSuccess == true && !instructionsAlreadyShown) {
-            Log.d("forus","navigateToCheckEmail")
 
             navigator.navigateToCheckEmail(context!!)
         }
