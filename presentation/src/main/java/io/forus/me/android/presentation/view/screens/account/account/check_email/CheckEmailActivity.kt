@@ -45,7 +45,7 @@ class CheckEmailActivity : CommonActivity() {
         SharedPref.init(this@CheckEmailActivity)
         val restoreEmail = SharedPref.read(SharedPref.RESTORE_EMAIL, "")
 
-        val descriptionText = getString(R.string.check_email_description_part1) + " <b><i>" + restoreEmail + "</i></b> " + getString(R.string.check_email_description_part2)
+        val descriptionText = getString(R.string.check_email_description_part1) + " <b><i><font color=\"blue\">" + restoreEmail + "</font></i></b> " + getString(R.string.check_email_description_part2)
         description.text = HtmlCompat.fromHtml(descriptionText, HtmlCompat.FROM_HTML_MODE_LEGACY);
 
 

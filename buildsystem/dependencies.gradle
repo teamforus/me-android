@@ -108,6 +108,7 @@ ext {
   ]
 
   presentationTestDependencies = [
+      junit:              "junit:junit:${jUnitVersion}",
       mockito:            "org.mockito:mockito-core:${mockitoVersion}",
       dexmaker:           "com.google.dexmaker:dexmaker:${dexmakerVersion}",
       dexmakerMockito:    "com.google.dexmaker:dexmaker-mockito:${dexmakerVersion}",

@@ -44,6 +44,7 @@
                 android:layout_height="24dp"
                 android:background="@drawable/ic_close"
                 android:visibility="gone"
+                android:fontFamily="@font/google_sans_medium"
                 />
         </RelativeLayout>
 
@@ -106,6 +107,7 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:gravity="center"
+            android:fontFamily="@font/google_sans_medium"
             android:text="@string/profile_logout" />
     </LinearLayout>
 

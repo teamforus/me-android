@@ -14,4 +14,6 @@ interface LogInSignUpView : LRView<LogInSignUpModel> {
 
     fun registerNewAccount(): io.reactivex.Observable<NewAccountRequest>
 
+    fun validateEmail(): io.reactivex.Observable<String>
+
 }

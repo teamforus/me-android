@@ -59,9 +59,10 @@
             android:layout_marginTop="8dp"
             android:lineSpacingExtra="1sp"
             android:text="@string/welcome_set_up_your_identity"
+            android:fontFamily="@font/google_sans_regular"
             android:textColor="#3e4a59"
             android:textSize="17sp"
-            app:type="bold" />
+            app:type="regular" />
 
 
         <io.forus.me.android.presentation.view.component.editors.EditText
@@ -72,14 +73,18 @@
             android:inputType="textEmailAddress"
             app:hint="@string/new_account_field_email"
             app:validationError="@string/me_validation_error_email_is_invalid"
-            app:validationRegex="email" />
+            app:validationRegex="email"
+            app:type="regular"
+            />
 
         <io.forus.me.android.presentation.view.component.buttons.Button
             android:id="@+id/restore"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
-            android:text="@string/qr_popup_restore_identity_title" />
+            android:text="@string/qr_popup_restore_identity_title"
+            app:type="regular"
+            />
 
         <io.forus.me.android.presentation.view.component.text.TextView
             style="@style/CalloutStyle"
@@ -97,6 +102,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="@string/restore_account_pair"
+            android:fontFamily="@font/google_sans_regular"
             app:reverse="true" />
     </LinearLayout>
 

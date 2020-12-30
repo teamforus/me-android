@@ -27,12 +27,14 @@
             android:layout_marginBottom="8dp"
             android:text="@string/app_error_text"
             android:textColor="@color/colorAccent"
+            android:fontFamily="@font/google_sans_regular"
             android:textSize="20sp" />
 
         <Button
             android:id="@+id/LR_Retry_Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/google_sans_medium"
             android:text="@string/app_retry_text" />
 
     </LinearLayout>

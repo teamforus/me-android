@@ -5,12 +5,9 @@ import android.content.Intent
 import android.graphics.BlurMaskFilter
 import android.net.Uri
 import android.os.Bundle
-import android.support.customtabs.CustomTabsIntent
-import android.support.design.widget.Snackbar
-import android.support.v4.content.ContextCompat
+import android.support.v4.view.ViewPager
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,26 +23,25 @@ import io.forus.me.android.data.executor.JobExecutor
 import io.forus.me.android.domain.interactor.LoadVoucherUseCase
 import io.forus.me.android.domain.interactor.SendEmailUseCase
 import io.forus.me.android.domain.models.qr.QrCode
-import io.forus.me.android.presentation.BuildConfig
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.UIThread
 import io.forus.me.android.presentation.helpers.format
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.mappers.*
 import io.forus.me.android.presentation.models.vouchers.FundType
+import io.forus.me.android.presentation.models.vouchers.Office
 import io.forus.me.android.presentation.models.vouchers.Voucher
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.forus.me.android.presentation.view.screens.dashboard.DashboardActivity
 import io.forus.me.android.presentation.view.screens.vouchers.dialogs.FullscreenDialog
-import io.forus.me.android.presentation.view.screens.vouchers.item.dialogs.SendVoucherSuccessDialog
+import io.forus.me.android.presentation.view.screens.vouchers.item.offices_adapter.OfficesAdapter
 import io.forus.me.android.presentation.view.screens.vouchers.item.transactions.TransactionsAdapter
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_voucher.*
+import kotlinx.android.synthetic.main.item_vouchers_list.view.*
 import kotlinx.android.synthetic.main.toolbar_view.*
-import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -154,9 +150,8 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
 
         info_button.setOnClickListener {
 
-            Log.d("forus", "info_button_setOnClickListener")
             canShowInfo = true
-            shortToken.onNext("");
+            shortToken.onNext("")
 
 
         }
@@ -253,7 +248,9 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
                 LoadVoucherUseCase(Injection.instance.vouchersRepository, JobExecutor(), UIThread()),
                 SendEmailUseCase(Injection.instance.vouchersRepository, JobExecutor(), UIThread()),
                 VoucherDataMapper(currencyDataMapper, TransactionDataMapper(currencyDataMapper, OrganizationDataMapper(),
-                ProductDataMapper()), ProductDataMapper()),
+
+                 ProductDataMapper()), ProductDataMapper(), OfficeDataMapper(SchedulerDataMapper())),
+
                 address,
                 voucher,
                 Injection.instance.accountRepository
@@ -264,19 +261,17 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
     override fun render(vs: LRViewState<VoucherModel>) {
         super.render(vs)
 
-        Log.d("forus", "render")
 
 
         name.text = vs.model.item?.name
         type.text = vs.model.item?.organizationName
-        value.text = "${vs.model.item?.currency?.name} ${vs.model.item?.amount?.toDouble().format(2)}"
+
 
         vs.model.item?.let { voucher ->
 
 
-            Log.d("forus", "vs.model.item")
             setToolbarTitle(resources.getString(if (voucher.isProduct) R.string.vouchers_item_product else R.string.vouchers_item))
-            if(voucher.fundType == FundType.subsidies.name){
+            if (voucher.fundType == FundType.subsidies.name) {
                 adapter.isActionsVoucher = true
             }
             adapter.transactions = voucher.transactions
@@ -299,6 +294,8 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
                     shopkeeper_title.text = organization.name
                     shopkeeper_address.text = organization.address
                     shopkeeper_email.text = organization.email
+                    shopkeeper_email.visibility = if ((organization.email
+                                    ?: "").isNotEmpty()) View.VISIBLE else View.GONE
 
                     Glide.with(this)
                             .load(organization.logo)
@@ -307,77 +304,155 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
 
                     shopkeeper_phone.text = organization.phone
 
-                    val latLng = LatLng(organization?.lat ?: 0.0, organization?.lon ?: 0.0)
+                    val latLng = LatLng(organization.lat ?: 0.0, organization.lon ?: 0.0)
                     organizationLatLng = latLng
                     setMarker(latLng)
                 }
+
+
+                val officesList = voucher.offices
+                val myOffices = mutableListOf<Office>()
+                myOffices.addAll(officesList)
+                if (myOffices.isNotEmpty()) {
+                    val officesAdapter = OfficesAdapter(myOffices, context!!)
+                    officesAdapter.showMapCallback = object : OfficesAdapter.ShowMapCallback {
+                        override fun showMap(office: Office) {
+                            if (office.lat != null && office.lon != null) {
+                                showGoogleMaps(office.lat!!, office.lon!!)
+                            }
+                        }
+                    }
+                    val officesCnt = myOffices.size
+                    branchesTV.text = resources.getQuantityString(R.plurals.branches, officesCnt, officesCnt)
+
+                    viewPager.adapter = officesAdapter
+                    viewPager.setPadding(16, 20, 130, 20)
+                    viewPager.setOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+                        override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+                            val office = if (position >= 0 && position < myOffices.size) myOffices[position] else myOffices[0]
+                            val latLng = LatLng(office.lat ?: 0.0, office.lon ?: 0.0)
+                            organizationLatLng = latLng
+                            setMarker(latLng)
+                        }
+
+                        override fun onPageSelected(position: Int) {}
+                        override fun onPageScrollStateChanged(state: Int) {}
+                    })
+
+
+                } else {
+                    branchesTV.visibility = View.GONE
+                }
             }
+
+
+
 
             if (voucher.expired) {
-                //val isExpired = isVoucherExpired(voucher.expireDate!!)
-                //Log.d("forus", "Is_voucher_expired? $isExpired")
-
-                info_button.visibility = View.INVISIBLE
-
-                btn_email.isEnabled = false
-                btn_email.visibility = View.INVISIBLE
-                iv_qr_icon.visibility = View.INVISIBLE
-                tv_voucher_expired.visibility = View.VISIBLE
 
 
-                if (voucher.expireDate?.isNotEmpty()!!) {
+                if (voucher.isProduct && voucher.isUsed || voucher.expired) {
 
-                    tv_voucher_expired.text = if (voucher.expired) String.format(resources.getString(R.string.voucher_qr_code_expired),
-                            voucher?.expireDate) else String.format(resources.getString(R.string.voucher_qr_code_actual),
-                            voucher?.expireDate)
-                }
-                // shopkeeper_call
-            } else {
-                tv_voucher_expired.visibility = View.GONE
-            }
+                    info_button.visibility = View.INVISIBLE
+                    btn_email.isEnabled = false
+                    btn_email.visibility = View.GONE
+                    iv_qr_icon.visibility = View.INVISIBLE
+                    tv_voucher_expired.visibility = View.VISIBLE
 
-            if(voucher.fundType == FundType.subsidies.name) {
-                info_button.visibility = View.INVISIBLE
+                    value.visibility = View.GONE
+                    usedOrExpiredLb.visibility = View.VISIBLE
+
+                    if (voucher.isProduct && voucher.isUsed) {
+
+                        usedOrExpiredLb.text = usedOrExpiredLb.context.getString(R.string.voucher_is_used)
+                    } else if (voucher.expired) {
+
+                        //usedOrExpiredLb.text = usedOrExpiredLb.context.getString(R.string.voucher_expired)
+
+                        if (voucher.expireDate?.isNotEmpty()!!) {
+
+                            usedOrExpiredLb.text = if (voucher.expired) String.format(resources.getString(R.string.voucher_qr_code_expired),
+                                    voucher?.expireDate) else String.format(resources.getString(R.string.voucher_qr_code_actual),
+                                    voucher?.expireDate)
+
+                            tv_voucher_expired.visibility = View.GONE
+                            // tv_voucher_expired.text = if (voucher.expired) String.format(resources.getString(R.string.voucher_qr_code_expired),
+                            //                            voucher?.expireDate) else String.format(resources.getString(R.string.voucher_qr_code_actual),
+                            //                            voucher?.expireDate)
+                        }
 
 
-                iv_qr_icon.visibility = View.VISIBLE
+                        tv_voucher_expired.text = if (voucher.expired) String.format(resources.getString(R.string.voucher_qr_code_expired),
+                                voucher.expireDate) else String.format(resources.getString(R.string.voucher_qr_code_actual),
+                                voucher.expireDate)
 
-                tv_voucher_expired.visibility = View.VISIBLE
-                tv_voucher_expired.visibility = View.GONE
-                value.visibility = View.GONE
-
-            }
-
-
-        }
-
-        if (vs.model.shortToken != null) {
-            if (canShowInfo) {
-
-                val url: String = if (voucher?.fundWebShopUrl?.isNotEmpty()!! && vs.model.shortToken.isNotEmpty()) {
-                    voucher?.fundWebShopUrl + "auth-link?token=" + vs.model.shortToken + "&target=voucher-" + voucher?.address
+                    }
                 } else {
-                    "https://forus.io/"
+                    tv_voucher_expired.visibility = View.GONE
+                    value.visibility = View.VISIBLE
+                    usedOrExpiredLb.visibility = View.GONE
+                    value.text = "${vs.model.item?.currency?.name} ${vs.model.item?.amount?.toDouble().format(2)}"
                 }
 
-                openVoucherInfo(url)
-                canShowInfo = false
+
+                if (voucher.fundType == FundType.subsidies.name) {
+                    info_button.visibility = View.INVISIBLE
+
+
+
+                    if (voucher.fundType == FundType.subsidies.name) {
+                        info_button.visibility = View.INVISIBLE
+
+                        iv_qr_icon.visibility = View.VISIBLE
+
+                        tv_voucher_expired.visibility = View.VISIBLE
+                        tv_voucher_expired.visibility = View.GONE
+                        value.visibility = View.GONE
+
+                    }
+
+
+                }
+
+                if (vs.model.shortToken != null) {
+                    if (canShowInfo) {
+
+                        val url: String = if (voucher?.fundWebShopUrl?.isNotEmpty()!! && vs.model.shortToken.isNotEmpty()) {
+                            voucher?.fundWebShopUrl + "auth-link?token=" + vs.model.shortToken + "&target=voucher-" + voucher?.address
+                        } else {
+                            "https://forus.io/"
+                        }
+
+                        openVoucherInfo(url)
+                        canShowInfo = false
+                    }
+                }
+
+
+
+
+                when (vs.model.emailSend) {
+                    EmailSend.SEND -> showEmailSendDialog()
+                    EmailSend.SENT -> {
+                        FullscreenDialog.display(fragmentManager, context!!.resources.getString(R.string.voucher_send_email_success),
+                                context!!.resources.getString(R.string.voucher_send_email_description),
+                                context!!.resources.getString(R.string.me_ok)) {
+                            sentEmailDialogShown.onNext(Unit)
+                        }
+                    }
+                    EmailSend.NOTHING -> Unit
+                }
             }
         }
+    }
 
 
-
-
-        when (vs.model.emailSend) {
-            EmailSend.SEND -> showEmailSendDialog()
-            EmailSend.SENT -> {
-                FullscreenDialog.display(fragmentManager, context!!.resources.getString(R.string.voucher_send_email_success),
-                        context!!.resources.getString(R.string.voucher_send_email_description),
-                        context!!.resources.getString(R.string.me_ok)) {
-                    sentEmailDialogShown.onNext(Unit)
-                }
-            }
-            EmailSend.NOTHING -> Unit
+    private fun showGoogleMaps(lat: Double, lon: Double){
+        val gmmIntentUri = Uri.parse("geo:${lat.toString()},${lon.toString()}")
+        val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+        mapIntent.setPackage("com.google.android.apps.maps")
+        if (mapIntent.resolveActivity(context!!.packageManager) != null) {
+            startActivity(mapIntent)
         }
     }
 
@@ -385,9 +460,9 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
     private fun openVoucherInfo(url: String) {
 
 
-        val i = Intent(Intent.ACTION_VIEW);
-        i.setData(Uri.parse(url));
-        startActivity(i);
+        val i = Intent(Intent.ACTION_VIEW)
+        i.data = Uri.parse(url)
+        startActivity(i)
     }
 
 
@@ -437,7 +512,9 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
         map?.addMarker(marker)
                 ?.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.shop_location))
 
-        map?.moveCamera(CameraUpdateFactory.newLatLng(address))
+
+            map?.moveCamera(CameraUpdateFactory.newLatLng(address))
+
     }
 
     private fun emailToShopkeeper(email: String) {
@@ -457,6 +534,8 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
     private fun showEmailSendDialog() {
         sendEmailDialog.show()
     }
+
+
 
 }
 

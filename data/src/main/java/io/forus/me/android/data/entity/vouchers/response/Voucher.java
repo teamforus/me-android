@@ -32,6 +32,9 @@ public class Voucher {
     @SerializedName("expired")
     private boolean expired;
 
+    @SerializedName("used")
+    boolean used;
+
     @SerializedName("expire_at_locale")
     private String expireAtLocale;
 
@@ -238,5 +241,13 @@ public class Voucher {
 
     public void setExpired(boolean expired) {
         this.expired = expired;
+    }
+
+    public boolean isUsed() {
+        return used;
+    }
+
+    public void setUsed(boolean used) {
+        this.used = used;
     }
 }

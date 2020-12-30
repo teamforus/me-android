@@ -18,9 +18,20 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
 
     val dateLocaleFormat = SimpleDateFormat("MMM dd, yyyy HH:mm", Locale.US)
 
+
+    private fun voucherIsUsed(voucher: io.forus.me.android.data.entity.vouchers.response.Voucher): Boolean{
+        return if(voucher.isUsed != null){
+            voucher.isUsed
+        }else{
+            val isProduct = voucher.type == io.forus.me.android.data.entity.vouchers.response.Voucher.Type.product
+            isProduct && voucher.transactions != null && voucher.transactions.isNotEmpty()
+        }
+    }
+
     private fun mapToSimple(voucher: io.forus.me.android.data.entity.vouchers.response.Voucher): Voucher {
         val isProduct = voucher.type == io.forus.me.android.data.entity.vouchers.response.Voucher.Type.product
-        val isUsed = isProduct && voucher.transactions != null && voucher.transactions.isNotEmpty()
+        //val isUsed = isProduct && voucher.transactions != null && voucher.transactions.isNotEmpty()
+        val isUsed = voucherIsUsed(voucher)
 
         val name = if (isProduct) voucher.product.name else voucher.fund.name
         val organizationName = if (isProduct) voucher.product.organization.name else voucher.fund.organization.name
@@ -63,6 +74,10 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
                 val product = if (it.product == null) {
                     null
                 } else {
+
+                    val logo = if(it.product.organization.logo != null){ it.product.organization.logo.sizes.thumbnail }
+                    else{ null }
+
                     Product(it.product.id, it.product.organizationId,
                             it.product.productCategoryId,
                             it.product.name, it.product.description,
@@ -72,7 +87,7 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
                                     it.product.productCategory.key,
                                     it.product.productCategory.name),
                             Organization(it.product.organization.id, it.product.organization.name,
-                                    it.product.organization.logo.sizes.thumbnail, it.product.organization.lat,
+                                    logo, it.product.organization.lat,
                                     it.product.organization.lon, it.product.organization.identityAddress,
                                     it.product.organization.phone, it.product.organization.email))
                 }
@@ -142,12 +157,33 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
 
 
 
+
+        val offices = mutableListOf<io.forus.me.android.domain.models.vouchers.Office>()
+        if (voucher.offices != null) {
+            voucher.offices.map {
+
+                val schedulers = mutableListOf<Schedule>()
+                if(it.schedule != null){
+                    it.schedule.map {
+                        schedulers.add(Schedule(it.id,it.officeId,it.weekDay,it.startTime,it.endTime))
+                    }
+                }
+
+                var organization = Organization(it.organization.id,
+                        it.organization.name, organizationLogoUrl, it.organization.lat,
+                        it.organization.lon, it.organization.identityAddress ?: "",
+                        it.organization.phone ?: "", it.organization.email ?: "")
+                offices.add(Office(it.id,it.organizationId,it.address,it.phone,it.lat,it.lon,it.phone,organization,schedulers
+                ))
+            }
+        }
+
         return Voucher(isProduct, isUsed, voucher.address
                 ?: "", name, organizationName, voucher.fund?.name
                 ?: "", voucher.fund?.type
                 ?: "", voucher.fund?.webShopUrl ?: "", description, createdAt!!, euro, amount,
                 productLogoUrl, transactions, productMapped, voucher.isExpired, voucher.expireAtLocale
-                ?: "")
+                ?: "" , offices)
 
     }
 
@@ -186,7 +222,10 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
         }
 
 
-        return ProductAction(productAction.id, productAction.name, productAction.organizationId, productAction.price, productAction.priceUser,
+        return ProductAction(productAction.id, productAction.name, productAction.organizationId,
+                productAction.price, productAction.priceUser,
+                productAction.price_old, productAction.isNo_price, productAction.no_price_type,
+                productAction.no_price_discount,
                 photoUrl, organization, productCategory)
     }
 
@@ -242,10 +281,12 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
                 0f.toBigDecimal(), 0f.toBigDecimal(),
                 0, 0, productCategory, organization)
 
+        val offices = mutableListOf<io.forus.me.android.domain.models.vouchers.Office>()
+
         val voucher = Voucher(false, false, "", "Test bedrijf",
                 "", "", "", "",
                 "", date, currency, 1000.toBigDecimal(), "",
-                transactionList, product, false, "")
+                transactionList, product, false, "",offices)
 
         return VoucherProvider(voucher, organizationsList, productCategoryList)
     }
