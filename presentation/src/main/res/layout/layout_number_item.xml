@@ -4,6 +4,6 @@
     android:layout_width="54dp"
     android:layout_height="54dp"
     android:background="?attr/selectableItemBackgroundBorderless"
-    android:fontFamily="sans-serif"
+    android:fontFamily="@font/google_sans_medium"
     android:textColor="@color/textColor"
     android:textSize="34sp" />

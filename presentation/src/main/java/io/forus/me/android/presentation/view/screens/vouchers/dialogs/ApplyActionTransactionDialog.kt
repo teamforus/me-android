@@ -7,7 +7,8 @@ import com.afollestad.materialdialogs.MaterialDialog
 import io.forus.me.android.presentation.R
 
 
-class ApplyActionTransactionDialog(private val context: Activity, private val amount: String, val isFreeProduct: Boolean,
+class ApplyActionTransactionDialog(private val context: Activity, private val title: String,
+                                   private val toPayText: String, private val subtitle: String,
                                    private val positiveCallback: () -> Unit) {
 
     var dialog: MaterialDialog? = null
@@ -19,20 +20,14 @@ class ApplyActionTransactionDialog(private val context: Activity, private val am
         val bottomTV = customLayout.findViewById<TextView>(R.id.bottom)
 
         val amountTV =  customLayout.findViewById<TextView>(R.id.amount)
-        val freeGood =  customLayout.findViewById<TextView>(R.id.freeGood)
 
-        titleTV.visibility = if(isFreeProduct){View.GONE}else{View.VISIBLE}
-        bottomTV.visibility = if(isFreeProduct){View.GONE}else{View.VISIBLE}
-        amountTV.visibility = if(isFreeProduct){View.GONE}else{View.VISIBLE}
-        freeGood.visibility = if(isFreeProduct){View.VISIBLE}else{View.GONE}
 
-        if(isFreeProduct){
-            freeGood.text = context.getString(R.string.free_product )
-        }else{
-            amountTV.text = amount
-            titleTV.text = context.getString(R.string.free_product )
-            bottomTV.text =  context.getString(R.string.paid_at_till)
-        }
+
+
+            amountTV.text = toPayText
+            titleTV.text = title
+            bottomTV.text =  subtitle
+
 
 
         customLayout.findViewById<io.forus.me.android.presentation.view.component.buttons.ButtonWhite>(R.id.submit).setOnClickListener {

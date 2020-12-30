@@ -45,7 +45,7 @@
                         app:layout_constraintTop_toBottomOf="@id/titleLayout"
                         android:textSize="32sp"
                         android:textColor="@color/textColor"
-                        android:fontFamily="sans-serif-medium"
+                        android:fontFamily="@font/google_sans_medium"
                         />
 
 

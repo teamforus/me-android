@@ -6,6 +6,7 @@ import android.os.Build
 import android.util.AttributeSet
 import io.forus.me.android.presentation.R
 import android.support.v4.content.ContextCompat
+import android.support.v4.content.res.ResourcesCompat
 import android.util.TypedValue
 import io.forus.me.android.presentation.helpers.Converter
 import io.forus.me.android.presentation.helpers.FontCache
@@ -69,7 +70,9 @@ class Button : android.support.v7.widget.AppCompatButton {
         setTextSize(TypedValue.COMPLEX_UNIT_DIP, customTextSize)
         val fontType = FontType.Bold
 
-        typeface = FontCache.getTypeface(fontType.getFontPath(), context)
+       // typeface = FontCache.getTypeface(fontType.getFontPath(), context)
+
+        this.typeface = ResourcesCompat.getFont(context, R.font.google_sans_medium)
     }
 
     private fun initBackground(){

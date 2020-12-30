@@ -1,22 +1,41 @@
 package io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actions.payment;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 public class ProductSerializable implements Serializable {
 
     long id;
     String name;
     String companyName;
-    double price;
+    BigDecimal price;
+    BigDecimal oldPrice;
+    boolean noPrice;
+    String noPriceType;
+    BigDecimal noPriceDiscount;
+
+    BigDecimal priceUser;
     long companyId;
 
+    String photoURL;
 
-    public ProductSerializable(long id, String name,  String companyName, long companyId, double price ) {
+
+    public ProductSerializable(long id, String name, String companyName, long companyId, BigDecimal price,
+                               BigDecimal oldPrice,
+                               boolean noPrice, String noPriceType, BigDecimal noPriceDiscount,
+                               BigDecimal priceUser, String photoURL) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.companyName = companyName;
         this.companyId = companyId;
+        this.oldPrice = oldPrice;
+        this.noPrice = noPrice;
+        this.noPriceType = noPriceType;
+        this.noPriceDiscount = noPriceDiscount;
+        this.priceUser = priceUser;
+        this.photoURL = photoURL;
+
     }
 
     public long getId() {
@@ -35,11 +54,11 @@ public class ProductSerializable implements Serializable {
         this.name = name;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
@@ -52,12 +71,35 @@ public class ProductSerializable implements Serializable {
     }
 
 
-
     public long getCompanyId() {
         return companyId;
     }
 
     public void setCompanyId(long companyId) {
         this.companyId = companyId;
+    }
+
+    public BigDecimal getOldPrice() {
+        return oldPrice;
+    }
+
+    public void setOldPrice(BigDecimal oldPrice) {
+        this.oldPrice = oldPrice;
+    }
+
+    public BigDecimal getPriceUser() {
+        return priceUser;
+    }
+
+    public void setPriceUser(BigDecimal priceUser) {
+        this.priceUser = priceUser;
+    }
+
+    public String getPhotoURL() {
+        return photoURL;
+    }
+
+    public void setPhotoURL(String photoURL) {
+        this.photoURL = photoURL;
     }
 }

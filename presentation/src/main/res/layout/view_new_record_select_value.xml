@@ -68,6 +68,7 @@
             android:textSize="16.1sp"
             android:lineSpacingExtra="7.9sp"
             android:gravity="top"
+            android:fontFamily="@font/google_sans_regular"
             android:inputType="textMultiLine" />
 
     </LinearLayout>

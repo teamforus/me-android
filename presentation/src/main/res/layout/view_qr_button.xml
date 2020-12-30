@@ -22,6 +22,7 @@
         android:layout_marginLeft="6dp"
         android:layout_marginRight="6dp"
         android:layout_width="match_parent"
+        android:fontFamily="@font/google_sans_medium"
         android:layout_height="36dp" />
 
 </RelativeLayout>

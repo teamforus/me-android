@@ -1,10 +1,12 @@
 package io.forus.me.android.presentation.view.component.text
 
 import android.content.Context
+import android.graphics.Typeface
+import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.widget.AppCompatTextView
 import android.util.AttributeSet
+import android.util.Log
 import io.forus.me.android.presentation.R
-import android.graphics.Typeface
 import io.forus.me.android.presentation.helpers.FontCache
 import io.forus.me.android.presentation.view.component.FontType
 
@@ -13,6 +15,8 @@ class TextView : AppCompatTextView {
 
 
     var type: FontType = FontType.Regular
+
+
 
     constructor(context: Context) : super(context) {
         initUI(context, null)
@@ -49,7 +53,14 @@ class TextView : AppCompatTextView {
     private fun initType(context: Context) {
 
 
-        this.typeface = FontCache.getTypeface(type.getFontPath(), context)
+        when(type){
+            FontType.Medium , FontType.Bold -> this.typeface = ResourcesCompat.getFont(context, R.font.google_sans_medium)
+            FontType.Regular ->this.typeface = ResourcesCompat.getFont(context, R.font.google_sans_regular)
+            else -> this.typeface = ResourcesCompat.getFont(context, R.font.google_sans_regular)
+        }
+       // this.typeface = FontCache.getTypeface(type.getFontPath(), context)
+
+
     }
 
 

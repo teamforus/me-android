@@ -15,11 +15,11 @@ import io.forus.me.android.presentation.models.vouchers.FundType
 import io.forus.me.android.presentation.navigation.Navigator
 import io.forus.me.android.presentation.view.base.NoInternetDialog
 import io.forus.me.android.presentation.view.screens.qr.dialogs.*
+import io.forus.me.android.presentation.view.screens.records.create_record.dialog.CreateRecordSuccessDialog
 import io.forus.me.android.presentation.view.screens.records.dialogs.validators_list_dialog.ValidatorsListDialog
 import io.forus.me.android.presentation.view.screens.vouchers.provider.ProviderActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import java.lang.Exception
 import java.math.BigDecimal
 
 class QrActionProcessor(private val scanner: QrScannerActivity,
@@ -65,35 +65,48 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
     }
 
     fun restoreIdentity(token: String) {
+
         Log.d("forusQR", "restore identity $token")
-        if (scanner.hasWindowFocus())
-            Log.d("forusQR", "restore identity 1")
-            RestoreIdentityDialog(scanner,
-                    {       Log.d("forusQR", "restore identity 2")
-                        accountRepository.authorizeToken(token)
-                                .subscribeOn(Schedulers.io())
-                                .observeOn(AndroidSchedulers.mainThread())
-                                .map {
-                                    onResultIdentityRestored()
-                                }
-                                .onErrorReturn {
-                                    if (it is RetrofitException && it.kind == RetrofitException.Kind.HTTP && it.responseCode == 402) {
-                                        onResultTokenExpired(it)
-                                    } else {
-                                        onResultUnexpectedError()
-                                    }
-                                }
-                                .subscribe()
-                    },
-                    reactivateDecoding)
-                    .show()
+
+
+        val confirmLoginDeviceDialog = ConfirmLoginDeviceDialog()
+        confirmLoginDeviceDialog.submitClickListener = object :ConfirmLoginDeviceDialog.SubmitClickListener{
+            override fun confirm(dialog: ConfirmLoginDeviceDialog?) {
+                confirmLoginDeviceDialog.dismiss()
+                accountRepository.authorizeToken(token)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .map {
+                            onResultIdentityRestored()
+                        }
+                        .onErrorReturn {
+                            if (it is RetrofitException && it.kind == RetrofitException.Kind.HTTP && it.responseCode == 402) {
+                                onResultTokenExpired(it)
+                            } else {
+                                onResultUnexpectedError()
+                            }
+                        }
+                        .subscribe()
+
+            }
+
+            override fun dismiss(dialog: ConfirmLoginDeviceDialog?) {
+                confirmLoginDeviceDialog.dismiss()
+                scanner.finish()
+            }
+
+        }
+        confirmLoginDeviceDialog.show(scanner.supportFragmentManager, "")
+
+
+
     }
 
 
     private var retrofitExceptionMapper: RetrofitExceptionMapper = Injection.instance.retrofitExceptionMapper
 
     fun scanVoucher(address: String, isDemoVoucher: Boolean? = false) {
-        Log.d("forusQR","allowReactivate....")
+        Log.d("forusQR", "allowReactivate....")
         scanner.allowReactivate()
         if (isDemoVoucher != null && isDemoVoucher) {
             navigator.navigateToVoucherProvider(scanner, address, true)

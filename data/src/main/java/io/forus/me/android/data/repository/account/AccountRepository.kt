@@ -1,6 +1,5 @@
 package io.forus.me.android.data.repository.account
 
-import android.util.Log
 import com.gigawatt.android.data.net.sign.models.request.SignUp
 import io.forus.me.android.data.entity.sign.request.SignRecords
 import io.forus.me.android.data.repository.account.datasource.AccountDataSource
@@ -43,6 +42,13 @@ class AccountRepository(private val settingsDataSource: SettingsDataSource,
 
     override fun restoreByEmail(email: String): Observable<Boolean> {
         return accountRemoteDataSource.restoreByEmail(email)
+    }
+
+    override fun validateEmail(email: String): Observable<ValidateEmail> {
+
+        return accountRemoteDataSource.validateEmail(email).map {
+            it
+        }
     }
 
     override fun restoreExchangeToken(token: String): Observable<RequestDelegatesEmailModel> {

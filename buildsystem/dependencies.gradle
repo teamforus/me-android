@@ -8,7 +8,7 @@ ext {
   //Android
   androidBuildToolsVersion = "28.0.3"
   androidMinSdkVersion = 18
-  androidTargetSdkVersion = 28
+  androidTargetSdkVersion = 29
   androidCompileSdkVersion = 28
 
   //Libraries
@@ -108,6 +108,7 @@ ext {
   ]
 
   presentationTestDependencies = [
+      junit:              "junit:junit:${jUnitVersion}",
       mockito:            "org.mockito:mockito-core:${mockitoVersion}",
       dexmaker:           "com.google.dexmaker:dexmaker:${dexmakerVersion}",
       dexmakerMockito:    "com.google.dexmaker:dexmaker-mockito:${dexmakerVersion}",

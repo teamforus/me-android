@@ -35,6 +35,7 @@
             android:text="@string/new_record"
             android:layout_marginTop="16dp"
             android:layout_marginLeft="16dp"
+            android:fontFamily="@font/google_sans_regular"
             />
 
         <io.forus.me.android.presentation.view.component.text.TextView
@@ -61,6 +62,7 @@
             android:paddingEnd="27dp"
             android:visibility="visible"
             android:padding="8dp"
+            android:fontFamily="@font/google_sans_regular"
             android:text="@string/choose_type_description"
             />
 

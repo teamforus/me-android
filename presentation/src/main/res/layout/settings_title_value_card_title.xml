@@ -23,6 +23,7 @@
             android:letterSpacing="0.02"
             android:lineSpacingExtra="6sp"
             tools:text="Change 4-digit passcode"
+            android:fontFamily="@font/google_sans_regular"
             />
 
         <TextView
@@ -37,6 +38,7 @@
             android:paddingBottom="18dp"
             android:textColor="@color/body1_60"
             android:textSize="12.1sp"
+            android:fontFamily="@font/google_sans_regular"
             tools:text="1.01.1" />
 
     </RelativeLayout>

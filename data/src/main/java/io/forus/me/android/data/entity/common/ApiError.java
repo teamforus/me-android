@@ -28,6 +28,9 @@ public class ApiError extends BaseError{
         @SerializedName("value")
         private List<String> value;
 
+        @SerializedName("email")
+        private List<String> email;
+
         public List<String> getName() {
             return name;
         }
@@ -50,6 +53,14 @@ public class ApiError extends BaseError{
 
         public void setValue(List<String> value) {
             this.value = value;
+        }
+
+        public List<String> getEmail() {
+            return email;
+        }
+
+        public void setEmail(List<String> email) {
+            this.email = email;
         }
     }
 }
