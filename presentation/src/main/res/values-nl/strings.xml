@@ -123,7 +123,7 @@
     <string name="price_agreement_discount_by_provider_">Korting vanuit %1$s</string>
     <string name="price_agreement_contribution_by_sponsor_">Bijdrage vanuit %1$s</string>
     <string name="price_agreement_paid_out_by_sponsor_">Bijdrage vanuit %1$s</string>
-    <string name="price_agreement_total_to_pay">Resterend bedrag te betalen door de klant</string>
+    <string name="price_agreement_total_to_pay">Wat de klant betaalt</string>
     <string name="price_agreement_no_price">Geen prijs</string>
     <string name="price_agreement_n_v_t">n.v.t.</string>
     <string name="price_agreement_paid_by_customer">Betaald door klant</string>
@@ -230,7 +230,7 @@
     <!-- Vouchers -->
     <string name="vouchers_item">Tegoed</string>
     <string name="vouchers_item_product">Aanbieding</string>
-    <string name="vouchers_provider">Verzoek Betaling</string>
+    <string name="vouchers_provider">Verzoek betaling</string>
     <string name="vouchers_transactions">Geschiedenis</string>
     <string name="vouchers_transactions_empty">Nog geen transacties</string>
     <string name="vouchers_no_items">Geen tegoeden</string>
@@ -267,15 +267,14 @@
     <string name="shopkeeper_phone_text">Telefoonnummer</string>
     <string name="send_email_title">Stuur e-mail</string>
     <string name="shopkeeper_provider_text">Aanbieder</string>
-    <string name="profile_send_crash_report">Stuur foutrapports</string>
+    <string name="profile_send_crash_report">Stuur foutrapportages</string>
     <string name="qr_choose_reservation">Kies reservering</string>
     <string name="qr_reserved_offers">Onderstaande aanbiedingen zijn door de klant gereserveerd</string>
     <string name="vouchers_complete_an_amount">VUL ZELF EEN BEDRAG IN</string>
-    <string name="choose_company">Kies bedrijf</string>
+    <string name="choose_company">Kies organisatie</string>
     <string name="payment">Betaling</string>
     <string name="choose_an_action">Kies een actie</string>
-    <string name="choose_an_action_note">Let op: </string>
-    <string name="choose_an_action_descr">de klant moet het bedrag aan de kassa betalen.</string>
+    <string name="choose_an_action_descr">Laat de klant het bedrag aan de kassa betalen.</string>
     <string name="confirm_payment">Bevestig betaling</string>
     <string name="has_the_customer">Heeft de klant </string>
     <string name="paid_at_till">betaald aan de kassa?</string>

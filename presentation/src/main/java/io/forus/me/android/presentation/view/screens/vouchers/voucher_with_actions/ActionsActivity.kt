@@ -78,7 +78,7 @@ class ActionsActivity : AppCompatActivity() {
             finish()
         }
 
-        descrTV.text = HtmlCompat.fromHtml("<b>" + getString(R.string.choose_an_action_note) + "</b> " + getString(R.string.choose_an_action_descr),
+        descrTV.text = HtmlCompat.fromHtml(getString(R.string.choose_an_action_descr),
                 HtmlCompat.FROM_HTML_MODE_LEGACY)
 
 

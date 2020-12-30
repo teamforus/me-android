@@ -112,7 +112,7 @@ class ActionPaymentFragment : BaseFragment() {
 
             mainViewModel.successPayment.observe(requireActivity(), Observer {
                 if (!it!!) return@Observer
-                FullscreenDialog.display(fragmentManager, getString(R.string.success), "", getString(R.string.me_ok)) {
+                FullscreenDialog.display(fragmentManager, getString(R.string.vouchers_apply_success), "", getString(R.string.me_ok)) {
                     requireActivity().finish()
                 }
             })
