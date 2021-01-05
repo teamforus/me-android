@@ -2,11 +2,10 @@ package io.forus.me.android.presentation.view.screens.vouchers.voucher_with_acti
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
-import android.content.Context
 import android.content.DialogInterface
-import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.v4.app.FragmentTransaction
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -33,18 +32,8 @@ class ActionPaymentFragment : BaseFragment() {
         const val VOUCHER_ADDRESS_EXTRA = "VOUCHER_ADDRESS_EXTRA"
         const val VOUCHER_FUND_NAME_EXTRA = "VOUCHER_FUND_NAME_EXTRA"
 
-        /*fun getCallingIntent(context: Context, product: ProductSerializable, voucherAddress: String, fundName: String): Intent {
-            val intent = Intent(context, ActionPaymentActivity::class.java)
-            val bundle = Bundle()
-            bundle.putSerializable(ACTION_PRODUCT_EXTRA, product)
-            intent.putExtra(VOUCHER_ADDRESS_EXTRA, voucherAddress)
-            intent.putExtras(bundle)
-            intent.putExtra(VOUCHER_FUND_NAME_EXTRA, fundName)
 
-            return intent
-        }*/
-
-        fun newIntent(product: ProductSerializable, voucherAddress: String,fundName: String): ActionPaymentFragment = ActionPaymentFragment().also {
+        fun newIntent(product: ProductSerializable, voucherAddress: String, fundName: String): ActionPaymentFragment = ActionPaymentFragment().also {
             val bundle = Bundle()
             bundle.putSerializable(ACTION_PRODUCT_EXTRA, product)
             bundle.putString(VOUCHER_ADDRESS_EXTRA, voucherAddress)
@@ -132,12 +121,23 @@ class ActionPaymentFragment : BaseFragment() {
             mainViewModel.showPriceAgreement.observe(requireActivity(), Observer {
                 if (!it!!) return@Observer
                 Log.d("forus", "Click price agreement")
-                (requireActivity() as ActionPaymentActivity).addPopupFragment(PriceAgreementFragment.newIntent(product!!, fundName!!), "")
+
+
+                //(requireActivity() as ActionPaymentActivity).addPopupFragment(fragment, "")
+
+                // activity.replaceFragment(R.id.fragmentPanelContainer, fragment)
                 //showPopupQRFragment(QrCode(QrCode.Type.P2P_IDENTITY, vs.model.account.address).toJson())
                 // }.show()
             })
 
+            val fragment = PriceAgreementFragment.newIntent(product!!, fundName!!)
 
+            val transaction: FragmentTransaction = activity!!.supportFragmentManager.beginTransaction()
+
+
+            transaction.replace(R.id.fragmentPanelContainer, fragment)
+           // transaction.addToBackStack(null)
+            transaction.commit()
 
 
             return view

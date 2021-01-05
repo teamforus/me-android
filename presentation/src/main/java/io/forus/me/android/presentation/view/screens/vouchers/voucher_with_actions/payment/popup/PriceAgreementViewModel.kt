@@ -16,6 +16,7 @@ import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.base.lr.PartialChange
 import io.forus.me.android.presentation.view.screens.vouchers.item.VoucherFragment
 import io.forus.me.android.presentation.view.screens.vouchers.provider.ProviderPartialChanges
+import io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actions.payment.NoPriceType
 import io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actions.payment.ProductSerializable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -42,7 +43,20 @@ class PriceAgreementViewModel(application: Application) : AndroidViewModel(appli
 
     val userPrice = MutableLiveData<String>()
 
+    val priceAgreementVisiblity = MutableLiveData<Boolean>()
+    val tvPriceVisiblity = MutableLiveData<Boolean>()
+    val totalPriceVisiblity = MutableLiveData<Boolean>()
+    val discountProviderVisiblity = MutableLiveData<Boolean>()
+    val contributionSponsorVisiblity = MutableLiveData<Boolean>()
+    val totalAmountVisiblity = MutableLiveData<Boolean>()
+
     init {
+        priceAgreementVisiblity.value = false
+        tvPriceVisiblity.value = false
+        totalPriceVisiblity.value = false
+        discountProviderVisiblity.value = false
+        contributionSponsorVisiblity.value = false
+        totalAmountVisiblity.value = false
 
         paidOutBySponsorPrice.value = ""
         paidOutBySponsorNameSubtitle.value = ""
@@ -57,7 +71,7 @@ class PriceAgreementViewModel(application: Application) : AndroidViewModel(appli
 
     }
 
-    public fun setProduct(product: ProductSerializable, fundName: String) {
+    fun setProduct(product: ProductSerializable, fundName: String) {
 
         this.product = product
         this.fundName = fundName
@@ -75,6 +89,34 @@ class PriceAgreementViewModel(application: Application) : AndroidViewModel(appli
             nvtStr
         } else {
             NumberFormat.getCurrencyInstance(Locale("nl", "NL")).format(product!!.oldPrice.toDouble())
+        }
+
+        priceAgreementVisiblity.value = if (product!!.isNoPrice) {
+            product!!.noPriceType != NoPriceType.free.name
+        }else{
+            true
+        }
+
+
+
+
+        tvPriceVisiblity.postValue(if (product!!.isNoPrice) {
+            product!!.noPriceType != NoPriceType.discount.name
+        } else {
+            true
+        })
+
+        totalPrice.value = if (product!!.isNoPrice) {
+
+            if (product!!.noPriceType == NoPriceType.free.name) {
+                resources.getString(R.string.free)
+            } else {
+                NumberFormat.getCurrencyInstance(Locale("nl", "NL"))
+                        .format(product!!.priceUser)
+            }
+        } else {
+            NumberFormat.getCurrencyInstance(Locale("nl", "NL"))
+                    .format(product!!.priceUser)
         }
 
         discountByProviderName.value = resources.getString(R.string.price_agreement_discount_by_provider_,
@@ -104,8 +146,24 @@ class PriceAgreementViewModel(application: Application) : AndroidViewModel(appli
             NumberFormat.getCurrencyInstance(Locale("nl", "NL")).format(product!!.priceUser.toDouble())
         }
 
+
+
+
         userPrice.value = priceUserStr
-        paidOutBySponsorPrice.value = priceUserStr
+
+        val priceValue: String = if (product!!.isNoPrice) {
+            if (product!!.noPriceType == NoPriceType.free.name) {
+                resources.getString(R.string.free)
+            } else {
+                NumberFormat.getCurrencyInstance(Locale("nl", "NL"))
+                        .format(product!!.priceUser)
+            }
+        } else {
+            NumberFormat.getCurrencyInstance(Locale("nl", "NL"))
+                    .format(product!!.priceUser)
+        }
+
+        paidOutBySponsorPrice.value = priceValue//priceUserStr
 
         paidOutBySponsorNameSubtitle.value = resources.getString(R.string.price_agreement_paid_by_customer)
 

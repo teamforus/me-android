@@ -102,4 +102,28 @@ public class ProductSerializable implements Serializable {
     public void setPhotoURL(String photoURL) {
         this.photoURL = photoURL;
     }
+
+    public boolean isNoPrice() {
+        return noPrice;
+    }
+
+    public void setNoPrice(boolean noPrice) {
+        this.noPrice = noPrice;
+    }
+
+    public String getNoPriceType() {
+        return noPriceType;
+    }
+
+    public void setNoPriceType(String noPriceType) {
+        this.noPriceType = noPriceType;
+    }
+
+    public BigDecimal getNoPriceDiscount() {
+        return noPriceDiscount;
+    }
+
+    public void setNoPriceDiscount(BigDecimal noPriceDiscount) {
+        this.noPriceDiscount = noPriceDiscount;
+    }
 }
