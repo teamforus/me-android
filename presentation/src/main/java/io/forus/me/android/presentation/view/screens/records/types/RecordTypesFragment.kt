@@ -56,7 +56,6 @@ class RecordTypesFragment : ToolbarLRFragment<RecordTypesModel, RecordTypesView,
 
     override fun onResume() {
         super.onResume()
-        Log.d("forus","onResume ")
         if(itemSelectListener != null){
             itemSelectListener!!.onRecordTypesFragmentResume()
         }
@@ -66,9 +65,7 @@ class RecordTypesFragment : ToolbarLRFragment<RecordTypesModel, RecordTypesView,
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        Log.d("forus","onAttach_context = ${context::class}")
         itemSelectListener = context as OnItemSelected
-        Log.d("forus","itemSelectListener = ${itemSelectListener==null}")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -100,10 +97,7 @@ class RecordTypesFragment : ToolbarLRFragment<RecordTypesModel, RecordTypesView,
     override fun render(vs: LRViewState<RecordTypesModel>) {
         super.render(vs)
 
-        Log.d("forus","vs.model.items="+vs.model.items)
-        Log.d("forus","showList"+showList)
-        Log.d("forus","itemSelectListener==null=${itemSelectListener==null}")
-        if(vs.model.items.isNotEmpty() && !showList && itemSelectListener != null){
+            if(vs.model.items.isNotEmpty() && !showList && itemSelectListener != null){
             itemSelectListener!!.onRecordTypesLoaded(vs.model.items)
 
         }

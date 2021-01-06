@@ -1,17 +1,22 @@
 package io.forus.me.android.data.repository.account.datasource.remote
 
-import android.util.Log
+import com.gigawatt.android.data.net.sign.models.request.EmailValidateRequest
 import com.gigawatt.android.data.net.sign.models.request.SignUp
 import io.forus.me.android.data.entity.account.Account
 import io.forus.me.android.data.entity.sign.request.AuthorizeCode
 import io.forus.me.android.data.entity.sign.request.AuthorizeToken
 import io.forus.me.android.data.entity.sign.request.RegisterPush
 import io.forus.me.android.data.entity.sign.request.RestoreByEmail
-import io.forus.me.android.data.entity.sign.response.*
+import io.forus.me.android.data.entity.sign.response.AccessToken
+import io.forus.me.android.data.entity.sign.response.IdentityPinResult
+import io.forus.me.android.data.entity.sign.response.IdentityTokenResult
+import io.forus.me.android.data.entity.sign.response.ShortTokenResult
 import io.forus.me.android.data.net.sign.SignService
 import io.forus.me.android.data.repository.account.datasource.AccountDataSource
 import io.forus.me.android.data.repository.datasource.RemoteDataSource
+import io.forus.me.android.domain.models.account.ValidateEmail
 import io.reactivex.Observable
+
 
 class AccountRemoteDataSource(f: () -> SignService) : AccountDataSource, RemoteDataSource<SignService>(f) {
 
@@ -77,6 +82,22 @@ class AccountRemoteDataSource(f: () -> SignService) : AccountDataSource, RemoteD
             val result = it.string();
             result == "{}" || result.contains("\"access_token\"") || result.contains("\"success\"")
         }
+    }
+
+    override fun validateEmail(email: String): Observable<ValidateEmail> {
+        val requestBody = EmailValidateRequest()
+        requestBody.email = email
+
+       /* val observable: Observable<Boolean> = ObservableCreate<Boolean>(object : ObservableOnSubscribe<Boolean?> {
+            override fun subscribe(emitter: ObservableEmitter<Boolean?>) {
+                true
+            }
+
+        })*/
+        return service.validateEmail(requestBody)
+                .map {
+                    io.forus.me.android.domain.models.account.ValidateEmail(it.email.used, it.email.valid)
+                }
     }
 
     override fun restoreExchangeToken(token: String): Observable<AccessToken> {

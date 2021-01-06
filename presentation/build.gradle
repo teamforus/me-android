@@ -128,6 +128,13 @@ android {
             applicationId 'io.forus.me.dev'
         }
     }
+    sourceSets {
+        main {
+            java {
+                srcDirs 'src/main/java', 'src/test'
+            }
+        }
+    }
 
     applicationVariants.all { variant ->
         variant.outputs.all { output ->
@@ -227,6 +234,10 @@ dependencies {
     }
 
 
+
     implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:3.0.0'
+
+    implementation 'com.android.support:design:28.0.0-alpha1'
+
 
 }

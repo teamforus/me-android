@@ -24,6 +24,7 @@
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingStart="@dimen/activity_horizontal_margin"
             android:gravity="center_vertical"
+            android:fontFamily="@font/google_sans_regular"
             tools:text="test@test.com" />
 
 

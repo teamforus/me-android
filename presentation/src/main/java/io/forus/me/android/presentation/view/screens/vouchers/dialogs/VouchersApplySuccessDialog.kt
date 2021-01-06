@@ -9,8 +9,8 @@ class VouchersApplySuccessDialog(private val context: Context,
                                  private val positiveCallback: () -> Unit){
 
     private val dialog: MaterialDialog = MaterialDialog.Builder(context)
-            .title(context.resources.getString(R.string.success))
-            .content(context.resources.getString(R.string.vouchers_apply_success))
+            .title(context.resources.getString(R.string.vouchers_apply_success))
+            .content(context.resources.getString(R.string.vouchers_transaction_duration_of_payout))
             .positiveText(context.resources.getString(R.string.me_ok))
             .onPositive { dialog, which -> positiveCallback.invoke() }
             .build()

@@ -242,8 +242,8 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
     private fun showScuccessDialog() {
 
         val i = SuccessDialogActivity.getCallingIntent(context!!,
-                context!!.resources.getString(R.string.success),
                 context!!.resources.getString(R.string.vouchers_apply_success),
+                context!!.resources.getString(R.string.vouchers_transaction_duration_of_payout),
                 context!!.resources.getString(R.string.me_ok))
         activity?.finish()
         activity?.startActivity(i)
