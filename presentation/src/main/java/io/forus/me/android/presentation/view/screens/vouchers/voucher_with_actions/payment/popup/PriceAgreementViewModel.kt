@@ -3,23 +3,12 @@ package io.forus.me.android.presentation.view.screens.vouchers.voucher_with_acti
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
 import android.databinding.Bindable
 import android.databinding.Observable
 import android.databinding.PropertyChangeRegistry
-import android.util.Log
-import android.view.View
-import io.forus.me.android.domain.models.vouchers.ProductAction
-import io.forus.me.android.domain.repository.vouchers.VouchersRepository
 import io.forus.me.android.presentation.R
-import io.forus.me.android.presentation.internal.Injection
-import io.forus.me.android.presentation.view.base.lr.PartialChange
-import io.forus.me.android.presentation.view.screens.vouchers.item.VoucherFragment
-import io.forus.me.android.presentation.view.screens.vouchers.provider.ProviderPartialChanges
 import io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actions.payment.NoPriceType
 import io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actions.payment.ProductSerializable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import java.text.NumberFormat
 import java.util.*
 
@@ -44,7 +33,7 @@ class PriceAgreementViewModel(application: Application) : AndroidViewModel(appli
     val userPrice = MutableLiveData<String>()
 
     val priceAgreementVisiblity = MutableLiveData<Boolean>()
-    val tvPriceVisiblity = MutableLiveData<Boolean>()
+    val headPriceVisiblity = MutableLiveData<Boolean>()
     val totalPriceVisiblity = MutableLiveData<Boolean>()
     val discountProviderVisiblity = MutableLiveData<Boolean>()
     val contributionSponsorVisiblity = MutableLiveData<Boolean>()
@@ -52,7 +41,7 @@ class PriceAgreementViewModel(application: Application) : AndroidViewModel(appli
 
     init {
         priceAgreementVisiblity.value = false
-        tvPriceVisiblity.value = false
+        headPriceVisiblity.value = false
         totalPriceVisiblity.value = false
         discountProviderVisiblity.value = false
         contributionSponsorVisiblity.value = false
@@ -85,26 +74,21 @@ class PriceAgreementViewModel(application: Application) : AndroidViewModel(appli
 
         val nvtStr = resources.getString(R.string.price_agreement_n_v_t)
 
-        totalPrice.value = if (product!!.oldPrice == null) {
+
+        headPriceVisiblity.value = !(product!!.isNoPrice &&
+                product!!.noPriceType == NoPriceType.discount.name)
+
+
+        totalPriceVisiblity.value = product!!.oldPrice != null
+
+        priceAgreementVisiblity.value = true
+
+        /*totalPrice.value = if (product!!.oldPrice == null) {
             nvtStr
         } else {
             NumberFormat.getCurrencyInstance(Locale("nl", "NL")).format(product!!.oldPrice.toDouble())
-        }
+        }*/
 
-        priceAgreementVisiblity.value = if (product!!.isNoPrice) {
-            product!!.noPriceType != NoPriceType.free.name
-        }else{
-            true
-        }
-
-
-
-
-        tvPriceVisiblity.postValue(if (product!!.isNoPrice) {
-            product!!.noPriceType != NoPriceType.discount.name
-        } else {
-            true
-        })
 
         totalPrice.value = if (product!!.isNoPrice) {
 

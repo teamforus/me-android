@@ -27,7 +27,7 @@
 
 
             <io.forus.me.android.presentation.view.component.text.TextView
-                android:id="@+id/tv_price"
+                android:id="@+id/head_price"
                 style="@style/Headline4"
                 android:layout_width="match_parent"
                 android:layout_height="43dp"
@@ -38,7 +38,7 @@
                 android:gravity="center"
                 android:lines="1"
                 android:maxLines="1"
-                android:visibility="@{model.tvPriceVisiblity ? View.VISIBLE : View.GONE}"
+                android:visibility="@{model.headPriceVisiblity ? View.VISIBLE : View.GONE}"
                 android:text="@{model.paidOutBySponsorPrice}"
                 tools:text="0.00"
                 android:layout_centerHorizontal="true" />
@@ -48,7 +48,7 @@
                 android:id="@+id/tv_provider"
                 style="@style/Subtitle5"
                 android:layout_width="match_parent"
-                android:layout_below="@id/tv_price"
+                android:layout_below="@id/head_price"
                 android:layout_height="16dp"
                 android:layout_marginTop="0dp"
                 android:layout_marginStart="12dp"
@@ -57,7 +57,7 @@
                 android:gravity="center"
                 android:lines="1"
                 android:maxLines="1"
-                android:visibility="@{model.tvPriceVisiblity ? View.VISIBLE : View.GONE}"
+                android:visibility="@{model.headPriceVisiblity ? View.VISIBLE : View.GONE}"
                 android:text="@{model.paidOutBySponsorNameSubtitle}"
                 tools:text="0Edsfsdf"
                 android:layout_centerHorizontal="true" />
