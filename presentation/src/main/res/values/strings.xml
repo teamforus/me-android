@@ -127,6 +127,21 @@
     <string name="profile_logout_dialog_content">Are you sure you want to log out?</string>
     <string name="email_support">support@forus.io</string>
 
+
+    <!-- Price agreement -->
+    <string name="price_agreement">Price agreement</string>
+    <string name="price_agreement_total_price">Total price</string>
+    <string name="price_agreement_discount_by_provider_">Discount by %1$s</string>
+    <string name="price_agreement_contribution_by_sponsor_">Contribution by %1$s</string>
+    <string name="price_agreement_paid_out_by_sponsor_">Paid out by %1$s</string>
+    <string name="price_agreement_total_to_pay">Total which customer needs to pay</string>
+    <string name="price_agreement_no_price">No price</string>
+    <string name="price_agreement_n_v_t">n.v.t.</string>
+    <string name="price_agreement_paid_by_customer">Paid by customer</string>
+    <string name="price_agreement_notitie">Note</string>
+
+
+
     <!-- New record screen -->
     <string name="new_record_title">New Record</string>
     <string name="new_record_title_choose_category">Choose Category</string>
@@ -265,7 +280,8 @@
     <string name="vouchers_pay_question">Are you sure you want to request €%1$s?</string>
     <string name="vouchers_pay_question_extra">Insufficient funds on the voucher. Please, request extra payment of €%1$s.</string>
     <string name="vouchers_apply_question">Are you sure you want to apply the voucher?</string>
-    <string name="vouchers_apply_success">Payment succeeded! The processing can take up to 3 business days.</string>
+    <string name="vouchers_apply_success">Payment succeeded!</string>
+    <string name="vouchers_transaction_duration_of_payout">The processing can take up to 3 business days.</string>
     <string name="voucher_is_used">Used voucher</string>
     <string name="voucher_created">Activated on %1$s</string>
     <string name="voucher_button_show_qr">Show QR-code</string>
@@ -292,17 +308,42 @@
     <string name="qr_choose_reservation">Choose Reservation</string>
     <string name="qr_reserved_offers">The offers below are reserved by the customer</string>
     <string name="vouchers_complete_an_amount">COMPLETE AN AMOUNT</string>
-    <string name="choose_company">Kies bedrijf</string>
+    <string name="choose_company">Choose organization</string>
     <string name="payment">Payment</string>
     <string name="choose_an_action">Choose an action</string>
-    <string name="choose_an_action_note">Note: </string>
-    <string name="choose_an_action_descr">the customer must pay the amount at the till.</string>
-    <string name="confirm_payment">Confirm payment</string>
+    <string name="choose_an_action_descr">Let the customer pay the amount at the till.</string>
+    <string name="confirm_payment">Submit payment</string>
     <string name="has_the_customer">Has the customer</string>
     <string name="paid_at_till">paid at the till?</string>
     <string name="empty_actions_list">No balance for your actions</string>
     <string name="free">Free</string>
+    <string name="price">Price</string>
+    <string name="submit_price_title">Customer pays</string>
+    <string name="submit_price_subtitle">at the register</string>
+
+    <string name="discount">Discount</string>
     <string name="free_product">This product is free, no additional payment is required.</string>
+
+
+    <!--Voucher map-->
+    <string name="show_map">Show Map</string>
+
+    <plurals name="branches">
+        <item quantity="one">%1$d branch</item>
+        <item quantity="two">%1$d branches</item>
+        <item quantity="few">%1$d branches</item>
+        <item quantity="many">%1$d branches</item>
+        <item quantity="other">%1$d branches</item>
+    </plurals>
+
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
+
 
 
     <!-- Check email -->
@@ -314,6 +355,12 @@
 
     <!-- Restore account success -->
     <string name="restore_account_head">Successful registration!</string>
+
+    <!--Confirm login device dialog-->
+    <string name="confirm_login_device_title">Do you want to login on this device?</string>
+    <string name="confirm_login_device_subtitle">Scan only QR-codes on devices you own or temporarily use. Never scan a code which was sent or shown by another person.</string>
+    <string name="confirm_login_device_confirm">yes, i want to login</string>
+    <string name="confirm_login_device_cancel">no thanks</string>
 
     <!-- Send crashlitics reports screen -->
     <string name="send_report_head">Sharing information</string>
@@ -339,8 +386,7 @@
     <string name="snack_message">New update is available,\n update your application!</string>
 
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="submit">Submit</string>
 
     <string name="waiting">Waiting...</string>
@@ -360,19 +406,9 @@
 
     </string-array>
 
-    <string name="title_activity_fullscreen_success">FullscreenSuccessActivity</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="title_activity_success_dialog">SuccessDialogActivity</string>
     <string name="title_activity_actions">ActionsActivity</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
 
 </resources>

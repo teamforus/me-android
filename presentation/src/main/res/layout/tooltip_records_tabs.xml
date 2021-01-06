@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/brightBackground"
         android:padding="3dp"
+        android:fontFamily="@font/google_sans_regular"
         android:text="Switch between">
 
     </TextView>

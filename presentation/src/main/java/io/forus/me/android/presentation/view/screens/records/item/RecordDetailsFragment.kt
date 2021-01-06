@@ -127,7 +127,7 @@ class RecordDetailsFragment : ToolbarLRFragment<RecordDetailsModel, RecordDetail
 
         if (vs.model.recordDeleteSuccess != null) {
             if (vs.model.recordDeleteSuccess) {
-                Log.d("forus", "Record was deleted!!")
+            
                 activity!!.finish()
             }
         }
@@ -162,7 +162,7 @@ class RecordDetailsFragment : ToolbarLRFragment<RecordDetailsModel, RecordDetail
                 } catch (e: Exception) {
                 }
             }
-            Log.d("forus", "Record  delete error =$messageString")
+
             DeleteRecordErrorDialog(messageString,context!!).show()
 
         }
