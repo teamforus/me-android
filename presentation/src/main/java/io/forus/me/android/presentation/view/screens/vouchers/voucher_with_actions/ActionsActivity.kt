@@ -86,16 +86,17 @@ class ActionsActivity : AppCompatActivity() {
         transactionsAdapter = ActionsAdapter(arrayListOf(), object : ActionsAdapter.Callback {
             override fun onItemClicked(item: ProductAction) {
 
-
-
-
                 startActivity(ActionPaymentActivity.getCallingIntent(this@ActionsActivity,
                         ProductSerializable(item.id!!, item.name, item.organization!!.name,
-                                item.organization!!.id, item.price,
-                                item.priceOld,
-                                item.noPrice?:false , item.noPriceType,
-                                item.noPriceDiscount ,
-                                item.priceUser, item.photoURL), voucherAddress!!,mainViewModel.fundName.value?:""))
+                                item.organization!!.id,
+                                item.price, item.priceUser,
+                                item.priceType , item.priceDiscount,
+                                item.sponsorSubsidy , if(item.sponsor != null){
+                            item.sponsor!!.name
+                        } else{
+                            null}, item.photoURL
+                        ),
+                        voucherAddress!!))
             }
         }, this@ActionsActivity)
 

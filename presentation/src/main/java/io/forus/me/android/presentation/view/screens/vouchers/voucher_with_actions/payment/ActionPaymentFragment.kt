@@ -30,14 +30,14 @@ class ActionPaymentFragment : BaseFragment() {
 
         const val ACTION_PRODUCT_EXTRA = "ACTION_PRODUCT_EXTRA"
         const val VOUCHER_ADDRESS_EXTRA = "VOUCHER_ADDRESS_EXTRA"
-        const val VOUCHER_FUND_NAME_EXTRA = "VOUCHER_FUND_NAME_EXTRA"
 
 
-        fun newIntent(product: ProductSerializable, voucherAddress: String, fundName: String): ActionPaymentFragment = ActionPaymentFragment().also {
+
+        fun newIntent(product: ProductSerializable, voucherAddress: String): ActionPaymentFragment = ActionPaymentFragment().also {
             val bundle = Bundle()
             bundle.putSerializable(ACTION_PRODUCT_EXTRA, product)
             bundle.putString(VOUCHER_ADDRESS_EXTRA, voucherAddress)
-            bundle.putString(VOUCHER_FUND_NAME_EXTRA, fundName)
+
             it.arguments = bundle
         }
     }
@@ -50,7 +50,7 @@ class ActionPaymentFragment : BaseFragment() {
     var voucherAddress: String? = null
     var product: ProductSerializable? = null
 
-    var fundName: String? = null
+    //var fundName: String? = null
 
 
     /* override fun getLayoutID(): Int {
@@ -76,7 +76,6 @@ class ActionPaymentFragment : BaseFragment() {
                 voucherAddress = bundle.getString(VOUCHER_ADDRESS_EXTRA, "")
                 product = bundle.getSerializable(ACTION_PRODUCT_EXTRA) as ProductSerializable
 
-                fundName = bundle.getString(VOUCHER_FUND_NAME_EXTRA, "")
 
             }
 
@@ -130,7 +129,7 @@ class ActionPaymentFragment : BaseFragment() {
                 // }.show()
             })
 
-            val fragment = PriceAgreementFragment.newIntent(product!!, fundName!!)
+            val fragment = PriceAgreementFragment.newIntent(product!!)
 
             val transaction: FragmentTransaction = activity!!.supportFragmentManager.beginTransaction()
 
@@ -153,7 +152,7 @@ class ActionPaymentFragment : BaseFragment() {
         var toPay = ""
         var subtitle = ""
 
-        if (product!!.noPrice) {
+       /* if (product!!.noPrice) {
             if (product!!.noPriceType == NoPriceType.free.name) {
                 title = getString(R.string.price)
                 toPay = getString(R.string.free)
@@ -178,6 +177,8 @@ class ActionPaymentFragment : BaseFragment() {
             }
             subtitle = getString(R.string.submit_price_subtitle)
         }
+
+        */
 
         ApplyActionTransactionDialog(requireActivity(), title, toPay, subtitle) {
             mainViewModel.makeTransaction()

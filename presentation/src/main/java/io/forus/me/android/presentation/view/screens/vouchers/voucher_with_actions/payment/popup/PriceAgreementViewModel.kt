@@ -7,8 +7,12 @@ import android.databinding.Bindable
 import android.databinding.Observable
 import android.databinding.PropertyChangeRegistry
 import io.forus.me.android.presentation.R
-import io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actions.payment.NoPriceType
+import io.forus.me.android.presentation.helpers.Converter
+import io.forus.me.android.presentation.helpers.Strings
+import io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actions.payment.PriceType
 import io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actions.payment.ProductSerializable
+import java.math.BigDecimal
+import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.*
 
@@ -17,14 +21,15 @@ class PriceAgreementViewModel(application: Application) : AndroidViewModel(appli
 
 
     private var product: ProductSerializable? = null
-    var fundName: String? = null
 
-    val paidOutBySponsorPrice = MutableLiveData<String>()
-    val paidOutBySponsorNameSubtitle = MutableLiveData<String>()
+
+    val headTitle = MutableLiveData<String>()
+    val headPrice = MutableLiveData<String>()
+    val headSubtitle = MutableLiveData<String>()
 
     val totalPrice = MutableLiveData<String>()
 
-    val discountByProviderName = MutableLiveData<String>()
+    //val discountByProviderName = MutableLiveData<String>()
     val discountByProviderPrice = MutableLiveData<String>()
 
     val contributionBySponsorName = MutableLiveData<String>()
@@ -47,10 +52,11 @@ class PriceAgreementViewModel(application: Application) : AndroidViewModel(appli
         contributionSponsorVisiblity.value = false
         totalAmountVisiblity.value = false
 
-        paidOutBySponsorPrice.value = ""
-        paidOutBySponsorNameSubtitle.value = ""
+        headTitle.value = ""
+        headPrice.value = ""
+        headSubtitle.value = ""
 
-        discountByProviderName.value = ""
+        //discountByProviderName.value = ""
         discountByProviderPrice.value = ""
 
         contributionBySponsorName.value = ""
@@ -60,10 +66,10 @@ class PriceAgreementViewModel(application: Application) : AndroidViewModel(appli
 
     }
 
-    fun setProduct(product: ProductSerializable, fundName: String) {
+    fun setProduct(product: ProductSerializable) {
 
         this.product = product
-        this.fundName = fundName
+
         refreshUI()
     }
 
@@ -75,19 +81,93 @@ class PriceAgreementViewModel(application: Application) : AndroidViewModel(appli
         val nvtStr = resources.getString(R.string.price_agreement_n_v_t)
 
 
-        headPriceVisiblity.value = !(product!!.isNoPrice &&
-                product!!.noPriceType == NoPriceType.discount.name)
 
+
+        headPriceVisiblity.value = product!!.priceType == PriceType.regular.name ||
+                product!!.priceType == PriceType.free.name
+
+        totalPriceVisiblity.value = product!!.priceType == PriceType.regular.name
+
+        discountProviderVisiblity.value =
+                product!!.priceType == PriceType.discount_percentage.name ||
+                        product!!.priceType == PriceType.discount_fixed.name
+
+        contributionSponsorVisiblity.value =
+                (!(product!!.priceType == PriceType.discount_percentage.name ||
+                        product!!.priceType == PriceType.free.name)) &&
+                        ( product!!.sponsorSubsidy != null &&
+                                product!!.sponsorSubsidy > BigDecimal.ZERO)
+
+        totalAmountVisiblity.value = product!!.priceType == PriceType.regular.name
+
+        priceAgreementVisiblity.value = totalPriceVisiblity.value!! ||
+                discountProviderVisiblity.value!!  || contributionSponsorVisiblity.value!! ||
+                totalAmountVisiblity.value!!
+
+
+        if(product!!.priceType == PriceType.regular.name ){
+
+            if(product!!.price == product!!.sponsorSubsidy){
+                headTitle.value = ""
+                headPrice.value = resources.getString(R.string.free)
+
+            }else{
+                headTitle.value = resources.getString(R.string.price_agreement_client_price)
+                headPrice.value = Converter.convertBigDecimalToStringNL(product!!.priceUser)
+            }
+
+            if(product!!.price != null){
+                totalPrice.value = Converter.convertBigDecimalToStringNL(product!!.price)
+            }
+
+        }
+        if(product!!.priceType == PriceType.free.name){
+            headTitle.value = ""
+            headPrice.value = resources.getString(R.string.free)
+        }
+
+         userPrice.value = headPrice.value
+
+
+        if(product!!.priceType == PriceType.discount_percentage.name ){
+            discountByProviderPrice.value = product!!.priceDiscount.toString() + "%"
+            if(product!!.sponsorSubsidy != null&&
+                    product!!.sponsorSubsidy > BigDecimal.ZERO){
+                contributionBySponsorPrice.value = Converter.convertBigDecimalToStringNL(product!!.sponsorSubsidy)
+            }
+        }
+
+        if(product!!.priceType == PriceType.discount_fixed.name
+                || product!!.priceType == PriceType.regular.name){
+            if(product!!.priceDiscount != null &&
+                    product!!.priceDiscount > BigDecimal.ZERO ) {
+                discountByProviderPrice.value = Converter.convertBigDecimalToStringNL(product!!.priceDiscount)
+            }
+
+
+            if(product!!.sponsorSubsidy != null &&
+                    product!!.sponsorSubsidy > BigDecimal.ZERO){
+
+
+                contributionBySponsorPrice.value =Converter.convertBigDecimalToStringNL(product!!.sponsorSubsidy)
+
+
+
+            }
+        }
+
+
+
+        contributionBySponsorName.value = resources.getString(R.string.price_agreement_sponsor_pays_you,
+                product!!.sponsorName)
+
+/*
 
         totalPriceVisiblity.value = product!!.oldPrice != null
 
         priceAgreementVisiblity.value = true
 
-        /*totalPrice.value = if (product!!.oldPrice == null) {
-            nvtStr
-        } else {
-            NumberFormat.getCurrencyInstance(Locale("nl", "NL")).format(product!!.oldPrice.toDouble())
-        }*/
+
 
 
         totalPrice.value = if (product!!.isNoPrice) {
@@ -147,9 +227,14 @@ class PriceAgreementViewModel(application: Application) : AndroidViewModel(appli
                     .format(product!!.priceUser)
         }
 
+
+
         paidOutBySponsorPrice.value = priceValue//priceUserStr
 
-        paidOutBySponsorNameSubtitle.value = resources.getString(R.string.price_agreement_paid_by_customer)
+        */
+
+
+        //paidOutBySponsorNameSubtitle.value = resources.getString(R.string.price_agreement_paid_by_customer)
 
     }
 

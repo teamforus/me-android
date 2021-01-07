@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <import type="android.view.View" />
 
         <variable
@@ -23,110 +24,136 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-
-
-
-            <io.forus.me.android.presentation.view.component.text.TextView
-                android:id="@+id/head_price"
-                style="@style/Headline4"
+            <LinearLayout
+                android:id="@+id/headLayout"
                 android:layout_width="match_parent"
-                android:layout_height="43dp"
-                android:layout_marginTop="-3dp"
-                android:layout_marginStart="40dp"
-                android:layout_marginEnd="40dp"
-                android:ellipsize="end"
-                android:gravity="center"
-                android:lines="1"
-                android:maxLines="1"
-                android:visibility="@{model.headPriceVisiblity ? View.VISIBLE : View.GONE}"
-                android:text="@{model.paidOutBySponsorPrice}"
-                tools:text="0.00"
-                android:layout_centerHorizontal="true" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <io.forus.me.android.presentation.view.component.text.TextView
+                    android:id="@+id/heat_title"
+                    style="@style/Subtitle5"
+                    android:layout_width="match_parent"
+                    android:layout_height="16dp"
+                    android:layout_below="@id/head_price"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="12dp"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:text="@{model.headTitle}"
+                    android:visibility="@{model.headPriceVisiblity ? View.VISIBLE : View.GONE}"
+                    tools:text="0Edsfsdf" />
 
 
-            <io.forus.me.android.presentation.view.component.text.TextView
-                android:id="@+id/tv_provider"
-                style="@style/Subtitle5"
-                android:layout_width="match_parent"
-                android:layout_below="@id/head_price"
-                android:layout_height="16dp"
-                android:layout_marginTop="0dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp"
-                android:ellipsize="end"
-                android:gravity="center"
-                android:lines="1"
-                android:maxLines="1"
-                android:visibility="@{model.headPriceVisiblity ? View.VISIBLE : View.GONE}"
-                android:text="@{model.paidOutBySponsorNameSubtitle}"
-                tools:text="0Edsfsdf"
-                android:layout_centerHorizontal="true" />
+                <io.forus.me.android.presentation.view.component.text.TextView
+                    android:id="@+id/head_price"
+                    style="@style/Headline4"
+                    android:layout_width="match_parent"
+                    android:layout_height="43dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="-3dp"
+                    android:layout_marginEnd="40dp"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:text="@{model.headPrice}"
+                    android:visibility="@{model.headPriceVisiblity ? View.VISIBLE : View.GONE}"
+                    tools:text="0.00" />
+
+
+                <io.forus.me.android.presentation.view.component.text.TextView
+                    android:id="@+id/head_subtitle"
+                    style="@style/Subtitle5"
+                    android:layout_width="match_parent"
+                    android:layout_height="16dp"
+                    android:layout_below="@id/head_price"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="12dp"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:visibility="gone"
+                    tools:text="0Edsfsdf" />
+
+            </LinearLayout>
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_below="@id/tv_provider"
-                android:layout_marginTop="16dp"
+                android:layout_below="@id/headLayout"
                 android:layout_marginStart="10dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="10dp"
                 android:background="@color/cardMapBackground"
-                android:paddingBottom="35dp"
+                android:gravity="start|left"
+                android:orientation="vertical"
                 android:padding="16dp"
-                android:visibility="@{model.priceAgreementVisiblity ? View.VISIBLE : View.GONE}"
+                android:paddingBottom="35dp"
 
-                android:gravity="start|left">
+                android:visibility="@{model.priceAgreementVisiblity ? View.VISIBLE : View.GONE}">
 
 
                 <io.forus.me.android.presentation.view.component.text.TextView
                     android:id="@+id/head"
                     style="@style/Subtitle"
-                    android:layout_gravity="center_vertical|left"
                     android:layout_width="match_parent"
-                    android:layout_height="44dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="23dp"
+                    android:fontFamily="@font/google_sans_medium"
+                    android:layout_gravity="center_vertical|left"
                     android:text="@string/price_agreement" />
 
                 <io.forus.me.android.presentation.view.component.text.TextView
                     style="@style/Overline6"
-                    android:layout_gravity="center_vertical|left"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:layout_gravity="center_vertical|left"
                     android:minHeight="14dp"
-                    android:visibility="@{model.totalPriceVisiblity ? View.VISIBLE : View.GONE}"
-                    android:text="@string/price_agreement_total_price" />
+                    android:text="@string/price_agreement_total_price"
+                    android:visibility="@{model.totalPriceVisiblity ? View.VISIBLE : View.GONE}" />
 
                 <io.forus.me.android.presentation.view.component.text.TextView
                     android:id="@+id/tv_total_price"
                     style="@style/Subtitle6"
-                    android:layout_gravity="center_vertical|left"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|left"
                     android:layout_marginTop="3dp"
-                    android:visibility="@{model.totalPriceVisiblity ? View.VISIBLE : View.GONE}"
                     android:text="@{model.totalPrice}"
+                    android:visibility="@{model.totalPriceVisiblity ? View.VISIBLE : View.GONE}"
                     tools:text="20.00" />
 
                 <io.forus.me.android.presentation.view.component.text.TextView
                     style="@style/Overline6"
-                    android:layout_gravity="center_vertical|left"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minHeight="14dp"
+                    android:layout_gravity="center_vertical|left"
                     android:layout_marginTop="14dp"
+                    android:minHeight="14dp"
+                    android:text="@string/discount"
                     android:visibility="@{model.discountProviderVisiblity ? View.VISIBLE : View.GONE}"
-                    android:text="@{model.discountByProviderName}"
-                    tools:text="@string/price_agreement_discount_by_provider_" />
+                    tools:text="@string/discount" />
 
                 <io.forus.me.android.presentation.view.component.text.TextView
                     android:id="@+id/tv_discount_by"
                     style="@style/Subtitle6"
-                    android:layout_gravity="center_vertical|left"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|left"
                     android:layout_marginTop="3dp"
-                    android:visibility="@{model.discountProviderVisiblity ? View.VISIBLE : View.GONE}"
                     android:text="@{model.discountByProviderPrice}"
+                    android:visibility="@{model.discountProviderVisiblity ? View.VISIBLE : View.GONE}"
                     tools:text="30.00" />
 
                 <io.forus.me.android.presentation.view.component.text.TextView
@@ -136,42 +163,42 @@
                     android:layout_gravity="center_vertical|left"
                     android:layout_marginTop="14dp"
                     android:minHeight="14dp"
-                    android:visibility="@{model.contributionSponsorVisiblity ? View.VISIBLE : View.GONE}"
                     android:text="@{model.contributionBySponsorName}"
-                    tools:text="@string/price_agreement_contribution_by_sponsor_" />
+                    android:visibility="@{model.contributionSponsorVisiblity ? View.VISIBLE : View.GONE}"
+                    tools:text="@string/price_agreement_sponsor_pays_you" />
 
                 <io.forus.me.android.presentation.view.component.text.TextView
                     android:id="@+id/tv_contribution_by"
                     style="@style/Subtitle6"
-                    android:layout_gravity="center_vertical|left"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|left"
                     android:layout_marginTop="3dp"
-                    android:visibility="@{model.contributionSponsorVisiblity ? View.VISIBLE : View.GONE}"
                     android:text="@{model.contributionBySponsorPrice}"
+                    android:visibility="@{model.contributionSponsorVisiblity ? View.VISIBLE : View.GONE}"
                     tools:text="30.00" />
 
                 <io.forus.me.android.presentation.view.component.text.TextView
                     style="@style/Overline6"
-                    android:layout_gravity="center_vertical|left"
                     android:layout_width="match_parent"
-                    android:fontFamily="@font/google_sans_medium"
                     android:layout_height="wrap_content"
-                    android:minHeight="14dp"
+                    android:layout_gravity="center_vertical|left"
                     android:layout_marginTop="14dp"
-                    android:visibility="@{model.totalAmountVisiblity ? View.VISIBLE : View.GONE}"
-                    android:text="@string/price_agreement_total_to_pay" />
+                    android:fontFamily="@font/google_sans_medium"
+                    android:minHeight="14dp"
+                    android:text="@string/price_agreement_client_price"
+                    android:visibility="@{model.totalAmountVisiblity ? View.VISIBLE : View.GONE}" />
 
                 <io.forus.me.android.presentation.view.component.text.TextView
                     android:id="@+id/tv_total_amount"
-                    style="@style/Subtitle6"
-                    android:layout_gravity="center_vertical|left"
-                    android:fontFamily="@font/google_sans_medium"
+                    style="@style/Subtitle7"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|left"
                     android:layout_marginTop="3dp"
-                    android:visibility="@{model.totalAmountVisiblity ? View.VISIBLE : View.GONE}"
+                    android:fontFamily="@font/google_sans_medium"
                     android:text="@{model.userPrice}"
+                    android:visibility="@{model.totalAmountVisiblity ? View.VISIBLE : View.GONE}"
                     tools:text="30.00" />
 
 

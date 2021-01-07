@@ -76,7 +76,7 @@ class ActionPaymentViewModel(application: Application) : AndroidViewModel(applic
 
         val resources = getApplication<Application>().resources
 
-
+        /*
         val priceValue: String = if (product!!.noPrice) {
             if (product!!.noPriceType == NoPriceType.free.name) {
                 resources.getString(R.string.free)
@@ -89,9 +89,15 @@ class ActionPaymentViewModel(application: Application) : AndroidViewModel(applic
                     .format(product!!.priceUser)
         }
 
+
+
         productPrice.postValue(priceValue)
 
+         */
+
         productName.postValue(product!!.name)
+
+
 
         orgName.postValue(product!!.companyName)
 

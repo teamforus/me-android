@@ -21,7 +21,7 @@
         <android.support.v7.widget.CardView
             android:id="@+id/card_view"
             android:layout_width="match_parent"
-            android:layout_height="64dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="8dp"
             android:layout_marginRight="10dp"
@@ -32,17 +32,19 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_toStartOf="@+id/iv_action_icon"
                     android:orientation="vertical"
                     android:gravity="center_vertical"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
                     android:paddingStart="16dp">
 
                     <io.forus.me.android.presentation.view.component.text.TextView
@@ -51,8 +53,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
-                        android:lines="1"
-                        android:maxLines="1"
+                        android:maxLines="3"
                         android:text="@{model.productName}"
                         app:type="medium"
                         tools:text="Action name" />
@@ -69,7 +70,7 @@
                         android:text="@{model.productPrice}"
                         android:textColor="@color/textColor"
                         tools:text="Action details"
-                        android:visibility="visible"
+                        android:visibility="gone"
                         />
 
 

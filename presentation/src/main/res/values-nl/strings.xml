@@ -128,6 +128,9 @@
     <string name="price_agreement_n_v_t">n.v.t.</string>
     <string name="price_agreement_paid_by_customer">Betaald door klant</string>
     <string name="price_agreement_notitie">Notitie</string>
+    <string name="price_agreement_client_price">Prijs voor de klant</string>
+    <string name="price_agreement_sponsor_pays_you">%1$s betaalt u</string>
+
 
     <!-- New record screen -->
     <string name="new_record_title">Nieuwe eigenschap</string>

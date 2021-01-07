@@ -25,15 +25,14 @@ class ActionPaymentActivity : BaseActivity() {
 
         const val ACTION_PRODUCT_EXTRA = "ACTION_PRODUCT_EXTRA"
         const val VOUCHER_ADDRESS_EXTRA = "VOUCHER_ADDRESS_EXTRA"
-        const val VOUCHER_FUND_NAME_EXTRA = "VOUCHER_FUND_NAME_EXTRA"
 
-        fun getCallingIntent(context: Context, product: ProductSerializable, voucherAddress: String, fundName: String): Intent {
+
+        fun getCallingIntent(context: Context, product: ProductSerializable, voucherAddress: String): Intent {
             val intent = Intent(context, ActionPaymentActivity::class.java)
             val bundle = Bundle()
             bundle.putSerializable(ACTION_PRODUCT_EXTRA, product)
             intent.putExtra(VOUCHER_ADDRESS_EXTRA, voucherAddress)
 
-            intent.putExtra(VOUCHER_FUND_NAME_EXTRA, fundName)
 
             intent.putExtras(bundle)
 
@@ -44,7 +43,7 @@ class ActionPaymentActivity : BaseActivity() {
 
     var voucherAddress: String? = null
     var product: ProductSerializable? = null
-    var fundName: String? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,11 +54,10 @@ class ActionPaymentActivity : BaseActivity() {
             product = it.getSerializable(ACTION_PRODUCT_EXTRA) as ProductSerializable
             voucherAddress = intent.getSerializableExtra(ActionsActivity.VOUCHER_ADDRESS_EXTRA) as String
 
-            fundName = intent.getSerializableExtra(VOUCHER_FUND_NAME_EXTRA) as String
         }
 
         product.let {
-            replaceFragment(R.id.dashboard_content, ActionPaymentFragment.newIntent(product!!, voucherAddress!!,fundName!!
+            replaceFragment(R.id.dashboard_content, ActionPaymentFragment.newIntent(product!!, voucherAddress!!
             ))
 
         }

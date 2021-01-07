@@ -7,9 +7,9 @@ import java.util.*
 
 class ProductAction(var id: Long?, var name: String?, var organizationId: Long?,
                     var price: BigDecimal?, var priceUser: BigDecimal?,
-                    var priceOld: BigDecimal?, var noPrice: Boolean?,
-                    var noPriceType: String?, var noPriceDiscount: BigDecimal?,
-                    var photoURL: String?, var organization: Organization?,
+                    var priceType: String?,var priceDiscount: BigDecimal?,
+                    var sponsorSubsidy: BigDecimal?,var photoURL: String?,
+                    var organization: Organization?, var sponsor: Organization?,
                     var productCategory: ProductCategory?) : Serializable {
 
 
