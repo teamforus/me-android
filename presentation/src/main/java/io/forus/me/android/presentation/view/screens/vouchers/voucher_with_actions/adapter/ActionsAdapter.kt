@@ -38,6 +38,7 @@ class ActionsAdapter(var items: ArrayList<ProductAction>, val callback: Callback
 
         fun bind(item: ProductAction) {
             nameTV.text = item.name
+            priceTV.text = item.priceUserLocale
 
             /*
             priceTV.text = if (item.noPrice!!) {

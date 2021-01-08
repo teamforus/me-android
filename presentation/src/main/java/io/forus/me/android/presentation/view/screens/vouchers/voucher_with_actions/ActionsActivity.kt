@@ -91,6 +91,7 @@ class ActionsActivity : AppCompatActivity() {
                                 item.organization!!.id,
                                 item.price, item.priceUser,
                                 item.priceType , item.priceDiscount,
+                                item.priceUserLocale,
                                 item.sponsorSubsidy , if(item.sponsor != null){
                             item.sponsor!!.name
                         } else{

@@ -232,6 +232,7 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
                 productAction.price, productAction.priceUser,
                 productAction.price_type,
                 productAction.price_discount,
+                productAction.priceUserLocale,
                 productAction.sponsorSubsidy,
                 photoUrl, organization, sponsor,
                 productCategory)
