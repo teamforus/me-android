@@ -45,6 +45,9 @@ public class ProductAction implements Serializable {
     @SerializedName("price_user_locale")
     private String priceUserLocale;
 
+    @SerializedName("price_locale")
+    private String priceLocale;
+
 
 
     //@SerializedName("expire_at")
@@ -73,7 +76,7 @@ public class ProductAction implements Serializable {
     public ProductAction(long id, String name, long organizationId,
                          BigDecimal price, BigDecimal priceUser,
                          String priceType, BigDecimal priceDiscount,
-                         String price_user_locale,
+                         String price_locale,String price_user_locale,
                          BigDecimal sponsorSubsidy,Logo photo,
                          Organization organization, Organization sponsor,
                          ProductCategory productCategory) {
@@ -89,6 +92,7 @@ public class ProductAction implements Serializable {
         this.sponsorSubsidy = sponsorSubsidy;
         this.price_type = priceType;
         this.price_discount = priceDiscount;
+        this.priceLocale = price_locale;
         this.priceUserLocale = price_user_locale;
     }
 
@@ -194,5 +198,13 @@ public class ProductAction implements Serializable {
 
     public void setPriceUserLocale(String priceUserLocale) {
         this.priceUserLocale = priceUserLocale;
+    }
+
+    public String getPriceLocale() {
+        return priceLocale;
+    }
+
+    public void setPriceLocale(String priceLocale) {
+        this.priceLocale = priceLocale;
     }
 }

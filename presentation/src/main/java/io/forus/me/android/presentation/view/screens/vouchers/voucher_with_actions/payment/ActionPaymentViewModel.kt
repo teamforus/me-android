@@ -102,7 +102,10 @@ class ActionPaymentViewModel(application: Application) : AndroidViewModel(applic
 
          */
 
-        productName.postValue(product!!.name)
+        //productName.postValue(product!!.name)
+
+        productName.value = product!!.name
+        // @{model.productName}
 
 
 

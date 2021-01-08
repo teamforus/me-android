@@ -161,7 +161,7 @@ class ActionPaymentFragment : BaseFragment() {
     fun showConfirmDialog() {
 
         var title = getString(R.string.submit_price_title)
-        var toPay = product!!.priceUserLocale
+        var toPay = product!!.priceLocale
         var subtitle = getString(R.string.submit_price_subtitle)
 
 

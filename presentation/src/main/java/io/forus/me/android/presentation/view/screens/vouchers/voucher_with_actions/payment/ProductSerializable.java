@@ -17,6 +17,7 @@ public class ProductSerializable implements Serializable {
     BigDecimal priceUser;
     long companyId;
 
+    String priceLocale;
     String priceUserLocale;
 
     String photoURL;
@@ -27,7 +28,7 @@ public class ProductSerializable implements Serializable {
                                long companyId,
                                BigDecimal price, BigDecimal priceUser,
                                String priceType,  BigDecimal priceDiscount,
-                               String priceUserLocale,
+                               String priceLocale,String priceUserLocale,
                                BigDecimal sponsorSubsidy, String sponsorName,
                                 String photoURL) {
         this.id = id;
@@ -39,6 +40,7 @@ public class ProductSerializable implements Serializable {
         this.priceType = priceType;
         this.priceDiscount = priceDiscount;
         this.priceUser = priceUser;
+        this.priceLocale = priceLocale;
         this.priceUserLocale = priceUserLocale;
         this.photoURL = photoURL;
         this.sponsorName = sponsorName;
@@ -140,5 +142,13 @@ public class ProductSerializable implements Serializable {
 
     public void setPriceUserLocale(String priceUserLocale) {
         this.priceUserLocale = priceUserLocale;
+    }
+
+    public String getPriceLocale() {
+        return priceLocale;
+    }
+
+    public void setPriceLocale(String priceLocale) {
+        this.priceLocale = priceLocale;
     }
 }
