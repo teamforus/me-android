@@ -111,7 +111,7 @@
                     android:minHeight="23dp"
                     android:fontFamily="@font/google_sans_medium"
                     android:layout_gravity="center_vertical|left"
-                    android:text="@string/price_agreement" />
+                    android:text="@string/transaction_details" />
 
                 <io.forus.me.android.presentation.view.component.text.TextView
                     style="@style/Overline6"

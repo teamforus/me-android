@@ -20,6 +20,7 @@ import io.forus.me.android.presentation.view.screens.vouchers.dialogs.Fullscreen
 import io.forus.me.android.presentation.view.screens.vouchers.dialogs.ThrowableErrorDialog
 import io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actions.payment.popup.PriceAgreementFragment
 import kotlinx.android.synthetic.main.fragment_action_payment.*
+import java.math.BigDecimal
 import java.text.NumberFormat
 import java.util.*
 
@@ -95,7 +96,15 @@ class ActionPaymentFragment : BaseFragment() {
             mainViewModel.confirmPayment.observe(requireActivity(), Observer {
                 if (!it!!) return@Observer
 
-                showConfirmDialog()
+                if(product!!.priceType == PriceType.regular.name &&
+                        product!!.price > BigDecimal.ZERO) {
+                    showConfirmDialog()
+                }else{
+                    btn_make.active = false
+                    btn_make.isEnabled = false
+                    progress.visibility = View.VISIBLE
+                    mainViewModel.makeTransaction()
+                }
             })
 
             mainViewModel.successPayment.observe(requireActivity(), Observer {
@@ -106,6 +115,9 @@ class ActionPaymentFragment : BaseFragment() {
             })
 
             mainViewModel.errorPayment.observe(requireActivity(), Observer {
+                progress.visibility = View.GONE
+                btn_make.active = true
+                btn_make.isEnabled = true
                 if (it != null) {
                     ThrowableErrorDialog(it, requireActivity(), object : DialogInterface.OnDismissListener, () -> Unit {
                         override fun invoke() {
@@ -148,39 +160,16 @@ class ActionPaymentFragment : BaseFragment() {
 
     fun showConfirmDialog() {
 
-        var title = ""
-        var toPay = ""
-        var subtitle = ""
+        var title = getString(R.string.submit_price_title)
+        var toPay = product!!.priceUserLocale
+        var subtitle = getString(R.string.submit_price_subtitle)
 
-       /* if (product!!.noPrice) {
-            if (product!!.noPriceType == NoPriceType.free.name) {
-                title = getString(R.string.price)
-                toPay = getString(R.string.free)
-                subtitle = ""
-            } else if (product!!.noPriceType == NoPriceType.discount.name) {
-                title = getString(R.string.discount)
-                toPay = if (product!!.noPriceDiscount != null) {
-                    NumberFormat.getCurrencyInstance(Locale("nl", "NL"))
-                            .format(product!!.noPriceDiscount.toDouble())+"%"
-                } else {
-                    getString(R.string.price_agreement_n_v_t)
-                }
-                subtitle = ""
-            }
-        } else {
-            title = getString(R.string.submit_price_title)
-            toPay = if (product!!.priceUser != null) {
-                NumberFormat.getCurrencyInstance(Locale("nl", "NL"))
-                        .format(product!!.priceUser.toDouble())
-            } else {
-                getString(R.string.price_agreement_n_v_t)
-            }
-            subtitle = getString(R.string.submit_price_subtitle)
-        }
 
-        */
 
         ApplyActionTransactionDialog(requireActivity(), title, toPay, subtitle) {
+            btn_make.active = false
+            btn_make.isEnabled = false
+            progress.visibility = View.VISIBLE
             mainViewModel.makeTransaction()
         }.show()
     }

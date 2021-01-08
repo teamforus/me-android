@@ -41,6 +41,9 @@ class ActionPaymentViewModel(application: Application) : AndroidViewModel(applic
     val successPayment = MutableLiveData<Boolean>()
     val errorPayment = MutableLiveData<Throwable?>()
 
+    val commitButtonEnable  = MutableLiveData<Boolean>()
+    val commitButtonAlpha  = MutableLiveData<Float>()
+
     val progress = MutableLiveData<Boolean>()
 
     init {
@@ -55,6 +58,8 @@ class ActionPaymentViewModel(application: Application) : AndroidViewModel(applic
         showPriceAgreement.value = false
         successPayment.value = false
         errorPayment.value = null
+
+        setCommitButtonEnable(true)
     }
 
     public fun setProduct(product: ProductSerializable) {
@@ -70,6 +75,8 @@ class ActionPaymentViewModel(application: Application) : AndroidViewModel(applic
     fun onPricesClick(view: View?) {
         showPriceAgreement.postValue(true)
     }
+
+
 
 
     private fun refreshUI() {
@@ -113,16 +120,19 @@ class ActionPaymentViewModel(application: Application) : AndroidViewModel(applic
     fun makeTransaction() {
 
         progress.postValue(true)
+        commitButtonEnable.postValue(false)
         vouchersRepository.makeActionTransaction(voucherAddress!!, note.value ?: "",  product!!.id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map {
                     progress.postValue(false)
                     successPayment.postValue(true)
+                    //commitButtonEnable.postValue(true)
                 }
                 .onErrorReturn {
                     progress.postValue(false)
                     errorPayment.postValue(it)
+                    //commitButtonEnable.postValue(true)
                 }
                 .subscribe()
     }
@@ -138,6 +148,11 @@ class ActionPaymentViewModel(application: Application) : AndroidViewModel(applic
         callbacks.remove(callback)
     }
 
+
+    fun setCommitButtonEnable(enable:Boolean){
+        commitButtonEnable.value = enable
+        commitButtonAlpha.postValue(if(enable){1.0f}else{0.6f})
+    }
 
     /**
      * Notifies listeners that all properties of this instance have changed.
