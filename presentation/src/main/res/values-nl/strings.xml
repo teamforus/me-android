@@ -118,7 +118,7 @@
     <string name="email_support">support@forus.io</string>
 
     <!-- Price agreement -->
-    <string name="price_agreement">Prijsafspraak</string>
+    <string name="price_agreement">Transactie details</string>
     <string name="price_agreement_total_price">Totaalprijs</string>
     <string name="price_agreement_discount_by_provider_">Korting vanuit %1$s</string>
     <string name="price_agreement_contribution_by_sponsor_">Bijdrage vanuit %1$s</string>
@@ -126,7 +126,7 @@
     <string name="price_agreement_total_to_pay">Wat de klant betaalt</string>
     <string name="price_agreement_no_price">Geen prijs</string>
     <string name="price_agreement_n_v_t">n.v.t.</string>
-    <string name="price_agreement_paid_by_customer">Betaald door klant</string>
+    <string name="price_agreement_paid_by_customer">Wat de klant betaalt</string>
     <string name="price_agreement_notitie">Notitie</string>
     <string name="price_agreement_client_price">Prijs voor de klant</string>
     <string name="price_agreement_sponsor_pays_you">%1$s betaalt u</string>
@@ -277,7 +277,7 @@
     <string name="vouchers_complete_an_amount">VUL ZELF EEN BEDRAG IN</string>
     <string name="choose_company">Kies organisatie</string>
     <string name="payment">Betaling</string>
-    <string name="choose_an_action">Kies een actie</string>
+    <string name="choose_an_action">Kies een aanbod</string>
     <string name="choose_an_action_descr">Laat de klant het bedrag aan de kassa betalen.</string>
     <string name="confirm_payment">Bevestig betaling</string>
     <string name="has_the_customer">Heeft de klant </string>
