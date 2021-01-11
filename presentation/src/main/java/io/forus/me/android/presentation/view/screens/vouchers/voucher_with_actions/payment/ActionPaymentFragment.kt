@@ -2,11 +2,10 @@ package io.forus.me.android.presentation.view.screens.vouchers.voucher_with_acti
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
-import android.content.Context
 import android.content.DialogInterface
-import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.v4.app.FragmentTransaction
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -15,12 +14,14 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.databinding.FragmentActionPaymentBinding
+import io.forus.me.android.presentation.helpers.Converter
 import io.forus.me.android.presentation.view.fragment.BaseFragment
 import io.forus.me.android.presentation.view.screens.vouchers.dialogs.ApplyActionTransactionDialog
 import io.forus.me.android.presentation.view.screens.vouchers.dialogs.FullscreenDialog
 import io.forus.me.android.presentation.view.screens.vouchers.dialogs.ThrowableErrorDialog
 import io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actions.payment.popup.PriceAgreementFragment
 import kotlinx.android.synthetic.main.fragment_action_payment.*
+import java.math.BigDecimal
 import java.text.NumberFormat
 import java.util.*
 
@@ -31,24 +32,14 @@ class ActionPaymentFragment : BaseFragment() {
 
         const val ACTION_PRODUCT_EXTRA = "ACTION_PRODUCT_EXTRA"
         const val VOUCHER_ADDRESS_EXTRA = "VOUCHER_ADDRESS_EXTRA"
-        const val VOUCHER_FUND_NAME_EXTRA = "VOUCHER_FUND_NAME_EXTRA"
 
-        /*fun getCallingIntent(context: Context, product: ProductSerializable, voucherAddress: String, fundName: String): Intent {
-            val intent = Intent(context, ActionPaymentActivity::class.java)
-            val bundle = Bundle()
-            bundle.putSerializable(ACTION_PRODUCT_EXTRA, product)
-            intent.putExtra(VOUCHER_ADDRESS_EXTRA, voucherAddress)
-            intent.putExtras(bundle)
-            intent.putExtra(VOUCHER_FUND_NAME_EXTRA, fundName)
 
-            return intent
-        }*/
 
-        fun newIntent(product: ProductSerializable, voucherAddress: String,fundName: String): ActionPaymentFragment = ActionPaymentFragment().also {
+        fun newIntent(product: ProductSerializable, voucherAddress: String): ActionPaymentFragment = ActionPaymentFragment().also {
             val bundle = Bundle()
             bundle.putSerializable(ACTION_PRODUCT_EXTRA, product)
             bundle.putString(VOUCHER_ADDRESS_EXTRA, voucherAddress)
-            bundle.putString(VOUCHER_FUND_NAME_EXTRA, fundName)
+
             it.arguments = bundle
         }
     }
@@ -61,7 +52,7 @@ class ActionPaymentFragment : BaseFragment() {
     var voucherAddress: String? = null
     var product: ProductSerializable? = null
 
-    var fundName: String? = null
+    //var fundName: String? = null
 
 
     /* override fun getLayoutID(): Int {
@@ -87,7 +78,6 @@ class ActionPaymentFragment : BaseFragment() {
                 voucherAddress = bundle.getString(VOUCHER_ADDRESS_EXTRA, "")
                 product = bundle.getSerializable(ACTION_PRODUCT_EXTRA) as ProductSerializable
 
-                fundName = bundle.getString(VOUCHER_FUND_NAME_EXTRA, "")
 
             }
 
@@ -107,7 +97,14 @@ class ActionPaymentFragment : BaseFragment() {
             mainViewModel.confirmPayment.observe(requireActivity(), Observer {
                 if (!it!!) return@Observer
 
-                showConfirmDialog()
+                if(product!!.priceUser > BigDecimal.ZERO) {
+                    showConfirmDialog()
+                }else{
+                    btn_make.active = false
+                    btn_make.isEnabled = false
+                    progress.visibility = View.VISIBLE
+                    mainViewModel.makeTransaction()
+                }
             })
 
             mainViewModel.successPayment.observe(requireActivity(), Observer {
@@ -118,6 +115,9 @@ class ActionPaymentFragment : BaseFragment() {
             })
 
             mainViewModel.errorPayment.observe(requireActivity(), Observer {
+                progress.visibility = View.GONE
+                btn_make.active = true
+                btn_make.isEnabled = true
                 if (it != null) {
                     ThrowableErrorDialog(it, requireActivity(), object : DialogInterface.OnDismissListener, () -> Unit {
                         override fun invoke() {
@@ -132,12 +132,23 @@ class ActionPaymentFragment : BaseFragment() {
             mainViewModel.showPriceAgreement.observe(requireActivity(), Observer {
                 if (!it!!) return@Observer
                 Log.d("forus", "Click price agreement")
-                (requireActivity() as ActionPaymentActivity).addPopupFragment(PriceAgreementFragment.newIntent(product!!, fundName!!), "")
+
+
+                //(requireActivity() as ActionPaymentActivity).addPopupFragment(fragment, "")
+
+                // activity.replaceFragment(R.id.fragmentPanelContainer, fragment)
                 //showPopupQRFragment(QrCode(QrCode.Type.P2P_IDENTITY, vs.model.account.address).toJson())
                 // }.show()
             })
 
+            val fragment = PriceAgreementFragment.newIntent(product!!)
 
+            val transaction: FragmentTransaction = activity!!.supportFragmentManager.beginTransaction()
+
+
+            transaction.replace(R.id.fragmentPanelContainer, fragment)
+           // transaction.addToBackStack(null)
+            transaction.commit()
 
 
             return view
@@ -149,37 +160,16 @@ class ActionPaymentFragment : BaseFragment() {
 
     fun showConfirmDialog() {
 
-        var title = ""
-        var toPay = ""
-        var subtitle = ""
+        var title = getString(R.string.submit_price_title)
+        var toPay = Converter.convertBigDecimalToStringNL(product!!.priceUser)
+        var subtitle = getString(R.string.submit_price_subtitle)
 
-        if (product!!.noPrice) {
-            if (product!!.noPriceType == NoPriceType.free.name) {
-                title = getString(R.string.price)
-                toPay = getString(R.string.free)
-                subtitle = ""
-            } else if (product!!.noPriceType == NoPriceType.discount.name) {
-                title = getString(R.string.discount)
-                toPay = if (product!!.noPriceDiscount != null) {
-                    NumberFormat.getCurrencyInstance(Locale("nl", "NL"))
-                            .format(product!!.noPriceDiscount.toDouble())+"%"
-                } else {
-                    getString(R.string.price_agreement_n_v_t)
-                }
-                subtitle = ""
-            }
-        } else {
-            title = getString(R.string.submit_price_title)
-            toPay = if (product!!.priceUser != null) {
-                NumberFormat.getCurrencyInstance(Locale("nl", "NL"))
-                        .format(product!!.priceUser.toDouble())
-            } else {
-                getString(R.string.price_agreement_n_v_t)
-            }
-            subtitle = getString(R.string.submit_price_subtitle)
-        }
+
 
         ApplyActionTransactionDialog(requireActivity(), title, toPay, subtitle) {
+            btn_make.active = false
+            btn_make.isEnabled = false
+            progress.visibility = View.VISIBLE
             mainViewModel.makeTransaction()
         }.show()
     }

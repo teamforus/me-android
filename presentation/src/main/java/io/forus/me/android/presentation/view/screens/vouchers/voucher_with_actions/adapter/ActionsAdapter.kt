@@ -2,7 +2,6 @@ package io.forus.me.android.presentation.view.screens.vouchers.voucher_with_acti
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,9 +11,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import io.forus.me.android.domain.models.vouchers.ProductAction
 import io.forus.me.android.presentation.R
-import io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actions.payment.NoPriceType
-import java.text.NumberFormat
-import java.util.*
 import kotlin.collections.ArrayList
 
 
@@ -42,8 +38,9 @@ class ActionsAdapter(var items: ArrayList<ProductAction>, val callback: Callback
 
         fun bind(item: ProductAction) {
             nameTV.text = item.name
+            priceTV.text = item.priceUserLocale
 
-
+            /*
             priceTV.text = if (item.noPrice!!) {
                 if (item.noPriceType == NoPriceType.free.name) {
 
@@ -66,7 +63,7 @@ class ActionsAdapter(var items: ArrayList<ProductAction>, val callback: Callback
                     context.getString(R.string.price_agreement_n_v_t)
                 }
             }
-
+            */
 
             val url = item.photoURL
             if (url != null && url.isNotEmpty()) {
