@@ -330,6 +330,13 @@
         <item name="android:lineSpacingExtra">2.0sp</item>
     </style>
 
+    <style name="Subtitle7">
+        <item name="android:textSize">15.00sp</item>
+        <item name="android:textColor">@color/forus_blue</item>
+        <item name="android:letterSpacing">0.03</item>
+        <item name="android:lineSpacingExtra">2.0sp</item>
+    </style>
+
     <style name="ShareButtonBody">
         <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/body_1_87</item>

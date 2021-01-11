@@ -139,6 +139,9 @@
     <string name="price_agreement_n_v_t">n.v.t.</string>
     <string name="price_agreement_paid_by_customer">Paid by customer</string>
     <string name="price_agreement_notitie">Note</string>
+    <string name="price_agreement_client_price">Price for the customer</string>
+    <string name="price_agreement_sponsor_pays_you">%1$s betaalt u</string>
+
 
 
 

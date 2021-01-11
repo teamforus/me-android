@@ -44,8 +44,16 @@ class TransactionsLogAdapter(val context: Context, var items: ArrayList<Transact
 
 
         fun bind(item: Transaction) {
+
+            val price: Double = (item.amount?.toDouble())?:0.0
+
             subtitle1.text = item.product?.name
-            subtitle2.text = NumberFormat.getCurrencyInstance(Locale("nl", "NL")).format(item.amount?.toDouble())
+            subtitle2.text = if(price > 0.0) {
+                overline2.visibility = View.VISIBLE
+                NumberFormat.getCurrencyInstance(Locale("nl", "NL")).format(item.amount?.toDouble())
+            } else {
+                overline2.visibility = View.INVISIBLE
+                "" }
             overline1.text = dateFormat.format(item.createdAt)
             when(item.state){
                 "success" -> overline2.text = context.getString(R.string.status_success)

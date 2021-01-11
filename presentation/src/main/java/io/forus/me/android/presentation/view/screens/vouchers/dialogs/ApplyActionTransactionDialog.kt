@@ -1,6 +1,8 @@
 package io.forus.me.android.presentation.view.screens.vouchers.dialogs
 
 import android.app.Activity
+import android.util.DisplayMetrics
+import android.view.Display
 import android.view.View
 import android.widget.TextView
 import com.afollestad.materialdialogs.MaterialDialog
@@ -15,7 +17,20 @@ class ApplyActionTransactionDialog(private val context: Activity, private val ti
 
     fun show() {
 
-        val customLayout: View = context.layoutInflater.inflate(R.layout.dialog_apply_action, null)
+        val display: Display = context.windowManager.defaultDisplay
+        val outMetrics = DisplayMetrics()
+        display.getMetrics(outMetrics)
+        val density: Float = context.resources.displayMetrics.density
+        val dpHeight = outMetrics.heightPixels / density
+        val dpWidth = outMetrics.widthPixels / density
+
+        val viewId = if (dpWidth <= 320 || dpHeight < 522) {
+            R.layout.dialog_apply_action_nokia1
+        }else{
+            R.layout.dialog_apply_action
+        }
+
+        val customLayout: View = context.layoutInflater.inflate(viewId, null)
         val titleTV = customLayout.findViewById<TextView>(R.id.title)
         val bottomTV = customLayout.findViewById<TextView>(R.id.bottom)
 
@@ -30,11 +45,11 @@ class ApplyActionTransactionDialog(private val context: Activity, private val ti
 
 
 
-        customLayout.findViewById<io.forus.me.android.presentation.view.component.buttons.ButtonWhite>(R.id.submit).setOnClickListener {
+        customLayout.findViewById<View>(R.id.submit).setOnClickListener {
             positiveCallback.invoke()
             dismiss()
         }
-        customLayout.findViewById<io.forus.me.android.presentation.view.component.buttons.ButtonWhite>(R.id.cancel).setOnClickListener {
+        customLayout.findViewById<View>(R.id.cancel).setOnClickListener {
             dismiss()
         }
 

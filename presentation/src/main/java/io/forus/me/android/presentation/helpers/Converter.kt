@@ -2,9 +2,10 @@ package io.forus.me.android.presentation.helpers
 
 import android.content.Context
 import android.util.DisplayMetrics
-
-
-
+import java.math.BigDecimal
+import java.text.NumberFormat
+import java.util.*
+import kotlin.math.roundToInt
 
 
 object Converter {
@@ -32,5 +33,27 @@ object Converter {
         val resources = context.resources
         val metrics = resources.displayMetrics
         return px / (metrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)
+    }
+
+    fun convertBigDecimalToStringNL(currency: BigDecimal): String {
+        var out = NumberFormat.getCurrencyInstance(Locale("nl", "NL"))
+                .format(currency)
+        out = out.replace(".00", ",-")
+        out = out.replace(",00", ",-")
+        return out
+    }
+
+    fun convertBigDecimalToDiscountString(discount: BigDecimal): String {
+
+        var out = discount.toPlainString()// = NumberFormat.getCurrencyInstance(Locale("nl", "NL"))
+                //.format(discount)
+        if((discount.toDouble() - discount.toDouble().roundToInt()) == 0.0){
+            out = out.replace(".00", "%")
+            out = out.replace(",00", "%")
+        }else{
+            out += "%"
+        }
+
+        return out
     }
 }

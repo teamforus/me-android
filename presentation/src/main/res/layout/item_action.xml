@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:textColor="@color/colorAccent"
-                android:textSize="20.1sp"
+                android:textSize="16.1sp"
                 app:type="medium"
                 tools:text="€ 5,00" />
 
