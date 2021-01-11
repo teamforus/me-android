@@ -45,8 +45,6 @@ public class FullscreenDialog extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         rootView = inflater.inflate(R.layout.dialog_fullscreen, container, false);
-
-
         return rootView;
     }
 
@@ -74,23 +72,15 @@ public class FullscreenDialog extends DialogFragment {
         titleTv.setText(title);
         descriptionTv.setText(description);
 
-        rootView.findViewById(R.id.closeBt).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FullscreenDialog.this.dismiss();
-            }
-        });
+        rootView.findViewById(R.id.closeBt).setOnClickListener(view12 -> FullscreenDialog.this.dismiss());
 
         submitButton.setText(positiveButtonText);
 
         if (submitClickListener != null) {
-            submitButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (submitClickListener != null) {
-                        FullscreenDialog.this.dismiss();
-                        submitClickListener.click(FullscreenDialog.this);
-                    }
+            submitButton.setOnClickListener(view1 -> {
+                if (submitClickListener != null) {
+                    FullscreenDialog.this.dismiss();
+                    submitClickListener.click(FullscreenDialog.this);
                 }
             });
         }

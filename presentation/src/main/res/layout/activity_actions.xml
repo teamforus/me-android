@@ -294,13 +294,20 @@
                                 android:visibility="@{!model.productsListIsEmpty.booleanValue() ? View.VISIBLE : View.GONE}"
                                 android:orientation="vertical">
 
-
+                                <Spinner
+                                    android:id="@+id/organizationsSpinner"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_marginRight="16dp"
+                                    />
 
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="5dp"
+                                    android:layout_marginTop="28dp"
                                     android:text="@string/choose_an_action"
                                     android:visibility="visible"
                                     android:textSize="24sp"
@@ -316,24 +323,18 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="5dp"
                                     android:text="@string/choose_an_action_descr"
-                                    android:visibility="visible"
+                                    android:visibility="gone"
                                     android:textSize="13sp"
                                     android:textColor="#1C212A"
                                     android:letterSpacing="0.01"
                                     android:layout_marginLeft="16dp"
                                     android:layout_marginRight="16dp"
                                     android:fontFamily="@font/google_sans_regular"
-                                    tools:text="@string/choose_an_action_descr" />
-
-
-                                <Spinner
-                                    android:id="@+id/organizationsSpinner"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="10dp"
-                                    android:layout_marginLeft="10dp"
-                                    android:layout_marginRight="16dp"
+                                    tools:text="@string/choose_an_action_descr"
                                     />
+
+
+
 
                                 <android.support.v7.widget.RecyclerView
                                     android:id="@+id/recycler"

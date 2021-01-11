@@ -3,22 +3,16 @@ package io.forus.me.android.presentation.view.screens.vouchers.voucher_with_acti
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
 import android.databinding.Bindable
 import android.databinding.Observable
 import android.databinding.PropertyChangeRegistry
-import android.util.Log
-import android.view.View
-import io.forus.me.android.domain.models.vouchers.ProductAction
-import io.forus.me.android.domain.repository.vouchers.VouchersRepository
 import io.forus.me.android.presentation.R
-import io.forus.me.android.presentation.internal.Injection
-import io.forus.me.android.presentation.view.base.lr.PartialChange
-import io.forus.me.android.presentation.view.screens.vouchers.item.VoucherFragment
-import io.forus.me.android.presentation.view.screens.vouchers.provider.ProviderPartialChanges
+import io.forus.me.android.presentation.helpers.Converter
+import io.forus.me.android.presentation.helpers.Strings
+import io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actions.payment.PriceType
 import io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actions.payment.ProductSerializable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import java.math.BigDecimal
+import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.*
 
@@ -27,14 +21,15 @@ class PriceAgreementViewModel(application: Application) : AndroidViewModel(appli
 
 
     private var product: ProductSerializable? = null
-    var fundName: String? = null
 
-    val paidOutBySponsorPrice = MutableLiveData<String>()
-    val paidOutBySponsorNameSubtitle = MutableLiveData<String>()
+
+    val headTitle = MutableLiveData<String>()
+    val headPrice = MutableLiveData<String>()
+    val headSubtitle = MutableLiveData<String>()
 
     val totalPrice = MutableLiveData<String>()
 
-    val discountByProviderName = MutableLiveData<String>()
+    //val discountByProviderName = MutableLiveData<String>()
     val discountByProviderPrice = MutableLiveData<String>()
 
     val contributionBySponsorName = MutableLiveData<String>()
@@ -42,12 +37,26 @@ class PriceAgreementViewModel(application: Application) : AndroidViewModel(appli
 
     val userPrice = MutableLiveData<String>()
 
+    val priceAgreementVisiblity = MutableLiveData<Boolean>()
+    val headPriceVisiblity = MutableLiveData<Boolean>()
+    val totalPriceVisiblity = MutableLiveData<Boolean>()
+    val discountProviderVisiblity = MutableLiveData<Boolean>()
+    val contributionSponsorVisiblity = MutableLiveData<Boolean>()
+    val totalAmountVisiblity = MutableLiveData<Boolean>()
+
     init {
+        priceAgreementVisiblity.value = false
+        headPriceVisiblity.value = false
+        totalPriceVisiblity.value = false
+        discountProviderVisiblity.value = false
+        contributionSponsorVisiblity.value = false
+        totalAmountVisiblity.value = false
 
-        paidOutBySponsorPrice.value = ""
-        paidOutBySponsorNameSubtitle.value = ""
+        headTitle.value = ""
+        headPrice.value = ""
+        headSubtitle.value = ""
 
-        discountByProviderName.value = ""
+        //discountByProviderName.value = ""
         discountByProviderPrice.value = ""
 
         contributionBySponsorName.value = ""
@@ -57,10 +66,10 @@ class PriceAgreementViewModel(application: Application) : AndroidViewModel(appli
 
     }
 
-    public fun setProduct(product: ProductSerializable, fundName: String) {
+    fun setProduct(product: ProductSerializable) {
 
         this.product = product
-        this.fundName = fundName
+
         refreshUI()
     }
 
@@ -71,43 +80,87 @@ class PriceAgreementViewModel(application: Application) : AndroidViewModel(appli
 
         val nvtStr = resources.getString(R.string.price_agreement_n_v_t)
 
-        totalPrice.value = if (product!!.oldPrice == null) {
-            nvtStr
-        } else {
-            NumberFormat.getCurrencyInstance(Locale("nl", "NL")).format(product!!.oldPrice.toDouble())
+
+
+
+        headPriceVisiblity.value = product!!.priceType == PriceType.regular.name ||
+                product!!.priceType == PriceType.free.name
+
+        totalPriceVisiblity.value = product!!.priceType == PriceType.regular.name
+
+        discountProviderVisiblity.value =
+                product!!.priceType == PriceType.discount_percentage.name ||
+                        product!!.priceType == PriceType.discount_fixed.name
+
+        contributionSponsorVisiblity.value =
+                //(!(product!!.priceType == PriceType.discount_percentage.name ||
+                       // product!!.priceType == PriceType.free.name)) &&
+                        ( product!!.sponsorSubsidy != null &&
+                                product!!.sponsorSubsidy > BigDecimal.ZERO)
+
+        totalAmountVisiblity.value = product!!.priceType == PriceType.regular.name
+
+        priceAgreementVisiblity.value = totalPriceVisiblity.value!! ||
+                discountProviderVisiblity.value!!  || contributionSponsorVisiblity.value!! ||
+                totalAmountVisiblity.value!!
+
+
+        if(product!!.priceType == PriceType.regular.name ){
+
+            if(product!!.price == product!!.sponsorSubsidy){
+                headTitle.value = ""
+                headPrice.value = resources.getString(R.string.free)
+
+            }else{
+                headTitle.value = resources.getString(R.string.price_agreement_client_price)
+                headPrice.value = Converter.convertBigDecimalToStringNL(product!!.priceUser)
+            }
+
+            if(product!!.price != null){
+                totalPrice.value = Converter.convertBigDecimalToStringNL(product!!.price)
+            }
+
+        }
+        if(product!!.priceType == PriceType.free.name){
+            headTitle.value = ""
+            headPrice.value = resources.getString(R.string.free)
         }
 
-        discountByProviderName.value = resources.getString(R.string.price_agreement_discount_by_provider_,
-                product!!.companyName)
+         userPrice.value = headPrice.value
 
-        discountByProviderPrice.value = if (product!!.oldPrice == null || product!!.price == null) {
-            nvtStr
-        } else {
-            val providerDiscount = product!!.oldPrice!! - product!!.price
-            NumberFormat.getCurrencyInstance(Locale("nl", "NL")).format(providerDiscount.toDouble())
+
+        if(product!!.priceType == PriceType.discount_percentage.name ){
+            discountByProviderPrice.value = Converter.convertBigDecimalToDiscountString(product!!.priceDiscount)
+            if(product!!.sponsorSubsidy != null&&
+                    product!!.sponsorSubsidy > BigDecimal.ZERO){
+                contributionBySponsorPrice.value = Converter.convertBigDecimalToStringNL(product!!.sponsorSubsidy)
+            }
+        }
+
+        if(product!!.priceType == PriceType.discount_fixed.name
+                || product!!.priceType == PriceType.regular.name){
+            if(product!!.priceDiscount != null &&
+                    product!!.priceDiscount > BigDecimal.ZERO ) {
+                discountByProviderPrice.value = Converter.convertBigDecimalToStringNL(product!!.priceDiscount)
+            }
+
+
+            if(product!!.sponsorSubsidy != null &&
+                    product!!.sponsorSubsidy > BigDecimal.ZERO){
+
+
+                contributionBySponsorPrice.value =Converter.convertBigDecimalToStringNL(product!!.sponsorSubsidy)
+
+
+
+            }
         }
 
 
-        contributionBySponsorPrice.value = if (product!!.price == null || product!!.priceUser == null) {
-            nvtStr
-        } else {
-            val sponsorDiscount = product!!.price!! - product!!.priceUser
-            NumberFormat.getCurrencyInstance(Locale("nl", "NL")).format(sponsorDiscount.toDouble())
-        }
 
-        contributionBySponsorName.value = resources.getString(R.string.price_agreement_contribution_by_sponsor_,
-                fundName)
+        contributionBySponsorName.value = resources.getString(R.string.price_agreement_sponsor_pays_you,
+                product!!.sponsorName)
 
-        val priceUserStr = if (product!!.priceUser == null) {
-            nvtStr
-        } else {
-            NumberFormat.getCurrencyInstance(Locale("nl", "NL")).format(product!!.priceUser.toDouble())
-        }
-
-        userPrice.value = priceUserStr
-        paidOutBySponsorPrice.value = priceUserStr
-
-        paidOutBySponsorNameSubtitle.value = resources.getString(R.string.price_agreement_paid_by_customer)
 
     }
 

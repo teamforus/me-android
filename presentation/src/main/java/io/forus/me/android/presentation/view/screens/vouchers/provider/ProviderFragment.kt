@@ -17,8 +17,6 @@ import io.forus.me.android.presentation.models.vouchers.Organization
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.forus.me.android.presentation.view.screens.qr.dialogs.ScanVoucherBaseErrorDialog
-import io.forus.me.android.presentation.view.screens.vouchers.dialogs.FullscreenDialog
-import io.forus.me.android.presentation.view.screens.vouchers.dialogs.VouchersApplySuccessDialog
 import io.forus.me.android.presentation.view.screens.vouchers.provider.categories.CategoriesAdapter
 import io.forus.me.android.presentation.view.screens.vouchers.provider.dialogs.ApplyDialog
 import io.forus.me.android.presentation.view.screens.vouchers.provider.dialogs.ChargeDialog
@@ -28,11 +26,7 @@ import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_voucher_provider.*
 import kotlinx.android.synthetic.main.view_organization.*
 import java.math.BigDecimal
-import android.content.Intent
 import io.forus.me.android.presentation.view.screens.vouchers.dialogs.SuccessDialogActivity
-import io.forus.me.android.presentation.view.screens.vouchers.provider.ProviderPresenter
-
-
 
 
 class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, ProviderPresenter>(), ProviderView {

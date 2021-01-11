@@ -27,12 +27,10 @@ class PriceAgreementFragment : BaseFragment() {
     companion object {
 
         const val ACTION_PRODUCT_EXTRA = "ACTION_PRODUCT_EXTRA"
-        const val VOUCHER_FUND_NAME_EXTRA = "VOUCHER_FUND_NAME_EXTRA"
 
-        fun newIntent(product: ProductSerializable, fundName: String): PriceAgreementFragment = PriceAgreementFragment().also {
+        fun newIntent(product: ProductSerializable): PriceAgreementFragment = PriceAgreementFragment().also {
             val bundle = Bundle()
             bundle.putSerializable(ACTION_PRODUCT_EXTRA, product)
-            bundle.putString(VOUCHER_FUND_NAME_EXTRA, fundName)
             it.arguments = bundle
         }
     }
@@ -42,14 +40,14 @@ class PriceAgreementFragment : BaseFragment() {
 
 
     var product: ProductSerializable? = null
-    var fundName: String? = null
+   // var fundName: String? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return super.onCreateView(inflater, container, savedInstanceState).also{
             val bundle = this.arguments
             if (bundle != null) {
                 product = bundle.getSerializable(ActionPaymentFragment.ACTION_PRODUCT_EXTRA)  as ProductSerializable
-                fundName = bundle.getString(ActionPaymentFragment.VOUCHER_FUND_NAME_EXTRA,"")
+               // fundName = bundle.getString(ActionPaymentFragment.VOUCHER_FUND_NAME_EXTRA,"")
             }
             //binding = DataBindingUtil.inflate(
                  //   inflater, R.layout.fragment_price_agreement, container, false)
@@ -69,7 +67,7 @@ class PriceAgreementFragment : BaseFragment() {
         mainViewModel = ViewModelProviders.of(this).get(PriceAgreementViewModel::class.java)
 
         product.let {
-            mainViewModel.setProduct(it!!,fundName!!)
+            mainViewModel.setProduct(it!!)
         }
 
 

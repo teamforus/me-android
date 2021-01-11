@@ -9,32 +9,41 @@ public class ProductSerializable implements Serializable {
     String name;
     String companyName;
     BigDecimal price;
-    BigDecimal oldPrice;
-    boolean noPrice;
-    String noPriceType;
-    BigDecimal noPriceDiscount;
+
+    String priceType;
+    BigDecimal priceDiscount;
+    BigDecimal sponsorSubsidy;
 
     BigDecimal priceUser;
     long companyId;
 
+    String priceLocale;
+    String priceUserLocale;
+
     String photoURL;
+    String sponsorName;
 
 
-    public ProductSerializable(long id, String name, String companyName, long companyId, BigDecimal price,
-                               BigDecimal oldPrice,
-                               boolean noPrice, String noPriceType, BigDecimal noPriceDiscount,
-                               BigDecimal priceUser, String photoURL) {
+    public ProductSerializable(long id, String name, String companyName,
+                               long companyId,
+                               BigDecimal price, BigDecimal priceUser,
+                               String priceType,  BigDecimal priceDiscount,
+                               String priceLocale,String priceUserLocale,
+                               BigDecimal sponsorSubsidy, String sponsorName,
+                                String photoURL) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.companyName = companyName;
         this.companyId = companyId;
-        this.oldPrice = oldPrice;
-        this.noPrice = noPrice;
-        this.noPriceType = noPriceType;
-        this.noPriceDiscount = noPriceDiscount;
+        this.sponsorSubsidy = sponsorSubsidy;
+        this.priceType = priceType;
+        this.priceDiscount = priceDiscount;
         this.priceUser = priceUser;
+        this.priceLocale = priceLocale;
+        this.priceUserLocale = priceUserLocale;
         this.photoURL = photoURL;
+        this.sponsorName = sponsorName;
 
     }
 
@@ -79,14 +88,6 @@ public class ProductSerializable implements Serializable {
         this.companyId = companyId;
     }
 
-    public BigDecimal getOldPrice() {
-        return oldPrice;
-    }
-
-    public void setOldPrice(BigDecimal oldPrice) {
-        this.oldPrice = oldPrice;
-    }
-
     public BigDecimal getPriceUser() {
         return priceUser;
     }
@@ -101,5 +102,53 @@ public class ProductSerializable implements Serializable {
 
     public void setPhotoURL(String photoURL) {
         this.photoURL = photoURL;
+    }
+
+    public String getPriceType() {
+        return priceType;
+    }
+
+    public void setPriceType(String priceType) {
+        this.priceType = priceType;
+    }
+
+    public BigDecimal getPriceDiscount() {
+        return priceDiscount;
+    }
+
+    public void setPriceDiscount(BigDecimal priceDiscount) {
+        this.priceDiscount = priceDiscount;
+    }
+
+    public BigDecimal getSponsorSubsidy() {
+        return sponsorSubsidy;
+    }
+
+    public void setSponsorSubsidy(BigDecimal sponsorSubsidy) {
+        this.sponsorSubsidy = sponsorSubsidy;
+    }
+
+    public String getSponsorName() {
+        return sponsorName;
+    }
+
+    public void setSponsorName(String sponsorName) {
+        this.sponsorName = sponsorName;
+    }
+
+    public String getPriceUserLocale() {
+        return priceUserLocale;
+    }
+
+    public void setPriceUserLocale(String priceUserLocale) {
+        this.priceUserLocale = priceUserLocale;
+    }
+
+    public String getPriceLocale() {
+        return priceLocale;
+    }
+
+    public void setPriceLocale(String priceLocale) {
+        this.priceLocale = priceLocale;
     }
 }
