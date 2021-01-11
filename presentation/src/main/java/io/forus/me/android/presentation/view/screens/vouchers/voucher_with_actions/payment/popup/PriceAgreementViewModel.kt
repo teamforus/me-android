@@ -93,8 +93,8 @@ class PriceAgreementViewModel(application: Application) : AndroidViewModel(appli
                         product!!.priceType == PriceType.discount_fixed.name
 
         contributionSponsorVisiblity.value =
-                (!(product!!.priceType == PriceType.discount_percentage.name ||
-                        product!!.priceType == PriceType.free.name)) &&
+                //(!(product!!.priceType == PriceType.discount_percentage.name ||
+                       // product!!.priceType == PriceType.free.name)) &&
                         ( product!!.sponsorSubsidy != null &&
                                 product!!.sponsorSubsidy > BigDecimal.ZERO)
 
@@ -130,7 +130,7 @@ class PriceAgreementViewModel(application: Application) : AndroidViewModel(appli
 
 
         if(product!!.priceType == PriceType.discount_percentage.name ){
-            discountByProviderPrice.value = product!!.priceDiscount.toString() + "%"
+            discountByProviderPrice.value = Converter.convertBigDecimalToDiscountString(product!!.priceDiscount)
             if(product!!.sponsorSubsidy != null&&
                     product!!.sponsorSubsidy > BigDecimal.ZERO){
                 contributionBySponsorPrice.value = Converter.convertBigDecimalToStringNL(product!!.sponsorSubsidy)

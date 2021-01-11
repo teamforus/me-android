@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.databinding.FragmentActionPaymentBinding
+import io.forus.me.android.presentation.helpers.Converter
 import io.forus.me.android.presentation.view.fragment.BaseFragment
 import io.forus.me.android.presentation.view.screens.vouchers.dialogs.ApplyActionTransactionDialog
 import io.forus.me.android.presentation.view.screens.vouchers.dialogs.FullscreenDialog
@@ -96,8 +97,7 @@ class ActionPaymentFragment : BaseFragment() {
             mainViewModel.confirmPayment.observe(requireActivity(), Observer {
                 if (!it!!) return@Observer
 
-                if(product!!.priceType == PriceType.regular.name &&
-                        product!!.price > BigDecimal.ZERO) {
+                if(product!!.priceUser > BigDecimal.ZERO) {
                     showConfirmDialog()
                 }else{
                     btn_make.active = false
@@ -161,7 +161,7 @@ class ActionPaymentFragment : BaseFragment() {
     fun showConfirmDialog() {
 
         var title = getString(R.string.submit_price_title)
-        var toPay = product!!.priceLocale
+        var toPay = Converter.convertBigDecimalToStringNL(product!!.priceUser)
         var subtitle = getString(R.string.submit_price_subtitle)
 
 

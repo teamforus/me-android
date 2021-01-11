@@ -5,6 +5,7 @@ import android.util.DisplayMetrics
 import java.math.BigDecimal
 import java.text.NumberFormat
 import java.util.*
+import kotlin.math.roundToInt
 
 
 object Converter {
@@ -39,6 +40,20 @@ object Converter {
                 .format(currency)
         out = out.replace(".00", ",-")
         out = out.replace(",00", ",-")
+        return out
+    }
+
+    fun convertBigDecimalToDiscountString(discount: BigDecimal): String {
+
+        var out = discount.toPlainString()// = NumberFormat.getCurrencyInstance(Locale("nl", "NL"))
+                //.format(discount)
+        if((discount.toDouble() - discount.toDouble().roundToInt()) == 0.0){
+            out = out.replace(".00", "%")
+            out = out.replace(",00", "%")
+        }else{
+            out += "%"
+        }
+
         return out
     }
 }
