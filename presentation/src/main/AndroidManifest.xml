@@ -195,6 +195,7 @@
             android:name=".view.screens.account.account.pin.ChangePinActivity"
             android:label=""
             android:launchMode="singleTop" />
+        <activity android:name=".view.screens.onboarding_screens.OnboardActivity" />
 
         <service
             android:name=".services.MyFirebaseMessagingService"

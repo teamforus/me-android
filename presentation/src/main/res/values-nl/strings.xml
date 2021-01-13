@@ -24,6 +24,22 @@
     <string name="dashboard_assets">Bezit</string>
     <string name="dashboard_profile">Profiel</string>
 
+
+    <!-- Onboard screen -->
+    <string name="onboard_welcome_text1">Jouw digitale portemonnee en kassa in één.</string>
+    <string name="onboard_welcome_text2">Instructie overslaan</string>
+    <string name="onboard_digital_wallet_title">Portemonnee</string>
+    <string name="onboard_digital_wallet_text1">Heb je een tegoed ontvangen? Log dan in op Me om je tegoed veilig mee te nemen, je saldo en transacties in te zien en om de QR-code eenvoudig te presenteren aan de aanbieder.</string>
+    <string name="onboard_cash_register_title">Betalingen</string>
+    <string name="onboard_cash_register_text1">Aanbod geplaatst? Dan kun je met de Me-app QR-codes scannen om betalingen te ontvangen. Het is mogelijk om meerdere kassamedewerkers aan de zelfde organisatie toe te voegen.</string>
+    <string name="onboard_records_storage_title">Eigenschappen</string>
+    <string name="onboard_records_storage_text1">Beheer jouw persoonlijke eigenschappen en deel de eigenschappen die nodig zijn om in aanmerking te komen voor een tegoed.</string>
+    <string name="onboard_login_qr_title">Inloggen</string>
+    <string name="onboard_login_qr_text1">Log gemakkelijk in. Gebruik Me om de QR-code op de website te scannen zodat je veilig kan inloggen.</string>
+    <string name="onboard_next">Volgende</string>
+    <string name="onboard_login">Aanmelden</string>
+    <string name="onboard_skip">Overslaan</string>
+
     <!-- Welcome screen -->
     <string name="welcome_create_account">Aanmaken</string>
     <string name="welcome_restore_account">Ik heb een profiel</string>

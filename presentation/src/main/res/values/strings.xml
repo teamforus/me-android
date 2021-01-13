@@ -27,6 +27,21 @@
     <string name="dashboard_assets">Assets</string>
     <string name="dashboard_profile">Profile</string>
 
+    <!-- Onboard screen -->
+    <string name="onboard_welcome_text1">Me-app is your digital wallet and cash register.</string>
+    <string name="onboard_welcome_text2">Skip the tutorial</string>
+    <string name="onboard_digital_wallet_title">Your digital wallet</string>
+    <string name="onboard_digital_wallet_text1">When you get a fund from Forus, use this app to store your vouchers, to see your balance and transactions, and easily submit a QR code to the provider.</string>
+    <string name="onboard_cash_register_title">Cash register</string>
+    <string name="onboard_cash_register_text1">If you offer products or services through Forus, you can add multiple employees to your organization, accept and manage payments directly in the Me App.</string>
+    <string name="onboard_records_storage_title">Records storage</string>
+    <string name="onboard_records_storage_text1">You can create and store your personal information as records in the Me app. Send a request to validate your record and use it when you apply for the appropriate Fund.</string>
+    <string name="onboard_login_qr_title">Login by QR-code</string>
+    <string name="onboard_login_qr_text1">With Me you can easily login to Forus without password. If you get a voucher or are you a provider scan the QR-code on the website and login safely to your personal account.</string>
+    <string name="onboard_next">Next Step</string>
+    <string name="onboard_login">Login</string>
+    <string name="onboard_skip">Skip</string>
+
     <!-- Welcome screen -->
     <string name="welcome_greeting">Welcome to Me</string>
     <string name="welcome_create_account">Create account</string>
