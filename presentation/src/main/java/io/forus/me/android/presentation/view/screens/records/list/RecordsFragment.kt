@@ -62,7 +62,7 @@ class RecordsFragment : ToolbarLRFragment<RecordsModel, RecordsView, RecordsPres
         get() = true
 
     override val showAccount: Boolean
-        get() = false
+        get() = true
 
     override val showInfo: Boolean
         get() = false
