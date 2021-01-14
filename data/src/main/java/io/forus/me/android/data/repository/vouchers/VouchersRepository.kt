@@ -1,6 +1,5 @@
 package io.forus.me.android.data.repository.vouchers
 
-import android.util.Log
 import io.forus.me.android.data.entity.vouchers.request.MakeActionTransaction
 import io.forus.me.android.data.entity.vouchers.request.MakeDemoTransaction
 import io.forus.me.android.data.entity.vouchers.request.MakeTransaction
@@ -208,6 +207,13 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
             Organization(org.id, org.name, null, org.lat, org.lon, org.identityAddress, org.phone, org.email)
         }
 
+        val sponsor: Organization? = if (productAction.sponsor == null) {
+            null
+        } else {
+            val org = productAction.sponsor
+            Organization(org.id, org.name, null, org.lat, org.lon, org.identityAddress, org.phone, org.email)
+        }
+
         val productCategory: ProductCategory? = if (productAction.productCategory == null) {
             null
         } else {
@@ -224,9 +230,13 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
 
         return ProductAction(productAction.id, productAction.name, productAction.organizationId,
                 productAction.price, productAction.priceUser,
-                productAction.price_old, productAction.isNo_price, productAction.no_price_type,
-                productAction.no_price_discount,
-                photoUrl, organization, productCategory)
+                productAction.price_type,
+                productAction.price_discount,
+                productAction.priceLocale,
+                productAction.priceUserLocale,
+                productAction.sponsorSubsidy,
+                photoUrl, organization, sponsor,
+                productCategory)
     }
 
     private fun mapToLogTransaction(transaction: io.forus.me.android.data.entity.vouchers.response.Transaction): Transaction {

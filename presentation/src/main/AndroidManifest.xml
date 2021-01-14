@@ -29,6 +29,8 @@
             android:required="false" />
 
         <activity android:name=".view.screens.vouchers.voucher_with_actions.payment.ActionPaymentActivity"
+            android:screenOrientation="portrait"
+            android:stateNotNeeded="true"
             android:windowSoftInputMode="adjustPan"
             />
         <activity
@@ -193,6 +195,7 @@
             android:name=".view.screens.account.account.pin.ChangePinActivity"
             android:label=""
             android:launchMode="singleTop" />
+        <activity android:name=".view.screens.onboarding_screens.OnboardActivity" />
 
         <service
             android:name=".services.MyFirebaseMessagingService"

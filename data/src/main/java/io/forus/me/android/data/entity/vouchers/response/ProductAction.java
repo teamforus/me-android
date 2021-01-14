@@ -5,10 +5,6 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-import io.forus.me.android.data.entity.vouchers.response.Logo;
-import io.forus.me.android.data.entity.vouchers.response.Organization;
-import io.forus.me.android.data.entity.vouchers.response.ProductCategory;
-
 public class ProductAction implements Serializable {
 
     @SerializedName("id")
@@ -33,19 +29,24 @@ public class ProductAction implements Serializable {
     @SerializedName("price_user")
     private BigDecimal priceUser;
 
-    @SerializedName("price_old")
-    private BigDecimal price_old;
+
+    @SerializedName("sponsor_subsidy")
+    private BigDecimal sponsorSubsidy;
 
 
-    @SerializedName("no_price")
-    private boolean no_price;
 
-    @SerializedName("no_price_type")
-    private String no_price_type;
+    @SerializedName("price_type")
+    private String price_type;
 
 
-    @SerializedName("no_price_discount")
-    private BigDecimal no_price_discount;
+    @SerializedName("price_discount")
+    private BigDecimal price_discount;
+
+    @SerializedName("price_user_locale")
+    private String priceUserLocale;
+
+    @SerializedName("price_locale")
+    private String priceLocale;
 
 
 
@@ -62,6 +63,9 @@ public class ProductAction implements Serializable {
     @SerializedName("organization")
     private Organization organization;
 
+    @SerializedName("sponsor")
+    private Organization sponsor;
+
     @SerializedName("product_category")
     private ProductCategory productCategory;
 
@@ -69,8 +73,13 @@ public class ProductAction implements Serializable {
     public ProductAction() {
     }
 
-    public ProductAction(long id, String name, long organizationId, BigDecimal price, BigDecimal priceUser,BigDecimal priceOld, boolean noPrice,
-                         String noPriceType, BigDecimal noPriceDiscount, Logo photo,  Organization organization, ProductCategory productCategory) {
+    public ProductAction(long id, String name, long organizationId,
+                         BigDecimal price, BigDecimal priceUser,
+                         String priceType, BigDecimal priceDiscount,
+                         String price_locale,String price_user_locale,
+                         BigDecimal sponsorSubsidy,Logo photo,
+                         Organization organization, Organization sponsor,
+                         ProductCategory productCategory) {
         this.id = id;
         this.name = name;
         this.organizationId = organizationId;
@@ -78,12 +87,13 @@ public class ProductAction implements Serializable {
         this.priceUser = priceUser;
         this.photo = photo;
         this.organization = organization;
+        this.sponsor = sponsor;
         this.productCategory = productCategory;
-
-        this.price_old = priceOld;
-        this.no_price = noPrice;
-        this.no_price_type = noPriceType;
-        this.no_price_discount = noPriceDiscount;
+        this.sponsorSubsidy = sponsorSubsidy;
+        this.price_type = priceType;
+        this.price_discount = priceDiscount;
+        this.priceLocale = price_locale;
+        this.priceUserLocale = price_user_locale;
     }
 
     public long getId() {
@@ -150,35 +160,51 @@ public class ProductAction implements Serializable {
         this.productCategory = productCategory;
     }
 
-    public BigDecimal getPrice_old() {
-        return price_old;
+    public BigDecimal getSponsorSubsidy() {
+        return sponsorSubsidy;
     }
 
-    public void setPrice_old(BigDecimal price_old) {
-        this.price_old = price_old;
+    public void setSponsorSubsidy(BigDecimal sponsorSubsidy) {
+        this.sponsorSubsidy = sponsorSubsidy;
     }
 
-    public boolean isNo_price() {
-        return no_price;
+    public Organization getSponsor() {
+        return sponsor;
     }
 
-    public void setNo_price(boolean no_price) {
-        this.no_price = no_price;
+    public void setSponsor(Organization sponsor) {
+        this.sponsor = sponsor;
     }
 
-    public String getNo_price_type() {
-        return no_price_type;
+    public String getPrice_type() {
+        return price_type;
     }
 
-    public void setNo_price_type(String no_price_type) {
-        this.no_price_type = no_price_type;
+    public void setPrice_type(String price_type) {
+        this.price_type = price_type;
     }
 
-    public BigDecimal getNo_price_discount() {
-        return no_price_discount;
+    public BigDecimal getPrice_discount() {
+        return price_discount;
     }
 
-    public void setNo_price_discount(BigDecimal no_price_discount) {
-        this.no_price_discount = no_price_discount;
+    public void setPrice_discount(BigDecimal price_discount) {
+        this.price_discount = price_discount;
+    }
+
+    public String  getPriceUserLocale() {
+        return priceUserLocale;
+    }
+
+    public void setPriceUserLocale(String priceUserLocale) {
+        this.priceUserLocale = priceUserLocale;
+    }
+
+    public String getPriceLocale() {
+        return priceLocale;
+    }
+
+    public void setPriceLocale(String priceLocale) {
+        this.priceLocale = priceLocale;
     }
 }

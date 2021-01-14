@@ -64,15 +64,13 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
                 .subscribe()
     }
 
+    var confirmLoginDeviceDialog:ConfirmLoginDeviceDialog? = null
+
     fun restoreIdentity(token: String) {
 
-        Log.d("forusQR", "restore identity $token")
-
-
-        val confirmLoginDeviceDialog = ConfirmLoginDeviceDialog()
-        confirmLoginDeviceDialog.submitClickListener = object :ConfirmLoginDeviceDialog.SubmitClickListener{
+         confirmLoginDeviceDialog = ConfirmLoginDeviceDialog()
+        confirmLoginDeviceDialog!!.submitClickListener = object :ConfirmLoginDeviceDialog.SubmitClickListener{
             override fun confirm(dialog: ConfirmLoginDeviceDialog?) {
-                confirmLoginDeviceDialog.dismiss()
                 accountRepository.authorizeToken(token)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
@@ -91,12 +89,12 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
             }
 
             override fun dismiss(dialog: ConfirmLoginDeviceDialog?) {
-                confirmLoginDeviceDialog.dismiss()
+                confirmLoginDeviceDialog!!.dismiss()
                 scanner.finish()
             }
 
         }
-        confirmLoginDeviceDialog.show(scanner.supportFragmentManager, "")
+        confirmLoginDeviceDialog!!.show(scanner.supportFragmentManager, "")
 
 
 
@@ -196,6 +194,9 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
     private fun onResultIdentityRestored() {
         showToastMessage(resources.getString(R.string.qr_identity_restored))
         (android.os.Handler()).postDelayed({
+            if(confirmLoginDeviceDialog != null){
+                confirmLoginDeviceDialog?.dismiss()
+            }
             reactivateDecoding()
         }, 1000)
     }

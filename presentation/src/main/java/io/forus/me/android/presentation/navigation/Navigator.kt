@@ -24,7 +24,11 @@ import io.forus.me.android.presentation.view.screens.account.restore_account_suc
 import io.forus.me.android.presentation.view.screens.account.send_crash_reports.SendReportsActivity
 import io.forus.me.android.presentation.view.screens.dashboard.DashboardActivity
 import io.forus.me.android.presentation.view.screens.lock.PinLockActivity
+
 import io.forus.me.android.presentation.view.screens.privacy_and_security.PrivacyAndSecurityActivity
+
+import io.forus.me.android.presentation.view.screens.onboarding_screens.OnboardActivity
+
 import io.forus.me.android.presentation.view.screens.qr.QrScannerActivity
 import io.forus.me.android.presentation.view.screens.records.item.RecordDetailsActivity
 import io.forus.me.android.presentation.view.screens.records.list.RecordsActivity
@@ -75,6 +79,8 @@ constructor()//empty
             context.startActivity(intentToLaunch)
         }
     }
+
+
 
 
     fun navigateToAccountRestore(context: Context?) {
