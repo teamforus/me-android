@@ -192,24 +192,25 @@
     <!-- Privacy & security -->
     <string name="privacy_and_security">Privacy and security</string>
     <string name="privacy">Privacy</string>
-    <string name="privacy_text1">Manage your personal properties and share easily the information needed to qualify for a subsidy.</string>
-    <string name="privacy_title2">The source of information</string>
-    <string name="privacy_text2">The information has been added by an organisation where you have applied for a subsidy, or by an organisation that supports it. For example, By Your congregation.
-</string>
+    <string name="privacy_text1">Beheer jouw persoonlijke eigenschappen en deel gemakkelijk de informatie die nodig is om in aanmerking te komen voor een tegoed.</string>
+    <string name="privacy_title2">Waar komt mijn informatie vandaan?</string>
+    <string name="privacy_text2">De informatie is toegevoegd door een organisatie waar je een tegoed hebt aangevraagd, of door een organisatie die  ondersteunt. Bijvoorbeeld door je gemeente.
+    </string>
     <string name="privacy_title3">Storing data</string>
     <string name="privacy_text3"></string>
     <string name="privacy_title4">Storing data</string>
-    <string name="privacy_text4"></string>
-    <string name="privacy_policy">Privacy Policy</string>
-    <string name="privacy_title5">Storing data</string>
-    <string name="privacy_text5"></string>
+    <string name="privacy_text4">Alle informatie wordt uiterst zorgvuldig opgeslagen en wordt niet gebruikt voor commerciële doeleinden. </string>
+    <string name="privacy_policy">Privacy Beleid van Stichting Forus</string>
+    <string name="privileges">Rechten</string>
+    <string name="privacy_text5">De informatie wordt opgeslagen onder Europese Privacywetgeving. Dit geeft je een aantal rechten zoals het&#160;recht&#160;op:\n\n•  Informatie\n•  Inzage\n•  Rectificatie\n•  Vergetelheid\n• Dataportabiliteit\n•  Bezwaar\n• Beperking van de verwerking
+</string>
     <string name="privacy_request_your_data_by_email">Request your data by email</string>
     <string name="privacy_request_delete_your_data">Request to delete your data</string>
-    <string name="privacy_text6">If you want to claim your rights or you have general questions or feedback please do reach our support</string>
+    <string name="privacy_text6">Wil je aanspraak maken op je rechten of heb je algemene vragen of feedback?</string>
     <string name="privacy_send_email_to_support_forus">Privileges</string>
-    <string name="privacy_text7">Read all about your privacy rights with the Dutch Data Protection Authority</string>
+    <string name="privacy_text7">Lees alles over jouw privacyrechten bij de Autoriteit Persoonsgegevens</string>
     <string name="privacy_data_protection_authority">Data protection authority</string>
-    <string name="privacy_send_email_to">Send a email to </string>
+    <string name="privacy_send_email_to">Neem contact op met </string>
 
 
     <!-- Wallet details screen -->

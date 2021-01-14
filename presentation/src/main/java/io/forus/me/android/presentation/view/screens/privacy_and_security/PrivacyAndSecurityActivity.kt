@@ -29,6 +29,7 @@ class PrivacyAndSecurityActivity : AppCompatActivity() {
                 .commitAllowingStateLoss()
     }
 
+    fun getFragmentContainerId() = R.id.root_container
 
 
 }

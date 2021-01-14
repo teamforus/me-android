@@ -88,57 +88,11 @@
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_marginTop="24dp"
-            android:text="@string/privacy_title2"
+            android:text="@string/privacy"
             android:gravity="start|center_vertical"
             android:textSize="20sp"
             android:letterSpacing="0.02"
             android:fontFamily="@font/fgoogle_sans_medium"
-            android:textColor = "#DE000000"
-            />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="@string/privacy_text2"
-            android:textSize="15sp"
-            android:lineSpacingExtra="2sp"
-            android:translationY="-0.96sp"
-            android:textColor = "#DE000000"
-            />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_marginTop="24dp"
-            android:text="@string/privacy_title3"
-            android:gravity="start|center_vertical"
-            android:textSize="20sp"
-            android:fontFamily="@font/fgoogle_sans_medium"
-            android:letterSpacing="0.02"
-            android:textColor = "#DE000000"
-            />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="@string/privacy_text3"
-            android:textSize="15sp"
-            android:lineSpacingExtra="2sp"
-            android:translationY="-0.96sp"
-            android:textColor = "#DE000000"
-            />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_marginTop="24dp"
-            android:text="@string/privacy_title4"
-            android:gravity="start|center_vertical"
-            android:textSize="20sp"
-            android:fontFamily="@font/fgoogle_sans_medium"
-            android:letterSpacing="0.02"
             android:textColor = "#DE000000"
             />
 
@@ -154,6 +108,7 @@
             />
 
         <io.forus.me.android.presentation.view.component.buttons.ButtonSettings
+            android:id="@+id/privacyBt"
             android:layout_width="match_parent"
             android:layout_height="36dp"
             android:padding="0dp"
@@ -166,13 +121,12 @@
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_marginTop="24dp"
-            android:text="@string/privacy_title5"
-            android:gravity="start|center_vertical"
-            android:textSize="20sp"
             android:fontFamily="@font/fgoogle_sans_medium"
+            android:gravity="start|center_vertical"
             android:letterSpacing="0.02"
-            android:textColor = "#DE000000"
-            />
+            android:text="@string/privileges"
+            android:textColor="#DE000000"
+            android:textSize="20sp" />
 
         <TextView
             android:layout_width="match_parent"
@@ -183,24 +137,6 @@
             android:lineSpacingExtra="2sp"
             android:translationY="-0.96sp"
             android:textColor = "#DE000000"
-            />
-
-        <io.forus.me.android.presentation.view.component.buttons.ButtonSettings
-            android:layout_width="match_parent"
-            android:layout_height="36dp"
-            android:padding="0dp"
-            android:layout_marginTop="12dp"
-            android:text="@string/privacy_request_your_data_by_email"
-            android:textAllCaps="false"
-            />
-
-        <io.forus.me.android.presentation.view.component.buttons.ButtonSettings
-            android:layout_width="match_parent"
-            android:layout_height="36dp"
-            android:layout_marginTop="8dp"
-            android:padding="0dp"
-            android:text="@string/privacy_policy"
-            android:textAllCaps="false"
             />
 
         <TextView
@@ -236,6 +172,7 @@
             />
 
         <io.forus.me.android.presentation.view.component.buttons.ButtonSettings
+            android:id="@+id/dataProtectionAuthority"
             android:layout_width="match_parent"
             android:layout_height="36dp"
             android:padding="0dp"
