@@ -196,6 +196,7 @@
             android:label=""
             android:launchMode="singleTop" />
         <activity android:name=".view.screens.onboarding_screens.OnboardActivity" />
+        <activity android:name=".view.screens.privacy_and_security.pdfViewer.ReportPdfActivity" />
 
         <service
             android:name=".services.MyFirebaseMessagingService"

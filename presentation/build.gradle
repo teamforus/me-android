@@ -243,5 +243,7 @@ dependencies {
 
     implementation 'com.android.support:design:28.0.0-alpha1'
 
+    implementation 'com.github.barteksc:android-pdf-viewer:3.0.0-beta.4'
+
 
 }

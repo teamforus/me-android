@@ -9,6 +9,7 @@ import android.support.v4.text.HtmlCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import io.forus.me.android.presentation.view.screens.privacy_and_security.pdfViewer.ReportPdfActivity
 import io.forus.me.android.presentation.R
 import kotlinx.android.synthetic.main.privacy_and_security_fragment.*
 
@@ -69,12 +70,12 @@ class PrivacyAndSecurityFragment : Fragment() {
 
         privacyBt.setOnClickListener {
 
-            val uris = Uri.parse(privacyUrl)
+            /*val uris = Uri.parse(privacyUrl)
             val intents = Intent(Intent.ACTION_VIEW, uris)
             val b = Bundle()
             b.putBoolean("new_window", false)
-            intents.putExtras(b)
-            requireActivity().startActivity(intents)
+            intents.putExtras(b)*/
+            requireActivity().startActivity(ReportPdfActivity.getCallingIntent(requireContext(),privacyUrl))
 
             /*val containerViewId = (requireActivity() as PrivacyAndSecurityActivity)
                     .getFragmentContainerId()
