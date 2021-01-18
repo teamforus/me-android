@@ -349,6 +349,9 @@
     <!-- Restore account success -->
     <string name="restore_account_head">Successful registration!</string>
 
+    <!-- Restore account error -->
+    <string name="restore_go_to_signup">Go to signup</string>
+
     <!--Confirm login device dialog-->
     <string name="confirm_login_device_title">Do you want to login on this device?</string>
     <string name="confirm_login_device_subtitle">Scan only QR-codes on devices you own or temporarily use. Never scan a code which was sent or shown by another person.</string>
