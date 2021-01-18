@@ -316,6 +316,7 @@
     <string name="discount">Discount</string>
     <string name="free_product">This product is free, no additional payment is required.</string>
 
+    <string name="vouchers_empty_list">Your vouchers will be displayed on this page</string>
 
     <!--Voucher map-->
     <string name="show_map">Show Map</string>
