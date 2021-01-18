@@ -34,21 +34,24 @@
 
     <ImageView
         android:id="@+id/img_no_vouchers"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:src="@drawable/voucher"
+        android:src="@drawable/voucher_x4"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_goneMarginTop="200dp"
         app:layout_constraintVertical_bias="0.40"
-        android:visibility="invisible"
+        android:adjustViewBounds="true"
+        android:visibility="visible"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="80dp"
         />
 
     <io.forus.me.android.presentation.view.component.text.TextView
         android:id="@+id/tv_no_vouchers"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:layout_centerHorizontal="true"
@@ -61,8 +64,9 @@
         app:layout_constraintTop_toBottomOf="@id/img_no_vouchers"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
+        android:lines="2"
         android:gravity="center_horizontal"
-        android:visibility="invisible"
+        android:visibility="visible"
         />
 
 </android.support.constraint.ConstraintLayout>
