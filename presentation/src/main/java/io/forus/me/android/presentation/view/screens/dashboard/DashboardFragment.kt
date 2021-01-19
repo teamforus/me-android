@@ -107,6 +107,7 @@ class DashboardFragment : Fragment() {
     val h = Handler()
 
     private fun selectTab(currentPagerPosition: Int, oldPosition: Int) {
+
         bottom_navigation.setCurrentItem(currentPagerPosition, false)
         try {
             showTab(currentPagerPosition, oldPosition, false)
@@ -117,6 +118,7 @@ class DashboardFragment : Fragment() {
     }
 
     private fun showTab(position: Int, oldPosition: Int, wasSelected: Boolean): Boolean {
+        Log.d("RECORDS","SELECT currentPagerPosition $position")
         if (position == 1) {
             view_pager.setCurrentItem(oldPosition, false)
             (activity as? DashboardActivity)?.navigateToQrScanner()
@@ -141,6 +143,12 @@ class DashboardFragment : Fragment() {
 
         view_pager.setCurrentItem(position, false)
         currentFragment = adapter?.currentFragment
+
+        if (position == 2) {
+            (currentFragment as? RecordsFragment)?.showTooptip()
+        }else{
+            (adapter?.getItem(2) as? RecordsFragment)?.hideTooltip()
+        }
 
         return true
     }

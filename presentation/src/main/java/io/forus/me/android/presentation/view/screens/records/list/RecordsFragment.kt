@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -115,37 +116,8 @@ class RecordsFragment : ToolbarLRFragment<RecordsModel, RecordsView, RecordsPres
             navigator.navigateToAccount(context!!)
         }
 
-        val text = getString(R.string.tooltip_create_record)
-
-        if (SharedPref.read(SharedPref.OPTION_SHOW_TOOLTIP_ADD_RECORD,true)) {
-            SharedPref.write(SharedPref.OPTION_SHOW_TOOLTIP_ADD_RECORD, false)
-            builder = SimpleTooltip.Builder(context!!)
-                    .anchorView(addRecordBt)
-                    .text(text)
-                    .gravity(Gravity.START)
-                    .dismissOnOutsideTouch(false)
-                    .dismissOnInsideTouch(true)
-                    .modal(false)
-                    .animated(true)
-                    .animationDuration(1000)
-                    .animationPadding(SimpleTooltipUtils.pxFromDp(Converter.convertDpToPixel(1f, context!!).toFloat()))
-                    .transparentOverlay(true)
-                    .arrowWidth(Converter.convertDpToPixel(10f, context!!).toFloat())
-                    .arrowHeight(Converter.convertDpToPixel(7f, context!!).toFloat())
-                    .contentView(R.layout.tooltip_new_record, R.id.tooltipText)//
 
 
-            addRecordTooltip = builder!!.build()
-            addRecordTooltip!!.show()
-
-
-            h.postDelayed({
-
-                addRecordTooltip.let {
-                    it?.dismiss()
-                }
-            }, 30000)
-        }
     }
 
 
@@ -153,6 +125,9 @@ class RecordsFragment : ToolbarLRFragment<RecordsModel, RecordsView, RecordsPres
             recordCategoryId,
             Injection.instance.recordsRepository
     )
+
+
+
 
 
     override fun render(vs: LRViewState<RecordsModel>) {
@@ -192,6 +167,47 @@ class RecordsFragment : ToolbarLRFragment<RecordsModel, RecordsView, RecordsPres
             addRecordBt.hide()
         }
     }
+
+    fun showTooptip(){
+        val text = getString(R.string.tooltip_create_record)
+        if (SharedPref.read(SharedPref.OPTION_SHOW_TOOLTIP_ADD_RECORD,true)) {
+            SharedPref.write(SharedPref.OPTION_SHOW_TOOLTIP_ADD_RECORD, false)
+            builder = SimpleTooltip.Builder(context!!)
+                    .anchorView(addRecordBt)
+                    .text(text)
+                    .gravity(Gravity.START)
+                    .dismissOnOutsideTouch(false)
+                    .dismissOnInsideTouch(true)
+                    .modal(false)
+                    .animated(true)
+                    .animationDuration(1000)
+                    .animationPadding(SimpleTooltipUtils.pxFromDp(Converter.convertDpToPixel(1f, context!!).toFloat()))
+                    .transparentOverlay(true)
+                    .arrowWidth(Converter.convertDpToPixel(10f, context!!).toFloat())
+                    .arrowHeight(Converter.convertDpToPixel(7f, context!!).toFloat())
+                    .contentView(R.layout.tooltip_new_record, R.id.tooltipText)//
+
+
+            addRecordTooltip = builder!!.build()
+            addRecordTooltip!!.show()
+
+
+            h.postDelayed({
+
+                addRecordTooltip.let {
+                    it?.dismiss()
+                }
+            }, 30000)
+        }
+    }
+
+    fun hideTooltip(){
+        if(addRecordTooltip != null){
+            addRecordTooltip?.dismiss()
+        }
+
+    }
+
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
