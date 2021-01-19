@@ -12,7 +12,7 @@
 
     <item
         android:title="@string/dashboard_profile"
-        android:icon="@drawable/ic_baseline_person_24px" />
+        android:icon="@drawable/records" />
 
     <!--item
         android:title="@string/dashboard_records"
