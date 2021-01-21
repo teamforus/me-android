@@ -63,6 +63,9 @@
     <string name="restore_account_pair">Koppelen</string>
     <string name="restore_account_login_other_device">Inloggen vanaf een ander apparaat</string>
 
+    <!-- Restore account error -->
+    <string name="restore_go_to_signup">Ga verder</string>
+
     <!-- New account screen -->
     <string name="new_account_field_email">E-mail</string>
     <string name="new_account_field_email_repeat">Herhaal e-mail</string>
