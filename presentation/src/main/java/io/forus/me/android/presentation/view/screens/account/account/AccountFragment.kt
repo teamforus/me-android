@@ -39,7 +39,7 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
     }
 
     override val allowBack: Boolean
-        get() = false
+        get() = true
 
     override val showAccount: Boolean
         get() = false
@@ -111,9 +111,7 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
             sendSupportEmailDialogBuilder.show()
         }
 
-        headView.setOnClickListener {
-            navigator.navigateToRecordsList(context!!, null)
-        }
+
 
         optionPincodeIsEnable = true
 

@@ -12,7 +12,7 @@
         android:background="@color/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="57dp">
+        android:layout_marginBottom="0dp">
 
         <include layout="@layout/toolbar_view"/>
 
