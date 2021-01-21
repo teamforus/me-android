@@ -11,7 +11,7 @@
 
 
     <item
-        android:title="@string/dashboard_profile"
+        android:title="@string/dashboard_records"
         android:icon="@drawable/records" />
 
     <!--item
