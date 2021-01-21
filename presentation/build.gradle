@@ -159,6 +159,10 @@ greendao {
 dependencies {
     implementation 'android.arch.lifecycle:extensions:1.1.1'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    implementation 'android.arch.lifecycle:livedata:1.1.1'
+    implementation 'android.arch.lifecycle:viewmodel:1.1.1'
+
     def presentationDependencies = rootProject.ext.presentationDependencies
     def presentationTestDependencies = rootProject.ext.presentationTestDependencies
     def developmentDependencies = rootProject.ext.developmentDependencies
@@ -238,6 +242,8 @@ dependencies {
     implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:3.0.0'
 
     implementation 'com.android.support:design:28.0.0-alpha1'
+
+    implementation 'com.github.barteksc:android-pdf-viewer:3.0.0-beta.4'
 
 
 }

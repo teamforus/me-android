@@ -159,7 +159,6 @@
 
 
 
-
     <!-- New record screen -->
     <string name="new_record_title">New Record</string>
     <string name="new_record_title_choose_category">Choose Category</string>
@@ -218,6 +217,31 @@
     <string name="from">from</string>
     <string name="status_success">Success</string>
     <string name="status_pending">Pending</string>
+
+
+    <!-- Privacy & security -->
+    <string name="privacy_and_security">Privacy and security</string>
+    <string name="privacy">Privacy</string>
+    <string name="privacy_text1">Manage your personal properties and share easily the information needed to qualify for a subsidy.</string>
+    <string name="privacy_title2">The source of information</string>
+    <string name="privacy_text2">The information has been added by an organisation where you have applied for a subsidy, or by an organisation that supports it. For example, by your municipality.
+</string>
+    <string name="privacy_title3">Storing data</string>
+    <string name="privacy_text3">We are store all your data that exist in your account, namely:\n• Subsidies and vouchers\n• Transactions\n• Personal info as records\n• Email\n• etc.</string>
+    <string name="privacy_title4">Privacy</string>
+    <string name="privacy_text4">All information is stored carefully and is not used for commercial purposes. Find out more about the Privacy Policy of Foundation Forus</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="privileges">Privileges</string>
+    <string name="privacy_text5">The information is stored under European privacy legislation. This gives you some rights like the&#160;right&#160;to:\n• Information\n• Inspect\n• Rectification\n• Oblivion\n• Data portability\n• Objection\n• Limitation of processing</string>
+    <string name="privacy_request_your_data_by_email">Request your data by email</string>
+    <string name="privacy_request_delete_your_data">Request to delete your data</string>
+    <string name="privacy_text6">If you want to claim your rights or you have general questions or feedback please do reach our support</string>
+    <string name="privacy_send_email_to_support_forus">Privileges</string>
+    <string name="privacy_text7">Read all about your privacy rights with the Dutch Data Protection Authority</string>
+    <string name="privacy_data_protection_authority">Data protection authority</string>
+    <string name="privacy_send_email_to">Send a email to </string>
+    <string name="support_email">support@forus.io</string>
+
 
     <!-- Wallet details screen -->
     <string name="wallet_title_info">Wallet info</string>
@@ -338,7 +362,6 @@
     <string name="sunday">Sunday</string>
 
 
-
     <!-- Check email -->
     <string name="check_email_has_been_sent_to_you">Check your email</string>
     <string name="check_email_description_part1">Klik op de link in de email die u heeft ontvangen op</string>
@@ -379,7 +402,6 @@
     <string name="snack_message">New update is available,\n update your application!</string>
 
 
-
     <string name="submit">Submit</string>
 
     <string name="waiting">Waiting...</string>
@@ -401,7 +423,8 @@
 
     <string name="title_activity_success_dialog">SuccessDialogActivity</string>
     <string name="title_activity_actions">ActionsActivity</string>
-
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

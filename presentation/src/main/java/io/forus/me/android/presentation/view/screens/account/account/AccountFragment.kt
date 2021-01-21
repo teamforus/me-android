@@ -197,6 +197,10 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
             switchSendCrashReports.onNext(!vs.model.sendCrashReportsEnabled)
         }
 
+        me_privacy.setOnClickListener{
+            navigator.navigateToPrivacyAndSecurityProvider(context)
+        }
+
         if (vs.model.account?.address != null) {
             btn_qr.setOnClickListener {
                 (activity as? DashboardActivity)?.showPopupQRFragment(QrCode(QrCode.Type.P2P_IDENTITY, vs.model.account.address).toJson())
