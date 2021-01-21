@@ -25,7 +25,7 @@
     <string name="dashboard_vouchers">Vouchers</string>
     <string name="dashboard_currency">Currency</string>
     <string name="dashboard_assets">Assets</string>
-    <string name="dashboard_profile">Profile</string>
+    <string name="dashboard_profile">Account</string>
 
     <!-- Onboard screen -->
     <string name="onboard_welcome_text1">Me-app is your digital wallet and cash register.</string>
@@ -45,7 +45,7 @@
     <!-- Welcome screen -->
     <string name="welcome_greeting">Welcome to Me</string>
     <string name="welcome_create_account">Create account</string>
-    <string name="welcome_restore_account">I already have a profile</string>
+    <string name="welcome_restore_account">I already have a account</string>
     <string name="welcome_set_up_your_identity">Set up your identity</string>
 
     <!-- Restore identity -->
@@ -55,10 +55,10 @@
     <string name="restore_inloggen_via_email">Login with email</string>
     <string name="restore_inloggen_via_qr">Add another device</string>
     <string name="restore_auth_code">Authorization code</string>
-    <string name="restore_auth_code_description">Log in to the webshop, click on your profile, then authorize device and enter this code.</string>
+    <string name="restore_auth_code_description">Log in to the webshop, click on your account, then authorize device and enter this code.</string>
     <string name="restore_inloggen_by_email">Restore by email</string>
     <string name="restore_email_description">Please enter your e-mail address in order to receive your login details.</string>
-    <string name="restore_pincode_description">Enter this pincode in your profile</string>
+    <string name="restore_pincode_description">Enter this pincode in your account</string>
     <string name="restore_email_instructions">The link was sent to your e-mail. Tap on it, wait for Success message and come back to Me.</string>
     <string name="restore_email_not_found">Identity not found</string>
     <string name="restore_email_invalid_link">Invalid link</string>
@@ -74,7 +74,7 @@
     <string name="new_account_field_last_name">Family Name</string>
     <string name="new_account_field_bsn">BSN</string>
     <string name="new_account_field_phone">Phone number</string>
-    <string name="new_account_title">New profile</string>
+    <string name="new_account_title">New account</string>
     <string name="new_account_subtitle">Please provide your e-mail and information below. For registration primary email address is required. </string>
     <string name="new_account_error_already_in_use">Account already in use</string>
     <string name="new_account_email_repeat_error">Emails should be the same</string>
@@ -84,7 +84,7 @@
     <string name="passcode_title_confirm">Enter old passcode</string>
     <string name="passcode_title_new_confirm">Confirm new pass code</string>
     <string name="passcode_title_create_identity_wait">Please wait</string>
-    <string name="passcode_subtitle_create">Secure your profile by creating a passcode.</string>
+    <string name="passcode_subtitle_create">Secure your account by creating a passcode.</string>
     <string name="passcode_subtitle_confirm">In order to change your passcode, enter your old one</string>
     <string name="passcode_subtitle_new_confirm">Repeat your passcode to finally set it up</string>
     <string name="passcode_subtitle_create_not_match">Passwords don\'t match. Please try again</string>
@@ -316,6 +316,7 @@
     <string name="discount">Discount</string>
     <string name="free_product">This product is free, no additional payment is required.</string>
 
+    <string name="vouchers_empty_list">Your vouchers will be displayed on this page</string>
 
     <!--Voucher map-->
     <string name="show_map">Show Map</string>
