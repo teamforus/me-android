@@ -109,7 +109,7 @@ class RecordsFragment : ToolbarLRFragment<RecordsModel, RecordsView, RecordsPres
         recycler.adapter = adapter
 
         addRecordBt.setOnClickListener {
-            startActivity(CreateRecordActivity.getCallingIntent(context!!))
+            startActivityForResult(CreateRecordActivity.getCallingIntent(context!!),LAUNCH_SECOND_ACTIVITY)
         }
 
         profile_button.setOnClickListener {
