@@ -18,6 +18,7 @@ import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.forus.me.android.presentation.view.screens.records.create_record.CreateRecordActivity
 import io.forus.me.android.presentation.view.screens.records.item.RecordDetailsActivity
+import io.forus.me.android.presentation.view.screens.vouchers.list.VouchersAdapter
 import io.github.douglasjunior.androidSimpleTooltip.SimpleTooltip
 import io.github.douglasjunior.androidSimpleTooltip.SimpleTooltipUtils
 import io.reactivex.Observable
@@ -88,6 +89,8 @@ class RecordsFragment : ToolbarLRFragment<RecordsModel, RecordsView, RecordsPres
             recordCategoryId = bundle.getLong(CATEGORY_ID_EXTRA)
             recordCategoryName = bundle.getString(CATEGORY_NAME_EXTRA)
         }
+        adapter = RecordsAdapter()
+
         return view
     }
 
@@ -98,7 +101,7 @@ class RecordsFragment : ToolbarLRFragment<RecordsModel, RecordsView, RecordsPres
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = RecordsAdapter()
+
         adapter.clickListener = { item ->
             if (isRecords) {
                 val intentToLaunch = RecordDetailsActivity.getCallingIntent(context!!, item)
