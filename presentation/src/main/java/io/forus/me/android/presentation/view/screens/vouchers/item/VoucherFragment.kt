@@ -103,7 +103,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
         get() = false
 
     override val showInfo: Boolean
-        get() = true
+        get() = false
 
     private var canShowInfo: Boolean = false
     private val shortToken = PublishSubject.create<String>()
@@ -149,8 +149,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
         rv_transactions.adapter = adapter
 
 
-        info_button.setOnClickListener {
-            Log.d("voucherInfo","voucherInfo click")
+        btn_info.setOnClickListener {
             canShowInfo = true
             shortToken.onNext("")
 
@@ -262,7 +261,9 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
     override fun render(vs: LRViewState<VoucherModel>) {
         super.render(vs)
 
-        Log.d("voucherInfo","render 1")
+
+
+        btn_info.visibility = View.VISIBLE
 
         name.text = vs.model.item?.name
         type.text = vs.model.item?.organizationName
@@ -360,6 +361,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
                     canShowInfo = false
                 }
             }
+
 
 
             if (voucher.expired) {

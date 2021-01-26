@@ -154,6 +154,26 @@
 
                     <View
                         android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginBottom="3dp"
+                        android:background="#11000000"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
+                        />
+
+                    <io.forus.me.android.presentation.view.component.buttons.ShareButtonNoBorders
+                        android:id="@+id/btn_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        app:sb_icon="@drawable/ic_info_outline_24px"
+                        app:sb_icon_tint="#87000000"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="4dp"
+                        app:sb_text="@string/voucher_info" />
+
+                    <View
+                        android:layout_width="match_parent"
                         android:layout_height="3dp"
                         android:layout_marginTop="0dp"
                         android:layout_marginBottom="3dp"
