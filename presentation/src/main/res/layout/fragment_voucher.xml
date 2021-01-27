@@ -166,7 +166,7 @@
                         android:id="@+id/btn_info"
                         android:layout_width="match_parent"
                         android:layout_height="56dp"
-                        app:sb_icon="@drawable/ic_info_outline_24px"
+                        app:sb_icon="@drawable/ic_tag"
                         app:sb_icon_tint="#87000000"
                         android:layout_marginTop="4dp"
                         android:layout_marginBottom="4dp"
