@@ -310,6 +310,7 @@
     <string name="voucher_qr_code_expired">This voucher has expired on  %s</string>
     <string name="voucher_expired">Voucher expired</string>
     <string name="voucher_email_to_me">Email to me</string>
+    <string name="voucher_info">View offers</string>
     <string name="send_feedback_email_dialog_title">Do you have any questions or feedback? Contact us!</string>
     <string name="send_voucher_email_dialog_title">Send the voucher to your email?</string>
     <string name="send_voucher_email_dialog_positive_button">Send</string>
