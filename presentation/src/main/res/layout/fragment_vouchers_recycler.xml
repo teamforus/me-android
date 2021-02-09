@@ -44,7 +44,7 @@
         app:layout_goneMarginTop="200dp"
         app:layout_constraintVertical_bias="0.40"
         android:adjustViewBounds="true"
-        android:visibility="visible"
+        android:visibility="invisible"
         android:layout_marginStart="80dp"
         android:layout_marginEnd="80dp"
         />
@@ -66,7 +66,7 @@
         android:layout_marginEnd="40dp"
         android:lines="2"
         android:gravity="center_horizontal"
-        android:visibility="visible"
+        android:visibility="invisible"
         />
 
 </android.support.constraint.ConstraintLayout>
