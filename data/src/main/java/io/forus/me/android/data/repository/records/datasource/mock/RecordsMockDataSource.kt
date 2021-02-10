@@ -41,13 +41,13 @@ class RecordsMockDataSource : RecordsDataSource{
 
         var counter2: Long = 0
         for(category in categories){
-            records.add(Record(recordCreateCounter++, "Jamal"+" ("+category.name+")", recordCreateCounter, "given_name", category.id, true, emptyList()))
-            records.add(Record(recordCreateCounter++, "Vleij", recordCreateCounter, "family_name", category.id, true, emptyList()))
-            records.add(Record(recordCreateCounter++, "45547646455", recordCreateCounter, "bsn", category.id, true, emptyList()))
-            records.add(Record(recordCreateCounter++, "jamal@forus.io", recordCreateCounter, "primary_email", category.id, true, emptyList()))
-            if(counter2 % 2L == 0L) records.add(Record(recordCreateCounter++, "jamal2@forus.io", recordCreateCounter, "email", category.id, true, emptyList()))
-            if(counter2 % 3L == 0L) records.add(Record(recordCreateCounter++, "+1(234)567890", recordCreateCounter, "telephone", category.id, true, emptyList()))
-            if(counter2 % 5L == 0L) records.add(Record(recordCreateCounter++, "Male", recordCreateCounter, "gender", category.id, true, emptyList()))
+            records.add(Record(recordCreateCounter++, "Jamal"+" ("+category.name+")", recordCreateCounter, "given_name", category.id, true, emptyList(),""))
+            records.add(Record(recordCreateCounter++, "Vleij", recordCreateCounter, "family_name", category.id, true, emptyList(),""))
+            records.add(Record(recordCreateCounter++, "45547646455", recordCreateCounter, "bsn", category.id, true, emptyList(),""))
+            records.add(Record(recordCreateCounter++, "jamal@forus.io", recordCreateCounter, "primary_email", category.id, true, emptyList(),""))
+            if(counter2 % 2L == 0L) records.add(Record(recordCreateCounter++, "jamal2@forus.io", recordCreateCounter, "email", category.id, true, emptyList(),""))
+            if(counter2 % 3L == 0L) records.add(Record(recordCreateCounter++, "+1(234)567890", recordCreateCounter, "telephone", category.id, true, emptyList(),""))
+            if(counter2 % 5L == 0L) records.add(Record(recordCreateCounter++, "Male", recordCreateCounter, "gender", category.id, true, emptyList(),""))
             counter2++
         }
     }
@@ -100,7 +100,7 @@ class RecordsMockDataSource : RecordsDataSource{
     }
 
     override fun createRecord(createRecord: CreateRecord): Observable<Record> {
-        val record = Record(recordCreateCounter++, createRecord.value, recordCreateCounter, createRecord.key, createRecord.recordCategoryId, false, emptyList())
+        val record = Record(recordCreateCounter++, createRecord.value, recordCreateCounter, createRecord.key, createRecord.recordCategoryId, false, emptyList(),"")
         records.add(record)
         return Single.just(record).toObservable()
     }

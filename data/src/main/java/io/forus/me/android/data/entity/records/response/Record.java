@@ -27,6 +27,9 @@ public class Record {
     @SerializedName("validations")
     private List<Validation> validations;
 
+    @SerializedName("name")
+    private String name;
+
 
     public Long getId() {
         return id;
@@ -84,10 +87,18 @@ public class Record {
         this.validations = validations;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Record() {
     }
 
-    public Record(Long id, String value, Long order, String key, Long recordCategoryId, Boolean valid, List<Validation> validations) {
+    public Record(Long id, String value, Long order, String key, Long recordCategoryId, Boolean valid, List<Validation> validations, String name) {
         this.id = id;
         this.value = value;
         this.order = order;
@@ -95,5 +106,6 @@ public class Record {
         this.recordCategoryId = recordCategoryId;
         this.valid = valid;
         this.validations = validations;
+        this.name = name;
     }
 }
