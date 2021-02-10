@@ -13,8 +13,8 @@ interface RecordsService {
 
     // Record Types
 
-    @GET("api/v1/identity/record-types")
-    fun listAllTypes() : Observable<List<RecordType>>
+    @GET("api/v1/identity/record-types") //?insertable_only=1
+    fun listAllTypes(@Header("insertable_only") type: String) : Observable<List<RecordType>>
 
 
     // Record Categories
