@@ -194,6 +194,9 @@
     <string name="validations">Validations</string>
     <string name="validations_empty">You have no validations yet</string>
 
+    <string name="record_qr_subtitle">Dit is uw eigenschap in de vorm van een QR-code. Laat de beoordelaar deze code scannen.</string>
+
+
     <string name="dialog_record_edit_title">Would you like to archive record?</string>
     <string name="dialog_record_archive_title">Would you like to archive record?</string>
 
