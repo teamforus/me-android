@@ -3,12 +3,15 @@ package io.forus.me.android.presentation.view.screens.dashboard
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import com.afollestad.materialdialogs.MaterialDialog
 import com.crashlytics.android.Crashlytics
 import com.google.android.play.core.review.ReviewManagerFactory
 import io.fabric.sdk.android.Fabric
@@ -122,28 +125,63 @@ class DashboardActivity : SlidingPanelActivity(), DashboardContract.View {
     }
 
 
-    private fun inAppLaunchCount(){
+    private fun inAppLaunchCount() {
 
-       // InAppReviewHelper.resetTotalCountAppLaunch()
+         //InAppReviewHelper.resetAllRevData()///remove it
 
+        InAppReviewHelper.writeCurrentAppVersion(getBuildVersion())
         InAppReviewHelper.incrementTotalLaunchCount()
         InAppReviewHelper.incrementLastLaunchCount()
 
+
         val canReview = InAppReviewHelper.canLaunchInAppReviewDialog()
+
+        if (InAppReviewHelper.getTimesFromLastRate() > InAppReviewHelper.getMaxPeriod()) {
+            InAppReviewHelper.resetTimesFromLastRate()
+        }
 
         Log.d("inAppRev", " canReview = $canReview")
 
-        //if (canReview && getBuildVersion() != InAppReviewHelper.getLastRateAppVersion())
-        //{
-            showInAppRevDialog()
-       // }
+        // if (canReview && getBuildVersion() != InAppReviewHelper.getLastRateAppVersion()) This condition must be on release, for test we ignore appVersion
+        if (canReview ){
+        showInAppRevDialog()
+        }
 
     }
 
-    private fun showInAppRevDialog(){
-       // val dialog = MaterialDialog.Builder(this).title("rateApp").show()
+    private fun showInAppRevDialog() {
 
-        val reviewManager = ReviewManagerFactory.create(this)
+
+        val dialog = MaterialDialog.Builder(this).title("Fake Rate MeApp. launches cnt:  ${InAppReviewHelper.getTimesFromLastRate()}")
+                .positiveText("Rate app")
+                .negativeText("No, thanks")
+                .positiveColor(Color.GREEN)
+                .negativeColor(Color.GRAY)
+                .onNegative { dialog, which ->
+                    Log.d("inAppRev", "Cancel")
+
+                }
+                .onPositive { dialog, which ->
+                    Log.d("inAppRev", "Review")
+                    InAppReviewHelper.incrementReviewsCount()
+                    InAppReviewHelper.resetTimesFromLastRate()
+
+                    MaterialDialog.Builder(this)
+                            .icon(ContextCompat.getDrawable(this@DashboardActivity,R.drawable.ic_me_logo)!!)
+                            .title("★★★★★ Success =)")
+                            .positiveText("Ok")
+                            .negativeText("Reset all rate data")
+                            .positiveColor(Color.GREEN)
+                            .negativeColor(Color.RED)
+                            .onNegative { dialog, which ->
+                                InAppReviewHelper.resetAllRevData()
+
+                            }
+                            .show()
+                }
+                .show()
+
+        /*val reviewManager = ReviewManagerFactory.create(this)
 
         val requestReviewFlow = reviewManager.requestReviewFlow()
         requestReviewFlow.addOnCompleteListener { request ->
@@ -158,7 +196,7 @@ class DashboardActivity : SlidingPanelActivity(), DashboardContract.View {
                     // Handler complete success
                     InAppReviewHelper.incrementReviewsCount()
                     InAppReviewHelper.resetTimesFromLastRate()
-                    InAppReviewHelper.writeCurrentAppVersion(getBuildVersion())
+                  //  InAppReviewHelper.writeCurrentAppVersion(getBuildVersion())
                 }
 
             } else {
@@ -166,14 +204,13 @@ class DashboardActivity : SlidingPanelActivity(), DashboardContract.View {
                 // Handle error
 
             }
-        }
+        }*/
 
 
     }
 
 
-
-    fun getBuildVersion(): String{
+    fun getBuildVersion(): String {
         return try {
             val pInfo = packageManager.getPackageInfo(packageName, 0)
             pInfo.versionName
