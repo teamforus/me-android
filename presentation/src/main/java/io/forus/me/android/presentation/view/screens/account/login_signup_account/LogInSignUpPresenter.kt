@@ -39,7 +39,7 @@ class LogInSignUpPresenter constructor(private val token: String, private val ac
                                     .subscribeOn(Schedulers.io())
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .map<PartialChange> {
-                                        if(it) LogInSignUpPartialChanges.RestoreByEmailRequestEnd()
+                                        if (it) LogInSignUpPartialChanges.RestoreByEmailRequestEnd()
                                         else LogInSignUpPartialChanges.RestoreByEmailRequestError(Exception(it.toString()))
                                     }
                                     .onErrorReturn {
@@ -55,8 +55,8 @@ class LogInSignUpPresenter constructor(private val token: String, private val ac
                                     .subscribeOn(Schedulers.io())
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .map<PartialChange> {
-                                         LogInSignUpPartialChanges.ValidateEmailRequest(it)
-                                       // else LogInSignUpPartialChanges.RestoreByEmailRequestError(Exception(it.toString()))
+                                        LogInSignUpPartialChanges.ValidateEmailRequest(it)
+                                        // else LogInSignUpPartialChanges.RestoreByEmailRequestError(Exception(it.toString()))
                                     }
                                     .onErrorReturn {
                                         LogInSignUpPartialChanges.ValidateEmailRequestError(it)
@@ -78,14 +78,14 @@ class LogInSignUpPresenter constructor(private val token: String, private val ac
                                     }
                         },
 
-                        intent { it.registerNewAccount() }
+                intent { it.registerNewAccount() }
                         .switchMap {
                             accountRepository.newUser(it)
                                     .subscribeOn(Schedulers.io())
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .map<PartialChange> {
                                         //NewAccountPartialChanges.RegisterEnd(it)
-                                        if(it) LogInSignUpPartialChanges.RestoreByEmailRequestEnd()
+                                        if (it) LogInSignUpPartialChanges.RestoreByEmailRequestEnd()
                                         else LogInSignUpPartialChanges.RestoreByEmailRequestError(Exception(it.toString()))
                                     }
                                     .onErrorReturn {
@@ -131,9 +131,9 @@ class LogInSignUpPresenter constructor(private val token: String, private val ac
             is LogInSignUpPartialChanges.ExchangeTokenError -> vs.copy(model = vs.model.copy(exchangeTokenError = change.error,
                     validateEmail = null, validateEmailError = null))
             is LogInSignUpPartialChanges.ValidateEmailRequest -> vs.copy(model = vs.model.copy(validateEmail = change.validateEmail, validateEmailError = null,
-                    sendingRestoreByEmail = false,sendingRestoreByEmailError = null,sendingRestoreByEmailSuccess = false))
-            is LogInSignUpPartialChanges.ValidateEmailRequestError ->  vs.copy(model = vs.model.copy(validateEmailError = change.error, validateEmail = null,
-                    sendingRestoreByEmail = false,sendingRestoreByEmailError = null, sendingRestoreByEmailSuccess = false))
+                    sendingRestoreByEmail = false, sendingRestoreByEmailError = null, sendingRestoreByEmailSuccess = false))
+            is LogInSignUpPartialChanges.ValidateEmailRequestError -> vs.copy(model = vs.model.copy(validateEmailError = change.error, validateEmail = null,
+                    sendingRestoreByEmail = false, sendingRestoreByEmailError = null, sendingRestoreByEmailSuccess = false))
         }
     }
 }

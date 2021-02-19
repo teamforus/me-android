@@ -1,25 +1,16 @@
 package io.forus.me.android.presentation.view.screens.dashboard
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.content.IntentSender
+import android.content.pm.PackageManager
 import android.os.Bundle
-import android.os.Handler
 import android.support.v4.app.Fragment
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import com.crashlytics.android.Crashlytics
-import com.google.android.gms.common.ConnectionResult
-import com.google.android.gms.common.GoogleApiAvailability
-import com.google.android.play.core.appupdate.AppUpdateInfo
-import com.google.android.play.core.appupdate.AppUpdateManager
-import com.google.android.play.core.appupdate.AppUpdateManagerFactory
-import com.google.android.play.core.install.model.AppUpdateType
-import com.google.android.play.core.install.model.UpdateAvailability
+import com.google.android.play.core.review.ReviewManagerFactory
 import io.fabric.sdk.android.Fabric
 import io.forus.me.android.data.executor.JobExecutor
 import io.forus.me.android.domain.interactor.CheckLoginUseCase
@@ -28,6 +19,7 @@ import io.forus.me.android.domain.interactor.ExitIdentityUseCase
 import io.forus.me.android.domain.interactor.LoadAccountUseCase
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.UIThread
+import io.forus.me.android.presentation.helpers.InAppReviewHelper
 import io.forus.me.android.presentation.helpers.reactivex.DisposableHolder
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.activity.SlidingPanelActivity
@@ -70,6 +62,7 @@ class DashboardActivity : SlidingPanelActivity(), DashboardContract.View {
         checkFCM()
         checkStartFromScanner()
 
+        inAppLaunchCount()
 
     }
 
@@ -109,7 +102,7 @@ class DashboardActivity : SlidingPanelActivity(), DashboardContract.View {
         disposableHolder.disposeAll()
     }
 
-    fun showPopupQRFragment(address: String,qrHead: String? = null, qrSubtitle: String? = null, qrDescription: String? = null) {
+    fun showPopupQRFragment(address: String, qrHead: String? = null, qrSubtitle: String? = null, qrDescription: String? = null) {
         addPopupFragment(QrFragment.newIntent(address, qrHead, qrSubtitle, qrDescription), "QR code")
     }
 
@@ -129,5 +122,65 @@ class DashboardActivity : SlidingPanelActivity(), DashboardContract.View {
     }
 
 
+    private fun inAppLaunchCount(){
+
+       // InAppReviewHelper.resetTotalCountAppLaunch()
+
+        InAppReviewHelper.incrementLaunchCount()
+
+        val canReview = InAppReviewHelper.canLaunchInAppReviewDialog()
+
+        Log.d("inAppRev", " canReview = $canReview")
+
+        //if (canReview && getBuildVersion() != InAppReviewHelper.getLastRateAppVersion())
+        //{
+            showInAppRevDialog()
+       // }
+
+    }
+
+    private fun showInAppRevDialog(){
+       // val dialog = MaterialDialog.Builder(this).title("rateApp").show()
+
+        val reviewManager = ReviewManagerFactory.create(this)
+
+        val requestReviewFlow = reviewManager.requestReviewFlow()
+        Log.d("inAppRev", "requestRevFlow")
+        requestReviewFlow.addOnCompleteListener { request ->
+            Log.d("inAppRev", "listener")
+            if (request.isSuccessful) {
+                Log.d("inAppRev", "listener success")
+                val reviewInfo = request.result
+
+                val flow = reviewManager.launchReviewFlow(this, reviewInfo)
+
+                flow.addOnCompleteListener {
+
+                    // Handler complete success
+                    InAppReviewHelper.incrementReviewsCount()
+                    InAppReviewHelper.writeCurrentAppVersion(getBuildVersion())
+                }
+
+            } else {
+                Log.d("inAppRev", " canReview error= ${request.exception}")
+                // Handle error
+
+            }
+        }
+
+
+    }
+
+
+
+    fun getBuildVersion(): String{
+        return try {
+            val pInfo = packageManager.getPackageInfo(packageName, 0)
+            pInfo.versionName
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+            ""
+        }
+    }
 
 }

@@ -7,6 +7,7 @@ import android.content.IntentSender
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import com.afollestad.materialdialogs.MaterialDialog
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.activity.BaseActivity
 import com.google.android.gms.common.ConnectionResult
@@ -16,7 +17,9 @@ import com.google.android.play.core.appupdate.AppUpdateManager
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.UpdateAvailability
+import com.google.android.play.core.review.ReviewManagerFactory
 import io.forus.me.android.presentation.BuildConfig
+import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.api_config.ApiConfig
 import io.forus.me.android.presentation.api_config.ApiType
 import io.forus.me.android.presentation.helpers.SharedPref
@@ -66,6 +69,8 @@ class MainActivity : BaseActivity() {
         h.postDelayed({
             this.initInAppUpdate()
         }, 800)
+
+        requestReviewFlow(this)
 
 
         navigateToMainContentScreens()
@@ -189,6 +194,8 @@ class MainActivity : BaseActivity() {
         appUpdateInfoTask.addOnFailureListener { err ->
             processInAppUpdateError(err.localizedMessage)
         }
+
+
     }
 
 
@@ -226,6 +233,41 @@ class MainActivity : BaseActivity() {
 
         //Toast.makeText(this@MainActivity, "initInAppUpdate error $error", Toast.LENGTH_LONG).show() TODO
 
+    }
+
+
+    /**
+     * InApp rate
+     */
+    private fun requestReviewFlow(activity: Activity) {
+
+         val dialog = MaterialDialog.Builder(activity)
+                .title("rateApp").show()
+
+        /*val reviewManager = ReviewManagerFactory.create(activity)
+
+        val requestReviewFlow = reviewManager.requestReviewFlow()
+
+        requestReviewFlow.addOnCompleteListener { request ->
+
+            if (request.isSuccessful) {
+
+                val reviewInfo = request.result
+
+                val flow = reviewManager.launchReviewFlow(activity, reviewInfo)
+
+                flow.addOnCompleteListener {
+
+                    // Обрабатываем завершение сценария оценки
+
+                }
+
+            } else {
+
+                // Обрабатываем тут ошибку
+
+            }
+        }*/
     }
 
 
