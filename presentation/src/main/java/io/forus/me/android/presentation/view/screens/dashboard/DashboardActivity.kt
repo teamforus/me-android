@@ -126,7 +126,8 @@ class DashboardActivity : SlidingPanelActivity(), DashboardContract.View {
 
        // InAppReviewHelper.resetTotalCountAppLaunch()
 
-        InAppReviewHelper.incrementLaunchCount()
+        InAppReviewHelper.incrementTotalLaunchCount()
+        InAppReviewHelper.incrementLastLaunchCount()
 
         val canReview = InAppReviewHelper.canLaunchInAppReviewDialog()
 
@@ -145,9 +146,7 @@ class DashboardActivity : SlidingPanelActivity(), DashboardContract.View {
         val reviewManager = ReviewManagerFactory.create(this)
 
         val requestReviewFlow = reviewManager.requestReviewFlow()
-        Log.d("inAppRev", "requestRevFlow")
         requestReviewFlow.addOnCompleteListener { request ->
-            Log.d("inAppRev", "listener")
             if (request.isSuccessful) {
                 Log.d("inAppRev", "listener success")
                 val reviewInfo = request.result
@@ -158,6 +157,7 @@ class DashboardActivity : SlidingPanelActivity(), DashboardContract.View {
 
                     // Handler complete success
                     InAppReviewHelper.incrementReviewsCount()
+                    InAppReviewHelper.resetTimesFromLastRate()
                     InAppReviewHelper.writeCurrentAppVersion(getBuildVersion())
                 }
 

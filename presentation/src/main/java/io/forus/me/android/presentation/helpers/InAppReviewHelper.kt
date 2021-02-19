@@ -4,13 +4,13 @@ import android.util.Log
 
 object InAppReviewHelper {
 
-    val timesForReview: IntArray = intArrayOf(3, 7, 12, 30, 60, 90)
+    val timesForReview: IntArray = intArrayOf(3, 7, 12, 30, 60)
 
     public fun resetTotalCountAppLaunch(){
         SharedPref.write(SharedPref.APP_REVIEW_TOTAL_COUNT_APP_LAUNCHES,0)
     }
 
-    public fun incrementLaunchCount(){
+    public fun incrementTotalLaunchCount(){
         var launchAppCount = SharedPref.read(SharedPref.APP_REVIEW_TOTAL_COUNT_APP_LAUNCHES,0)
         launchAppCount++
         SharedPref.write(SharedPref.APP_REVIEW_TOTAL_COUNT_APP_LAUNCHES,launchAppCount)
@@ -21,8 +21,25 @@ object InAppReviewHelper {
         SharedPref.write(SharedPref.APP_REVIEW_LAST_BUILD_VERSION,buildVersion)
     }
 
+
+
     public fun getLastRateAppVersion(): String?{
        return  SharedPref.read(SharedPref.APP_REVIEW_LAST_BUILD_VERSION,"")
+    }
+
+    public fun incrementLastLaunchCount(){
+        var launchAppCount = SharedPref.read(SharedPref.APP_REVIEW_LAST_REQUEST_TIME,0)
+        launchAppCount++
+        SharedPref.write(SharedPref.APP_REVIEW_LAST_REQUEST_TIME,launchAppCount)
+        Log.d("inAppRev","launchAppCount=$launchAppCount")
+    }
+
+    public fun getTimesFromLastRate(): Int{
+        return  SharedPref.read(SharedPref.APP_REVIEW_LAST_REQUEST_TIME,0)
+    }
+
+    public fun resetTimesFromLastRate(){
+        SharedPref.write(SharedPref.APP_REVIEW_LAST_REQUEST_TIME,0)
     }
 
     public fun incrementReviewsCount(){
@@ -35,8 +52,20 @@ object InAppReviewHelper {
 
         var launchAppCount = SharedPref.read(SharedPref.APP_REVIEW_TOTAL_COUNT_APP_LAUNCHES,0)
 
-        return timesForReview.contains(launchAppCount)
+        val maximumPeriod = timesForReview.max()?:60
 
+        if(launchAppCount <= maximumPeriod) {
+
+            return timesForReview.contains(launchAppCount)
+
+        }/*else{
+
+
+
+            //return getTimesFromLastRate() ==
+        }*/
+
+        return false
 
 
     }
