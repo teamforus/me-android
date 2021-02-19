@@ -22,12 +22,29 @@
     <string name="dashboard_vouchers">Tegoeden</string>
     <string name="dashboard_currency">Tokens</string>
     <string name="dashboard_assets">Bezit</string>
-    <string name="dashboard_profile">Profiel</string>
+
+
+
+
+    <!-- Onboard screen -->
+    <string name="onboard_welcome_text1">Jouw digitale portemonnee en kassa in één.</string>
+    <string name="onboard_welcome_text2">Instructie overslaan</string>
+    <string name="onboard_digital_wallet_title">Portemonnee</string>
+    <string name="onboard_digital_wallet_text1">Heb je een tegoed ontvangen? Log dan in op Me om je tegoed veilig mee te nemen, je saldo en transacties in te zien en om de QR-code eenvoudig te presenteren aan de aanbieder.</string>
+    <string name="onboard_cash_register_title">Betalingen</string>
+    <string name="onboard_cash_register_text1">Aanbod geplaatst? Dan kun je met de Me-app QR-codes scannen om betalingen te ontvangen. Het is mogelijk om meerdere kassamedewerkers aan de zelfde organisatie toe te voegen.</string>
+    <string name="onboard_records_storage_title">Eigenschappen</string>
+    <string name="onboard_records_storage_text1">Beheer jouw persoonlijke eigenschappen en deel de eigenschappen die nodig zijn om in aanmerking te komen voor een tegoed.</string>
+    <string name="onboard_login_qr_title">Inloggen</string>
+    <string name="onboard_login_qr_text1">Log gemakkelijk in. Gebruik Me om de QR-code op de website te scannen zodat je veilig kan inloggen.</string>
+    <string name="onboard_next">Volgende</string>
+    <string name="onboard_login">Aanmelden</string>
+    <string name="onboard_skip">Overslaan</string>
 
     <!-- Welcome screen -->
     <string name="welcome_create_account">Aanmaken</string>
-    <string name="welcome_restore_account">Ik heb een profiel</string>
-    <string name="welcome_set_up_your_identity">Stel je profiel in</string>
+    <string name="welcome_restore_account">Ik heb een account</string>
+    <string name="welcome_set_up_your_identity">Stel je account in</string>
 
     <!-- Restore identity -->
     <string name="restore_login">Inloggen</string>
@@ -36,7 +53,7 @@
     <string name="restore_inloggen_via_email">Inloggen via e-mail</string>
     <string name="restore_inloggen_via_qr">Ander apparaat toevoegen</string>
     <string name="restore_auth_code">Koppelcode</string>
-    <string name="restore_auth_code_description">Log in op de webshop, klik op je profiel en klik op autoriseer apparaat en vul deze code in.</string>
+    <string name="restore_auth_code_description">Log in op de webshop, klik op je account en klik op autoriseer apparaat en vul deze code in.</string>
     <string name="restore_inloggen_by_email">Bevestig</string>
     <string name="restore_email_description">Vul je e-mailadres in om inloggegevens te ontvangen</string>
     <string name="restore_pincode_description">Vul deze pincode in de webshop in, waar u al bent ingelogd.</string>
@@ -46,6 +63,9 @@
     <string name="restore_account_pair">Koppelen</string>
     <string name="restore_account_login_other_device">Inloggen vanaf een ander apparaat</string>
 
+    <!-- Restore account error -->
+    <string name="restore_go_to_signup">Ga verder</string>
+
     <!-- New account screen -->
     <string name="new_account_field_email">E-mail</string>
     <string name="new_account_field_email_repeat">Herhaal e-mail</string>
@@ -53,8 +73,8 @@
     <string name="new_account_field_last_name">Achternaam</string>
     <string name="new_account_field_bsn">BSN</string>
     <string name="new_account_field_phone">Telefoonnummer</string>
-    <string name="new_account_title">Profiel</string>
-    <string name="new_account_subtitle">Vul onderstaande gegevens in om een profiel aan te maken</string>
+    <string name="new_account_title">Account</string>
+    <string name="new_account_subtitle">Vul onderstaande gegevens in om een account aan te maken</string>
     <string name="new_account_error_already_in_use">E-mailadres is al in gebruik</string>
     <string name="new_account_email_repeat_error">E-mails moeten hetzelfde zijn</string>
 
@@ -63,11 +83,11 @@
     <string name="passcode_title_confirm">Vul je bestaande inlogcode in</string>
     <string name="passcode_title_new_confirm">Bevestig inlogcode</string>
     <string name="passcode_title_create_identity_wait">Even geduld alsjeblieft</string>
-    <string name="passcode_subtitle_create">Beveilig je profiel door een inlogcode aan te maken.</string>
+    <string name="passcode_subtitle_create">Beveilig je account door een inlogcode aan te maken.</string>
     <string name="passcode_subtitle_confirm">Om je inlogcode te wijzigen hebben vul je je bestaande inlogcode in.</string>
     <string name="passcode_subtitle_new_confirm">Herhaal je inlogcode om hem te bevestigen</string>
     <string name="passcode_subtitle_create_not_match">Inlogcodes komen niet overeen. Probeer het opnieuw.</string>
-    <string name="passcode_subtitle_create_identity">Profiel toevoegen</string>
+    <string name="passcode_subtitle_create_identity">Account toevoegen</string>
     <string name="passcode_subtitle_change_error">Er is iets fout gegaan :(</string>
     <string name="passcode_create_skip">Overslaan</string>
     <string name="passcode_changing">Inlogcode wijzigen</string>
@@ -192,6 +212,29 @@
     <string name="status_success">Succes</string>
     <string name="status_pending">In afwachting</string>
 
+    <!-- Privacy & security -->
+    <string name="privacy_and_security">Privacy en security</string>
+    <string name="privacy">Privacy</string>
+    <string name="privacy_text1">Beheer jouw persoonlijke eigenschappen en deel gemakkelijk de informatie die nodig is om in aanmerking te komen voor een tegoed.</string>
+    <string name="privacy_title2">Waar komt mijn informatie vandaan?</string>
+    <string name="privacy_text2">De informatie is toegevoegd door een organisatie waar je een tegoed hebt aangevraagd, of door een organisatie die  ondersteunt. Bijvoorbeeld door je gemeente.
+    </string>
+    <string name="privacy_title3">Storing data</string>
+    <string name="privacy_text3"></string>
+    <string name="privacy_title4">Storing data</string>
+    <string name="privacy_text4">Alle informatie wordt uiterst zorgvuldig opgeslagen en wordt niet gebruikt voor commerciële doeleinden. </string>
+    <string name="privacy_policy">Privacy Beleid van Stichting Forus</string>
+    <string name="privileges">Rechten</string>
+    <string name="privacy_text5">De informatie wordt opgeslagen onder Europese Privacywetgeving. Dit geeft je een aantal rechten zoals het&#160;recht&#160;op:\n\n•  Informatie\n•  Inzage\n•  Rectificatie\n•  Vergetelheid\n• Dataportabiliteit\n•  Bezwaar\n• Beperking van de verwerking
+</string>
+    <string name="privacy_request_your_data_by_email">Request your data by email</string>
+    <string name="privacy_request_delete_your_data">Request to delete your data</string>
+    <string name="privacy_text6">Wil je aanspraak maken op je rechten of heb je algemene vragen of feedback?</string>
+    <string name="privacy_send_email_to_support_forus">Privileges</string>
+    <string name="privacy_text7">Lees alles over jouw privacyrechten bij de Autoriteit Persoonsgegevens</string>
+    <string name="privacy_data_protection_authority">Autoriteit Persoonsgegevens</string>
+    <string name="privacy_send_email_to">Neem contact op met </string>
+
 
     <!-- Wallet details screen -->
     <string name="wallet_title_info">Eigendom informatie</string>
@@ -262,6 +305,7 @@
     <string name="voucher_qr_code_expired">Dit tegoed is verlopen op %s</string>
     <string name="voucher_expired">Tegoed is verlopen</string>
     <string name="voucher_email_to_me">E-mail naar mij</string>
+    <string name="voucher_info">Bekijk het aanbod</string>
     <string name="voucher_request">BEVESTIG</string>
     <string name="send_voucher_email_dialog_title">Stuur het tegoed  naar uw e-mailadres?</string>
     <string name="send_feedback_email_dialog_title">Heeft u vragen of opmerkingen? Neem contact op!</string>
@@ -289,6 +333,9 @@
     <string name="free_product">Deze actie is gratis, er hoeft niet bijbetaald te worden.</string>
     <string name="submit_price_title">Klant betaalt</string>
     <string name="submit_price_subtitle">aan de kassa</string>
+
+    <string name="vouchers_empty_list">Als u tegoeden krijgt om te besteden komen die op deze pagina te staan</string>
+
 
     <!--Voucher map-->
     <string name="show_map">Bekijk kaart</string>

@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/brightBackground"
+    tools:context=".view.screens.privacy_and_security.PrivacyAndSecurityFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+
+        <ImageView
+            android:id="@+id/closeBt"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="-10dp"
+            android:padding="10dp"
+            android:src="@drawable/ic_close_black_24dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="19dp">
+
+            <ImageView
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:layout_marginEnd="6dp"
+                android:layout_toStartOf="@+id/title"
+                android:src="@drawable/ic_secure" />
+
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/privacy"
+                android:layout_centerInParent="true"
+                android:textSize="28sp"
+                android:textColor = "#DE000000"
+                />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:text="@string/privacy_text1"
+            android:textSize="15sp"
+            android:lineSpacingExtra="2sp"
+            android:translationY="-0.96sp"
+            android:textColor = "#DE000000"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="30dp"
+            android:layout_marginTop="35dp"
+            android:text="@string/privacy_title2"
+            android:gravity="start|center_vertical"
+            android:textSize="20sp"
+            android:letterSpacing="0.02"
+            android:fontFamily="@font/fgoogle_sans_medium"
+            android:textColor = "#DE000000"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/privacy_text2"
+            android:textSize="15sp"
+            android:lineSpacingExtra="2sp"
+            android:translationY="-0.96sp"
+            android:textColor = "#DE000000"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/privacy"
+            android:gravity="start|center_vertical"
+            android:textSize="20sp"
+            android:letterSpacing="0.02"
+            android:fontFamily="@font/fgoogle_sans_medium"
+            android:textColor = "#DE000000"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/privacy_text4"
+            android:textSize="15sp"
+            android:lineSpacingExtra="2sp"
+            android:translationY="-0.96sp"
+            android:textColor = "#DE000000"
+            />
+
+        <io.forus.me.android.presentation.view.component.buttons.ButtonSettings
+            android:id="@+id/privacyBt"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:padding="0dp"
+            android:layout_marginTop="12dp"
+            android:text="@string/privacy_policy"
+            android:textAllCaps="false"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/fgoogle_sans_medium"
+            android:gravity="start|center_vertical"
+            android:letterSpacing="0.02"
+            android:text="@string/privileges"
+            android:textColor="#DE000000"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/privacy_text5"
+            android:textSize="15sp"
+            android:lineSpacingExtra="2sp"
+            android:translationY="-0.96sp"
+            android:textColor = "#DE000000"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/privacy_text6"
+            android:textSize="15sp"
+            android:lineSpacingExtra="2sp"
+            android:translationY="-0.96sp"
+            android:textColor = "#DE000000"
+            />
+
+        <io.forus.me.android.presentation.view.component.buttons.ButtonSettings
+            android:id="@+id/sendEmailToSupportBt"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:padding="0dp"
+            android:layout_marginTop="12dp"
+            android:textAllCaps="false"
+            tools:text="Send a mail to support@forus.io "
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/privacy_text7"
+            android:textSize="15sp"
+            android:lineSpacingExtra="2sp"
+            android:translationY="-0.96sp"
+            android:textColor = "#DE000000"
+            />
+
+        <io.forus.me.android.presentation.view.component.buttons.ButtonSettings
+            android:id="@+id/dataProtectionAuthority"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:padding="0dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/privacy_data_protection_authority"
+            android:textAllCaps="false"
+            />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            >
+
+
+            <ImageView
+                android:id="@+id/meLogo"
+                android:layout_width="40dp"
+                android:layout_height="33.75dp"
+                android:src="@drawable/ic_me_logo"
+                android:layout_centerVertical="true"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_toEndOf="@id/meLogo"
+                android:layout_marginStart="17dp"
+                android:gravity="center_vertical|start"
+                android:layout_centerVertical="true"
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Me"
+                    android:textSize="17sp"
+                    android:lineSpacingExtra="1sp"
+                    android:translationY="-0.69sp"
+                    android:textColor = "#1E2024"
+                    android:fontFamily="@font/fgoogle_sans_medium"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Forus, 2018"
+                    android:textSize="14sp"
+                    android:lineSpacingExtra="2sp"
+                    android:translationY="-0.96sp"
+                    android:textColor = "#1E2024"
+                    />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+</ScrollView>
