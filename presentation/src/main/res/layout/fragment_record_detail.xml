@@ -89,6 +89,8 @@
             android:layout_width="match_parent"
             android:layout_height="36dp"
             android:drawableStart="@drawable/qr_blue"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
             />
 
     </LinearLayout>

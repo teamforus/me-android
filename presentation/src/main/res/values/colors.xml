@@ -36,6 +36,10 @@
 
     <color name="switchBackground">#F8F8F8</color>
 
+    <color name="tabDotsGray">#ddd8d8</color>
+
+
+
 
     <!--generated colors-->
     <color name="overline2">#3c4c62</color>

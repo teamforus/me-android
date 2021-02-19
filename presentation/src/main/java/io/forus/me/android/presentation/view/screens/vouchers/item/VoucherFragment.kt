@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -102,7 +103,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
         get() = false
 
     override val showInfo: Boolean
-        get() = true
+        get() = false
 
     private var canShowInfo: Boolean = false
     private val shortToken = PublishSubject.create<String>()
@@ -148,8 +149,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
         rv_transactions.adapter = adapter
 
 
-        info_button.setOnClickListener {
-
+        btn_info.setOnClickListener {
             canShowInfo = true
             shortToken.onNext("")
 
@@ -263,12 +263,14 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
 
 
 
+        btn_info.visibility = View.VISIBLE
+
         name.text = vs.model.item?.name
         type.text = vs.model.item?.organizationName
 
 
         vs.model.item?.let { voucher ->
-
+            Log.d("voucherInfo","render 2")
 
             setToolbarTitle(resources.getString(if (voucher.isProduct) R.string.vouchers_item_product else R.string.vouchers_item))
             if (voucher.fundType == FundType.subsidies.name) {
@@ -345,6 +347,20 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
                 }
             }
 
+            if (vs.model.shortToken != null) {
+
+                if (canShowInfo) {
+
+                    val url: String = if (voucher?.fundWebShopUrl?.isNotEmpty()!! && vs.model.shortToken.isNotEmpty()) {
+                        voucher?.fundWebShopUrl + "auth-link?token=" + vs.model.shortToken + "&target=voucher-" + voucher?.address
+                    } else {
+                        "https://forus.io/"
+                    }
+
+                    openVoucherInfo(url)
+                    canShowInfo = false
+                }
+            }
 
 
 
@@ -414,19 +430,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
 
                 }
 
-                if (vs.model.shortToken != null) {
-                    if (canShowInfo) {
 
-                        val url: String = if (voucher?.fundWebShopUrl?.isNotEmpty()!! && vs.model.shortToken.isNotEmpty()) {
-                            voucher?.fundWebShopUrl + "auth-link?token=" + vs.model.shortToken + "&target=voucher-" + voucher?.address
-                        } else {
-                            "https://forus.io/"
-                        }
-
-                        openVoucherInfo(url)
-                        canShowInfo = false
-                    }
-                }
 
 
 
