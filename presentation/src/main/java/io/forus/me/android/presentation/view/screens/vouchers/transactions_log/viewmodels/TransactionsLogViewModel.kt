@@ -48,8 +48,9 @@ class TransactionsLogViewModel : ViewModel() {
         val cal = Calendar.getInstance()
         cal.add(Calendar.MONTH, -1)
 
-        dateFormatForDisplay = SimpleDateFormat("d MMM YYYY", Locale.getDefault())
-        dateFormatForApi = SimpleDateFormat("YYYY-MM-dd", Locale.getDefault())
+
+        dateFormatForDisplay = SimpleDateFormat("d MMM yyyy", Locale.getDefault())
+        dateFormatForApi = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
         calendarFrom.value = cal
         calendarStringForDisplay.value = ""
