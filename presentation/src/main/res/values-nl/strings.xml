@@ -40,7 +40,7 @@
     <string name="restore_inloggen_by_email">Bevestig</string>
     <string name="restore_email_description">Vul je e-mailadres in om inloggegevens te ontvangen</string>
     <string name="restore_pincode_description">Vul deze pincode in de webshop in, waar u al bent ingelogd.</string>
-    <string name="restore_email_instructions">Er is een e-mail verstuurd naar uw e-mailadres waarmee u opnieuw kunt inloggen.</string>
+    <string name="restore_email_instructions">Er is een e-mail verstuurd naar je e-mailadres waarmee je opnieuw kunt inloggen.</string>
     <string name="restore_email_not_found">Identity niet gevonden</string>
     <string name="restore_email_invalid_link">Ongeldige link</string>
     <string name="restore_account_pair">Koppelen</string>
@@ -80,8 +80,8 @@
 
     <!-- PAIR DEVICE screen -->
     <string name="pair_header">Apparaat koppelen</string>
-    <string name="pair_title_pin">Dit is uw persoonlijke koppelcode</string>
-    <string name="pair_title_qr">Scan deze QR-Code met een ander apparaat waar u al op aangemeld bent</string>
+    <string name="pair_title_pin">Dit is je persoonlijke koppelcode</string>
+    <string name="pair_title_qr">Scan deze QR-Code met een ander apparaat waar je al op aangemeld bent</string>
 
     <!-- Lock fingerprint strings -->
     <string name="lock_no_fingerprints">Geen vingerafdrukken beschikbaar</string>
@@ -148,7 +148,7 @@
     <string name="new_record_submit">BEVESTIG</string>
     <string name="record_created_successfully">Eigenschap is aangemaakt!</string>
     <string name="choose_type">Kies type</string>
-    <string name="choose_type_description">Wat voor type eigenschap wilt u aanmaken?</string>
+    <string name="choose_type_description">Wat voor type eigenschap wilt je aanmaken?</string>
     <string name="new_record">Nieuwe eigenschap</string>
     <string name="tooltip_create_record">Tik hier om een nieuw\nrecord te maken</string>
 
@@ -165,9 +165,9 @@
     <string name="validations_empty">Deze eigenschap heeft geen beoordelingen</string>
 
     <string name="dialog_record_edit_title">Wil je deze eigenschap bewerken?</string>
-    <string name="dialog_record_archive_title">Wil u deze eigenschap archiveren?</string>
+    <string name="dialog_record_archive_title">Wil je deze eigenschap archiveren?</string>
 
-    <string name="dialog_record_edit_description">Alle beoordelingen worden verwijderd. U dient opnieuw beoordelingen aan te vragen voor de nieuwe eigenschap.</string>
+    <string name="dialog_record_edit_description">Alle beoordelingen worden verwijderd. Je dient opnieuw beoordelingen aan te vragen voor de nieuwe eigenschap.</string>
     <string name="dialog_record_archive_description">Alle beoordelingen worden verwijderd.</string>
 
     <string name="dialog_button_cancel">ANNULEER</string>
@@ -204,7 +204,7 @@
 
     <!-- QR Scanner -->
     <string name="qr_camera_access_required">Cameratoegang is vereist om het cameravoorbeeld weer te geven.</string>
-    <string name="qr_camera_permission_not_available">Me heeft geen toegang tot uw camera. Om toegang te verlenen, tik op instellingen en schakel de camera in.</string>
+    <string name="qr_camera_permission_not_available">Me heeft geen toegang tot je camera. Om toegang te verlenen, tik op instellingen en schakel de camera in.</string>
     <string name="qr_camera_permission_granted">Cameratoestemming is verleend.</string>
     <string name="qr_camera_permission_denied">Verzoek om cameratoestemming is geweigerd.</string>
     <string name="qr_scan">Scan QR-code</string>
@@ -256,15 +256,15 @@
     <string name="voucher_send_email_success">Succes</string>
     <string name="voucher_send_email_description">Het tegoed is verzonden per mail</string>
     <string name="voucher_qr_code_subtitle">Dit is de QR-code van het tegoed</string>
-    <string name="voucher_qr_code_subtitle_with_fund_name">%s\nDit is uw  in de vorm van een QR-code</string>
+    <string name="voucher_qr_code_subtitle_with_fund_name">%s\nDit is jouw  in de vorm van een QR-code</string>
     <string name="voucher_qr_code_description">Dit is uw tegoed in de vorm van een QR-code \nLaat de aanbieder deze QR-code scannen om een betaling te kunnen doen.</string>
     <string name="voucher_qr_code_actual">Gebruik dit tegoed voor  %s</string>
     <string name="voucher_qr_code_expired">Dit tegoed is verlopen op %s</string>
     <string name="voucher_expired">Tegoed is verlopen</string>
     <string name="voucher_email_to_me">E-mail naar mij</string>
     <string name="voucher_request">BEVESTIG</string>
-    <string name="send_voucher_email_dialog_title">Stuur het tegoed  naar uw e-mailadres?</string>
-    <string name="send_feedback_email_dialog_title">Heeft u vragen of opmerkingen? Neem contact op!</string>
+    <string name="send_voucher_email_dialog_title">Stuur het tegoed  naar je e-mailadres?</string>
+    <string name="send_feedback_email_dialog_title">Heb je vragen of opmerkingen? Neem contact op!</string>
     <string name="send_voucher_email_dialog_positive_button">Bevestig</string>
     <string name="send_voucher_email_dialog_cancel_button">Annuleer</string>
     <string name="shopkeeper_address_text">Adres</string>
@@ -282,7 +282,7 @@
     <string name="confirm_payment">Bevestig betaling</string>
     <string name="has_the_customer">Heeft de klant </string>
     <string name="paid_at_till">betaald aan de kassa?</string>
-    <string name="empty_actions_list">Geen saldo voor uw acties</string>
+    <string name="empty_actions_list">Geen saldo voor je acties</string>
     <string name="free">Gratis</string>
     <string name="price">Prijs</string>
     <string name="discount">Korting</string>
@@ -310,8 +310,8 @@
     <!-- Check email -->        
     <string name="check_email_has_been_sent_to_you">Er is een e-mail onderweg!</string>
     <string name="check_email_description_part1">Er is een e-mail gestuurd naar</string>
-    <string name="check_email_description_part2">.\n Klik op de link in de e-mail om u aan te melden.\n</string>
-    <string name="check_your_email">Controleer uw e-mail.</string>
+    <string name="check_email_description_part2">.\n Klik op de link in de e-mail om je aan te melden.\n</string>
+    <string name="check_your_email">Controleer je e-mail.</string>
 
     <!-- Restore account success -->
     <string name="restore_account_head">Aanmelding geslaagd!</string>
@@ -324,7 +324,7 @@
 
     <!-- Send crashlitics reports screen -->
     <string name="send_report_head">Informatie delen</string>
-    <string name="send_report_description">Door uw identificatienummer te delen, kunnen problemen beter en sneller worden opgelost, en kunnen de ontwikkelaars eventueel contact met u opnemen</string>
+    <string name="send_report_description">Door je identificatienummer te delen, kunnen problemen beter en sneller worden opgelost, en kunnen de ontwikkelaars eventueel contact met je opnemen</string>
 
 
     <string name="next_step">Volgende</string>
