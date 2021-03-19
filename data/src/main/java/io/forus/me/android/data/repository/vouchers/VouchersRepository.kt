@@ -178,7 +178,7 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
         }
 
         return Voucher(isProduct, isUsed, voucher.address
-                ?: "", name, organizationName, voucher.fund?.name
+                ?: "", voucher.identityAddress?:"", name, organizationName, voucher.fund?.name
                 ?: "", voucher.fund?.type
                 ?: "", voucher.fund?.webShopUrl ?: "", description, createdAt!!, euro, amount,
                 productLogoUrl, transactions, productMapped, voucher.isExpired, voucher.expireAtLocale
@@ -293,7 +293,7 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) : i
 
         val offices = mutableListOf<io.forus.me.android.domain.models.vouchers.Office>()
 
-        val voucher = Voucher(false, false, "", "Test bedrijf",
+        val voucher = Voucher(false, false, "", "","Test bedrijf",
                 "", "", "", "",
                 "", date, currency, 1000.toBigDecimal(), "",
                 transactionList, product, false, "",offices)

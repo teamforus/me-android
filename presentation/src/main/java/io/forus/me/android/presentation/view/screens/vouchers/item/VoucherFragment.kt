@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -262,13 +263,14 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
         super.render(vs)
 
 
-
         name.text = vs.model.item?.name
         type.text = vs.model.item?.organizationName
 
 
-        vs.model.item?.let { voucher ->
 
+
+        vs.model.item?.let { voucher ->
+            Log.d("my","render 01  voucher address= ${voucher.address}  voucherIdentyAddress = ${voucher.identyAddress}")
 
             setToolbarTitle(resources.getString(if (voucher.isProduct) R.string.vouchers_item_product else R.string.vouchers_item))
             if (voucher.fundType == FundType.subsidies.name) {
@@ -395,55 +397,66 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
                 }
 
 
+
+
+            }else{
+                    info_button.visibility = View.VISIBLE
+            }
+
+            if (voucher.fundType == FundType.subsidies.name) {
+                info_button.visibility = View.INVISIBLE
+
+
+
                 if (voucher.fundType == FundType.subsidies.name) {
                     info_button.visibility = View.INVISIBLE
 
+                    iv_qr_icon.visibility = View.VISIBLE
 
-
-                    if (voucher.fundType == FundType.subsidies.name) {
-                        info_button.visibility = View.INVISIBLE
-
-                        iv_qr_icon.visibility = View.VISIBLE
-
-                        tv_voucher_expired.visibility = View.VISIBLE
-                        tv_voucher_expired.visibility = View.GONE
-                        value.visibility = View.GONE
-
-                    }
-
+                    tv_voucher_expired.visibility = View.VISIBLE
+                    tv_voucher_expired.visibility = View.GONE
+                    value.visibility = View.GONE
 
                 }
 
-                if (vs.model.shortToken != null) {
-                    if (canShowInfo) {
 
-                        val url: String = if (voucher?.fundWebShopUrl?.isNotEmpty()!! && vs.model.shortToken.isNotEmpty()) {
-                            voucher?.fundWebShopUrl + "auth-link?token=" + vs.model.shortToken + "&target=voucher-" + voucher?.address
-                        } else {
-                            "https://forus.io/"
-                        }
+            }
 
-                        openVoucherInfo(url)
-                        canShowInfo = false
+
+            if (vs.model.shortToken != null) {
+                if (canShowInfo) {
+
+                    val url: String = if (voucher?.fundWebShopUrl?.isNotEmpty()!! && vs.model.shortToken.isNotEmpty()) {
+                        voucher?.fundWebShopUrl + "auth-link?token=" + vs.model.shortToken + "&target=voucher-" + voucher?.address
+                    } else {
+                        "https://forus.io/"
                     }
-                }
 
-
-
-
-                when (vs.model.emailSend) {
-                    EmailSend.SEND -> showEmailSendDialog()
-                    EmailSend.SENT -> {
-                        FullscreenDialog.display(fragmentManager, context!!.resources.getString(R.string.voucher_send_email_success),
-                                context!!.resources.getString(R.string.voucher_send_email_description),
-                                context!!.resources.getString(R.string.me_ok)) {
-                            sentEmailDialogShown.onNext(Unit)
-                        }
-                    }
-                    EmailSend.NOTHING -> Unit
+                    openVoucherInfo(url)
+                    canShowInfo = false
                 }
             }
+
+
+
+            when (vs.model.emailSend) {
+
+
+                EmailSend.SEND -> {
+                    showEmailSendDialog()
+                }
+                EmailSend.SENT -> {
+                    FullscreenDialog.display(fragmentManager, context!!.resources.getString(R.string.voucher_send_email_success),
+                            context!!.resources.getString(R.string.voucher_send_email_description),
+                            context!!.resources.getString(R.string.me_ok)) {
+                        sentEmailDialogShown.onNext(Unit)
+                    }
+                }
+                EmailSend.NOTHING -> Unit
+            }
         }
+
+        info_button.visibility = View.VISIBLE
     }
 
 
