@@ -1,6 +1,7 @@
 package io.forus.me.android.presentation.view.component.editors
 
 import android.content.Context
+import android.os.Build
 import android.support.design.widget.TextInputEditText
 import android.support.design.widget.TextInputLayout
 import android.support.v4.content.res.ResourcesCompat
@@ -86,7 +87,9 @@ open class EditText : FrameLayout{
         if (inputType != EditorInfo.TYPE_NULL) {
             mTextEdit.setInputType(inputType)
         }
-        mTextEdit.typeface = ResourcesCompat.getFont(context, R.font.google_sans_regular)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mTextEdit.typeface = ResourcesCompat.getFont(context, R.font.google_sans_regular)
+        }
         mTextEdit.addTextChangedListener(object: android.text.TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
             }
