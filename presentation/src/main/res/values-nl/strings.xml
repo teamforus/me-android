@@ -365,7 +365,7 @@
 
     <!--Confirm login device dialog-->
     <string name="confirm_login_device_title">Probeer je in te loggen op een apparaat?</string>
-    <string name="confirm_login_device_subtitle">Scan alleen QR-codes direct vanuit je browser of een ander eigen apparaat. Gebruik nooit een code die een andere gebruiker naar je heeft gestuurd.</string>
+    <string name="confirm_login_device_subtitle">Door verder te gaan met inloggen geef je een ander apparaat toegang tot je account. Weet je zeker dat je verder wilt gaan?</string>
     <string name="confirm_login_device_confirm">Ja, ik wil inloggen</string>
     <string name="confirm_login_device_cancel">annuleren</string>
 

@@ -378,7 +378,7 @@
 
     <!--Confirm login device dialog-->
     <string name="confirm_login_device_title">Do you want to login on this device?</string>
-    <string name="confirm_login_device_subtitle">Scan only QR-codes on devices you own or temporarily use. Never scan a code which was sent or shown by another person.</string>
+    <string name="confirm_login_device_subtitle">Continuing will allow this device to acces your account. Are you sure you want to continue?</string>
     <string name="confirm_login_device_confirm">yes, i want to login</string>
     <string name="confirm_login_device_cancel">no thanks</string>
 
