@@ -80,7 +80,7 @@ class RecordsRepository(private val recordsRemoteDataSource: RecordsDataSource) 
                         var category: RecordCategory? = null
 
                         if(it.recordCategoryId != null) category = categories.find { cat -> cat.id == it.recordCategoryId}
-                        Record(it.id, it.value, it.order, type!!, category, it.valid ?: false,
+                        Record(it.id, it.value, it.name, it.order, type!!, category, it.valid ?: false,
                                 it.validations.map {
 
                                     var organization: io.forus.me.android.domain.models.vouchers.Organization? = null
@@ -115,7 +115,7 @@ class RecordsRepository(private val recordsRemoteDataSource: RecordsDataSource) 
                         var category: RecordCategory? = null
 
                         if(it.recordCategoryId != null) category = categories.find { cat -> cat.id == it.recordCategoryId}
-                        Record(it.id, it.value, it.order, type!!, category, it.valid ?: false,
+                        Record(it.id, it.value, it.name, it.order, type!!, category, it.valid ?: false,
                                 it.validations.map {
 
                                     var organization: io.forus.me.android.domain.models.vouchers.Organization? = null
@@ -148,7 +148,7 @@ class RecordsRepository(private val recordsRemoteDataSource: RecordsDataSource) 
                             .map{ list ->
                                 list.map {
                                     val type = types.find { type -> type.key.equals(it.key) }
-                                    Record(it.id, it.value, it.order, type!!, category, it.valid ?: false,
+                                    Record(it.id, it.value, it.name, it.order, type!!, category, it.valid ?: false,
                                             it.validations.map {
                                                 var organization: io.forus.me.android.domain.models.vouchers.Organization? = null
                                                 if(it.organization != null)
@@ -230,7 +230,7 @@ class RecordsRepository(private val recordsRemoteDataSource: RecordsDataSource) 
                     val type = types.find { type -> type.key.equals(record.key) }
                     getCategory(record.recordCategoryId)
                             .map {
-                                Record(record.id, record.value, record.order, type!!, it, record.valid ?: false,
+                                Record(record.id, record.value, it.name, record.order, type!!, it, record.valid ?: false,
                                         record.validations.map {
                                             var organization: io.forus.me.android.domain.models.vouchers.Organization? = null
                                             if(it.organization != null)

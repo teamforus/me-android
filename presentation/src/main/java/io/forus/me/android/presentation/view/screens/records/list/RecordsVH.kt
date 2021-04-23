@@ -14,7 +14,7 @@ class RecordsVH(parent: ViewGroup, private val clickListener: ((Record) -> Unit)
     }
 
     fun render(item:  Record) = with(itemView) {
-        type.text = item.recordType.name
+        type.text = item.name
         value.text = item.value
 
         root.setOnClickListener {

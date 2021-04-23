@@ -6,6 +6,8 @@ class Record{
 
     var value: String = ""
 
+    var name: String? = null
+
     var order: Long = 0
 
     var recordType: RecordType
@@ -16,9 +18,10 @@ class Record{
 
     var validations: List<Validation> = emptyList()
 
-    constructor(id: Long, value: String, order: Long, recordType: RecordType, recordCategory: RecordCategory?, valid: Boolean, validations: List<Validation>) {
+    constructor(id: Long, value: String, name: String?, order: Long, recordType: RecordType, recordCategory: RecordCategory?, valid: Boolean, validations: List<Validation>) {
         this.id = id
         this.value = value
+        this.name = name
         this.order = order
         this.recordType = recordType
         this.recordCategory = recordCategory
