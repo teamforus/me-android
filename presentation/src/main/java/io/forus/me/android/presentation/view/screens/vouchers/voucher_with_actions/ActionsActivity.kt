@@ -26,11 +26,13 @@ import io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actio
 import io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actions.payment.ProductSerializable
 import kotlinx.android.synthetic.main.activity_actions.*
 import kotlinx.android.synthetic.main.toolbar_view.*
-import java.lang.Exception
-import java.math.BigDecimal
 
+
+public const val RESPONSE_CODE_FINISH_ACTIVITY_EXTRA = "RESPONSE_CODE_FINISH_ACTIVITY_EXTRA"
+const val REQUEST_CODE_PAYMENT_SUCCEESS = 4123
 
 class ActionsActivity : AppCompatActivity() {
+
 
 
     companion object {
@@ -86,19 +88,30 @@ class ActionsActivity : AppCompatActivity() {
         transactionsAdapter = ActionsAdapter(arrayListOf(), object : ActionsAdapter.Callback {
             override fun onItemClicked(item: ProductAction) {
 
-                startActivity(ActionPaymentActivity.getCallingIntent(this@ActionsActivity,
+
+                /*registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+                    if (result.resultCode == Activity.RESULT_OK) {
+                        fetchList()
+                    }
+                }.launch(CreateDocumentActivity.getCallingIntent(this, docType))*/
+                Log.d("forus","ActionsActivity_transactionsAdapter")
+
+                val intent = ActionPaymentActivity.getCallingIntent(this@ActionsActivity,
                         ProductSerializable(item.id!!, item.name, item.organization!!.name,
                                 item.organization!!.id,
                                 item.price, item.priceUser,
-                                item.priceType , item.priceDiscount,
+                                item.priceType, item.priceDiscount,
                                 item.priceLocale,
                                 item.priceUserLocale,
-                                item.sponsorSubsidy , if(item.sponsor != null){
+                                item.sponsorSubsidy, if (item.sponsor != null) {
                             item.sponsor!!.name
-                        } else{
-                            null}, item.photoURL
+                        } else {
+                            null
+                        }, item.photoURL
                         ),
-                        voucherAddress!!))
+                        voucherAddress!!)
+
+                startActivityForResult(intent, REQUEST_CODE_PAYMENT_SUCCEESS)
             }
         }, this@ActionsActivity)
 
@@ -192,4 +205,20 @@ class ActionsActivity : AppCompatActivity() {
 
         }
     }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
+        if (requestCode === REQUEST_CODE_PAYMENT_SUCCEESS) {
+            if(data != null) {
+                val returnedResult = data.getStringExtra(RESPONSE_CODE_FINISH_ACTIVITY_EXTRA)
+                if(returnedResult != null){
+                    finish()
+                }
+            }
+
+        }
+
+    }
+
 }
