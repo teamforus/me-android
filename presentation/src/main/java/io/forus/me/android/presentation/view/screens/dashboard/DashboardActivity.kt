@@ -1,25 +1,19 @@
 package io.forus.me.android.presentation.view.screens.dashboard
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.content.IntentSender
+import android.content.pm.PackageManager
+import android.graphics.Color
 import android.os.Bundle
-import android.os.Handler
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
+import com.afollestad.materialdialogs.MaterialDialog
 import com.crashlytics.android.Crashlytics
-import com.google.android.gms.common.ConnectionResult
-import com.google.android.gms.common.GoogleApiAvailability
-import com.google.android.play.core.appupdate.AppUpdateInfo
-import com.google.android.play.core.appupdate.AppUpdateManager
-import com.google.android.play.core.appupdate.AppUpdateManagerFactory
-import com.google.android.play.core.install.model.AppUpdateType
-import com.google.android.play.core.install.model.UpdateAvailability
+import com.google.android.play.core.review.ReviewManagerFactory
 import io.fabric.sdk.android.Fabric
 import io.forus.me.android.data.executor.JobExecutor
 import io.forus.me.android.domain.interactor.CheckLoginUseCase
@@ -28,6 +22,7 @@ import io.forus.me.android.domain.interactor.ExitIdentityUseCase
 import io.forus.me.android.domain.interactor.LoadAccountUseCase
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.UIThread
+import io.forus.me.android.presentation.helpers.InAppReviewHelper
 import io.forus.me.android.presentation.helpers.reactivex.DisposableHolder
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.activity.SlidingPanelActivity
@@ -70,6 +65,7 @@ class DashboardActivity : SlidingPanelActivity(), DashboardContract.View {
         checkFCM()
         checkStartFromScanner()
 
+        inAppLaunchCount()
 
     }
 
@@ -109,7 +105,7 @@ class DashboardActivity : SlidingPanelActivity(), DashboardContract.View {
         disposableHolder.disposeAll()
     }
 
-    fun showPopupQRFragment(address: String,qrHead: String? = null, qrSubtitle: String? = null, qrDescription: String? = null) {
+    fun showPopupQRFragment(address: String, qrHead: String? = null, qrSubtitle: String? = null, qrDescription: String? = null) {
         addPopupFragment(QrFragment.newIntent(address, qrHead, qrSubtitle, qrDescription), "QR code")
     }
 
@@ -129,5 +125,99 @@ class DashboardActivity : SlidingPanelActivity(), DashboardContract.View {
     }
 
 
+    private fun inAppLaunchCount() {
+
+         //InAppReviewHelper.resetAllRevData()///remove it
+
+        InAppReviewHelper.writeCurrentAppVersion(getBuildVersion())
+        InAppReviewHelper.incrementTotalLaunchCount()
+        InAppReviewHelper.incrementLastLaunchCount()
+
+
+        val canReview = InAppReviewHelper.canLaunchInAppReviewDialog()
+
+        if (InAppReviewHelper.getTimesFromLastRate() > InAppReviewHelper.getMaxPeriod()) {
+            InAppReviewHelper.resetTimesFromLastRate()
+        }
+
+        Log.d("inAppRev", " canReview = $canReview")
+
+        // if (canReview && getBuildVersion() != InAppReviewHelper.getLastRateAppVersion()) This condition must be on release, for test we ignore appVersion
+        if (canReview ){
+        showInAppRevDialog()
+        }
+
+    }
+
+    private fun showInAppRevDialog() {
+
+
+        val dialog = MaterialDialog.Builder(this).title("Fake Rate MeApp. launches cnt:  ${InAppReviewHelper.getTimesFromLastRate()}")
+                .positiveText("Rate app")
+                .negativeText("No, thanks")
+                .positiveColor(Color.GREEN)
+                .negativeColor(Color.GRAY)
+                .onNegative { dialog, which ->
+                    Log.d("inAppRev", "Cancel")
+
+                }
+                .onPositive { dialog, which ->
+                    Log.d("inAppRev", "Review")
+                    InAppReviewHelper.incrementReviewsCount()
+                    InAppReviewHelper.resetTimesFromLastRate()
+
+                    MaterialDialog.Builder(this)
+                            .icon(ContextCompat.getDrawable(this@DashboardActivity,R.drawable.ic_me_logo)!!)
+                            .title("★★★★★ Success =)")
+                            .positiveText("Ok")
+                            .negativeText("Reset all rate data")
+                            .positiveColor(Color.GREEN)
+                            .negativeColor(Color.RED)
+                            .onNegative { dialog, which ->
+                                InAppReviewHelper.resetAllRevData()
+
+                            }
+                            .show()
+                }
+                .show()
+
+        /*val reviewManager = ReviewManagerFactory.create(this)
+
+        val requestReviewFlow = reviewManager.requestReviewFlow()
+        requestReviewFlow.addOnCompleteListener { request ->
+            if (request.isSuccessful) {
+                Log.d("inAppRev", "listener success")
+                val reviewInfo = request.result
+
+                val flow = reviewManager.launchReviewFlow(this, reviewInfo)
+
+                flow.addOnCompleteListener {
+
+                    // Handler complete success
+                    InAppReviewHelper.incrementReviewsCount()
+                    InAppReviewHelper.resetTimesFromLastRate()
+                  //  InAppReviewHelper.writeCurrentAppVersion(getBuildVersion())
+                }
+
+            } else {
+                Log.d("inAppRev", " canReview error= ${request.exception}")
+                // Handle error
+
+            }
+        }*/
+
+
+    }
+
+
+    fun getBuildVersion(): String {
+        return try {
+            val pInfo = packageManager.getPackageInfo(packageName, 0)
+            pInfo.versionName
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+            ""
+        }
+    }
 
 }
