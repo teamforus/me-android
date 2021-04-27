@@ -37,11 +37,11 @@ class RecordDetailsActivity : SlidingPanelActivity() {
         }
     }
 
-    fun showPopupQRFragment(recordId: Long){
-        addPopupFragment(RecordQRFragment.newIntent(recordId), "QR code")
+    fun showPopupQRFragment(recordId: Long, recordName: String?) {
+        addPopupFragment(RecordQRFragment.newIntent(recordId, recordName ?: ""), "QR code")
     }
 
-    fun closeQRFragment(){
+    fun closeQRFragment() {
         sliding_layout.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
         fragment.updateModel()
     }

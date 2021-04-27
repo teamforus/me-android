@@ -72,6 +72,7 @@
     </android.support.design.widget.CoordinatorLayout>
 
     <LinearLayout
+        android:id="@+id/layout_btn_qr"
         android:layout_alignParentBottom="true"
         android:background="@drawable/layout_top_corners"
         android:layout_width="match_parent"
