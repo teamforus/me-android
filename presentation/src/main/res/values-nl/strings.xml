@@ -360,6 +360,8 @@
     <string name="check_email_description_part2">.\n Klik op de link in de e-mail om u aan te melden.\n</string>
     <string name="check_your_email">Controleer uw e-mail.</string>
 
+    <string name="check_your_email2">Een e-mail is onderweg!</string>
+
     <!-- Restore account success -->
     <string name="restore_account_head">Aanmelding geslaagd!</string>
 
