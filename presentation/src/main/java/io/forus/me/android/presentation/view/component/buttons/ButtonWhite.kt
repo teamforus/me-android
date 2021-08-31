@@ -74,7 +74,9 @@ class ButtonWhite : android.support.v7.widget.AppCompatButton {
 
         //typeface = FontCache.getTypeface(fontType.getFontPath(), context)
 
-        this.typeface = ResourcesCompat.getFont(context, R.font.google_sans_medium)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            this.typeface = ResourcesCompat.getFont(context, R.font.google_sans_medium)
+        }
     }
 
     private fun initBackground(){

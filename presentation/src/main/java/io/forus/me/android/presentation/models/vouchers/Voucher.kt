@@ -9,6 +9,7 @@ import java.util.*
 class Voucher(var isProduct: Boolean,
               var isUsed: Boolean,
               var address: String?,
+              var identyAddress: String?,
               var name: String?,
               var organizationName: String?,
               var fundName: String?,
@@ -31,6 +32,7 @@ class Voucher(var isProduct: Boolean,
             parcel.readString() ?: "",
             parcel.readString() ?: "",
             parcel.readString() ?: "",
+            parcel.readString() ?: "",
             parcel.readString()?: "",
             parcel.readString()?: "",
             parcel.readString()?: "",
@@ -48,6 +50,7 @@ class Voucher(var isProduct: Boolean,
         parcel.writeByte(if (isProduct) 1 else 0)
         parcel.writeByte(if (isUsed) 1 else 0)
         parcel.writeString(address)
+        parcel.writeString(identyAddress)
         parcel.writeString(name)
         parcel.writeString(organizationName)
         parcel.writeString(fundName)
