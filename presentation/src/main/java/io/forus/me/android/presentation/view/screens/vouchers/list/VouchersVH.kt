@@ -42,7 +42,10 @@ class VouchersVH(parent: ViewGroup) : RecyclerView.ViewHolder(parent.inflate(R.l
                 value.visibility = View.GONE
                 usedOrExpiredLb.visibility = View.VISIBLE
                 usedOrExpiredLb.text = usedOrExpiredLb.context.getString(R.string.voucher_expired)
-
+            } else if (item.deactivated) {
+                value.visibility = View.GONE
+                usedOrExpiredLb.visibility = View.VISIBLE
+                usedOrExpiredLb.text = usedOrExpiredLb.context.getString(R.string.voucher_expired)
             } else {
                 value.visibility = View.VISIBLE
                 usedOrExpiredLb.visibility = View.GONE

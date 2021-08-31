@@ -22,6 +22,7 @@ class Voucher(var isProduct: Boolean,
               var logo: String?,
               var transactions: List<Transaction>,
               val product: Product? = null,
+              val deactivated: Boolean = false,
               val expired: Boolean = false,
               val expireDate: String?,
               val offices: List<Office>  ) : Parcelable {
@@ -43,6 +44,7 @@ class Voucher(var isProduct: Boolean,
             parcel.createTypedArrayList(Transaction),
             parcel.readParcelable(Product::class.java.classLoader),
             parcel.readByte() != 0.toByte(),
+            parcel.readByte() != 0.toByte(),
             parcel.readString() ?: "",
             parcel.createTypedArrayList(Office))
 
@@ -61,6 +63,7 @@ class Voucher(var isProduct: Boolean,
         parcel.writeString(logo)
         parcel.writeTypedList(transactions)
         parcel.writeParcelable(product, flags)
+        parcel.writeByte(if (deactivated) 1 else 0)
         parcel.writeByte(if (expired) 1 else 0)
         parcel.writeString(expireDate)
         parcel.writeTypedList(offices)

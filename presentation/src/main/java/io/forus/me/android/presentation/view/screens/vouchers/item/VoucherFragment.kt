@@ -364,10 +364,10 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
 
 
 
-            if (voucher.expired) {
+            if (voucher.expired || voucher.deactivated) {
 
 
-                if (voucher.isProduct && voucher.isUsed || voucher.expired) {
+                if (voucher.isProduct && voucher.isUsed || voucher.expired || voucher.deactivated) {
 
                     info_button.visibility = View.INVISIBLE
                     btn_email.isEnabled = false
@@ -402,6 +402,9 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
                                 voucher.expireDate) else String.format(resources.getString(R.string.voucher_qr_code_actual),
                                 voucher.expireDate)
 
+                    } else if (voucher.deactivated) {
+                        tv_voucher_expired.visibility = View.INVISIBLE
+                        usedOrExpiredLb.text = String.format(resources.getString(R.string.voucher_expired))
                     }
                 } else {
                     tv_voucher_expired.visibility = View.GONE
