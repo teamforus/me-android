@@ -390,7 +390,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
 
                     } else if (voucher.deactivated) {
                         tv_voucher_expired.visibility = View.INVISIBLE
-                        usedOrExpiredLb.text = String.format(resources.getString(R.string.voucher_expired))
+                        usedOrExpiredLb.text = String.format(resources.getString(R.string.voucher_deactivated))
                     }
                 } else {
                     tv_voucher_expired.visibility = View.GONE

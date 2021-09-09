@@ -141,8 +141,6 @@ public class Voucher {
     }
 
     public String getExpireAtLocale() {
-
-        Log.d("forus","expire_at_locate="+expireAtLocale);
         return expireAtLocale;
     }
 

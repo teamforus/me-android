@@ -39,7 +39,7 @@
     <string name="restore_auth_code_description">Log in op de webshop, klik op je account en klik op autoriseer apparaat en vul deze code in.</string>
     <string name="restore_inloggen_by_email">Bevestig</string>
     <string name="restore_email_description">Vul je e-mailadres in om inloggegevens te ontvangen</string>
-    <string name="restore_pincode_description">Vul deze pincode in de webshop in, waar u al bent ingelogd.</string>
+    <string name="restore_pincode_description">Vul deze pincode in de webshop in, waar je al bent ingelogd.</string>
     <string name="restore_email_instructions">Er is een e-mail verstuurd naar je e-mailadres waarmee je opnieuw kunt inloggen.</string>
     <string name="restore_email_not_found">Identity niet gevonden</string>
     <string name="restore_email_invalid_link">Ongeldige link</string>
@@ -112,7 +112,7 @@
     <string name="profile_logout">Log uit</string>
     <string name="profile_button_show_qr">Toon QR-code</string>
     <string name="profile_about_me">Over Me</string>
-    <string name="profile_about_me_text">Deze app is bedoelt om tegoeden te beheren, betalingen te verrichten en in te loggen op verschillende applicaties. \n \nDeze app werkt samen met: \n \n• 	de Nijmegen webshop\n• 	de Westerkwartier webshop\n• 	de Forus generieke webshop\n• 	de Winterswijk\n• 	de Oost Gelre webshop\n• 	de Berkelland webshop\n• 	de Noordoostpolder webshop\n • 	de Stadjerpas webshop\n \nLater zullen meerdere shops en andere applicaties worden toegevoegd.</string>
+    <string name="profile_about_me_text">De Me-app is bedoelt als een digitale portemonnee en kassa in één. Aanvragers gebruiken deze app om tegoedbonnen te bewaren. Aanbieders gebruiken deze app om betalingen te verrichten.\n \nDe Me-app werkt samen met: \n• 	de Nijmegen webshop\n• 	de Westerkwartier webshop\n• 	de Winterswijk webshop\n• 	de Oost Gelre webshop\n• 	de Berkelland webshop\n• 	de Noordoostpolder webshop\n• 	de Geertruidenberg webshop\n• 	de Stadjerspas webshop\n \nLater zullen meerdere shops en andere applicaties worden toegevoegd.</string>
     <string name="profile_app_version">App versie</string>
     <string name="profile_about">Informatie</string>
     <string name="email_support">support@forus.io</string>
@@ -148,15 +148,17 @@
     <string name="new_record_submit">BEVESTIG</string>
     <string name="record_created_successfully">Eigenschap is aangemaakt!</string>
     <string name="choose_type">Kies type</string>
-    <string name="choose_type_description">Wat voor type eigenschap wilt je aanmaken?</string>
+    <string name="choose_type_description">Wat voor type eigenschap wil je aanmaken?</string>
     <string name="new_record">Nieuwe eigenschap</string>
-    <string name="tooltip_create_record">Tik hier om een nieuw\nrecord te maken</string>
+    <string name="tooltip_create_record">Tik hier om een nieuwe\n eigenschap aan te maken</string>
 
     <!-- Record details screen -->
     <string name="record_details_title">Eigenschap details</string>
     <string name="record_details_title_validators">Beoordelaar</string>
-    <string name="record_details_button_show_qr">QR-CODE</string>
+    <string name="record_details_button_show_qr">Bekijk QR-CODE</string>
     <string name="record_details_scan_deze_qr">Scan deze QR-Code</string>
+    <string name="record_details_validation_title">Jouw eigenschap in de vorm van een QR-code</string>
+    <string name="record_details_validation_subtitle">Dit is je eigenschap in de vorm van een QR-code.\nLaat de beoordelaar deze QR-code scannen om een beoordeling te ontvangen.</string>
     <string name="record_details_validation_request_error">Fout tijdens het verzenden van de validatieaanvraag</string>
     <string name="record_details_validation_approved">Aanvraag goedgekeurd</string>
     <string name="record_details_validation_declined">Aanvraag geweigerd</string>
@@ -241,7 +243,7 @@
     <string name="vouchers_make_transaction_failure">Transactie mislukt</string>
     <string name="vouchers_transaction_payment">Betaald</string>
     <string name="vouchers_amount">Vul hier het bedrag in</string>
-    <string name="vouchers_note">Uw persoonlijke notitie</string>
+    <string name="vouchers_note">Je persoonlijke notitie</string>
     <string name="vouchers_product_categories">Productcategorieën</string>
     <string name="vouchers_amount_invalid">Ongeldige hoeveelheid</string>
     <string name="vouchers_pay_title">Bevestig transactie</string>
@@ -257,10 +259,12 @@
     <string name="voucher_send_email_description">Het tegoed is verzonden per mail</string>
     <string name="voucher_qr_code_subtitle">Dit is de QR-code van het tegoed</string>
     <string name="voucher_qr_code_subtitle_with_fund_name">%s\nDit is jouw  in de vorm van een QR-code</string>
-    <string name="voucher_qr_code_description">Dit is uw tegoed in de vorm van een QR-code \nLaat de aanbieder deze QR-code scannen om een betaling te kunnen doen.</string>
+    <string name="voucher_qr_code_description">Dit is je tegoed in de vorm van een QR-code \nLaat de aanbieder deze QR-code scannen om een betaling te kunnen doen.</string>
     <string name="voucher_qr_code_actual">Gebruik dit tegoed voor  %s</string>
     <string name="voucher_qr_code_expired">Dit tegoed is verlopen op %s</string>
-    <string name="voucher_expired">Tegoed is verlopen</string>
+    <string name="voucher_qr_code_deactivated">Dit tegoed is verlopen op %s</string>
+    <string name="voucher_expired">Verlopen</string>
+    <string name="voucher_deactivated">Gestopt</string>
     <string name="voucher_email_to_me">E-mail naar mij</string>
     <string name="voucher_request">BEVESTIG</string>
     <string name="send_voucher_email_dialog_title">Stuur het tegoed  naar je e-mailadres?</string>
