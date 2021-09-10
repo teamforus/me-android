@@ -154,14 +154,14 @@
     <string name="new_record_choose_the_category_text">Select the category under which the new record should be added.</string>
     <string name="new_record_choose_the_type_text">Select the type under which the new record should be added.</string>
     <string name="new_record_choose_the_value_text">Enter the value of the record.</string>
-    <string name="new_record_value_hint">Text Text Text</string>
+    <string name="new_record_value_hint">Text</string>
     <string name="new_record_choose_validators_text">Select the validators, yours the new record should be verify.</string>
     <string name="new_record_value_text">Value</string>
     <string name="new_record_next_step">NEXT STEP</string>
     <string name="new_record_submit">SUBMIT</string>
     <string name="record_created_successfully">Record created successfully!</string>
     <string name="choose_type">Choose Type</string>
-    <string name="choose_type_description">Select the type under which the new record type should be added</string>
+    <string name="choose_type_description">Select the type under which the new record should be added</string>
     <string name="new_record">New record</string>
 
     <string name="tab_records">My records</string>
@@ -172,7 +172,9 @@
     <string name="record_details_title">Record detail</string>
     <string name="record_details_title_validators">Validators</string>
     <string name="record_details_button_show_qr">Show QR</string>
-    <string name="record_details_scan_deze_qr">Scan the QR-Code</string>
+    <string name="record_details_scan_deze_qr">Scan QR-Code</string>
+    <string name="record_details_validation_title">Your QR-code</string>
+    <string name="record_details_validation_subtitle">This is your record as a QR-code \n Let the validator scan your QR-code to recieve a validation.</string>
     <string name="record_details_validation_request_error">Error while sending validation request</string>
     <string name="record_details_validation_approved">Validation approved</string>
     <string name="record_details_validation_declined">Validation declined</string>
@@ -269,7 +271,9 @@
     <string name="voucher_qr_code_description">This is your voucher in the form of QR-code\nLet the shopkeeper scan it to make a payment</string>
     <string name="voucher_qr_code_actual">Use this voucher until   %s</string>
     <string name="voucher_qr_code_expired">This voucher has expired on  %s</string>
-    <string name="voucher_expired">Voucher expired</string>
+    <string name="voucher_qr_code_deactivated">This voucher has been deactivated on %s</string>
+    <string name="voucher_expired">Expired</string>
+    <string name="voucher_deactivated">Deactivated</string>
     <string name="voucher_email_to_me">Email to me</string>
     <string name="send_feedback_email_dialog_title">Do you have any questions or feedback? Contact us!</string>
     <string name="send_voucher_email_dialog_title">Send the voucher to your email?</string>

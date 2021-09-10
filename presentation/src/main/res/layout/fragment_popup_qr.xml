@@ -29,20 +29,19 @@
             android:layout_marginBottom="5dp"
             app:offColor="@android:color/white"
             app:onColor="@android:color/black" />
-      
-      
+
+
         <io.forus.me.android.presentation.view.component.text.TextView
             android:id="@+id/head"
             style="@style/Body2Small"
-            android:textSize="20sp"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginBottom="10dp"
-            app:type="bold"
+            android:gravity="center_horizontal"
             android:text="@string/record_details_scan_deze_qr"
-        />
+            android:textSize="20sp"
+            app:type="bold" />
 
         <io.forus.me.android.presentation.view.component.text.TextView
             android:id="@+id/subtitle"
@@ -52,7 +51,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="8dp"
             android:gravity="center_horizontal"
-            android:text="@string/record_details_scan_deze_qr"
+            android:text="@string/record_details_validation_subtitle"
             android:textSize="16sp"
             app:type="bold" />
 
