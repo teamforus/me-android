@@ -52,7 +52,8 @@
                 android:layout_marginStart="16dp"
                 android:foreground="?actionBarItemBackground"
                 android:padding="@dimen/spacing_micro"
-                android:src="@drawable/ic_person"
+                android:src="@drawable/ic_baseline_person_24px"
+                android:tint="@color/blue"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

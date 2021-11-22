@@ -39,7 +39,7 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
     }
 
     override val allowBack: Boolean
-        get() = false
+        get() = true
 
     override val showAccount: Boolean
         get() = false
@@ -111,9 +111,7 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
             sendSupportEmailDialogBuilder.show()
         }
 
-        headView.setOnClickListener {
-            navigator.navigateToRecordsList(context!!, null)
-        }
+
 
         optionPincodeIsEnable = true
 
@@ -195,6 +193,10 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
         enable_send_crash_log.setChecked(vs.model.sendCrashReportsEnabled)
         enable_send_crash_log.setOnClickListener {
             switchSendCrashReports.onNext(!vs.model.sendCrashReportsEnabled)
+        }
+
+        me_privacy.setOnClickListener{
+            navigator.navigateToPrivacyAndSecurityProvider(context)
         }
 
         if (vs.model.account?.address != null) {

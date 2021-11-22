@@ -12,7 +12,7 @@
         android:background="@color/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="57dp">
+        android:layout_marginBottom="0dp">
 
         <include layout="@layout/toolbar_view"/>
 
@@ -172,6 +172,13 @@
                         android:layout_marginLeft="@dimen/activity_horizontal_margin"
                         android:layout_marginTop="18dp"
                         android:background="@color/silver" />
+
+                    <io.forus.me.android.presentation.view.component.card.SettingsNavigateCard
+                        android:id="@+id/me_privacy"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:valuecard_text=""
+                        app:valuecard_title="@string/privacy_and_security"></io.forus.me.android.presentation.view.component.card.SettingsNavigateCard>
 
                     <io.forus.me.android.presentation.view.component.card.SettingsCard
                         android:id="@+id/about_me"
