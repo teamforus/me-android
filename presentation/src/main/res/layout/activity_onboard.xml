@@ -1,0 +1,107 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/tools"
+    android:background="#FFFFFF"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+    </android.support.v4.view.ViewPager>
+
+    <ImageView
+        android:id="@+id/backBt"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:src="@drawable/ic_back"
+        android:padding="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="12dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:animateLayoutChanges="true"
+        />
+
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="66dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="0dp"
+        card_view:cardBackgroundColor="@color/brightBackground"
+        card_view:cardCornerRadius="8dp"
+        card_view:cardElevation="8dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="-6dp"
+        android:visibility="visible"
+        >
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="6dp"
+            >
+
+            <TextView
+                android:id="@+id/skipBt"
+                android:layout_width="100dp"
+                android:layout_height="36dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+                android:gravity="left|center_vertical"
+                android:text="@string/onboard_skip"
+                android:paddingStart="7dp"
+                android:letterSpacing="0.03"
+                android:textColor="#757575"
+                android:textSize="13sp"
+                />
+
+            <io.forus.me.android.presentation.view.component.buttons.ButtonNext
+                android:id="@+id/nextBt"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:minWidth="100dp"
+                android:layout_centerInParent="true"
+                android:layout_marginRight="16dp"
+                android:layout_alignParentRight="true"
+                android:text="@string/onboard_next"
+                android:textAllCaps="false"
+                android:gravity="center"
+                android:padding="0dp"
+                />
+
+
+
+
+
+            <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+                android:id="@+id/dots_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                card_view:dotsColor="@color/tabDotsGray"
+                card_view:selectedDotsColor="@color/blue"
+                card_view:dotsSize="6dp"
+                card_view:dotsCornerRadius="3dp"
+                card_view:dotsSpacing="4dp"
+                card_view:dotsWidthFactor="1.0"
+                android:layout_centerVertical="true"
+                android:layout_centerInParent="true"
+                />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+
+
+</RelativeLayout>
+
+
+

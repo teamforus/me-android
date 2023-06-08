@@ -6,6 +6,7 @@ import io.forus.me.android.data.repository.settings.SettingsDataSource
 import io.forus.me.android.domain.exception.RetrofitException
 import io.forus.me.android.domain.exception.RetrofitExceptionMapper
 import io.forus.me.android.domain.models.records.Validation
+import io.forus.me.android.domain.models.records.errors.BaseApiError
 import io.forus.me.android.domain.repository.account.AccountRepository
 import io.forus.me.android.domain.repository.records.RecordsRepository
 import io.forus.me.android.domain.repository.vouchers.VouchersRepository
@@ -14,6 +15,7 @@ import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.models.vouchers.FundType
 import io.forus.me.android.presentation.navigation.Navigator
 import io.forus.me.android.presentation.view.base.NoInternetDialog
+import io.forus.me.android.presentation.view.screens.account.login_signup_account.ErrorDialog
 import io.forus.me.android.presentation.view.screens.qr.dialogs.*
 import io.forus.me.android.presentation.view.screens.records.create_record.dialog.CreateRecordSuccessDialog
 import io.forus.me.android.presentation.view.screens.records.dialogs.validators_list_dialog.ValidatorsListDialog
@@ -64,15 +66,13 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
                 .subscribe()
     }
 
+    var confirmLoginDeviceDialog:ConfirmLoginDeviceDialog? = null
+
     fun restoreIdentity(token: String) {
 
-        Log.d("forusQR", "restore identity $token")
-
-
-        val confirmLoginDeviceDialog = ConfirmLoginDeviceDialog()
-        confirmLoginDeviceDialog.submitClickListener = object :ConfirmLoginDeviceDialog.SubmitClickListener{
+         confirmLoginDeviceDialog = ConfirmLoginDeviceDialog()
+        confirmLoginDeviceDialog!!.submitClickListener = object :ConfirmLoginDeviceDialog.SubmitClickListener{
             override fun confirm(dialog: ConfirmLoginDeviceDialog?) {
-                confirmLoginDeviceDialog.dismiss()
                 accountRepository.authorizeToken(token)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
@@ -80,23 +80,20 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
                             onResultIdentityRestored()
                         }
                         .onErrorReturn {
-                            if (it is RetrofitException && it.kind == RetrofitException.Kind.HTTP && it.responseCode == 402) {
-                                onResultTokenExpired(it)
-                            } else {
-                                onResultUnexpectedError()
-                            }
+
+                            onResultTokenExpired(it)
                         }
                         .subscribe()
 
             }
 
             override fun dismiss(dialog: ConfirmLoginDeviceDialog?) {
-                confirmLoginDeviceDialog.dismiss()
+                confirmLoginDeviceDialog!!.dismiss()
                 scanner.finish()
             }
 
         }
-        confirmLoginDeviceDialog.show(scanner.supportFragmentManager, "")
+        confirmLoginDeviceDialog!!.show(scanner.supportFragmentManager, "")
 
 
 
@@ -196,6 +193,9 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
     private fun onResultIdentityRestored() {
         showToastMessage(resources.getString(R.string.qr_identity_restored))
         (android.os.Handler()).postDelayed({
+            if(confirmLoginDeviceDialog != null){
+                confirmLoginDeviceDialog?.dismiss()
+            }
             reactivateDecoding()
         }, 1000)
     }
@@ -211,10 +211,22 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
 
         ScanVoucherBaseErrorDialog(errorMessage, scanner, object : DialogInterface.OnDismissListener,
                 () -> Unit {
-            override fun invoke() {}
-            override fun onDismiss(p0: DialogInterface?) {}
+            override fun invoke() {
+                reactivateDecoding()
+                if(confirmLoginDeviceDialog != null){
+                    confirmLoginDeviceDialog?.dismiss()
+                }
+
+            }
+            override fun onDismiss(p0: DialogInterface?) {
+                reactivateDecoding()
+                if(confirmLoginDeviceDialog != null){
+                    confirmLoginDeviceDialog?.dismiss()
+                }
+
+            }
         }).show()
-        reactivateDecoding()
+
     }
 
     private fun onResultVoucherScanned(address: String, isAvailableScannedVoucher: Boolean) {

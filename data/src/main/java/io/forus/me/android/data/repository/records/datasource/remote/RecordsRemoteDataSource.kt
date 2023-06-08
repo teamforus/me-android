@@ -11,7 +11,7 @@ import io.reactivex.Observable
 
 class RecordsRemoteDataSource(f: () -> RecordsService): RecordsDataSource, RemoteDataSource<RecordsService>(f) {
 
-    override fun getRecordTypes(): Observable<List<RecordType>> = service.listAllTypes()
+    override fun getRecordTypes(): Observable<List<RecordType>> = service.listAllTypes("1")
 
     override fun getRecordCategories(): Observable<List<RecordCategory>> = service.listAllCategories()
 

@@ -1,8 +1,10 @@
 package io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actions.payment
 
+import android.app.Activity.RESULT_OK
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.DialogInterface
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.FragmentTransaction
@@ -19,10 +21,10 @@ import io.forus.me.android.presentation.view.fragment.BaseFragment
 import io.forus.me.android.presentation.view.screens.vouchers.dialogs.ApplyActionTransactionDialog
 import io.forus.me.android.presentation.view.screens.vouchers.dialogs.FullscreenDialog
 import io.forus.me.android.presentation.view.screens.vouchers.dialogs.ThrowableErrorDialog
+import io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actions.RESPONSE_CODE_FINISH_ACTIVITY_EXTRA
 import io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actions.payment.popup.PriceAgreementFragment
 import kotlinx.android.synthetic.main.fragment_action_payment.*
 import java.math.BigDecimal
-import java.text.NumberFormat
 import java.util.*
 
 
@@ -97,9 +99,9 @@ class ActionPaymentFragment : BaseFragment() {
             mainViewModel.confirmPayment.observe(requireActivity(), Observer {
                 if (!it!!) return@Observer
 
-                if(product!!.priceUser > BigDecimal.ZERO) {
+                if (product!!.priceUser > BigDecimal.ZERO) {
                     showConfirmDialog()
-                }else{
+                } else {
                     btn_make.active = false
                     btn_make.isEnabled = false
                     progress.visibility = View.VISIBLE
@@ -110,6 +112,9 @@ class ActionPaymentFragment : BaseFragment() {
             mainViewModel.successPayment.observe(requireActivity(), Observer {
                 if (!it!!) return@Observer
                 FullscreenDialog.display(fragmentManager, getString(R.string.vouchers_apply_success), getString(R.string.vouchers_transaction_duration_of_payout), getString(R.string.me_ok)) {
+                    val data = Intent()
+                    data.putExtra(RESPONSE_CODE_FINISH_ACTIVITY_EXTRA, RESPONSE_CODE_FINISH_ACTIVITY_EXTRA)
+                    requireActivity().setResult(RESULT_OK, data)
                     requireActivity().finish()
                 }
             })

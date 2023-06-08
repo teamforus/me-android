@@ -24,6 +24,21 @@
     <string name="dashboard_assets">Bezit</string>
     <string name="dashboard_profile">Account</string>
 
+    <!-- Onboard screen -->
+    <string name="onboard_welcome_text1">Jouw digitale portemonnee en kassa in één.</string>
+    <string name="onboard_welcome_text2">Instructie overslaan</string>
+    <string name="onboard_digital_wallet_title">Portemonnee</string>
+    <string name="onboard_digital_wallet_text1">Heb je een tegoed ontvangen? Log dan in op Me om je tegoed veilig mee te nemen, je saldo en transacties in te zien en om de QR-code eenvoudig te presenteren aan de aanbieder.</string>
+    <string name="onboard_cash_register_title">Betalingen</string>
+    <string name="onboard_cash_register_text1">Aanbod geplaatst? Dan kun je met de Me-app QR-codes scannen om betalingen te ontvangen. Het is mogelijk om meerdere kassamedewerkers aan de zelfde organisatie toe te voegen.</string>
+    <string name="onboard_records_storage_title">Eigenschappen</string>
+    <string name="onboard_records_storage_text1">Beheer jouw persoonlijke eigenschappen en deel de eigenschappen die nodig zijn om in aanmerking te komen voor een tegoed.</string>
+    <string name="onboard_login_qr_title">Inloggen</string>
+    <string name="onboard_login_qr_text1">Log gemakkelijk in. Gebruik Me om de QR-code op de website te scannen zodat je veilig kan inloggen.</string>
+    <string name="onboard_next">Volgende</string>
+    <string name="onboard_login">Aanmelden</string>
+    <string name="onboard_skip">Overslaan</string>
+
     <!-- Welcome screen -->
     <string name="welcome_create_account">Aanmaken</string>
     <string name="welcome_restore_account">Ik heb een account</string>
@@ -45,6 +60,9 @@
     <string name="restore_email_invalid_link">Ongeldige link</string>
     <string name="restore_account_pair">Koppelen</string>
     <string name="restore_account_login_other_device">Inloggen vanaf een ander apparaat</string>
+
+    <!-- Restore account error -->
+    <string name="restore_go_to_signup">Ga verder</string>
 
     <!-- New account screen -->
     <string name="new_account_field_email">E-mail</string>
@@ -179,7 +197,6 @@
     <string name="tab_records">Mijn eigenschappen</string>
     <string name="tab_archives">Archief</string>
 
-
     <!-- Transactions -->
     <string name="transactions_title">Transacties</string>
     <string name="transactions">transacties</string>
@@ -193,6 +210,29 @@
     <string name="from">van</string>
     <string name="status_success">Succes</string>
     <string name="status_pending">In afwachting</string>
+
+    <!-- Privacy & security -->
+    <string name="privacy_and_security">Privacy en security</string>
+    <string name="privacy">Privacy</string>
+    <string name="privacy_text1">Beheer jouw persoonlijke eigenschappen en deel gemakkelijk de informatie die nodig is om in aanmerking te komen voor een tegoed.</string>
+    <string name="privacy_title2">Waar komt mijn informatie vandaan?</string>
+    <string name="privacy_text2">De informatie is toegevoegd door een organisatie waar je een tegoed hebt aangevraagd, of door een organisatie die  ondersteunt. Bijvoorbeeld door je gemeente.
+    </string>
+    <string name="privacy_title3">Storing data</string>
+    <string name="privacy_text3"></string>
+    <string name="privacy_title4">Storing data</string>
+    <string name="privacy_text4">Alle informatie wordt uiterst zorgvuldig opgeslagen en wordt niet gebruikt voor commerciële doeleinden. </string>
+    <string name="privacy_policy">Privacy Beleid van Stichting Forus</string>
+    <string name="privileges">Rechten</string>
+    <string name="privacy_text5">De informatie wordt opgeslagen onder Europese Privacywetgeving. Dit geeft je een aantal rechten zoals het&#160;recht&#160;op:\n\n•  Informatie\n•  Inzage\n•  Rectificatie\n•  Vergetelheid\n• Dataportabiliteit\n•  Bezwaar\n• Beperking van de verwerking
+</string>
+    <string name="privacy_request_your_data_by_email">Request your data by email</string>
+    <string name="privacy_request_delete_your_data">Request to delete your data</string>
+    <string name="privacy_text6">Wil je aanspraak maken op je rechten of heb je algemene vragen of feedback?</string>
+    <string name="privacy_send_email_to_support_forus">Privileges</string>
+    <string name="privacy_text7">Lees alles over jouw privacyrechten bij de Autoriteit Persoonsgegevens</string>
+    <string name="privacy_data_protection_authority">Autoriteit Persoonsgegevens</string>
+    <string name="privacy_send_email_to">Neem contact op met </string>
 
 
     <!-- Wallet details screen -->
@@ -266,6 +306,7 @@
     <string name="voucher_expired">Verlopen</string>
     <string name="voucher_deactivated">Gestopt</string>
     <string name="voucher_email_to_me">E-mail naar mij</string>
+    <string name="voucher_info">Bekijk het aanbod</string>
     <string name="voucher_request">BEVESTIG</string>
     <string name="send_voucher_email_dialog_title">Stuur het tegoed  naar je e-mailadres?</string>
     <string name="send_feedback_email_dialog_title">Heb je vragen of opmerkingen? Neem contact op!</string>
@@ -294,6 +335,9 @@
     <string name="submit_price_title">Klant betaalt</string>
     <string name="submit_price_subtitle">aan de kassa</string>
 
+    <string name="vouchers_empty_list">Als u tegoeden krijgt om te besteden komen die op deze pagina te staan</string>
+
+
     <!--Voucher map-->
     <string name="show_map">Bekijk kaart</string>
 
@@ -317,12 +361,14 @@
     <string name="check_email_description_part2">.\n Klik op de link in de e-mail om je aan te melden.\n</string>
     <string name="check_your_email">Controleer je e-mail.</string>
 
+    <string name="check_your_email2">Een e-mail is onderweg!</string>
+
     <!-- Restore account success -->
     <string name="restore_account_head">Aanmelding geslaagd!</string>
 
     <!--Confirm login device dialog-->
     <string name="confirm_login_device_title">Probeer je in te loggen op een apparaat?</string>
-    <string name="confirm_login_device_subtitle">Scan alleen QR-codes direct vanuit je browser of een ander eigen apparaat. Gebruik nooit een code die een andere gebruiker naar je heeft gestuurd.</string>
+    <string name="confirm_login_device_subtitle">Door verder te gaan met inloggen geef je een ander apparaat toegang tot je account. Weet je zeker dat je verder wilt gaan?</string>
     <string name="confirm_login_device_confirm">Ja, ik wil inloggen</string>
     <string name="confirm_login_device_cancel">annuleren</string>
 

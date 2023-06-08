@@ -103,7 +103,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
         get() = false
 
     override val showInfo: Boolean
-        get() = true
+        get() = false
 
     private var canShowInfo: Boolean = false
     private val shortToken = PublishSubject.create<String>()
@@ -149,8 +149,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
         rv_transactions.adapter = adapter
 
 
-        info_button.setOnClickListener {
-
+        btn_info.setOnClickListener {
             canShowInfo = true
             shortToken.onNext("")
 
@@ -262,12 +261,13 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
     override fun render(vs: LRViewState<VoucherModel>) {
         super.render(vs)
 
-
+        btn_info.visibility = View.VISIBLE
+      
         name.text = vs.model.item?.name
         type.text = vs.model.item?.organizationName
 
-
-
+        vs.model.item?.let { voucher ->
+            Log.d("voucherInfo","render 2")
 
         vs.model.item?.let { voucher ->
             Log.d("my","render 01  voucher address= ${voucher.address}  voucherIdentyAddress = ${voucher.identyAddress}")
@@ -347,6 +347,20 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
                 }
             }
 
+            if (vs.model.shortToken != null) {
+
+                if (canShowInfo) {
+
+                    val url: String = if (voucher?.fundWebShopUrl?.isNotEmpty()!! && vs.model.shortToken.isNotEmpty()) {
+                        voucher?.fundWebShopUrl + "auth-link?token=" + vs.model.shortToken + "&target=voucher-" + voucher?.address
+                    } else {
+                        "https://forus.io/"
+                    }
+
+                    openVoucherInfo(url)
+                    canShowInfo = false
+                }
+            }
 
 
 
@@ -421,8 +435,6 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
                     value.visibility = View.GONE
 
                 }
-
-
             }
 
 
@@ -439,7 +451,6 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
                     canShowInfo = false
                 }
             }
-
 
 
             when (vs.model.emailSend) {
@@ -550,8 +561,5 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
     private fun showEmailSendDialog() {
         sendEmailDialog.show()
     }
-
-
-
 }
 

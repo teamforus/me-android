@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <ImageView
+        android:id="@+id/centerImage"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="60dp"
+        android:adjustViewBounds="true"
+        android:layout_marginStart="0dp"
+       android:layout_marginEnd="0dp"
+        android:layout_marginBottom="180dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_confirm_registration"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <RelativeLayout
+        android:id="@+id/titleLayout"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+            android:src="@drawable/ic_back_blue" />
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/descrLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:elevation="8dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/titleLayout">
+
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="20dp"
+            android:fontFamily="@font/google_sans_medium"
+            android:gravity="center_horizontal|top"
+            android:text="@string/check_your_email2"
+            android:textColor="@color/textColor"
+            android:textSize="26sp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/google_sans_regular"
+        android:gravity="center_horizontal|top"
+        android:lineSpacingExtra="0sp"
+        android:textColor="@color/textColor"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/rl_register"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="16dp"
+        android:elevation="8dp"
+        tools:text="Check your email" />
+
+
+    <RelativeLayout
+        android:id="@+id/rl_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintBottom_toBottomOf="parent">
+
+
+        <io.forus.me.android.presentation.view.component.buttons.Button
+            android:id="@+id/checkEmailBt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+
+            android:elevation="6dp"
+            android:text="@string/check_email_open_mail_app" />
+
+        <io.forus.me.android.presentation.view.component.buttons.ButtonWhite
+            android:id="@+id/pair_device"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/checkEmailBt"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:elevation="6dp"
+            android:text="@string/restore_account_pair" />
+
+    </RelativeLayout>
+
+
+</android.support.constraint.ConstraintLayout>
