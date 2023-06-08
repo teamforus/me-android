@@ -1,5 +1,6 @@
 package io.forus.me.android.presentation.view.screens.vouchers.item
 
+import android.util.Log
 import io.forus.me.android.domain.interactor.LoadVoucherUseCase
 import io.forus.me.android.domain.interactor.SendEmailUseCase
 import io.forus.me.android.domain.repository.account.AccountRepository
@@ -56,11 +57,14 @@ class VoucherPresenter constructor(private val loadVoucherUseCase: LoadVoucherUs
                 loadRefreshPartialChanges(),
 
                 intent(VoucherView::sendEmail).map {
+
                     VoucherPartialChanges.SendEmailDialogShows(Unit)
                 },
 
                 intent(VoucherView::sendEmailDialogShows).switchMap {
+
                     if (it) {
+
                         val observable = ReplaySubject.create<VoucherPartialChanges>()
                         sendEmailUseCase.execute(object : DisposableObserver<Boolean?>() {
                             override fun onComplete() {
@@ -68,8 +72,10 @@ class VoucherPresenter constructor(private val loadVoucherUseCase: LoadVoucherUs
                             }
 
                             override fun onNext(t: Boolean) {
-                                observable.onNext(VoucherPartialChanges.SendEmailSuccess(Unit))
-                                voucherSubject.onComplete()
+
+                                    observable.onNext(VoucherPartialChanges.SendEmailSuccess(Unit))
+                                    voucherSubject.onComplete()
+
                             }
 
                             override fun onError(e: Throwable) {
@@ -79,6 +85,7 @@ class VoucherPresenter constructor(private val loadVoucherUseCase: LoadVoucherUs
                         }, SendEmailUseCase.Params.forVoucher(address))
                         return@switchMap observable
                     } else {
+
                         Observable.just(VoucherPartialChanges.SendEmailDialogShown(Unit))
                     }
                 },

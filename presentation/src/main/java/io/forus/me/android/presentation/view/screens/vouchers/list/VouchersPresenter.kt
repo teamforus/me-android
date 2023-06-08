@@ -88,9 +88,9 @@ class VouchersPresenter constructor(val vouchersRepository: VouchersRepository) 
 
                 }
 
-                Voucher(isProduct ?: false, isUsed ?: false, address, name, organizationName,
+                Voucher(isProduct ?: false, isUsed ?: false, address, identyAddress, name, organizationName,
                         fundName, fundType,fundWebShopUrl, description, createdAt, Currency(currency?.name, currency?.logoUrl), amount, logo,
-                        transactionsMapped, product, expired ?: false, expireDate , officesList
+                        transactionsMapped, product, deactivated ?: false, expired ?: false, expireDate , officesList
                         )
             }
         }

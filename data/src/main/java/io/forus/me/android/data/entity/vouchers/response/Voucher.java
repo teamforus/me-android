@@ -29,6 +29,9 @@ public class Voucher {
     @SerializedName("created_at_locale")
     private String createdAtLocale;
 
+    @SerializedName("deactivated")
+    private boolean deactivated;
+
     @SerializedName("expired")
     private boolean expired;
 
@@ -138,8 +141,6 @@ public class Voucher {
     }
 
     public String getExpireAtLocale() {
-
-        Log.d("forus","expire_at_locate="+expireAtLocale);
         return expireAtLocale;
     }
 
@@ -233,6 +234,10 @@ public class Voucher {
 
     public void setOffices(List<Office> offices) {
         this.offices = offices;
+    }
+
+    public boolean isDeactivated() {
+        return deactivated;
     }
 
     public boolean isExpired() {

@@ -47,7 +47,7 @@ interface VouchersService {
     fun makeActionTransaction(@Path("address") address: String, @Body makeTransaction: MakeActionTransaction): Observable<CreatedTransaction>
 
     @POST("api/v1/platform/vouchers/{address}/send-email")
-    fun sendEmail(@Path("address") address: String): Observable<Void>
+    fun sendEmail(@Path("address") address: String): Observable<ResponseBody>
 
 //platform/demo/transactions/  //body = ["state" : "accepted"] , testToken from QR
     @PATCH("api/v1/platform/demo/transactions/{testToken}")

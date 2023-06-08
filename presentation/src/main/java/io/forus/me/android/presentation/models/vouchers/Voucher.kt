@@ -9,6 +9,7 @@ import java.util.*
 class Voucher(var isProduct: Boolean,
               var isUsed: Boolean,
               var address: String?,
+              var identyAddress: String?,
               var name: String?,
               var organizationName: String?,
               var fundName: String?,
@@ -21,12 +22,14 @@ class Voucher(var isProduct: Boolean,
               var logo: String?,
               var transactions: List<Transaction>,
               val product: Product? = null,
+              val deactivated: Boolean = false,
               val expired: Boolean = false,
               val expireDate: String?,
               val offices: List<Office>  ) : Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readByte() != 0.toByte(),
             parcel.readByte() != 0.toByte(),
+            parcel.readString() ?: "",
             parcel.readString() ?: "",
             parcel.readString() ?: "",
             parcel.readString() ?: "",
@@ -41,6 +44,7 @@ class Voucher(var isProduct: Boolean,
             parcel.createTypedArrayList(Transaction),
             parcel.readParcelable(Product::class.java.classLoader),
             parcel.readByte() != 0.toByte(),
+            parcel.readByte() != 0.toByte(),
             parcel.readString() ?: "",
             parcel.createTypedArrayList(Office))
 
@@ -48,6 +52,7 @@ class Voucher(var isProduct: Boolean,
         parcel.writeByte(if (isProduct) 1 else 0)
         parcel.writeByte(if (isUsed) 1 else 0)
         parcel.writeString(address)
+        parcel.writeString(identyAddress)
         parcel.writeString(name)
         parcel.writeString(organizationName)
         parcel.writeString(fundName)
@@ -58,6 +63,7 @@ class Voucher(var isProduct: Boolean,
         parcel.writeString(logo)
         parcel.writeTypedList(transactions)
         parcel.writeParcelable(product, flags)
+        parcel.writeByte(if (deactivated) 1 else 0)
         parcel.writeByte(if (expired) 1 else 0)
         parcel.writeString(expireDate)
         parcel.writeTypedList(offices)

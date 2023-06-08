@@ -1,5 +1,6 @@
 package io.forus.me.android.data.repository.vouchers.datasource.remote
 
+import android.util.Log
 import io.forus.me.android.data.entity.vouchers.request.MakeActionTransaction
 import io.forus.me.android.data.entity.vouchers.request.MakeDemoTransaction
 import io.forus.me.android.data.entity.vouchers.request.MakeTransaction
@@ -53,7 +54,12 @@ class VouchersRemoteDataSource(f: () -> VouchersService): VouchersDataSource, Re
 
 
     override fun sendEmail(address: String): Observable<Boolean> {
-        return service.sendEmail(address).map { _: Void? -> true }
+        return service.sendEmail(address).map { _: ResponseBody? ->
+            Log.d("forus","sendEmail_success")
+            true }.onErrorReturn {
+            Log.d("forus","sendEmail_error=${it.localizedMessage}")
+            false
+        };
     }
 
     override fun makeDemoTransaction(address: String, makeDemoTransaction: MakeDemoTransaction): Observable<DemoTransaction> {

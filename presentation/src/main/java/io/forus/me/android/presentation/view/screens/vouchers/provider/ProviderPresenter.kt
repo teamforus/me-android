@@ -28,7 +28,7 @@ class ProviderPresenter constructor(private val vouchersRepository: VouchersRepo
 
             return return Single.fromObservable(vouchersRepository.getTestVoucherAsProvider().map {
                 VoucherProvider(Voucher(it.voucher?.isProduct ?: false, it.voucher?.isUsed
-                        ?: false, it.voucher.address, it.voucher.name, it.voucher.organizationName,
+                        ?: false, it.voucher.address, it.voucher.identyAddress,it.voucher.name, it.voucher.organizationName,
                         it.voucher.fundName, it.voucher.fundType, it.voucher.fundWebShopUrl, it.voucher.description, it.voucher.createdAt,
                         Currency(it.voucher.currency?.name, it.voucher.currency?.logoUrl), it.voucher.amount, it.voucher.logo,
                         it.voucher.transactions.map { transaction ->
@@ -46,7 +46,7 @@ class ProviderPresenter constructor(private val vouchersRepository: VouchersRepo
                                     transaction?.amount ?: 0f.toBigDecimal(),
                                     transaction.createdAt,
                                     Transaction.Type.valueOf(transaction.type.name), null)
-                        },  null, it.voucher.expired ?: false,"", officesList),
+                        },  null, it.voucher.deactivated  ?: false, it.voucher.expired  ?: false,"", officesList),
 
                         it.allowedOrganizations.map { organization ->
                             Organization(organization.id,
@@ -91,7 +91,7 @@ class ProviderPresenter constructor(private val vouchersRepository: VouchersRepo
 
 
                 VoucherProvider(Voucher(it.voucher?.isProduct ?: false, it.voucher?.isUsed
-                        ?: false, it.voucher.address, it.voucher.name, it.voucher.organizationName,
+                        ?: false, it.voucher.address, it.voucher.identyAddress, it.voucher.name, it.voucher.organizationName,
                         it.voucher.fundName, it.voucher.fundType, it.voucher.fundWebShopUrl, it.voucher.description, it.voucher.createdAt,
                         Currency(it.voucher.currency?.name, it.voucher.currency?.logoUrl), it.voucher.amount, it.voucher.logo,
                         it.voucher.transactions.map { transaction ->
@@ -124,7 +124,7 @@ class ProviderPresenter constructor(private val vouchersRepository: VouchersRepo
                                     transaction?.amount ?: 0f.toBigDecimal(),
                                     transaction.createdAt,
                                     Transaction.Type.valueOf(transaction.type.name), product)
-                        }, null, it.voucher.expired ?: false,"", officesList),
+                        }, null, it.voucher.deactivated ?: false, it.voucher.expired ?: false,"", officesList),
 
                         it.allowedOrganizations.map { organization ->
                             Organization(organization.id,

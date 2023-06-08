@@ -261,16 +261,16 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
     override fun render(vs: LRViewState<VoucherModel>) {
         super.render(vs)
 
-
-
         btn_info.visibility = View.VISIBLE
-
+      
         name.text = vs.model.item?.name
         type.text = vs.model.item?.organizationName
 
-
         vs.model.item?.let { voucher ->
             Log.d("voucherInfo","render 2")
+
+        vs.model.item?.let { voucher ->
+            Log.d("my","render 01  voucher address= ${voucher.address}  voucherIdentyAddress = ${voucher.identyAddress}")
 
             setToolbarTitle(resources.getString(if (voucher.isProduct) R.string.vouchers_item_product else R.string.vouchers_item))
             if (voucher.fundType == FundType.subsidies.name) {
@@ -364,10 +364,10 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
 
 
 
-            if (voucher.expired) {
+            if (voucher.expired || voucher.deactivated) {
 
 
-                if (voucher.isProduct && voucher.isUsed || voucher.expired) {
+                if (voucher.isProduct && voucher.isUsed || voucher.expired || voucher.deactivated) {
 
                     info_button.visibility = View.INVISIBLE
                     btn_email.isEnabled = false
@@ -402,6 +402,9 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
                                 voucher.expireDate) else String.format(resources.getString(R.string.voucher_qr_code_actual),
                                 voucher.expireDate)
 
+                    } else if (voucher.deactivated) {
+                        tv_voucher_expired.visibility = View.INVISIBLE
+                        usedOrExpiredLb.text = String.format(resources.getString(R.string.voucher_deactivated))
                     }
                 } else {
                     tv_voucher_expired.visibility = View.GONE
@@ -411,43 +414,63 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
                 }
 
 
+
+
+            }else{
+                    info_button.visibility = View.VISIBLE
+            }
+
+            if (voucher.fundType == FundType.subsidies.name) {
+                info_button.visibility = View.INVISIBLE
+
+
+
                 if (voucher.fundType == FundType.subsidies.name) {
                     info_button.visibility = View.INVISIBLE
 
+                    iv_qr_icon.visibility = View.VISIBLE
 
+                    tv_voucher_expired.visibility = View.VISIBLE
+                    tv_voucher_expired.visibility = View.GONE
+                    value.visibility = View.GONE
 
-                    if (voucher.fundType == FundType.subsidies.name) {
-                        info_button.visibility = View.INVISIBLE
-
-                        iv_qr_icon.visibility = View.VISIBLE
-
-                        tv_voucher_expired.visibility = View.VISIBLE
-                        tv_voucher_expired.visibility = View.GONE
-                        value.visibility = View.GONE
-
-                    }
-
-
-                }
-
-
-
-
-
-
-                when (vs.model.emailSend) {
-                    EmailSend.SEND -> showEmailSendDialog()
-                    EmailSend.SENT -> {
-                        FullscreenDialog.display(fragmentManager, context!!.resources.getString(R.string.voucher_send_email_success),
-                                context!!.resources.getString(R.string.voucher_send_email_description),
-                                context!!.resources.getString(R.string.me_ok)) {
-                            sentEmailDialogShown.onNext(Unit)
-                        }
-                    }
-                    EmailSend.NOTHING -> Unit
                 }
             }
+
+
+            if (vs.model.shortToken != null) {
+                if (canShowInfo) {
+
+                    val url: String = if (voucher?.fundWebShopUrl?.isNotEmpty()!! && vs.model.shortToken.isNotEmpty()) {
+                        voucher?.fundWebShopUrl + "auth-link?token=" + vs.model.shortToken + "&target=voucher-" + voucher?.address
+                    } else {
+                        "https://forus.io/"
+                    }
+
+                    openVoucherInfo(url)
+                    canShowInfo = false
+                }
+            }
+
+
+            when (vs.model.emailSend) {
+
+
+                EmailSend.SEND -> {
+                    showEmailSendDialog()
+                }
+                EmailSend.SENT -> {
+                    FullscreenDialog.display(fragmentManager, context!!.resources.getString(R.string.voucher_send_email_success),
+                            context!!.resources.getString(R.string.voucher_send_email_description),
+                            context!!.resources.getString(R.string.me_ok)) {
+                        sentEmailDialogShown.onNext(Unit)
+                    }
+                }
+                EmailSend.NOTHING -> Unit
+            }
         }
+
+        info_button.visibility = View.VISIBLE
     }
 
 
@@ -538,8 +561,5 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
     private fun showEmailSendDialog() {
         sendEmailDialog.show()
     }
-
-
-
 }
 

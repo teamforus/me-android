@@ -9,6 +9,9 @@ import android.os.StrictMode
 import android.support.multidex.MultiDex
 import android.util.Log
 import com.crashlytics.android.Crashlytics
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException
+import com.google.android.gms.common.GooglePlayServicesRepairableException
+import com.google.android.gms.security.ProviderInstaller
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.iid.FirebaseInstanceId
 import io.fabric.sdk.android.Fabric
@@ -29,6 +32,8 @@ class AndroidApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
+        updateAndroidSecurityProvider()
+
         ApiConfig.SERVER_URL = BuildConfig.SERVER_URL
 
         this.initializeInjector()
@@ -44,6 +49,23 @@ class AndroidApplication : Application() {
 
         this.me = this
 
+    }
+
+    /**
+     * This must fix SSLException for old devices
+     *
+     * @see {https://stackoverflow.com/a/42471738/3212712}
+     */
+    private fun updateAndroidSecurityProvider() {
+        try {
+            ProviderInstaller.installIfNeeded(this)
+        } catch (e: GooglePlayServicesRepairableException) {
+            // Thrown when Google Play Services is not installed, up-to-date, or enabled
+            // Show dialog to allow users to install, update, or otherwise enable Google Play services.
+            println("Google Play Services not available.")
+        } catch (e: GooglePlayServicesNotAvailableException) {
+            println("Google Play Services not available.")
+        }
     }
 
     private fun sendId(token: String) {
