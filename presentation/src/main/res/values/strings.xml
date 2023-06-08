@@ -194,6 +194,9 @@
     <string name="validations">Validations</string>
     <string name="validations_empty">You have no validations yet</string>
 
+    <string name="record_qr_subtitle">This is your record as a QR-code. Let a validator scan this code.</string>
+
+
     <string name="dialog_record_edit_title">Would you like to archive record?</string>
     <string name="dialog_record_archive_title">Would you like to archive record?</string>
 

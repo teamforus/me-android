@@ -20,15 +20,18 @@ class RecordQRFragment : LRFragment<RecordQRModel, RecordQRView, RecordQRPresent
 
     companion object {
         private val RECORD_ID_EXTRA = "RECORD_ID_EXTRA"
+        private val RECORD_NAME_EXTRA = "RECORD_NAME_EXTRA"
 
-        fun newIntent(recordId: Long): RecordQRFragment = RecordQRFragment().also {
+        fun newIntent(recordId: Long, recordName: String): RecordQRFragment = RecordQRFragment().also {
             val bundle = Bundle()
             bundle.putSerializable(RECORD_ID_EXTRA, recordId)
+            bundle.putSerializable(RECORD_NAME_EXTRA, recordName)
             it.arguments = bundle
         }
     }
 
     private var recordId: Long = 0
+    private var recordName: String = ""
 
     var qrText : String = ""
         set(value) {
@@ -36,6 +39,26 @@ class RecordQRFragment : LRFragment<RecordQRModel, RecordQRView, RecordQRPresent
                 field = value
                 if (qrImage != null) {
                     qrImage.setQRText(QrCode(QrCode.Type.P2P_RECORD, value).toJson())
+                }
+            }
+        }
+
+    var qrTitle : String = ""
+        set(value) {
+            if(field != value){
+                field = value
+                if (head != null) {
+                    head.text = qrTitle
+                }
+            }
+        }
+
+    var qrSubtitle : String = ""
+        set(value) {
+            if(field != value){
+                field = value
+                if (subtitle != null) {
+                    subtitle.text = qrSubtitle
                 }
             }
         }
@@ -55,11 +78,14 @@ class RecordQRFragment : LRFragment<RecordQRModel, RecordQRView, RecordQRPresent
         }
     }
 
+
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
             = inflater.inflate(R.layout.fragment_popup_qr, container, false).also {
         val bundle = this.arguments
         if (bundle != null) {
             recordId = bundle.getLong(RECORD_ID_EXTRA)
+            recordName = bundle.getString(RECORD_NAME_EXTRA)
         }
     }
 
@@ -80,6 +106,10 @@ class RecordQRFragment : LRFragment<RecordQRModel, RecordQRView, RecordQRPresent
 
         if (vs.model.uuid != null && vs.model.uuid.isNotBlank()) {
             qrText = vs.model.uuid
+
+            qrTitle = recordName
+
+            qrSubtitle = getString(R.string.record_qr_subtitle)
         }
 
         if(vs.closeScreen && vs.model.recordValidatedState != null){

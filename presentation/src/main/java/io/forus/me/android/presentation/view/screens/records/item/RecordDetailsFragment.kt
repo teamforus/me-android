@@ -3,7 +3,6 @@ package io.forus.me.android.presentation.view.screens.records.item
 import android.app.Activity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -85,10 +84,13 @@ class RecordDetailsFragment : ToolbarLRFragment<RecordDetailsModel, RecordDetail
         super.onViewCreated(view, savedInstanceState)
 
         btn_show_qr.setOnClickListener {
-            (activity as? RecordDetailsActivity)?.showPopupQRFragment(recordId)
+            (activity as? RecordDetailsActivity)?.showPopupQRFragment(recordId, record?.recordType?.name)
         }
 
 
+        btn_show_qr.visibility = View.INVISIBLE
+
+        layout_btn_qr.visibility = View.INVISIBLE
 
 
         delete_button.setOnClickListener {
@@ -111,13 +113,19 @@ class RecordDetailsFragment : ToolbarLRFragment<RecordDetailsModel, RecordDetail
             Injection.instance.validatorsRepository
     )
 
+    var record: io.forus.me.android.domain.models.records.Record? = null
+
     override fun render(vs: LRViewState<RecordDetailsModel>) {
         super.render(vs)
 
-        val record = vs.model.item
+        record = vs.model.item
         type.text = record?.recordType?.name
         value.text = record?.value
 
+        if(vs.model.item != null){
+            btn_show_qr.visibility = View.VISIBLE
+            layout_btn_qr.visibility = View.VISIBLE
+        }
 
         adapter.items = vs.model.validations
 

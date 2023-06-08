@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -41,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             app:type="bold"
-            android:text="@string/record_details_scan_deze_qr"
+            tools:text="@string/record_details_scan_deze_qr"
         />
 
         <io.forus.me.android.presentation.view.component.text.TextView
@@ -52,7 +53,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="8dp"
             android:gravity="center_horizontal"
-            android:text="@string/record_details_scan_deze_qr"
+            tools:text="@string/record_details_scan_deze_qr"
             android:textSize="16sp"
             app:type="bold" />
 
