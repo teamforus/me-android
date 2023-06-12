@@ -10,6 +10,7 @@ import android.support.multidex.MultiDex
 import android.util.Log
 import com.crashlytics.android.Crashlytics
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.play.core.review.ReviewManagerFactory
 import com.google.firebase.iid.FirebaseInstanceId
 import io.fabric.sdk.android.Fabric
 import io.forus.me.android.data.net.MeServiceFactory
@@ -43,6 +44,9 @@ class AndroidApplication : Application() {
         this.initFirebase()
 
         this.me = this
+
+        Log.d("forus","Start application")
+        val manager = ReviewManagerFactory.create(applicationContext)
 
     }
 
