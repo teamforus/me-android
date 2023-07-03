@@ -1,7 +1,7 @@
 package io.forus.me.android.presentation.view.screens.wallets
 
-import android.support.v7.util.DiffUtil
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
 import io.forus.me.android.domain.models.wallets.Wallet
 

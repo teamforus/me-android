@@ -6,9 +6,13 @@ import android.os.Bundle
 import android.util.Log
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.view.activity.CommonActivity
+import io.forus.me.android.presentation.view.base.MViewModelProvider
+import io.forus.me.android.presentation.view.screens.vouchers.VoucherViewModel
+import androidx.activity.viewModels
 
-class ProductReservationActivity : CommonActivity() {
+class ProductReservationActivity : CommonActivity(), MViewModelProvider<VoucherViewModel> {
 
+    override val viewModel: VoucherViewModel by viewModels()
 
     companion object {
 
@@ -33,7 +37,9 @@ class ProductReservationActivity : CommonActivity() {
         super.onCreate(savedInstanceState)
 
         if (savedInstanceState == null) {
-            val fragment = ProductReservationFragment.newIntent(intent.getStringExtra(VOUCHER_ADDRESS_EXTRA), intent.getBooleanExtra(SHOW_PARENT_VOUCHER, false));
+            val voucherAddress = intent.getStringExtra(VOUCHER_ADDRESS_EXTRA)?:""
+            viewModel.setAddress(voucherAddress)
+            val fragment = ProductReservationFragment.newIntent(voucherAddress, intent.getBooleanExtra(SHOW_PARENT_VOUCHER, false));
 
             addFragment(R.id.fragmentContainer, fragment)
         }

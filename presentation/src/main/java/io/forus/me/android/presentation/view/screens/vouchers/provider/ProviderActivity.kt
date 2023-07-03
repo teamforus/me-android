@@ -5,9 +5,13 @@ import android.content.Intent
 import android.os.Bundle
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.view.activity.CommonActivity
+import io.forus.me.android.presentation.view.base.MViewModelProvider
+import io.forus.me.android.presentation.view.screens.vouchers.VoucherViewModel
+import androidx.activity.viewModels
 
-class ProviderActivity : CommonActivity() {
+class ProviderActivity : CommonActivity() , MViewModelProvider<VoucherViewModel> {
 
+    override val viewModel: VoucherViewModel by viewModels()
 
     companion object {
 
@@ -32,7 +36,14 @@ class ProviderActivity : CommonActivity() {
         super.onCreate(savedInstanceState)
 
         if (savedInstanceState == null) {
-            val fragment = ProviderFragment.newIntent(intent.getStringExtra(VOUCHER_ADDRESS_EXTRA), intent.getBooleanExtra(IS_DEMO_VOUCHER, false))
+
+           val voucherAddress =  intent.getStringExtra(VOUCHER_ADDRESS_EXTRA)?:""
+            val isDemoVoucher = intent.getBooleanExtra(IS_DEMO_VOUCHER, false)
+
+            viewModel.setAddress(voucherAddress)
+            viewModel.setIsDemoVoucher(isDemoVoucher)
+
+            val fragment = ProviderFragment.newIntent(voucherAddress, isDemoVoucher)
 
             addFragment(R.id.fragmentContainer, fragment)
         }

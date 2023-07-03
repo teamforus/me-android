@@ -8,13 +8,15 @@ import android.widget.FrameLayout
 import android.widget.RelativeLayout
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.view.activity.CommonActivity
-
+import androidx.activity.viewModels
+import io.forus.me.android.presentation.view.base.MViewModelProvider
 
 /**
  * Main application screen. This is the app entry point.
  */
-class LogInSignUpActivity : CommonActivity() {
+class LogInSignUpActivity : CommonActivity(), MViewModelProvider<LoginSignUpViewModel> {
 
+    override val viewModel: LoginSignUpViewModel by viewModels()
 
     companion object {
         private val TOKEN_EXTRA = "TOKEN_EXTRA"
@@ -41,6 +43,7 @@ class LogInSignUpActivity : CommonActivity() {
         if (savedInstanceState == null) {
             val token = intent.getStringExtra(TOKEN_EXTRA)
             fragment = if(token != null){
+                viewModel.setToken(token)
                 LogInSignUpFragment.newIntent(token)
             } else LogInSignUpFragment()
             val fragmentContainer = findViewById<FrameLayout>(R.id.fragmentContainer)
@@ -52,6 +55,9 @@ class LogInSignUpActivity : CommonActivity() {
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
-        fragment.exchangeToken(intent.getStringExtra(TOKEN_EXTRA))
+        intent.getStringExtra(TOKEN_EXTRA)?.let{
+            fragment.exchangeToken(it)
+        }
+
     }
 }

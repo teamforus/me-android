@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import androidx.lifecycle.ViewModelProvider
 import io.forus.me.android.data.entity.common.BaseError
 import io.forus.me.android.domain.exception.RetrofitException
 import io.forus.me.android.domain.exception.RetrofitExceptionMapper
@@ -15,9 +16,11 @@ import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.helpers.SharedPref
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.activity.BaseActivity
+import io.forus.me.android.presentation.view.base.MViewModelProvider
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.base.lr.LoadRefreshPanel
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
+import io.forus.me.android.presentation.view.screens.account.newaccount.pin.NewPinViewModel
 import io.forus.me.android.presentation.view.screens.qr.dialogs.ScanVoucherBaseErrorDialog
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
@@ -31,8 +34,12 @@ import java.lang.Exception
 /**
  * Created by maestrovs on 22.04.2020.
  */
-class RestoreAccountSuccessFragment : ToolbarLRFragment<RestoreAccountSuccessModel, RestoreAccountSuccessView, RestoreAccountSuccessPresenter>(), RestoreAccountSuccessView {
+class RestoreAccountSuccessFragment : ToolbarLRFragment<RestoreAccountSuccessModel, RestoreAccountSuccessView, RestoreAccountSuccessPresenter>(), RestoreAccountSuccessView,
+    MViewModelProvider<RestoreAccountSuccessViewModel> {
 
+    override val viewModel by lazy {
+        ViewModelProvider(requireActivity())[RestoreAccountSuccessViewModel::class.java].apply { }
+    }
 
     companion object {
         private val TOKEN_EXTRA = "TOKEN_EXTRA"
@@ -83,26 +90,25 @@ class RestoreAccountSuccessFragment : ToolbarLRFragment<RestoreAccountSuccessMod
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = inflater.inflate(R.layout.fragment_account_restore_success, container, false).also {
 
         val bundle = this.arguments
-        if (bundle != null) {
-            token = bundle.getString(TOKEN_EXTRA, "")
-            isExchangeToken = bundle.getBoolean(IS_EXCHANGE_TOKEN)
-        }
+       // if (bundle != null) {
+       //     token = bundle.getString(TOKEN_EXTRA, "")
+        //    isExchangeToken = bundle.getBoolean(IS_EXCHANGE_TOKEN)
+       // }
 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-    }
-
-    override fun onDetach() {
-        super.onDetach()
+        token = viewModel.token.value?:""
+        isExchangeToken = viewModel.isExchangeToken.value?:true
+        
     }
 
     override fun createPresenter() = RestoreAccountSuccessPresenter(
-            token,
+            viewModel.token.value?:"",
             Injection.instance.accountRepository,
-            isExchangeToken
+        viewModel.isExchangeToken.value?:true
     )
 
     private var retrofitExceptionMapper: RetrofitExceptionMapper = Injection.instance.retrofitExceptionMapper
@@ -120,7 +126,7 @@ class RestoreAccountSuccessFragment : ToolbarLRFragment<RestoreAccountSuccessMod
 
             if (vs.model.sendingRestoreByEmailSuccess == true && !instructionsAlreadyShown) {
 
-                navigator.navigateToCheckEmail(context!!)
+                navigator.navigateToCheckEmail(requireContext())
             }
 
             if (vs.model.sendingRestoreByEmail == true) {

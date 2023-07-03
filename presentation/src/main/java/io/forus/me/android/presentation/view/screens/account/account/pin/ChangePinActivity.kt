@@ -6,8 +6,12 @@ import android.os.Bundle
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.models.ChangePinMode
 import io.forus.me.android.presentation.view.activity.CommonActivity
+import androidx.activity.viewModels
+import io.forus.me.android.presentation.view.base.MViewModelProvider
 
-class ChangePinActivity : CommonActivity() {
+class ChangePinActivity : CommonActivity(), MViewModelProvider<ChangePinViewModel> {
+
+    override val viewModel: ChangePinViewModel by viewModels()
 
     companion object {
         private val MODE_EXTRA = "MODE_EXTRA"
@@ -19,6 +23,8 @@ class ChangePinActivity : CommonActivity() {
         }
     }
 
+
+
     override val viewID: Int
         get() = R.layout.activity_toolbar
 
@@ -27,8 +33,12 @@ class ChangePinActivity : CommonActivity() {
         super.onCreate(savedInstanceState)
 
         if (savedInstanceState == null) {
-            val fragment = ChangePinFragment.newIntent(ChangePinMode.valueOf(intent.getStringExtra(MODE_EXTRA)))
-            addFragment(R.id.fragmentContainer, fragment)
+            intent.getStringExtra(MODE_EXTRA)?.let { mode ->
+                viewModel.setPinMode(ChangePinMode.valueOf(mode))
+                val fragment = ChangePinFragment.newIntent(ChangePinMode.valueOf(mode))
+                addFragment(R.id.fragmentContainer, fragment)
+            }
+
         }
     }
 }

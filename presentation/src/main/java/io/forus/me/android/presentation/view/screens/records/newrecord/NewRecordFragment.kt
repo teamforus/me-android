@@ -1,9 +1,9 @@
 package io.forus.me.android.presentation.view.screens.records.newrecord
 
 import android.os.Bundle
-import android.support.v4.view.ViewPager
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
+import androidx.viewpager.widget.ViewPager
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -154,15 +154,18 @@ class NewRecordFragment : ToolbarLRFragment<NewRecordModel, NewRecordView, NewRe
             }
         })
 
-        recycler_category.layoutManager = GridLayoutManager(context, 2)
+        recycler_category.layoutManager =
+            GridLayoutManager(context, 2)
         recycler_category.adapter = recordCategoriesAdapter
 
-        recycler_type.layoutManager = LinearLayoutManager(context)
+        recycler_type.layoutManager =
+            LinearLayoutManager(context)
         recycler_type.adapter = recordTypesAdapter
 
 
 
-        recycler_validators.layoutManager = LinearLayoutManager(context)
+        recycler_validators.layoutManager =
+            LinearLayoutManager(context)
         recycler_validators.adapter = recordValidatorAdapter
     }
 

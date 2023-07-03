@@ -32,7 +32,8 @@ class PinLockActivity : CommonActivity() {
         super.onCreate(savedInstanceState)
 
         if (savedInstanceState == null) {
-            navigationIntent = intent.getParcelableExtra(LOCK_INTENT_EXTRA)
+
+            navigationIntent = intent.getParcelableExtra(LOCK_INTENT_EXTRA)!!
             val useFingerprint = intent.getBooleanExtra(USE_FINGERPRINT, false)
             if(useFingerprint){
                 useFingerprint()

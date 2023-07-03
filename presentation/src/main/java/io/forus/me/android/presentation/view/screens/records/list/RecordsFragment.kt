@@ -3,8 +3,8 @@ package io.forus.me.android.presentation.view.screens.records.list
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.LinearLayoutManager
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -85,7 +85,7 @@ class RecordsFragment : ToolbarLRFragment<RecordsModel, RecordsView, RecordsPres
         val bundle = this.arguments
         if (bundle != null) {
             recordCategoryId = bundle.getLong(CATEGORY_ID_EXTRA)
-            recordCategoryName = bundle.getString(CATEGORY_NAME_EXTRA)
+            recordCategoryName = bundle.getString(CATEGORY_NAME_EXTRA)?:""
         }
         return view
     }
@@ -100,11 +100,12 @@ class RecordsFragment : ToolbarLRFragment<RecordsModel, RecordsView, RecordsPres
         adapter = RecordsAdapter()
         adapter.clickListener = { item ->
             if (isRecords) {
-                val intentToLaunch = RecordDetailsActivity.getCallingIntent(context!!, item)
+                val intentToLaunch = RecordDetailsActivity.getCallingIntent(requireContext(), item)
                 startActivityForResult(intentToLaunch, LAUNCH_SECOND_ACTIVITY)
             }
         }
-        recycler.layoutManager = LinearLayoutManager(context)
+        recycler.layoutManager =
+            LinearLayoutManager(context)
         recycler.adapter = adapter
 
         addRecordBt.setOnClickListener {

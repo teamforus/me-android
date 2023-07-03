@@ -12,7 +12,7 @@
     app:cardElevation="0dp"
     app:cardUseCompatPadding="false">
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -113,6 +113,6 @@
             android:background="@color/border_color"
             app:layout_constraintBottom_toBottomOf="parent"
             />
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </io.forus.me.android.presentation.view.component.card.CommonCard>

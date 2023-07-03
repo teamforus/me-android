@@ -8,7 +8,7 @@
     android:background="@color/colorPrimary"
     android:transitionGroup="true">
 
-    <android.support.design.widget.CoordinatorLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -22,7 +22,7 @@
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <android.support.v4.widget.NestedScrollView
+            <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -33,7 +33,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <android.support.v7.widget.CardView
+                    <androidx.cardview.widget.CardView
                         android:id="@+id/voucher_card"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -127,7 +127,7 @@
 
                         </RelativeLayout>
 
-                    </android.support.v7.widget.CardView>
+                    </androidx.cardview.widget.CardView>
 
                     <io.forus.me.android.presentation.view.component.text.TextView
                         android:id="@+id/tv_voucher_expired"
@@ -183,7 +183,7 @@
                         android:textSize="14.1sp"
                         tools:text="Voucher Created – 2 Mei, 14:08" />
 
-                    <android.support.v7.widget.CardView
+                    <androidx.cardview.widget.CardView
                         android:id="@+id/shopkeeper_card"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -212,7 +212,7 @@
                                     android:layout_weight="1"
                                     android:orientation="vertical">
 
-                                    <android.support.v7.widget.AppCompatTextView
+                                    <androidx.appcompat.widget.AppCompatTextView
                                         android:id="@+id/shopkeeper_title"
                                         style="@style/Headline6"
                                         android:layout_width="wrap_content"
@@ -220,7 +220,7 @@
                                         android:layout_marginTop="@dimen/activity_vertical_margin"
                                         android:layout_marginEnd="@dimen/activity_horizontal_margin" />
 
-                                    <android.support.v7.widget.AppCompatTextView
+                                    <androidx.appcompat.widget.AppCompatTextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="4dp"
@@ -321,7 +321,7 @@
                                         tools:text="0615261612" />
                                 </LinearLayout>
 
-                                <android.support.design.widget.FloatingActionButton
+                                <com.google.android.material.floatingactionbutton.FloatingActionButton
                                     android:id="@+id/shopkeeper_call"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -359,7 +359,7 @@
                                 android:textColor="@color/cardMapTextColor"
                                 tools:text="2 Branches"/>
 
-                            <android.support.v4.view.ViewPager
+                            <androidx.viewpager.widget.ViewPager
                                 android:id="@+id/viewPager"
                                 android:overScrollMode="never"
                                 android:clipToPadding="false"
@@ -369,12 +369,12 @@
                                 android:layout_alignParentBottom="true"
                                 android:layout_gravity="bottom"
                                 >
-                            </android.support.v4.view.ViewPager>
+                            </androidx.viewpager.widget.ViewPager>
 
                         </LinearLayout>
-                    </android.support.v7.widget.CardView>
+                    </androidx.cardview.widget.CardView>
 
-                    <android.support.v7.widget.RecyclerView
+                    <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_transactions"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -386,7 +386,7 @@
 
                 </LinearLayout>
 
-            </android.support.v4.widget.NestedScrollView>
+            </androidx.core.widget.NestedScrollView>
 
 
         <!--/RelativeLayout-->
@@ -394,7 +394,7 @@
 
 
 
-    </android.support.design.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <io.forus.me.android.presentation.view.component.buttons.QrButton
         android:id="@+id/btn_qr"

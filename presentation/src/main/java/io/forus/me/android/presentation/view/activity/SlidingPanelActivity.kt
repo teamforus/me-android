@@ -1,7 +1,7 @@
 package io.forus.me.android.presentation.view.activity
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.text.Spannable
 import android.view.View
 import com.sothree.slidinguppanel.SlidingUpPanelLayout

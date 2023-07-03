@@ -1,8 +1,8 @@
 package io.forus.me.android.presentation.view.screens.vouchers.list
 
-import android.support.v4.view.ViewCompat
-import android.support.v7.util.DiffUtil
-import android.support.v7.widget.RecyclerView
+import androidx.core.view.ViewCompat
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import io.forus.me.android.presentation.R.id.name

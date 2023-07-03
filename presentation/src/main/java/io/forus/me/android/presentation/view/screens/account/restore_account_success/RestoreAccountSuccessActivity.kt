@@ -7,12 +7,16 @@ import android.os.Bundle
 import io.forus.me.android.presentation.R
 
 import io.forus.me.android.presentation.view.activity.CommonActivity
+import io.forus.me.android.presentation.view.base.MViewModelProvider
+import androidx.activity.viewModels
+import io.forus.me.android.presentation.view.screens.account.newaccount.pin.NewPinViewModel
 
 /**
  * Created by maestrovs on 22.04.2020.
  */
-class RestoreAccountSuccessActivity : CommonActivity() {
+class RestoreAccountSuccessActivity : CommonActivity(), MViewModelProvider<RestoreAccountSuccessViewModel> {
 
+    override val viewModel: RestoreAccountSuccessViewModel by viewModels()
 
     companion object {
         private val TOKEN_EXTRA = "TOKEN_EXTRA"
@@ -41,7 +45,11 @@ class RestoreAccountSuccessActivity : CommonActivity() {
         if (savedInstanceState == null) {
             val token = intent.getStringExtra(TOKEN_EXTRA)
             val isExchangeToken = intent.getBooleanExtra(IS_EXCHANGE_TOKEN, true)
+
+            viewModel.setIsExchangeToken(isExchangeToken)
+
             fragment = if(token != null){
+                viewModel.setToken(token)
                 RestoreAccountSuccessFragment.newIntent(token,isExchangeToken)
             } else RestoreAccountSuccessFragment()
             addFragment(R.id.fragmentContainer, fragment)
@@ -50,6 +58,8 @@ class RestoreAccountSuccessActivity : CommonActivity() {
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
-        fragment.exchangeToken(intent.getStringExtra(TOKEN_EXTRA))
+        intent.getStringExtra(TOKEN_EXTRA)?.let{
+    fragment.exchangeToken(it)
+}
     }
 }

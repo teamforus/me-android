@@ -2,7 +2,7 @@ package io.forus.me.android.presentation.view.screens.records.create_record
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v4.app.FragmentManager
+import androidx.fragment.app.FragmentManager
 
 import androidx.navigation.NavDestination
 import androidx.navigation.NavOptions
@@ -11,9 +11,9 @@ import androidx.navigation.fragment.FragmentNavigator
 
 @Navigator.Name("fragment")
 class FFragmentNavigator(
-        context: Context,
-        fm: FragmentManager,
-        containerId: Int
+    context: Context,
+    fm: FragmentManager,
+    containerId: Int
 ) : FragmentNavigator(context, fm, containerId) {
 
     /*override fun navigate(...): NavDestination? {
@@ -33,7 +33,8 @@ class FFragmentNavigator(
     ): NavDestination? {
 
         val shouldSkip = navOptions?.run {
-            popUpTo == destination.id && !isPopUpToInclusive
+            getPopUpTo() == destination.id && !isPopUpToInclusive()
+
         }  ?: false
 
         return if (shouldSkip) null

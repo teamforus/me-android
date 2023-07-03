@@ -1,6 +1,6 @@
 package io.forus.me.android.presentation.view.base.lr
 
-import android.support.annotation.CallSuper
+import androidx.annotation.CallSuper
 import android.util.Log
 import com.hannesdorfmann.mosby3.mvi.MviBasePresenter
 import io.reactivex.Observable

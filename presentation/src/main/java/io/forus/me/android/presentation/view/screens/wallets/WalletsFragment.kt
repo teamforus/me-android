@@ -1,7 +1,7 @@
 package io.forus.me.android.presentation.view.screens.wallets
 
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -45,7 +45,8 @@ class WalletsFragment : LRFragment<WalletsModel, WalletsView, WalletsPresenter>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        recycler.layoutManager = LinearLayoutManager(context)
+        recycler.layoutManager =
+            LinearLayoutManager(context)
         recycler.adapter = adapter
 
     }

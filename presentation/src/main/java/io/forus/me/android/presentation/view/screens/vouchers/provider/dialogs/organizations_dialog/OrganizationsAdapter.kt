@@ -1,6 +1,6 @@
 package io.forus.me.android.presentation.view.screens.vouchers.provider.dialogs.organizations_dialog
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View

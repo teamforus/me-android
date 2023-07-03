@@ -34,7 +34,7 @@ class QrButton : FrameLayout {
     private fun init(context: Context,  attrs: AttributeSet?) {
         val inflater = LayoutInflater.from(context)
         val mRootView = inflater.inflate(layout, this)
-        val btn_qr = mRootView.findViewById<android.support.v7.widget.AppCompatButton>(R.id.qr_click)
+        val btn_qr = mRootView.findViewById<androidx.appcompat.widget.AppCompatButton>(R.id.qr_click)
 
         val fontType = FontType.Regular
         btn_qr.typeface = FontCache.getTypeface(fontType.getFontPath(), context)

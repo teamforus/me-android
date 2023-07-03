@@ -1,7 +1,7 @@
 package io.forus.me.android.presentation.view.screens.vouchers.item.offices_adapter
 
 import android.content.Context
-import android.support.v4.view.PagerAdapter
+import androidx.viewpager.widget.PagerAdapter
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View

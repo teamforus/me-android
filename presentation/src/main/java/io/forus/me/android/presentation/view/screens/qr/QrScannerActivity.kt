@@ -9,9 +9,9 @@ import android.content.pm.PackageManager
 import android.graphics.PointF
 import android.os.Bundle
 import android.os.Handler
-import android.support.design.widget.Snackbar
-import android.support.v4.app.ActivityCompat
-import android.support.v4.app.FragmentActivity
+import com.google.android.material.snackbar.Snackbar
+import androidx.core.app.ActivityCompat
+import androidx.fragment.app.FragmentActivity
 import android.util.Log
 import android.view.KeyEvent
 import android.widget.Toast

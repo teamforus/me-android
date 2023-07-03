@@ -41,7 +41,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onNewToken(s: String?) {
         super.onNewToken(s)
-        Log.d("NEW_FCM_TOKEN", s)
+        s?.let { Log.d("NEW_FCM_TOKEN", it) }
         s?.let { Injection.instance.accountRepository.registerFCMToken(it) }
     }
 

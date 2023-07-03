@@ -18,7 +18,7 @@
         android:layout_height="match_parent"
         android:background="@color/colorPrimary">
 
-        <android.support.design.widget.CoordinatorLayout
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -26,7 +26,7 @@
 
 
 
-                <android.support.v4.widget.NestedScrollView
+                <androidx.core.widget.NestedScrollView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -43,7 +43,7 @@
                             android:orientation="vertical"
                             android:visibility="gone">
 
-                            <android.support.v7.widget.CardView
+                            <androidx.cardview.widget.CardView
                                 android:layout_width="match_parent"
                                 android:layout_height="100dp"
                                 android:layout_marginLeft="10dp"
@@ -130,7 +130,7 @@
 
                                 </RelativeLayout>
 
-                            </android.support.v7.widget.CardView>
+                            </androidx.cardview.widget.CardView>
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -169,7 +169,7 @@
                                     android:visibility="gone"
                                     app:type="medium" />
 
-                                <android.support.v7.widget.RecyclerView
+                                <androidx.recyclerview.widget.RecyclerView
                                     android:id="@+id/rv_categories"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -205,7 +205,7 @@
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
 
-                            <android.support.v7.widget.CardView
+                            <androidx.cardview.widget.CardView
                                 android:layout_width="match_parent"
                                 android:layout_height="100dp"
                                 android:layout_marginLeft="16dp"
@@ -274,7 +274,7 @@
 
                                 </RelativeLayout>
 
-                            </android.support.v7.widget.CardView>
+                            </androidx.cardview.widget.CardView>
 
                             <View
                                 android:layout_width="match_parent"
@@ -336,7 +336,7 @@
 
 
 
-                                <android.support.v7.widget.RecyclerView
+                                <androidx.recyclerview.widget.RecyclerView
                                     android:id="@+id/recycler"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -367,11 +367,11 @@
 
                     </RelativeLayout>
 
-                </android.support.v4.widget.NestedScrollView>
+                </androidx.core.widget.NestedScrollView>
 
 
 
-        </android.support.design.widget.CoordinatorLayout>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     </RelativeLayout>
 </layout>

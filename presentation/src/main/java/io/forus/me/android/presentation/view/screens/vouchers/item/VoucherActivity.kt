@@ -11,9 +11,15 @@ import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.view.activity.SlidingPanelActivity
 import io.forus.me.android.presentation.view.fragment.QrFragment
 import kotlinx.android.synthetic.main.activity_toolbar_sliding_panel.*
+import androidx.activity.viewModels
+import io.forus.me.android.presentation.view.base.MViewModelProvider
+import io.forus.me.android.presentation.view.screens.account.newaccount.pin.NewPinViewModel
+import io.forus.me.android.presentation.view.screens.vouchers.VoucherViewModel
 
 
-class VoucherActivity : SlidingPanelActivity() {
+class VoucherActivity : SlidingPanelActivity(), MViewModelProvider<VoucherViewModel> {
+
+    override val viewModel: VoucherViewModel by viewModels()
 
     companion object {
          const val ID_EXTRA = "ID_EXTRA"
@@ -38,9 +44,13 @@ class VoucherActivity : SlidingPanelActivity() {
         super.onCreate(savedInstanceState)
 
         val voucher = intent.getParcelableExtra<Voucher>(VOUCHER_EXTRA)
+
+        viewModel.setVoucher(voucher)
+        viewModel.setAddress(voucher?.address?:"")
+
         if (savedInstanceState == null) {
             fragment = when (voucher) {
-                null -> VoucherFragment.newInstance(intent.getStringExtra(ID_EXTRA))
+                null -> VoucherFragment.newInstance(intent.getStringExtra(ID_EXTRA)?:"")
                 else -> VoucherFragment.newInstance(voucher)
             }
 

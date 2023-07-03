@@ -1,7 +1,7 @@
 package io.forus.me.android.presentation.api_config.dialogs
 
 import android.content.Context
-import android.support.v4.text.HtmlCompat
+import androidx.core.text.HtmlCompat
 import android.text.Html
 import com.afollestad.materialdialogs.MaterialDialog
 import io.forus.me.android.presentation.R

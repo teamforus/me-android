@@ -1,11 +1,14 @@
 package io.forus.me.android.presentation.view.screens.account.newaccount.pin
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.internal.Injection
+import io.forus.me.android.presentation.view.base.MViewModelProvider
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.base.lr.LoadRefreshPanel
 import io.forus.me.android.presentation.view.component.pinlock.PinLockListener
@@ -14,7 +17,14 @@ import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_account_set_pin.*
 
-class NewPinFragment : ToolbarLRFragment<NewPinModel, NewPinView, NewPinPresenter>(), NewPinView {
+class NewPinFragment : ToolbarLRFragment<NewPinModel, NewPinView, NewPinPresenter>(), NewPinView ,
+    MViewModelProvider<NewPinViewModel> {
+
+
+     override val viewModel by lazy {
+        ViewModelProvider(requireActivity())[NewPinViewModel::class.java].apply { }
+    }
+
 
     companion object {
         private val ACCESS_TOKEN_EXTRA = "ACCESS_TOKEN_EXTRA"
@@ -29,7 +39,7 @@ class NewPinFragment : ToolbarLRFragment<NewPinModel, NewPinView, NewPinPresente
     override val showAccount: Boolean
         get() = false
 
-    private lateinit var accessToken: String
+    //private lateinit var accessToken: String
 
     override fun viewForSnackbar(): View = root
 
@@ -54,10 +64,14 @@ class NewPinFragment : ToolbarLRFragment<NewPinModel, NewPinView, NewPinPresente
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val view = inflater.inflate(R.layout.fragment_account_set_pin, container, false)
-        val bundle = this.arguments
+       /* val bundle = this.arguments
         if (bundle != null) {
-            accessToken = bundle.getString(ACCESS_TOKEN_EXTRA)
-        }
+            bundle.getString(ACCESS_TOKEN_EXTRA)?.let {
+                accessToken = it
+            }?: kotlin.run {
+                Log.e("","ACCESS_TOKEN_EXTRA is null")
+            }
+        }*/
         return view
     }
 
@@ -83,10 +97,14 @@ class NewPinFragment : ToolbarLRFragment<NewPinModel, NewPinView, NewPinPresente
         btn_exit.setOnClickListener { skip.onNext(Unit) }
     }
 
-    override fun createPresenter() = NewPinPresenter(
+    override fun createPresenter():NewPinPresenter {
+        val accessToken = viewModel.accessToken.value?:""
+        Log.d("PresenterR","createPresenter   accessToken = ${accessToken}")
+         return NewPinPresenter(
             Injection.instance.accountRepository,
-            accessToken
-    )
+             accessToken
+        )
+    }
 
     override fun render(vs: LRViewState<NewPinModel>) {
         super.render(vs)

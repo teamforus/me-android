@@ -1,7 +1,7 @@
 package io.forus.me.android.presentation.view.screens.vouchers.transactions_log.adapter
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +10,6 @@ import android.widget.TextView
 import io.forus.me.android.domain.models.vouchers.ProductAction
 import io.forus.me.android.domain.models.vouchers.Transaction
 import io.forus.me.android.presentation.R
-import io.forus.me.android.presentation.view.screens.vouchers.item.VoucherFragment
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*

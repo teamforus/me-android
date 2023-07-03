@@ -1,7 +1,7 @@
 package io.forus.me.android.presentation.view.component.pin
 
 import android.content.Context
-import android.support.v4.content.ContextCompat
+import androidx.core.content.ContextCompat
 import android.util.AttributeSet
 import io.forus.me.android.presentation.R
 import android.view.LayoutInflater

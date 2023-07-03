@@ -16,12 +16,12 @@
 
 package io.forus.me.android.presentation.view.base
 
-import android.databinding.BindingAdapter
+import androidx.databinding.BindingAdapter
 import android.graphics.drawable.Drawable
 import android.os.Build
-import android.support.annotation.RequiresApi
-import android.support.design.widget.FloatingActionButton
-import android.support.v4.view.ViewPager
+import androidx.annotation.RequiresApi
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import androidx.viewpager.widget.ViewPager
 import android.view.View
 import android.view.View.GONE
 import android.view.View.INVISIBLE

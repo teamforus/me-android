@@ -1,16 +1,16 @@
 package io.forus.me.android.presentation.view.screens.account.assigndelegates.email
 
-import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
+import androidx.lifecycle.ViewModelProvider
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.helpers.SharedPref
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.activity.BaseActivity
+import io.forus.me.android.presentation.view.base.MViewModelProvider
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.base.lr.LoadRefreshPanel
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
@@ -22,7 +22,12 @@ import kotlinx.android.synthetic.main.fragment_account_restore_email.*
 /**
  * Fragment New User Account Screen.
  */
-class RestoreByEmailFragment : ToolbarLRFragment<RestoreByEmailModel, RestoreByEmailView, RestoreByEmailPresenter>(), RestoreByEmailView  {
+class RestoreByEmailFragment : ToolbarLRFragment<RestoreByEmailModel, RestoreByEmailView, RestoreByEmailPresenter>(), RestoreByEmailView,
+    MViewModelProvider<RestoreByEmailViewModel> {
+
+     override val viewModel by lazy {
+        ViewModelProvider(requireActivity())[RestoreByEmailViewModel::class.java].apply { }
+    }
 
 
     companion object {
@@ -35,7 +40,7 @@ class RestoreByEmailFragment : ToolbarLRFragment<RestoreByEmailModel, RestoreByE
         }
     }
 
-    private var token: String = ""
+   // private var token: String = ""
 
     private val viewIsValid: Boolean
         get() {
@@ -79,10 +84,10 @@ class RestoreByEmailFragment : ToolbarLRFragment<RestoreByEmailModel, RestoreByE
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
             = inflater.inflate(R.layout.fragment_account_restore_email, container, false).also {
 
-        val bundle = this.arguments
-        if (bundle != null) {
-            token = bundle.getString(TOKEN_EXTRA, "")
-        }
+       // val bundle = this.arguments
+       // if (bundle != null) {
+       //     token = bundle.getString(TOKEN_EXTRA, "")
+       // }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -110,7 +115,7 @@ class RestoreByEmailFragment : ToolbarLRFragment<RestoreByEmailModel, RestoreByE
 
                 context?.let { it1 -> SharedPref.init(it1)
                     SharedPref.write(SharedPref.RESTORE_EMAIL, email.getText());
-                };
+                }
 
                 registerAction.onNext(email.getText())
             }
@@ -122,7 +127,7 @@ class RestoreByEmailFragment : ToolbarLRFragment<RestoreByEmailModel, RestoreByE
     }
 
     override fun createPresenter() = RestoreByEmailPresenter(
-            token,
+            viewModel.token.value?:"",
             Injection.instance.accountRepository
     )
 
@@ -136,7 +141,7 @@ class RestoreByEmailFragment : ToolbarLRFragment<RestoreByEmailModel, RestoreByE
 
         if(vs.model.sendingRestoreByEmailSuccess == true && !instructionsAlreadyShown){
 
-            navigator.navigateToCheckEmail(context!!)
+            navigator.navigateToCheckEmail(requireContext())
         }
 
         if(vs.model.sendingRestoreByEmail == true){

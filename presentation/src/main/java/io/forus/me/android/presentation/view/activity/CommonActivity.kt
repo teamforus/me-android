@@ -1,8 +1,9 @@
 package io.forus.me.android.presentation.view.activity
 
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
+import androidx.core.content.ContextCompat
 import android.view.MenuItem
+import androidx.lifecycle.ViewModel
 
 
 abstract class CommonActivity : BaseActivity() {
@@ -23,8 +24,10 @@ abstract class CommonActivity : BaseActivity() {
 
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
             android.R.id.home -> {
                 onMenuHomePressed()
                 return true

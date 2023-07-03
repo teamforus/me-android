@@ -1,6 +1,6 @@
 package io.forus.me.android.presentation.view.screens.assets
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
 import io.forus.me.android.domain.models.assets.Asset
 import io.forus.me.android.presentation.R

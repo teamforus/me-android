@@ -1,25 +1,13 @@
 package io.forus.me.android.presentation.view.screens.dashboard
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.content.IntentSender
 import android.os.Bundle
-import android.os.Handler
-import android.support.v4.app.Fragment
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.crashlytics.android.Crashlytics
-import com.google.android.gms.common.ConnectionResult
-import com.google.android.gms.common.GoogleApiAvailability
-import com.google.android.play.core.appupdate.AppUpdateInfo
-import com.google.android.play.core.appupdate.AppUpdateManager
-import com.google.android.play.core.appupdate.AppUpdateManagerFactory
-import com.google.android.play.core.install.model.AppUpdateType
-import com.google.android.play.core.install.model.UpdateAvailability
 import io.fabric.sdk.android.Fabric
 import io.forus.me.android.data.executor.JobExecutor
 import io.forus.me.android.domain.interactor.CheckLoginUseCase
@@ -31,14 +19,21 @@ import io.forus.me.android.presentation.UIThread
 import io.forus.me.android.presentation.helpers.reactivex.DisposableHolder
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.activity.SlidingPanelActivity
+import io.forus.me.android.presentation.view.base.MViewModelProvider
 import io.forus.me.android.presentation.view.fragment.QrFragment
+import io.forus.me.android.presentation.view.screens.vouchers.VoucherViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import androidx.activity.viewModels
 
 
-class DashboardActivity : SlidingPanelActivity(), DashboardContract.View {
+class DashboardActivity : SlidingPanelActivity(), DashboardContract.View,
+    MViewModelProvider<VoucherViewModel> {
 
-    private var currentFragment: android.support.v4.app.Fragment? = null
+
+    override val viewModel: VoucherViewModel by viewModels()
+
+    private var currentFragment: Fragment? = null
     private var menu: Menu? = null
 
     private var settings = Injection.instance.settingsDataSource
@@ -99,7 +94,7 @@ class DashboardActivity : SlidingPanelActivity(), DashboardContract.View {
 
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return currentFragment?.onOptionsItemSelected(item) ?: false
     }
 

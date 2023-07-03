@@ -41,12 +41,12 @@ class Voucher(var isProduct: Boolean,
             parcel.readParcelable(Currency::class.java.classLoader) ?: Currency(),
             BigDecimal.valueOf(parcel.readDouble()),
             parcel.readString() ?: "",
-            parcel.createTypedArrayList(Transaction),
+            parcel.createTypedArrayList(Transaction)?: listOf<Transaction>(),
             parcel.readParcelable(Product::class.java.classLoader),
             parcel.readByte() != 0.toByte(),
             parcel.readByte() != 0.toByte(),
             parcel.readString() ?: "",
-            parcel.createTypedArrayList(Office))
+            parcel.createTypedArrayList(Office)?: listOf<Office>())
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeByte(if (isProduct) 1 else 0)
