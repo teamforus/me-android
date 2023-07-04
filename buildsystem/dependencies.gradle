@@ -109,12 +109,13 @@ ext {
   ]
 
   presentationTestDependencies = [
-      junit:              "junit:junit:${jUnitVersion}",
-      mockito:            "org.mockito:mockito-core:${mockitoVersion}",
-      dexmaker:           "com.google.dexmaker:dexmaker:${dexmakerVersion}",
-      dexmakerMockito:    "com.google.dexmaker:dexmaker-mockito:${dexmakerVersion}",
-      espresso: 'androidx.test.espresso:espresso-core:3.1.0',
-      testingSupportLib:  "com.android.support.test:testing-support-lib:${testingSupportLibVersion}",
+          junit:              "junit:junit:${jUnitVersion}",
+          mockito:            "org.mockito:mockito-core:${mockitoVersion}",
+          dexmaker:           "com.google.dexmaker:dexmaker:${dexmakerVersion}",
+          dexmakerMockito:    "com.google.dexmaker:dexmaker-mockito:${dexmakerVersion}",
+          espresso:           "androidx.test.espresso:espresso-core:3.1.0",
+          runner:             "androidx.test:runner:1.1.0",
+          rules:              "androidx.test:rules:1.1.0"
   ]
 
   domainDependencies = [
