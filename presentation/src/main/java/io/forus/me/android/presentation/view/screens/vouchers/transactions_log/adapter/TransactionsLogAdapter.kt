@@ -70,7 +70,6 @@ class TransactionsLogAdapter(val context: Context, var items: ArrayList<Transact
 
     fun setList(goods: List<Transaction>) {
 
-
         items.clear();
         items.addAll(goods);
         this.notifyDataSetChanged();
