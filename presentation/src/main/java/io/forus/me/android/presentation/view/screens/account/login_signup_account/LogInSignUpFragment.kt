@@ -222,10 +222,6 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
 
                 } else {
                     registerActionNewAccount.onNext(NewAccountRequest(
-                            firstname = "",
-                            lastname = "",
-                            bsn = "",
-                            phoneNumber = "",
                             email = email!!.getText()
                     ))
                 }
