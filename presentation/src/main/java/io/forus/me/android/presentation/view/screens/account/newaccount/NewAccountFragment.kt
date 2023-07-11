@@ -100,10 +100,6 @@ class NewAccountFragment : ToolbarLRFragment<NewAccountModel, NewAccountView, Ne
             showFieldErrors = true
             if (viewIsValid) {
                 registerAction.onNext(NewAccountRequest(
-                        firstname = firstName.getTextOrNullIfBlank(),
-                        lastname = lastName.getTextOrNullIfBlank(),
-                        bsn = bsn.getTextOrNullIfBlank(),
-                        phoneNumber = phone.getTextOrNullIfBlank(),
                         email = email.getText()
                         )
                 )
