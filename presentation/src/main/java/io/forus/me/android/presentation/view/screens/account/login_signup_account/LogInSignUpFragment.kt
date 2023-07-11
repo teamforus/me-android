@@ -41,6 +41,9 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
     MViewModelProvider<LoginSignUpViewModel> {
 
 
+    var clickLoginUserAction = false
+
+
     override val viewModel by lazy {
         ViewModelProvider(requireActivity())[LoginSignUpViewModel::class.java].apply { }
     }
@@ -184,14 +187,15 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
     override fun render(vs: LRViewState<LogInSignUpModel>) {
         super.render(vs)
 
-
         restore!!.isEnabled = vs.model.sendingRestoreByEmail != true
 
         pair_device!!.isEnabled = vs.model.sendingRestoreByEmail != true
         // email_description.visibility = if(vs.model.sendingRestoreByEmailSuccess == true) View.VISIBLE else View.INVISIBLE
         email!!.isEditable = vs.model.sendingRestoreByEmail != true //!(vs.model.sendingRestoreByEmailSuccess == true)
 
-        if (vs.model.sendingRestoreByEmailSuccess == true && !instructionsAlreadyShown) {
+        if (vs.model.sendingRestoreByEmailSuccess == true && !instructionsAlreadyShown  && clickLoginUserAction) {
+
+            clickLoginUserAction = false
 
             navigator.navigateToCheckEmail(requireContext())
         }
@@ -201,8 +205,9 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
         }
 
 
-        restore!!.setOnClickListener {
 
+        restore!!.setOnClickListener {
+            clickLoginUserAction = true
             validateEmail.onNext(email!!.getText())
 
         }
@@ -217,7 +222,6 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
                 }
 
                 if (vs.model.validateEmail.used) {
-
                     restoreAction.onNext(email!!.getText())
 
                 } else {
