@@ -318,33 +318,44 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
     }
 
     fun processError(error: Throwable){
+
+
         Log.d("forus", "sendingRestoreByEmailError... err = "+error)
 
 
         if (error is io.forus.me.android.data.exception.RetrofitException && error.kind == RetrofitException.Kind.NETWORK) {
-            NoInternetDialog(requireContext(), {  }).show()
-        } else {
-
+            Log.d("forus", "sendingRestoreByEmailError... err 1 ")
+            NoInternetDialog(requireContext()) { }.show()
+        } else
             if (error is RetrofitException && error.kind == RetrofitException.Kind.HTTP) {
+                Log.d("forus", "sendingRestoreByEmailError... err 2 ")
                 try {
-                    if (error.responseCode == 403 ) {
-                        val newRecordError : BaseApiError = retrofitExceptionMapper.mapToBaseApiError(error)
-                        val title = if (newRecordError.message == null) "" else newRecordError.message
-                        ErrorDialog(requireContext(),title,"").show()
-                    } else
+                    when (error.responseCode) {
 
-                        if(error.responseCode == 422){
+                        403 -> {
+                            val newRecordError : BaseApiError = retrofitExceptionMapper.mapToBaseApiError(error)
+                            val title = if (newRecordError.message == null) "" else newRecordError.message
+                            ErrorDialog(requireContext(),title,"").show()
+                        }
+                        422 -> {
                             val newRecordError = retrofitExceptionMapper.mapToApiError(error)
                             val title = if (newRecordError.message == null) "" else newRecordError.message
                             val message = if (newRecordError.message == null) "" else newRecordError.emailFormatted
                             ErrorDialog(requireContext(),title,message).show()
                         }
+                    }
                 } catch (e: Exception) {
-                    Log.d("forus", "${e.localizedMessage}")
+                    Log.d("forus","processError $e")
                 }
+            }else{
+                if(clickLoginUserAction) {
+                    clickLoginUserAction = false
+                    navigator.navigateToAccountRestoreByEmail(requireContext())
+                }
+
             }
 
-        }
+
     }
 
 
