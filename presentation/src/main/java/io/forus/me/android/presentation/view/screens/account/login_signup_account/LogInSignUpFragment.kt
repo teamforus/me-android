@@ -350,9 +350,8 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
             }else{
                 if(clickLoginUserAction) {
                     clickLoginUserAction = false
-                    navigator.navigateToAccountRestoreByEmail(requireContext())
+                    navigator.navigateToCheckEmail(requireContext())
                 }
-
             }
 
 
