@@ -22,7 +22,7 @@ class Office(var id: Long = -1L,
             parcel.readDouble(),
             parcel.readString(),
             parcel.readParcelable(Organization::class.java.classLoader) ?: Organization(),
-            parcel.createTypedArrayList(Schedule)) {
+            parcel.createTypedArrayList(Schedule)?: listOf<Schedule>()) {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {

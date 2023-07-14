@@ -2,9 +2,9 @@ package io.forus.me.android.presentation.view.component.editors
 
 import android.content.Context
 import android.os.Build
-import android.support.design.widget.TextInputEditText
-import android.support.design.widget.TextInputLayout
-import android.support.v4.content.res.ResourcesCompat
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
+import androidx.core.content.res.ResourcesCompat
 import android.text.Editable
 import android.text.Html
 import android.text.InputType

@@ -1,11 +1,11 @@
 package io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actions.payment
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import android.content.DialogInterface
-import android.databinding.DataBindingUtil
+import androidx.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v4.app.FragmentTransaction
+import androidx.fragment.app.FragmentTransaction
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View

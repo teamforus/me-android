@@ -47,6 +47,8 @@ class SendReportsActivity : CommonActivity() {
 
     /*override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
-        fragment.exchangeToken(intent.getStringExtra(TOKEN_EXTRA))
+        intent.getStringExtra(TOKEN_EXTRA)?.let{
+    fragment.exchangeToken(it)
+}
     }*/
 }

@@ -1,9 +1,9 @@
 package io.forus.me.android.presentation.helpers
 
 import android.os.Build
-import android.support.annotation.LayoutRes
-import android.support.annotation.StyleRes
-import android.support.v4.widget.TextViewCompat
+import androidx.annotation.LayoutRes
+import androidx.annotation.StyleRes
+import androidx.core.widget.TextViewCompat
 import android.text.Html
 import android.view.LayoutInflater
 import android.view.View

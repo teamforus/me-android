@@ -5,13 +5,14 @@ import android.content.Intent
 import android.graphics.BlurMaskFilter
 import android.net.Uri
 import android.os.Bundle
-import android.support.v4.view.ViewPager
-import android.support.v7.app.AlertDialog
-import android.support.v7.widget.LinearLayoutManager
+import androidx.viewpager.widget.ViewPager
+import androidx.appcompat.app.AlertDialog
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -32,9 +33,12 @@ import io.forus.me.android.presentation.mappers.*
 import io.forus.me.android.presentation.models.vouchers.FundType
 import io.forus.me.android.presentation.models.vouchers.Office
 import io.forus.me.android.presentation.models.vouchers.Voucher
+import io.forus.me.android.presentation.view.base.MViewModelProvider
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
+import io.forus.me.android.presentation.view.screens.account.newaccount.pin.NewPinViewModel
 import io.forus.me.android.presentation.view.screens.dashboard.DashboardActivity
+import io.forus.me.android.presentation.view.screens.vouchers.VoucherViewModel
 import io.forus.me.android.presentation.view.screens.vouchers.dialogs.FullscreenDialog
 import io.forus.me.android.presentation.view.screens.vouchers.item.offices_adapter.OfficesAdapter
 import io.forus.me.android.presentation.view.screens.vouchers.item.transactions.TransactionsAdapter
@@ -49,7 +53,11 @@ import java.util.*
 private const val MAP_VIEW_BUNDLE_KEY = "MapViewBundleKey"
 
 class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
-        VoucherPresenter>(), VoucherView, OnMapReadyCallback {
+        VoucherPresenter>(), VoucherView, OnMapReadyCallback, MViewModelProvider<VoucherViewModel> {
+
+    override val viewModel by lazy {
+        ViewModelProvider(requireActivity())[VoucherViewModel::class.java].apply { }
+    }
 
     companion object {
         private const val VOUCHER_ADDRESS_EXTRA = "VOUCHER_ADDRESS_EXTRA"
@@ -83,7 +91,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
     private var map: GoogleMap? = null
     private var organizationLatLng: LatLng? = null
     private val sendEmailDialog: AlertDialog.Builder by lazy(LazyThreadSafetyMode.NONE) {
-        AlertDialog.Builder(activity!!)
+        AlertDialog.Builder(requireContext())
                 .setTitle(R.string.send_voucher_email_dialog_title)
                 .setPositiveButton(R.string.send_voucher_email_dialog_positive_button) { _, _ ->
                     sendEmailDialogShows.onNext(true)
@@ -124,16 +132,27 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
 
     override fun sentEmailDialogShown(): Observable<Unit> = sentEmailDialogShown
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = inflater.inflate(R.layout.fragment_voucher, container, false).also {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.d("MyPresenter","onCreate()")
+    }
 
-        voucher = arguments?.getParcelable(VOUCHER_EXTRA)
-        address = arguments?.getString(VOUCHER_ADDRESS_EXTRA, "") ?: ""
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = inflater.inflate(R.layout.fragment_voucher, container, false).also {
+        Log.d("MyPresenter","onCreateView()")
+       // voucher = arguments?.getParcelable(VOUCHER_EXTRA)
+       // address = arguments?.getString(VOUCHER_ADDRESS_EXTRA, "") ?: ""
+        voucher = viewModel.voucher.value
+        address = viewModel.address.value?:""
+
+
         adapter = TransactionsAdapter()
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        Log.d("MyPresenter","onViewCreated()")
 //        val position = arguments?.getInt(POSITION_EXTRA, -1)
 //
 //        ViewCompat.setTransitionName(voucher_card, "card_transition_name_$position")
@@ -145,7 +164,8 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
         map_view.onCreate(mapViewBundle)
         map_view.getMapAsync(this)
 
-        rv_transactions.layoutManager = LinearLayoutManager(context)
+        rv_transactions.layoutManager =
+            LinearLayoutManager(context)
         rv_transactions.adapter = adapter
 
 
@@ -244,6 +264,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
     }
 
     override fun createPresenter(): VoucherPresenter {
+        Log.d("MyPresenter","createPresenter() ")
         val currencyDataMapper = CurrencyDataMapper()
         return VoucherPresenter(
                 LoadVoucherUseCase(Injection.instance.vouchersRepository, JobExecutor(), UIThread()),
@@ -252,8 +273,8 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
 
                  ProductDataMapper()), ProductDataMapper(), OfficeDataMapper(SchedulerDataMapper())),
 
-                address,
-                voucher,
+                viewModel.address.value?:"",
+                viewModel.voucher.value,
                 Injection.instance.accountRepository
         )
     }
@@ -299,7 +320,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
                     shopkeeper_email.visibility = if ((organization.email
                                     ?: "").isNotEmpty()) View.VISIBLE else View.GONE
 
-                    Glide.with(this)
+                    Glide.with(requireContext())
                             .load(organization.logo)
                             .fitCenter()
                             .into(shopkeeper_logo)
@@ -316,7 +337,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
                 val myOffices = mutableListOf<Office>()
                 myOffices.addAll(officesList)
                 if (myOffices.isNotEmpty()) {
-                    val officesAdapter = OfficesAdapter(myOffices, context!!)
+                    val officesAdapter = OfficesAdapter(myOffices, requireContext())
                     officesAdapter.showMapCallback = object : OfficesAdapter.ShowMapCallback {
                         override fun showMap(office: Office) {
                             if (office.lat != null && office.lon != null) {
@@ -449,9 +470,9 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
                     showEmailSendDialog()
                 }
                 EmailSend.SENT -> {
-                    FullscreenDialog.display(fragmentManager, context!!.resources.getString(R.string.voucher_send_email_success),
-                            context!!.resources.getString(R.string.voucher_send_email_description),
-                            context!!.resources.getString(R.string.me_ok)) {
+                    FullscreenDialog.display(fragmentManager, requireContext().resources.getString(R.string.voucher_send_email_success),
+                            requireContext().resources.getString(R.string.voucher_send_email_description),
+                            requireContext().resources.getString(R.string.me_ok)) {
                         sentEmailDialogShown.onNext(Unit)
                     }
                 }
@@ -467,7 +488,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
         val gmmIntentUri = Uri.parse("geo:${lat.toString()},${lon.toString()}")
         val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
         mapIntent.setPackage("com.google.android.apps.maps")
-        if (mapIntent.resolveActivity(context!!.packageManager) != null) {
+        if (mapIntent.resolveActivity(requireContext().packageManager) != null) {
             startActivity(mapIntent)
         }
     }

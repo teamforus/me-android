@@ -3,9 +3,9 @@ package io.forus.me.android.presentation.view.screens.vouchers.voucher_with_acti
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.content.ContextCompat
-import android.support.v7.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.core.content.ContextCompat
+import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import io.forus.me.android.presentation.R
@@ -51,7 +51,7 @@ class ActionPaymentActivity : BaseActivity() {
 
         val intent = this.intent
         intent.extras.let {
-            product = it.getSerializable(ACTION_PRODUCT_EXTRA) as ProductSerializable
+            product = it?.getSerializable(ACTION_PRODUCT_EXTRA) as ProductSerializable
             voucherAddress = intent.getSerializableExtra(ActionsActivity.VOUCHER_ADDRESS_EXTRA) as String
 
         }

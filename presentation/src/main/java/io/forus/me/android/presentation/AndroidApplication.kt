@@ -6,7 +6,7 @@ import android.content.Context
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.os.StrictMode
-import android.support.multidex.MultiDex
+import androidx.multidex.MultiDex
 import android.util.Log
 import com.crashlytics.android.Crashlytics
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException
@@ -110,8 +110,10 @@ class AndroidApplication : Application() {
             override fun onActivityPaused(activity: Activity) {}
 
             override fun onActivityStopped(activity: Activity) {}
+            override fun onActivitySaveInstanceState(p0: Activity, p1: Bundle) {
+            }
 
-            override fun onActivitySaveInstanceState(activity: Activity, bundle: Bundle?) {}
+
 
             override fun onActivityDestroyed(activity: Activity) {}
         })

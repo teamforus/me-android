@@ -7,12 +7,15 @@ import android.os.Bundle
 import io.forus.me.android.presentation.R
 
 import io.forus.me.android.presentation.view.activity.CommonActivity
+import androidx.activity.viewModels
+import io.forus.me.android.presentation.view.base.MViewModelProvider
 
 /**
  * Main application screen. This is the app entry point.
  */
-class RestoreByEmailActivity : CommonActivity() {
+class RestoreByEmailActivity : CommonActivity(), MViewModelProvider<RestoreByEmailViewModel> {
 
+    override val viewModel: RestoreByEmailViewModel by viewModels()
 
     companion object {
         private val TOKEN_EXTRA = "TOKEN_EXTRA"
@@ -38,7 +41,9 @@ class RestoreByEmailActivity : CommonActivity() {
 
         if (savedInstanceState == null) {
             val token = intent.getStringExtra(TOKEN_EXTRA)
+
             fragment = if(token != null){
+                viewModel.setToken(token)
                 RestoreByEmailFragment.newIntent(token)
             } else RestoreByEmailFragment()
             addFragment(R.id.fragmentContainer, fragment)
@@ -47,6 +52,9 @@ class RestoreByEmailActivity : CommonActivity() {
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
-        fragment.exchangeToken(intent.getStringExtra(TOKEN_EXTRA))
+        intent.getStringExtra(TOKEN_EXTRA)?.let {
+            fragment.exchangeToken(it)
+        }
+
     }
 }

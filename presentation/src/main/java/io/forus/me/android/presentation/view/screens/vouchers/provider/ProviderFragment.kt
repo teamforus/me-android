@@ -3,20 +3,23 @@ package io.forus.me.android.presentation.view.screens.vouchers.provider
 import android.content.DialogInterface
 import android.content.DialogInterface.OnDismissListener
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import io.forus.me.android.domain.exception.RetrofitException
 import io.forus.me.android.domain.exception.RetrofitExceptionMapper
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.models.vouchers.Organization
+import io.forus.me.android.presentation.view.base.MViewModelProvider
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.forus.me.android.presentation.view.screens.qr.dialogs.ScanVoucherBaseErrorDialog
+import io.forus.me.android.presentation.view.screens.vouchers.VoucherViewModel
 import io.forus.me.android.presentation.view.screens.vouchers.provider.categories.CategoriesAdapter
 import io.forus.me.android.presentation.view.screens.vouchers.provider.dialogs.ApplyDialog
 import io.forus.me.android.presentation.view.screens.vouchers.provider.dialogs.ChargeDialog
@@ -29,8 +32,12 @@ import java.math.BigDecimal
 import io.forus.me.android.presentation.view.screens.vouchers.dialogs.SuccessDialogActivity
 
 
-class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, ProviderPresenter>(), ProviderView {
+class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, ProviderPresenter>(), ProviderView ,
+    MViewModelProvider<VoucherViewModel> {
 
+    override val viewModel by lazy {
+        ViewModelProvider(requireActivity())[VoucherViewModel::class.java].apply { }
+    }
 
     companion object {
         private val VOUCHER_ADDRESS_EXTRA = "VOUCHER_ADDRESS_EXTRA"
@@ -88,7 +95,8 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        rv_categories.layoutManager = LinearLayoutManager(context)
+        rv_categories.layoutManager =
+            LinearLayoutManager(context)
         rv_categories.adapter = categoriesAdapter
 
         amount.setTextChangedListener(object : TextWatcher {
@@ -121,8 +129,8 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
 
     override fun createPresenter() = ProviderPresenter(
             Injection.instance.vouchersRepository,
-            address,
-            isDemoVoucher
+            viewModel.address.value?:"",
+        viewModel.isDemoVoucher.value
     )
 
     private var retrofitExceptionMapper: RetrofitExceptionMapper = Injection.instance.retrofitExceptionMapper
@@ -138,7 +146,7 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
 
 
         if(isDemoVoucher!= null && isDemoVoucher!!) {
-            tv_organization_name.text = context!!.getString(R.string.check_email_open_mail_app)
+            tv_organization_name.text = requireContext().getString(R.string.check_email_open_mail_app)
         }else{
             if (vs.model.selectedOrganization != null) {
                 tv_organization_name.text = vs.model.selectedOrganization.name
@@ -165,7 +173,7 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
             }
         }
 
-        container.setOnClickListener { OrganizationsListDialog(context!!, vs.model.item?.allowedOrganizations!!) {
+        container.setOnClickListener { OrganizationsListDialog(requireContext(), vs.model.item?.allowedOrganizations!!) {
             selectOrganization.onNext(it)
         }.show() }
 
@@ -194,7 +202,7 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
                 }
             }
 
-            ScanVoucherBaseErrorDialog(errorMessage, context!!, object : OnDismissListener, () -> Unit {
+            ScanVoucherBaseErrorDialog(errorMessage, requireContext(), object : OnDismissListener, () -> Unit {
                 override fun invoke() {
                     activity?.finish()
                 }
@@ -219,13 +227,13 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
             demoCharge.onNext(BigDecimal.ZERO)
         }else
         if (isProduct) {
-            ApplyDialog(context!!) {
+            ApplyDialog(requireContext()) {
                 charge.onNext(BigDecimal.ZERO)
             }.show()
         } else {
             val chargeAmount = if (amount <= balance) amount else balance
             val extra = if (amount <= balance) BigDecimal.ZERO else amount.minus(balance)
-            ChargeDialog(context!!, chargeAmount, extra) {
+            ChargeDialog(requireContext(), chargeAmount, extra) {
                 charge.onNext(chargeAmount)
             }.show()
         }
@@ -235,16 +243,16 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
 
     private fun showScuccessDialog() {
 
-        val i = SuccessDialogActivity.getCallingIntent(context!!,
-                context!!.resources.getString(R.string.vouchers_apply_success),
-                context!!.resources.getString(R.string.vouchers_transaction_duration_of_payout),
-                context!!.resources.getString(R.string.me_ok))
+        val i = SuccessDialogActivity.getCallingIntent(requireContext(),
+                requireContext().resources.getString(R.string.vouchers_apply_success),
+                requireContext().resources.getString(R.string.vouchers_transaction_duration_of_payout),
+                requireContext().resources.getString(R.string.me_ok))
         activity?.finish()
         activity?.startActivity(i)
 
-        /*FullscreenDialog.display(fragmentManager,context!!.resources.getString(R.string.success),
-                context!!.resources.getString(R.string.vouchers_apply_success),
-                context!!.resources.getString(R.string.me_ok)) { activity?.finish() }*/
+        /*FullscreenDialog.display(fragmentManager,requireContext().resources.getString(R.string.success),
+                requireContext().resources.getString(R.string.vouchers_apply_success),
+                requireContext().resources.getString(R.string.me_ok)) { activity?.finish() }*/
 
     }
 

@@ -41,7 +41,7 @@ class RecordModifyDialog(private val context: Activity, val action: Action,  pri
         dialogBuilder.setView(dialogView)
         dialog = dialogBuilder.create()
         if (dialog.window != null) {
-            dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         }
 
     }

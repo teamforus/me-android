@@ -3,8 +3,8 @@ package io.forus.me.android.presentation.view.component.text
 import android.content.Context
 import android.graphics.Typeface
 import android.os.Build
-import android.support.v4.content.res.ResourcesCompat
-import android.support.v7.widget.AppCompatTextView
+import androidx.core.content.res.ResourcesCompat
+import androidx.appcompat.widget.AppCompatTextView
 import android.util.AttributeSet
 import android.util.Log
 import io.forus.me.android.presentation.R

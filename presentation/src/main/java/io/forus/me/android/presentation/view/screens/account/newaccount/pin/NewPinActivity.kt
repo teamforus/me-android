@@ -3,11 +3,15 @@ package io.forus.me.android.presentation.view.screens.account.newaccount.pin
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.view.activity.CommonActivity
+import androidx.activity.viewModels
+import io.forus.me.android.presentation.view.base.MViewModelProvider
 
-class NewPinActivity : CommonActivity() {
+class NewPinActivity : CommonActivity(), MViewModelProvider<NewPinViewModel> {
 
+    override val viewModel: NewPinViewModel by viewModels()
 
     companion object {
         private val ACCESS_TOKEN_EXTRA = "ACCESS_TOKEN_EXTRA"
@@ -26,9 +30,17 @@ class NewPinActivity : CommonActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        Log.d("PresenterR","onCreate mainViewModel = ${viewModel}")
+
         if (savedInstanceState == null) {
-            val fragment = NewPinFragment.newIntent(intent.getStringExtra(ACCESS_TOKEN_EXTRA))
-            addFragment(R.id.fragmentContainer, fragment)
+            intent.getStringExtra(ACCESS_TOKEN_EXTRA)?.let { accessToken ->
+
+                viewModel.setAccessToken(accessToken)
+
+                val fragment = NewPinFragment.newIntent(accessToken)
+                addFragment(R.id.fragmentContainer, fragment)
+            }
+
         }
     }
 }

@@ -1,7 +1,7 @@
 package io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actions.model
 //import io.forus.me.android.data.entity.vouchers.response.Voucher
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
@@ -72,7 +72,7 @@ class ActionsViewModel : ViewModel() {
             init = false
         }else {
 
-            val tv = view as android.support.v7.widget.AppCompatTextView
+            val tv = view as androidx.appcompat.widget.AppCompatTextView
 
             val orgName = tv.text.toString()
             organizationId = selectedOrgIdByName(orgName)

@@ -31,7 +31,6 @@ class AccountRepository(private val settingsDataSource: SettingsDataSource,
         val signUp = SignUp()
         signUp.email = model.email
         signUp.pinCode = "1111"
-        signUp.records = SignRecords(model.firstname, model.lastname, model.bsn, model.phoneNumber)
 
         return accountRemoteDataSource.createUser(signUp)
                 .flatMap {
@@ -144,21 +143,21 @@ class AccountRepository(private val settingsDataSource: SettingsDataSource,
 
     override fun getAccount(): Observable<Account> {
         return Observable.zip(
-                recordsRepository.getRecords(),
-                accountRemoteDataSource.getIdentity(),
-                BiFunction { records, identity ->
+            recordsRepository.getRecords(),
+            accountRemoteDataSource.getIdentity(),
+            BiFunction { records, identity ->
 
-                    val account = Account()
-                    // val email = com.annimon.stream.Stream.of(records).filter { x->x.recordType.key == "primary_email" }.findFirst()
-                    val givanName = com.annimon.stream.Stream.of(records).filter { x -> x.recordType.key == "given_name" }.findFirst()
-                    val familyName = com.annimon.stream.Stream.of(records).filter { x -> x.recordType.key == "family_name" }.findFirst()
-                    account.name = (if (givanName.isPresent) "${givanName.get().value} " else "") + (if (familyName.isPresent) "${familyName.get().value}" else "")
-                    //account.email = if (email.isPresent) email.get().value else ""
-                    account.email = identity.email
-                    account.address = identity.address
+                val account = Account()
+                // val email = com.annimon.stream.Stream.of(records).filter { x->x.recordType.key == "primary_email" }.findFirst()
+                val givanName = com.annimon.stream.Stream.of(records).filter { x -> x.recordType.key == "given_name" }.findFirst()
+                val familyName = com.annimon.stream.Stream.of(records).filter { x -> x.recordType.key == "family_name" }.findFirst()
+                account.name = (if (givanName.isPresent) "${givanName.get().value} " else "") + (if (familyName.isPresent) "${familyName.get().value}" else "")
+                //account.email = if (email.isPresent) email.get().value else ""
+                account.email = identity.email
+                account.address = identity.address
 
-                    account
-                }
+                account
+            }
         )
     }
 

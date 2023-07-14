@@ -1,7 +1,7 @@
 package io.forus.me.android.presentation.view.component.pinlock;
 
 import android.graphics.Rect;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 
 public class ItemSpaceDecoration extends RecyclerView.ItemDecoration {

@@ -1,11 +1,11 @@
 package io.forus.me.android.presentation.view.screens.vouchers.transactions_log
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.annotation.Nullable
-import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
+import androidx.annotation.Nullable
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -127,7 +127,12 @@ class TransactionsFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
         }
 
-        val linearLayoutManager = LinearLayoutManager(context!!, LinearLayoutManager.VERTICAL, false)
+        val linearLayoutManager =
+            LinearLayoutManager(
+                context!!,
+                LinearLayoutManager.VERTICAL,
+                false
+            )
         recycler.layoutManager = linearLayoutManager
         recycler.adapter = transactionsAdapter
 

@@ -5,22 +5,29 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.internal.Injection
+import io.forus.me.android.presentation.view.base.MViewModelProvider
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.base.lr.LoadRefreshPanel
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.forus.me.android.presentation.view.screens.account.assigndelegates.email.RestoreByEmailModel
 import io.forus.me.android.presentation.view.screens.account.assigndelegates.email.RestoreByEmailPresenter
 import io.forus.me.android.presentation.view.screens.account.assigndelegates.email.RestoreByEmailView
+import io.forus.me.android.presentation.view.screens.account.newaccount.pin.NewPinViewModel
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_confirm_registration.*
 
 
 
-class ConfirmRegistrationFragment :  ToolbarLRFragment<ConfirmRegistrationModel, ConfirmRegistrationView, ConfirmRegistrationPresenter>(), ConfirmRegistrationView {
+class ConfirmRegistrationFragment :  ToolbarLRFragment<ConfirmRegistrationModel, ConfirmRegistrationView, ConfirmRegistrationPresenter>(), ConfirmRegistrationView,
+    MViewModelProvider<ConfirmRegistrationViewModel> {
 
+    override val viewModel by lazy {
+        ViewModelProvider(requireActivity())[ConfirmRegistrationViewModel::class.java].apply { }
+    }
 
     companion object {
         private val TOKEN_EXTRA = "TOKEN_EXTRA"
@@ -32,7 +39,7 @@ class ConfirmRegistrationFragment :  ToolbarLRFragment<ConfirmRegistrationModel,
         }
     }
 
-    private var token: String = ""
+  //  private var token: String = ""
 
 
 
@@ -66,9 +73,9 @@ class ConfirmRegistrationFragment :  ToolbarLRFragment<ConfirmRegistrationModel,
             = inflater.inflate(R.layout.fragment_confirm_registration, container, false).also {
 
         val bundle = this.arguments
-        if (bundle != null) {
-            token = bundle.getString(TOKEN_EXTRA, "")
-        }
+       // if (bundle != null) {
+       //     token = bundle.getString(TOKEN_EXTRA, "")
+      //  }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -82,7 +89,7 @@ class ConfirmRegistrationFragment :  ToolbarLRFragment<ConfirmRegistrationModel,
     }
 
     override fun createPresenter() = ConfirmRegistrationPresenter(
-            token,
+            viewModel.token.value?:"",
             Injection.instance.accountRepository
     )
 

@@ -7,9 +7,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.afollestad.materialdialogs.DialogAction
+import androidx.lifecycle.ViewModelProvider
 import com.afollestad.materialdialogs.MaterialDialog
-import com.google.gson.Gson
 import io.forus.me.android.domain.exception.RetrofitException
 import io.forus.me.android.domain.exception.RetrofitExceptionMapper
 import io.forus.me.android.domain.models.account.NewAccountRequest
@@ -24,11 +23,11 @@ import io.forus.me.android.presentation.api_config.dialogs.*
 import io.forus.me.android.presentation.helpers.SharedPref
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.activity.BaseActivity
+import io.forus.me.android.presentation.view.base.MViewModelProvider
 import io.forus.me.android.presentation.view.base.NoInternetDialog
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.base.lr.LoadRefreshPanel
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
-import io.forus.me.android.presentation.view.screens.qr.dialogs.ScanVoucherBaseErrorDialog
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_account_details.root
@@ -38,8 +37,16 @@ import java.lang.Exception
 /**
  * Fragment User Account Screen.
  */
-class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView, LogInSignUpPresenter>(), LogInSignUpView {
+class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView, LogInSignUpPresenter>(), LogInSignUpView,
+    MViewModelProvider<LoginSignUpViewModel> {
 
+
+    var clickLoginUserAction = false
+
+
+    override val viewModel by lazy {
+        ViewModelProvider(requireActivity())[LoginSignUpViewModel::class.java].apply { }
+    }
 
     companion object {
         private val TOKEN_EXTRA = "TOKEN_EXTRA"
@@ -56,7 +63,7 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
     var pair_device: io.forus.me.android.presentation.view.component.buttons.Button? = null
     var devOptionsBt: io.forus.me.android.presentation.view.component.buttons.ButtonWhite? = null
 
-    private var token: String = ""
+  //  private var token: String = ""
 
     private val viewIsValid: Boolean
         get() {
@@ -114,13 +121,13 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
 
-        val bundle = this.arguments
-        if (bundle != null) {
-            token = bundle.getString(TOKEN_EXTRA, "")
-        }
+       // val bundle = this.arguments
+       // if (bundle != null) {
+       //     token = bundle.getString(TOKEN_EXTRA, "")
+       // }
 
 
-        val display = activity!!.getWindowManager().getDefaultDisplay()
+        val display = requireActivity().windowManager.defaultDisplay
         val outMetrics = DisplayMetrics()
         display.getMetrics(outMetrics)
         val density = resources.displayMetrics.density
@@ -160,18 +167,14 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
 
 
         pair_device!!.setOnClickListener {
-            navigator.navigateToPairDevice(context!!)
+            navigator.navigateToPairDevice(requireContext())
         }
 
 
     }
 
-    override fun onDetach() {
-        super.onDetach()
-    }
-
     override fun createPresenter() = LogInSignUpPresenter(
-            token,
+            viewModel.token.value?:"",
             Injection.instance.accountRepository
     )
 
@@ -184,16 +187,17 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
     override fun render(vs: LRViewState<LogInSignUpModel>) {
         super.render(vs)
 
-
         restore!!.isEnabled = vs.model.sendingRestoreByEmail != true
 
         pair_device!!.isEnabled = vs.model.sendingRestoreByEmail != true
         // email_description.visibility = if(vs.model.sendingRestoreByEmailSuccess == true) View.VISIBLE else View.INVISIBLE
         email!!.isEditable = vs.model.sendingRestoreByEmail != true //!(vs.model.sendingRestoreByEmailSuccess == true)
 
-        if (vs.model.sendingRestoreByEmailSuccess == true && !instructionsAlreadyShown) {
+        if (vs.model.sendingRestoreByEmailSuccess == true && !instructionsAlreadyShown  && clickLoginUserAction) {
 
-            navigator.navigateToCheckEmail(context!!)
+            clickLoginUserAction = false
+
+            navigator.navigateToCheckEmail(requireContext())
         }
 
         if (vs.model.sendingRestoreByEmail == true) {
@@ -201,8 +205,9 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
         }
 
 
-        restore!!.setOnClickListener {
 
+        restore!!.setOnClickListener {
+            clickLoginUserAction = true
             validateEmail.onNext(email!!.getText())
 
         }
@@ -213,19 +218,14 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
 
                 context?.let { it1 ->
                     SharedPref.init(it1)
-                    SharedPref.write(SharedPref.RESTORE_EMAIL, email!!.getText());
-                };
+                    SharedPref.write(SharedPref.RESTORE_EMAIL, email!!.getText())
+                }
 
                 if (vs.model.validateEmail.used) {
-
                     restoreAction.onNext(email!!.getText())
 
                 } else {
                     registerActionNewAccount.onNext(NewAccountRequest(
-                            firstname = "",
-                            lastname = "",
-                            bsn = "",
-                            phoneNumber = "",
                             email = email!!.getText()
                     ))
                 }
@@ -267,48 +267,48 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
                     ?: defaultApi
 
             devOptionsBt!!.setOnClickListener {
-                ChooseApiDialog(context!!, MaterialDialog.ListCallback { dialog, itemView, position, text ->
+                ChooseApiDialog(requireContext(), MaterialDialog.ListCallback { dialog, itemView, position, text ->
 
                     val newApiType = ApiConfig.stringToApiType(text.toString())
                     devOptionsBt!!.text = newApiType.name
 
                     if (newApiType == ApiType.OTHER) {
 
-                        CustomApiDialog(context!!, storedOtherApiStr, MaterialDialog.InputCallback { _, input ->
+                        CustomApiDialog(requireContext(), storedOtherApiStr, MaterialDialog.InputCallback { _, input ->
 
                             val customApiStr = input.toString()
                             storedOtherApiStr = customApiStr
 
-                            CheckApiPresenter(context!!).checkApi(customApiStr,
+                            CheckApiPresenter(requireContext()).checkApi(customApiStr,
                                     { result ->
                                         run {
                                             if (result) {
-                                                TestApiSuccessDialog(context!!, customApiStr) {
-                                                    SaveApiAndRestartDialog(context!!) {
+                                                TestApiSuccessDialog(requireContext(), customApiStr) {
+                                                    SaveApiAndRestartDialog(requireContext()) {
                                                         SharedPref.write(SharedPref.OPTION_CUSTOM_API_URL, customApiStr)
                                                         SharedPref.write(SharedPref.OPTION_API_TYPE, newApiType.name)
                                                         ApiConfig.changeToCustomApi(customApiStr)
-                                                        Utils.instance.restartApp(context!!)
+                                                        Utils.instance.restartApp(requireContext())
                                                     }.show()
                                                 }.show()
                                             } else {
-                                                TestApiErrorDialog(context!!, "", {}).show()
+                                                TestApiErrorDialog(requireContext(), "", {}).show()
                                             }
                                         }
                                     },
                                     { throwable ->
                                         run {
-                                            TestApiErrorDialog(context!!, throwable.localizedMessage, {}).show()
+                                            TestApiErrorDialog(requireContext(), throwable.localizedMessage, {}).show()
                                         }
                                     }
                             )
 
                         }, {}, {}).show()
                     } else {
-                        SaveApiAndRestartDialog(context!!) {
+                        SaveApiAndRestartDialog(requireContext()) {
                             SharedPref.write(SharedPref.OPTION_API_TYPE, newApiType.name)
                             ApiConfig.changeApi(newApiType)
-                            Utils.instance.restartApp(context!!)
+                            Utils.instance.restartApp(requireContext())
                         }.show()
                     }
 
@@ -318,33 +318,43 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
     }
 
     fun processError(error: Throwable){
+
+
         Log.d("forus", "sendingRestoreByEmailError... err = "+error)
 
 
         if (error is io.forus.me.android.data.exception.RetrofitException && error.kind == RetrofitException.Kind.NETWORK) {
-            NoInternetDialog(context!!, {  }).show();
-        } else {
-
+            Log.d("forus", "sendingRestoreByEmailError... err 1 ")
+            NoInternetDialog(requireContext()) { }.show()
+        } else
             if (error is RetrofitException && error.kind == RetrofitException.Kind.HTTP) {
+                Log.d("forus", "sendingRestoreByEmailError... err 2 ")
                 try {
-                    if (error.responseCode == 403 ) {
-                        val newRecordError : BaseApiError = retrofitExceptionMapper.mapToBaseApiError(error)
-                        val title = if (newRecordError.message == null) "" else newRecordError.message
-                        ErrorDialog(context!!,title,"").show()
-                    } else
+                    when (error.responseCode) {
 
-                        if(error.responseCode == 422){
+                        403 -> {
+                            val newRecordError : BaseApiError = retrofitExceptionMapper.mapToBaseApiError(error)
+                            val title = if (newRecordError.message == null) "" else newRecordError.message
+                            ErrorDialog(requireContext(),title,"").show()
+                        }
+                        422 -> {
                             val newRecordError = retrofitExceptionMapper.mapToApiError(error)
                             val title = if (newRecordError.message == null) "" else newRecordError.message
                             val message = if (newRecordError.message == null) "" else newRecordError.emailFormatted
-                            ErrorDialog(context!!,title,message).show()
+                            ErrorDialog(requireContext(),title,message).show()
                         }
+                    }
                 } catch (e: Exception) {
-                    Log.d("forus", "${e.localizedMessage}")
+                    Log.d("forus","processError $e")
+                }
+            }else{
+                if(clickLoginUserAction) {
+                    clickLoginUserAction = false
+                    navigator.navigateToCheckEmail(requireContext())
                 }
             }
 
-        }
+
     }
 
 

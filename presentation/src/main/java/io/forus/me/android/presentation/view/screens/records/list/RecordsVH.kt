@@ -1,6 +1,6 @@
 package io.forus.me.android.presentation.view.screens.records.list
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
 import io.forus.me.android.domain.models.records.Record
 import io.forus.me.android.presentation.R

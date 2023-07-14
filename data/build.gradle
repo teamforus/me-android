@@ -16,7 +16,7 @@ apply plugin: 'kotlin-kapt'
 
 apply plugin: 'kotlin-android-extensions'
 
-apply plugin: 'me.tatarka.retrolambda'
+
 
 android {
   defaultPublishConfig "debug"
@@ -28,7 +28,6 @@ android {
   defaultConfig {
     minSdkVersion globalConfiguration.getAt("androidMinSdkVersion")
     targetSdkVersion globalConfiguration.getAt("androidTargetSdkVersion")
-    versionCode globalConfiguration.getAt("androidVersionCode")
     multiDexEnabled true
   }
 
@@ -40,6 +39,7 @@ android {
   compileOptions {
     sourceCompatibility JavaVersion.VERSION_1_8
     targetCompatibility JavaVersion.VERSION_1_8
+    coreLibraryDesugaringEnabled true
   }
 
   packagingOptions {
@@ -64,7 +64,6 @@ android {
     }
   }
 
-  buildToolsVersion '28.0.3'
 }
 
 
@@ -94,6 +93,9 @@ dependencies {
   implementation dataDependencies.greendao
   implementation dataDependencies.annimon
 
+  implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.5.0'
+  coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
+
   kapt dataDependencies.archCompiler
 
 
@@ -102,9 +104,9 @@ dependencies {
   kapt dataDependencies.liveDataCompiler
 
 
-  androidTestImplementation testDependencies.junit
-  androidTestImplementation testDependencies.assertj
-  androidTestImplementation testDependencies.mockito
-  androidTestImplementation testDependencies.robolectric
-  androidTestImplementation testDependencies.arch
+
+  androidTestImplementation 'androidx.test:runner:1.1.0'
+  androidTestImplementation 'androidx.test:rules:1.1.0'
+  androidTestImplementation 'androidx.test.ext:junit:1.1.0'
+  androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
 }

@@ -1,7 +1,7 @@
 package io.forus.me.android.presentation.view.screens.records.types
 
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +11,7 @@ import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.forus.me.android.presentation.view.screens.records.list.RecordsAdapter
 import kotlinx.android.synthetic.main.fragment_record_categories.*
-import android.support.v7.widget.DividerItemDecoration
+import androidx.recyclerview.widget.DividerItemDecoration
 import android.util.Log
 import io.forus.me.android.presentation.view.component.dividers.FDividerItemDecoration
 import io.forus.me.android.presentation.view.screens.records.categories.RecordCategoriesPresenter
@@ -75,7 +75,8 @@ class RecordTypesFragment : ToolbarLRFragment<RecordTypesModel, RecordTypesView,
             showList = arguments!!.getInt("showList") != 0
         }
 
-        val layoutManager = LinearLayoutManager(context)
+        val layoutManager =
+            LinearLayoutManager(context)
         recycler.layoutManager = layoutManager
         val dividerItemDecoration = FDividerItemDecoration(recycler.context, R.drawable.shape_divider_item_record)
 

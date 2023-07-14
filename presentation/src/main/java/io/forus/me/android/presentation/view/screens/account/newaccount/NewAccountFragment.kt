@@ -1,7 +1,7 @@
 package io.forus.me.android.presentation.view.screens.account.newaccount
 
 import android.os.Bundle
-import android.support.design.widget.Snackbar
+import com.google.android.material.snackbar.Snackbar
 import android.text.Editable
 import android.util.Log
 import android.view.LayoutInflater
@@ -100,10 +100,6 @@ class NewAccountFragment : ToolbarLRFragment<NewAccountModel, NewAccountView, Ne
             showFieldErrors = true
             if (viewIsValid) {
                 registerAction.onNext(NewAccountRequest(
-                        firstname = firstName.getTextOrNullIfBlank(),
-                        lastname = lastName.getTextOrNullIfBlank(),
-                        bsn = bsn.getTextOrNullIfBlank(),
-                        phoneNumber = phone.getTextOrNullIfBlank(),
                         email = email.getText()
                         )
                 )

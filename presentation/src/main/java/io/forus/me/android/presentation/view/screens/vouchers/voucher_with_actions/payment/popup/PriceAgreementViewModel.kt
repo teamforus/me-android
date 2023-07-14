@@ -1,11 +1,11 @@
 package io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actions.payment.popup
 //import io.forus.me.android.data.entity.vouchers.response.Voucher
 import android.app.Application
-import android.arch.lifecycle.AndroidViewModel
-import android.arch.lifecycle.MutableLiveData
-import android.databinding.Bindable
-import android.databinding.Observable
-import android.databinding.PropertyChangeRegistry
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
+import androidx.databinding.Bindable
+import androidx.databinding.Observable
+import androidx.databinding.PropertyChangeRegistry
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.helpers.Converter
 import io.forus.me.android.presentation.helpers.Strings

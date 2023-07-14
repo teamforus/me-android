@@ -1,6 +1,6 @@
 package io.forus.me.android.presentation.view.screens.vouchers.provider.categories
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
 import io.forus.me.android.presentation.models.vouchers.ProductCategory
 import io.forus.me.android.presentation.R
