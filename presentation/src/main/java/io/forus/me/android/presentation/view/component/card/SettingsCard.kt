@@ -101,9 +101,16 @@ open class SettingsCard : FrameLayout {
     }
 
     override fun setOnClickListener(l: OnClickListener?) {
-         vConteiner?.setOnClickListener {
-             l?.onClick(it)
-         }
+        if (id == R.id.privacy_policy_card) {
+            vConteiner?.setOnClickListener {
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(context.getString(R.string.profile_privacy_policy_url)))
+                context.startActivity(intent)
+            }
+        } else {
+            vConteiner?.setOnClickListener {
+                l?.onClick(it)
+            }
+        }
     }
 
 
