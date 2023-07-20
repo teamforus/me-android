@@ -181,6 +181,13 @@
                         app:valuecard_title="@string/profile_about_me"></io.forus.me.android.presentation.view.component.card.SettingsCard>
 
                     <io.forus.me.android.presentation.view.component.card.SettingsCard
+                        android:id="@+id/privacy_policy_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:valuecard_title="@string/profile_privacy_policy"
+                        app:valuecard_text="@string/profile_privacy_policy_url" />
+
+                    <io.forus.me.android.presentation.view.component.card.SettingsCard
                         android:id="@+id/support_email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
