@@ -116,6 +116,7 @@
     <string name="profile_app_version">App versie</string>
     <string name="profile_about">Informatie</string>
     <string name="email_support">support@forus.io</string>
+    <string name="profile_privacy_policy">Privacy beleid</string>
 
     <!-- Price agreement -->
     <string name="price_agreement">Transactie details</string>
