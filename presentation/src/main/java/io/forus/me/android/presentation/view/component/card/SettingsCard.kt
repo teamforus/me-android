@@ -1,6 +1,8 @@
 package io.forus.me.android.presentation.view.component.card
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -101,15 +103,8 @@ open class SettingsCard : FrameLayout {
     }
 
     override fun setOnClickListener(l: OnClickListener?) {
-        if (id == R.id.privacy_policy_card) {
-            vConteiner?.setOnClickListener {
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(context.getString(R.string.profile_privacy_policy_url)))
-                context.startActivity(intent)
-            }
-        } else {
-            vConteiner?.setOnClickListener {
-                l?.onClick(it)
-            }
+        vConteiner?.setOnClickListener {
+            l?.onClick(it)
         }
     }
 
