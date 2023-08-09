@@ -126,6 +126,8 @@
     <string name="profile_logout_dialog_title">Logout</string>
     <string name="profile_logout_dialog_content">Are you sure you want to log out?</string>
     <string name="email_support">support@forus.io</string>
+    <string name="profile_privacy_policy">Privacy Policy</string>
+    <string name="profile_privacy_policy_url" translatable="false">https://forus.io/privacy</string>
 
 
     <!-- Price agreement -->

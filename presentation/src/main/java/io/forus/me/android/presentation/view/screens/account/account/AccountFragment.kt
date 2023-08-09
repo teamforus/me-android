@@ -60,7 +60,7 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
 
     private lateinit var services: SystemServices
     private val sendSupportEmailDialogBuilder: AlertDialog.Builder by lazy(LazyThreadSafetyMode.NONE) {
-        AlertDialog.Builder(context!!)
+        AlertDialog.Builder(requireContext())
                 .setTitle(R.string.send_feedback_email_dialog_title)
                 .setNegativeButton(R.string.send_voucher_email_dialog_cancel_button) { dialogInterface, _ -> dialogInterface.dismiss() }
                 .setPositiveButton(R.string.send_voucher_email_dialog_positive_button) { dialogInterface: DialogInterface, _ ->
@@ -107,17 +107,23 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
             (activity as? BaseActivity)?.replaceFragment(AboutMeFragment())
         }
 
+        privacy_policy_card.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, 
+                Uri.parse(requireContext().getString(R.string.profile_privacy_policy_url)))
+            requireContext().startActivity(intent)
+        }
+
         support_email.setOnClickListener {
             sendSupportEmailDialogBuilder.show()
         }
 
         headView.setOnClickListener {
-            navigator.navigateToRecordsList(context!!, null)
+            navigator.navigateToRecordsList(requireContext(), null)
         }
 
         optionPincodeIsEnable = true
 
-        SharedPref.init(context!!)
+        SharedPref.init(requireContext())
         preSavedOptionSendCrashLogIsEnable = SharedPref.read(SharedPref.OPTION_SEND_CRASH_REPORT, false)
 
         if(preSavedOptionSendCrashLogIsEnable){
@@ -138,7 +144,7 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
 
     override fun createPresenter():AccountPresenter {
 
-        SharedPref.init(context!!)
+        SharedPref.init(requireContext())
         preSavedOptionSendCrashLogIsEnable = SharedPref.read(SharedPref.OPTION_SEND_CRASH_REPORT, false)
         val sendReport =  preSavedOptionSendCrashLogIsEnable
         return AccountPresenter(
@@ -148,7 +154,7 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
 
 
     private fun showConfirmLogoutDialog() {
-        LogoutDialog(context!!) { logout.onNext(true) }.show();
+        LogoutDialog(requireContext()) { logout.onNext(true) }.show();
     }
 
 

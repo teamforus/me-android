@@ -1,6 +1,8 @@
 package io.forus.me.android.presentation.view.component.card
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -101,9 +103,9 @@ open class SettingsCard : FrameLayout {
     }
 
     override fun setOnClickListener(l: OnClickListener?) {
-         vConteiner?.setOnClickListener {
-             l?.onClick(it)
-         }
+        vConteiner?.setOnClickListener {
+            l?.onClick(it)
+        }
     }
 
 
