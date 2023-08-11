@@ -143,15 +143,25 @@
 
                         <include layout="@layout/view_organization" />
 
-                        <io.forus.me.android.presentation.view.component.editors.EditTextOutlined
-                            android:id="@+id/amount"
-                            android:layout_marginTop="16dp"
-                            app:hint="@string/vouchers_amount"
-                            app:validationRegex="decimal"
-                            app:validationError="@string/me_validation_error_decimal"
-                            android:inputType="numberDecimal"
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/amountLn"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:hint="@string/vouchers_amount"
+                            app:hintTextAppearance="@style/CustomHint">
+                            >
+
+                            <io.forus.me.android.presentation.view.component.editors.AmountTextInputEditText
+                                android:id="@+id/amountInputText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:validationError="@string/me_validation_error_decimal"
+                                android:fontFamily="@font/google_sans_regular"
+                                />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
 
                         <io.forus.me.android.presentation.view.component.editors.EditTextOutlined
                             android:id="@+id/note"

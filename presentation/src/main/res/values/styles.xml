@@ -403,7 +403,9 @@
         <item name="android:backgroundDimEnabled">false</item>
     </style>
 
-
+    <style name="CustomHint" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textSize">12sp</item>
+    </style>
 
 
 
