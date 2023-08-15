@@ -28,7 +28,25 @@
     <string name="dashboard_profile">Profile</string>
 
     <!-- Welcome screen -->
-    <string name="welcome_greeting">Welcome to Me</string>
+    <string name="welcome_greeting">Welcome</string>
+    <string name="welcome_greeting_descr">The Me app is your digital wallet and cash register</string>
+    <string name="skip_tutorial">Skip the tutorial</string>
+    <string name="skip">Skip</string>
+    <string name="close">Close</string>
+    <string name="app_explanation">App explanation</string>
+
+    <string name="welcome_wallet">Your digital wallet</string>
+    <string name="welcome_wallet_descr">Use this app to store your vouchers, view your balance and transactions, and easily show a QR code to the provider.</string>
+
+    <string name="welcome_cash">Cash register</string>
+    <string name="welcome_cash_descr">As a provider, you can directly accept and manage payments.</string>
+
+    <string name="welcome_records">Records storage</string>
+    <string name="welcome_records_descr">You can create and store your personal information as records in the Me app. Send a request to validate your record and use it when you apply for the appropriate Fund.</string>
+
+    <string name="welcome_login">Login by QR-code</string>
+    <string name="welcome_login_descr">With the app, you can log in to your account without a password.</string>
+
     <string name="welcome_create_account">Create account</string>
     <string name="welcome_restore_account">I already have a profile</string>
     <string name="welcome_set_up_your_identity">Set up your identity</string>
@@ -143,8 +161,6 @@
     <string name="price_agreement_notitie">Note</string>
     <string name="price_agreement_client_price">Price for the customer</string>
     <string name="price_agreement_sponsor_pays_you">%1$s betaalt u</string>
-
-
 
 
     <!-- New record screen -->
@@ -328,7 +344,6 @@
     <string name="sunday">Sunday</string>
 
 
-
     <!-- Check email -->
     <string name="check_email_has_been_sent_to_you">Check your email</string>
     <string name="check_email_description_part1">Klik op de link in de email die u heeft ontvangen op</string>
@@ -369,7 +384,6 @@
     <string name="snack_message">New update is available,\n update your application!</string>
 
 
-
     <string name="submit">Submit</string>
 
     <string name="waiting">Waiting...</string>
@@ -391,7 +405,11 @@
 
     <string name="title_activity_success_dialog">SuccessDialogActivity</string>
     <string name="title_activity_actions">ActionsActivity</string>
-
+    <string name="title_activity_welcome">WelcomeActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

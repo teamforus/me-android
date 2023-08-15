@@ -34,11 +34,11 @@
             <!-- intent-filter, if there is one -->
         </activity>
 
-        <activity android:name=".view.screens.vouchers.voucher_with_actions.payment.ActionPaymentActivity"
+        <activity
+            android:name=".view.screens.vouchers.voucher_with_actions.payment.ActionPaymentActivity"
             android:screenOrientation="portrait"
             android:stateNotNeeded="true"
-            android:windowSoftInputMode="adjustPan"
-            />
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".view.screens.vouchers.voucher_with_actions.ActionsActivity"
             android:exported="false"
@@ -61,8 +61,7 @@
             android:value="fe3a4b53f20261187b2c79dcd278c3ef76e6a7de" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="fe3a4b53f20261187b2c79dcd278c3ef76e6a7de"
-             />
+            android:value="fe3a4b53f20261187b2c79dcd278c3ef76e6a7de" />
         <!--android:value="@string/maps_key"-->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
@@ -76,9 +75,8 @@
 
         <activity
             android:name=".view.screens.main.MainActivity"
-            android:label="@string/app_name"
             android:exported="true"
-            >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -87,9 +85,9 @@
         </activity>
         <activity
             android:name=".view.activity.LinkDispatcherActivity"
+            android:exported="true"
             android:launchMode="singleInstance"
             android:noHistory="true"
-            android:exported="true"
             android:screenOrientation="unspecified"
             android:theme="@style/NoDisplayTheme">
             <intent-filter>
@@ -108,6 +106,7 @@
             android:name=".view.screens.welcome.WelcomeActivity"
             android:exported="false"
             android:label="@string/app_name"
+            android:theme="@style/WelcomeMaterialTheme"
             android:launchMode="singleTop" />
         <activity
             android:name=".view.screens.lock.PinLockActivity"
@@ -234,9 +233,8 @@
 
         <service
             android:name=".services.MyFirebaseMessagingService"
-            android:stopWithTask="false"
             android:exported="false"
-            >
+            android:stopWithTask="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>

@@ -25,6 +25,26 @@
     <string name="dashboard_profile">Account</string>
 
     <!-- Welcome screen -->
+    <string name="welcome_greeting">Welkom</string>
+    <string name="welcome_greeting_descr">De Me app is jouw digitale portemonnee en kassa</string>
+    <string name="skip_tutorial">Sla over</string>
+    <string name="skip">Sla over</string>
+    <string name="close">Afsluiten</string>
+    <string name="app_explanation">App Uitleg</string>
+
+    <string name="welcome_wallet">Jouw digitale portemonnee</string>
+    <string name="welcome_wallet_descr">Gebruik deze app om je tegoeden op te slaan, je saldo en transacties te bekijken, en eenvoudig een QR-code aan de aanbieder te tonen.</string>
+
+    <string name="welcome_cash">Kassa</string>
+    <string name="welcome_cash_descr">Als aanbieder kunt u betalingen direct accepteren en beheren</string>
+
+    <string name="welcome_records">Beheer je account</string>
+    <string name="welcome_records_descr">Je kan in je account je gegevens inzien en beheren.</string>
+
+    <string name="welcome_login">Inloggen</string>
+    <string name="welcome_login_descr">Met de app kun je inloggen op je account zonder een wachtwoord.</string>
+
+
     <string name="welcome_create_account">Aanmaken</string>
     <string name="welcome_restore_account">Ik heb een account</string>
     <string name="welcome_set_up_your_identity">Stel je account in</string>

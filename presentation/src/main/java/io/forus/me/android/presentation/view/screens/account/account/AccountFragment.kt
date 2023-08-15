@@ -121,6 +121,10 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
             navigator.navigateToRecordsList(requireContext(), null)
         }
 
+        bt_app_explanation.setOnClickListener {
+            navigator.navigateToWelcomeScreen(requireContext(),false)
+        }
+
         optionPincodeIsEnable = true
 
         SharedPref.init(requireContext())

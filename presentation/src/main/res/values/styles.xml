@@ -407,6 +407,8 @@
         <item name="android:textSize">12sp</item>
     </style>
 
+    <style name="WelcomeMaterialTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
 
+    </style>
 
 </resources>
