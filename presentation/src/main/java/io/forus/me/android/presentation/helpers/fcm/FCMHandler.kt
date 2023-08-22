@@ -1,9 +1,10 @@
 package io.forus.me.android.presentation.helpers.fcm
 
 import android.app.Activity
-import android.content.Context
+
 import android.util.Log
-import com.google.firebase.iid.FirebaseInstanceId
+
+import com.google.firebase.messaging.FirebaseMessaging
 import io.forus.me.android.data.repository.settings.SettingsDataSource
 import io.forus.me.android.domain.repository.account.AccountRepository
 import io.reactivex.Observable
@@ -15,18 +16,24 @@ class FCMHandler(private val accountRepository: AccountRepository, private val s
 
     fun checkFCMToken(activity: Activity): Observable<Unit> {
         return Observable.fromPublisher<Unit> { publisher ->
-            FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener(activity) { instanceIdResult ->
-                val token = instanceIdResult.token
-                Log.d("FCM_TOKEN", token)
-                if (settings.getFCMToken() != token) {
-                    registerFCMToken(token)
+
+            FirebaseMessaging.getInstance().token.addOnSuccessListener { token ->
+                if (!token.isNullOrEmpty()) {
+                    Log.d(Companion.TAG, "Retrieve new token successful, token: $token")
+                    // Do whatever you want with your token
+                    if (settings.getFCMToken() != token) {
+                        registerFCMToken(token)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .map { publisher.onComplete() }
                             .onErrorReturn { publisher.onError(it) }
                             .subscribe()
+                    }
+                } else {
+                    Log.w(Companion.TAG, "Token is null or empty")
                 }
             }
+
         }
     }
 
@@ -42,13 +49,19 @@ class FCMHandler(private val accountRepository: AccountRepository, private val s
                 }
     }
 
-    fun clearFCMToken(): Observable<Unit> {
-        return Observable.fromCallable {
-            FirebaseInstanceId.getInstance().deleteInstanceId()
-            Log.d("FCM_TOKEN_CLEAR", "OK")
-            Unit
+    fun clearFCMToken()= Observable.fromCallable {
+            FirebaseMessaging.getInstance().deleteToken().addOnSuccessListener {
+                Log.d("FCM_TOKEN_CLEAR", "OK")
+                Unit
+            }
         }.doOnError {
             Log.e("FCM_TOKEN_CLEAR_THROWS", it.message?:"")
         }
+
+
+
+
+    companion object {
+        const val TAG = "FCMHandler"
     }
 }

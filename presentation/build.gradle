@@ -1,14 +1,12 @@
-apply plugin: 'com.android.application'
-
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
-
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'org.greenrobot.greendao'
-apply plugin: 'io.fabric'
-apply plugin: 'com.google.gms.google-services'
-
-
+plugins {
+    id('com.android.application')
+    id('kotlin-android')
+    id('kotlin-kapt')
+    id('kotlin-android-extensions')
+    id('org.greenrobot.greendao')
+    id('io.fabric')
+    id('com.google.gms.google-services')
+}
 
 
 android {
@@ -201,7 +199,7 @@ dependencies {
     implementation presentationDependencies.circleIndicator
     implementation presentationDependencies.materialDialogs
     implementation presentationDependencies.fingerprint
-    implementation presentationDependencies.firebaseCore
+   // implementation presentationDependencies.firebaseCore
     implementation presentationDependencies.firebaseMessaging
     implementation presentationDependencies.googleMaps
     implementation presentationDependencies.playCore
@@ -248,5 +246,13 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0'
 
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
+
+
+    // Import the BoM for the Firebase platform
+    implementation(platform("com.google.firebase:firebase-bom:32.2.2"))
+    // Add the dependency for the Firebase SDK for Google Analytics
+    implementation("com.google.firebase:firebase-analytics-ktx")
+    implementation 'com.google.firebase:firebase-firestore-ktx:24.0.0'
+    implementation 'com.google.firebase:firebase-storage-ktx:20.0.0'
 
 }

@@ -12,8 +12,9 @@ import com.crashlytics.android.Crashlytics
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException
 import com.google.android.gms.common.GooglePlayServicesRepairableException
 import com.google.android.gms.security.ProviderInstaller
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.FirebaseFirestoreSettings
+import com.google.firebase.storage.FirebaseStorage
 import io.fabric.sdk.android.Fabric
 import io.forus.me.android.data.net.MeServiceFactory
 import io.forus.me.android.presentation.api_config.ApiConfig
@@ -125,7 +126,23 @@ class AndroidApplication : Application() {
     }
 
     private fun initFirebase() {
-        FirebaseInstanceId.getInstance().instanceId
+
+        FirebaseFirestore.getInstance().apply {
+
+            firestoreSettings = FirebaseFirestoreSettings.Builder()
+                .setPersistenceEnabled(true)
+                .build()
+        }
+        FirebaseFirestore.getInstance().addSnapshotsInSyncListener {
+            Log.d("FirebaseFirestore","FirebaseFirestore addSnapshotsInSyncListener")
+        }
+
+        FirebaseStorage.getInstance().apply {
+            maxOperationRetryTimeMillis = 2000
+            maxDownloadRetryTimeMillis = 2000
+        }
+
+        /*FirebaseInstanceId.getInstance().instanceId
                 .addOnCompleteListener(OnCompleteListener { task ->
                     if (!task.isSuccessful) {
                         return@OnCompleteListener
@@ -135,7 +152,7 @@ class AndroidApplication : Application() {
                     val token = task.result?.token
                     Log.d("PUSH", token ?: "null")
                     token?.let { sendId(it) }
-                })
+                })*/
     }
 
 }
