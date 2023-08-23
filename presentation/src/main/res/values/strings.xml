@@ -29,23 +29,23 @@
 
     <!-- Welcome screen -->
     <string name="welcome_greeting">Welcome</string>
-    <string name="welcome_greeting_descr">The Me app is your digital wallet and cash register</string>
+    <string name="welcome_greeting_descr">The Me app is used as a digital wallet and cash register. The app is used by people who have received vouchers and by providers offering products and services.</string>
     <string name="skip_tutorial">Skip the tutorial</string>
     <string name="skip">Skip</string>
     <string name="close">Close</string>
     <string name="app_explanation">App explanation</string>
 
-    <string name="welcome_wallet">Your digital wallet</string>
-    <string name="welcome_wallet_descr">Use this app to store your vouchers, view your balance and transactions, and easily show a QR code to the provider.</string>
+    <string name="welcome_wallet">Digital Wallet</string>
+    <string name="welcome_wallet_descr">Use the app to view voucher balances and transactions. The app can also be used to show a voucher's QR code to a provider.</string>
 
-    <string name="welcome_cash">Cash register</string>
-    <string name="welcome_cash_descr">As a provider, you can directly accept and manage payments.</string>
+    <string name="welcome_cash">Scanner and Cash Register</string>
+    <string name="welcome_cash_descr">Providers use this app to scan QR codes. After scanning, the transaction is immediately visible in the transaction overview.</string>
 
-    <string name="welcome_records">Records storage</string>
-    <string name="welcome_records_descr">You can create and store your personal information as records in the Me app. Send a request to validate your record and use it when you apply for the appropriate Fund.</string>
+    <string name="welcome_records">Manage Your Account</string>
+    <string name="welcome_records_descr">On the profile page, details can be viewed and managed.</string>
 
-    <string name="welcome_login">Login by QR-code</string>
-    <string name="welcome_login_descr">With the app, you can log in to your account without a password.</string>
+    <string name="welcome_login">Login</string>
+    <string name="welcome_login_descr">On some websites, the app can also be used to log in without a password. Do this by clicking "Login with the Me-app" and scanning the QR code.</string>
 
     <string name="welcome_create_account">Create account</string>
     <string name="welcome_restore_account">I already have a profile</string>
