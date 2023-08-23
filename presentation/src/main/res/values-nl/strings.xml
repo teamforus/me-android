@@ -33,7 +33,7 @@
     <string name="app_explanation">App Uitleg</string>
 
     <string name="welcome_wallet">Digitale portemonnee</string>
-    <string name="welcome_wallet_descr">Gebruik de app om de saldo’s van tegoeden in te zien en transacties te bekijken. Ook kan de app worden gebruikt om de QR-code van een tegoed aan een aanbieder te tonen.</string>
+    <string name="welcome_wallet_descr">Gebruik de app om de saldo\’s van tegoeden in te zien en transacties te bekijken. Ook kan de app worden gebruikt om de QR-code van een tegoed aan een aanbieder te tonen.</string>
 
     <string name="welcome_cash">Scanner en Kassa</string>
     <string name="welcome_cash_descr">Aanbieders gebruiken deze app om QR-codes te scannen. Na het scannen is de transactie direct inzichtelijk in het transactieoverzicht.</string>
