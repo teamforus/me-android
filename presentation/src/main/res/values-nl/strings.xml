@@ -26,23 +26,23 @@
 
     <!-- Welcome screen -->
     <string name="welcome_greeting">Welkom</string>
-    <string name="welcome_greeting_descr">De Me app is jouw digitale portemonnee en kassa</string>
+    <string name="welcome_greeting_descr">De Me app wordt gebruikt als digitale portemonnee en kassa. De app wordt gebruikt door mensen die een tegoed hebben ontvangen en door aanbieders die producten en diensten aanbieden.</string>
     <string name="skip_tutorial">Sla over</string>
     <string name="skip">Sla over</string>
     <string name="close">Afsluiten</string>
     <string name="app_explanation">App Uitleg</string>
 
-    <string name="welcome_wallet">Jouw digitale portemonnee</string>
-    <string name="welcome_wallet_descr">Gebruik deze app om je tegoeden op te slaan, je saldo en transacties te bekijken, en eenvoudig een QR-code aan de aanbieder te tonen.</string>
+    <string name="welcome_wallet">Digitale portemonnee</string>
+    <string name="welcome_wallet_descr">Gebruik de app om de saldo’s van tegoeden in te zien en transacties te bekijken. Ook kan de app worden gebruikt om de QR-code van een tegoed aan een aanbieder te tonen.</string>
 
-    <string name="welcome_cash">Kassa</string>
-    <string name="welcome_cash_descr">Als aanbieder kunt u betalingen direct accepteren en beheren</string>
+    <string name="welcome_cash">Scanner en Kassa</string>
+    <string name="welcome_cash_descr">Aanbieders gebruiken deze app om QR-codes te scannen. Na het scannen is de transactie direct inzichtelijk in het transactieoverzicht.</string>
 
     <string name="welcome_records">Beheer je account</string>
-    <string name="welcome_records_descr">Je kan in je account je gegevens inzien en beheren.</string>
+    <string name="welcome_records_descr">Op de profielpagina kunnen gegevens worden ingezien en beheerd.</string>
 
     <string name="welcome_login">Inloggen</string>
-    <string name="welcome_login_descr">Met de app kun je inloggen op je account zonder een wachtwoord.</string>
+    <string name="welcome_login_descr">Op sommige websites kan de app ook worden gebruikt om in te loggen zonder wachtwoord. Doe dit door te klikken “Login met de Me-app” en de QR-code te scannen.</string>
 
 
     <string name="welcome_create_account">Aanmaken</string>
