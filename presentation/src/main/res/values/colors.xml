@@ -6,7 +6,6 @@
 
     <color name="windowsBackground">#f4f4f4</color>
 
-
     <color name="rippleColor">#bababa</color>
 
 
@@ -61,6 +60,7 @@
     <color name="seashell">#f1f1f1</color>
     <color name="alto">#dcd8d8</color>
     <color name="cornflower_blue">#c5d2ff</color>
+    <color name="welcome_blue">#DCE1F6</color>
     <color name="silver">#e6e9e9</color>
     <color name="yellowish_orange">#fba31a</color>
 
