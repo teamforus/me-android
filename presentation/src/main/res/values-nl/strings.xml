@@ -26,23 +26,23 @@
 
     <!-- Welcome screen -->
     <string name="welcome_greeting">Welkom</string>
-    <string name="welcome_greeting_descr">De Me app is jouw digitale portemonnee en kassa</string>
+    <string name="welcome_greeting_descr">De Me app wordt gebruikt als digitale portemonnee en kassa. De app wordt gebruikt door mensen die een tegoed hebben ontvangen en door aanbieders die producten en diensten aanbieden.</string>
     <string name="skip_tutorial">Sla over</string>
     <string name="skip">Sla over</string>
     <string name="close">Afsluiten</string>
     <string name="app_explanation">App Uitleg</string>
 
-    <string name="welcome_wallet">Jouw digitale portemonnee</string>
-    <string name="welcome_wallet_descr">Gebruik deze app om je tegoeden op te slaan, je saldo en transacties te bekijken, en eenvoudig een QR-code aan de aanbieder te tonen.</string>
+    <string name="welcome_wallet">Digitale portemonnee</string>
+    <string name="welcome_wallet_descr">Gebruik de app om de saldo’s van tegoeden in te zien en transacties te bekijken. Ook kan de app worden gebruikt om de QR-code van een tegoed aan een aanbieder te tonen.</string>
 
-    <string name="welcome_cash">Kassa</string>
-    <string name="welcome_cash_descr">Als aanbieder kunt u betalingen direct accepteren en beheren</string>
+    <string name="welcome_cash">Scanner en Kassa</string>
+    <string name="welcome_cash_descr">Aanbieders gebruiken deze app om QR-codes te scannen. Na het scannen is de transactie direct inzichtelijk in het transactieoverzicht.</string>
 
     <string name="welcome_records">Beheer je account</string>
-    <string name="welcome_records_descr">Je kan in je account je gegevens inzien en beheren.</string>
+    <string name="welcome_records_descr">Op de profielpagina kunnen gegevens worden ingezien en beheerd.</string>
 
     <string name="welcome_login">Inloggen</string>
-    <string name="welcome_login_descr">Met de app kun je inloggen op je account zonder een wachtwoord.</string>
+    <string name="welcome_login_descr">Op sommige websites kan de app ook worden gebruikt om in te loggen zonder wachtwoord. Doe dit door te klikken “Login met de Me-app” en de QR-code te scannen.</string>
 
 
     <string name="welcome_create_account">Aanmaken</string>
@@ -132,7 +132,7 @@
     <string name="profile_logout">Log uit</string>
     <string name="profile_button_show_qr">Toon QR-code</string>
     <string name="profile_about_me">Over Me</string>
-    <string name="profile_about_me_text">De Me-app is bedoelt als een digitale portemonnee en kassa in één. Aanvragers gebruiken deze app om tegoedbonnen te bewaren. Aanbieders gebruiken deze app om betalingen te verrichten.\n \nDe Me-app werkt samen met: \n• 	de Nijmegen webshop\n• 	de Westerkwartier webshop\n• 	de Winterswijk webshop\n• 	de Oost Gelre webshop\n• 	de Berkelland webshop\n• 	de Noordoostpolder webshop\n• 	de Geertruidenberg webshop\n• 	de Stadjerspas webshop\n \nLater zullen meerdere shops en andere applicaties worden toegevoegd.</string>
+    <string name="profile_about_me_text">De Me-app maakt het geven, ontvangen en besteden van tegoeden eenvoudig. De app wordt gebruikt door: \n• 	Overheidsorganisaties & Goede Doelen: Deze organisaties gebruiken de app om tegoeden uit te geven.\n• 	Gebruikers: Personen die tegoeden hebben ontvangen, kunnen deze door middel van de app gemakkelijk beheren en besteden.\n• 	Aanbieders: Bedrijven die producten of diensten aanbieden, kunnen de app als kassa en scanner gebruiken.</string>
     <string name="profile_app_version">App versie</string>
     <string name="profile_about">Informatie</string>
     <string name="email_support">support@forus.io</string>
