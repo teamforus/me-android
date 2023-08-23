@@ -137,7 +137,7 @@
     <string name="profile_logout">Logout</string>
     <string name="profile_button_show_qr">My QR-code</string>
     <string name="profile_about_me">About Me</string>
-    <string name="profile_about_me_text">The Me-app makes giving, receiving, and spending vouchers simple. The app is used by:\n \n• 	Government Organizations & Charities: These organizations use the app to distribute vouchers.\n• 	Individual Users: People who have received credits can easily manage and spend them using the app.\n• 	Providers: Businesses offering products or services can use the app as a cash register and scanner.</string>
+    <string name="profile_about_me_text">The Me-app makes giving, receiving, and spending vouchers simple. The app is used by:\n \n• 	Government Organizations and Charities: These organizations use the app to distribute vouchers.\n• 	Individual Users: People who have received credits can easily manage and spend them using the app.\n• 	Providers: Businesses offering products or services can use the app as a cash register and scanner.</string>
     <string name="profile_app_version">App version</string>
     <string name="profile_support" translatable="false">Support</string>
     <string name="profile_about">About</string>
