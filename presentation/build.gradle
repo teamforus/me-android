@@ -158,6 +158,7 @@ greendao {
 
 dependencies {
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+    implementation 'com.google.firebase:firebase-auth-ktx:22.1.1'
     def presentationDependencies = rootProject.ext.presentationDependencies
     def presentationTestDependencies = rootProject.ext.presentationTestDependencies
     def developmentDependencies = rootProject.ext.developmentDependencies

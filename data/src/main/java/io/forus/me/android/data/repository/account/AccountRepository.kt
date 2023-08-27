@@ -189,5 +189,24 @@ class AccountRepository(private val settingsDataSource: SettingsDataSource,
                 }
     }
 
+    override fun getFirestoreToken(userUid: String): Observable<String> {
+
+        //Uncomment it
+
+       /* return accountRemoteDataSource.getFirestoreToken(userUid)
+            .map {
+                it.token
+            }*/
+
+        //Mock
+
+        return Observable.just(
+            "eyJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJodHRwczovL2lkZW50aXR5dG9vbGtpdC5nb29nbGVhcGlzLmNvbS9nb29nbGUuaWRlbnRpdHkuaWRlbnRpdHl0b29sa2l0LnYxLklkZW50aXR5VG9vbGtpdCIsImV4cCI6MTY5MzE0Mjk2MywiaWF0IjoxNjkzMTM5MzYzLCJpc3MiOiJmb3J1cy1mZDhlOEBhcHBzcG90LmdzZXJ2aWNlYWNjb3VudC5jb20iLCJzdWIiOiJmb3J1cy1mZDhlOEBhcHBzcG90LmdzZXJ2aWNlYWNjb3VudC5jb20iLCJ1aWQiOiJ0ZXN0MkBhc2Rhc2QubmwifQ.Zg4FpJ0UOuYdHLNV-roMstCf-ACx8bJcYK-GEM2QBm8kNZa1I_w7yg-3WzTcpD2jGAZWxJWYU-TcxzWJ3oHBWfAi5JOybcLPx8KxpDnPo7so3Wc1gxp2HGNxkGYqWy3IYY4gRvI0wfkpLl1dGT_18Pe2KKssH4zbDA1VjeWVHOViSjvoN62CEq5dX1uJEO4xkGpxBY_qM0HRCb6NIRgRWNwY1-nQaA_IFgOedOybRnx3CMnbY-QiXQ-OOAtKpDkUV9WTs4Sa29djjw7kBEVZNF4AWIADoLOM9HJRamMGCkkwtKgOpcsGh9KKVAKkhsuPbkWP9so91ebuHexqe4pkTQ"
+
+        )
+
+
+    }
+
 
 }

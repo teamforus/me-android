@@ -1,5 +1,7 @@
 package io.forus.me.android.data.repository.account.datasource.local;
 
+import androidx.annotation.NonNull;
+
 import com.gigawatt.android.data.net.sign.models.request.SignUp;
 
 import org.jetbrains.annotations.NotNull;
@@ -13,6 +15,7 @@ import io.forus.me.android.data.entity.database.DatabaseManager;
 import io.forus.me.android.data.entity.database.Token;
 import io.forus.me.android.data.entity.database.TokenDao;
 import io.forus.me.android.data.entity.sign.response.AccessToken;
+import io.forus.me.android.data.entity.sign.response.FirestoreToken;
 import io.forus.me.android.data.entity.sign.response.IdentityPinResult;
 import io.forus.me.android.data.entity.sign.response.IdentityTokenResult;
 import io.forus.me.android.data.entity.sign.response.ShortTokenResult;
@@ -172,6 +175,12 @@ public class AccountLocalDataSource implements AccountDataSource, LocalDataSourc
     @NotNull
     @Override
     public Observable<ValidateEmail> validateEmail(@NotNull String email) {
+        return null;
+    }
+
+    @NonNull
+    @Override
+    public Observable<FirestoreToken> getFirestoreToken(@NonNull String userUid) {
         return null;
     }
 }

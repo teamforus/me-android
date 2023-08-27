@@ -63,4 +63,7 @@ interface AccountDataSource {
 
     fun getShortToken() : Observable<ShortTokenResult>
 
+
+    fun getFirestoreToken(userUid: String) : Observable<FirestoreToken>
+
 }

@@ -3,9 +3,13 @@ package io.forus.me.android.presentation.view.screens.dashboard
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.crashlytics.android.Crashlytics
 import io.fabric.sdk.android.Fabric
@@ -25,6 +29,11 @@ import io.forus.me.android.presentation.view.screens.vouchers.VoucherViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import androidx.activity.viewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+
+import com.google.firebase.auth.FirebaseAuth
+import io.forus.me.android.presentation.view.screens.account.newaccount.pin.NewPinViewModel
 
 
 class DashboardActivity : SlidingPanelActivity(), DashboardContract.View,
@@ -32,6 +41,14 @@ class DashboardActivity : SlidingPanelActivity(), DashboardContract.View,
 
 
     override val viewModel: VoucherViewModel by viewModels()
+
+    private val myViewModelFactory by lazy {
+        LoggingViewModelFactory(Injection.instance.accountRepository)
+    }
+
+    private val loggingViewModel by lazy {
+        ViewModelProvider(this, myViewModelFactory).get(LoggingViewModel::class.java)
+    }
 
     private var currentFragment: Fragment? = null
     private var menu: Menu? = null
@@ -59,13 +76,42 @@ class DashboardActivity : SlidingPanelActivity(), DashboardContract.View,
                 CheckLoginUseCase(Injection.instance.accountRepository, JobExecutor(), UIThread()),
                 LoadAccountUseCase(JobExecutor(), UIThread(), Injection.instance.accountRepository),
                 CheckSendCrashReportsEnabled(Injection.instance.accountRepository, JobExecutor(), UIThread()),
-                ExitIdentityUseCase(Injection.instance.accountRepository, JobExecutor(), UIThread()))
+                ExitIdentityUseCase(Injection.instance.accountRepository, JobExecutor(), UIThread()),
+            Injection.instance.accountRepository)
         presenter.onCreate()
 
         checkFCM()
         checkStartFromScanner()
 
 
+        loggingViewModel.firestoreToken.observe(this, Observer {
+            registerFirestoreUser(it)
+        })
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            loggingViewModel.getAccountData()
+        },100)
+
+    }
+
+
+    fun registerFirestoreUser(customToken: String){
+        FirebaseAuth.getInstance().signInWithCustomToken(customToken)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+
+                    val user = FirebaseAuth.getInstance().currentUser
+                    Log.d("LoggingViewModel", "signInWithCustomToken:success $user")
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w("LoggingViewModel", "signInWithCustomToken:failure", task.exception)
+                    Toast.makeText(this, "Authentication failed.",
+                       Toast.LENGTH_SHORT).show()
+                    //updateUserUI(null)
+                }
+
+            }
     }
 
     private fun checkFCM() {

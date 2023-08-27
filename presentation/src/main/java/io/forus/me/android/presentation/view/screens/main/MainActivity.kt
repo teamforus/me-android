@@ -70,6 +70,11 @@ class MainActivity : BaseActivity() {
             } else {
                 navigateToDashboard()
             }
+
+
+            settings.getFCMToken()
+
+
         } else {
             //navigateToWelcomeScreen() //old behavior
             navigateToLogInsignUpScreen()
