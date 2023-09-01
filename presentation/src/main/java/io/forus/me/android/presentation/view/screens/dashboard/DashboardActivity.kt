@@ -103,6 +103,11 @@ class DashboardActivity : SlidingPanelActivity(), DashboardContract.View,
 
                     val user = FirebaseAuth.getInstance().currentUser
                     Log.d("LoggingViewModel", "signInWithCustomToken:success $user")
+
+                    //loggingViewModel.writeTransaction()
+
+                    //loggingViewModel.getTransactions()
+
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w("LoggingViewModel", "signInWithCustomToken:failure", task.exception)

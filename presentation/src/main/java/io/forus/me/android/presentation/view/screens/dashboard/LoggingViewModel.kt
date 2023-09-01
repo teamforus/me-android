@@ -4,7 +4,9 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import io.forus.me.android.domain.models.account.Account
 import io.forus.me.android.domain.repository.account.AccountRepository
 import io.forus.me.android.presentation.view.screens.account.account.AccountModel
@@ -83,6 +85,42 @@ class LoggingViewModel constructor(private val accountRepository: AccountReposit
     }
 
 
+
+
+    fun getTransactions(){
+        val db = FirebaseFirestore.getInstance()
+
+        db.collection("Transactions").get().addOnCompleteListener {
+            if(it.isSuccessful){
+                val result = it.result.documents
+                Log.d(TAG, "Writing document ... $result")
+            }
+        }
+    }
+
+    fun writeTransaction(){
+
+        val db = FirebaseFirestore.getInstance()
+
+
+        val transaction = hashMapOf(
+            "voucher_id" to "123",
+            "type" to "product",
+            "user" to "user1",
+            "amount" to 200,
+            "dateTime" to Timestamp.now()
+        )
+        Log.w(TAG, "Writing document ... ")
+        db.collection("Transactions")
+            .add(transaction)
+            .addOnSuccessListener { documentReference ->
+                Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
+            }
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Error adding document", e)
+            }
+
+    }
 
 
 }
