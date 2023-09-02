@@ -85,6 +85,7 @@ class DashboardActivity : SlidingPanelActivity(), DashboardContract.View,
 
 
         loggingViewModel.firestoreToken.observe(this, Observer {
+            Log.d("FirestoreLogger", "observe firesore token")
             registerFirestoreUser(it)
         })
 
@@ -95,14 +96,14 @@ class DashboardActivity : SlidingPanelActivity(), DashboardContract.View,
     }
 
 
-    fun registerFirestoreUser(customToken: String){
+    private fun registerFirestoreUser(customToken: String){
         FirebaseAuth.getInstance().signInWithCustomToken(customToken)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
 
                     val user = FirebaseAuth.getInstance().currentUser
-                    Log.d("LoggingViewModel", "signInWithCustomToken:success $user")
+                    Log.d("FirestoreLogger", "signInWithCustomToken:success $user")
 
                     //loggingViewModel.writeTransaction()
 
@@ -110,11 +111,16 @@ class DashboardActivity : SlidingPanelActivity(), DashboardContract.View,
 
                 } else {
                     // If sign in fails, display a message to the user.
-                    Log.w("LoggingViewModel", "signInWithCustomToken:failure", task.exception)
+                    Log.w("FirestoreLogger", "signInWithCustomToken:failure", task.exception)
                     Toast.makeText(this, "Authentication failed.",
                        Toast.LENGTH_SHORT).show()
                     //updateUserUI(null)
                 }
+
+            }
+            .addOnFailureListener {
+                Log.d("FirestoreLogger",
+                    "firestore sign in error : $it")
 
             }
     }

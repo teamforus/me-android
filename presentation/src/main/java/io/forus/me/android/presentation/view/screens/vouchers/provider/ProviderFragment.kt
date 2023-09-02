@@ -85,9 +85,9 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = inflater.inflate(R.layout.fragment_voucher_provider, container, false).also {
 
-        address = if (arguments == null) "" else arguments!!.getString(VOUCHER_ADDRESS_EXTRA, "")
+        address = if (arguments == null) "" else requireArguments().getString(VOUCHER_ADDRESS_EXTRA, "")
 
-        isDemoVoucher = if (arguments == null) false else arguments!!.getBoolean(IS_DEMO_VOUCHER, false)
+        isDemoVoucher = if (arguments == null) false else requireArguments().getBoolean(IS_DEMO_VOUCHER, false)
 
         categoriesAdapter = CategoriesAdapter()
     }

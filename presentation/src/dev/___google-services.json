@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "513081283708",
+    "firebase_url": "https://forus-fd8e8.firebaseio.com",
+    "project_id": "forus-fd8e8",
+    "storage_bucket": "forus-fd8e8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:513081283708:android:5621f8188e08c6cb",
+        "android_client_info": {
+          "package_name": "io.forus.me.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "513081283708-iq7e6a132er48o3dqddcalmngmvb8kjt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.forus.me.dev",
+            "certificate_hash": "7d5d6015614dc1fb69287bfc15a7f33f86b68e29"
+          }
+        },
+        {
+          "client_id": "513081283708-69tugfjqdbhs47auqs722dqft3a3pcge.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBB2CbFOfhwlMls9arkyytVi6EyWc4t2F0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "513081283708-69tugfjqdbhs47auqs722dqft3a3pcge.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

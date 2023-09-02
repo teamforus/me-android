@@ -26,7 +26,7 @@ class LoggingViewModelFactory(private val accountRepository: AccountRepository) 
 
 class LoggingViewModel constructor(private val accountRepository: AccountRepository): ViewModel() {
 
-    val TAG = "LoggingViewModel"
+    val TAG = "FirestoreLogger"
 
     private var _account =  MutableLiveData<Account>()
     val account get() = _account
@@ -69,8 +69,10 @@ class LoggingViewModel constructor(private val accountRepository: AccountReposit
                 { firestoreToken ->
                     // onNext() event, called when the Account data is available.
                     // 'account' here is an instance of Account emitted by the Observable.
-                    Log.d(TAG, "Account: $firestoreToken")
-                    this._firestoreToken.postValue(firestoreToken)
+                    Log.d(TAG, "Firestore token: $firestoreToken")
+                    this._firestoreToken.value = firestoreToken
+
+
                 },
                 { error ->
                     // onError() event, called when an error occurs.
@@ -87,7 +89,7 @@ class LoggingViewModel constructor(private val accountRepository: AccountReposit
 
 
 
-    fun getTransactions(){
+   /* fun getTransactions(){
         val db = FirebaseFirestore.getInstance()
 
         db.collection("Transactions").get().addOnCompleteListener {
@@ -120,7 +122,7 @@ class LoggingViewModel constructor(private val accountRepository: AccountReposit
                 Log.w(TAG, "Error adding document", e)
             }
 
-    }
+    }*/
 
 
 }

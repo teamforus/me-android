@@ -3,6 +3,7 @@ package io.forus.me.android.presentation.view.screens.vouchers.provider
 import android.util.Log
 import io.forus.me.android.domain.models.vouchers.Product
 import io.forus.me.android.domain.repository.vouchers.VouchersRepository
+import io.forus.me.android.presentation.firestore_logging.FirestoreLogger
 import io.forus.me.android.presentation.models.currency.Currency
 import io.forus.me.android.presentation.models.vouchers.*
 import io.forus.me.android.presentation.view.base.lr.LRPresenter
@@ -170,15 +171,22 @@ class ProviderPresenter constructor(private val vouchersRepository: VouchersRepo
 
 
                         intent { it.charge() }
-                                .switchMap {
-                                    vouchersRepository.makeTransaction(address, it, note, organizationId)
+                                .switchMap {amount ->
+                                    vouchersRepository.makeTransaction(address, amount, note, organizationId)
                                             .subscribeOn(Schedulers.io())
                                             .observeOn(AndroidSchedulers.mainThread())
                                             .map<PartialChange> {
+                                                FirestoreLogger.writeTransaction(
+                                                    address, amount, note, organizationId, true, null
+                                                )
                                                 ProviderPartialChanges.MakeTransactionEnd()
                                             }
-                                            .onErrorReturn {
-                                                ProviderPartialChanges.MakeTransactionError(it)
+                                            .onErrorReturn { throwable ->
+                                                FirestoreLogger.writeTransaction(
+                                                    address, amount, note, organizationId, false,
+                                                    throwable.localizedMessage
+                                                )
+                                                ProviderPartialChanges.MakeTransactionError(throwable)
                                             }
                                             .startWith(ProviderPartialChanges.MakeTransactionStart())
                                 },
