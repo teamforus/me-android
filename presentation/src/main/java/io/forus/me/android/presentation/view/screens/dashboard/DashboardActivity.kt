@@ -33,6 +33,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 
 import com.google.firebase.auth.FirebaseAuth
+import io.forus.me.android.presentation.BuildConfig
 import io.forus.me.android.presentation.view.screens.account.newaccount.pin.NewPinViewModel
 
 
@@ -42,12 +43,12 @@ class DashboardActivity : SlidingPanelActivity(), DashboardContract.View,
 
     override val viewModel: VoucherViewModel by viewModels()
 
-    private val myViewModelFactory by lazy {
-        LoggingViewModelFactory(Injection.instance.accountRepository)
+    private val loggingViewModelFactory by lazy {
+        LoggingViewModelFactory(Injection.instance.firestoreTokenManager)
     }
 
     private val loggingViewModel by lazy {
-        ViewModelProvider(this, myViewModelFactory).get(LoggingViewModel::class.java)
+        ViewModelProvider(this, loggingViewModelFactory).get(LoggingViewModel::class.java)
     }
 
     private var currentFragment: Fragment? = null
@@ -84,46 +85,15 @@ class DashboardActivity : SlidingPanelActivity(), DashboardContract.View,
         checkStartFromScanner()
 
 
-        loggingViewModel.firestoreToken.observe(this, Observer {
-            Log.d("FirestoreLogger", "observe firesore token")
-            registerFirestoreUser(it)
-        })
-
         Handler(Looper.getMainLooper()).postDelayed({
-            loggingViewModel.getAccountData()
+            loggingViewModel.authorizeFirestore()
         },100)
 
+
+
     }
 
 
-    private fun registerFirestoreUser(customToken: String){
-        FirebaseAuth.getInstance().signInWithCustomToken(customToken)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-
-                    val user = FirebaseAuth.getInstance().currentUser
-                    Log.d("FirestoreLogger", "signInWithCustomToken:success $user")
-
-                    //loggingViewModel.writeTransaction()
-
-                    //loggingViewModel.getTransactions()
-
-                } else {
-                    // If sign in fails, display a message to the user.
-                    Log.w("FirestoreLogger", "signInWithCustomToken:failure", task.exception)
-                    Toast.makeText(this, "Authentication failed.",
-                       Toast.LENGTH_SHORT).show()
-                    //updateUserUI(null)
-                }
-
-            }
-            .addOnFailureListener {
-                Log.d("FirestoreLogger",
-                    "firestore sign in error : $it")
-
-            }
-    }
 
     private fun checkFCM() {
         disposableHolder.add(fcmHandler.checkFCMToken(this)

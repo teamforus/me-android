@@ -180,7 +180,7 @@ public class AccountLocalDataSource implements AccountDataSource, LocalDataSourc
 
     @NonNull
     @Override
-    public Observable<FirestoreToken> getFirestoreToken(@NonNull String userUid) {
+    public Observable<FirestoreToken> getFirestoreToken(@NotNull String serverApiKey) {
         return null;
     }
 }

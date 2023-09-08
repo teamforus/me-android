@@ -2,6 +2,7 @@ package io.forus.me.android.data.repository.account.datasource.remote
 
 import com.gigawatt.android.data.net.sign.models.request.EmailValidateRequest
 import com.gigawatt.android.data.net.sign.models.request.SignUp
+import io.forus.me.android.data.BuildConfig
 import io.forus.me.android.data.entity.account.Account
 import io.forus.me.android.data.entity.sign.request.*
 import io.forus.me.android.data.entity.sign.response.*
@@ -114,7 +115,7 @@ class AccountRemoteDataSource(f: () -> SignService) : AccountDataSource, RemoteD
         return service.getShortToken()
     }
 
-    override fun getFirestoreToken(userUid: String): Observable<FirestoreToken> {
-        return service.getFirestoreToken(UserUid(userUid))
+    override fun getFirestoreToken(serverApiKey: String): Observable<FirestoreToken> {
+        return service.getFirestoreToken(mapOf("key" to serverApiKey))
     }
 }

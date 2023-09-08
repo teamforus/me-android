@@ -8,6 +8,12 @@ plugins {
     id('com.google.gms.google-services')
 }
 
+def secretsPropertiesFile = rootProject.file("secrets.properties")
+def secretsProperties = new Properties()
+if (secretsPropertiesFile.exists()) {
+    secretsProperties.load(new FileInputStream(secretsPropertiesFile))
+}
+
 
 android {
 
@@ -38,7 +44,7 @@ android {
 
         resValue "string", "maps_key", "$MAPS_KEY"
 
-
+        buildConfigField "String", "SERVER_API_KEY", secretsPropertiesFile.exists() ? "\"${secretsProperties['SERVER_API_KEY']}\"" : "\"fff\""
     }
 
     dexOptions {
@@ -116,7 +122,7 @@ android {
             versionNameSuffix "-staging"
             buildConfigField "String", SERVER_URL, "\"https://staging.api.forus.io/\""
             buildConfigField "String", PREFIX_URL, "\"staging.\""
-            applicationId 'io.forus.me.alpha'
+            applicationId 'io.forus.me.staging' //alpha
         }
         dev {
             dimension "version"
