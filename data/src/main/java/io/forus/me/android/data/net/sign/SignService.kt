@@ -63,7 +63,7 @@ interface SignService {
     fun getShortToken() : Observable<ShortTokenResult>
 
 
-    @POST("api/v1/identity/firestore-token")
-    fun getFirestoreToken(@Body userIud: UserUid): Observable<FirestoreToken>
+    @POST("api/v1/platform/firestore-tokens")
+    fun getFirestoreToken(@Body key: Map<String, String>): Observable<FirestoreToken>
 
 }

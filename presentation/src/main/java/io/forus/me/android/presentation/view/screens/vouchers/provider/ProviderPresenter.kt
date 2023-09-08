@@ -1,9 +1,7 @@
 package io.forus.me.android.presentation.view.screens.vouchers.provider
 
-import android.util.Log
-import io.forus.me.android.domain.models.vouchers.Product
 import io.forus.me.android.domain.repository.vouchers.VouchersRepository
-import io.forus.me.android.presentation.firestore_logging.FirestoreLogger
+import io.forus.me.android.presentation.firestore_logging.FirestoreTokenManager
 import io.forus.me.android.presentation.models.currency.Currency
 import io.forus.me.android.presentation.models.vouchers.*
 import io.forus.me.android.presentation.view.base.lr.LRPresenter
@@ -15,7 +13,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.util.*
 
-class ProviderPresenter constructor(private val vouchersRepository: VouchersRepository, private val address: String,
+class ProviderPresenter constructor(private val vouchersRepository: VouchersRepository,
+                                    private val firestoreTokenManager: FirestoreTokenManager,
+                                    private val address: String,
                                     private val isDemoVoucher: Boolean? = false) : LRPresenter<VoucherProvider, ProviderModel, ProviderView>() {
 
     private var organizationId = 0L
@@ -176,13 +176,13 @@ class ProviderPresenter constructor(private val vouchersRepository: VouchersRepo
                                             .subscribeOn(Schedulers.io())
                                             .observeOn(AndroidSchedulers.mainThread())
                                             .map<PartialChange> {
-                                                FirestoreLogger.writeTransaction(
+                                                firestoreTokenManager.writeTransaction(
                                                     address, amount, note, organizationId, true, null
                                                 )
                                                 ProviderPartialChanges.MakeTransactionEnd()
                                             }
                                             .onErrorReturn { throwable ->
-                                                FirestoreLogger.writeTransaction(
+                                                firestoreTokenManager.writeTransaction(
                                                     address, amount, note, organizationId, false,
                                                     throwable.localizedMessage
                                                 )

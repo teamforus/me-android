@@ -1,4 +1,4 @@
-package io.forus.me.android.presentation.view.screens.dashboard
+package io.forus.me.android.presentation.view.screens.vouchers.provider
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
@@ -10,24 +10,20 @@ import io.forus.me.android.presentation.firestore_logging.FirestoreTokenManager
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class LoggingViewModelFactory(private val firestoreTokenManager: FirestoreTokenManager) :
+class ProviderViewModelFactory(private val firestoreTokenManager: FirestoreTokenManager) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(LoggingViewModel::class.java)) {
-            return LoggingViewModel(firestoreTokenManager) as T
+        if (modelClass.isAssignableFrom(ProviderViewModel::class.java)) {
+            return ProviderViewModel(firestoreTokenManager) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
 }
 
-class LoggingViewModel constructor(private val firestoreTokenManager: FirestoreTokenManager) : ViewModel() {
+class ProviderViewModel constructor(private val firestoreTokenManager: FirestoreTokenManager) : ViewModel() {
 
 
-    fun authorizeFirestore(){
-        firestoreTokenManager.authorizeFirestore{
-            Log.d("FirestoreLogger","Firestore success authorized!")
-        }
-    }
+
 
 }
 

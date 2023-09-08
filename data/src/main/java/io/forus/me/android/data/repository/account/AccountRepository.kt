@@ -1,7 +1,6 @@
 package io.forus.me.android.data.repository.account
 
 import com.gigawatt.android.data.net.sign.models.request.SignUp
-import io.forus.me.android.data.entity.sign.request.SignRecords
 import io.forus.me.android.data.repository.account.datasource.AccountDataSource
 import io.forus.me.android.data.repository.account.datasource.remote.CheckActivationDataSource
 import io.forus.me.android.data.repository.records.RecordsRepository
@@ -189,24 +188,11 @@ class AccountRepository(private val settingsDataSource: SettingsDataSource,
                 }
     }
 
-    override fun getFirestoreToken(userUid: String): Observable<String> {
-
-        //Uncomment it
-
-       /* return accountRemoteDataSource.getFirestoreToken(userUid)
+    override fun getFirestoreToken(serverApiKey: String): Observable<String> {
+        return accountRemoteDataSource.getFirestoreToken(serverApiKey)
             .map {
                 it.token
-            }*/
-
-        //Mock
-
-        return Observable.just(
-
-            "eyJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJodHRwczovL2lkZW50aXR5dG9vbGtpdC5nb29nbGVhcGlzLmNvbS9nb29nbGUuaWRlbnRpdHkuaWRlbnRpdHl0b29sa2l0LnYxLklkZW50aXR5VG9vbGtpdCIsImV4cCI6MTY5MzY2ODMyOSwiaWF0IjoxNjkzNjY0NzI5LCJpc3MiOiJmb3J1cy1mZDhlOEBhcHBzcG90LmdzZXJ2aWNlYWNjb3VudC5jb20iLCJzdWIiOiJmb3J1cy1mZDhlOEBhcHBzcG90LmdzZXJ2aWNlYWNjb3VudC5jb20iLCJ1aWQiOiJ0ZXN0NEBhc2Rhc2QubmwifQ.egG4O9iJmC0yH-uF0SizdLrhkPj2eTO1z_BkZJIoP7rJd2JHNp6izOqeRnYp7zXAI_kk6tmPJ5gtk71GxG7_MEwGCUUKtRHut8_UsoHDY3X2w55r5Lq5e6O5JkcEAZG0nbRUIiq2nD1NbvXuYCIb9yYrUrxSehWX0vekHkFaPFAsqPtoJZ6pS36WDL2f-pQXfIm18JBWUxEBu3eQcxaVn7rty7o43WtsfbDKbGrNcEi14rmqcnabt_-brS1LtgBghk9CI4uOUcBYLIxSKTmX3lh16laGhjUz2jpqwJr3YrH9C2nw_L4TVMZANjw_qz2s3OiILaqqX5FTt0CVYihlIg"
-
-        )
-
-
+            }
     }
 
 
