@@ -115,7 +115,6 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .map {
-
                         if (it.voucher.fundType == FundType.subsidies.name) {
                             navigator.navigateToActionsVoucherProvider(scanner, it.voucher.address!!)
                         } else {

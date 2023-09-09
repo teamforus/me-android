@@ -68,6 +68,10 @@ class ProviderPresenter constructor(private val vouchersRepository: VouchersRepo
         } else {
             return Single.fromObservable(vouchersRepository.getVoucherAsProvider(address).map {
 
+                firestoreTokenManager.writeGetVoucherAsProvider(
+                    address, true, null
+                )
+
                 val officesList = mutableListOf<Office>()
                 val officesMapped = it.voucher.offices.map {
 
