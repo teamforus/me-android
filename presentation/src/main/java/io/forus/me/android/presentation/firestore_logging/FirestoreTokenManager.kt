@@ -64,6 +64,7 @@ class FirestoreTokenManager constructor(
                 Log.e( TAG, it.localizedMessage)
             }
     }
+    //
 
     public fun writeTransaction(
         address: String, amount: BigDecimal, note: String?,
@@ -127,5 +128,124 @@ class FirestoreTokenManager constructor(
             }
     }
 
+
+    //GetVoucherAsProvider
+
+    public fun writeGetVoucherAsProvider(
+        address: String,  success: Boolean, error: String?
+    ) {
+
+        if (FirebaseAuth.getInstance().currentUser == null) {
+            authorizeFirestore{
+                logGetVoucherAsProvider(address,success,error)
+            }
+        }else{
+            logGetVoucherAsProvider(address,success,error)
+        }
+    }
+
+    private fun logGetVoucherAsProvider(
+        address: String,  success: Boolean, error: String?
+    ) {
+
+        val currentUser = FirebaseAuth.getInstance().currentUser
+
+        if (currentUser == null) {
+            Log.d(TAG, "Firebase user is null")
+            return
+        }
+
+        val db = FirebaseFirestore.getInstance()
+
+
+        val transaction = hashMapOf(
+            "request" to hashMapOf(
+                "address" to address.maskStartingFromPreservingTail(11, '*', 4),
+                "user" to currentUser?.uid,
+                "dateTime" to Timestamp.now()
+            ),
+            "response" to when (success) {
+                true -> address
+                false -> null
+            },
+            "error" to when (success) {
+                true -> null
+                false -> hashMapOf("error" to error)
+            },
+            "meta" to hashMapOf<String, Any>(
+                "application_id" to BuildConfig.APPLICATION_ID,
+                "version" to BuildConfig.VERSION_CODE
+            )
+        )
+
+        db.collection("GetVoucherAsProvider")
+            .add(transaction)
+            .addOnSuccessListener { documentReference ->
+                Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
+            }
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Error adding document", e)
+            }
+    }
+
+
+    //GetProductVoucherAsProvider
+
+    public fun writeGetProductVoucherAsProvider(
+        address: String,  success: Boolean, error: String?
+    ) {
+
+        if (FirebaseAuth.getInstance().currentUser == null) {
+            authorizeFirestore{
+                logGetProductVoucherAsProvider(address,success,error)
+            }
+        }else{
+            logGetProductVoucherAsProvider(address,success,error)
+        }
+    }
+
+    private fun logGetProductVoucherAsProvider(
+        address: String,  success: Boolean, error: String?
+    ) {
+
+        val currentUser = FirebaseAuth.getInstance().currentUser
+
+        if (currentUser == null) {
+            Log.d(TAG, "Firebase user is null")
+            return
+        }
+
+        val db = FirebaseFirestore.getInstance()
+
+
+        val transaction = hashMapOf(
+            "request" to hashMapOf(
+                "address" to address.maskStartingFromPreservingTail(11, '*', 4),
+                "user" to currentUser?.uid,
+                "dateTime" to Timestamp.now()
+            ),
+            "response" to when (success) {
+                true -> address
+                false -> null
+            },
+            "error" to when (success) {
+                true -> null
+                false -> hashMapOf("error" to error)
+            },
+            "meta" to hashMapOf<String, Any>(
+                "application_id" to BuildConfig.APPLICATION_ID,
+                "version" to BuildConfig.VERSION_CODE
+            )
+        )
+
+        db.collection("GetProductVoucherAsProvider")
+            .add(transaction)
+            .addOnSuccessListener { documentReference ->
+                Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
+            }
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Error adding document", e)
+            }
+    }
 
 }
