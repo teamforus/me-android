@@ -19,8 +19,11 @@ interface VouchersService {
     @GET("api/v1/platform/vouchers/{address}")
     fun getVoucher(@Path("address") address: String): Observable<GetVoucher>
 
-    @GET("api/v1/platform/provider/vouchers/{address}/product-vouchers")
+    @GET("api/v1/platform/provider/vouchers/{address}/product-vouchers")//
     fun getProductVouchersAsProvider(@Path("address") address: String): Observable<ListAllVouchers>
+
+    @GET("api/v1/platform/provider/vouchers/{address}")//
+    fun getVoucherAsProvider(@Path("address") address: String): Observable<GetVoucher>
 
     @GET("api/v1/platform/provider/vouchers/{address}/products")
     fun getActionProductsOfVoucherAsProvider(@Path("address") address: String, @Query("organization_id") organization_id: String,
@@ -37,8 +40,6 @@ interface VouchersService {
     @GET("api/v1/platform/vouchers/{address}/transactions/{transaction_address}")
     fun getTransaction(@Path("address") address: String, @Path("transaction_address") transactionAddress: String): Observable<Transaction>
 
-    @GET("api/v1/platform/provider/vouchers/{address}")
-    fun getVoucherAsProvider(@Path("address") address: String): Observable<GetVoucher>
 
     @POST("api/v1/platform/vouchers/{address}/transactions")
     fun makeTransaction(@Path("address") address: String, @Body makeTransaction: MakeTransaction): Observable<CreatedTransaction>

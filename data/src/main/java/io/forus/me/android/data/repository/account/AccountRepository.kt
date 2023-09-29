@@ -1,7 +1,6 @@
 package io.forus.me.android.data.repository.account
 
 import com.gigawatt.android.data.net.sign.models.request.SignUp
-import io.forus.me.android.data.entity.sign.request.SignRecords
 import io.forus.me.android.data.repository.account.datasource.AccountDataSource
 import io.forus.me.android.data.repository.account.datasource.remote.CheckActivationDataSource
 import io.forus.me.android.data.repository.records.RecordsRepository
@@ -187,6 +186,13 @@ class AccountRepository(private val settingsDataSource: SettingsDataSource,
                 .map {
                     it.exchangeToken
                 }
+    }
+
+    override fun getFirestoreToken(serverApiKey: String): Observable<String> {
+        return accountRemoteDataSource.getFirestoreToken(serverApiKey)
+            .map {
+                it.token
+            }
     }
 
 

@@ -76,3 +76,4 @@ output.json
 
 *.DS_Store
 
+secrets1.properties

@@ -2,6 +2,7 @@ package io.forus.me.android.presentation.internal
 
 import android.content.Context
 import android.util.Log
+import com.google.firebase.auth.FirebaseAuth
 import io.forus.me.android.data.net.records.RecordsService
 import io.forus.me.android.data.net.sign.SignService
 import io.forus.me.android.data.entity.database.DaoSession
@@ -34,6 +35,7 @@ import io.forus.me.android.domain.repository.wallets.WalletsRepository
 import io.forus.me.android.presentation.api_config.ApiConfig
 import io.forus.me.android.presentation.BuildConfig
 import io.forus.me.android.presentation.DatabaseHelper
+import io.forus.me.android.presentation.firestore_logging.FirestoreTokenManager
 import io.forus.me.android.presentation.helpers.AppSettings
 import io.forus.me.android.presentation.helpers.reactivex.AccessTokenChecker
 import io.forus.me.android.presentation.qr.QrDecoder
@@ -91,6 +93,10 @@ class Injection private constructor() {
 
     val accountRepository: AccountRepository by lazy {
         return@lazy io.forus.me.android.data.repository.account.AccountRepository(settingsDataSource, accountLocalDataSource, accountRemoteDataSource, checkActivationDataSource, recordsRepository)
+    }
+
+    val firestoreTokenManager: FirestoreTokenManager by lazy {
+        return@lazy FirestoreTokenManager(accountRepository)
     }
 
     val settingsDataSource: SettingsDataSource by lazy {

@@ -70,4 +70,6 @@ interface AccountRepository {
 
 
     fun getShortToken() : Observable<String>
+
+    fun getFirestoreToken(serverApiKey: String) : Observable<String>
 }

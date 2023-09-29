@@ -26,7 +26,8 @@ import kotlinx.android.synthetic.main.activity_qr_decoder_content.*
 import java.util.concurrent.atomic.AtomicBoolean
 
 
-class QrScannerActivity : FragmentActivity(), QRCodeReaderView.OnQRCodeReadListener /*, QRCodeReaderView.OnQRCodeReadListener*/ {
+class QrScannerActivity : FragmentActivity(),
+    QRCodeReaderView.OnQRCodeReadListener /*, QRCodeReaderView.OnQRCodeReadListener*/ {
 
 
     private val MY_PERMISSION_REQUEST_CAMERA = 0
@@ -34,7 +35,11 @@ class QrScannerActivity : FragmentActivity(), QRCodeReaderView.OnQRCodeReadListe
     private var pointsOverlayView: PointsOverlayView? = null
 
     private var qrDecoder = Injection.instance.qrDecoder
-    private var qrActionProcessor = QrActionProcessor(this, Injection.instance.recordsRepository, Injection.instance.accountRepository, Injection.instance.vouchersRepository, Injection.instance.settingsDataSource)
+    private var qrActionProcessor = QrActionProcessor(
+        this, Injection.instance.recordsRepository,
+        Injection.instance.accountRepository, Injection.instance.vouchersRepository,
+        Injection.instance.settingsDataSource
+    )
 
     private var decodingInProgress = AtomicBoolean()
     var allowReactivate = {
@@ -43,7 +48,7 @@ class QrScannerActivity : FragmentActivity(), QRCodeReaderView.OnQRCodeReadListe
     }
     var reactivateDecoding = {
         decodingInProgress.set(false);
-        if(qrCodeReaderView == null) {
+        if (qrCodeReaderView == null) {
             initQRCodeReaderView()
         }
         qrCodeReaderView!!.startCamera()
@@ -70,7 +75,8 @@ class QrScannerActivity : FragmentActivity(), QRCodeReaderView.OnQRCodeReadListe
         super.onResume()
         overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-                == PackageManager.PERMISSION_GRANTED) {
+            == PackageManager.PERMISSION_GRANTED
+        ) {
 
             if (!decodingInProgress.get()) {
                 reactivateDecoding()
@@ -88,14 +94,21 @@ class QrScannerActivity : FragmentActivity(), QRCodeReaderView.OnQRCodeReadListe
 
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>,
-                                            grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int, permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode != MY_PERMISSION_REQUEST_CAMERA) {
             return
         }
 
         if (grantResults.size == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            Snackbar.make(main_layout, resources.getString(R.string.qr_camera_permission_granted), Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(
+                main_layout,
+                resources.getString(R.string.qr_camera_permission_granted),
+                Snackbar.LENGTH_SHORT
+            ).show()
             initQRCodeReaderView()
         } else {
 
@@ -141,12 +154,26 @@ class QrScannerActivity : FragmentActivity(), QRCodeReaderView.OnQRCodeReadListe
 
     private fun requestCameraPermission() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
-            Snackbar.make(main_layout, resources.getString(R.string.qr_camera_access_required),
-                    Snackbar.LENGTH_INDEFINITE).setAction("OK") { ActivityCompat.requestPermissions(this@QrScannerActivity, arrayOf(Manifest.permission.CAMERA), MY_PERMISSION_REQUEST_CAMERA) }.show()
+            Snackbar.make(
+                main_layout, resources.getString(R.string.qr_camera_access_required),
+                Snackbar.LENGTH_INDEFINITE
+            ).setAction("OK") {
+                ActivityCompat.requestPermissions(
+                    this@QrScannerActivity,
+                    arrayOf(Manifest.permission.CAMERA),
+                    MY_PERMISSION_REQUEST_CAMERA
+                )
+            }.show()
         } else {
-            Snackbar.make(main_layout, resources.getString(R.string.qr_camera_permission_not_available),
-                    Snackbar.LENGTH_SHORT).show()
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), MY_PERMISSION_REQUEST_CAMERA)
+            Snackbar.make(
+                main_layout, resources.getString(R.string.qr_camera_permission_not_available),
+                Snackbar.LENGTH_SHORT
+            ).show()
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.CAMERA),
+                MY_PERMISSION_REQUEST_CAMERA
+            )
         }
     }
 
@@ -154,7 +181,8 @@ class QrScannerActivity : FragmentActivity(), QRCodeReaderView.OnQRCodeReadListe
 
     private fun initQRCodeReaderView() {
 
-        val content = layoutInflater.inflate(R.layout.activity_qr_decoder_content, main_layout, true)
+        val content =
+            layoutInflater.inflate(R.layout.activity_qr_decoder_content, main_layout, true)
 
         //qrCodeReaderView = content.findViewById(R.id.qrdecoderview)
         pointsOverlayView = content.findViewById(R.id.points_overlay_view)
@@ -163,7 +191,7 @@ class QrScannerActivity : FragmentActivity(), QRCodeReaderView.OnQRCodeReadListe
         initQRView()
 
         Snackbar.make(main_layout, resources.getString(R.string.qr_scan_help), Snackbar.LENGTH_LONG)
-                .show()
+            .show()
     }
 
 
@@ -188,16 +216,16 @@ class QrScannerActivity : FragmentActivity(), QRCodeReaderView.OnQRCodeReadListe
 
     }
 
-    val h = Handler()
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
 
-        if (data != null) {
-            val returnValue = data!!.getStringExtra("result")
-            if (returnValue != null && returnValue == "back") {
-                finish()
-            }
+        if (data == null) return
+        val returnValue = data.getStringExtra("result")
+        if (returnValue != null && returnValue == "back") {
+            finish()
         }
+
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {

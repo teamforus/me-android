@@ -11,7 +11,7 @@ import io.forus.me.android.presentation.internal.Injection
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
 
-    override fun onMessageReceived(remoteMessage: RemoteMessage?) {
+    override fun onMessageReceived(remoteMessage: RemoteMessage) {
         /*val intent = Intent(this, MainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         val pendingIntent = PendingIntent.getActivity(this, 0 *//* Request code *//*, intent,
@@ -39,10 +39,11 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     }
 
-    override fun onNewToken(s: String?) {
+
+    override fun onNewToken(s: String) {
         super.onNewToken(s)
-        s?.let { Log.d("NEW_FCM_TOKEN", it) }
-        s?.let { Injection.instance.accountRepository.registerFCMToken(it) }
+        Log.d("NEW_FCM_TOKEN", s)
+        Injection.instance.accountRepository.registerFCMToken(s)
     }
 
     companion object {

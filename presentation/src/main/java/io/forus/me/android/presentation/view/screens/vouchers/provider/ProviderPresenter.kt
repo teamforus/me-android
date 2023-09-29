@@ -1,8 +1,7 @@
 package io.forus.me.android.presentation.view.screens.vouchers.provider
 
-import android.util.Log
-import io.forus.me.android.domain.models.vouchers.Product
 import io.forus.me.android.domain.repository.vouchers.VouchersRepository
+import io.forus.me.android.presentation.firestore_logging.FirestoreTokenManager
 import io.forus.me.android.presentation.models.currency.Currency
 import io.forus.me.android.presentation.models.vouchers.*
 import io.forus.me.android.presentation.view.base.lr.LRPresenter
@@ -14,7 +13,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.util.*
 
-class ProviderPresenter constructor(private val vouchersRepository: VouchersRepository, private val address: String,
+class ProviderPresenter constructor(private val vouchersRepository: VouchersRepository,
+                                    private val firestoreTokenManager: FirestoreTokenManager,
+                                    private val address: String,
                                     private val isDemoVoucher: Boolean? = false) : LRPresenter<VoucherProvider, ProviderModel, ProviderView>() {
 
     private var organizationId = 0L
@@ -66,6 +67,10 @@ class ProviderPresenter constructor(private val vouchersRepository: VouchersRepo
 
         } else {
             return Single.fromObservable(vouchersRepository.getVoucherAsProvider(address).map {
+
+                firestoreTokenManager.writeGetVoucherAsProvider(
+                    address, true, null
+                )
 
                 val officesList = mutableListOf<Office>()
                 val officesMapped = it.voucher.offices.map {
@@ -170,15 +175,22 @@ class ProviderPresenter constructor(private val vouchersRepository: VouchersRepo
 
 
                         intent { it.charge() }
-                                .switchMap {
-                                    vouchersRepository.makeTransaction(address, it, note, organizationId)
+                                .switchMap {amount ->
+                                    vouchersRepository.makeTransaction(address, amount, note, organizationId)
                                             .subscribeOn(Schedulers.io())
                                             .observeOn(AndroidSchedulers.mainThread())
                                             .map<PartialChange> {
+                                                firestoreTokenManager.writeTransaction(
+                                                    address, amount, note, organizationId, true, null
+                                                )
                                                 ProviderPartialChanges.MakeTransactionEnd()
                                             }
-                                            .onErrorReturn {
-                                                ProviderPartialChanges.MakeTransactionError(it)
+                                            .onErrorReturn { throwable ->
+                                                firestoreTokenManager.writeTransaction(
+                                                    address, amount, note, organizationId, false,
+                                                    throwable.localizedMessage
+                                                )
+                                                ProviderPartialChanges.MakeTransactionError(throwable)
                                             }
                                             .startWith(ProviderPartialChanges.MakeTransactionStart())
                                 },
