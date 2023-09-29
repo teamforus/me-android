@@ -86,7 +86,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/google_sans_regular"
                         android:lineSpacingExtra="4sp"
-                        android:text="Forus, 2018-2021"
+                        android:text="Forus"
                         android:textColor="#6e7072"
                         android:textSize="14sp" />
                 </LinearLayout>

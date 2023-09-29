@@ -67,10 +67,12 @@ constructor()//empty
     }
 
 
-    fun navigateToWelcomeScreen(context: Context?) {
+    fun navigateToWelcomeScreen(context: Context?,goToLogin: Boolean) {
         if (context != null) {
-            val intentToLaunch = WelcomeActivity.getCallingIntent(context)
-            intentToLaunch.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK)
+            val intentToLaunch = WelcomeActivity.getCallingIntent(context,goToLogin)
+            if(goToLogin) {
+                intentToLaunch.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK)
+            }
             context.startActivity(intentToLaunch)
         }
     }
@@ -262,4 +264,6 @@ constructor()//empty
             caller.startActivityForResult(intentToLaunch, requestCode)
         }
     }
+
+
 }

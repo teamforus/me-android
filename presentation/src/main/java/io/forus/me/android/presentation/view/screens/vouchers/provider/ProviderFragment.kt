@@ -2,14 +2,23 @@ package io.forus.me.android.presentation.view.screens.vouchers.provider
 
 import android.content.DialogInterface
 import android.content.DialogInterface.OnDismissListener
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import android.text.Editable
+import android.text.InputFilter
+import android.text.InputType
 import android.text.TextWatcher
+import android.text.method.DigitsKeyListener
+import android.text.method.NumberKeyListener
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.textfield.TextInputLayout
 import io.forus.me.android.domain.exception.RetrofitException
 import io.forus.me.android.domain.exception.RetrofitExceptionMapper
 import io.forus.me.android.presentation.R
@@ -17,6 +26,7 @@ import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.models.vouchers.Organization
 import io.forus.me.android.presentation.view.base.MViewModelProvider
 import io.forus.me.android.presentation.view.base.lr.LRViewState
+import io.forus.me.android.presentation.view.component.editors.AmountTextInputEditText
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.forus.me.android.presentation.view.screens.qr.dialogs.ScanVoucherBaseErrorDialog
 import io.forus.me.android.presentation.view.screens.vouchers.VoucherViewModel
@@ -109,20 +119,21 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
             LinearLayoutManager(context)
         rv_categories.adapter = categoriesAdapter
 
-        amount.setTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {}
 
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+        amountLn.setErrorTextColor(ColorStateList.valueOf(resources.getColor(R.color.error)))
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (!amount.validate()) selectAmount.onNext(BigDecimal.ZERO)
+        amountInputText.onInputListener = object : AmountTextInputEditText.OnInputListener {
+            override fun onInput(s: String) {
+                val s1 = s.replace(",", ".")
                 try {
-                    selectAmount.onNext(BigDecimal(s.toString()))
-                } catch (e: Exception) {
+                    selectAmount.onNext(BigDecimal(s1))
+                } catch (e: NumberFormatException) {
                     selectAmount.onNext(BigDecimal.ZERO)
                 }
             }
-        })
+
+        }
+
 
         note.setTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {}
@@ -139,7 +150,9 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
 
     override fun createPresenter() = ProviderPresenter(
         Injection.instance.vouchersRepository,
+
         Injection.instance.firestoreTokenManager,
+
         viewModel.address.value ?: "",
         viewModel.isDemoVoucher.value
     )
@@ -150,7 +163,9 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
     override fun render(vs: LRViewState<ProviderModel>) {
         super.render(vs)
 
+
         amount.visibility =
+
             if (vs.model.item?.voucher?.isProduct == true) View.GONE else View.VISIBLE
 
         tv_name.text = vs.model.item?.voucher?.name
@@ -198,7 +213,9 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
         }
 
 
+
         if (!(vs.model.selectedAmount.compareTo(BigDecimal.ZERO) == 0) && !vs.model.amountIsValid) amount.setError(
+
             resources.getString(R.string.vouchers_amount_invalid)
         )
 
@@ -272,8 +289,10 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
             requireContext().resources.getString(R.string.vouchers_transaction_duration_of_payout),
             requireContext().resources.getString(R.string.me_ok)
         )
-        activity?.finish()
-        activity?.startActivity(i)
+
+        requireActivity().finish()
+        requireActivity().startActivity(i)
+
 
         /*FullscreenDialog.display(fragmentManager,requireContext().resources.getString(R.string.success),
                 requireContext().resources.getString(R.string.vouchers_apply_success),

@@ -78,7 +78,7 @@ class ButtonNext : androidx.appcompat.widget.AppCompatButton {
     }
 
     private fun initBackground(){
-        setBackgroundResource(if (!reverse && active )  R.drawable.button_main_round_blue else R.drawable.button_main_raund_reverse)
+        setBackgroundResource(if (!reverse && active )  R.drawable.button_welcome_round_blue else R.drawable.button_main_raund_reverse)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             this.stateListAnimator = null
         }
