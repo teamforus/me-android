@@ -1,5 +1,5 @@
 
-package io.forus.me.android.presentation.view.screens.welcome
+package io.forus.me.android.presentation.view.screens.welcome.pages
 
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.view.fragment.BaseFragment
@@ -8,7 +8,7 @@ import kotlinx.android.synthetic.main.fragment_welcome.*
 /**
  * Fragment Welcome Screen.
  */
-class WelcomeFragment : BaseFragment() {
+class WelcomeFragmentOld : BaseFragment() {
 
 
 

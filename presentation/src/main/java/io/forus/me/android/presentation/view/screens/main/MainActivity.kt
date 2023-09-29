@@ -76,8 +76,8 @@ class MainActivity : BaseActivity() {
 
 
         } else {
-            //navigateToWelcomeScreen() //old behavior
-            navigateToLogInsignUpScreen()
+            navigateToWelcomeScreen() //old behavior
+          //  navigateToLogInsignUpScreen() //current behavior
         }
     }
 
@@ -96,7 +96,7 @@ class MainActivity : BaseActivity() {
      */
     private fun navigateToWelcomeScreen() {
 
-        this.navigator.navigateToWelcomeScreen(this)
+        this.navigator.navigateToWelcomeScreen(this, goToLogin = true)
         finish()
     }
 

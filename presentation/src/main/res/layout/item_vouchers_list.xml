@@ -77,9 +77,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
                     android:lineSpacingExtra="2sp"
-                    android:translationY="-0.78sp"
                     android:textColor="@color/cardMapTextColor"
                     android:textSize="16.07sp"
+                    android:translationY="-0.78sp"
                     tools:text="10 dagen geldig" />
 
             </RelativeLayout>
