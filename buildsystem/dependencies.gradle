@@ -5,11 +5,12 @@ allprojects {
 }
 
 ext {
-  //Android
+ 
   androidBuildToolsVersion = "33.0.0"
   androidMinSdkVersion = 18
   androidTargetSdkVersion = 33
   androidCompileSdkVersion = 33
+
 
   //Libraries
   daggerVersion = '2.8'
@@ -52,8 +53,8 @@ ext {
   slidingUpPanelVersion='3.3.1'
   glideVersion='3.7.0'
   fingerprintAuthVersion='1.0.1'
-  firebaseCoreVersion='16.0.1'
-  firebaseCloudMessageVersion='17.3.3'
+ // firebaseCoreVersion='16.0.1'
+  firebaseCloudMessageVersion='23.2.1'
 
 
   //Development
@@ -98,7 +99,7 @@ ext {
           materialDialogs:    "com.afollestad.material-dialogs:core:${rootProject.materialDialogs}",
           fingerprint:        "com.multidots:fingerprint-auth:${rootProject.fingerprintAuthVersion}",
           fabric:             "com.crashlytics.sdk.android:crashlytics:${rootProject.fabric}",
-          firebaseCore:       "com.google.firebase:firebase-core:${rootProject.firebaseCoreVersion}",
+         // firebaseCore:       "com.google.firebase:firebase-core:${rootProject.firebaseCoreVersion}",
           firebaseMessaging:       "com.google.firebase:firebase-messaging:${rootProject.firebaseCloudMessageVersion}",
           googleMaps:         "com.google.android.gms:play-services-maps:${rootProject.gooleMapsVersion}",
           playCore:           "com.google.android.play:core:${rootProject.playCoreVersion}",

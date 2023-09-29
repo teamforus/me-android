@@ -3,9 +3,13 @@ package io.forus.me.android.presentation.view.screens.dashboard
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.crashlytics.android.Crashlytics
 import io.fabric.sdk.android.Fabric
@@ -25,6 +29,12 @@ import io.forus.me.android.presentation.view.screens.vouchers.VoucherViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import androidx.activity.viewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+
+import com.google.firebase.auth.FirebaseAuth
+import io.forus.me.android.presentation.BuildConfig
+import io.forus.me.android.presentation.view.screens.account.newaccount.pin.NewPinViewModel
 
 
 class DashboardActivity : SlidingPanelActivity(), DashboardContract.View,
@@ -32,6 +42,14 @@ class DashboardActivity : SlidingPanelActivity(), DashboardContract.View,
 
 
     override val viewModel: VoucherViewModel by viewModels()
+
+    private val loggingViewModelFactory by lazy {
+        LoggingViewModelFactory(Injection.instance.firestoreTokenManager)
+    }
+
+    private val loggingViewModel by lazy {
+        ViewModelProvider(this, loggingViewModelFactory).get(LoggingViewModel::class.java)
+    }
 
     private var currentFragment: Fragment? = null
     private var menu: Menu? = null
@@ -59,14 +77,23 @@ class DashboardActivity : SlidingPanelActivity(), DashboardContract.View,
                 CheckLoginUseCase(Injection.instance.accountRepository, JobExecutor(), UIThread()),
                 LoadAccountUseCase(JobExecutor(), UIThread(), Injection.instance.accountRepository),
                 CheckSendCrashReportsEnabled(Injection.instance.accountRepository, JobExecutor(), UIThread()),
-                ExitIdentityUseCase(Injection.instance.accountRepository, JobExecutor(), UIThread()))
+                ExitIdentityUseCase(Injection.instance.accountRepository, JobExecutor(), UIThread()),
+            Injection.instance.accountRepository)
         presenter.onCreate()
 
         checkFCM()
         checkStartFromScanner()
 
 
+        Handler(Looper.getMainLooper()).postDelayed({
+            loggingViewModel.authorizeFirestore()
+        },100)
+
+
+
     }
+
+
 
     private fun checkFCM() {
         disposableHolder.add(fcmHandler.checkFCMToken(this)

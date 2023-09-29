@@ -29,6 +29,7 @@ android {
     minSdkVersion globalConfiguration.getAt("androidMinSdkVersion")
     targetSdkVersion globalConfiguration.getAt("androidTargetSdkVersion")
     multiDexEnabled true
+
   }
 
   dexOptions {

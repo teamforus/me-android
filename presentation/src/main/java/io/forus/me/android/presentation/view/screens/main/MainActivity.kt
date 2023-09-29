@@ -70,6 +70,11 @@ class MainActivity : BaseActivity() {
             } else {
                 navigateToDashboard()
             }
+
+
+            settings.getFCMToken()
+
+
         } else {
             navigateToWelcomeScreen() //old behavior
           //  navigateToLogInsignUpScreen() //current behavior
@@ -120,7 +125,7 @@ class MainActivity : BaseActivity() {
         if (result != ConnectionResult.SUCCESS) {
             if (googleAPI.isUserResolvableError(result)) {
                 googleAPI.getErrorDialog(this, result,
-                        PLAY_SERVICES_RESOLUTION_REQUEST).show()
+                    PLAY_SERVICES_RESOLUTION_REQUEST)?.show()
             }
 
             return false
@@ -183,7 +188,10 @@ class MainActivity : BaseActivity() {
     }
 
 
+
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == MY_REQUEST_CODE) {
             if (resultCode != Activity.RESULT_OK) {
                 processInAppUpdateError("")

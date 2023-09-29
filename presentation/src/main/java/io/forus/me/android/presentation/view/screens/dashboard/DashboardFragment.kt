@@ -88,15 +88,15 @@ class DashboardFragment : Fragment() {
         selectTab(currentPagerPosition, 0)
 
 
-        SharedPref.init(context!!)
+        SharedPref.init(requireContext())
         val neesAppUpdate = SharedPref.read(SharedPref.OPTION_NEED_APP_UPDATE,false)
         if(neesAppUpdate) {
             h.postDelayed({
                 UpdateAppSnackbar
                         .make(coordinator, View.OnClickListener {
-                            val intent = Intent(context!!, MainActivity::class.java)
-                            context!!.startActivity(intent)
-                            activity!!.finish()
+                            val intent = Intent(requireContext(), MainActivity::class.java)
+                            requireContext().startActivity(intent)
+                            requireActivity().finish()
                         })
                         .show()
             }, 3000)

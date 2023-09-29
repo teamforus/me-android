@@ -150,6 +150,9 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
 
     override fun createPresenter() = ProviderPresenter(
         Injection.instance.vouchersRepository,
+
+        Injection.instance.firestoreTokenManager,
+
         viewModel.address.value ?: "",
         viewModel.isDemoVoucher.value
     )
@@ -160,7 +163,9 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
     override fun render(vs: LRViewState<ProviderModel>) {
         super.render(vs)
 
-        amountLn.visibility =
+
+        amount.visibility =
+
             if (vs.model.item?.voucher?.isProduct == true) View.GONE else View.VISIBLE
 
         tv_name.text = vs.model.item?.voucher?.name
@@ -208,7 +213,9 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
         }
 
 
-        if (!(vs.model.selectedAmount.compareTo(BigDecimal.ZERO) == 0) && !vs.model.amountIsValid) amountLn.setError(
+
+        if (!(vs.model.selectedAmount.compareTo(BigDecimal.ZERO) == 0) && !vs.model.amountIsValid) amount.setError(
+
             resources.getString(R.string.vouchers_amount_invalid)
         )
 
@@ -282,8 +289,10 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
             requireContext().resources.getString(R.string.vouchers_transaction_duration_of_payout),
             requireContext().resources.getString(R.string.me_ok)
         )
+
         requireActivity().finish()
         requireActivity().startActivity(i)
+
 
         /*FullscreenDialog.display(fragmentManager,requireContext().resources.getString(R.string.success),
                 requireContext().resources.getString(R.string.vouchers_apply_success),

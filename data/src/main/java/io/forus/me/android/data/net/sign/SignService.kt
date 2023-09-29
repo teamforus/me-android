@@ -4,10 +4,7 @@ import com.gigawatt.android.data.net.sign.models.request.EmailValidateRequest
 import com.gigawatt.android.data.net.sign.models.request.SignUp
 import io.forus.me.android.data.entity.account.Account
 import io.forus.me.android.data.entity.common.Success
-import io.forus.me.android.data.entity.sign.request.AuthorizeCode
-import io.forus.me.android.data.entity.sign.request.AuthorizeToken
-import io.forus.me.android.data.entity.sign.request.RegisterPush
-import io.forus.me.android.data.entity.sign.request.RestoreByEmail
+import io.forus.me.android.data.entity.sign.request.*
 import io.forus.me.android.data.entity.sign.response.*
 import io.reactivex.Observable
 import okhttp3.Response
@@ -64,5 +61,9 @@ interface SignService {
 
     @POST("api/v1/identity/proxy/short-token")
     fun getShortToken() : Observable<ShortTokenResult>
+
+
+    @POST("api/v1/platform/firestore-tokens")
+    fun getFirestoreToken(@Body key: Map<String, String>): Observable<FirestoreToken>
 
 }
