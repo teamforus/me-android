@@ -1,6 +1,8 @@
 package io.forus.me.android.presentation.view.screens.qr
 
 import android.content.DialogInterface
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import io.forus.me.android.data.repository.settings.SettingsDataSource
 import io.forus.me.android.domain.exception.RetrofitException
@@ -110,13 +112,16 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
         scanner.allowReactivate()
         if (isDemoVoucher != null && isDemoVoucher) {
             navigator.navigateToVoucherProvider(scanner, address, true)
+            scanner.finish()
         } else {
+            Log.d("forusQR", "allowReactivate.... 1")
             vouchersRepository.getVoucherAsProvider(address)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .map {
                         if (it.voucher.fundType == FundType.subsidies.name) {
                             navigator.navigateToActionsVoucherProvider(scanner, it.voucher.address!!)
+                            scanner.finish()
                         } else {
                             if (it.voucher.isProduct != true && it.allowedOrganizations.isEmpty()) {
                                 if (scanner.hasWindowFocus())
@@ -166,6 +171,7 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
                                 }
                             }
                         }
+                       scanner.setScannerLayoutVisiblity(true)
                     }
                     .subscribe()
 
@@ -214,6 +220,7 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
             override fun onDismiss(p0: DialogInterface?) {}
         }).show()
         reactivateDecoding()
+        scanner.setScannerLayoutVisiblity(true)
     }
 
     private fun onResultVoucherScanned(address: String, isAvailableScannedVoucher: Boolean) {
@@ -291,16 +298,18 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
                     if (it.size > 0) {
                         //Show product vouchers list
                         navigator.navigateToProductReservation(scanner, address, isAvailableScannedVoucher)
-
+                        scanner.finish()
 
                     } else {
 
                         if (isAvailableScannedVoucher) {
                             //Show voucher
                             navigator.navigateToVoucherProvider(scanner, address)
+                            scanner.finish()
                         } else {
                             if (scanner.hasWindowFocus())
                                 ScanVoucherEmptyDialog(scanner, reactivateDecoding).show()
+                            scanner.setScannerLayoutVisiblity(true)
                         }
 
                     }
@@ -312,10 +321,12 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
                         if (isAvailableScannedVoucher) {
 
                             navigator.navigateToVoucherProvider(scanner, address)
+                            scanner.finish()
                         } else {
                             //ScanVoucherNotEligibleDialog(scanner, reactivateDecoding).show()
 
                             processScannerError(it)
+
                         }
                     }
                 }
@@ -349,12 +360,15 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
             override fun invoke() {}
             override fun onDismiss(p0: DialogInterface?) {}
         }).show()
+       scanner.setScannerLayoutVisiblity(true)
+
     }
 
 
     private fun onResultUnexpectedError() {
         showToastMessage(resources.getString(R.string.qr_unexpected_error))
         reactivateDecoding()
+       scanner.setScannerLayoutVisiblity(true)
     }
 
 }
