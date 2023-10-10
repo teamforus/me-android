@@ -129,7 +129,7 @@ class QrScannerActivity : FragmentActivity(),
     }
 
 
-    fun decodeScanResult(text: String) {
+    fun decodeScanResult(text: String, callback: (()->(Unit))? = null) {
 
         qrCodeReaderView!!.stopCamera()
 
@@ -275,7 +275,7 @@ class QrScannerActivity : FragmentActivity(),
 
     override fun onQRCodeRead(text: String?, points: Array<out PointF>?) {
         Log.d("forusQR", "Result = $text")
-
+       // finish()
         if (text != null) {
             decodeScanResult(text)
         }
