@@ -188,7 +188,7 @@ class AccountRepository(private val settingsDataSource: SettingsDataSource,
                 }
     }
 
-    override fun getFirestoreToken(serverApiKey: String): Observable<String> {
+    override fun getFirestoreToken(serverApiKey: String): Observable<String?> {
         return accountRemoteDataSource.getFirestoreToken(serverApiKey)
             .map {
                 it.token
