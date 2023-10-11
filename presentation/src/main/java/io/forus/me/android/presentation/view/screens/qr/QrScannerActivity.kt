@@ -14,6 +14,8 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.FragmentActivity
 import android.util.Log
 import android.view.KeyEvent
+import android.view.View
+import android.widget.ProgressBar
 import android.widget.Toast
 import com.dlazaro66.qrcodereaderview.QRCodeReaderView
 import io.forus.me.android.presentation.R
@@ -63,11 +65,18 @@ class QrScannerActivity : FragmentActivity(),
 
 
     private var qrCodeReaderView: QRCodeReaderView? = null
+    private var qrDecorateLayout: View?  = null
+    private var progress: ProgressBar? = null
+
+    private var progressLn: View? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_qr_decoder)
+
+        //progressLn = findViewById(R.id.progressLn)
+        //progressLn?.visibility = View.GONE
 
     }
 
@@ -79,7 +88,9 @@ class QrScannerActivity : FragmentActivity(),
         ) {
 
             if (!decodingInProgress.get()) {
+                qrContent?.visibility = View.VISIBLE
                 reactivateDecoding()
+                setScannerLayoutVisiblity(true)
             }
         } else {
             requestCameraPermission()
@@ -118,9 +129,11 @@ class QrScannerActivity : FragmentActivity(),
     }
 
 
-    fun decodeScanResult(text: String) {
+    fun decodeScanResult(text: String, callback: (()->(Unit))? = null) {
 
         qrCodeReaderView!!.stopCamera()
+
+        setScannerLayoutVisiblity(false)
         decodingInProgress.set(true)
         val result = qrDecoder.decode(text)
 
@@ -140,12 +153,20 @@ class QrScannerActivity : FragmentActivity(),
                 } else {
                     qrActionProcessor.unknownQr()
                 }
-
+                qrCodeReaderView!!.startCamera()
+                setScannerLayoutVisiblity(true)
+               // progressLn?.visibility = View.GONE
             }
             is QrDecoderResult.DemoVoucher -> qrActionProcessor.scanVoucher(result.testToken, true)
         }
     }
 
+
+    fun setScannerLayoutVisiblity(visiblity: Boolean){
+        qrCodeReaderView?.visibility = if(visiblity){View.VISIBLE}else{View.GONE}
+        qrDecorateLayout?.visibility = if(visiblity){View.VISIBLE}else{View.GONE}
+        progress?.visibility = if(!visiblity){View.VISIBLE}else{View.GONE}
+    }
 
     fun showToastMessage(message: String) {
         if (hasWindowFocus())
@@ -179,15 +200,19 @@ class QrScannerActivity : FragmentActivity(),
 
     // var integrator : IntentIntegrator? = null
 
+    private  var qrContent: View? = null
+
     private fun initQRCodeReaderView() {
 
-        val content =
+        qrContent =
             layoutInflater.inflate(R.layout.activity_qr_decoder_content, main_layout, true)
 
         //qrCodeReaderView = content.findViewById(R.id.qrdecoderview)
-        pointsOverlayView = content.findViewById(R.id.points_overlay_view)
+        pointsOverlayView = qrContent?.findViewById(R.id.points_overlay_view)
 
-        qrCodeReaderView = content.findViewById(R.id.qrCodeReaderView);
+        qrCodeReaderView = qrContent?.findViewById(R.id.qrCodeReaderView);
+        qrDecorateLayout = qrContent?.findViewById(R.id.qrDecorateLayout)
+        progress = qrContent?.findViewById(R.id.progress)
         initQRView()
 
         Snackbar.make(main_layout, resources.getString(R.string.qr_scan_help), Snackbar.LENGTH_LONG)
@@ -250,6 +275,7 @@ class QrScannerActivity : FragmentActivity(),
 
     override fun onQRCodeRead(text: String?, points: Array<out PointF>?) {
         Log.d("forusQR", "Result = $text")
+       // finish()
         if (text != null) {
             decodeScanResult(text)
         }

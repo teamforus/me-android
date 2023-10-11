@@ -1,7 +1,9 @@
 package io.forus.me.android.data.repository.account.datasource.remote
 
+import android.util.Log
 import com.gigawatt.android.data.net.sign.models.request.EmailValidateRequest
 import com.gigawatt.android.data.net.sign.models.request.SignUp
+import com.google.gson.Gson
 import io.forus.me.android.data.BuildConfig
 import io.forus.me.android.data.entity.account.Account
 import io.forus.me.android.data.entity.sign.request.*
@@ -13,8 +15,8 @@ import io.forus.me.android.domain.models.account.ValidateEmail
 import io.reactivex.Observable
 
 
-class AccountRemoteDataSource(f: () -> SignService) : AccountDataSource, RemoteDataSource<SignService>(f) {
-
+class AccountRemoteDataSource(f: () -> SignService) : AccountDataSource,
+    RemoteDataSource<SignService>(f) {
 
 
     override fun createUser(signUp: SignUp): Observable<Boolean> {
@@ -83,16 +85,19 @@ class AccountRemoteDataSource(f: () -> SignService) : AccountDataSource, RemoteD
         val requestBody = EmailValidateRequest()
         requestBody.email = email
 
-       /* val observable: Observable<Boolean> = ObservableCreate<Boolean>(object : ObservableOnSubscribe<Boolean?> {
-            override fun subscribe(emitter: ObservableEmitter<Boolean?>) {
-                true
-            }
+        /* val observable: Observable<Boolean> = ObservableCreate<Boolean>(object : ObservableOnSubscribe<Boolean?> {
+             override fun subscribe(emitter: ObservableEmitter<Boolean?>) {
+                 true
+             }
 
-        })*/
+         })*/
         return service.validateEmail(requestBody)
-                .map {
-                    io.forus.me.android.domain.models.account.ValidateEmail(it.email.used, it.email.valid)
-                }
+            .map {
+                io.forus.me.android.domain.models.account.ValidateEmail(
+                    it.email.used,
+                    it.email.valid
+                )
+            }
     }
 
     override fun restoreExchangeToken(token: String): Observable<AccessToken> {
@@ -116,6 +121,21 @@ class AccountRemoteDataSource(f: () -> SignService) : AccountDataSource, RemoteD
     }
 
     override fun getFirestoreToken(serverApiKey: String): Observable<FirestoreToken> {
-        return service.getFirestoreToken(mapOf("key" to serverApiKey))
+
+        try {
+            return service.getFirestoreToken(mapOf("key" to "serverApiKey")).map {
+                /* val result = it.string()
+            val gson = Gson()
+            try {
+                gson.fromJson(result, FirestoreToken::class.java)
+            } catch (e: Exception) {
+                FirestoreToken(null)
+            }*/
+                FirestoreToken(null)
+            }
+        }catch (e: Exception){
+            return Observable.just(FirestoreToken(null))
+        }
+        //
     }
 }

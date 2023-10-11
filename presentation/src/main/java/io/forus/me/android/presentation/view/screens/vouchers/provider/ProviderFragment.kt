@@ -164,8 +164,7 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
         super.render(vs)
 
 
-        amount.visibility =
-
+        amountLn.visibility =
             if (vs.model.item?.voucher?.isProduct == true) View.GONE else View.VISIBLE
 
         tv_name.text = vs.model.item?.voucher?.name
@@ -214,7 +213,7 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
 
 
 
-        if (!(vs.model.selectedAmount.compareTo(BigDecimal.ZERO) == 0) && !vs.model.amountIsValid) amount.setError(
+        if (!(vs.model.selectedAmount.compareTo(BigDecimal.ZERO) == 0) && !vs.model.amountIsValid) amountLn.setError(
 
             resources.getString(R.string.vouchers_amount_invalid)
         )
