@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import io.forus.me.android.presentation.R
+import io.forus.me.android.presentation.databinding.FragmentConfirmRegistrationBinding
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.base.MViewModelProvider
 import io.forus.me.android.presentation.view.base.lr.LRViewState
@@ -45,7 +46,7 @@ class ConfirmRegistrationFragment :  ToolbarLRFragment<ConfirmRegistrationModel,
         get() = false
 
 
-    override fun viewForSnackbar(): View = root
+    override fun viewForSnackbar(): View = binding.root
 
     override fun loadRefreshPanel() = object : LoadRefreshPanel {
         override fun retryClicks(): Observable<Any> = Observable.never()
@@ -57,19 +58,23 @@ class ConfirmRegistrationFragment :  ToolbarLRFragment<ConfirmRegistrationModel,
         }
     }
 
-
+    private lateinit var binding: FragmentConfirmRegistrationBinding
 
     private val exchangeToken = PublishSubject.create<String>()
     override fun exchangeToken() = exchangeToken
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
-            = inflater.inflate(R.layout.fragment_confirm_registration, container, false).also {
+    {
+        binding = FragmentConfirmRegistrationBinding.inflate(inflater)
 
         val bundle = this.arguments
-       // if (bundle != null) {
-       //     token = bundle.getString(TOKEN_EXTRA, "")
-      //  }
+        // if (bundle != null) {
+        //     token = bundle.getString(TOKEN_EXTRA, "")
+        //  }
+
+        return binding.root
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

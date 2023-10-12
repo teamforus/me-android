@@ -6,19 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import io.forus.me.android.presentation.R
+import io.forus.me.android.presentation.databinding.FragmentAccountPairDeviceBinding
 import io.forus.me.android.presentation.helpers.reactivex.DisposableHolder
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.base.lr.LoadRefreshPanel
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
-import io.forus.me.android.presentation.view.screens.account.assigndelegates.AssignDelegatesAccountActivity
 import io.reactivex.Observable
-import kotlinx.android.synthetic.main.fragment_account_assign_delegates.*
-import kotlinx.android.synthetic.main.fragment_account_assign_delegates.pin_view
-import kotlinx.android.synthetic.main.fragment_account_details.root
-import kotlinx.android.synthetic.main.fragment_account_pair_device.*
 import io.forus.me.android.presentation.view.screens.account.assigndelegates.qr.RestoreByQRFragment
-import kotlinx.android.synthetic.main.toolbar_view.*
+
 
 
 /**
@@ -28,7 +24,7 @@ class PairDeviceFragment : ToolbarLRFragment<PairDeviceModel, PairDeviceView, Pa
 
     val disposableHolder = DisposableHolder()
 
-    override fun viewForSnackbar(): View = root
+    override fun viewForSnackbar(): View = binding.root
 
     override val toolbarTitle: String
         get() = ""
@@ -48,9 +44,15 @@ class PairDeviceFragment : ToolbarLRFragment<PairDeviceModel, PairDeviceView, Pa
 
         }
     }
+    
+    private lateinit var binding: FragmentAccountPairDeviceBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
-            = inflater.inflate(R.layout.fragment_account_pair_device, container, false)
+    {
+        binding = FragmentAccountPairDeviceBinding.inflate(inflater)
+        return binding.root
+    }        
+    
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -62,7 +64,7 @@ class PairDeviceFragment : ToolbarLRFragment<PairDeviceModel, PairDeviceView, Pa
             //bundle.putString(KEY_MSG_1, "Заменили на первый фрагмент")
             //myFragment1.setArguments(bundle)
 
-            val fragmentTransaction = fragmentManager!!
+            val fragmentTransaction = requireFragmentManager()
                     .beginTransaction()
             fragmentTransaction.replace(R.id.container_qr_fr, qrFragment,
                     null)
@@ -70,7 +72,7 @@ class PairDeviceFragment : ToolbarLRFragment<PairDeviceModel, PairDeviceView, Pa
 
         //profile_button.setBackgroundColor(ContextCompat.getColor(context!!, R.color.error_email))
 
-        pin_view.setPinBackground(ContextCompat.getColor(context!!, R.color.pinBackground))
+        binding.pinView.setPinBackground(ContextCompat.getColor(context!!, R.color.pinBackground))
     }
 
     override fun onDetach() {
@@ -88,11 +90,11 @@ class PairDeviceFragment : ToolbarLRFragment<PairDeviceModel, PairDeviceView, Pa
         super.render(vs)
 
         if (vs.model.item != null) {
-            pin_view.setPin(vs.model.item.authCode)
-            pin_view.visibility = View.VISIBLE
+            binding.pinView.setPin(vs.model.item.authCode)
+            binding.pinView.visibility = View.VISIBLE
         }
         else
-            pin_view.visibility = View.INVISIBLE
+            binding.pinView.visibility = View.INVISIBLE
 
 
         if(vs.closeScreen && vs.model.isPinConfirmed == true && vs.model.item?.accessToken != null){

@@ -12,12 +12,12 @@ import io.forus.me.android.presentation.view.base.lr.LoadRefreshPanel
 import io.forus.me.android.domain.exception.RetrofitException
 import io.forus.me.android.domain.models.account.NewAccountRequest
 import io.forus.me.android.presentation.R
+import io.forus.me.android.presentation.databinding.FragmentAccountNewBinding
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.activity.BaseActivity
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.fragment_account_new.*
 
 /**
  * Fragment New User Account Screen.
@@ -27,34 +27,34 @@ class NewAccountFragment : ToolbarLRFragment<NewAccountModel, NewAccountView, Ne
 
     private val viewIsValid: Boolean
         get() {
-            var validation = email.validate()
+            var validation = binding.email.validate()
             if (validation) {
-                if (email.getText() != email_repeat.getText()) {
+                if (binding.email.getText() != binding.emailRepeat.getText()) {
                     validation = false
-                    email_repeat.setError(resources.getString(R.string.new_account_email_repeat_error))
+                    binding.emailRepeat.setError(resources.getString(R.string.new_account_email_repeat_error))
                 }
-                else email_repeat.setError("")
+                else binding.emailRepeat.setError("")
             }
-            else email_repeat.setError("")
+            else binding.emailRepeat.setError("")
             return  validation
         }
 
     private var showFieldErrors: Boolean = false
         set(value) {
             field = value
-            email.showError = value
-            email_repeat.showError = value
-            firstName.showError = value
-            lastName.showError = value
-            bsn.showError = value
-            phone.showError = value
+            binding.email.showError = value
+            binding.emailRepeat.showError = value
+            binding.firstName.showError = value
+            binding.lastName.showError = value
+            binding.bsn.showError = value
+            binding.phone.showError = value
         }
 
     override val showAccount: Boolean
         get() = false
 
 
-    override fun viewForSnackbar(): View = root
+    override fun viewForSnackbar(): View = binding.root
 
     override val toolbarTitle: String
         get() = getString(R.string.new_account_title)
@@ -72,15 +72,21 @@ class NewAccountFragment : ToolbarLRFragment<NewAccountModel, NewAccountView, Ne
 
     private val registerAction = PublishSubject.create<NewAccountRequest>()
     override fun register() = registerAction
+    
+    private lateinit var binding: FragmentAccountNewBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
-            = inflater.inflate(R.layout.fragment_account_new, container, false)
+    {
+        binding = FragmentAccountNewBinding.inflate(inflater)
+        return binding.root
+    }
+          
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         showFieldErrors = false
-        register.active = false
+        binding.register.active = false
 
         val listener = object: android.text.TextWatcher {
             override fun afterTextChanged(p0: Editable?) {}
@@ -88,19 +94,19 @@ class NewAccountFragment : ToolbarLRFragment<NewAccountModel, NewAccountView, Ne
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                register.active = viewIsValid
+                binding.register.active = viewIsValid
             }
         }
 
-        email.setTextChangedListener(listener)
-        email_repeat.setTextChangedListener(listener)
+        binding.email.setTextChangedListener(listener)
+        binding.emailRepeat.setTextChangedListener(listener)
 
-        register.setOnClickListener {
+        binding.register.setOnClickListener {
             (activity as? BaseActivity)?.hideSoftKeyboard()
             showFieldErrors = true
             if (viewIsValid) {
                 registerAction.onNext(NewAccountRequest(
-                        email = email.getText()
+                        email = binding.email.getText()
                         )
                 )
             }
@@ -116,7 +122,7 @@ class NewAccountFragment : ToolbarLRFragment<NewAccountModel, NewAccountView, Ne
         super.render(vs)
 
 
-        progressBar.visibility = if (vs.loading || vs.model.sendingRegistration) View.VISIBLE else View.INVISIBLE
+        binding.progressBar.visibility = if (vs.loading || vs.model.sendingRegistration) View.VISIBLE else View.INVISIBLE
 
         if(vs.model.sendingRegistrationError != null) {
             val error: Throwable = vs.model.sendingRegistrationError
@@ -126,7 +132,7 @@ class NewAccountFragment : ToolbarLRFragment<NewAccountModel, NewAccountView, Ne
 
         if (vs.closeScreen && vs.model.isSuccess != null && vs.model.isSuccess) {
 
-            navigator.navigateToCheckEmail(context!!)
+            navigator.navigateToCheckEmail(requireContext())
             activity?.finish()
 
         }

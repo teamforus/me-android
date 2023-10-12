@@ -1,14 +1,19 @@
 
 package io.forus.me.android.presentation.view.screens.property
 
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import io.forus.me.android.presentation.R
+import io.forus.me.android.presentation.databinding.FragmentFingerprintBinding
+import io.forus.me.android.presentation.databinding.FragmentPropertyBinding
 import io.forus.me.android.presentation.view.adapters.MainViewPagerAdapter
 import io.forus.me.android.presentation.view.fragment.BaseFragment
 import io.forus.me.android.presentation.view.screens.assets.AssetsFragment
 import io.forus.me.android.presentation.view.screens.vouchers.list.VouchersFragment
 import io.forus.me.android.presentation.view.screens.wallets.WalletsFragment
-import kotlinx.android.synthetic.main.fragment_property.*
 import java.util.*
 
 
@@ -36,6 +41,17 @@ class PropertyFragment : BaseFragment() {
     val menu: Int?
         get() = null
 
+    private lateinit var binding: FragmentPropertyBinding
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentPropertyBinding.inflate(layoutInflater)
+        return binding.root
+    }
+
 
     override fun initUI() {
 
@@ -52,9 +68,9 @@ class PropertyFragment : BaseFragment() {
 
 
         val adapter = MainViewPagerAdapter(childFragmentManager, activity?.applicationContext, fragments, titles)
-        viewpager.adapter = adapter
-        viewpager.offscreenPageLimit = 3
-        sliding_tabs.setupWithViewPager(viewpager)
+        binding.viewpager.adapter = adapter
+        binding.viewpager.offscreenPageLimit = 3
+        binding.slidingTabs.setupWithViewPager(binding.viewpager)
 
         super.initUI()
     }

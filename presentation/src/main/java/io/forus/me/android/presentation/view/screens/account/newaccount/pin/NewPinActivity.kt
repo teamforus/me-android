@@ -30,7 +30,6 @@ class NewPinActivity : CommonActivity(), MViewModelProvider<NewPinViewModel> {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        Log.d("PresenterR","onCreate mainViewModel = ${viewModel}")
 
         if (savedInstanceState == null) {
             intent.getStringExtra(ACCESS_TOKEN_EXTRA)?.let { accessToken ->
