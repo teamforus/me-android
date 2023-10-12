@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import io.forus.me.android.presentation.R
+import io.forus.me.android.presentation.databinding.FragmentAccountRestoreEmailBinding
 import io.forus.me.android.presentation.helpers.SharedPref
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.activity.BaseActivity
@@ -16,7 +17,6 @@ import io.forus.me.android.presentation.view.base.lr.LoadRefreshPanel
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.fragment_account_restore_email.*
 
 
 /**
@@ -29,6 +29,7 @@ class RestoreByEmailFragment : ToolbarLRFragment<RestoreByEmailModel, RestoreByE
         ViewModelProvider(requireActivity())[RestoreByEmailViewModel::class.java].apply { }
     }
 
+    private lateinit var binding: FragmentAccountRestoreEmailBinding
 
     companion object {
         private val TOKEN_EXTRA = "TOKEN_EXTRA"
@@ -44,7 +45,7 @@ class RestoreByEmailFragment : ToolbarLRFragment<RestoreByEmailModel, RestoreByE
 
     private val viewIsValid: Boolean
         get() {
-            val validation = email.validate() //&& email_repeat.validate()
+            val validation = binding.email.validate() //&& email_repeat.validate()
 //            if (validation) {
 //                if (email.getText() != email_repeat.getText()) {
 //                    validation = false
@@ -63,7 +64,7 @@ class RestoreByEmailFragment : ToolbarLRFragment<RestoreByEmailModel, RestoreByE
         get() = true
 
 
-    override fun viewForSnackbar(): View = root
+    override fun viewForSnackbar(): View = binding.root
 
     override fun loadRefreshPanel() = object : LoadRefreshPanel {
         override fun retryClicks(): Observable<Any> = Observable.never()
@@ -82,19 +83,18 @@ class RestoreByEmailFragment : ToolbarLRFragment<RestoreByEmailModel, RestoreByE
     override fun exchangeToken() = exchangeToken
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
-            = inflater.inflate(R.layout.fragment_account_restore_email, container, false).also {
-
-       // val bundle = this.arguments
-       // if (bundle != null) {
-       //     token = bundle.getString(TOKEN_EXTRA, "")
-       // }
+    {
+        binding = FragmentAccountRestoreEmailBinding.inflate(inflater)
+        return binding.root
     }
+    
+         
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        email.showError = false
-        restore.active = false
+        binding.email.showError = false
+        binding.restore.active = false
 
         val listener = object: android.text.TextWatcher {
             override fun afterTextChanged(p0: Editable?) {}
@@ -102,22 +102,22 @@ class RestoreByEmailFragment : ToolbarLRFragment<RestoreByEmailModel, RestoreByE
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                restore.active = viewIsValid
+                binding.restore.active = viewIsValid
             }
         }
 
-        email.setTextChangedListener(listener)
+        binding.email.setTextChangedListener(listener)
         //email_repeat.setTextChangedListener(listener)
 
-        restore.setOnClickListener {
-            email.showError = true
+        binding.restore.setOnClickListener {
+            binding.email.showError = true
             if (viewIsValid) {
 
                 context?.let { it1 -> SharedPref.init(it1)
-                    SharedPref.write(SharedPref.RESTORE_EMAIL, email.getText());
+                    SharedPref.write(SharedPref.RESTORE_EMAIL, binding.email.getText());
                 }
 
-                registerAction.onNext(email.getText())
+                registerAction.onNext(binding.email.getText())
             }
         }
     }
@@ -135,9 +135,9 @@ class RestoreByEmailFragment : ToolbarLRFragment<RestoreByEmailModel, RestoreByE
     override fun render(vs: LRViewState<RestoreByEmailModel>) {
         super.render(vs)
 
-        restore.visibility = if(vs.model.sendingRestoreByEmail == true || vs.model.sendingRestoreByEmailSuccess == true) View.INVISIBLE else View.VISIBLE
-        email_description.visibility = if(vs.model.sendingRestoreByEmailSuccess == true) View.VISIBLE else View.INVISIBLE
-        email.isEditable = !(vs.model.sendingRestoreByEmailSuccess == true)
+        binding.restore.visibility = if(vs.model.sendingRestoreByEmail == true || vs.model.sendingRestoreByEmailSuccess == true) View.INVISIBLE else View.VISIBLE
+        binding.emailDescription.visibility = if(vs.model.sendingRestoreByEmailSuccess == true) View.VISIBLE else View.INVISIBLE
+        binding.email.isEditable = !(vs.model.sendingRestoreByEmailSuccess == true)
 
         if(vs.model.sendingRestoreByEmailSuccess == true && !instructionsAlreadyShown){
 
@@ -149,7 +149,7 @@ class RestoreByEmailFragment : ToolbarLRFragment<RestoreByEmailModel, RestoreByE
         }
 
         if(vs.model.sendingRestoreByEmailError != null){
-            email.setError(resources.getString(R.string.restore_email_not_found))
+            binding.email.setError(resources.getString(R.string.restore_email_not_found))
         }
 
         if(vs.model.exchangeTokenError != null){

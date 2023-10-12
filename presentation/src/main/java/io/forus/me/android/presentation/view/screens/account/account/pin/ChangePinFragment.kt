@@ -2,6 +2,7 @@ package io.forus.me.android.presentation.view.screens.account.account.pin
 
 import android.app.Activity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.base.lr.LoadRefreshPanel
 import io.forus.me.android.presentation.R
+import io.forus.me.android.presentation.databinding.FragmentAccountSetPinBinding
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.models.ChangePinMode
 import io.forus.me.android.presentation.view.base.MViewModelProvider
@@ -16,7 +18,6 @@ import io.forus.me.android.presentation.view.component.pinlock.PinLockListener
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.fragment_account_set_pin.*
 
 class ChangePinFragment : ToolbarLRFragment<ChangePinModel, ChangePinView, ChangePinPresenter>(),
     ChangePinView, MViewModelProvider<ChangePinViewModel> {
@@ -43,7 +44,7 @@ class ChangePinFragment : ToolbarLRFragment<ChangePinModel, ChangePinView, Chang
     override val allowBack: Boolean
         get() = true
 
-    override fun viewForSnackbar(): View = root
+    override fun viewForSnackbar(): View = binding.root
 
     override fun loadRefreshPanel() = object : LoadRefreshPanel {
         override fun retryClicks(): Observable<Any> = Observable.never()
@@ -61,11 +62,15 @@ class ChangePinFragment : ToolbarLRFragment<ChangePinModel, ChangePinView, Chang
     private val pinOnChange = PublishSubject.create<String>()
     override fun pinOnChange(): Observable<String> = pinOnChange
 
+    private lateinit var binding: FragmentAccountSetPinBinding
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ) = inflater.inflate(R.layout.fragment_account_set_pin, container, false).also {
+    ): View {
+
+        binding = FragmentAccountSetPinBinding.inflate(inflater)
 
         val bundle = this.arguments
         if (bundle != null) {
@@ -73,15 +78,17 @@ class ChangePinFragment : ToolbarLRFragment<ChangePinModel, ChangePinView, Chang
                 mode = ChangePinMode.valueOf(it)
             }
         }
+        
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        btn_exit.visibility = View.INVISIBLE
+        binding.btnExit.visibility = View.INVISIBLE
 
-        pin_lock_view.attachIndicatorDots(indicator_dots)
-        pin_lock_view.setPinLockListener(object : PinLockListener {
+        binding.pinLockView.attachIndicatorDots(binding.indicatorDots)
+        binding.pinLockView.setPinLockListener(object : PinLockListener {
             override fun onComplete(pin: String?) {
                 if (pin != null) pinOnComplete.onNext(pin)
             }
@@ -103,13 +110,13 @@ class ChangePinFragment : ToolbarLRFragment<ChangePinModel, ChangePinView, Chang
     override fun render(vs: LRViewState<ChangePinModel>) {
         super.render(vs)
 
-        progressBar.visibility =
+        binding.progressBar.visibility =
             if (vs.loading || vs.model.state == ChangePinModel.State.CHECKING_OLD_PIN || vs.model.state == ChangePinModel.State.CHANGING_PIN) View.VISIBLE else View.INVISIBLE
-        pin_lock_view.visibility = when (vs.model.state) {
+        binding.pinLockView.visibility = when (vs.model.state) {
             ChangePinModel.State.CHECKING_OLD_PIN, ChangePinModel.State.CHANGING_PIN, ChangePinModel.State.CHANGE_PIN_ERROR -> View.INVISIBLE
             else -> View.VISIBLE
         }
-        indicator_dots.visibility = when (vs.model.state) {
+        binding.indicatorDots.visibility = when (vs.model.state) {
             ChangePinModel.State.CHECKING_OLD_PIN, ChangePinModel.State.CHANGING_PIN, ChangePinModel.State.CHANGE_PIN_ERROR -> View.INVISIBLE
             else -> View.VISIBLE
         }
@@ -159,12 +166,12 @@ class ChangePinFragment : ToolbarLRFragment<ChangePinModel, ChangePinView, Chang
 
         if (vs.model.state != vs.model.prevState) when (vs.model.state) {
             ChangePinModel.State.CREATE_NEW_PIN -> {
-                if (vs.model.prevState != ChangePinModel.State.PASS_NOT_MATCH) pin_lock_view.resetPinLockView()
+                if (vs.model.prevState != ChangePinModel.State.PASS_NOT_MATCH) binding.pinLockView.resetPinLockView()
             }
-            ChangePinModel.State.CONFIRM_NEW_PIN -> pin_lock_view.resetPinLockView()
+            ChangePinModel.State.CONFIRM_NEW_PIN -> binding.pinLockView.resetPinLockView()
             ChangePinModel.State.PASS_NOT_MATCH, ChangePinModel.State.WRONG_OLD_PIN -> {
-                pin_lock_view.resetPinLockView()
-                pin_lock_view.setErrorAnimation()
+                binding.pinLockView.resetPinLockView()
+                binding.pinLockView.setErrorAnimation()
             }
         }
 
@@ -175,8 +182,8 @@ class ChangePinFragment : ToolbarLRFragment<ChangePinModel, ChangePinView, Chang
 
     private fun changeHeaders(title: String, subtitle: String, error: Boolean) {
         setToolbarTitle(title)
-        if (!subtitle_action.text.equals(subtitle)) subtitle_action.text = subtitle
-        subtitle_action.setTextColor(
+        if (!binding.subtitleAction.text.equals(subtitle)) binding.subtitleAction.text = subtitle
+        binding.subtitleAction.setTextColor(
             if (error) resources.getColor(R.color.error) else resources.getColor(
                 R.color.body_1_87
             )

@@ -1,7 +1,6 @@
 package io.forus.me.android.presentation.view.screens.account.newaccount.confirmRegistration
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,14 +11,8 @@ import io.forus.me.android.presentation.view.base.MViewModelProvider
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.base.lr.LoadRefreshPanel
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
-import io.forus.me.android.presentation.view.screens.account.assigndelegates.email.RestoreByEmailModel
-import io.forus.me.android.presentation.view.screens.account.assigndelegates.email.RestoreByEmailPresenter
-import io.forus.me.android.presentation.view.screens.account.assigndelegates.email.RestoreByEmailView
-import io.forus.me.android.presentation.view.screens.account.newaccount.pin.NewPinViewModel
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.fragment_confirm_registration.*
-
 
 
 class ConfirmRegistrationFragment :  ToolbarLRFragment<ConfirmRegistrationModel, ConfirmRegistrationView, ConfirmRegistrationPresenter>(), ConfirmRegistrationView,
