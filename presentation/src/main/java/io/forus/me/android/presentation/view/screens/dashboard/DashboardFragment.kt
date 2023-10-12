@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import androidx.fragment.app.Fragment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,8 +17,6 @@ import io.forus.me.android.presentation.view.activity.CommonActivity
 import io.forus.me.android.presentation.view.adapters.MainViewPagerAdapter
 import io.forus.me.android.presentation.view.screens.account.account.AccountFragment
 import io.forus.me.android.presentation.view.screens.main.MainActivity
-import io.forus.me.android.presentation.view.screens.records.categories.RecordCategoriesFragment
-import io.forus.me.android.presentation.view.screens.records.list.RecordsFragment
 import io.forus.me.android.presentation.view.screens.vouchers.list.VouchersFragment
 
 private const val CURRENT_PAGER_POSITION = "CURRENT_PAGER_POSITION"

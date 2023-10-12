@@ -1,34 +1,23 @@
 package io.forus.me.android.presentation.view.screens.account.restore_account_success
 
-import android.content.Context
 import android.os.Bundle
-import android.text.Editable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import androidx.lifecycle.ViewModelProvider
-import io.forus.me.android.data.entity.common.BaseError
 import io.forus.me.android.domain.exception.RetrofitException
 import io.forus.me.android.domain.exception.RetrofitExceptionMapper
 import io.forus.me.android.presentation.R
-import io.forus.me.android.presentation.helpers.SharedPref
+import io.forus.me.android.presentation.databinding.FragmentAccountRestoreSuccessBinding
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.activity.BaseActivity
 import io.forus.me.android.presentation.view.base.MViewModelProvider
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.base.lr.LoadRefreshPanel
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
-import io.forus.me.android.presentation.view.screens.account.newaccount.pin.NewPinViewModel
-import io.forus.me.android.presentation.view.screens.qr.dialogs.ScanVoucherBaseErrorDialog
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.fragment_account_restore_email.*
-import kotlinx.android.synthetic.main.fragment_account_restore_email.restore
-import kotlinx.android.synthetic.main.fragment_account_restore_email.root
-import kotlinx.android.synthetic.main.fragment_account_restore_success.*
-import java.lang.Exception
+
 
 
 /**
@@ -69,7 +58,7 @@ class RestoreAccountSuccessFragment : ToolbarLRFragment<RestoreAccountSuccessMod
         get() = false
 
 
-    override fun viewForSnackbar(): View = root
+    override fun viewForSnackbar(): View = binding.root
 
     override fun loadRefreshPanel() = object : LoadRefreshPanel {
         override fun retryClicks(): Observable<Any> = Observable.never()
@@ -87,14 +76,12 @@ class RestoreAccountSuccessFragment : ToolbarLRFragment<RestoreAccountSuccessMod
     private val exchangeToken = PublishSubject.create<String>()
     override fun exchangeToken() = exchangeToken
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = inflater.inflate(R.layout.fragment_account_restore_success, container, false).also {
-
-        val bundle = this.arguments
-       // if (bundle != null) {
-       //     token = bundle.getString(TOKEN_EXTRA, "")
-        //    isExchangeToken = bundle.getBoolean(IS_EXCHANGE_TOKEN)
-       // }
-
+    private lateinit var binding: FragmentAccountRestoreSuccessBinding
+    
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
+    {
+        binding = FragmentAccountRestoreSuccessBinding.inflate(inflater)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -119,10 +106,10 @@ class RestoreAccountSuccessFragment : ToolbarLRFragment<RestoreAccountSuccessMod
 
         if (isExchangeToken) {
 
-            returnToRegistration.visibility = View.GONE
+            binding.returnToRegistration.visibility = View.GONE
 
 
-            progress.visibility = if (vs.model.sendingRestoreByEmail == true) View.VISIBLE else View.INVISIBLE
+            binding.progress.visibility = if (vs.model.sendingRestoreByEmail == true) View.VISIBLE else View.INVISIBLE
 
             if (vs.model.sendingRestoreByEmailSuccess == true && !instructionsAlreadyShown) {
 
@@ -134,23 +121,23 @@ class RestoreAccountSuccessFragment : ToolbarLRFragment<RestoreAccountSuccessMod
             }
 
             if (vs.model.accessToken != null && vs.model.accessToken.isNotBlank()) {
-                successImage.visibility = View.VISIBLE
-                title.text = getString(R.string.restore_account_head)
-                nextStep.visibility = View.VISIBLE
+                binding.successImage.visibility = View.VISIBLE
+                binding.title.text = getString(R.string.restore_account_head)
+                binding.nextStep.visibility = View.VISIBLE
             } else {
-                successImage.visibility = View.INVISIBLE
-                title.text = ""
-                nextStep.visibility = View.INVISIBLE
+                binding.successImage.visibility = View.INVISIBLE
+                binding.title.text = ""
+                binding.nextStep.visibility = View.INVISIBLE
             }
 
 
             if (vs.model.exchangeTokenError != null) {
-                errorImage.visibility = View.VISIBLE
+                binding.errorImage.visibility = View.VISIBLE
                 showToastMessage(resources.getString(R.string.restore_email_invalid_link))
-                title.text = getString(R.string.restore_email_invalid_link)
+                binding.title.text = getString(R.string.restore_email_invalid_link)
             } else
                 if (vs.loadingError != null) {
-                    errorImage.visibility = View.VISIBLE
+                    binding.errorImage.visibility = View.VISIBLE
                     var message = ""
 
                     val error: Throwable = vs.loadingError
@@ -163,39 +150,39 @@ class RestoreAccountSuccessFragment : ToolbarLRFragment<RestoreAccountSuccessMod
                         } catch (e: Exception) {
                         }
                     }
-                    title.visibility = View.VISIBLE
-                    title.text = message
+                    binding.title.visibility = View.VISIBLE
+                    binding.title.text = message
 
-                    returnToRegistration.visibility = View.VISIBLE
+                    binding.returnToRegistration.visibility = View.VISIBLE
 
                 } else {
-                    errorImage.visibility = View.INVISIBLE
+                    binding.errorImage.visibility = View.INVISIBLE
                 }
 
 
 
 
-            returnToRegistration.setOnClickListener {
+            binding.returnToRegistration.setOnClickListener {
                 navigator.navigateToLoginSignUp(activity)
                 activity?.finish()
             }
 
 
 
-            nextStep.setOnClickListener {
+            binding.nextStep.setOnClickListener {
                 if (vs.model.accessToken != null && vs.model.accessToken.isNotBlank()) {
                     closeScreen(vs.model.accessToken)
                 }
             }
 
         } else {
-            progress.visibility = View.GONE
-            successImage.visibility = View.VISIBLE
-            returnToRegistration.visibility = View.GONE
-            errorImage.visibility = View.GONE
-            title.text = getString(R.string.restore_account_head)
-            nextStep.visibility = View.VISIBLE
-            nextStep.setOnClickListener {
+            binding.progress.visibility = View.GONE
+            binding.successImage.visibility = View.VISIBLE
+            binding.returnToRegistration.visibility = View.GONE
+            binding.errorImage.visibility = View.GONE
+            binding.title.text = getString(R.string.restore_account_head)
+            binding.nextStep.visibility = View.VISIBLE
+            binding.nextStep.setOnClickListener {
                 if (token.isNotBlank()) {
                     closeScreen(token)
                 }

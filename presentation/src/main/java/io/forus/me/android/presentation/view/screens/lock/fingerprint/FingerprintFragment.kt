@@ -9,6 +9,7 @@ import com.jakewharton.rxbinding2.view.RxView
 import com.multidots.fingerprintauth.FingerPrintAuthCallback
 import com.multidots.fingerprintauth.FingerPrintAuthHelper
 import io.forus.me.android.presentation.R
+import io.forus.me.android.presentation.databinding.FragmentFingerprintBinding
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.base.lr.LoadRefreshPanel
@@ -16,9 +17,9 @@ import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.forus.me.android.presentation.view.screens.lock.PinLockActivity
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.fragment_fingerprint.*
 
-class FingerprintFragment : ToolbarLRFragment<FingerprintModel, FingerprintView, FingerprintPresenter>(), FingerprintView {
+class FingerprintFragment :
+    ToolbarLRFragment<FingerprintModel, FingerprintView, FingerprintPresenter>(), FingerprintView {
 
     companion object {
         fun newIntent(): FingerprintFragment = FingerprintFragment()
@@ -37,7 +38,7 @@ class FingerprintFragment : ToolbarLRFragment<FingerprintModel, FingerprintView,
 
     private lateinit var mFingerPrintAuthHelper: FingerPrintAuthHelper
 
-    override fun viewForSnackbar(): View = root
+    override fun viewForSnackbar(): View = binding.root
 
     override fun loadRefreshPanel() = object : LoadRefreshPanel {
         override fun retryClicks(): Observable<Any> = Observable.never()
@@ -49,7 +50,7 @@ class FingerprintFragment : ToolbarLRFragment<FingerprintModel, FingerprintView,
         }
     }
 
-    override fun exit(): Observable<Unit> = RxView.clicks(btn_exit).map { Unit }
+    override fun exit(): Observable<Unit> = RxView.clicks(binding.btnExit).map { Unit }
 
     private val authSuccess = PublishSubject.create<Unit>()
     override fun authSuccess(): Observable<Unit> = authSuccess
@@ -57,8 +58,15 @@ class FingerprintFragment : ToolbarLRFragment<FingerprintModel, FingerprintView,
     private val authFail = PublishSubject.create<String>()
     override fun authFail(): Observable<String> = authFail
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        return inflater.inflate(R.layout.fragment_fingerprint, container, false)
+    private lateinit var binding: FragmentFingerprintBinding
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentFingerprintBinding.inflate(layoutInflater)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -66,30 +74,33 @@ class FingerprintFragment : ToolbarLRFragment<FingerprintModel, FingerprintView,
 
         val errorHwNotFound = resources.getString(R.string.lock_fingerprint_error_hw_not_found)
         val errorAuthFail = resources.getString(R.string.lock_fingerprint_error_auth_fail)
-        val errorNoFingerprints = resources.getString(R.string.lock_fingerprint_error_no_fingerprints)
-        val errorBelowMarshmallow = resources.getString(R.string.lock_fingerprint_error_below_marshmallow)
+        val errorNoFingerprints =
+            resources.getString(R.string.lock_fingerprint_error_no_fingerprints)
+        val errorBelowMarshmallow =
+            resources.getString(R.string.lock_fingerprint_error_below_marshmallow)
 
-        mFingerPrintAuthHelper = FingerPrintAuthHelper.getHelper(context!!, object: FingerPrintAuthCallback {
-            override fun onNoFingerPrintHardwareFound() {
-                authFail.onNext(errorHwNotFound)
-            }
+        mFingerPrintAuthHelper =
+            FingerPrintAuthHelper.getHelper(requireContext(), object : FingerPrintAuthCallback {
+                override fun onNoFingerPrintHardwareFound() {
+                    authFail.onNext(errorHwNotFound)
+                }
 
-            override fun onAuthFailed(errorCode: Int, errorMessage: String?) {
-                authFail.onNext(errorAuthFail)
-            }
+                override fun onAuthFailed(errorCode: Int, errorMessage: String?) {
+                    authFail.onNext(errorAuthFail)
+                }
 
-            override fun onNoFingerPrintRegistered() {
-                authFail.onNext(errorNoFingerprints)
-            }
+                override fun onNoFingerPrintRegistered() {
+                    authFail.onNext(errorNoFingerprints)
+                }
 
-            override fun onBelowMarshmallow() {
-                authFail.onNext(errorBelowMarshmallow)
-            }
+                override fun onBelowMarshmallow() {
+                    authFail.onNext(errorBelowMarshmallow)
+                }
 
-            override fun onAuthSuccess(cryptoObject: FingerprintManager.CryptoObject?) {
-                authSuccess.onNext(Unit)
-            }
-        })
+                override fun onAuthSuccess(cryptoObject: FingerprintManager.CryptoObject?) {
+                    authSuccess.onNext(Unit)
+                }
+            })
     }
 
     override fun onResume() {
@@ -103,24 +114,24 @@ class FingerprintFragment : ToolbarLRFragment<FingerprintModel, FingerprintView,
     }
 
     override fun createPresenter() = FingerprintPresenter(
-            Injection.instance.accountRepository
+        Injection.instance.accountRepository
     )
 
     override fun render(vs: LRViewState<FingerprintModel>) {
         super.render(vs)
 
-        if(vs.closeScreen){
-            if(vs.model.unlockSuccess) unlockSuccess()
-            else if(vs.model.usePin) usePinlock()
+        if (vs.closeScreen) {
+            if (vs.model.unlockSuccess) unlockSuccess()
+            else if (vs.model.usePin) usePinlock()
         }
 
-        if(vs.model.unlockFail && vs.model.unlockFailMessage != null){
-            tv_fingerprint_hint.text = vs.model.unlockFailMessage
-            tv_fingerprint_hint.setTextColor(resources.getColor(R.color.error))
+        if (vs.model.unlockFail && vs.model.unlockFailMessage != null) {
+            binding.tvFingerprintHint.text = vs.model.unlockFailMessage
+            binding.tvFingerprintHint.setTextColor(resources.getColor(R.color.error))
         }
     }
 
-    private fun usePinlock(){
+    private fun usePinlock() {
         (activity as? PinLockActivity)?.usePinlock()
     }
 

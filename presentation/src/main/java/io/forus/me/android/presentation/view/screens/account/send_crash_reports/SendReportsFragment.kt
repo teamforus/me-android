@@ -5,8 +5,8 @@ import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import io.forus.me.android.domain.exception.RetrofitExceptionMapper
 import io.forus.me.android.presentation.R
+import io.forus.me.android.presentation.databinding.FragmentSendReportsBinding
 import io.forus.me.android.presentation.helpers.SharedPref
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.base.lr.LRViewState
@@ -20,8 +20,8 @@ import kotlinx.android.synthetic.main.fragment_send_reports.*
 /**
  * Created by maestrovs on 22.04.2020.
  */
-class SendReportsFragment : ToolbarLRFragment<SendReportsModel, SendReportsView, SendReportsPresenter>(), SendReportsView  {
-
+class SendReportsFragment :
+    ToolbarLRFragment<SendReportsModel, SendReportsView, SendReportsPresenter>(), SendReportsView {
 
 
     companion object {
@@ -35,8 +35,6 @@ class SendReportsFragment : ToolbarLRFragment<SendReportsModel, SendReportsView,
     }
 
     private var token: String = ""
-
-
 
 
     override val toolbarTitle: String
@@ -62,16 +60,21 @@ class SendReportsFragment : ToolbarLRFragment<SendReportsModel, SendReportsView,
     override fun switchSendCrashReports(): Observable<Boolean> = switchSendCrashReports
 
 
+    private lateinit var binding: FragmentSendReportsBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
-            = inflater.inflate(R.layout.fragment_send_reports, container, false).also {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentSendReportsBinding.inflate(inflater)
 
         val bundle = this.arguments
         if (bundle != null) {
             token = bundle.getString(TOKEN_EXTRA, "")
         }
 
-        val display = activity!!.getWindowManager().getDefaultDisplay()
+        val display = requireActivity().getWindowManager().getDefaultDisplay()
         val outMetrics = DisplayMetrics()
         display.getMetrics(outMetrics)
         val density = resources.displayMetrics.density
@@ -80,6 +83,8 @@ class SendReportsFragment : ToolbarLRFragment<SendReportsModel, SendReportsView,
         return if (dpWidth <= 320 || dpHeight < 522)
             inflater.inflate(R.layout.fragment_send_reports_nokia1, container, false)
         else inflater.inflate(R.layout.fragment_send_reports, container, false)
+
+        return binding.root
 
     }
 
@@ -93,9 +98,8 @@ class SendReportsFragment : ToolbarLRFragment<SendReportsModel, SendReportsView,
     }
 
     override fun createPresenter() = SendReportsPresenter(
-            Injection.instance.accountRepository
+        Injection.instance.accountRepository
     )
-
 
 
     override fun render(vs: LRViewState<SendReportsModel>) {
@@ -104,9 +108,9 @@ class SendReportsFragment : ToolbarLRFragment<SendReportsModel, SendReportsView,
         enable_send_crash_log.setChecked(vs.model.sendCrashReportsEnabled)
         enable_send_crash_log.setOnClickListener {
 
-            if(enable_send_crash_log.isChecked){
-                SharedPref.init(context!!)
-                SharedPref.write(SharedPref.OPTION_SEND_CRASH_REPORT,true)
+            if (enable_send_crash_log.isChecked) {
+                SharedPref.init(requireContext())
+                SharedPref.write(SharedPref.OPTION_SEND_CRASH_REPORT, true)
             }
             switchSendCrashReports.onNext(!vs.model.sendCrashReportsEnabled)
         }
