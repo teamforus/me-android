@@ -10,10 +10,10 @@ import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.base.lr.LoadRefreshPanel
 import io.forus.me.android.domain.models.qr.QrCode
 import io.forus.me.android.presentation.R
+import io.forus.me.android.presentation.databinding.FragmentPopupQrBinding
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.helpers.reactivex.DisposableHolder
 import io.reactivex.Observable
-import kotlinx.android.synthetic.main.fragment_popup_qr.*
 
 class RestoreByQRFragment : LRFragment<RestoreByQRModel, RestoreByQRView, RestoreByQRPresenter>(), RestoreByQRView  {
 
@@ -21,15 +21,15 @@ class RestoreByQRFragment : LRFragment<RestoreByQRModel, RestoreByQRView, Restor
         set(value) {
             if(field != value){
                 field = value
-                if (qrImage != null) {
-                    qrImage.setQRText(QrCode(QrCode.Type.AUTH_TOKEN, value).toJson())
+                if (binding.qrImage != null) {
+                    binding.qrImage.setQRText(QrCode(QrCode.Type.AUTH_TOKEN, value).toJson())
                 }
             }
         }
 
     val disposableHolder = DisposableHolder()
 
-    override fun viewForSnackbar(): View = root
+    override fun viewForSnackbar(): View = binding.root
 
     override fun loadRefreshPanel() = object : LoadRefreshPanel {
         override fun retryClicks(): Observable<Any> = Observable.never()
@@ -41,8 +41,14 @@ class RestoreByQRFragment : LRFragment<RestoreByQRModel, RestoreByQRView, Restor
         }
     }
 
+    private lateinit var binding: FragmentPopupQrBinding
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
-            = inflater.inflate(R.layout.fragment_popup_qr, container, false)
+    {
+        binding = FragmentPopupQrBinding.inflate(inflater)
+        return binding.root
+    }
+
 
     override fun onDetach() {
         super.onDetach()
@@ -59,7 +65,7 @@ class RestoreByQRFragment : LRFragment<RestoreByQRModel, RestoreByQRView, Restor
     override fun render(vs: LRViewState<RestoreByQRModel>) {
         super.render(vs)
 
-        subtitle.text = resources.getString(R.string.restore_scan_deze_qr)
+        binding.subtitle.text = resources.getString(R.string.restore_scan_deze_qr)
 
         if (vs.model.item != null) {
             qrText = vs.model.item.authToken

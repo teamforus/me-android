@@ -12,6 +12,7 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter
 import com.example.snackbarexample.customsnackbar.chef.UpdateAppSnackbar
 import io.forus.me.android.presentation.R
+import io.forus.me.android.presentation.databinding.FragmentDashboardBinding
 import io.forus.me.android.presentation.helpers.SharedPref
 import io.forus.me.android.presentation.view.activity.CommonActivity
 import io.forus.me.android.presentation.view.adapters.MainViewPagerAdapter
@@ -20,7 +21,6 @@ import io.forus.me.android.presentation.view.screens.main.MainActivity
 import io.forus.me.android.presentation.view.screens.records.categories.RecordCategoriesFragment
 import io.forus.me.android.presentation.view.screens.records.list.RecordsFragment
 import io.forus.me.android.presentation.view.screens.vouchers.list.VouchersFragment
-import kotlinx.android.synthetic.main.fragment_dashboard.*
 
 private const val CURRENT_PAGER_POSITION = "CURRENT_PAGER_POSITION"
 
@@ -33,8 +33,13 @@ class DashboardFragment : Fragment() {
 
     private var adapter: MainViewPagerAdapter? = null
 
+    private lateinit var binding: FragmentDashboardBinding
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_dashboard, container, false)
+        //return inflater.inflate(R.layout.fragment_dashboard, container, false)
+
+        binding = FragmentDashboardBinding.inflate(inflater)
+        return binding.root
     }
 
 
@@ -44,7 +49,7 @@ class DashboardFragment : Fragment() {
     }
 
     private fun initUI() {
-        bottom_navigation.setOnTabSelectedListener(object : AHBottomNavigation.OnTabSelectedListener {
+        binding.bottomNavigation.setOnTabSelectedListener(object : AHBottomNavigation.OnTabSelectedListener {
             var lastPosition: Int = 0
             override fun onTabSelected(position: Int, wasSelected: Boolean): Boolean {
                 val result = showTab(position, lastPosition, wasSelected)
@@ -55,14 +60,14 @@ class DashboardFragment : Fragment() {
             }
         })
 
-        //    bottom_navigation.setOnTabSelectedListener { position, wasSelected -> showTab(position, wasSelected) }
-        bottom_navigation.setOnNavigationPositionListener { }
-        bottom_navigation.accentColor =
+        //    binding.bottomNavigation.setOnTabSelectedListener { position, wasSelected -> showTab(position, wasSelected) }
+        binding.bottomNavigation.setOnNavigationPositionListener { }
+        binding.bottomNavigation.accentColor =
                 (activity as? CommonActivity)?.getCustomColor(R.color.colorAccent) ?: 0
 
 
         navigationAdapter = AHBottomNavigationAdapter(activity, R.menu.bottom_navigation_menu)
-        navigationAdapter?.setupWithBottomNavigation(bottom_navigation)
+        navigationAdapter?.setupWithBottomNavigation(binding.bottomNavigation)
 
         if (adapter == null) {
 
@@ -81,10 +86,10 @@ class DashboardFragment : Fragment() {
             adapter = MainViewPagerAdapter(childFragmentManager, activity?.applicationContext,
                     fragments, titles)
 
-            view_pager.offscreenPageLimit = 3
+            binding.viewPager.offscreenPageLimit = 3
         }
 
-        view_pager.adapter = adapter
+        binding.viewPager.adapter = adapter
         selectTab(currentPagerPosition, 0)
 
 
@@ -93,7 +98,7 @@ class DashboardFragment : Fragment() {
         if(neesAppUpdate) {
             h.postDelayed({
                 UpdateAppSnackbar
-                        .make(coordinator, View.OnClickListener {
+                        .make(binding.coordinator, View.OnClickListener {
                             val intent = Intent(requireContext(), MainActivity::class.java)
                             requireContext().startActivity(intent)
                             requireActivity().finish()
@@ -107,7 +112,7 @@ class DashboardFragment : Fragment() {
     val h = Handler()
 
     private fun selectTab(currentPagerPosition: Int, oldPosition: Int) {
-        bottom_navigation.setCurrentItem(currentPagerPosition, false)
+        binding.bottomNavigation.setCurrentItem(currentPagerPosition, false)
         try {
             showTab(currentPagerPosition, oldPosition, false)
         } catch (e: Exception) {
@@ -118,7 +123,7 @@ class DashboardFragment : Fragment() {
 
     private fun showTab(position: Int, oldPosition: Int, wasSelected: Boolean): Boolean {
         if (position == 1) {
-            view_pager.setCurrentItem(oldPosition, false)
+            binding.viewPager.setCurrentItem(oldPosition, false)
             (activity as? DashboardActivity)?.navigateToQrScanner()
 
             return false
@@ -139,7 +144,7 @@ class DashboardFragment : Fragment() {
             return true
         }
 
-        view_pager.setCurrentItem(position, false)
+        binding.viewPager.setCurrentItem(position, false)
         currentFragment = adapter?.currentFragment
 
         return true

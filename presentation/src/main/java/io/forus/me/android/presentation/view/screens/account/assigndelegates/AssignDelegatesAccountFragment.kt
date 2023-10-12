@@ -5,13 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import io.forus.me.android.presentation.R
+import io.forus.me.android.presentation.databinding.FragmentAccountAssignDelegatesBinding
 import io.forus.me.android.presentation.helpers.reactivex.DisposableHolder
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.base.lr.LoadRefreshPanel
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.reactivex.Observable
-import kotlinx.android.synthetic.main.fragment_account_assign_delegates.*
 
 /**
  * Fragment Assign Delegates Screen.
@@ -20,7 +20,7 @@ class AssignDelegatesAccountFragment : ToolbarLRFragment<AssignDelegatesAccountM
 
     val disposableHolder = DisposableHolder()
 
-    override fun viewForSnackbar(): View = root
+    override fun viewForSnackbar(): View = binding.root
 
     override val toolbarTitle: String
         get() = getString(R.string.restore_login)
@@ -37,18 +37,25 @@ class AssignDelegatesAccountFragment : ToolbarLRFragment<AssignDelegatesAccountM
 
         }
     }
+    
+    private lateinit var binding: FragmentAccountAssignDelegatesBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
-            = inflater.inflate(R.layout.fragment_account_assign_delegates, container, false)
+    {
+        binding = FragmentAccountAssignDelegatesBinding.inflate(inflater)
+        return binding.root
+    }
+           
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        via_email.setOnClickListener {
+        binding.viaEmail.setOnClickListener {
             navigator.navigateToAccountRestoreByEmail(activity)
         }
 
-        via_qr.setOnClickListener {
+        binding.viaQr.setOnClickListener {
             (activity as? AssignDelegatesAccountActivity)?.showPopupQRFragment()
         }
     }
@@ -68,11 +75,11 @@ class AssignDelegatesAccountFragment : ToolbarLRFragment<AssignDelegatesAccountM
         super.render(vs)
 
         if (vs.model.item != null) {
-            pin_view.setPin(vs.model.item.authCode)
-            pin_view.visibility = View.VISIBLE
+            binding.pinView.setPin(vs.model.item.authCode)
+            binding.pinView.visibility = View.VISIBLE
         }
         else
-            pin_view.visibility = View.INVISIBLE
+            binding.pinView.visibility = View.INVISIBLE
 
 
         if(vs.closeScreen && vs.model.isPinConfirmed == true && vs.model.item?.accessToken != null){

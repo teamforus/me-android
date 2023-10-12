@@ -20,6 +20,7 @@ import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.api_config.Utils
 import io.forus.me.android.presentation.api_config.check_api_status.CheckApiPresenter
 import io.forus.me.android.presentation.api_config.dialogs.*
+import io.forus.me.android.presentation.databinding.FragmentLoginSignUpBinding
 import io.forus.me.android.presentation.helpers.SharedPref
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.activity.BaseActivity
@@ -30,7 +31,6 @@ import io.forus.me.android.presentation.view.base.lr.LoadRefreshPanel
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.fragment_account_details.root
 import java.lang.Exception
 
 
@@ -85,8 +85,10 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
     override val allowBack: Boolean
         get() = true
 
+    //Nokia ignored
+    private lateinit var binding: FragmentLoginSignUpBinding
 
-    override fun viewForSnackbar(): View = root
+    override fun viewForSnackbar(): View = binding.root
 
     override fun loadRefreshPanel() = object : LoadRefreshPanel {
         override fun retryClicks(): Observable<Any> = Observable.never()
@@ -118,7 +120,8 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
     override fun validateEmail() = validateEmail
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
+    {
 
 
        // val bundle = this.arguments
@@ -133,16 +136,18 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
         val density = resources.displayMetrics.density
         val dpHeight = outMetrics.heightPixels / density
         val dpWidth = outMetrics.widthPixels / density
-        val rootView = if (dpWidth <= 320 || dpHeight < 522)
-            inflater.inflate(R.layout.fragment_login_sign_up_nokia1, container, false)
-        else inflater.inflate(R.layout.fragment_login_sign_up, container, false)
+        //val rootView = if (dpWidth <= 320 || dpHeight < 522)
+           // inflater.inflate(R.layout.fragment_login_sign_up_nokia1, container, false)
+       // else inflater.inflate(R.layout.fragment_login_sign_up, container, false)
 
-        email = rootView.findViewById(R.id.email)
-        restore = rootView.findViewById(R.id.restore)
-        pair_device = rootView.findViewById(R.id.pair_device)
-        devOptionsBt = rootView.findViewById(R.id.devOptionsBt)
+        binding = FragmentLoginSignUpBinding.inflate(inflater)
 
-        return rootView
+        email = binding.email//findViewById(R.id.email)
+        restore = binding.restore//rootView.findViewById(R.id.restore)
+        pair_device = binding.pairDevice//rootView.findViewById(R.id.pair_device)
+        devOptionsBt = binding.devOptionsBt //rootView.findViewById(R.id.devOptionsBt)
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

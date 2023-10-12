@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import io.forus.me.android.domain.models.qr.QrCode
 import io.forus.me.android.presentation.BuildConfig
 import io.forus.me.android.presentation.R
+import io.forus.me.android.presentation.databinding.FragmentAccountDetailsBinding
 import io.forus.me.android.presentation.helpers.SharedPref
 import io.forus.me.android.presentation.helpers.SystemServices
 import io.forus.me.android.presentation.internal.Injection
@@ -26,7 +27,6 @@ import io.forus.me.android.presentation.view.screens.dashboard.DashboardActivity
 import io.forus.me.android.presentation.view.screens.qr.dialogs.RestoreIdentityDialog
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.fragment_account_details.*
 
 
 /**
@@ -37,6 +37,8 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
     companion object {
         private const val REQUEST_CHANGE_PIN = 10001
     }
+    
+    private lateinit var binding: FragmentAccountDetailsBinding
 
     override val allowBack: Boolean
         get() = false
@@ -44,12 +46,12 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
     override val showAccount: Boolean
         get() = false
 
-    override fun viewForSnackbar(): View = lr_panel
+    override fun viewForSnackbar(): View = binding.lrPanel
 
     override val toolbarTitle: String
         get() = getString(R.string.dashboard_profile)
 
-    override fun loadRefreshPanel() = lr_panel
+    override fun loadRefreshPanel() = binding.lrPanel
 
     val h = Handler()
     var optionPincodeIsEnable = true
@@ -66,7 +68,7 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
                 .setPositiveButton(R.string.send_voucher_email_dialog_positive_button) { dialogInterface: DialogInterface, _ ->
                     dialogInterface.dismiss()
                     val intent = Intent(Intent.ACTION_SENDTO)
-                    intent.data = Uri.parse("mailto:${support_email.text}")
+                    intent.data = Uri.parse("mailto:${binding.supportEmail.text}")
 
                     startActivity(Intent.createChooser(intent, getString(R.string.send_email_title)))
                 }
@@ -85,7 +87,10 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
     private val switchSendCrashReports = PublishSubject.create<Boolean>()
     override fun switchSendCrashReports(): Observable<Boolean> = switchSendCrashReports
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = inflater.inflate(R.layout.fragment_account_details, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        binding = FragmentAccountDetailsBinding.inflate(inflater)
+        return binding.root
+    }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -94,34 +99,34 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
         services = (activity as BaseActivity).systemServices
         isFingerprintHardwareAvailable = services.isFingerprintHardwareAvailable()
 
-        change_digits.setOnClickListener {
+        binding.changeDigits.setOnClickListener {
             navigator.navigateToChangePin(this, ChangePinMode.CHANGE_OLD, REQUEST_CHANGE_PIN)
         }
 
-        logout_view.setOnClickListener {
+        binding.logoutView.setOnClickListener {
             showConfirmLogoutDialog()
 
         }
 
-        about_me.setOnClickListener {
+        binding.aboutMe.setOnClickListener {
             (activity as? BaseActivity)?.replaceFragment(AboutMeFragment())
         }
 
-        privacy_policy_card.setOnClickListener {
+        binding.privacyPolicyCard.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW, 
                 Uri.parse(requireContext().getString(R.string.profile_privacy_policy_url)))
             requireContext().startActivity(intent)
         }
 
-        support_email.setOnClickListener {
+        binding.supportEmail.setOnClickListener {
             sendSupportEmailDialogBuilder.show()
         }
 
-        headView.setOnClickListener {
+        binding.headView.setOnClickListener {
             navigator.navigateToRecordsList(requireContext(), null)
         }
 
-        bt_app_explanation.setOnClickListener {
+        binding.btAppExplanation.setOnClickListener {
             navigator.navigateToWelcomeScreen(requireContext(),false)
         }
 
@@ -134,7 +139,7 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
             h.postDelayed(object : Runnable{
                 override fun run() {
                     optionPincodeIsEnable = true
-                    enable_send_crash_log.setChecked(true)
+                    binding.enableSendCrashLog.setChecked(true)
                     preSavedOptionSendCrashLogIsEnable = false
                     SharedPref.write(SharedPref.OPTION_SEND_CRASH_REPORT,false)
                     switchSendCrashReports.onNext(true)
@@ -166,15 +171,15 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
     override fun render(vs: LRViewState<AccountModel>) {
         super.render(vs)
 
-        app_version.text = BuildConfig.VERSION_NAME + "-" + BuildConfig.BUILD_NUMBER
+        binding.appVersion.text = BuildConfig.VERSION_NAME + "-" + BuildConfig.BUILD_NUMBER
 
-        name.text = vs.model.account?.name
-        email.text = vs.model.account?.email
-        avatar.setImageDrawable(resources.getDrawable(R.drawable.ic_me_logo))
+        binding.name.text = vs.model.account?.name
+        binding.email.text = vs.model.account?.email
+        binding.avatar.setImageDrawable(resources.getDrawable(R.drawable.ic_me_logo))
 
-        change_digits.visibility = if (vs.model.pinlockEnabled) View.VISIBLE else View.GONE
-        enable_pinlock.setChecked(vs.model.pinlockEnabled)
-        enable_pinlock.setOnClickListener {
+        binding.changeDigits.visibility = if (vs.model.pinlockEnabled) View.VISIBLE else View.GONE
+        binding.enablePinlock.setChecked(vs.model.pinlockEnabled)
+        binding.enablePinlock.setOnClickListener {
             if (optionPincodeIsEnable) {
 
 
@@ -188,27 +193,27 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
             }
         }
 
-        enable_fingerprint.visibility = if (isFingerprintHardwareAvailable && vs.model.pinlockEnabled) View.VISIBLE else View.GONE
-        enable_fingerprint.setChecked(vs.model.fingerprintEnabled)
-        enable_fingerprint.setOnClickListener {
+        binding.enableFingerprint.visibility = if (isFingerprintHardwareAvailable && vs.model.pinlockEnabled) View.VISIBLE else View.GONE
+        binding.enableFingerprint.setChecked(vs.model.fingerprintEnabled)
+        binding.enableFingerprint.setOnClickListener {
 
             if (services.hasEnrolledFingerprints()) {
                 switchFingerprint.onNext(!vs.model.fingerprintEnabled)
             } else showToastMessage(resources.getString(R.string.lock_no_fingerprints))
         }
 
-        start_from_scanner.setChecked(vs.model.startFromScanner)
-        start_from_scanner.setOnClickListener {
+        binding.startFromScanner.setChecked(vs.model.startFromScanner)
+        binding.startFromScanner.setOnClickListener {
             switchStartFromScanner.onNext(!vs.model.startFromScanner)
         }
 
-        enable_send_crash_log.setChecked(vs.model.sendCrashReportsEnabled)
-        enable_send_crash_log.setOnClickListener {
+        binding.enableSendCrashLog.setChecked(vs.model.sendCrashReportsEnabled)
+        binding.enableSendCrashLog.setOnClickListener {
             switchSendCrashReports.onNext(!vs.model.sendCrashReportsEnabled)
         }
 
         if (vs.model.account?.address != null) {
-            btn_qr.setOnClickListener {
+            binding.btnQr.setOnClickListener {
                 (activity as? DashboardActivity)?.showPopupQRFragment(QrCode(QrCode.Type.P2P_IDENTITY, vs.model.account.address).toJson())
             }
         }

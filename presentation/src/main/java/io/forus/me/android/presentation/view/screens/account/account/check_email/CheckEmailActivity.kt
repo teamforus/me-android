@@ -11,8 +11,8 @@ import android.text.Html
 import io.forus.me.android.presentation.view.activity.CommonActivity
 
 import io.forus.me.android.presentation.R
+import io.forus.me.android.presentation.databinding.ActivityCheckEmailBinding
 import io.forus.me.android.presentation.helpers.SharedPref
-import kotlinx.android.synthetic.main.activity_check_email.*
 
 
 /**
@@ -32,27 +32,24 @@ class CheckEmailActivity : CommonActivity() {
     override val viewID: Int
         get() = R.layout.activity_check_email
 
+    private lateinit var binding: ActivityCheckEmailBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        /* if (savedInstanceState == null) {
-             addFragment(R.id.fragmentContainer, CheckEmailFragment())
-         }*/
-
-
-
+        binding = ActivityCheckEmailBinding.inflate(layoutInflater)
 
         SharedPref.init(this@CheckEmailActivity)
         val restoreEmail = SharedPref.read(SharedPref.RESTORE_EMAIL, "")
 
         val descriptionText = getString(R.string.check_email_description_part1) + " <b><i><font color=\"blue\">" + restoreEmail + "</font></i></b> " + getString(R.string.check_email_description_part2)
-        description.text = HtmlCompat.fromHtml(descriptionText, HtmlCompat.FROM_HTML_MODE_LEGACY);
+        binding.description.text = HtmlCompat.fromHtml(descriptionText, HtmlCompat.FROM_HTML_MODE_LEGACY);
 
 
-        back.setOnClickListener { finish() }
-        pair_device.setOnClickListener { navigator.navigateToPairDevice(this@CheckEmailActivity) }
+        binding.back.setOnClickListener { finish() }
+        binding.pairDevice.setOnClickListener { navigator.navigateToPairDevice(this@CheckEmailActivity) }
 
-        checkEmailBt.setOnClickListener {
+        binding.checkEmailBt.setOnClickListener {
 
             val intent = Intent(Intent.ACTION_MAIN)
             intent.addCategory(Intent.CATEGORY_APP_EMAIL)
