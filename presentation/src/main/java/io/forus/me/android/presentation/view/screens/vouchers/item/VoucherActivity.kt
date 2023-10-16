@@ -5,15 +5,12 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.sothree.slidinguppanel.SlidingUpPanelLayout
-import io.forus.me.android.presentation.models.vouchers.Voucher
-import io.forus.me.android.presentation.R
-import io.forus.me.android.presentation.view.activity.SlidingPanelActivity
-import io.forus.me.android.presentation.view.fragment.QrFragment
-import kotlinx.android.synthetic.main.activity_toolbar_sliding_panel.*
 import androidx.activity.viewModels
+import com.sothree.slidinguppanel.SlidingUpPanelLayout
+import io.forus.me.android.presentation.R
+import io.forus.me.android.presentation.models.vouchers.Voucher
+import io.forus.me.android.presentation.view.activity.SlidingPanelActivity
 import io.forus.me.android.presentation.view.base.MViewModelProvider
-import io.forus.me.android.presentation.view.screens.account.newaccount.pin.NewPinViewModel
 import io.forus.me.android.presentation.view.screens.vouchers.VoucherViewModel
 
 
@@ -40,6 +37,8 @@ class VoucherActivity : SlidingPanelActivity(), MViewModelProvider<VoucherViewMo
 
     private lateinit var fragment: VoucherFragment
 
+    private var slidingLayout:com.sothree.slidinguppanel.SlidingUpPanelLayout? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -57,7 +56,9 @@ class VoucherActivity : SlidingPanelActivity(), MViewModelProvider<VoucherViewMo
             addFragment(R.id.fragmentContainer, fragment)
         }
 
-        sliding_layout.addPanelSlideListener(object: SlidingUpPanelLayout.PanelSlideListener{
+        slidingLayout = findViewById(R.id.sliding_layout)
+
+        slidingLayout?.addPanelSlideListener(object: SlidingUpPanelLayout.PanelSlideListener{
             override fun onPanelSlide(panel: View?, slideOffset: Float) {}
 
             override fun onPanelStateChanged(panel: View?, previousState: SlidingUpPanelLayout.PanelState?, newState: SlidingUpPanelLayout.PanelState?) {

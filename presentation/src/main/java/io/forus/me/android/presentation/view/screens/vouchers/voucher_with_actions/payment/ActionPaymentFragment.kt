@@ -1,15 +1,14 @@
 package io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actions.payment
 
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import android.content.DialogInterface
-import androidx.databinding.DataBindingUtil
 import android.os.Bundle
-import androidx.fragment.app.FragmentTransaction
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import io.forus.me.android.presentation.R
@@ -20,10 +19,7 @@ import io.forus.me.android.presentation.view.screens.vouchers.dialogs.ApplyActio
 import io.forus.me.android.presentation.view.screens.vouchers.dialogs.FullscreenDialog
 import io.forus.me.android.presentation.view.screens.vouchers.dialogs.ThrowableErrorDialog
 import io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actions.payment.popup.PriceAgreementFragment
-import kotlinx.android.synthetic.main.fragment_action_payment.*
 import java.math.BigDecimal
-import java.text.NumberFormat
-import java.util.*
 
 
 class ActionPaymentFragment : BaseFragment() {
@@ -47,7 +43,7 @@ class ActionPaymentFragment : BaseFragment() {
 
     lateinit var mainViewModel: ActionPaymentViewModel
 
-    lateinit var binding: FragmentActionPaymentBinding//ActivityActionPaymentBinding
+    lateinit var binding: FragmentActionPaymentBinding
 
     var voucherAddress: String? = null
     var product: ProductSerializable? = null
@@ -66,13 +62,14 @@ class ActionPaymentFragment : BaseFragment() {
         if (url != null && url.isNotEmpty()) {
             Glide.with(context).load(url)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(iv_action_icon)
+                    .into(binding.ivActionIcon)
         }
 
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return super.onCreateView(inflater, container, savedInstanceState).also {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? 
+    {
+       // return super.onCreateView(inflater, container, savedInstanceState).also {
             val bundle = this.arguments
             if (bundle != null) {
                 voucherAddress = bundle.getString(VOUCHER_ADDRESS_EXTRA, "")
@@ -89,8 +86,9 @@ class ActionPaymentFragment : BaseFragment() {
             }
 
 
-            binding = DataBindingUtil.inflate(
-                    inflater, R.layout.fragment_action_payment, container, false)
+            binding = FragmentActionPaymentBinding.inflate(inflater)
+        //DataBindingUtil.inflate(
+                  //  inflater, R.layout.fragment_action_payment, container, false)
             val view: View = binding.getRoot()
             binding.model = mainViewModel
 
@@ -100,9 +98,9 @@ class ActionPaymentFragment : BaseFragment() {
                 if(product!!.priceUser > BigDecimal.ZERO) {
                     showConfirmDialog()
                 }else{
-                    btn_make.active = false
-                    btn_make.isEnabled = false
-                    progress.visibility = View.VISIBLE
+                    binding.btnMake.active = false
+                    binding.btnMake.isEnabled = false
+                    binding.progress.visibility = View.VISIBLE
                     mainViewModel.makeTransaction()
                 }
             })
@@ -115,9 +113,9 @@ class ActionPaymentFragment : BaseFragment() {
             })
 
             mainViewModel.errorPayment.observe(requireActivity(), Observer {
-                progress.visibility = View.GONE
-                btn_make.active = true
-                btn_make.isEnabled = true
+                binding.progress.visibility = View.GONE
+                binding.btnMake.active = true
+                binding.btnMake.isEnabled = true
                 if (it != null) {
                     ThrowableErrorDialog(it, requireActivity(), object : DialogInterface.OnDismissListener, () -> Unit {
                         override fun invoke() {
@@ -143,7 +141,7 @@ class ActionPaymentFragment : BaseFragment() {
 
             val fragment = PriceAgreementFragment.newIntent(product!!)
 
-            val transaction: FragmentTransaction = activity!!.supportFragmentManager.beginTransaction()
+            val transaction: FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
 
 
             transaction.replace(R.id.fragmentPanelContainer, fragment)
@@ -152,7 +150,7 @@ class ActionPaymentFragment : BaseFragment() {
 
 
             return view
-        }
+       // }
     }
 
 
@@ -167,9 +165,9 @@ class ActionPaymentFragment : BaseFragment() {
 
 
         ApplyActionTransactionDialog(requireActivity(), title, toPay, subtitle) {
-            btn_make.active = false
-            btn_make.isEnabled = false
-            progress.visibility = View.VISIBLE
+            binding.btnMake.active = false
+            binding.btnMake.isEnabled = false
+            binding.progress.visibility = View.VISIBLE
             mainViewModel.makeTransaction()
         }.show()
     }

@@ -5,24 +5,23 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.widget.ViewPager2
 import io.forus.me.android.presentation.R
+import io.forus.me.android.presentation.databinding.ActivityWelcomeBinding
 import io.forus.me.android.presentation.view.activity.BaseActivity
-import io.forus.me.android.presentation.view.component.pinlock.IndicatorDots
-import io.forus.me.android.presentation.view.screens.account.newaccount.NewAccountActivity
-import io.forus.me.android.presentation.view.screens.lock.PinLockActivity
 import io.forus.me.android.presentation.view.screens.welcome.adapter.SectionPagerAdapter
-import kotlinx.android.synthetic.main.activity_welcome.*
+//import kotlinx.android.synthetic.main.activity_welcome.*
 
 class WelcomeActivity : BaseActivity() {
 
     private var mustGoToLogin = false
+    
+    private lateinit var binding: ActivityWelcomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_welcome)
+        binding = ActivityWelcomeBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         if (savedInstanceState == null) {
             mustGoToLogin = intent.getBooleanExtra(GO_TO_LOGIN, false)
@@ -37,7 +36,7 @@ class WelcomeActivity : BaseActivity() {
         dotsIndicator.setViewPager(viewPager)
 
 
-        backBt.setOnClickListener {
+        binding.backBt.setOnClickListener {
             if (viewPager.currentItem == 0) {
                 exitWelcome()
             }else{
@@ -49,7 +48,7 @@ class WelcomeActivity : BaseActivity() {
         }
 
 
-        btNext.setOnClickListener {
+        binding.btNext.setOnClickListener {
             if (viewPager.currentItem < 4) {
                 val nextItem = viewPager.currentItem + 1
                 if (nextItem < viewPager.adapter?.itemCount ?: 0) {
@@ -60,11 +59,11 @@ class WelcomeActivity : BaseActivity() {
             }
         }
 
-        btSkipTutorial.setOnClickListener {
+        binding.btSkipTutorial.setOnClickListener {
             exitWelcome()
         }
 
-        btSkip.setOnClickListener {
+        binding.btSkip.setOnClickListener {
             exitWelcome()
         }
 
@@ -72,7 +71,7 @@ class WelcomeActivity : BaseActivity() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
 
-                btNext.text = if (position == 4) {
+                binding.btNext.text = if (position == 4) {
                     getString(R.string.close)
                 } else {
                     getString(R.string.next_step)
@@ -80,7 +79,7 @@ class WelcomeActivity : BaseActivity() {
 
 
                 if (position == 0) {
-                    btSkipTutorial.apply {
+                    binding.btSkipTutorial.apply {
                         visibility = View.VISIBLE
                         alpha = 0.0f
                         animate()
@@ -89,18 +88,18 @@ class WelcomeActivity : BaseActivity() {
                             .start()
                     }
                 } else {
-                    btSkipTutorial.animate()
+                    binding.btSkipTutorial.animate()
                         .setDuration(200)
                         .alpha(0.0f)
                         .withEndAction {
-                            btSkipTutorial.visibility = View.GONE
+                            binding.btSkipTutorial.visibility = View.GONE
                         }
                         .start()
                 }
 
 
                 if (mustGoToLogin) {
-                    backBt.apply {
+                    binding.backBt.apply {
                         when (position) {
                             0 -> animate()
                                 .setDuration(200)
@@ -118,22 +117,22 @@ class WelcomeActivity : BaseActivity() {
                         }
                     }
                 } else {
-                    backBt.visibility = View.VISIBLE
+                    binding.backBt.visibility = View.VISIBLE
                 }
 
 
                 if (position == 0) {
-                    btSkip.animate()
+                    binding.btSkip.animate()
                         .setDuration(200)
                         .alpha(0.0f)
                         .withEndAction {
-                            btSkip.visibility = View.GONE
+                            binding.btSkip.visibility = View.GONE
                         }
                         .start()
 
 
                 } else if (position == 1) {
-                    btSkip.apply {
+                    binding.btSkip.apply {
                         visibility = View.VISIBLE
                         alpha = 0.0f
                         animate()

@@ -3,7 +3,6 @@ package io.forus.me.android.presentation.view.screens.vouchers.provider.dialogs
 import android.content.Context
 import com.afollestad.materialdialogs.MaterialDialog
 import io.forus.me.android.presentation.R
-import java.math.BigDecimal
 
 class ApplyDialog(private val context: Context,
                   private val positiveCallback: () -> Unit) {

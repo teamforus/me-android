@@ -38,6 +38,7 @@ class CheckEmailActivity : CommonActivity() {
         super.onCreate(savedInstanceState)
 
         binding = ActivityCheckEmailBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         SharedPref.init(this@CheckEmailActivity)
         val restoreEmail = SharedPref.read(SharedPref.RESTORE_EMAIL, "")

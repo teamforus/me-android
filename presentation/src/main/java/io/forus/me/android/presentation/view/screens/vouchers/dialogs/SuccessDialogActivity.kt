@@ -3,10 +3,9 @@ package io.forus.me.android.presentation.view.screens.vouchers.dialogs
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import io.forus.me.android.presentation.R
-import kotlinx.android.synthetic.main.dialog_fullscreen.*
+import io.forus.me.android.presentation.databinding.DialogFullscreenBinding
 
 
 class SuccessDialogActivity : AppCompatActivity() {
@@ -31,9 +30,13 @@ class SuccessDialogActivity : AppCompatActivity() {
     var descriptionTxt: String = ""
     var submitButtonText: String = ""
 
+    private lateinit var binding: DialogFullscreenBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.dialog_fullscreen)
+
+        binding = DialogFullscreenBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         if(intent != null) {
             titleTxt = intent.getStringExtra(TITLE_EXTRA)?:""
@@ -42,10 +45,10 @@ class SuccessDialogActivity : AppCompatActivity() {
         }
 
 
-        titleTV.text = titleTxt
-        description.text = descriptionTxt
-        submitButton.text = submitButtonText
-        submitButton.setOnClickListener { finish() }
+        binding.titleTV.text = titleTxt
+        binding.description.text = descriptionTxt
+        binding.submitButton.text = submitButtonText
+        binding.submitButton.setOnClickListener { finish() }
 
 
     }

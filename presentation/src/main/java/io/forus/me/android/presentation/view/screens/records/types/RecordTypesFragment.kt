@@ -1,28 +1,22 @@
 package io.forus.me.android.presentation.view.screens.records.types
 
+import android.content.Context
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import io.forus.me.android.presentation.view.base.lr.LRViewState
+import androidx.recyclerview.widget.LinearLayoutManager
 import io.forus.me.android.presentation.R
+import io.forus.me.android.presentation.databinding.FragmentRecordCategoriesBinding
 import io.forus.me.android.presentation.internal.Injection
-import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
-import io.forus.me.android.presentation.view.screens.records.list.RecordsAdapter
-import kotlinx.android.synthetic.main.fragment_record_categories.*
-import androidx.recyclerview.widget.DividerItemDecoration
-import android.util.Log
+import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.component.dividers.FDividerItemDecoration
-import io.forus.me.android.presentation.view.screens.records.categories.RecordCategoriesPresenter
-
-import android.content.Context
+import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.forus.me.android.presentation.view.screens.records.newrecord.adapters.RecordTypesAdapter
 
 
-
-
-class RecordTypesFragment : ToolbarLRFragment<RecordTypesModel, RecordTypesView, RecordTypesPresenter>(), RecordTypesView {
+class RecordTypesFragment :
+    ToolbarLRFragment<RecordTypesModel, RecordTypesView, RecordTypesPresenter>(), RecordTypesView {
 
     companion object {
         fun newIntent(): RecordTypesFragment {
@@ -40,23 +34,33 @@ class RecordTypesFragment : ToolbarLRFragment<RecordTypesModel, RecordTypesView,
 
     private lateinit var adapter: RecordTypesAdapter
 
-    override fun viewForSnackbar(): View = root
+    override fun viewForSnackbar(): View = binding.root
 
-    override fun loadRefreshPanel() = lr_panel
+    override fun loadRefreshPanel() = binding.lrPanel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = inflater.inflate(R.layout.fragment_record_categories, container, false).also {
-        adapter = RecordTypesAdapter({
+    private lateinit var binding: FragmentRecordCategoriesBinding
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentRecordCategoriesBinding.inflate(layoutInflater)
+
+        adapter = RecordTypesAdapter {
             if (itemSelectListener != null) {
                 itemSelectListener!!.onItemSelected(it)
             }
-        })
+        }
+
+        return binding.root
     }
 
     var showList = true
 
     override fun onResume() {
         super.onResume()
-        if(itemSelectListener != null){
+        if (itemSelectListener != null) {
             itemSelectListener!!.onRecordTypesFragmentResume()
         }
     }
@@ -71,34 +75,36 @@ class RecordTypesFragment : ToolbarLRFragment<RecordTypesModel, RecordTypesView,
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if(arguments != null) {
+        if (arguments != null) {
             showList = arguments!!.getInt("showList") != 0
         }
 
         val layoutManager =
             LinearLayoutManager(context)
-        recycler.layoutManager = layoutManager
-        val dividerItemDecoration = FDividerItemDecoration(recycler.context, R.drawable.shape_divider_item_record)
+        binding.recycler.layoutManager = layoutManager
+        val dividerItemDecoration =
+            FDividerItemDecoration(binding.recycler.context, R.drawable.shape_divider_item_record)
 
-        recycler.addItemDecoration(dividerItemDecoration)
+        binding.recycler.addItemDecoration(dividerItemDecoration)
 
-        if(showList) recycler.adapter = adapter
+        if (showList) binding.recycler.adapter = adapter
 
 
 
-        btn_new_record.setOnClickListener {
+
+        binding.btnNewRecord.setOnClickListener {
             this.navigator.navigateToNewRecord(activity)
         }
     }
 
     override fun createPresenter() = RecordTypesPresenter(
-            Injection.instance.recordsRepository
+        Injection.instance.recordsRepository
     )
 
     override fun render(vs: LRViewState<RecordTypesModel>) {
         super.render(vs)
 
-            if(vs.model.items.isNotEmpty() && !showList && itemSelectListener != null){
+        if (vs.model.items.isNotEmpty() && !showList && itemSelectListener != null) {
             itemSelectListener!!.onRecordTypesLoaded(vs.model.items)
 
         }

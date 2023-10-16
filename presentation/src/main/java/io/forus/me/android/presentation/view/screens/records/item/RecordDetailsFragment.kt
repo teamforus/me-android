@@ -11,6 +11,7 @@ import io.forus.me.android.domain.exception.RetrofitException
 import io.forus.me.android.domain.exception.RetrofitExceptionMapper
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.R
+import io.forus.me.android.presentation.databinding.FragmentRecordDetailBinding
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.forus.me.android.presentation.view.screens.records.create_record.EditRecordActivity
@@ -19,11 +20,11 @@ import io.forus.me.android.presentation.view.screens.records.item.dialogs.Record
 import io.forus.me.android.presentation.view.screens.records.item.validations.ValidationAdapter
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.fragment_record_detail.*
-import kotlinx.android.synthetic.main.toolbar_details_view.*
 import java.lang.Exception
 
-class RecordDetailsFragment : ToolbarLRFragment<RecordDetailsModel, RecordDetailsView, RecordDetailsPresenter>(), RecordDetailsView {
+class RecordDetailsFragment :
+    ToolbarLRFragment<RecordDetailsModel, RecordDetailsView, RecordDetailsPresenter>(),
+    RecordDetailsView {
 
 
     companion object {
@@ -42,8 +43,11 @@ class RecordDetailsFragment : ToolbarLRFragment<RecordDetailsModel, RecordDetail
     private val requestValidation = PublishSubject.create<Long>()
     override fun requestValidation(): Observable<Long> = requestValidation
 
-    private var retrofitExceptionMapper: RetrofitExceptionMapper = Injection.instance.retrofitExceptionMapper
+    private var retrofitExceptionMapper: RetrofitExceptionMapper =
+        Injection.instance.retrofitExceptionMapper
 
+    var deleteButton: View? = null
+    var editButton: View? = null
 
     override fun editRecord(): Observable<Long> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -64,11 +68,18 @@ class RecordDetailsFragment : ToolbarLRFragment<RecordDetailsModel, RecordDetail
     override val showInfo: Boolean
         get() = false
 
-    override fun viewForSnackbar(): View = root
+    override fun viewForSnackbar(): View = binding.root
 
-    override fun loadRefreshPanel() = lr_panel
+    override fun loadRefreshPanel() = binding.lrPanel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) = inflater.inflate(R.layout.fragment_record_detail, container, false).also {
+    private lateinit var binding: FragmentRecordDetailBinding
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentRecordDetailBinding.inflate(inflater)
 
         val bundle = this.arguments
         if (bundle != null) {
@@ -76,22 +87,24 @@ class RecordDetailsFragment : ToolbarLRFragment<RecordDetailsModel, RecordDetail
         }
 
         adapter = ValidationAdapter { }
-        /*adapter = ValidationAdapter { item ->
-            if (item.status == ValidatorViewModel.Status.none && item.id != null) requestValidation.onNext(item.id!!)
-        }*/
+
+        deleteButton = binding.root.findViewById(R.id.delete_button)
+        editButton = binding.root.findViewById(R.id.edit_button)
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        btn_show_qr.setOnClickListener {
+        binding.btnShowQr.setOnClickListener {
             (activity as? RecordDetailsActivity)?.showPopupQRFragment(recordId)
         }
 
 
 
 
-        delete_button.setOnClickListener {
+        deleteButton?.setOnClickListener {
 
             RecordModifyDialog(activity as Activity, RecordModifyDialog.Action.DELETE) {
                 deleteRecord.onNext(recordId)
@@ -101,23 +114,24 @@ class RecordDetailsFragment : ToolbarLRFragment<RecordDetailsModel, RecordDetail
         }
 
 
-        recycler.layoutManager =
+        binding.recycler.layoutManager =
             LinearLayoutManager(context)
-        recycler.adapter = adapter
+        binding.recycler.adapter = adapter
     }
 
-    override fun createPresenter() = RecordDetailsPresenter(context!!,
-            recordId,
-            Injection.instance.recordsRepository,
-            Injection.instance.validatorsRepository
+    override fun createPresenter() = RecordDetailsPresenter(
+        requireContext(),
+        recordId,
+        Injection.instance.recordsRepository,
+        Injection.instance.validatorsRepository
     )
 
     override fun render(vs: LRViewState<RecordDetailsModel>) {
         super.render(vs)
 
         val record = vs.model.item
-        type.text = record?.recordType?.name
-        value.text = record?.value
+        binding.type.text = record?.recordType?.name
+        binding.value.text = record?.value
 
 
         adapter.items = vs.model.validations
@@ -128,20 +142,24 @@ class RecordDetailsFragment : ToolbarLRFragment<RecordDetailsModel, RecordDetail
 
         if (vs.model.recordDeleteSuccess != null) {
             if (vs.model.recordDeleteSuccess) {
-            
-                activity!!.finish()
+
+                requireActivity().finish()
             }
         }
 
-        edit_button.visibility = View.INVISIBLE
-        edit_button.setOnClickListener {
+        editButton?.visibility = View.INVISIBLE
+        editButton?.setOnClickListener {
 
 
-
-            if(vs.model.item != null) {
+            if (vs.model.item != null) {
                 RecordModifyDialog(activity as Activity, RecordModifyDialog.Action.EDIT) {
-                    startActivity(EditRecordActivity.getCallingIntent(context!!,vs.model.item.id, vs.model.item.recordType.name,vs.model.item.value))
-                    activity!!.finish()
+                    startActivity(
+                        EditRecordActivity.getCallingIntent(
+                            requireContext(),
+                            vs.model.item.id, vs.model.item.recordType.name, vs.model.item.value
+                        )
+                    )
+                    requireActivity().finish()
                 }.show();
             }
 
@@ -164,7 +182,7 @@ class RecordDetailsFragment : ToolbarLRFragment<RecordDetailsModel, RecordDetail
                 }
             }
 
-            DeleteRecordErrorDialog(messageString,context!!).show()
+            DeleteRecordErrorDialog(messageString, requireContext()).show()
 
         }
     }

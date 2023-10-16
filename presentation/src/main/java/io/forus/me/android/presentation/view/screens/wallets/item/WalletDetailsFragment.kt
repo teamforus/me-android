@@ -7,10 +7,11 @@ import android.view.ViewGroup
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.base.lr.LoadRefreshPanel
 import io.forus.me.android.presentation.R
+import io.forus.me.android.presentation.databinding.FragmentWalletDetailsBinding
 import io.forus.me.android.presentation.helpers.format
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
-import kotlinx.android.synthetic.main.fragment_wallet_details.*
+//import kotlinx.android.synthetic.main.fragment_wallet_details.*
 
 class WalletDetailsFragment : ToolbarLRFragment<WalletDetailsModel, WalletDetailsView, WalletDetailsPresenter>(), WalletDetailsView{
 
@@ -26,7 +27,7 @@ class WalletDetailsFragment : ToolbarLRFragment<WalletDetailsModel, WalletDetail
 
     private var walletId: Long = 0
 
-    override fun viewForSnackbar(): View = root
+    override fun viewForSnackbar(): View = binding.root
 
     override val toolbarTitle: String
         get() = getString(R.string.wallet_title_info)
@@ -34,15 +35,19 @@ class WalletDetailsFragment : ToolbarLRFragment<WalletDetailsModel, WalletDetail
     override val allowBack: Boolean
         get() = true
 
-    override fun loadRefreshPanel(): LoadRefreshPanel = lr_panel
+    override fun loadRefreshPanel(): LoadRefreshPanel = binding.lrPanel
+    
+    private lateinit var binding: FragmentWalletDetailsBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val view = inflater.inflate(R.layout.fragment_wallet_details, container, false)
+
+        binding = FragmentWalletDetailsBinding.inflate(inflater)
+        
         val bundle = this.arguments
         if (bundle != null) {
             walletId = bundle.getLong(WALLET_ID_EXTRA)
         }
-        return view
+        return binding.root
     }
 
     override fun createPresenter() = WalletDetailsPresenter(
@@ -54,8 +59,8 @@ class WalletDetailsFragment : ToolbarLRFragment<WalletDetailsModel, WalletDetail
         super.render(vs)
 
         val item = vs.model.item
-        tv_balance_crypto.text = if(item != null) ""+item.balance.format(5)+" "+item.currency?.name else ""
-        tv_balance_fiat.text = resources.getString(R.string.wallet_balance_fiat, (item?.balance?.times(244.60)).format(2), (item?.balance?.times(281.60)).format(2))
-        iv_logo.setImageUrl(item?.logoUrl)
+        binding.tvBalanceCrypto.text = if(item != null) ""+item.balance.format(5)+" "+item.currency?.name else ""
+        binding.tvBalanceFiat.text = resources.getString(R.string.wallet_balance_fiat, (item?.balance?.times(244.60)).format(2), (item?.balance?.times(281.60)).format(2))
+        binding.ivLogo.setImageUrl(item?.logoUrl)
     }
 }

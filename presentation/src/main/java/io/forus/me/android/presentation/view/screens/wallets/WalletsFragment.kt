@@ -9,9 +9,9 @@ import io.forus.me.android.presentation.view.base.lr.LRFragment
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 
 import io.forus.me.android.presentation.R
+import io.forus.me.android.presentation.databinding.FragmentRecyclerBinding
 import io.forus.me.android.presentation.interfaces.FragmentListener
 import io.forus.me.android.presentation.internal.Injection
-import kotlinx.android.synthetic.main.fragment_recycler.*
 
 /**
  * Fragment Assign Delegates Screen.
@@ -28,26 +28,31 @@ class WalletsFragment : LRFragment<WalletsModel, WalletsView, WalletsPresenter>(
 
     override fun getTitle(): String = getString(R.string.dashboard_currency)
 
-    override fun viewForSnackbar(): View = root
+    override fun viewForSnackbar(): View = binding.root
 
-    override fun loadRefreshPanel() = lr_panel
+    override fun loadRefreshPanel() = binding.lrPanel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val view = inflater.inflate(R.layout.fragment_recycler, container, false)
+    private lateinit var binding: FragmentRecyclerBinding
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
+    {
+
+        binding = FragmentRecyclerBinding.inflate(inflater)
+
         adapter = WalletsAdapter()
         adapter.clickListener = { item ->
             navigator.navigateToWallet(activity, item)
         }
 
-        return view
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        recycler.layoutManager =
+        binding.recycler.layoutManager =
             LinearLayoutManager(context)
-        recycler.adapter = adapter
+        binding.recycler.adapter = adapter
 
     }
 
