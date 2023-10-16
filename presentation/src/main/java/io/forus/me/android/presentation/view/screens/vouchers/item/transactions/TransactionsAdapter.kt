@@ -1,10 +1,11 @@
 package io.forus.me.android.presentation.view.screens.vouchers.item.transactions
 
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import android.view.ViewGroup
+import io.forus.me.android.presentation.databinding.ItemVoucherTranscationsListBinding
 import io.forus.me.android.presentation.models.vouchers.Transaction
-import kotlinx.android.synthetic.main.item_voucher_transcations_list.view.*
 
 class TransactionsAdapter : RecyclerView.Adapter<TransactionsVH>() {
 
@@ -30,7 +31,7 @@ class TransactionsAdapter : RecyclerView.Adapter<TransactionsVH>() {
 
     var clickListener: ((Transaction) -> Unit)? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = TransactionsVH(parent).apply {
+    /*override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = TransactionsVH(parent).apply {
         itemView.root.setOnClickListener {
             transactions.getOrNull(adapterPosition)?.let {transactions->
                 clickListener?.invoke(transactions)
@@ -41,7 +42,20 @@ class TransactionsAdapter : RecyclerView.Adapter<TransactionsVH>() {
     override fun onBindViewHolder(holder: TransactionsVH, position: Int) {
         holder.isActionsVoucher = isActionsVoucher
         holder.render(transactions[position])
+    }*/
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransactionsVH {
+        val binding = ItemVoucherTranscationsListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return TransactionsVH(binding)
     }
+
+    override fun onBindViewHolder(holder: TransactionsVH, position: Int) {
+        val item = transactions[position]
+        holder.bind(item){ transaction: Transaction->
+            clickListener?.invoke(transaction)
+        }
+    }
+
     override fun getItemCount() = transactions.size
     override fun getItemId(position: Int) = position.toLong()
 }

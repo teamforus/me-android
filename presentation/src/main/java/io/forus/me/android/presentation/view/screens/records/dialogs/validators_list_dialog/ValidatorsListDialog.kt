@@ -47,17 +47,10 @@ class ValidatorsListDialog(private val context: Context,
             )
         dividerItemDecoration.setDrawable(ContextCompat.getDrawable(context,R.drawable.shape_divider)!!)
         recycler.addItemDecoration(dividerItemDecoration)
-        /*val dividerItemDecorationVertical = DividerItemDecoration(context,
-                LinearLayoutManager.VERTICAL)
-
-        dividerItemDecorationVertical.setDrawable(getContext().getResources().getDrawable(R.drawable.line_decoration))
-        recyclerView.addItemDecoration(dividerItemDecorationVertical)*/
-
-
 
         recycler.adapter = mAdapter
 
-        view?.findViewById<ImageView>(R.id.closeBt).setOnClickListener { dialog.dismiss() }
+        view?.findViewById<ImageView>(R.id.closeBt)?.setOnClickListener { dialog.dismiss() }
 
 
         dialog.window!!.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)

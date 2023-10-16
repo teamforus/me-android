@@ -1,25 +1,22 @@
 package io.forus.me.android.presentation.view.screens.records.newrecord.viewholders
 
 import androidx.recyclerview.widget.RecyclerView
-import android.view.ViewGroup
 import io.forus.me.android.domain.models.records.RecordCategory
 import io.forus.me.android.presentation.R
-import io.forus.me.android.presentation.helpers.inflate
-import kotlinx.android.synthetic.main.item_record_select_category.view.*
+import io.forus.me.android.presentation.databinding.ItemRecordSelectCategoryBinding
 
-class RecordCategoryVH(parent: ViewGroup, private val clickListener: ((RecordCategory, Int) -> Unit)?) : RecyclerView.ViewHolder(parent.inflate(R.layout.item_record_select_category)) {
-    init {
 
-    }
+class RecordCategoryVH(private val binding: ItemRecordSelectCategoryBinding) :
+    RecyclerView.ViewHolder(binding.root) {
 
-    fun render(item:  RecordCategory, lastSelectedPosition: Int) = with(itemView) {
-
-        bg.setBackgroundResource(if (lastSelectedPosition == adapterPosition) R.color.rippleColor else R.color.alabaster)
-        tv_name.text = item.name
-        if(item.logo.isNotEmpty()) iv_logo.setImageUrl(item.logo)
-        root.setOnClickListener {
-            clickListener?.invoke(item, adapterPosition)
+    fun bind(item: RecordCategory, lastSelectedPosition: Int, clickListener: ((RecordCategory, Int) -> Unit)?) {
+        binding.apply {
+            bg.setBackgroundResource(if (lastSelectedPosition == adapterPosition) R.color.rippleColor else R.color.alabaster)
+            tvName.text = item.name
+            if (item.logo.isNotEmpty()) ivLogo.setImageUrl(item.logo)
+            root.setOnClickListener {
+                clickListener?.invoke(item, adapterPosition)
+            }
         }
-
     }
 }

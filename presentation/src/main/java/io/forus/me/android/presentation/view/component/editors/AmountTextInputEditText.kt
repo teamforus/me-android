@@ -7,14 +7,12 @@ import android.text.InputType
 import android.text.TextWatcher
 import android.text.method.NumberKeyListener
 import android.util.AttributeSet
-import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import io.forus.me.android.presentation.R
-import kotlinx.android.synthetic.main.fragment_voucher_provider.*
-import java.util.regex.Pattern
+
 
 //Input Text View that allows entering a dot or comma and enhances the
 // user experience for inputting decimal numbers

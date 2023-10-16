@@ -14,7 +14,7 @@ import io.forus.me.android.presentation.view.base.lr.LoadRefreshPanel
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.fragment_send_reports.*
+//import kotlinx.android.synthetic.main.fragment_send_reports.*
 
 
 /**
@@ -44,7 +44,7 @@ class SendReportsFragment :
         get() = true
 
 
-    override fun viewForSnackbar(): View = root
+    override fun viewForSnackbar(): View = binding.root
 
     override fun loadRefreshPanel() = object : LoadRefreshPanel {
         override fun retryClicks(): Observable<Any> = Observable.never()
@@ -105,17 +105,17 @@ class SendReportsFragment :
     override fun render(vs: LRViewState<SendReportsModel>) {
         super.render(vs)
 
-        enable_send_crash_log.setChecked(vs.model.sendCrashReportsEnabled)
-        enable_send_crash_log.setOnClickListener {
+        binding.enableSendCrashLog.setChecked(vs.model.sendCrashReportsEnabled)
+        binding.enableSendCrashLog.setOnClickListener {
 
-            if (enable_send_crash_log.isChecked) {
+            if (binding.enableSendCrashLog.isChecked) {
                 SharedPref.init(requireContext())
                 SharedPref.write(SharedPref.OPTION_SEND_CRASH_REPORT, true)
             }
             switchSendCrashReports.onNext(!vs.model.sendCrashReportsEnabled)
         }
 
-        nextStep.setOnClickListener { closeScreen(token) }
+        binding.nextStep.setOnClickListener { closeScreen(token) }
 
     }
 

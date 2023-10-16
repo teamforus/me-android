@@ -65,29 +65,22 @@ abstract class LRFragment<M, V : LRView<M>, P : MviBasePresenter<V, LRViewState<
         loadRefreshPanel().render(vs)
         if (vs.refreshingError != null) {
 
-                        
-
             //401 Unauthorized
             if (vs.refreshingError.message != null && vs.refreshingError.message!!.contains("401 ")) {
                 if (context != null) {
-                    SessionExpiredDialog(context!!, MaterialDialog.SingleButtonCallback { _, _ ->
-                        //navigator.navigateToWelcomeScreen(activity)
+                    SessionExpiredDialog(requireContext()) { _, _ ->
                         navigator.navigateToLoginSignUp(activity)
-
                         activity?.finish()
-                    }).show()
+                    }.show()
                 }
 
             } else 
             if (vs.refreshingError is RetrofitException && vs.refreshingError.kind == io.forus.me.android.domain.exception.RetrofitException.Kind.NETWORK) {
-                if (context != null) NoInternetDialog(context!!, {}).show();
+                if (context != null) NoInternetDialog(requireContext(), {}).show();
             } else 
             {
                 Snackbar.make(viewForSnackbar(), R.string.app_refreshing_error_text, Snackbar.LENGTH_SHORT).show()
             }
-
-
-
         }
     }
 

@@ -1,4 +1,4 @@
-package com.example.snackbarexample.customsnackbar.chef
+package io.forus.me.android.presentation.view.component.snackbar
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
@@ -9,8 +9,9 @@ import android.util.AttributeSet
 import android.view.View
 import android.view.animation.OvershootInterpolator
 import android.widget.ImageView
+import android.widget.TextView
 import io.forus.me.android.presentation.R
-import kotlinx.android.synthetic.main.view_snackbar_update_app.view.*
+//import kotlinx.android.synthetic.main.view_snackbar_update_app.view.*
 
 
 class UpdateAppSnackbarView @JvmOverloads constructor(
@@ -22,10 +23,13 @@ class UpdateAppSnackbarView @JvmOverloads constructor(
 
     private val chefImage: ImageView
 
+    private var update: TextView? = null
+
     init {
         View.inflate(context, R.layout.view_snackbar_update_app, this)
         clipToPadding = false
         this.chefImage = findViewById(R.id.image)
+        update = findViewById(R.id.update)
     }
 
     override fun animateContentIn(delay: Int, duration: Int) {
@@ -40,7 +44,7 @@ class UpdateAppSnackbarView @JvmOverloads constructor(
     }
 
     fun setUpdateClickListener(listener: View.OnClickListener) {
-        update.setOnClickListener(listener)
+        update?.setOnClickListener(listener)
     }
 
     override fun animateContentOut(delay: Int, duration: Int) {

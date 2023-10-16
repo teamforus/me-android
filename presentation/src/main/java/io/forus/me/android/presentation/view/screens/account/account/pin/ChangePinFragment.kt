@@ -173,6 +173,7 @@ class ChangePinFragment : ToolbarLRFragment<ChangePinModel, ChangePinView, Chang
                 binding.pinLockView.resetPinLockView()
                 binding.pinLockView.setErrorAnimation()
             }
+            else -> {}
         }
 
         if (vs.closeScreen) {

@@ -10,7 +10,7 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import io.forus.me.android.presentation.R
-import kotlinx.android.synthetic.main.view_share_button.view.*
+//import kotlinx.android.synthetic.main.view_share_button.view.*
 
 
 class ShareButton : FrameLayout {
@@ -24,6 +24,7 @@ class ShareButton : FrameLayout {
     private lateinit var  mRootView : View
 
     private lateinit var  mContainer : LinearLayout
+
 
     constructor(context: Context) : super(context) {
         initNonStyle(context, null)
@@ -47,6 +48,7 @@ class ShareButton : FrameLayout {
         val inflater = LayoutInflater.from(context)
         mRootView = inflater.inflate(R.layout.view_share_button, this)
         mContainer = mRootView.findViewById(R.id.container)
+
 
         val ta = context.obtainStyledAttributes(attrs, R.styleable.CustomShareButtonAttrs, 0, 0)
 
@@ -82,6 +84,6 @@ class ShareButton : FrameLayout {
     }
 
     override fun setOnClickListener(l: OnClickListener?) {
-        container.setOnClickListener(l)
+        mContainer.setOnClickListener(l)
     }
 }

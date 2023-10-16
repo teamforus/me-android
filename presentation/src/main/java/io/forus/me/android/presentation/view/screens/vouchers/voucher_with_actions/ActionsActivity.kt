@@ -1,20 +1,20 @@
 package io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actions
 
 
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
-import androidx.databinding.DataBindingUtil
 import android.os.Bundle
-import androidx.core.content.ContextCompat
-import androidx.core.text.HtmlCompat
-import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.text.HtmlCompat
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import io.forus.me.android.domain.models.vouchers.ProductAction
 import io.forus.me.android.domain.models.vouchers.VoucherProvider
 import io.forus.me.android.presentation.R
@@ -24,13 +24,12 @@ import io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actio
 import io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actions.model.ActionsViewModel
 import io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actions.payment.ActionPaymentActivity
 import io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actions.payment.ProductSerializable
-import kotlinx.android.synthetic.main.activity_actions.*
-import kotlinx.android.synthetic.main.toolbar_view.*
-import java.lang.Exception
-import java.math.BigDecimal
 
 
 class ActionsActivity : AppCompatActivity() {
+
+    private var toolbar_title: TextView? = null
+    private var profile_button: io.forus.me.android.presentation.view.component.images.AutoLoadImageView? = null
 
 
     companion object {
@@ -68,37 +67,56 @@ class ActionsActivity : AppCompatActivity() {
         mainViewModel = ViewModelProviders.of(this).get(ActionsViewModel::class.java)
         voucherAddress = intent.getSerializableExtra(VOUCHER_ADDRESS_EXTRA) as String
         mainViewModel.voucherAddress = voucherAddress
-        binding = DataBindingUtil.setContentView<ActivityActionsBinding>(this@ActionsActivity, R.layout.activity_actions)
+        binding = DataBindingUtil.setContentView<ActivityActionsBinding>(
+            this@ActionsActivity,
+            R.layout.activity_actions
+        )
         binding.lifecycleOwner = this
         binding.model = mainViewModel
 
-        toolbar_title.text = getString(R.string.payment)
-        profile_button.setImageDrawable(ContextCompat.getDrawable(this@ActionsActivity, R.drawable.ic_back))
-        profile_button.setOnClickListener {
+        toolbar_title = findViewById(R.id.toolbar_title)
+        profile_button = findViewById(R.id.profile_button)
+
+        toolbar_title?.text = getString(R.string.payment)
+        profile_button?.setImageDrawable(
+            ContextCompat.getDrawable(
+                this@ActionsActivity,
+                R.drawable.ic_back
+            )
+        )
+        profile_button?.setOnClickListener {
             finish()
         }
 
-        descrTV.text = HtmlCompat.fromHtml(getString(R.string.choose_an_action_descr),
-                HtmlCompat.FROM_HTML_MODE_LEGACY)
+        binding.descrTV.text = HtmlCompat.fromHtml(
+            getString(R.string.choose_an_action_descr),
+            HtmlCompat.FROM_HTML_MODE_LEGACY
+        )
 
 
 
         transactionsAdapter = ActionsAdapter(arrayListOf(), object : ActionsAdapter.Callback {
             override fun onItemClicked(item: ProductAction) {
 
-                startActivity(ActionPaymentActivity.getCallingIntent(this@ActionsActivity,
-                        ProductSerializable(item.id!!, item.name, item.organization!!.name,
-                                item.organization!!.id,
-                                item.price, item.priceUser,
-                                item.priceType , item.priceDiscount,
-                                item.priceLocale,
-                                item.priceUserLocale,
-                                item.sponsorSubsidy , if(item.sponsor != null){
-                            item.sponsor!!.name
-                        } else{
-                            null}, item.photoURL
+                startActivity(
+                    ActionPaymentActivity.getCallingIntent(
+                        this@ActionsActivity,
+                        ProductSerializable(
+                            item.id!!, item.name, item.organization!!.name,
+                            item.organization!!.id,
+                            item.price, item.priceUser,
+                            item.priceType, item.priceDiscount,
+                            item.priceLocale,
+                            item.priceUserLocale,
+                            item.sponsorSubsidy, if (item.sponsor != null) {
+                                item.sponsor!!.name
+                            } else {
+                                null
+                            }, item.photoURL
                         ),
-                        voucherAddress!!))
+                        voucherAddress!!
+                    )
+                )
             }
         }, this@ActionsActivity)
 
@@ -134,10 +152,10 @@ class ActionsActivity : AppCompatActivity() {
                 LinearLayoutManager.VERTICAL,
                 false
             )
-        recycler.layoutManager = linearLayoutManager
-        recycler.adapter = transactionsAdapter
+        binding.recycler.layoutManager = linearLayoutManager
+        binding.recycler.adapter = transactionsAdapter
 
-        recycler.addOnScrollListener(object : PaginationScrollListener(linearLayoutManager) {
+        binding.recycler.addOnScrollListener(object : PaginationScrollListener(linearLayoutManager) {
             override fun isLastPage(): Boolean {
                 return this@ActionsActivity.isLastPage
             }
@@ -168,20 +186,22 @@ class ActionsActivity : AppCompatActivity() {
             orgNames.add(org.name!!)
         }
 
-        val adapter = ArrayAdapter(this,
-                android.R.layout.simple_spinner_item, orgNames)
+        val adapter = ArrayAdapter(
+            this,
+            android.R.layout.simple_spinner_item, orgNames
+        )
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
 
 
-        organizationsSpinner.adapter = adapter
-        organizationsSpinner.setSelection(0, false);
-        organizationsSpinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+        binding.organizationsSpinner.adapter = adapter
+        binding.organizationsSpinner.setSelection(0, false);
+        binding.organizationsSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(p0: AdapterView<*>?) {}
 
             override fun onItemSelected(p0: AdapterView<*>?, view: View?, p2: Int, p3: Long) {
 
-                if(canWork) {
+                if (canWork) {
                     canWork = false
                     val tv = view as androidx.appcompat.widget.AppCompatTextView
                     val orgName = tv.text.toString()
@@ -190,7 +210,7 @@ class ActionsActivity : AppCompatActivity() {
                     transactionsAdapter!!.clearAll()
                     currentPage = 1
                     mainViewModel.getVoucherActionGoods(currentPage)
-                     this@ActionsActivity.currentPage += 1;
+                    this@ActionsActivity.currentPage += 1;
 
                 }
             }

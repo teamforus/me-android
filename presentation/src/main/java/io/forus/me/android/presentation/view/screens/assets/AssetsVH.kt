@@ -1,24 +1,21 @@
 package io.forus.me.android.presentation.view.screens.assets
 
 import androidx.recyclerview.widget.RecyclerView
-import android.view.ViewGroup
 import io.forus.me.android.domain.models.assets.Asset
-import io.forus.me.android.presentation.R
-import io.forus.me.android.presentation.helpers.inflate
-import kotlinx.android.synthetic.main.item_assets.view.*
+import io.forus.me.android.presentation.databinding.ItemAssetsBinding
 
 
-class AssetsVH(parent: ViewGroup) : RecyclerView.ViewHolder(parent.inflate(R.layout.item_assets)) {
-    init {
+class AssetsVH(private val binding: ItemAssetsBinding) :
+    RecyclerView.ViewHolder(binding.root) {
 
-    }
-
-    fun render(item:  Asset) = with(itemView) {
-
-        type.text = item.type.name
-        name.text = item.name
-        description.text = item.description
-        logo.setImageUrl(item.logoUrl)
-
+    fun bind(
+        item: Asset
+    ) {
+        binding.apply {
+            type.text = item.type.name
+            name.text = item.name
+            description.text = item.description
+            logo.setImageUrl(item.logoUrl)
+        }
     }
 }

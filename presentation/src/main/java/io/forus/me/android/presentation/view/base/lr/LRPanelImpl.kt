@@ -5,7 +5,9 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
+import android.widget.Button
 import android.widget.FrameLayout
+import android.widget.ViewAnimator
 import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
 import com.jakewharton.rxbinding2.view.RxView
 import io.forus.me.android.data.exception.RetrofitException
@@ -13,7 +15,6 @@ import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.helpers.showIfNotYet
 import io.forus.me.android.presentation.view.base.NoInternetDialog
 import io.reactivex.Observable
-import kotlinx.android.synthetic.main.view_load_refresh.view.*
 
 /**
  * Implementation of [LoadRefreshPanel] that contains of:
@@ -34,8 +35,13 @@ class LRPanelImpl @JvmOverloads constructor(context: Context, attrs: AttributeSe
         private const val LAYER_MODEL = 2
     }
 
+    private lateinit var LR_ViewAnimator: ViewAnimator
+    private lateinit var LR_Retry_Button: Button
+
     init {
         LayoutInflater.from(context).inflate(R.layout.view_load_refresh, this, true)
+        LR_ViewAnimator = findViewById(R.id.LR_ViewAnimator)
+        LR_Retry_Button = findViewById(R.id.LR_Retry_Button)
     }
 
     override fun onFinishInflate() {

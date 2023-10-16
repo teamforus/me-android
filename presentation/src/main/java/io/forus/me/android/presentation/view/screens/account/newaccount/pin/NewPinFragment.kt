@@ -132,6 +132,7 @@ class NewPinFragment : ToolbarLRFragment<NewPinModel, NewPinView, NewPinPresente
                 binding.pinLockView.resetPinLockView()
                 binding.pinLockView.setErrorAnimation()
             }
+            else -> {}
         }
 
         if (vs.closeScreen) {

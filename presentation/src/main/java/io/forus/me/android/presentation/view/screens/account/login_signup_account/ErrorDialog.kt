@@ -3,7 +3,6 @@ package io.forus.me.android.presentation.view.screens.account.login_signup_accou
 import android.content.Context
 import com.afollestad.materialdialogs.MaterialDialog
 import io.forus.me.android.presentation.R
-import kotlinx.android.synthetic.main.fragment_account_details.*
 
 class ErrorDialog(private val context: Context, private val title: String, private val message: String){
 
