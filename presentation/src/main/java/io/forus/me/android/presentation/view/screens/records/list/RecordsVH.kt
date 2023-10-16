@@ -1,25 +1,24 @@
 package io.forus.me.android.presentation.view.screens.records.list
 
 import androidx.recyclerview.widget.RecyclerView
-import android.view.ViewGroup
 import io.forus.me.android.domain.models.records.Record
-import io.forus.me.android.presentation.R
-import io.forus.me.android.presentation.helpers.inflate
-import kotlinx.android.synthetic.main.item_records.view.*
+import io.forus.me.android.presentation.databinding.ItemRecordsBinding
 
 
-class RecordsVH(parent: ViewGroup, private val clickListener: ((Record) -> Unit)?) : RecyclerView.ViewHolder(parent.inflate(R.layout.item_records)) {
-    init {
+class RecordsVH(private val binding: ItemRecordsBinding) :
+    RecyclerView.ViewHolder(binding.root) {
 
-    }
+    fun bind(
+        item: Record,
+        clickListener: ((Record) -> Unit)?
+    ) {
+        binding.apply {
+            type.text = item.recordType.name
+            value.text = item.value
 
-    fun render(item:  Record) = with(itemView) {
-        type.text = item.recordType.name
-        value.text = item.value
-
-        root.setOnClickListener {
-            clickListener?.invoke(item)
+            root.setOnClickListener {
+                clickListener?.invoke(item)
+            }
         }
-
     }
 }

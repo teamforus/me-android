@@ -10,7 +10,6 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import io.forus.me.android.presentation.R
-import kotlinx.android.synthetic.main.view_share_button.view.*
 
 
 class ShareButtonNoBorders : FrameLayout {
@@ -88,6 +87,6 @@ class ShareButtonNoBorders : FrameLayout {
     }
 
     override fun setOnClickListener(l: OnClickListener?) {
-        container.setOnClickListener(l)
+        mContainer.setOnClickListener(l)
     }
 }

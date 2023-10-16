@@ -105,6 +105,7 @@ class PinLockFragment : LRFragment<PinLockModel, PinLockView, PinLockPresenter>(
             PinLockModel.State.CONFIRM -> changeHeaders(resources.getString(R.string.passcode_subtitle_pinlock_confirm), false)
             PinLockModel.State.CHECKING -> changeHeaders(resources.getString(R.string.passcode_subtitle_pinlock_checking), false)
             PinLockModel.State.WRONG_PIN -> changeHeaders(resources.getString(R.string.passcode_subtitle_pinlock_error), true)
+            else -> {}
         }
 
         if (vs.model.state != vs.model.prevState) when (vs.model.state) {
@@ -112,6 +113,9 @@ class PinLockFragment : LRFragment<PinLockModel, PinLockView, PinLockPresenter>(
                 binding.pinLockView.resetPinLockView()
                 binding.pinLockView.setErrorAnimation()
             }
+            PinLockModel.State.CONFIRM -> TODO()
+            PinLockModel.State.CHECKING -> TODO()
+            PinLockModel.State.SUCCESS -> TODO()
         }
 
         if (vs.closeScreen) {

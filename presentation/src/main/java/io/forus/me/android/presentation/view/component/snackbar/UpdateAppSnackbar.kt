@@ -10,6 +10,7 @@ import android.view.ViewGroup
 
 import com.example.customsnackbar.extension.findSuitableParent
 import io.forus.me.android.presentation.R
+import io.forus.me.android.presentation.view.component.snackbar.UpdateAppSnackbarView
 
 
 class UpdateAppSnackbar(

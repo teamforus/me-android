@@ -39,6 +39,7 @@ import io.forus.me.android.presentation.models.vouchers.Office
 import io.forus.me.android.presentation.models.vouchers.Voucher
 import io.forus.me.android.presentation.view.base.MViewModelProvider
 import io.forus.me.android.presentation.view.base.lr.LRViewState
+import io.forus.me.android.presentation.view.component.images.AutoLoadImageView
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.forus.me.android.presentation.view.screens.dashboard.DashboardActivity
 import io.forus.me.android.presentation.view.screens.vouchers.VoucherViewModel
@@ -62,7 +63,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
     var deleteButton: View? = null
     var editButton: View? = null
     var profileButton: View? = null
-    var info_button: View? = null
+    override var info_button: AutoLoadImageView? = null
 
     companion object {
         private const val VOUCHER_ADDRESS_EXTRA = "VOUCHER_ADDRESS_EXTRA"
@@ -215,7 +216,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
 
         }
 
-        toolbar.setNavigationOnClickListener {
+        toolbar?.setNavigationOnClickListener {
             if (activity?.supportFragmentManager?.backStackEntryCount ?: 0 > 0) {
                 activity?.supportFragmentManager?.popBackStack()
 

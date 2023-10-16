@@ -7,13 +7,15 @@ import androidx.appcompat.widget.Toolbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.helpers.Converter
 import io.forus.me.android.presentation.interfaces.FragmentListener
 
 import io.forus.me.android.presentation.navigation.Navigator
-import kotlinx.android.synthetic.main.toolbar_view.*
+
+//import kotlinx.android.synthetic.main.toolbar_view.*
 
 //import io.forus.me.android.presentation.internal.di.HasComponent;
 
@@ -22,11 +24,16 @@ import kotlinx.android.synthetic.main.toolbar_view.*
  */
 abstract class BaseFragment : Fragment(), FragmentListener {
 
+    private var toolbar_view: Toolbar? = null
+    private var toolbar_title: TextView? = null
+    private var profile_button: View? = null
+
+
     protected var navigator: Navigator = Navigator()
 
 
-    override fun getTitle() : String {
-        return  ""
+    override fun getTitle(): String {
+        return ""
     }
 
 
@@ -37,7 +44,7 @@ abstract class BaseFragment : Fragment(), FragmentListener {
         get() = true
 
     protected val toolbar: Toolbar
-        get() = toolbar_view
+        get() = toolbar_view!!
 
     protected open val toolbarTitle: String
         get() = ""
@@ -46,32 +53,29 @@ abstract class BaseFragment : Fragment(), FragmentListener {
         get() = ToolbarLRFragment.ToolbarType.Regular
 
 
-    protected fun setToolbarTitle(title: String){
-        toolbar_title.text = title
+    protected fun setToolbarTitle(title: String) {
+        toolbar_title?.text = title
 
     }
-
 
 
     private fun initSubView() {
         if (subviewFragment != null) {
             fragmentManager?.beginTransaction()
-                    ?.replace(R.id.subview, subviewFragment!!)
-                    ?.commit()
+                ?.replace(R.id.subview, subviewFragment!!)
+                ?.commit()
         }
 
     }
 
 
-
-
-    private fun setActionBarActivity( _activity: AppCompatActivity){
+    private fun setActionBarActivity(_activity: AppCompatActivity) {
 //
 //                final Drawable upArrow = getResources().getDrawable(R.drawable.);
 //                upArrow.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP);
 
         _activity.setSupportActionBar(toolbar)
-        FragmentHelper.setHomeIconToolbar(_activity, toolbar, profile_button,allowBack)
+        FragmentHelper.setHomeIconToolbar(_activity, toolbar, profile_button, allowBack)
     }
 
     /**
@@ -86,6 +90,11 @@ abstract class BaseFragment : Fragment(), FragmentListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        toolbar_view = view.findViewById(R.id.toolbar_view)
+        toolbar_title = view.findViewById(R.id.toolbar_title)
+        profile_button = view.findViewById(R.id.profile_button)
+
         initUI()
     }
 
@@ -93,15 +102,20 @@ abstract class BaseFragment : Fragment(), FragmentListener {
     /**
      * Lifecycle init ui method.
      */
-    protected open fun initUI(){
+    protected open fun initUI() {
         setToolbarTitle(toolbarTitle)
-        if (toolbarType == ToolbarLRFragment.ToolbarType.Small){
-            toolbar_title.setPadding(toolbar_title.paddingLeft, Converter.convertDpToPixel(5f, activity!!.applicationContext), toolbar_title.paddingRight, 0)
+        if (toolbarType == ToolbarLRFragment.ToolbarType.Small) {
+            toolbar_title?.setPadding(
+                toolbar_title?.paddingLeft?:0,
+                Converter.convertDpToPixel(5f, requireActivity().applicationContext),
+                toolbar_title?.paddingRight?:0,
+                0
+            )
         }
 
 
-        val castActivity = activity!!
-        when (castActivity){
+        val castActivity = requireActivity()
+        when (castActivity) {
             is AppCompatActivity -> setActionBarActivity(castActivity)
 
         }
@@ -110,15 +124,18 @@ abstract class BaseFragment : Fragment(), FragmentListener {
     }
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? =
-            if (getLayoutID() > 0) inflater.inflate(getLayoutID(), container, false) else super.onCreateView(inflater, container, savedInstanceState)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? =
+        if (getLayoutID() > 0) inflater.inflate(getLayoutID(), container, false) else
+            super.onCreateView(inflater, container, savedInstanceState)
 
 
     /**
      * Lifecycle init ui method.
      */
-    protected open fun getLayoutID(): Int{
+    protected open fun getLayoutID(): Int {
         return 0
     }
     //  /**

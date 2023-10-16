@@ -6,8 +6,8 @@ import android.text.Spannable
 import android.view.View
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import io.forus.me.android.presentation.R
+import io.forus.me.android.presentation.databinding.ActivityToolbarSlidingPanelBinding
 import io.forus.me.android.presentation.helpers.Converter
-import kotlinx.android.synthetic.main.activity_toolbar_sliding_panel.*
 
 abstract class SlidingPanelActivity : CommonActivity() {
 
@@ -17,12 +17,13 @@ abstract class SlidingPanelActivity : CommonActivity() {
     override val viewID: Int
         get() = R.layout.activity_toolbar_sliding_panel
 
-
+    private lateinit var binding: ActivityToolbarSlidingPanelBinding
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        fragmentPanelContainer.minimumHeight = Converter.convertDpToPixel(height, applicationContext)
-        sliding_layout.addPanelSlideListener(object: SlidingUpPanelLayout.PanelSlideListener{
+        binding = ActivityToolbarSlidingPanelBinding.inflate(layoutInflater)
+        binding.fragmentPanelContainer.minimumHeight = Converter.convertDpToPixel(height, applicationContext)
+        binding.slidingLayout.addPanelSlideListener(object: SlidingUpPanelLayout.PanelSlideListener{
             override fun onPanelSlide(panel: View?, slideOffset: Float) {}
 
             override fun onPanelStateChanged(panel: View?, previousState: SlidingUpPanelLayout.PanelState?, newState: SlidingUpPanelLayout.PanelState?) {
@@ -36,14 +37,14 @@ abstract class SlidingPanelActivity : CommonActivity() {
 
     protected fun addPopupFragment(fragment: Fragment, title: String){
         replaceFragment(R.id.fragmentPanelContainer, fragment)
-        sliding_panel_title.text = title
-        sliding_layout.panelState = SlidingUpPanelLayout.PanelState.EXPANDED
+        binding.slidingPanelTitle.text = title
+        binding.slidingLayout.panelState = SlidingUpPanelLayout.PanelState.EXPANDED
     }
 
     protected fun addPopupFragment(fragment: Fragment, title: Spannable){
         replaceFragment(R.id.fragmentPanelContainer, fragment)
-        sliding_panel_title.text = title
-        sliding_layout.panelState = SlidingUpPanelLayout.PanelState.EXPANDED
+        binding.slidingPanelTitle.text = title
+        binding.slidingLayout.panelState = SlidingUpPanelLayout.PanelState.EXPANDED
     }
 
     protected fun removePopupFragment(){

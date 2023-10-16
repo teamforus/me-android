@@ -1,9 +1,14 @@
 package io.forus.me.android.presentation.view.screens.vouchers.provider.categories
 
+import android.view.LayoutInflater
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
+import io.forus.me.android.domain.models.validators.SimpleValidator
+import io.forus.me.android.presentation.databinding.ItemProductCategoryBinding
+import io.forus.me.android.presentation.databinding.ItemRecordSelectValidatorBinding
 import io.forus.me.android.presentation.models.vouchers.ProductCategory
+import io.forus.me.android.presentation.view.screens.records.newrecord.viewholders.RecordValidatorVH
 
 class CategoriesAdapter : RecyclerView.Adapter<CategoryVH>() {
 
@@ -26,10 +31,20 @@ class CategoriesAdapter : RecyclerView.Adapter<CategoryVH>() {
         setHasStableIds(true)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = CategoryVH(parent)
+   /* override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = CategoryVH(parent)
 
     override fun onBindViewHolder(holder: CategoryVH, position: Int) {
         holder.render(items[position])
+    }*/
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryVH {
+        val binding = ItemProductCategoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return CategoryVH(binding)
+    }
+
+    override fun onBindViewHolder(holder: CategoryVH, position: Int) {
+        val item = items[position]
+        holder.bind(item)
     }
     override fun getItemCount() = items.size
     override fun getItemId(position: Int) = position.toLong()

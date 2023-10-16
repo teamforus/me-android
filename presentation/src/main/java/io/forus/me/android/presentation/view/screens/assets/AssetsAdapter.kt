@@ -1,9 +1,11 @@
 package io.forus.me.android.presentation.view.screens.assets
 
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import android.view.ViewGroup
 import io.forus.me.android.domain.models.assets.Asset
+import io.forus.me.android.presentation.databinding.ItemAssetsBinding
 
 class AssetsAdapter : RecyclerView.Adapter<AssetsVH>() {
 
@@ -26,11 +28,16 @@ class AssetsAdapter : RecyclerView.Adapter<AssetsVH>() {
         setHasStableIds(true)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = AssetsVH(parent)
-    override fun onBindViewHolder(holder: AssetsVH, position: Int) {
-
-        holder.render(assets[position])
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AssetsVH {
+        val binding = ItemAssetsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return AssetsVH(binding)
     }
+
+    override fun onBindViewHolder(holder: AssetsVH, position: Int) {
+        val item = assets[position]
+        holder.bind(item)
+    }
+
     override fun getItemCount() = assets.size
     override fun getItemId(position: Int) = position.toLong()
 }
