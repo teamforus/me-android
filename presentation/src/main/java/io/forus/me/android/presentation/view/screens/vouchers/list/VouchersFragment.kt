@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.R
+import io.forus.me.android.presentation.databinding.FragmentVouchersRecyclerBinding
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.models.vouchers.Voucher
 import io.forus.me.android.presentation.view.activity.BaseActivity
@@ -55,8 +56,15 @@ class VouchersFragment : ToolbarLRFragment<VouchersModel, VouchersView, Vouchers
 
     override fun loadRefreshPanel() = lr_panel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = inflater.inflate(R.layout.fragment_vouchers_recycler, container, false).also {
+    private lateinit var binding: FragmentVouchersRecyclerBinding
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
+    {
+        binding = FragmentVouchersRecyclerBinding.inflate(inflater)
+
         adapter = VouchersAdapter()
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

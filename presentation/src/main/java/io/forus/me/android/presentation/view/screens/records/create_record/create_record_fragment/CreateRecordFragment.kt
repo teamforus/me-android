@@ -3,17 +3,16 @@ package io.forus.me.android.presentation.view.screens.records.create_record.crea
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.text.Editable
+import android.text.InputType
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import io.forus.me.android.presentation.R
+import androidx.fragment.app.Fragment
+import io.forus.me.android.presentation.databinding.FragmentCreateRecordBinding
 import io.forus.me.android.presentation.view.screens.records.item.RecordDetailsFragment
-import kotlinx.android.synthetic.main.fragment_create_record.*
-import android.text.Editable
-import android.text.InputType
-import android.text.TextWatcher
 
 
 /**
@@ -41,6 +40,8 @@ class CreateRecordFragment : Fragment() {
     private var recordTypeName: String = ""
     private var recordValue: String = ""
     private var recordInputFieldType: String = ""
+    
+    private lateinit var binding: FragmentCreateRecordBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -54,15 +55,11 @@ class CreateRecordFragment : Fragment() {
             recordInputFieldType = bundle.getString(RECORD_INPUT_FIELD_TYPE_EXTRA) ?: ""
 
         }
-
-
         Log.d("forus", "name = $recordTypeName")
+        
+        binding = FragmentCreateRecordBinding.inflate(inflater)
 
-
-
-
-
-        return inflater.inflate(R.layout.fragment_create_record, container, false)
+        return binding.root
     }
 
     var inputTextListener: OnInputRecordNameText? = null
@@ -75,8 +72,8 @@ class CreateRecordFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        recordGroupNameTV.text = recordTypeName
-        recordNameEditText.setText(recordValue)
+        binding.recordGroupNameTV.text = recordTypeName
+        binding.recordNameEditText.setText(recordValue)
         if(inputTextListener!=null){
             if(recordValue.isNotEmpty()){
                 inputTextListener!!.onTextInput(recordValue)
@@ -85,21 +82,21 @@ class CreateRecordFragment : Fragment() {
 
         when (recordInputFieldType) {
             "string" -> {
-                recordNameEditText.maxLines = 1
-                recordNameEditText.inputType = InputType.TYPE_CLASS_TEXT
-                //recordNameEditText.imeOptions = EditorInfo.IME_ACTION_DONE
+                binding.recordNameEditText.maxLines = 1
+                binding.recordNameEditText.inputType = InputType.TYPE_CLASS_TEXT
+                //binding.recordNameEditText.imeOptions = EditorInfo.IME_ACTION_DONE
             }
             "text" -> {
-                recordNameEditText.maxLines = 1000
-                recordNameEditText.inputType = InputType.TYPE_CLASS_TEXT
+                binding.recordNameEditText.maxLines = 1000
+                binding.recordNameEditText.inputType = InputType.TYPE_CLASS_TEXT
             }
             "number" -> {
-                recordNameEditText.maxLines = 1
-                recordNameEditText.inputType = InputType.TYPE_CLASS_NUMBER
+                binding.recordNameEditText.maxLines = 1
+                binding.recordNameEditText.inputType = InputType.TYPE_CLASS_NUMBER
             }
         }
 
-        recordNameEditText.addTextChangedListener(object : TextWatcher {
+        binding.recordNameEditText.addTextChangedListener(object : TextWatcher {
 
             override fun afterTextChanged(s: Editable) {
 

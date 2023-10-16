@@ -1,22 +1,17 @@
 package io.forus.me.android.presentation.view.screens.records.categories
 
+import android.content.Context
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import io.forus.me.android.presentation.view.base.lr.LRViewState
+import androidx.recyclerview.widget.LinearLayoutManager
 import io.forus.me.android.presentation.R
+import io.forus.me.android.presentation.databinding.FragmentRecordCategoriesBinding
 import io.forus.me.android.presentation.internal.Injection
-import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
-import io.forus.me.android.presentation.view.screens.records.list.RecordsAdapter
-import kotlinx.android.synthetic.main.fragment_record_categories.*
-import androidx.recyclerview.widget.DividerItemDecoration
-import android.util.Log
+import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.component.dividers.FDividerItemDecoration
-import io.forus.me.android.presentation.view.screens.records.categories.RecordCategoriesPresenter
-
-import android.content.Context
+import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 
 
 class RecordCategoriesFragment : ToolbarLRFragment<RecordCategoriesModel, RecordCategoriesView, RecordCategoriesPresenter>(), RecordCategoriesView {
@@ -37,12 +32,23 @@ class RecordCategoriesFragment : ToolbarLRFragment<RecordCategoriesModel, Record
 
     private lateinit var adapter: RecordCategoriesAdapter
 
-    override fun viewForSnackbar(): View = root
+    override fun viewForSnackbar(): View = binding.root
 
-    override fun loadRefreshPanel() = lr_panel
+    override fun loadRefreshPanel() = binding.lrPanel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = inflater.inflate(R.layout.fragment_record_categories, container, false).also {
+    private lateinit var binding: FragmentRecordCategoriesBinding
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View
+    {
+        binding = FragmentRecordCategoriesBinding.inflate(layoutInflater)
+
         adapter = RecordCategoriesAdapter()
+
+        return binding.root
     }
 
 
@@ -65,16 +71,16 @@ class RecordCategoriesFragment : ToolbarLRFragment<RecordCategoriesModel, Record
 
         val layoutManager =
             LinearLayoutManager(context)
-        recycler.layoutManager = layoutManager
-        val dividerItemDecoration = FDividerItemDecoration(recycler.getContext(), R.drawable.shape_divider_item_record)
+        binding.recycler.layoutManager = layoutManager
+        val dividerItemDecoration = FDividerItemDecoration(binding.recycler.getContext(), R.drawable.shape_divider_item_record)
 
-        recycler.addItemDecoration(dividerItemDecoration)
+        binding.recycler.addItemDecoration(dividerItemDecoration)
 
-        recycler.adapter = adapter
+        binding.recycler.adapter = adapter
 
 
 
-        btn_new_record.setOnClickListener {
+        binding.btnNewRecord.setOnClickListener {
             this.navigator.navigateToNewRecord(activity)
         }
     }

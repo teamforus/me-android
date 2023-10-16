@@ -1,15 +1,14 @@
 package io.forus.me.android.presentation.view.screens.vouchers.transactions_log
 
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.annotation.Nullable
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.Nullable
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import io.forus.me.android.domain.models.vouchers.Transaction
 import io.forus.me.android.presentation.R
@@ -17,8 +16,6 @@ import io.forus.me.android.presentation.databinding.ActivityTransactionsLogBindi
 import io.forus.me.android.presentation.helpers.PaginationScrollListener
 import io.forus.me.android.presentation.view.screens.vouchers.transactions_log.adapter.TransactionsLogAdapter
 import io.forus.me.android.presentation.view.screens.vouchers.transactions_log.viewmodels.TransactionsLogViewModel
-import kotlinx.android.synthetic.main.activity_transactions_log.*
-import kotlinx.android.synthetic.main.toolbar_view_records.*
 import java.util.*
 
 class TransactionsFragment : Fragment(), DatePickerDialog.OnDateSetListener {
@@ -28,10 +25,15 @@ class TransactionsFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
         @JvmStatic
         fun newInstance() =
-                TransactionsFragment().apply {
+            TransactionsFragment().apply {
 
-                }
+            }
     }
+
+    var info_button: View? = null
+    var profile_button: io.forus.me.android.presentation.view.component.images.AutoLoadImageView? =
+        null
+    var toolbar_title: io.forus.me.android.presentation.view.component.text.TextView? = null
 
 
     var canWork = true
@@ -58,19 +60,20 @@ class TransactionsFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     }
 
 
-    override fun onCreateView(inflater: LayoutInflater,
-                              @Nullable container: ViewGroup?,
-                              @Nullable savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        @Nullable container: ViewGroup?,
+        @Nullable savedInstanceState: Bundle?
+    ): View {
 
+        binding = ActivityTransactionsLogBinding.inflate(inflater)
 
-        val viewRoot = LayoutInflater.from(context!!).inflate(R.layout.activity_transactions_log, null)
-        binding = ActivityTransactionsLogBinding.bind(viewRoot)
-        val view = binding.root
+        profile_button = binding.root.findViewById(R.id.profile_button)
+        info_button = binding.root.findViewById(R.id.info_button)
+        toolbar_title = binding.root.findViewById(R.id.toolbar_title)
 
-        return view
+        return binding.root
     }
-
-
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -84,26 +87,29 @@ class TransactionsFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         binding.model = mainViewModel
 
 
-        info_button.visibility = View.INVISIBLE
-        profile_button.setImageResource(R.drawable.ic_back)
-        toolbar_title.text = getString(R.string.transactions_title)
-        profile_button.setOnClickListener { activity!!.finish() }
+        info_button?.visibility = View.INVISIBLE
+        profile_button?.setImageResource(R.drawable.ic_back)
+        toolbar_title?.text = getString(R.string.transactions_title)
+        profile_button?.setOnClickListener { requireActivity().finish() }
 
-        transactionsAdapter = TransactionsLogAdapter(requireContext(),arrayListOf(), object : TransactionsLogAdapter.Callback {
-            override fun onItemClicked(item: Transaction) {
+        transactionsAdapter = TransactionsLogAdapter(
+            requireContext(),
+            arrayListOf(),
+            object : TransactionsLogAdapter.Callback {
+                override fun onItemClicked(item: Transaction) {
 
-                (activity as? TransactionsActivity)?.showPopupTransactionDetailsFragment(item)
+                    (activity as? TransactionsActivity)?.showPopupTransactionDetailsFragment(item)
 
-            }
-        })
+                }
+            })
 
 
-        val llm = LinearLayoutManager(context!!)
+        val llm = LinearLayoutManager(requireContext())
         llm.orientation = LinearLayoutManager.VERTICAL
-        recycler.layoutManager = llm
-        recycler.adapter = transactionsAdapter
+        binding.recycler.layoutManager = llm
+        binding.recycler.adapter = transactionsAdapter
 
-        mainViewModel.transactionsLiveData.observe(this, Observer {
+        mainViewModel.transactionsLiveData.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 canWork = true
                 if (mustReplaceTransactionsList) transactionsAdapter!!.clearAll()
@@ -115,28 +121,29 @@ class TransactionsFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         })
 
 
-        buttonDatePicker.setOnClickListener {
+        binding.buttonDatePicker.setOnClickListener {
             val now: Calendar = Calendar.getInstance()
             val dpd = DatePickerDialog.newInstance(
-                    this,
-                    mainViewModel.calendarFrom.value!!.get(Calendar.YEAR),
-                    mainViewModel.calendarFrom.value!!.get(Calendar.MONTH),
-                    mainViewModel.calendarFrom.value!!.get(Calendar.DAY_OF_MONTH)
+                this,
+                mainViewModel.calendarFrom.value!!.get(Calendar.YEAR),
+                mainViewModel.calendarFrom.value!!.get(Calendar.MONTH),
+                mainViewModel.calendarFrom.value!!.get(Calendar.DAY_OF_MONTH)
             )
-            dpd.show(activity!!.fragmentManager, "Datepickerdialog")
+            dpd.show(requireActivity().fragmentManager, "Datepickerdialog")
 
         }
 
         val linearLayoutManager =
             LinearLayoutManager(
-                context!!,
+                requireContext(),
                 LinearLayoutManager.VERTICAL,
                 false
             )
-        recycler.layoutManager = linearLayoutManager
-        recycler.adapter = transactionsAdapter
+        binding.recycler.layoutManager = linearLayoutManager
+        binding.recycler.adapter = transactionsAdapter
 
-        recycler.addOnScrollListener(object : PaginationScrollListener(linearLayoutManager) {
+        binding.recycler.addOnScrollListener(object :
+            PaginationScrollListener(linearLayoutManager) {
             override fun isLastPage(): Boolean {
                 return this@TransactionsFragment.isLastPage
             }

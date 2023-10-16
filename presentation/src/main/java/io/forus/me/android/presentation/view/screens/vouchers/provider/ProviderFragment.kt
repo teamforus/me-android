@@ -3,25 +3,18 @@ package io.forus.me.android.presentation.view.screens.vouchers.provider
 import android.content.DialogInterface
 import android.content.DialogInterface.OnDismissListener
 import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.text.Editable
-import android.text.InputFilter
-import android.text.InputType
 import android.text.TextWatcher
-import android.text.method.DigitsKeyListener
-import android.text.method.NumberKeyListener
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.textfield.TextInputLayout
+import androidx.recyclerview.widget.LinearLayoutManager
 import io.forus.me.android.domain.exception.RetrofitException
 import io.forus.me.android.domain.exception.RetrofitExceptionMapper
 import io.forus.me.android.presentation.R
+import io.forus.me.android.presentation.databinding.FragmentVoucherProviderBinding
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.models.vouchers.Organization
 import io.forus.me.android.presentation.view.base.MViewModelProvider
@@ -30,16 +23,16 @@ import io.forus.me.android.presentation.view.component.editors.AmountTextInputEd
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.forus.me.android.presentation.view.screens.qr.dialogs.ScanVoucherBaseErrorDialog
 import io.forus.me.android.presentation.view.screens.vouchers.VoucherViewModel
+import io.forus.me.android.presentation.view.screens.vouchers.dialogs.SuccessDialogActivity
 import io.forus.me.android.presentation.view.screens.vouchers.provider.categories.CategoriesAdapter
 import io.forus.me.android.presentation.view.screens.vouchers.provider.dialogs.ApplyDialog
 import io.forus.me.android.presentation.view.screens.vouchers.provider.dialogs.ChargeDialog
 import io.forus.me.android.presentation.view.screens.vouchers.provider.dialogs.organizations_dialog.OrganizationsListDialog
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.fragment_voucher_provider.*
-import kotlinx.android.synthetic.main.view_organization.*
+//import kotlinx.android.synthetic.main.fragment_voucher_provider.*
+//import kotlinx.android.synthetic.main.view_organization.*
 import java.math.BigDecimal
-import io.forus.me.android.presentation.view.screens.vouchers.dialogs.SuccessDialogActivity
 
 
 class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, ProviderPresenter>(),
@@ -67,6 +60,10 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
     private var isDemoVoucher: Boolean? = false
     private lateinit var categoriesAdapter: CategoriesAdapter
 
+    private var tv_organization_name: io.forus.me.android.presentation.view.component.text.TextView? = null
+    private var iv_organization_icon: io.forus.me.android.presentation.view.component.images.AutoLoadImageView? = null
+    private var containerOrg: View? = null
+
     override val toolbarTitle: String
         get() = if (isDemoVoucher != null && isDemoVoucher!!) getString(R.string.test_transaction) else getString(
             R.string.vouchers_provider
@@ -78,9 +75,9 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
     override val showAccount: Boolean
         get() = false
 
-    override fun viewForSnackbar(): View = root
+    override fun viewForSnackbar(): View = binding.root
 
-    override fun loadRefreshPanel() = lr_panel
+    override fun loadRefreshPanel() = binding.lrPanel
 
     private val selectAmount = PublishSubject.create<BigDecimal>()
     override fun selectAmount(): Observable<BigDecimal> = selectAmount
@@ -97,11 +94,15 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
     private val demoCharge = PublishSubject.create<BigDecimal>()
     override fun demoCharge(): Observable<BigDecimal> = demoCharge
 
+    private lateinit var binding: FragmentVoucherProviderBinding
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View = inflater.inflate(R.layout.fragment_voucher_provider, container, false).also {
+    ): View
+    {
+        binding = FragmentVoucherProviderBinding.inflate(inflater)
 
         address =
             if (arguments == null) "" else requireArguments().getString(VOUCHER_ADDRESS_EXTRA, "")
@@ -110,19 +111,25 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
             if (arguments == null) false else requireArguments().getBoolean(IS_DEMO_VOUCHER, false)
 
         categoriesAdapter = CategoriesAdapter()
+
+        tv_organization_name = binding.root.findViewById(R.id.tv_organization_name)
+        iv_organization_icon = binding.root.findViewById(R.id.iv_organization_icon)
+        containerOrg = binding.root.findViewById(R.id.container)
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        rv_categories.layoutManager =
+        binding.rvCategories.layoutManager =
             LinearLayoutManager(context)
-        rv_categories.adapter = categoriesAdapter
+        binding.rvCategories.adapter = categoriesAdapter
 
 
-        amountLn.setErrorTextColor(ColorStateList.valueOf(resources.getColor(R.color.error)))
+        binding.amountLn.setErrorTextColor(ColorStateList.valueOf(resources.getColor(R.color.error)))
 
-        amountInputText.onInputListener = object : AmountTextInputEditText.OnInputListener {
+        binding.amountInputText.onInputListener = object : AmountTextInputEditText.OnInputListener {
             override fun onInput(s: String) {
                 val s1 = s.replace(",", ".")
                 try {
@@ -135,7 +142,7 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
         }
 
 
-        note.setTextChangedListener(object : TextWatcher {
+        binding.note.setTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {}
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -164,22 +171,22 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
         super.render(vs)
 
 
-        amountLn.visibility =
+        binding.amountLn.visibility =
             if (vs.model.item?.voucher?.isProduct == true) View.GONE else View.VISIBLE
 
-        tv_name.text = vs.model.item?.voucher?.name
-        tv_organization.text = vs.model.item?.voucher?.organizationName
-        iv_icon.setImageUrl(vs.model.item?.voucher?.logo)
+        binding.tvName.text = vs.model.item?.voucher?.name
+        binding.tvOrganization.text = vs.model.item?.voucher?.organizationName
+        binding.ivIcon.setImageUrl(vs.model.item?.voucher?.logo)
 
 
         if (isDemoVoucher != null && isDemoVoucher!!) {
-            tv_organization_name.text =
+            tv_organization_name?.text =
                 requireContext().getString(R.string.check_email_open_mail_app)
         } else {
             if (vs.model.selectedOrganization != null) {
-                tv_organization_name.text = vs.model.selectedOrganization.name
+                tv_organization_name?.text = vs.model.selectedOrganization.name
                 if (vs.model.selectedOrganization.logo?.isBlank() != true)
-                    iv_organization_icon.setImageUrl(vs.model.selectedOrganization.logo)
+                    iv_organization_icon?.setImageUrl(vs.model.selectedOrganization.logo)
             }
         }
 
@@ -187,13 +194,13 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
             //categoriesAdapter.items = vs.model.item.allowedProductCategories
 
             if (vs.model.item.voucher.isProduct) {
-                tv_fund.text = vs.model.item.voucher.fundName
+                binding.tvFund.text = vs.model.item.voucher.fundName
             }
         }
 
-        btn_make.active = vs.model.buttonIsActive
-        btn_make.isEnabled = vs.model.buttonIsActive
-        btn_make.setOnClickListener {
+        binding.btnMake.active = vs.model.buttonIsActive
+        binding.btnMake.isEnabled = vs.model.buttonIsActive
+        binding.btnMake.setOnClickListener {
             if (vs.model.item != null) {
                 payDialog(
                     vs.model.item.voucher.isProduct,
@@ -204,8 +211,7 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
 
             }
         }
-
-        container.setOnClickListener {
+        containerOrg?.setOnClickListener {
             OrganizationsListDialog(requireContext(), vs.model.item?.allowedOrganizations!!) {
                 selectOrganization.onNext(it)
             }.show()
@@ -213,7 +219,7 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
 
 
 
-        if (!(vs.model.selectedAmount.compareTo(BigDecimal.ZERO) == 0) && !vs.model.amountIsValid) amountLn.setError(
+        if (!(vs.model.selectedAmount.compareTo(BigDecimal.ZERO) == 0) && !vs.model.amountIsValid) binding.amountLn.setError(
 
             resources.getString(R.string.vouchers_amount_invalid)
         )

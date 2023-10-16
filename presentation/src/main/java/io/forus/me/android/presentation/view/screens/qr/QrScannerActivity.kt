@@ -19,12 +19,11 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import com.dlazaro66.qrcodereaderview.QRCodeReaderView
 import io.forus.me.android.presentation.R
+import io.forus.me.android.presentation.databinding.ActivityQrDecoderBinding
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.qr.QrDecoderResult
 import io.forus.me.android.presentation.view.component.qr.PointsOverlayView
-import kotlinx.android.synthetic.main.activity_qr_decoder.*
-import kotlinx.android.synthetic.main.activity_qr_decoder.main_layout
-import kotlinx.android.synthetic.main.activity_qr_decoder_content.*
+
 import java.util.concurrent.atomic.AtomicBoolean
 
 
@@ -69,11 +68,14 @@ class QrScannerActivity : FragmentActivity(),
     private var progress: ProgressBar? = null
 
     private var progressLn: View? = null
+    
+    private lateinit var binding: ActivityQrDecoderBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_qr_decoder)
+        binding = ActivityQrDecoderBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         //progressLn = findViewById(R.id.progressLn)
         //progressLn?.visibility = View.GONE
@@ -116,7 +118,7 @@ class QrScannerActivity : FragmentActivity(),
 
         if (grantResults.size == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             Snackbar.make(
-                main_layout,
+                binding.mainLayout,
                 resources.getString(R.string.qr_camera_permission_granted),
                 Snackbar.LENGTH_SHORT
             ).show()
@@ -176,7 +178,7 @@ class QrScannerActivity : FragmentActivity(),
     private fun requestCameraPermission() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
             Snackbar.make(
-                main_layout, resources.getString(R.string.qr_camera_access_required),
+                binding.mainLayout, resources.getString(R.string.qr_camera_access_required),
                 Snackbar.LENGTH_INDEFINITE
             ).setAction("OK") {
                 ActivityCompat.requestPermissions(
@@ -187,7 +189,7 @@ class QrScannerActivity : FragmentActivity(),
             }.show()
         } else {
             Snackbar.make(
-                main_layout, resources.getString(R.string.qr_camera_permission_not_available),
+                binding.mainLayout, resources.getString(R.string.qr_camera_permission_not_available),
                 Snackbar.LENGTH_SHORT
             ).show()
             ActivityCompat.requestPermissions(
@@ -205,7 +207,7 @@ class QrScannerActivity : FragmentActivity(),
     private fun initQRCodeReaderView() {
 
         qrContent =
-            layoutInflater.inflate(R.layout.activity_qr_decoder_content, main_layout, true)
+            layoutInflater.inflate(R.layout.activity_qr_decoder_content, binding.mainLayout, true)
 
         //qrCodeReaderView = content.findViewById(R.id.qrdecoderview)
         pointsOverlayView = qrContent?.findViewById(R.id.points_overlay_view)
@@ -215,7 +217,7 @@ class QrScannerActivity : FragmentActivity(),
         progress = qrContent?.findViewById(R.id.progress)
         initQRView()
 
-        Snackbar.make(main_layout, resources.getString(R.string.qr_scan_help), Snackbar.LENGTH_LONG)
+        Snackbar.make(binding.mainLayout, resources.getString(R.string.qr_scan_help), Snackbar.LENGTH_LONG)
             .show()
     }
 

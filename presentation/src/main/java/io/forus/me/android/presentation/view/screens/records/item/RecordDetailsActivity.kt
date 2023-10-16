@@ -8,7 +8,6 @@ import io.forus.me.android.domain.models.records.Record
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.view.activity.SlidingPanelActivity
 import io.forus.me.android.presentation.view.screens.records.item.qr.RecordQRFragment
-import kotlinx.android.synthetic.main.activity_toolbar_sliding_panel.*
 
 class RecordDetailsActivity : SlidingPanelActivity() {
 
@@ -28,6 +27,8 @@ class RecordDetailsActivity : SlidingPanelActivity() {
 
     private lateinit var fragment: RecordDetailsFragment
 
+    private var slidingLayout : com.sothree.slidinguppanel.SlidingUpPanelLayout? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -35,6 +36,8 @@ class RecordDetailsActivity : SlidingPanelActivity() {
             fragment = RecordDetailsFragment.newIntent(intent.getLongExtra(RECORD_ID_EXTRA, 0))
             addFragment(R.id.fragmentContainer, fragment)
         }
+
+        slidingLayout = findViewById(R.id.sliding_layout)
     }
 
     fun showPopupQRFragment(recordId: Long){
@@ -42,7 +45,7 @@ class RecordDetailsActivity : SlidingPanelActivity() {
     }
 
     fun closeQRFragment(){
-        sliding_layout.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
+        slidingLayout?.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
         fragment.updateModel()
     }
 }

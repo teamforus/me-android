@@ -10,11 +10,11 @@ import io.forus.me.android.presentation.view.base.lr.LoadRefreshPanel
 import io.forus.me.android.domain.models.qr.QrCode
 import io.forus.me.android.domain.models.records.Validation
 import io.forus.me.android.presentation.R
+import io.forus.me.android.presentation.databinding.FragmentPopupQrBinding
 import io.forus.me.android.presentation.helpers.reactivex.DisposableHolder
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.screens.records.item.RecordDetailsActivity
 import io.reactivex.Observable
-import kotlinx.android.synthetic.main.fragment_popup_qr.*
 
 class RecordQRFragment : LRFragment<RecordQRModel, RecordQRView, RecordQRPresenter>(), RecordQRView {
 
@@ -34,8 +34,8 @@ class RecordQRFragment : LRFragment<RecordQRModel, RecordQRView, RecordQRPresent
         set(value) {
             if(field != value){
                 field = value
-                if (qrImage != null) {
-                    qrImage.setQRText(QrCode(QrCode.Type.P2P_RECORD, value).toJson())
+                if (binding.qrImage != null) {
+                    binding.qrImage.setQRText(QrCode(QrCode.Type.P2P_RECORD, value).toJson())
                 }
             }
         }
@@ -43,7 +43,7 @@ class RecordQRFragment : LRFragment<RecordQRModel, RecordQRView, RecordQRPresent
     val disposableHolder = DisposableHolder()
 
 
-    override fun viewForSnackbar(): View = root
+    override fun viewForSnackbar(): View = binding.root
 
     override fun loadRefreshPanel() = object : LoadRefreshPanel {
         override fun retryClicks(): Observable<Any> = Observable.never()
@@ -55,12 +55,18 @@ class RecordQRFragment : LRFragment<RecordQRModel, RecordQRView, RecordQRPresent
         }
     }
 
+    private lateinit var binding: FragmentPopupQrBinding
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
-            = inflater.inflate(R.layout.fragment_popup_qr, container, false).also {
-        val bundle = this.arguments
-        if (bundle != null) {
-            recordId = bundle.getLong(RECORD_ID_EXTRA)
-        }
+    {
+        binding = FragmentPopupQrBinding.inflate(inflater)
+
+            val bundle = this.arguments
+            if (bundle != null) {
+                recordId = bundle.getLong(RECORD_ID_EXTRA)
+            }
+
+        return binding.root
     }
 
     override fun onDetach() {
