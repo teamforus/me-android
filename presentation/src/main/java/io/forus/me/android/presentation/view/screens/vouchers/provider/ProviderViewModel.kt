@@ -1,5 +1,5 @@
 package io.forus.me.android.presentation.view.screens.vouchers.provider
-
+/*
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -28,3 +28,4 @@ class ProviderViewModel constructor(private val firestoreTokenManager: Firestore
 }
 
 
+*/

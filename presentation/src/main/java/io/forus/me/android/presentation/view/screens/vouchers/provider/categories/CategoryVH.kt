@@ -9,7 +9,7 @@ class CategoryVH(private val binding: ItemProductCategoryBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
     fun bind(
-        item: ProductCategory,
+        item: ProductCategory
     ) {
         binding.apply {
             tvName.text = item.name

@@ -158,7 +158,7 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
     override fun createPresenter() = ProviderPresenter(
         Injection.instance.vouchersRepository,
 
-        Injection.instance.firestoreTokenManager,
+        //Injection.instance.firestoreTokenManager,
 
         viewModel.address.value ?: "",
         viewModel.isDemoVoucher.value

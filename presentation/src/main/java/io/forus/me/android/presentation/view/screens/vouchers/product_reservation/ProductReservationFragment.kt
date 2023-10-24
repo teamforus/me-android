@@ -31,8 +31,8 @@ class ProductReservationFragment : ToolbarLRFragment<ProductReservationModel, Pr
 
 
     companion object {
-        private val VOUCHER_ADDRESS_EXTRA = "VOUCHER_ADDRESS_EXTRA"
-        private val SHOW_PARENT_VOUCHER = "SHOW_PARENT_VOUCHER"
+        private const val VOUCHER_ADDRESS_EXTRA = "VOUCHER_ADDRESS_EXTRA"
+        private const val SHOW_PARENT_VOUCHER = "SHOW_PARENT_VOUCHER"
 
         fun newIntent(id: String, showParentVoucher: Boolean): ProductReservationFragment = ProductReservationFragment().also {
             val bundle = Bundle()
@@ -75,7 +75,7 @@ class ProductReservationFragment : ToolbarLRFragment<ProductReservationModel, Pr
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter.clickListener = { voucher: Voucher, sharedViews: List<View>, position: Int ->
+        adapter.clickListener = { voucher: Voucher, _: List<View>, _: Int ->
             if(context != null ) {
                 val intentToLaunch = ProviderActivity.getCallingIntent(requireContext(), voucher.address!!)
                 requireContext().startActivity(intentToLaunch)
@@ -100,8 +100,8 @@ class ProductReservationFragment : ToolbarLRFragment<ProductReservationModel, Pr
 
 
     override fun createPresenter() = ProductReservationPresenter(
-            Injection.instance.vouchersRepository , viewModel.address.value?:"",
-        Injection.instance.firestoreTokenManager
+            Injection.instance.vouchersRepository , viewModel.address.value?:""
+       //, Injection.instance.firestoreTokenManager
     )
 
 

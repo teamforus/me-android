@@ -1,5 +1,5 @@
 package io.forus.me.android.presentation.firestore_logging
-
+/*
 import android.util.Log
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
@@ -256,4 +256,4 @@ class FirestoreTokenManager constructor(
             }
     }
 
-}
+}*/

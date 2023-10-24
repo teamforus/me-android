@@ -24,8 +24,8 @@ import io.forus.me.android.data.exception.RetrofitException
 import io.forus.me.android.presentation.view.base.NoInternetDialog
 
 
-
-abstract class LRFragment<M, V : LRView<M>, P : MviBasePresenter<V, LRViewState<M>>> : MviFragment<V, P>(), LRView<M> {
+abstract class LRFragment<M, V : LRView<M>, P : MviBasePresenter<V, LRViewState<M>>> :
+    MviFragment<V, P>(), LRView<M> {
 
     protected val navigator = Navigator()
 
@@ -34,6 +34,8 @@ abstract class LRFragment<M, V : LRView<M>, P : MviBasePresenter<V, LRViewState<
 
     override fun retry(): Observable<Any> = loadRefreshPanel().retryClicks()
     override fun refresh(): Observable<Any> = loadRefreshPanel().refreshes()
+
+    var mOnCompleteListener: OnCompleteListener? = null
 
     override fun updateData(): Observable<Any> {
         return updateObservable
@@ -68,24 +70,28 @@ abstract class LRFragment<M, V : LRView<M>, P : MviBasePresenter<V, LRViewState<
             //401 Unauthorized
             if (vs.refreshingError.message != null && vs.refreshingError.message!!.contains("401 ")) {
                 if (context != null) {
-                    SessionExpiredDialog(requireContext()) { _, _ ->
-                        navigator.navigateToLoginSignUp(activity)
-                        activity?.finish()
-                    }.show()
-                }
+                    SessionExpiredDialog(requireContext(),
+                        MaterialDialog.SingleButtonCallback { dialog, which ->
+                            navigator.navigateToLoginSignUp(activity)
+                            activity?.finish()
+                        }).show()
 
-            } else 
-            if (vs.refreshingError is RetrofitException && vs.refreshingError.kind == io.forus.me.android.domain.exception.RetrofitException.Kind.NETWORK) {
-                if (context != null) NoInternetDialog(requireContext(), {}).show();
-            } else 
-            {
-                Snackbar.make(viewForSnackbar(), R.string.app_refreshing_error_text, Snackbar.LENGTH_SHORT).show()
+                } else
+                    if (vs.refreshingError is RetrofitException && vs.refreshingError.kind == io.forus.me.android.domain.exception.RetrofitException.Kind.NETWORK) {
+                        if (context != null) NoInternetDialog(requireContext(), {}).show();
+                    } else {
+                        Snackbar.make(
+                            viewForSnackbar(),
+                            R.string.app_refreshing_error_text,
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                    }
             }
         }
+
+
+
     }
-
-    var mOnCompleteListener: OnCompleteListener? = null
-
 }
 
 

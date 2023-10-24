@@ -1,5 +1,5 @@
 package io.forus.me.android.presentation.view.screens.dashboard
-
+/*
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -31,4 +31,4 @@ class LoggingViewModel constructor(private val firestoreTokenManager: FirestoreT
 
 }
 
-
+*/
