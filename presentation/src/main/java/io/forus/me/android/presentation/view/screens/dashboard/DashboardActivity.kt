@@ -37,13 +37,13 @@ class DashboardActivity : SlidingPanelActivity(), DashboardContract.View,
 
     override val viewModel: VoucherViewModel by viewModels()
 
-    private val loggingViewModelFactory by lazy {
-        LoggingViewModelFactory(Injection.instance.firestoreTokenManager)
-    }
+   // private val loggingViewModelFactory by lazy {
+    //    LoggingViewModelFactory(Injection.instance.firestoreTokenManager)
+   // }
 
-    private val loggingViewModel by lazy {
-        ViewModelProvider(this, loggingViewModelFactory).get(LoggingViewModel::class.java)
-    }
+   // private val loggingViewModel by lazy {
+   //     ViewModelProvider(this, loggingViewModelFactory).get(LoggingViewModel::class.java)
+   // }
 
     private var currentFragment: Fragment? = null
     private var menu: Menu? = null
@@ -85,7 +85,7 @@ class DashboardActivity : SlidingPanelActivity(), DashboardContract.View,
 
 
         Handler(Looper.getMainLooper()).postDelayed({
-            loggingViewModel.authorizeFirestore()
+       //     loggingViewModel.authorizeFirestore()
         },100)
 
 

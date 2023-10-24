@@ -6,7 +6,6 @@ buildscript {
 
 }
 
-
 apply plugin: 'com.android.library'
 
 apply plugin: 'org.greenrobot.greendao'
@@ -42,28 +41,26 @@ android {
     targetCompatibility JavaVersion.VERSION_1_8
     coreLibraryDesugaringEnabled true
   }
+    packagingOptions {
+        resources {
+            excludes += ['LICENSE.txt', 'META-INF/DEPENDENCIES', 'META-INF/ASL2.0', 'META-INF/NOTICE', 'META-INF/LICENSE']
+        }
+    }
 
-  packagingOptions {
-    exclude 'LICENSE.txt'
-    exclude 'META-INF/DEPENDENCIES'
-    exclude 'META-INF/ASL2.0'
-    exclude 'META-INF/NOTICE'
-    exclude 'META-INF/LICENSE'
-  }
 
-  lintOptions {
-    quiet true
-    abortOnError false
-    ignoreWarnings true
-    disable 'InvalidPackage'  // Some libraries have issues with this
-    disable 'OldTargetApi'    // Due to Robolectric that modifies the manifest when running tests
-  }
-  kapt {
+    kapt {
     generateStubs = true
     arguments {
       arg("room.schemaLocation", "$projectDir/schemas".toString())
     }
   }
+    namespace 'io.forus.me.android.data'
+    lint {
+        abortOnError false
+        disable 'InvalidPackage', 'OldTargetApi'
+        ignoreWarnings true
+        quiet true
+    }
 
 }
 

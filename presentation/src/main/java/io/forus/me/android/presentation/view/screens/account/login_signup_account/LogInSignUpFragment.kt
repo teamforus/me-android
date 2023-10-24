@@ -67,13 +67,7 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
 
     private val viewIsValid: Boolean
         get() {
-            val validation = email!!.validate() //&& email_repeat.validate()
-//            if (validation) {
-//                if (email.getText() != email_repeat.getText()) {
-//                    validation = false
-//                    email_repeat.setError("Emails should be the same")
-//                }
-//            }
+            val validation = email!!.validate()
             return validation
         }
 
@@ -123,29 +117,18 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
     {
 
-
-       // val bundle = this.arguments
-       // if (bundle != null) {
-       //     token = bundle.getString(TOKEN_EXTRA, "")
-       // }
-
-
         val display = requireActivity().windowManager.defaultDisplay
         val outMetrics = DisplayMetrics()
         display.getMetrics(outMetrics)
         val density = resources.displayMetrics.density
-        val dpHeight = outMetrics.heightPixels / density
-        val dpWidth = outMetrics.widthPixels / density
-        //val rootView = if (dpWidth <= 320 || dpHeight < 522)
-           // inflater.inflate(R.layout.fragment_login_sign_up_nokia1, container, false)
-       // else inflater.inflate(R.layout.fragment_login_sign_up, container, false)
+
 
         binding = FragmentLoginSignUpBinding.inflate(inflater)
 
-        email = binding.email//findViewById(R.id.email)
-        restore = binding.restore//rootView.findViewById(R.id.restore)
-        pair_device = binding.pairDevice//rootView.findViewById(R.id.pair_device)
-        devOptionsBt = binding.devOptionsBt //rootView.findViewById(R.id.devOptionsBt)
+        email = binding.email
+        restore = binding.restore
+        pair_device = binding.pairDevice
+        devOptionsBt = binding.devOptionsBt
 
         return binding.root
     }
@@ -168,7 +151,6 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
         }
 
         email!!.setTextChangedListener(listener)
-        //email_repeat.setTextChangedListener(listener)
 
 
         pair_device!!.setOnClickListener {
@@ -324,16 +306,10 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
 
     fun processError(error: Throwable){
 
-
-        Log.d("forus", "sendingRestoreByEmailError... err = "+error)
-
-
         if (error is io.forus.me.android.data.exception.RetrofitException && error.kind == RetrofitException.Kind.NETWORK) {
-            Log.d("forus", "sendingRestoreByEmailError... err 1 ")
             NoInternetDialog(requireContext()) { }.show()
         } else
             if (error is RetrofitException && error.kind == RetrofitException.Kind.HTTP) {
-                Log.d("forus", "sendingRestoreByEmailError... err 2 ")
                 try {
                     when (error.responseCode) {
 
