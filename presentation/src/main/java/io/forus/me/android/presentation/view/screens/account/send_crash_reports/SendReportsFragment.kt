@@ -2,9 +2,11 @@ package io.forus.me.android.presentation.view.screens.account.send_crash_reports
 
 import android.os.Bundle
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.databinding.FragmentSendReportsBinding
 import io.forus.me.android.presentation.helpers.SharedPref
@@ -80,9 +82,9 @@ class SendReportsFragment :
         val density = resources.displayMetrics.density
         val dpHeight = outMetrics.heightPixels / density
         val dpWidth = outMetrics.widthPixels / density
-        return if (dpWidth <= 320 || dpHeight < 522)
-            inflater.inflate(R.layout.fragment_send_reports_nokia1, container, false)
-        else inflater.inflate(R.layout.fragment_send_reports, container, false)
+        //return if (dpWidth <= 320 || dpHeight < 522)
+        //    inflater.inflate(R.layout.fragment_send_reports_nokia1, container, false)
+        //else inflater.inflate(R.layout.fragment_send_reports, container, false)
 
         return binding.root
 
@@ -104,7 +106,7 @@ class SendReportsFragment :
 
     override fun render(vs: LRViewState<SendReportsModel>) {
         super.render(vs)
-
+        Log.d("Popupp","Popupp render>>>")
         binding.enableSendCrashLog.setChecked(vs.model.sendCrashReportsEnabled)
         binding.enableSendCrashLog.setOnClickListener {
 
@@ -115,7 +117,9 @@ class SendReportsFragment :
             switchSendCrashReports.onNext(!vs.model.sendCrashReportsEnabled)
         }
 
-        binding.nextStep.setOnClickListener { closeScreen(token) }
+        binding.nextStep.setOnClickListener {
+            Log.d("Popupp","Popupp NEXT>>>")
+            closeScreen(token) }
 
     }
 

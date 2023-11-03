@@ -14,7 +14,6 @@ import retrofit2.HttpException;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import rx.functions.Func1;
 
 /**
  * RxJava2 and Retrofit 2.2.0 compatible factory,

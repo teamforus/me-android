@@ -180,7 +180,6 @@ class NewRecordFragment : ToolbarLRFragment<NewRecordModel, NewRecordView, NewRe
         recyclerCategory?.adapter = recordTypesAdapter
 
 
-//recyclerValidators
         recyclerValidators?.layoutManager =
             LinearLayoutManager(context)
         recyclerValidators?.adapter = recordValidatorAdapter

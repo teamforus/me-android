@@ -55,9 +55,7 @@ class VouchersRemoteDataSource(f: () -> VouchersService): VouchersDataSource, Re
 
     override fun sendEmail(address: String): Observable<Boolean> {
         return service.sendEmail(address).map { _: ResponseBody? ->
-            Log.d("forus","sendEmail_success")
             true }.onErrorReturn {
-            Log.d("forus","sendEmail_error=${it.localizedMessage}")
             false
         };
     }

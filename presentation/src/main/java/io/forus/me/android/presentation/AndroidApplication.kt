@@ -20,9 +20,6 @@ import io.forus.me.android.data.net.MeServiceFactory
 import io.forus.me.android.presentation.api_config.ApiConfig
 import io.forus.me.android.presentation.internal.Injection
 
-
-//import com.squareup.leakcanary.LeakCanary
-
 /**
  * Android Main Application
  */

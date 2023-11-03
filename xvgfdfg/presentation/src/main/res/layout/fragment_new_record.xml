@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:orientation="vertical"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="60dp">
+
+        <include layout="@layout/toolbar_view"/>
+
+        <io.forus.me.android.presentation.view.component.viewpager.NonSwipeableViewPager
+            android:id="@+id/main_view_pager"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include android:id="@+id/page_one" layout="@layout/view_new_record_select_category" />
+            <include android:id="@+id/page_two" layout="@layout/view_new_record_select_type" />
+            <include android:id="@+id/page_tree" layout="@layout/view_new_record_select_value" />
+            <include android:id="@+id/page_four" layout="@layout/view_new_record_select_validator" />
+
+    </io.forus.me.android.presentation.view.component.viewpager.NonSwipeableViewPager>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <RelativeLayout
+        android:background="@color/seashell"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <me.relex.circleindicator.CircleIndicator
+            android:id="@+id/indicator"
+            app:ci_drawable="@drawable/ic_vieapager_indicator_selected"
+            app:ci_drawable_unselected="@drawable/ic_vieapager_indicator_unselected"
+            app:ci_margin="10dp"
+            app:ci_width="6dp"
+            app:ci_height="6dp"
+            app:ci_gravity="center_vertical|left"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="13dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <io.forus.me.android.presentation.view.component.buttons.Button
+            android:id="@+id/btn_next"
+            android:layout_width="96dp"
+            android:layout_height="36dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:lineSpacingExtra="3sp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/new_record_next_step" />
+
+
+    </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_centerVertical="true"
+        android:paddingBottom="200dp"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

@@ -32,20 +32,6 @@ class RecordValidatorAdapter(private val clickListener: ((SimpleValidator) -> Un
         setHasStableIds(true)
     }
 
-    /*
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = RecordValidatorVH(parent) { validator: SimpleValidator, position: Int ->
-        checkedStatus[position] = !checkedStatus[position]
-        clickListener?.invoke(validator)
-    }
-
-    override fun onBindViewHolder(holder: RecordValidatorVH, position: Int) {
-        holder.render(items[position], checkedStatus[position])
-    }
-
-
-     */
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecordValidatorVH {
         val binding = ItemRecordSelectValidatorBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return RecordValidatorVH(binding)

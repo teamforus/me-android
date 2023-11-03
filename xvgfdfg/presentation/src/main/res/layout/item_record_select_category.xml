@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<io.forus.me.android.presentation.view.component.card.CommonCard
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:id="@+id/root"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    android:clickable="true"
+    android:focusable="true"
+
+    app:cardCornerRadius="5dp"
+    app:cardElevation="5dp"
+    app:cardUseCompatPadding="false">
+
+    <LinearLayout
+        android:id="@+id/bg"
+        android:background="@color/alabaster"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/circle_empty">
+
+            <io.forus.me.android.presentation.view.component.images.AutoLoadImageView
+                android:id="@+id/iv_logo"
+                android:layout_gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </RelativeLayout>
+
+        <io.forus.me.android.presentation.view.component.text.TextView
+            android:id="@+id/tv_name"
+            android:textSize="17.1sp"
+            android:textColor="@color/body_1_87"
+            android:lineSpacingExtra="7.9sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="16dp"
+            tools:text="Subtitle" />
+
+    </LinearLayout>
+
+</io.forus.me.android.presentation.view.component.card.CommonCard>

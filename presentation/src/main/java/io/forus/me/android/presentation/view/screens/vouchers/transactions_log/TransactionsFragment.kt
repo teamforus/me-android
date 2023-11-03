@@ -129,7 +129,7 @@ class TransactionsFragment : Fragment(), DatePickerDialog.OnDateSetListener {
                 mainViewModel.calendarFrom.value!!.get(Calendar.MONTH),
                 mainViewModel.calendarFrom.value!!.get(Calendar.DAY_OF_MONTH)
             )
-            dpd.show(requireActivity().fragmentManager, "Datepickerdialog")
+            dpd.show(requireFragmentManager(), "Datepickerdialog")
 
         }
 
@@ -178,27 +178,6 @@ class TransactionsFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
     }
 
-    fun blurBackground() {
-
-        /*name.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
-        type.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
-        value.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
-
-        value.paint.maskFilter = BlurMaskFilter(value.textSize / 4, BlurMaskFilter.Blur.NORMAL)
-        name.paint.maskFilter = BlurMaskFilter(name.textSize / 4, BlurMaskFilter.Blur.NORMAL)
-        type.paint.maskFilter = BlurMaskFilter(type.textSize / 4, BlurMaskFilter.Blur.NORMAL)*/
-    }
-
-    fun unblurBackground() {
-
-        /* name.setLayerType(View.LAYER_TYPE_NONE, null)
-         type.setLayerType(View.LAYER_TYPE_NONE, null)
-         value.setLayerType(View.LAYER_TYPE_NONE, null)
-
-         value.paint.maskFilter = null
-         name.paint.maskFilter = null
-         type.paint.maskFilter = null*/
-    }
 
 
 }

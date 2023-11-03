@@ -1,14 +1,12 @@
 package io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actions.model
-//import io.forus.me.android.data.entity.vouchers.response.Voucher
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import io.forus.me.android.domain.models.vouchers.ProductAction
 import io.forus.me.android.domain.models.vouchers.VoucherProvider
 import io.forus.me.android.domain.repository.vouchers.VouchersRepository
-//import io.forus.me.android.presentation.firestore_logging.FirestoreTokenManager
+import io.forus.me.android.presentation.firestore_logging.FirestoreTokenManager
 import io.forus.me.android.presentation.internal.Injection
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -18,7 +16,7 @@ class ActionsViewModel : ViewModel() {
 
 
     var vouchersRepository: VouchersRepository = Injection.instance.vouchersRepository
-  //  var firestoreTokenManager: FirestoreTokenManager = Injection.instance.firestoreTokenManager
+    var firestoreTokenManager: FirestoreTokenManager = Injection.instance.firestoreTokenManager
 
     var productActionsLiveData: MutableLiveData<MutableList<ProductAction>> = MutableLiveData()
     var productsListIsEmpty = MutableLiveData<Boolean>()
@@ -101,9 +99,8 @@ class ActionsViewModel : ViewModel() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .map {
 
-                  //  firestoreTokenManager.writeGetVoucherAsProvider(
-                  //      voucherAddress?:"null", true, null
-                  //  )
+                    firestoreTokenManager.writeGetVoucherAsProvider(
+                        voucherAddress?:"null", true, null)
 
                     actionName.postValue(it.voucher.name?:"")
                     organizationId = it.allowedOrganizations[0].id
@@ -112,9 +109,9 @@ class ActionsViewModel : ViewModel() {
                     voucher.postValue(it)
                 }
                 .onErrorReturn {
-                  //  firestoreTokenManager.writeGetVoucherAsProvider(
-                   //     voucherAddress?:"null", false, it.localizedMessage
-                  //  )
+                    firestoreTokenManager.writeGetVoucherAsProvider(
+                        voucherAddress?:"null", false, it.localizedMessage
+                    )
                 }
                 .subscribe()
     }

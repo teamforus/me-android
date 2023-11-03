@@ -30,16 +30,7 @@ class RecordCategoriesAdapter(private val clickListener: ((RecordCategory) -> Un
     init {
         setHasStableIds(true)
     }
-/*
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = RecordCategoryVH(parent) { recordCategory: RecordCategory, position: Int ->
-        lastSelectedPosition = position
-        //notifyDataSetChanged()
-        clickListener?.invoke(recordCategory)
-    }
 
-    override fun onBindViewHolder(holder: RecordCategoryVH, position: Int) {
-        holder.render(items[position], lastSelectedPosition)
-    }*/
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecordCategoryVH {
         val binding = ItemRecordSelectCategoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)

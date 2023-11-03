@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<io.forus.me.android.presentation.view.component.card.CommonCard
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:id="@+id/hat_root"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    android:clickable="true"
+    android:focusable="true"
+
+    app:cardCornerRadius="10dp"
+    app:cardElevation="5dp"
+    app:cardUseCompatPadding="false">
+
+    <LinearLayout
+        android:id="@+id/bg"
+        android:background="@color/secondary200"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/rl_image"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/circle_empty">
+
+            <io.forus.me.android.presentation.view.component.images.AutoLoadImageView
+                android:id="@+id/iv_icon"
+                android:layout_gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </RelativeLayout>
+
+        <io.forus.me.android.presentation.view.component.text.TextView
+            android:id="@+id/tv_name"
+            android:textSize="14.1sp"
+            android:textColor="@color/body_1_87"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            tools:text="Persoonlijk" />
+
+    </LinearLayout>
+
+</io.forus.me.android.presentation.view.component.card.CommonCard>

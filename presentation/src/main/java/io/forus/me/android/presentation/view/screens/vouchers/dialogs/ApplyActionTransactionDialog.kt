@@ -56,9 +56,6 @@ class ApplyActionTransactionDialog(private val context: Activity, private val ti
 
         dialog = MaterialDialog.Builder(context)
                 .customView(customLayout, false)
-                //.positiveText(context.resources.getString(R.string.submit))
-                //.negativeText(context.resources.getString(R.string.me_cancel))
-                //.onPositive { dialog, which -> positiveCallback.invoke() }
                 .build()
         dialog!!.show()
 

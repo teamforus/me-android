@@ -1,0 +1,173 @@
+allprojects {
+  repositories {
+    jcenter()
+  }
+}
+
+ext {
+ 
+  androidBuildToolsVersion = "33.0.0"
+  androidMinSdkVersion = 24
+  androidTargetSdkVersion = 33
+  androidCompileSdkVersion = 33
+
+
+  //Libraries
+  daggerVersion = '2.8'
+  androidSupportVersion = '31.0.0'
+  rxJavaVersion = '2.1.14'
+  rxAndroidVersion = '2.0.2'
+  javaxAnnotationVersion = '1.0'
+  javaxInjectVersion = '1'
+  gsonVersion = '2.3'
+  okHttpVersion = '2.5.0'
+  androidAnnotationsVersion = '21.0.3'
+  arrowVersion = '1.0.0'
+  circleIndicatorVersion = '1.2.2@aar'
+  materialDialogs = '0.9.6.0'
+  gooleMapsVersion = '16.0.0'
+  playCoreVersion = '1.7.2'
+  nav_version = '1.0.0'
+
+  //Testing
+  robolectricVersion = '3.1.1'
+  jUnitVersion = '4.12'
+  assertJVersion = '1.7.1'
+  mockitoVersion = '1.9.5'
+  dexmakerVersion = '1.0'
+  espressoVersion = '2.0'
+  roomVersion = '1.0.0'
+  lifecycleVersion = '1.1.0'
+  testingSupportLibVersion = '0.1'
+  qrGenVersion = '2.4.0'
+  multiDexVersion = "1.0.3"
+  materialLib = '1.5.0'
+  mviVersion = '3.1.1'//'3.0.4'
+  rxbindingVersion = '2.0.0'
+  web3jVersion = '3.3.1-android'
+  retrofitVersion='2.2.0'
+  httpInspectorVersion='3.6.0'
+  greendaoVersion='3.3.0'
+  sqlcipherVersion='3.5.9@aar'
+  ahbottomNavigationVersion='2.0.4'
+  slidingUpPanelVersion='3.3.1'
+  glideVersion='3.7.0'
+  fingerprintAuthVersion='1.0.1'
+  //firebaseCoreVersion='20.0.0'
+ // firebaseCloudMessageVersion='23.2.1'
+
+
+  //Development
+  leakCanaryVersion = '1.3.1'
+  qrReaderVersion='2.0.3@aar'
+  animoVersion='1.1.8'
+  fabric='2.9.5@aar'
+
+
+  presentationDependencies = [
+          greendao:           "org.greenrobot:greendao:${greendaoVersion}",
+          daggerCompiler:     "com.google.dagger:dagger-compiler:${daggerVersion}",
+          dagger:             "com.google.dagger:dagger:${daggerVersion}",
+          rxJava:             "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
+          rxAndroid:          "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
+          javaxAnnotation:    "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
+          materialLib:        "com.google.android.material:material:${materialLib}",
+          supportLib: 'androidx.legacy:legacy-support-v4:1.0.0',
+          recyclerView: 'androidx.recyclerview:recyclerview:1.0.0',
+          cardView: 'androidx.cardview:cardview:1.0.0',
+          appCompat: 'androidx.appcompat:appcompat:1.0.0',
+          customTabsIntent: 'androidx.browser:browser:1.0.0',
+          supportDesign: 'com.google.android.material:material:1.5.0',
+          multiDex: 'androidx.multidex:multidex:2.0.0',
+          qrGet:              "com.github.kenglxn.QRGen:javase:${qrGenVersion}",
+          qrGetAndroid:       "com.github.kenglxn.QRGen:android:${qrGenVersion}",
+
+          mvi:                "com.hannesdorfmann.mosby3:mvi:$rootProject.mviVersion", // Model-View-Intent
+          mviViewState:       "com.hannesdorfmann.mosby3:viewstate:$rootProject.mviVersion", // MVP + ViewState support
+          rxbinding:          "com.jakewharton.rxbinding2:rxbinding:$rootProject.rxbindingVersion",
+          rxbindingSupport:   "com.jakewharton.rxbinding2:rxbinding-support-v4:$rootProject.rxbindingVersion",
+          rxbindingDesign:    "com.jakewharton.rxbinding2:rxbinding-design:$rootProject.rxbindingVersion",
+          sqlcipher:          "net.zetetic:android-database-sqlcipher:$sqlcipherVersion",
+          ahbottomnavigation: "com.aurelhubert:ahbottomnavigation:$ahbottomNavigationVersion",
+
+          slidingUpPanel:     "com.sothree.slidinguppanel:library:$rootProject.slidingUpPanelVersion",
+          glide:              "com.github.bumptech.glide:glide:$rootProject.glideVersion",
+          glideProcessor:     "com.github.bumptech.glide:compiler:$rootProject.glideVersion",
+
+          circleIndicator:    "me.relex:circleindicator:$rootProject.circleIndicatorVersion",
+          qrReader:           "com.dlazaro66.qrcodereaderview:qrcodereaderview:${rootProject.qrReaderVersion}",
+          materialDialogs:    "com.afollestad.material-dialogs:core:${rootProject.materialDialogs}",
+          fingerprint:        "com.multidots:fingerprint-auth:${rootProject.fingerprintAuthVersion}",
+          fabric:             "com.crashlytics.sdk.android:crashlytics:${rootProject.fabric}",
+        //  firebaseCore:       "com.google.firebase:firebase-core:${rootProject.firebaseCoreVersion}",
+          //firebaseMessaging:       "com.google.firebase:firebase-messaging:${rootProject.firebaseCloudMessageVersion}",
+          googleMaps:         "com.google.android.gms:play-services-maps:${rootProject.gooleMapsVersion}",
+          playCore:           "com.google.android.play:core:${rootProject.playCoreVersion}",
+          navigationFragment: 'androidx.navigation:navigation-fragment-ktx:2.4.1',
+          navigationUI: 'androidx.navigation:navigation-ui-ktx:2.4.1'
+
+
+  ]
+
+  presentationTestDependencies = [
+          junit:              "junit:junit:${jUnitVersion}",
+          mockito:            "org.mockito:mockito-core:${mockitoVersion}",
+          dexmaker:           "com.google.dexmaker:dexmaker:${dexmakerVersion}",
+          dexmakerMockito:    "com.google.dexmaker:dexmaker-mockito:${dexmakerVersion}",
+          espresso:           "androidx.test.espresso:espresso-core:3.1.0",
+          runner:             "androidx.test:runner:1.1.0",
+          rules:              "androidx.test:rules:1.1.0"
+  ]
+
+  domainDependencies = [
+      javaxAnnotation:    "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
+      javaxInject:        "javax.inject:javax.inject:${javaxInjectVersion}",
+      rxJava:             "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
+      arrow:              "com.fernandocejas:arrow:${arrowVersion}",
+      gson:               "com.google.code.gson:gson:${gsonVersion}"
+  ]
+
+  domainTestDependencies = [
+      junit:              "junit:junit:${jUnitVersion}",
+      mockito:            "org.mockito:mockito-core:${mockitoVersion}",
+      assertj:            "org.assertj:assertj-core:${assertJVersion}"
+  ]
+
+  dataDependencies = [
+          daggerCompiler:     "com.google.dagger:dagger-compiler:${daggerVersion}",
+          dagger:             "com.google.dagger:dagger:${daggerVersion}",
+          okHttp:             "com.squareup.okhttp:okhttp:${okHttpVersion}",
+          gson:               "com.google.code.gson:gson:${gsonVersion}",
+      rxJava:             "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
+      rxAndroid:          "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
+      javaxAnnotation:    "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
+      javaxInject:        "javax.inject:javax.inject:${javaxInjectVersion}",
+      androidAnnotations: 'androidx.annotation:annotation:1.0.0',
+      archRuntime: 'androidx.room:room-runtime:2.0.0',
+      archCompiler: 'androidx.room:room-compiler:2.0.0',
+      liveDataExt: 'androidx.lifecycle:lifecycle-extensions:2.0.0',
+      liveDataCompiler: 'androidx.lifecycle:lifecycle-compiler:2.0.0',
+      liveDataRuntime:    "android.arch.lifecycle:runtime:${lifecycleVersion}",
+      multiDex: 'androidx.multidex:multidex:2.0.0',
+      web3j:              "org.web3j:core:${web3jVersion}",
+      greendao:           "org.greenrobot:greendao:${greendaoVersion}",
+
+      annimon:            "com.annimon:stream:${animoVersion}",
+      retrofithttpInspector: "com.squareup.okhttp3:logging-interceptor:$rootProject.httpInspectorVersion",
+          retrofithttp        : "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion",
+          retrofithttpConverter:  "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion",
+          retrofitRx          : "com.squareup.retrofit2:adapter-rxjava2:$rootProject.retrofitVersion"
+  ]
+
+  dataTestDependencies = [
+      junit:              "junit:junit:${jUnitVersion}",
+      assertj:            "org.assertj:assertj-core:${assertJVersion}",
+      mockito:            "org.mockito:mockito-core:${mockitoVersion}",
+      robolectric:        "org.robolectric:robolectric:${robolectricVersion}",
+      arch: 'androidx.room:room-testing:2.0.0'
+  ]
+
+  developmentDependencies = [
+      leakCanary: "com.squareup.leakcanary:leakcanary-android:${leakCanaryVersion}",
+  ]
+}
