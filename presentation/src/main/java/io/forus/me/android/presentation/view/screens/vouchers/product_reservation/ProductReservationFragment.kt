@@ -100,8 +100,8 @@ class ProductReservationFragment : ToolbarLRFragment<ProductReservationModel, Pr
 
 
     override fun createPresenter() = ProductReservationPresenter(
-            Injection.instance.vouchersRepository , viewModel.address.value?:""
-       //, Injection.instance.firestoreTokenManager
+            Injection.instance.vouchersRepository , viewModel.address.value?:"",
+        Injection.instance.firestoreTokenManager
     )
 
 

@@ -3,13 +3,13 @@ package io.forus.me.android.presentation.view.screens.records.item
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import io.forus.me.android.domain.models.records.Record
 import io.forus.me.android.presentation.R
-import io.forus.me.android.presentation.view.activity.SlidingPanelActivity
+import io.forus.me.android.presentation.view.MeBottomSheetDialogFragment
+import io.forus.me.android.presentation.view.activity.CommonActivity
 import io.forus.me.android.presentation.view.screens.records.item.qr.RecordQRFragment
 
-class RecordDetailsActivity : SlidingPanelActivity() {
+class RecordDetailsActivity : CommonActivity() {
 
 
     companion object {
@@ -22,12 +22,9 @@ class RecordDetailsActivity : SlidingPanelActivity() {
         }
     }
 
-    override val height: Float
-        get() = 400f
 
     private lateinit var fragment: RecordDetailsFragment
 
-    private var slidingLayout : com.sothree.slidinguppanel.SlidingUpPanelLayout? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,15 +34,16 @@ class RecordDetailsActivity : SlidingPanelActivity() {
             addFragment(R.id.fragmentContainer, fragment)
         }
 
-        slidingLayout = findViewById(R.id.sliding_layout)
     }
 
     fun showPopupQRFragment(recordId: Long){
-        addPopupFragment(RecordQRFragment.newIntent(recordId), "QR code")
+
+        val meBottomSheet = MeBottomSheetDialogFragment.newInstance(
+            RecordQRFragment.newIntent(recordId), "QR code")
+        meBottomSheet.show(supportFragmentManager, meBottomSheet.tag)
     }
 
     fun closeQRFragment(){
-        slidingLayout?.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
         fragment.updateModel()
     }
 }

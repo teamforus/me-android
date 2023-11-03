@@ -22,9 +22,6 @@ import io.github.douglasjunior.androidSimpleTooltip.SimpleTooltip
 import io.github.douglasjunior.androidSimpleTooltip.SimpleTooltipUtils
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-//import kotlinx.android.synthetic.main.fragment_records_binding.recycler.*
-//import kotlinx.android.synthetic.main.toolbar_view.*
-
 
 /**
  * Fragment Records Delegates Screen.

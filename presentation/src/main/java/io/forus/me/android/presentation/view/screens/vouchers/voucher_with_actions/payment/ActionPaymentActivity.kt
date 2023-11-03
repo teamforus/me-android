@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.databinding.ActivityActionPaymentBinding
 import io.forus.me.android.presentation.view.activity.BaseActivity
@@ -83,10 +82,5 @@ class ActionPaymentActivity : BaseActivity() {
     }
 
 
-    fun addPopupFragment(fragment: Fragment, title: String) {
-        replaceFragment(R.id.fragmentPanelContainer, fragment)
-        binding.slidingPanelTitle.text = title
-        binding.slidingLayout.panelState = SlidingUpPanelLayout.PanelState.EXPANDED
-    }
 
 }

@@ -37,34 +37,11 @@ class SystemServices(private val context: Context) {
         }
     }
 
-    fun isDeviceSecure(): Boolean = if (hasMarshmallow()) keyguardManager.isDeviceSecure else keyguardManager.isKeyguardSecure
 
     fun isFingerprintHardwareAvailable() = fingerprintManager?.isHardwareDetected ?: false
 
     fun hasEnrolledFingerprints() = fingerprintManager?.hasEnrolledFingerprints() ?: false
 
-    fun authenticateFingerprint(cryptoObject: FingerprintManager.CryptoObject, cancellationSignal: CancellationSignal, flags: Int, callback: FingerprintManager.AuthenticationCallback, handler: Handler?) {
-        fingerprintManager?.authenticate(cryptoObject, cancellationSignal, flags, callback, handler)
-    }
 
-    fun showAuthenticationScreen(activity: Activity, requestCode: Int, title: String? = null, description: String? = null) {
-        // Create the Confirm Credentials screen. You can customize the title and description. Or
-        // we will provide a generic one for you if you leave it null
-        if (hasMarshmallow()) {
-            val intent = keyguardManager.createConfirmDeviceCredentialIntent(title, description)
-            if (intent != null) {
-                activity.startActivityForResult(intent, requestCode)
-            }
-        }
-    }
 
-    fun showDeviceSecurityAlert(): AlertDialog {
-        return AlertDialog.Builder(context)
-                .setTitle(R.string.lock_title)
-                .setMessage(R.string.lock_body)
-                .setPositiveButton(R.string.lock_settings) { _, _ -> context.openLockScreenSettings() }
-                .setNegativeButton(R.string.lock_exit) { _, _ -> System.exit(0) }
-                .setCancelable(BuildConfig.DEBUG)
-                .show()
-    }
 }

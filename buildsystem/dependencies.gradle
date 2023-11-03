@@ -9,18 +9,18 @@ ext {
   androidBuildToolsVersion = "33.0.0"
   androidMinSdkVersion = 24
   androidTargetSdkVersion = 33
-  androidCompileSdkVersion = 33
+  androidCompileSdkVersion = 34
 
 
   //Libraries
-  daggerVersion = '2.8'
+  daggerVersion = '2.48.1'
   androidSupportVersion = '31.0.0'
-  rxJavaVersion = '2.1.14'
-  rxAndroidVersion = '2.0.2'
+  rxJavaVersion = '2.2.21'
+  rxAndroidVersion = '2.1.1'
   javaxAnnotationVersion = '1.0'
   javaxInjectVersion = '1'
-  gsonVersion = '2.3'
-  okHttpVersion = '2.5.0'
+  gsonVersion = '2.10.1'
+  okHttpVersion = '2.7.5'
   androidAnnotationsVersion = '21.0.3'
   arrowVersion = '1.0.0'
   circleIndicatorVersion = '1.2.2@aar'
@@ -31,10 +31,10 @@ ext {
 
   //Testing
   robolectricVersion = '3.1.1'
-  jUnitVersion = '4.12'
-  assertJVersion = '1.7.1'
-  mockitoVersion = '1.9.5'
-  dexmakerVersion = '1.0'
+  jUnitVersion = '4.13.2'
+  assertJVersion = '3.24.2'
+  mockitoVersion = '5.6.0'
+  dexmakerVersion = '1.2'
   espressoVersion = '2.0'
   roomVersion = '1.0.0'
   lifecycleVersion = '1.1.0'
@@ -44,12 +44,12 @@ ext {
   materialLib = '1.5.0'
   mviVersion = '3.1.1'//'3.0.4'
   rxbindingVersion = '2.0.0'
-  web3jVersion = '3.3.1-android'
+  web3jVersion = '5.0.0'
   retrofitVersion='2.2.0'
   httpInspectorVersion='3.6.0'
-  greendaoVersion='3.3.0'
+  greendaoVersion='3.2.2'
   sqlcipherVersion='3.5.9@aar'
-  ahbottomNavigationVersion='2.0.4'
+  ahbottomNavigationVersion= '2.2.0'
   slidingUpPanelVersion='3.3.1'
   glideVersion='3.7.0'
   fingerprintAuthVersion='1.0.1'
@@ -58,9 +58,9 @@ ext {
 
 
   //Development
-  leakCanaryVersion = '1.3.1'
+  leakCanaryVersion = '2.12'
   qrReaderVersion='2.0.3@aar'
-  animoVersion='1.1.8'
+  animoVersion= '1.2.2'
   fabric='2.9.5@aar'
 
 

@@ -31,24 +31,6 @@ class VouchersAdapter : RecyclerView.Adapter<VouchersVH>() {
 
     var clickListener: ((voucher: Voucher, sharedViews: List<View>, position: Int) -> Unit)? = null
 
-   /* override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = VouchersVH(parent).apply {
-        itemView.root.setOnClickListener {
-            vouchers.getOrNull(adapterPosition)?.let {voucher ->
-
-//                ViewCompat.setTransitionName(itemView.root,
-//                        "card_transition_name_$adapterPosition")
-//                ViewCompat.setTransitionName(itemView.name,
-//                        "name_transition_name_$adapterPosition")
-//                ViewCompat.setTransitionName(itemView.value,
-//                        "value_transition_name_$adapterPosition")
-
-                clickListener?.invoke(voucher, listOf(), adapterPosition)
-            }
-        }
-    }
-    override fun onBindViewHolder(holder: VouchersVH, position: Int) {
-        holder.render(vouchers[position])
-    }*/
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VouchersVH {
         val binding = ItemVouchersListBinding.inflate(LayoutInflater.from(parent.context), parent, false)

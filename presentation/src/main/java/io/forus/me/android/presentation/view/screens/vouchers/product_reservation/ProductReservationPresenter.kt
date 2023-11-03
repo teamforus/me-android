@@ -1,7 +1,7 @@
 package io.forus.me.android.presentation.view.screens.vouchers.product_reservation
 
 import io.forus.me.android.domain.repository.vouchers.VouchersRepository
-//import io.forus.me.android.presentation.firestore_logging.FirestoreTokenManager
+import io.forus.me.android.presentation.firestore_logging.FirestoreTokenManager
 import io.forus.me.android.presentation.models.currency.Currency
 import io.forus.me.android.presentation.models.vouchers.*
 import io.forus.me.android.presentation.view.base.lr.LRPresenter
@@ -18,7 +18,7 @@ import java.math.BigDecimal
 
 class ProductReservationPresenter constructor(val vouchersRepository: VouchersRepository,
                                               val voucherAddress: String
-                                            // , private val firestoreTokenManager: FirestoreTokenManager
+                                             , private val firestoreTokenManager: FirestoreTokenManager
 )
     : LRPresenter<List<Voucher>, ProductReservationModel, ProductReservationView>() {
 
@@ -27,9 +27,9 @@ class ProductReservationPresenter constructor(val vouchersRepository: VouchersRe
         domainVouchers.map { domainVoucher ->
             with(domainVoucher) {
 
-               // firestoreTokenManager.writeGetProductVoucherAsProvider(
-              //      voucherAddress, true, null
-              //  )
+                firestoreTokenManager.writeGetProductVoucherAsProvider(
+                    voucherAddress, true, null
+                )
 
                 val transactionsMapped = transactions.map {
                     val organization = Organization(it.organization?.id ?: 0,

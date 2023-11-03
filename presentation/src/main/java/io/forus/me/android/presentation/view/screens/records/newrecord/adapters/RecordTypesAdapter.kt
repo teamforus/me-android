@@ -31,16 +31,6 @@ class RecordTypesAdapter(private val clickListener: ((RecordType) -> Unit)?): Re
         setHasStableIds(true)
     }
 
-   /* override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = RecordTypeVH(parent) { recordType: RecordType, position: Int ->
-        lastSelectedPosition = position
-        notifyDataSetChanged()
-        clickListener?.invoke(recordType)
-    }
-
-    override fun onBindViewHolder(holder: RecordTypeVH, position: Int) {
-        holder.render(items[position], lastSelectedPosition)
-    }*/
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecordTypeVH {
         val binding = ItemRecordSelectTypeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return RecordTypeVH(binding)

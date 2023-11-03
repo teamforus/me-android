@@ -158,7 +158,7 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
     override fun createPresenter() = ProviderPresenter(
         Injection.instance.vouchersRepository,
 
-        //Injection.instance.firestoreTokenManager,
+        Injection.instance.firestoreTokenManager,
 
         viewModel.address.value ?: "",
         viewModel.isDemoVoucher.value
@@ -298,10 +298,6 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
         requireActivity().finish()
         requireActivity().startActivity(i)
 
-
-        /*FullscreenDialog.display(fragmentManager,requireContext().resources.getString(R.string.success),
-                requireContext().resources.getString(R.string.vouchers_apply_success),
-                requireContext().resources.getString(R.string.me_ok)) { activity?.finish() }*/
 
     }
 

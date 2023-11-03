@@ -1,8 +1,5 @@
 package io.forus.me.android.presentation.view.screens.vouchers.item
 
-//import kotlinx.android.synthetic.main.fragment_voucher.*
-//import kotlinx.android.synthetic.main.item_vouchers_list.view.*
-//import kotlinx.android.synthetic.main.toolbar_view.*
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.BlurMaskFilter
@@ -73,14 +70,15 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
         val dateFormat = SimpleDateFormat("d MMMM, HH:mm", Locale.getDefault())
 
 
-        fun newInstance(voucher: Voucher, position: Int = -1): VoucherFragment = VoucherFragment().also {
-            val bundle = Bundle()
-            bundle.putParcelable(VOUCHER_EXTRA, voucher)
-            bundle.putString(VOUCHER_ADDRESS_EXTRA, voucher.address)
-            bundle.putInt(POSITION_EXTRA, position)
+        fun newInstance(voucher: Voucher, position: Int = -1): VoucherFragment =
+            VoucherFragment().also {
+                val bundle = Bundle()
+                bundle.putParcelable(VOUCHER_EXTRA, voucher)
+                bundle.putString(VOUCHER_ADDRESS_EXTRA, voucher.address)
+                bundle.putInt(POSITION_EXTRA, position)
 
-            it.arguments = bundle
-        }
+                it.arguments = bundle
+            }
 
         fun newInstance(address: String): VoucherFragment = VoucherFragment().also {
             val bundle = Bundle()
@@ -98,12 +96,16 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
     private var organizationLatLng: LatLng? = null
     private val sendEmailDialog: AlertDialog.Builder by lazy(LazyThreadSafetyMode.NONE) {
         AlertDialog.Builder(requireContext())
-                .setTitle(R.string.send_voucher_email_dialog_title)
-                .setPositiveButton(R.string.send_voucher_email_dialog_positive_button) { _, _ ->
-                    sendEmailDialogShows.onNext(true)
-                }
-                .setNegativeButton(R.string.send_voucher_email_dialog_cancel_button) { _: DialogInterface, _: Int -> sendEmailDialogShows.onNext(false) }
-                .setCancelable(false)
+            .setTitle(R.string.send_voucher_email_dialog_title)
+            .setPositiveButton(R.string.send_voucher_email_dialog_positive_button) { _, _ ->
+                sendEmailDialogShows.onNext(true)
+            }
+            .setNegativeButton(R.string.send_voucher_email_dialog_cancel_button) { _: DialogInterface, _: Int ->
+                sendEmailDialogShows.onNext(
+                    false
+                )
+            }
+            .setCancelable(false)
 
     }
 
@@ -140,20 +142,23 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("MyPresenter","onCreate()")
+        Log.d("MyPresenter", "onCreate()")
     }
 
     private lateinit var binding: FragmentVoucherBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
-    {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentVoucherBinding.inflate(inflater)
 
-        Log.d("MyPresenter","onCreateView()")
-       // voucher = arguments?.getParcelable(VOUCHER_EXTRA)
-       // address = arguments?.getString(VOUCHER_ADDRESS_EXTRA, "") ?: ""
+        Log.d("MyPresenter", "onCreateView()")
+        // voucher = arguments?.getParcelable(VOUCHER_EXTRA)
+        // address = arguments?.getString(VOUCHER_ADDRESS_EXTRA, "") ?: ""
         voucher = viewModel.voucher.value
-        address = viewModel.address.value?:""
+        address = viewModel.address.value ?: ""
 
 
         adapter = TransactionsAdapter()
@@ -169,13 +174,6 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        Log.d("MyPresenter","onViewCreated()")
-//        val position = arguments?.getInt(POSITION_EXTRA, -1)
-//
-//        ViewCompat.setTransitionName(voucher_card, "card_transition_name_$position")
-//        ViewCompat.setTransitionName(name, "name_transition_name_$position")
-//        ViewCompat.setTransitionName(binding.value, "binding.value_transition_name_$position")
 
         val mapViewBundle: Bundle? = savedInstanceState?.getBundle(MAP_VIEW_BUNDLE_KEY)
 
@@ -206,12 +204,22 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
             var qrDescription = ""
             if (voucher?.expireDate?.isNotEmpty()!!) {
 
-                qrDescription = if (voucher!!.expired) String.format(resources.getString(R.string.voucher_qr_code_expired),
-                        voucher?.expireDate) else String.format(resources.getString(R.string.voucher_qr_code_actual),
-                        voucher?.expireDate)
+                qrDescription = if (voucher!!.expired) String.format(
+                    resources.getString(R.string.voucher_qr_code_expired),
+                    voucher?.expireDate
+                ) else String.format(
+                    resources.getString(R.string.voucher_qr_code_actual),
+                    voucher?.expireDate
+                )
             }
 
-            (activity as? DashboardActivity)?.showPopupQRFragment(qrEncoded, fundName, title, qrDescription)
+
+            (activity as? DashboardActivity)?.showPopupQRFragment(
+                qrEncoded,
+                fundName,
+                title,
+                qrDescription
+            )
 
 
         }
@@ -232,10 +240,6 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
         binding.shopkeeperEmail.setOnClickListener {
             emailToShopkeeper(binding.shopkeeperEmail.text.toString())
         }
-
-        //val snack = ToastUtils.showUpdateAppToast("Wellcome snackbar 1", root, null).show()
-
-        // Snackbar.make(view, "Hello Snackbar", Snackbar.LENGTH_LONG).show();
     }
 
 
@@ -282,18 +286,22 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
     }
 
     override fun createPresenter(): VoucherPresenter {
-        Log.d("MyPresenter","createPresenter() ")
+        Log.d("MyPresenter", "createPresenter() ")
         val currencyDataMapper = CurrencyDataMapper()
         return VoucherPresenter(
-                LoadVoucherUseCase(Injection.instance.vouchersRepository, JobExecutor(), UIThread()),
-                SendEmailUseCase(Injection.instance.vouchersRepository, JobExecutor(), UIThread()),
-                VoucherDataMapper(currencyDataMapper, TransactionDataMapper(currencyDataMapper, OrganizationDataMapper(),
+            LoadVoucherUseCase(Injection.instance.vouchersRepository, JobExecutor(), UIThread()),
+            SendEmailUseCase(Injection.instance.vouchersRepository, JobExecutor(), UIThread()),
+            VoucherDataMapper(
+                currencyDataMapper, TransactionDataMapper(
+                    currencyDataMapper, OrganizationDataMapper(),
 
-                 ProductDataMapper()), ProductDataMapper(), OfficeDataMapper(SchedulerDataMapper())),
+                    ProductDataMapper()
+                ), ProductDataMapper(), OfficeDataMapper(SchedulerDataMapper())
+            ),
 
-                viewModel.address.value?:"",
-                viewModel.voucher.value,
-                Injection.instance.accountRepository
+            viewModel.address.value ?: "",
+            viewModel.voucher.value,
+            Injection.instance.accountRepository
         )
     }
 
@@ -309,7 +317,10 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
 
 
         vs.model.item?.let { voucher ->
-            Log.d("my","render 01  voucher address= ${voucher.address}  voucherIdentyAddress = ${voucher.identyAddress}")
+            Log.d(
+                "my",
+                "render 01  voucher address= ${voucher.address}  voucherIdentyAddress = ${voucher.identyAddress}"
+            )
 
             setToolbarTitle(resources.getString(if (voucher.isProduct) R.string.vouchers_item_product else R.string.vouchers_item))
             if (voucher.fundType == FundType.subsidies.name) {
@@ -317,17 +328,19 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
             }
             adapter.transactions = voucher.transactions
             binding.tvTransactionsTitle.visibility =
-                    if (voucher.isProduct || voucher.transactions.isEmpty()) View.GONE else View.VISIBLE
+                if (voucher.isProduct || voucher.transactions.isEmpty()) View.GONE else View.VISIBLE
 
             binding.tvCreated.visibility =
-                    if (voucher.isProduct) View.GONE else View.VISIBLE
+                if (voucher.isProduct) View.GONE else View.VISIBLE
 
             binding.shopkeeperCard.visibility =
-                    if (voucher.isProduct) View.VISIBLE else View.GONE
+                if (voucher.isProduct) View.VISIBLE else View.GONE
 
             if (voucher.transactions.isNotEmpty()) {
-                binding.tvCreated.text = resources.getString(R.string.voucher_created,
-                        dateFormat.format(voucher.createdAt))
+                binding.tvCreated.text = resources.getString(
+                    R.string.voucher_created,
+                    dateFormat.format(voucher.createdAt)
+                )
             }
 
             if (voucher.isProduct) {
@@ -336,12 +349,13 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
                     binding.shopkeeperAddress.text = organization.address
                     binding.shopkeeperEmail.text = organization.email
                     binding.shopkeeperEmail.visibility = if ((organization.email
-                                    ?: "").isNotEmpty()) View.VISIBLE else View.GONE
+                            ?: "").isNotEmpty()
+                    ) View.VISIBLE else View.GONE
 
                     Glide.with(requireContext())
-                            .load(organization.logo)
-                            .fitCenter()
-                            .into(binding.shopkeeperLogo)
+                        .load(organization.logo)
+                        .fitCenter()
+                        .into(binding.shopkeeperLogo)
 
                     binding.shopkeeperPhone.text = organization.phone
 
@@ -364,13 +378,20 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
                         }
                     }
                     val officesCnt = myOffices.size
-                    binding.branchesTV.text = resources.getQuantityString(R.plurals.branches, officesCnt, officesCnt)
+                    binding.branchesTV.text =
+                        resources.getQuantityString(R.plurals.branches, officesCnt, officesCnt)
 
                     binding.viewPager.adapter = officesAdapter
                     binding.viewPager.setPadding(16, 20, 130, 20)
-                    binding.viewPager.setOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-                        override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-                            val office = if (position >= 0 && position < myOffices.size) myOffices[position] else myOffices[0]
+                    binding.viewPager.setOnPageChangeListener(object :
+                        ViewPager.OnPageChangeListener {
+                        override fun onPageScrolled(
+                            position: Int,
+                            positionOffset: Float,
+                            positionOffsetPixels: Int
+                        ) {
+                            val office =
+                                if (position >= 0 && position < myOffices.size) myOffices[position] else myOffices[0]
                             val latLng = LatLng(office.lat ?: 0.0, office.lon ?: 0.0)
                             organizationLatLng = latLng
                             setMarker(latLng)
@@ -405,44 +426,49 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
 
                     if (voucher.isProduct && voucher.isUsed) {
 
-                        binding.usedOrExpiredLb.text = binding.usedOrExpiredLb.context.getString(R.string.voucher_is_used)
+                        binding.usedOrExpiredLb.text =
+                            binding.usedOrExpiredLb.context.getString(R.string.voucher_is_used)
                     } else if (voucher.expired) {
 
-                        //binding.usedOrExpiredLb.text = binding.usedOrExpiredLb.context.getString(R.string.voucher_expired)
 
                         if (voucher.expireDate?.isNotEmpty()!!) {
 
-                            binding.usedOrExpiredLb.text = if (voucher.expired) String.format(resources.getString(R.string.voucher_qr_code_expired),
-                                    voucher?.expireDate) else String.format(resources.getString(R.string.voucher_qr_code_actual),
-                                    voucher?.expireDate)
+                            binding.usedOrExpiredLb.text = if (voucher.expired) String.format(
+                                resources.getString(R.string.voucher_qr_code_expired),
+                                voucher?.expireDate
+                            ) else String.format(
+                                resources.getString(R.string.voucher_qr_code_actual),
+                                voucher?.expireDate
+                            )
 
                             binding.tvVoucherExpired.visibility = View.GONE
-                            // binding.tvVoucherExpired.text = if (voucher.expired) String.format(resources.getString(R.string.voucher_qr_code_expired),
-                            //                            voucher?.expireDate) else String.format(resources.getString(R.string.voucher_qr_code_actual),
-                            //                            voucher?.expireDate)
+
                         }
 
 
-                        binding.tvVoucherExpired.text = if (voucher.expired) String.format(resources.getString(R.string.voucher_qr_code_expired),
-                                voucher.expireDate) else String.format(resources.getString(R.string.voucher_qr_code_actual),
-                                voucher.expireDate)
+                        binding.tvVoucherExpired.text = if (voucher.expired) String.format(
+                            resources.getString(R.string.voucher_qr_code_expired),
+                            voucher.expireDate
+                        ) else String.format(
+                            resources.getString(R.string.voucher_qr_code_actual),
+                            voucher.expireDate
+                        )
 
                     } else if (voucher.deactivated) {
                         binding.tvVoucherExpired.visibility = View.INVISIBLE
-                        binding.usedOrExpiredLb.text = String.format(resources.getString(R.string.voucher_deactivated))
+                        binding.usedOrExpiredLb.text =
+                            String.format(resources.getString(R.string.voucher_deactivated))
                     }
                 } else {
                     binding.tvVoucherExpired.visibility = View.GONE
                     binding.value.visibility = View.VISIBLE
                     binding.usedOrExpiredLb.visibility = View.GONE
-                    binding.value.text = "${vs.model.item?.currency?.name} ${vs.model.item?.amount?.toDouble().format(2)}"
+                    binding.value.text = "${vs.model.item?.currency?.name} ${
+                        vs.model.item?.amount?.toDouble().format(2)
+                    }"
                 }
-
-
-
-
-            }else{
-                    info_button?.visibility = View.VISIBLE
+            } else {
+                info_button?.visibility = View.VISIBLE
             }
 
             if (voucher.fundType == FundType.subsidies.name) {
@@ -461,25 +487,23 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
 
                 }
 
-
             }
 
 
             if (vs.model.shortToken != null) {
                 if (canShowInfo) {
 
-                    val url: String = if (voucher?.fundWebShopUrl?.isNotEmpty()!! && vs.model.shortToken.isNotEmpty()) {
-                        voucher?.fundWebShopUrl + "auth-link?token=" + vs.model.shortToken + "&target=voucher-" + voucher?.address
-                    } else {
-                        "https://forus.io/"
-                    }
+                    val url: String =
+                        if (voucher?.fundWebShopUrl?.isNotEmpty()!! && vs.model.shortToken.isNotEmpty()) {
+                            voucher?.fundWebShopUrl + "auth-link?token=" + vs.model.shortToken + "&target=voucher-" + voucher?.address
+                        } else {
+                            "https://forus.io/"
+                        }
 
                     openVoucherInfo(url)
                     canShowInfo = false
                 }
             }
-
-
 
             when (vs.model.emailSend) {
 
@@ -487,13 +511,18 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
                 EmailSend.SEND -> {
                     showEmailSendDialog()
                 }
+
                 EmailSend.SENT -> {
-                    FullscreenDialog.display(fragmentManager, requireContext().resources.getString(R.string.voucher_send_email_success),
-                            requireContext().resources.getString(R.string.voucher_send_email_description),
-                            requireContext().resources.getString(R.string.me_ok)) {
+                    FullscreenDialog.display(
+                        fragmentManager,
+                        requireContext().resources.getString(R.string.voucher_send_email_success),
+                        requireContext().resources.getString(R.string.voucher_send_email_description),
+                        requireContext().resources.getString(R.string.me_ok)
+                    ) {
                         sentEmailDialogShown.onNext(Unit)
                     }
                 }
+
                 EmailSend.NOTHING -> Unit
             }
         }
@@ -502,7 +531,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
     }
 
 
-    private fun showGoogleMaps(lat: Double, lon: Double){
+    private fun showGoogleMaps(lat: Double, lon: Double) {
         val gmmIntentUri = Uri.parse("geo:${lat.toString()},${lon.toString()}")
         val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
         mapIntent.setPackage("com.google.android.apps.maps")
@@ -537,27 +566,6 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
         }
     }
 
-    fun blurBackground() {
-
-        binding.name.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
-        binding.type.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
-        binding.value.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
-
-        binding.value.paint.maskFilter = BlurMaskFilter(binding.value.textSize / 4, BlurMaskFilter.Blur.NORMAL)
-        binding.name.paint.maskFilter = BlurMaskFilter(binding.name.textSize / 4, BlurMaskFilter.Blur.NORMAL)
-        binding.type.paint.maskFilter = BlurMaskFilter(binding.type.textSize / 4, BlurMaskFilter.Blur.NORMAL)
-    }
-
-    fun unblurBackground() {
-
-        binding.name.setLayerType(View.LAYER_TYPE_NONE, null)
-        binding.type.setLayerType(View.LAYER_TYPE_NONE, null)
-        binding.value.setLayerType(View.LAYER_TYPE_NONE, null)
-
-        binding.value.paint.maskFilter = null
-        binding.name.paint.maskFilter = null
-        binding.type.paint.maskFilter = null
-    }
 
 
     private fun setMarker(address: LatLng) {
@@ -565,10 +573,10 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
         marker.position(address)
 
         map?.addMarker(marker)
-                ?.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.shop_location))
+            ?.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.shop_location))
 
 
-            map?.moveCamera(CameraUpdateFactory.newLatLng(address))
+        map?.moveCamera(CameraUpdateFactory.newLatLng(address))
 
     }
 
@@ -589,7 +597,6 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
     private fun showEmailSendDialog() {
         sendEmailDialog.show()
     }
-
 
 
 }

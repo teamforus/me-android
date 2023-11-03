@@ -70,11 +70,11 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
 
         Log.d("forusQR", "restore identity $token")
 
-
         val confirmLoginDeviceDialog = ConfirmLoginDeviceDialog()
         confirmLoginDeviceDialog.submitClickListener = object :ConfirmLoginDeviceDialog.SubmitClickListener{
             override fun confirm(dialog: ConfirmLoginDeviceDialog?) {
                 confirmLoginDeviceDialog.dismiss()
+                scanner.finish()
                 accountRepository.authorizeToken(token)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
@@ -253,7 +253,8 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
                 ApproveValidationDialog(scanner,
                         validation,
                         {
-                            scanner.allowReactivate()
+                            //scanner.allowReactivate()
+                            scanner.finish()
                             recordsRepository.approveValidation(validation.uuid!!, it.id)
                                     .subscribeOn(Schedulers.io())
                                     .observeOn(AndroidSchedulers.mainThread())
@@ -264,7 +265,8 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
                                     .subscribe()
                         },
                         {
-                            scanner.allowReactivate()
+                            //scanner.allowReactivate()
+                            scanner.finish()
                             recordsRepository.declineValidation(validation.uuid!!)
                                     .subscribeOn(Schedulers.io())
                                     .observeOn(AndroidSchedulers.mainThread())

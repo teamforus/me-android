@@ -33,11 +33,6 @@ class RecordsAdapter : RecyclerView.Adapter<RecordsVH>() {
 
     var clickListener: ((Record) -> Unit)? = null
 
-   /* override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = RecordsVH(parent, clickListener)
-    override fun onBindViewHolder(holder: RecordsVH, position: Int) {
-
-        holder.render(records[position])
-    }*/
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecordsVH {
         val binding = ItemRecordsBinding.inflate(LayoutInflater.from(parent.context), parent, false)

@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="57dp">
+
+        <include layout="@layout/toolbar_view"/>
+
+        <io.forus.me.android.presentation.view.base.lr.LRPanelImpl
+            android:id="@+id/lr_panel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:id="@+id/headView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="100dp"
+                            android:orientation="vertical">
+
+                            <io.forus.me.android.presentation.view.component.text.TextView
+                                android:id="@+id/name"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="@dimen/activity_horizontal_margin"
+                                android:paddingRight="@dimen/activity_horizontal_margin"
+                                android:textColor="@color/body_1_87"
+                                android:textSize="20sp"
+                                app:type="regular"
+                                tools:text="Adolph Nalevia Hollenbeck-Moore" />
+
+                            <io.forus.me.android.presentation.view.component.text.TextView
+                                android:id="@+id/email"
+                                style="@style/ArrowCaption"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/activity_horizontal_margin_small"
+                                android:paddingLeft="@dimen/activity_horizontal_margin"
+                                android:paddingRight="@dimen/activity_horizontal_margin"
+                                tools:text="mail@mail.com" />
+
+                        </LinearLayout>
+
+
+                        <io.forus.me.android.presentation.view.component.images.AutoLoadImageView
+                            android:id="@+id/avatar"
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="@dimen/activity_horizontal_margin"
+                            android:src="@drawable/circle_empty" />
+
+
+                    </RelativeLayout>
+
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="19dp"
+                        android:background="@color/silver" />
+
+
+                    <io.forus.me.android.presentation.view.component.text.TextView
+                        style="@style/Header6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_marginTop="26dp"
+                        android:text="@string/profile_app_settings"
+                        app:type="medium" />
+
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_marginTop="18dp"
+                        android:background="@color/silver" />
+
+
+                    <io.forus.me.android.presentation.view.component.card.SettingsCard
+                        android:id="@+id/change_digits"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:valuecard_title="@string/profile_change_4digit">
+
+                    </io.forus.me.android.presentation.view.component.card.SettingsCard>
+
+
+                    <io.forus.me.android.presentation.view.component.card.SettingsSwitchCard
+                        android:id="@+id/enable_pinlock"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:valuecard_title="@string/profile_use_pinlock">
+
+                    </io.forus.me.android.presentation.view.component.card.SettingsSwitchCard>
+
+
+                    <io.forus.me.android.presentation.view.component.card.SettingsSwitchCard
+                        android:id="@+id/enable_fingerprint"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:valuecard_title="@string/profile_use_fingerprint">
+
+                    </io.forus.me.android.presentation.view.component.card.SettingsSwitchCard>
+
+
+                    <io.forus.me.android.presentation.view.component.card.SettingsSwitchCard
+                        android:id="@+id/start_from_scanner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:valuecard_title="@string/profile_start_from_scanner">
+
+                    </io.forus.me.android.presentation.view.component.card.SettingsSwitchCard>
+
+                    <io.forus.me.android.presentation.view.component.card.SettingsSwitchCard
+                        android:id="@+id/enable_send_crash_log"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:valuecard_title="@string/profile_send_crash_report">
+
+                    </io.forus.me.android.presentation.view.component.card.SettingsSwitchCard>
+
+                    <io.forus.me.android.presentation.view.component.card.SettingsCard
+                        android:id="@+id/logout_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:valuecard_title="@string/profile_logout">
+
+                    </io.forus.me.android.presentation.view.component.card.SettingsCard>
+
+
+                    <io.forus.me.android.presentation.view.component.text.TextView
+                        style="@style/Header6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_marginTop="26dp"
+                        android:text="@string/profile_about"
+                        app:type="medium" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_marginTop="18dp"
+                        android:background="@color/silver" />
+
+                    <io.forus.me.android.presentation.view.component.card.SettingsCard
+                        android:id="@+id/about_me"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:valuecard_text=""
+                        app:valuecard_title="@string/profile_about_me"/>
+
+                    <io.forus.me.android.presentation.view.component.card.SettingsCard
+                        android:id="@+id/bt_app_explanation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:valuecard_text=""
+                        app:valuecard_title="@string/app_explanation"/>
+
+                    <io.forus.me.android.presentation.view.component.card.SettingsCard
+                        android:id="@+id/privacy_policy_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:valuecard_title="@string/profile_privacy_policy"
+                        app:valuecard_text="@string/profile_privacy_policy_url" />
+
+                    <io.forus.me.android.presentation.view.component.card.SettingsCard
+                        android:id="@+id/support_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:valuecard_text="@string/email_support"
+                        app:valuecard_title="@string/profile_support" />
+
+                    <io.forus.me.android.presentation.view.component.card.SettingsCard
+                        android:id="@+id/app_version"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:valuecard_text="1.01.1"
+                        app:valuecard_title="@string/profile_app_version"></io.forus.me.android.presentation.view.component.card.SettingsCard>
+
+
+                </LinearLayout>
+
+
+            </androidx.core.widget.NestedScrollView>
+
+        </io.forus.me.android.presentation.view.base.lr.LRPanelImpl>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <io.forus.me.android.presentation.view.component.buttons.QrButton
+        android:id="@+id/btn_qr"
+        android:visibility="gone"
+        android:text="@string/profile_button_show_qr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="58dp" />
+
+</RelativeLayout>
