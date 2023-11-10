@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:title="@string/dashboard_property"
+        android:icon="@drawable/wallet" />
+
+
+    <item
+        android:title="@string/dashboard_qr"
+        android:icon="@drawable/qr" />
+
+
+    <item
+        android:title="@string/dashboard_profile"
+        android:icon="@drawable/ic_baseline_person_24px" />
+
+    <!--item
+        android:title="@string/dashboard_records"
+        android:icon="@drawable/records" />-->
+
+</menu>

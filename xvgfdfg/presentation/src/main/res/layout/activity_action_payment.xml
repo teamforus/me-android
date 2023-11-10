@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+
+
+    <com.sothree.slidinguppanel.SlidingUpPanelLayout
+        android:id="@+id/sliding_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        app:umanoPanelHeight="0dp"
+        app:umanoShadowHeight="0dp"
+
+        app:umanoOverlay="true">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include
+                android:id="@+id/title0"
+                layout="@layout/toolbar_view" />
+
+            <FrameLayout
+                android:id="@+id/dashboard_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/title0"
+                />
+
+
+            <FrameLayout
+                android:id="@+id/dashboard_top_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </RelativeLayout>
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/corner_card_background"
+            android:orientation="vertical"
+            android:visibility="visible"
+            android:minHeight="480dp"
+            android:layout_marginTop="26dp"
+
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+               >
+
+                <io.forus.me.android.presentation.view.component.text.TextView
+                    android:id="@+id/sliding_panel_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:letterSpacing="0.01"
+                    android:textColor="@color/body_1_87"
+                    android:textSize="20sp"
+                    app:type="medium"
+                    android:visibility="gone"/>
+
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="26dp"
+                    android:layout_marginEnd="26dp"
+                    android:src="@drawable/ic_close" />
+
+            </RelativeLayout>
+
+            <FrameLayout
+                android:id="@+id/fragmentPanelContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </com.sothree.slidinguppanel.SlidingUpPanelLayout>
+</RelativeLayout>
+

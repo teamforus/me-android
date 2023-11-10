@@ -40,30 +40,7 @@ class ActionsAdapter(var items: ArrayList<ProductAction>, val callback: Callback
             nameTV.text = item.name
             priceTV.text = item.priceUserLocale
 
-            /*
-            priceTV.text = if (item.noPrice!!) {
-                if (item.noPriceType == NoPriceType.free.name) {
 
-                    context.getString(R.string.free)
-
-                } else if (item.noPriceType!! == NoPriceType.discount.name) {
-
-                    NumberFormat.getCurrencyInstance(Locale("nl", "NL"))
-                            .format(item.noPriceDiscount!!.toDouble()) + "%"
-
-                } else {
-                    context.getString(R.string.price_agreement_n_v_t)
-                }
-            } else {
-
-                if (item.priceUser != null) {
-                    NumberFormat.getCurrencyInstance(Locale("nl", "NL"))
-                            .format(item.priceUser!!.toDouble())
-                } else {
-                    context.getString(R.string.price_agreement_n_v_t)
-                }
-            }
-            */
 
             val url = item.photoURL
             if (url != null && url.isNotEmpty()) {

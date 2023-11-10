@@ -3,23 +3,21 @@ package io.forus.me.android.presentation.view.screens.vouchers.voucher_with_acti
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.core.content.ContextCompat
-import androidx.appcompat.app.AppCompatActivity
 import android.view.View
-import com.sothree.slidinguppanel.SlidingUpPanelLayout
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import io.forus.me.android.presentation.R
+import io.forus.me.android.presentation.databinding.ActivityActionPaymentBinding
 import io.forus.me.android.presentation.view.activity.BaseActivity
-import io.forus.me.android.presentation.view.activity.SlidingPanelActivity
-import io.forus.me.android.presentation.view.fragment.QrFragment
 import io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actions.ActionsActivity
-import io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actions.payment.popup.PriceAgreementFragment
-import kotlinx.android.synthetic.main.activity_toolbar_sliding_panel.*
-import kotlinx.android.synthetic.main.toolbar_view.*
 
 
 class ActionPaymentActivity : BaseActivity() {
 
+    var info_button: View? = null
+    var profile_button: io.forus.me.android.presentation.view.component.images.AutoLoadImageView? =
+        null
+    var toolbar_title: io.forus.me.android.presentation.view.component.text.TextView? = null
 
     companion object {
 
@@ -44,10 +42,17 @@ class ActionPaymentActivity : BaseActivity() {
     var voucherAddress: String? = null
     var product: ProductSerializable? = null
 
+    private lateinit var binding: ActivityActionPaymentBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_action_payment)
+
+        binding = ActivityActionPaymentBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        profile_button = binding.root.findViewById(R.id.profile_button)
+        info_button = binding.root.findViewById(R.id.info_button)
+        toolbar_title = binding.root.findViewById(R.id.toolbar_title)
 
         val intent = this.intent
         intent.extras.let {
@@ -63,9 +68,9 @@ class ActionPaymentActivity : BaseActivity() {
         }
 
 
-        toolbar_title.text = getString(R.string.payment)
-        profile_button.setImageDrawable(ContextCompat.getDrawable(this@ActionPaymentActivity, R.drawable.ic_back))
-        profile_button.setOnClickListener {
+        toolbar_title?.text = getString(R.string.payment)
+        profile_button?.setImageDrawable(ContextCompat.getDrawable(this@ActionPaymentActivity, R.drawable.ic_back))
+        profile_button?.setOnClickListener {
             finish()
         }
 
@@ -77,30 +82,5 @@ class ActionPaymentActivity : BaseActivity() {
     }
 
 
-    fun addPopupFragment(fragment: Fragment, title: String) {
-        replaceFragment(R.id.fragmentPanelContainer, fragment)
-        sliding_panel_title.text = title
-        sliding_layout.panelState = SlidingUpPanelLayout.PanelState.EXPANDED
-    }
-
-    /*fun showPriceAgreementragment(address: String,qrHead: String? = null, qrSubtitle: String? = null, qrDescription: String? = null) {
-        addPopupFragment(PriceAgreementFragment.newIntent(address, qrHead, qrSubtitle, qrDescription), "QR code")
-    }*/
-
-/*fun showPriceAgreementFragment(address: String,qrHead: String? = null, qrSubtitle: String? = null, qrDescription: String? = null) {
-    addPopupFragment(QrFragment.newIntent(address, qrHead, qrSubtitle, qrDescription), "QR code")
-}
-
-override fun replaceFragment(fragment: Fragment, sharedViews: List<View>) {
-    super.replaceFragment(R.id.dashboard_top_content, fragment, sharedViews, true)
-}*/
-
-
-    /* protected fun replaceFragment(containerViewId: Int, fragment: Fragment) {
-         supportFragmentManager
-                 .beginTransaction()
-                 .replace(containerViewId, fragment)
-                 .commit()
-     }*/
 
 }

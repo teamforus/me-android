@@ -5,12 +5,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.crashlytics.android.Crashlytics
 import io.fabric.sdk.android.Fabric
 import io.forus.me.android.data.executor.JobExecutor
@@ -20,24 +20,19 @@ import io.forus.me.android.domain.interactor.ExitIdentityUseCase
 import io.forus.me.android.domain.interactor.LoadAccountUseCase
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.UIThread
+import io.forus.me.android.presentation.databinding.ActivityDashboardBinding
 import io.forus.me.android.presentation.helpers.reactivex.DisposableHolder
 import io.forus.me.android.presentation.internal.Injection
-import io.forus.me.android.presentation.view.activity.SlidingPanelActivity
+import io.forus.me.android.presentation.view.MeBottomSheetDialogFragment
+import io.forus.me.android.presentation.view.activity.CommonActivity
 import io.forus.me.android.presentation.view.base.MViewModelProvider
 import io.forus.me.android.presentation.view.fragment.QrFragment
 import io.forus.me.android.presentation.view.screens.vouchers.VoucherViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import androidx.activity.viewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-
-import com.google.firebase.auth.FirebaseAuth
-import io.forus.me.android.presentation.BuildConfig
-import io.forus.me.android.presentation.view.screens.account.newaccount.pin.NewPinViewModel
 
 
-class DashboardActivity : SlidingPanelActivity(), DashboardContract.View,
+class DashboardActivity() : CommonActivity(), DashboardContract.View,
     MViewModelProvider<VoucherViewModel> {
 
 
@@ -69,8 +64,13 @@ class DashboardActivity : SlidingPanelActivity(), DashboardContract.View,
     override val viewID: Int
         get() = R.layout.activity_dashboard
 
+    private lateinit var binding: ActivityDashboardBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        binding = ActivityDashboardBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         replaceFragment(R.id.dashboard_content, DashboardFragment())
         presenter = DashboardPresenter(this,
@@ -132,7 +132,10 @@ class DashboardActivity : SlidingPanelActivity(), DashboardContract.View,
     }
 
     fun showPopupQRFragment(address: String,qrHead: String? = null, qrSubtitle: String? = null, qrDescription: String? = null) {
-        addPopupFragment(QrFragment.newIntent(address, qrHead, qrSubtitle, qrDescription), "QR code")
+
+        val meBottomSheet = MeBottomSheetDialogFragment.newInstance(
+            QrFragment.newIntent(address, qrHead, qrSubtitle, qrDescription),"QR code")
+        meBottomSheet.show(supportFragmentManager, meBottomSheet.tag)
     }
 
 

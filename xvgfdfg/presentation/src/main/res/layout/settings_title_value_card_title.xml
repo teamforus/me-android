@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="@dimen/activity_horizontal_margin"
+    android:paddingEnd="@dimen/activity_horizontal_margin"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/title"
+            android:paddingTop="18dp"
+            android:paddingBottom="18dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="@color/body_1_87"
+            android:letterSpacing="0.02"
+            android:lineSpacingExtra="6sp"
+            tools:text="Change 4-digit passcode"
+            android:fontFamily="@font/google_sans_regular"
+            />
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:letterSpacing="0.02"
+            android:lineSpacingExtra="6sp"
+            android:paddingTop="18dp"
+            android:paddingBottom="18dp"
+            android:textColor="@color/body1_60"
+            android:textSize="12.1sp"
+            android:fontFamily="@font/google_sans_regular"
+            tools:text="1.01.1" />
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/devider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#dadbdd"/>
+
+
+</LinearLayout>

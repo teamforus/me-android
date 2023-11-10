@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/border"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:foreground="?selectableItemBackground">
+
+    <ImageView
+        android:id="@+id/iv_icon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_margin="16dp" />
+
+    <io.forus.me.android.presentation.view.component.text.TextView
+        android:id="@+id/tv_text"
+        style="@style/ShareButtonBody"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="16dp"
+        android:paddingTop="16dp"
+        android:gravity="center_vertical"
+        android:textSize="15sp"
+        android:textColor="@color/body_1_87"
+        tools:text="Email to me" />
+
+</LinearLayout>

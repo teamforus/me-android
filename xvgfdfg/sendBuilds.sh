@@ -1,0 +1,2 @@
+#./gradlew assembleDebugProdServer
+#./gradlew assembleDebugTestServer

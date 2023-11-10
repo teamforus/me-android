@@ -1,8 +1,10 @@
 package io.forus.me.android.presentation.view.screens.vouchers.provider.categories
 
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import android.view.ViewGroup
+import io.forus.me.android.presentation.databinding.ItemProductCategoryBinding
 import io.forus.me.android.presentation.models.vouchers.ProductCategory
 
 class CategoriesAdapter : RecyclerView.Adapter<CategoryVH>() {
@@ -26,10 +28,15 @@ class CategoriesAdapter : RecyclerView.Adapter<CategoryVH>() {
         setHasStableIds(true)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = CategoryVH(parent)
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryVH {
+        val binding = ItemProductCategoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return CategoryVH(binding)
+    }
 
     override fun onBindViewHolder(holder: CategoryVH, position: Int) {
-        holder.render(items[position])
+        val item = items[position]
+        holder.bind(item)
     }
     override fun getItemCount() = items.size
     override fun getItemId(position: Int) = position.toLong()
