@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+   >
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="20dp"
+        >
+
+        <include layout="@layout/toolbar_view"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_marginBottom="60dp"
+            >
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/qr_reserved_offers"
+                android:textSize="18sp"
+                android:gravity="center"
+                android:textColor="@color/body_1_87"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/google_sans_regular"
+                />
+
+        <io.forus.me.android.presentation.view.base.lr.LRPanelImpl
+            android:id="@+id/lr_panel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="80dp"
+            >
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+
+        </io.forus.me.android.presentation.view.base.lr.LRPanelImpl>
+
+
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/parentVoucherBt"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/vouchers_complete_an_amount"
+            android:background="@color/colorAccent"
+            android:layout_below="@id/coordinator"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="4dp"
+            android:textColor="@color/colorPrimary"
+            android:fontFamily="@font/google_sans_medium"
+            />
+
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <io.forus.me.android.presentation.view.component.text.TextView
+        android:id="@+id/tv_no_vouchers"
+        android:visibility="invisible"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16.1sp"
+        android:textColor="@color/body_1_87"
+        android:lineSpacingExtra="7.9sp"
+        android:text="@string/vouchers_no_items" />
+
+
+
+</RelativeLayout>

@@ -123,19 +123,9 @@ class AccountRemoteDataSource(f: () -> SignService) : AccountDataSource,
     override fun getFirestoreToken(serverApiKey: String): Observable<FirestoreToken> {
 
         try {
-            return service.getFirestoreToken(mapOf("key" to "serverApiKey")).map {
-                /* val result = it.string()
-            val gson = Gson()
-            try {
-                gson.fromJson(result, FirestoreToken::class.java)
-            } catch (e: Exception) {
-                FirestoreToken(null)
-            }*/
-                FirestoreToken(null)
-            }
+            return service.getFirestoreToken(mapOf("key" to serverApiKey))
         }catch (e: Exception){
             return Observable.just(FirestoreToken(null))
         }
-        //
     }
 }

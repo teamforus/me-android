@@ -1,10 +1,8 @@
 package io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actions.model
-//import io.forus.me.android.data.entity.vouchers.response.Voucher
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import io.forus.me.android.domain.models.vouchers.ProductAction
 import io.forus.me.android.domain.models.vouchers.VoucherProvider
 import io.forus.me.android.domain.repository.vouchers.VouchersRepository
@@ -102,8 +100,7 @@ class ActionsViewModel : ViewModel() {
                 .map {
 
                     firestoreTokenManager.writeGetVoucherAsProvider(
-                        voucherAddress?:"null", true, null
-                    )
+                        voucherAddress?:"null", true, null)
 
                     actionName.postValue(it.voucher.name?:"")
                     organizationId = it.allowedOrganizations[0].id

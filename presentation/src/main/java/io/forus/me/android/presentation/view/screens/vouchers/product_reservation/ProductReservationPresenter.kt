@@ -17,8 +17,9 @@ import io.reactivex.schedulers.Schedulers
 import java.math.BigDecimal
 
 class ProductReservationPresenter constructor(val vouchersRepository: VouchersRepository,
-                                              val voucherAddress: String,
-                                              private val firestoreTokenManager: FirestoreTokenManager)
+                                              val voucherAddress: String
+                                             , private val firestoreTokenManager: FirestoreTokenManager
+)
     : LRPresenter<List<Voucher>, ProductReservationModel, ProductReservationView>() {
 
 

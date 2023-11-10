@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#FFFFFFFF"
+    >
+
+    <RelativeLayout
+        android:id="@+id/scannerLayout"
+        android:layout_width="263dp"
+        android:layout_height="263dp"
+        android:layout_centerInParent="true"
+        android:visibility="visible">
+
+        <!--com.journeyapps.barcodescanner.DecoratedBarcodeView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/zxing_barcode_scanner"
+            android:layout_centerInParent="true"
+            app:zxing_preview_scaling_strategy="centerCrop"
+            app:zxing_use_texture_view="false"/-->
+
+        <ImageView
+            android:id="@+id/qr_frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+
+            android:src="@drawable/ic_qr_window" />
+
+
+
+        <FrameLayout
+            android:id="@+id/qr_shadow_top"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/qr_frame"
+            android:background="#55000000"/>
+
+        <FrameLayout
+            android:id="@+id/qr_shadow_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/qr_frame"
+            android:background="#55000000"/>
+
+        <FrameLayout
+            android:id="@+id/qr_shadow_left"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toStartOf="@id/qr_frame"
+            android:layout_below="@id/qr_shadow_top"
+            android:layout_above="@id/qr_shadow_bottom"
+            android:background="#55000000"/>
+
+        <FrameLayout
+            android:id="@+id/qr_shadow_right"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@id/qr_frame"
+            android:layout_below="@id/qr_shadow_top"
+            android:layout_above="@id/qr_shadow_bottom"
+            android:background="#55000000"/>
+
+    </RelativeLayout>
+
+
+
+
+</RelativeLayout>

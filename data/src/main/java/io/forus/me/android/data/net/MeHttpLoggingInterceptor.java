@@ -164,7 +164,7 @@ public class MeHttpLoggingInterceptor  implements Interceptor {
                 logger.log("<-- END HTTP (encoded body omitted)");
             } else {
                 BufferedSource source = responseBody.source();
-                source.request(Long.MAX_VALUE); // Buffer the entire body.
+                source.request(Long.MAX_VALUE);
                 Buffer buffer = source.buffer();
 
                 Charset charset = UTF8;

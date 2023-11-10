@@ -4,12 +4,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import io.forus.me.android.presentation.R
+import io.forus.me.android.presentation.databinding.FragmentRecordsRecyclerBinding
 import io.forus.me.android.presentation.helpers.Converter
 import io.forus.me.android.presentation.helpers.SharedPref
 import io.forus.me.android.presentation.internal.Injection
@@ -21,9 +22,6 @@ import io.github.douglasjunior.androidSimpleTooltip.SimpleTooltip
 import io.github.douglasjunior.androidSimpleTooltip.SimpleTooltipUtils
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.fragment_records_recycler.*
-import kotlinx.android.synthetic.main.toolbar_view.*
-
 
 /**
  * Fragment Records Delegates Screen.
@@ -57,6 +55,9 @@ class RecordsFragment : ToolbarLRFragment<RecordsModel, RecordsView, RecordsPres
         }
     }
 
+    var deleteButton: View? = null
+    var editButton: View? = null
+    var profileButton: View? = null
 
     override val allowBack: Boolean
         get() = true
@@ -75,19 +76,27 @@ class RecordsFragment : ToolbarLRFragment<RecordsModel, RecordsView, RecordsPres
 
     private lateinit var adapter: RecordsAdapter
 
-    override fun viewForSnackbar(): View = root
+    override fun viewForSnackbar(): View = binding.root
 
-    override fun loadRefreshPanel() = lr_panel
+    override fun loadRefreshPanel() = binding.lrPanel
 
+    private lateinit var binding: FragmentRecordsRecyclerBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val view = inflater.inflate(R.layout.fragment_records_recycler, container, false)
+        
+        binding = FragmentRecordsRecyclerBinding.inflate(inflater)
+        
         val bundle = this.arguments
         if (bundle != null) {
             recordCategoryId = bundle.getLong(CATEGORY_ID_EXTRA)
             recordCategoryName = bundle.getString(CATEGORY_NAME_EXTRA)?:""
         }
-        return view
+
+        deleteButton = binding.root.findViewById(R.id.delete_button)
+        editButton = binding.root.findViewById(R.id.edit_button)
+        profileButton = binding.root.findViewById(R.id.profile_button)
+        
+        return binding.root
     }
 
     var builder: SimpleTooltip.Builder? = null
@@ -104,24 +113,24 @@ class RecordsFragment : ToolbarLRFragment<RecordsModel, RecordsView, RecordsPres
                 startActivityForResult(intentToLaunch, LAUNCH_SECOND_ACTIVITY)
             }
         }
-        recycler.layoutManager =
+        binding.recycler.layoutManager =
             LinearLayoutManager(context)
-        recycler.adapter = adapter
+        binding.recycler.adapter = adapter
 
-        addRecordBt.setOnClickListener {
-            startActivity(CreateRecordActivity.getCallingIntent(context!!))
+        binding.addRecordBt.setOnClickListener {
+            startActivity(CreateRecordActivity.getCallingIntent(requireContext()))
         }
 
-        profile_button.setOnClickListener {
-            navigator.navigateToAccount(context!!)
+        profileButton?.setOnClickListener {
+            navigator.navigateToAccount(requireContext())
         }
 
         val text = getString(R.string.tooltip_create_record)
 
         if (SharedPref.read(SharedPref.OPTION_SHOW_TOOLTIP_ADD_RECORD,true)) {
             SharedPref.write(SharedPref.OPTION_SHOW_TOOLTIP_ADD_RECORD, false)
-            builder = SimpleTooltip.Builder(context!!)
-                    .anchorView(addRecordBt)
+            builder = SimpleTooltip.Builder(requireContext())
+                    .anchorView(binding.addRecordBt)
                     .text(text)
                     .gravity(Gravity.START)
                     .dismissOnOutsideTouch(false)
@@ -129,10 +138,10 @@ class RecordsFragment : ToolbarLRFragment<RecordsModel, RecordsView, RecordsPres
                     .modal(false)
                     .animated(true)
                     .animationDuration(1000)
-                    .animationPadding(SimpleTooltipUtils.pxFromDp(Converter.convertDpToPixel(1f, context!!).toFloat()))
+                    .animationPadding(SimpleTooltipUtils.pxFromDp(Converter.convertDpToPixel(1f, requireContext()).toFloat()))
                     .transparentOverlay(true)
-                    .arrowWidth(Converter.convertDpToPixel(10f, context!!).toFloat())
-                    .arrowHeight(Converter.convertDpToPixel(7f, context!!).toFloat())
+                    .arrowWidth(Converter.convertDpToPixel(10f, requireContext()).toFloat())
+                    .arrowHeight(Converter.convertDpToPixel(7f, requireContext()).toFloat())
                     .contentView(R.layout.tooltip_new_record, R.id.tooltipText)//
 
 
@@ -171,26 +180,26 @@ class RecordsFragment : ToolbarLRFragment<RecordsModel, RecordsView, RecordsPres
 
 
 
-        tab1.setOnClickListener {
-            tab1title.setTextColor(ContextCompat.getColor(context!!, R.color.colorAccent))
-            tab2title.setTextColor(ContextCompat.getColor(context!!, R.color.gray_subtitle))
+        binding.tab1.setOnClickListener {
+            binding.tab1title.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorAccent))
+            binding.tab2title.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray_subtitle))
 
-            tab1divider.setBackgroundColor(ContextCompat.getColor(context!!, R.color.colorAccent))
-            tab2divider.setBackgroundColor(ContextCompat.getColor(context!!, R.color.silver))
+            binding.tab1divider.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorAccent))
+            binding.tab2divider.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.silver))
             isRecords = true
             records.onNext(0)
-            addRecordBt.show()
+            binding.addRecordBt.show()
         }
 
-        tab2.setOnClickListener {
-            tab1title.setTextColor(ContextCompat.getColor(context!!, R.color.gray_subtitle))
-            tab2title.setTextColor(ContextCompat.getColor(context!!, R.color.colorAccent))
+        binding.tab2.setOnClickListener {
+            binding.tab1title.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray_subtitle))
+            binding.tab2title.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorAccent))
 
-            tab1divider.setBackgroundColor(ContextCompat.getColor(context!!, R.color.silver))
-            tab2divider.setBackgroundColor(ContextCompat.getColor(context!!, R.color.colorAccent))
+            binding.tab1divider.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.silver))
+            binding.tab2divider.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorAccent))
             isRecords = false
             archives.onNext(0)
-            addRecordBt.hide()
+            binding.addRecordBt.hide()
         }
     }
 

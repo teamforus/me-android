@@ -1,0 +1,110 @@
+buildscript {
+  repositories {
+    google()
+    mavenCentral()
+  }
+
+}
+
+apply plugin: 'com.android.library'
+
+apply plugin: 'org.greenrobot.greendao'
+
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+//apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-parcelize'
+
+
+android {
+  defaultPublishConfig "debug"
+
+  def globalConfiguration = rootProject.extensions.getByName("ext")
+
+  compileSdkVersion globalConfiguration.getAt("androidCompileSdkVersion")
+
+  defaultConfig {
+    minSdkVersion globalConfiguration.getAt("androidMinSdkVersion")
+    targetSdkVersion globalConfiguration.getAt("androidTargetSdkVersion")
+    multiDexEnabled true
+
+  }
+
+  dexOptions {
+    javaMaxHeapSize "4g"
+  }
+
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+    coreLibraryDesugaringEnabled true
+  }
+    packagingOptions {
+        resources {
+            excludes += ['LICENSE.txt', 'META-INF/DEPENDENCIES', 'META-INF/ASL2.0', 'META-INF/NOTICE', 'META-INF/LICENSE']
+        }
+    }
+
+
+    kapt {
+    generateStubs = true
+    arguments {
+      arg("room.schemaLocation", "$projectDir/schemas".toString())
+    }
+  }
+    namespace 'io.forus.me.android.data'
+    lint {
+        abortOnError false
+        disable 'InvalidPackage', 'OldTargetApi'
+        ignoreWarnings true
+        quiet true
+    }
+
+}
+
+
+greendao {
+  schemaVersion 1
+}
+
+dependencies {
+  def dataDependencies = rootProject.ext.dataDependencies
+  def testDependencies = rootProject.ext.dataTestDependencies
+
+  implementation project(':domain')
+  compileOnly dataDependencies.javaxAnnotation
+  implementation dataDependencies.javaxInject
+  implementation dataDependencies.okHttp
+  implementation dataDependencies.gson
+  implementation dataDependencies.rxJava
+  implementation dataDependencies.rxAndroid
+  implementation dataDependencies.androidAnnotations
+  implementation dataDependencies.archRuntime
+  implementation dataDependencies.multiDex
+  implementation dataDependencies.web3j
+  implementation dataDependencies.retrofithttpInspector
+  implementation dataDependencies.retrofithttp
+  implementation dataDependencies.retrofithttpConverter
+  implementation dataDependencies.retrofitRx
+  implementation dataDependencies.greendao
+  implementation dataDependencies.annimon
+
+ // implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.5.0'
+  coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
+
+  kapt dataDependencies.archCompiler
+
+
+  // LiveData
+  implementation dataDependencies.liveDataExt
+  kapt dataDependencies.liveDataCompiler
+
+
+
+  androidTestImplementation 'androidx.test:runner:1.1.0'
+  androidTestImplementation 'androidx.test:rules:1.1.0'
+  androidTestImplementation 'androidx.test.ext:junit:1.1.0'
+  androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+}
