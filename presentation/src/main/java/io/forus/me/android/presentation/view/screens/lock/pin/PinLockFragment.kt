@@ -47,8 +47,12 @@ class PinLockFragment : LRFragment<PinLockModel, PinLockView, PinLockPresenter>(
     override fun exit(): Observable<Unit> = RxView.clicks(binding.btnExit).map { Unit }
 
     private lateinit var binding: FragmentPinlockBinding
-    
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentPinlockBinding.inflate(inflater)
         return binding.root
     }
@@ -79,7 +83,7 @@ class PinLockFragment : LRFragment<PinLockModel, PinLockView, PinLockPresenter>(
     }
 
     override fun createPresenter() = PinLockPresenter(
-            Injection.instance.accountRepository
+        Injection.instance.accountRepository
     )
 
     override fun render(vs: LRViewState<PinLockModel>) {
@@ -91,7 +95,8 @@ class PinLockFragment : LRFragment<PinLockModel, PinLockView, PinLockPresenter>(
             activity?.finish()
         }
 
-        binding.progressBar.visibility = if (vs.loading || vs.model.state == PinLockModel.State.CHECKING) View.VISIBLE else View.INVISIBLE
+        binding.progressBar.visibility =
+            if (vs.loading || vs.model.state == PinLockModel.State.CHECKING) View.VISIBLE else View.INVISIBLE
         binding.pinLockView.visibility = when (vs.model.state) {
             PinLockModel.State.CHECKING, PinLockModel.State.SUCCESS -> View.INVISIBLE
             else -> View.VISIBLE
@@ -102,9 +107,21 @@ class PinLockFragment : LRFragment<PinLockModel, PinLockView, PinLockPresenter>(
         }
 
         when (vs.model.state) {
-            PinLockModel.State.CONFIRM -> changeHeaders(resources.getString(R.string.passcode_subtitle_pinlock_confirm), false)
-            PinLockModel.State.CHECKING -> changeHeaders(resources.getString(R.string.passcode_subtitle_pinlock_checking), false)
-            PinLockModel.State.WRONG_PIN -> changeHeaders(resources.getString(R.string.passcode_subtitle_pinlock_error), true)
+            PinLockModel.State.CONFIRM -> changeHeaders(
+                resources.getString(R.string.passcode_subtitle_pinlock_confirm),
+                false
+            )
+
+            PinLockModel.State.CHECKING -> changeHeaders(
+                resources.getString(R.string.passcode_subtitle_pinlock_checking),
+                false
+            )
+
+            PinLockModel.State.WRONG_PIN -> changeHeaders(
+                resources.getString(R.string.passcode_subtitle_pinlock_error),
+                true
+            )
+
             else -> {}
         }
 
@@ -113,9 +130,9 @@ class PinLockFragment : LRFragment<PinLockModel, PinLockView, PinLockPresenter>(
                 binding.pinLockView.resetPinLockView()
                 binding.pinLockView.setErrorAnimation()
             }
-            PinLockModel.State.CONFIRM -> TODO()
-            PinLockModel.State.CHECKING -> TODO()
-            PinLockModel.State.SUCCESS -> TODO()
+
+            PinLockModel.State.CONFIRM, PinLockModel.State.CHECKING,
+            PinLockModel.State.SUCCESS -> {}
         }
 
         if (vs.closeScreen) {
@@ -125,7 +142,11 @@ class PinLockFragment : LRFragment<PinLockModel, PinLockView, PinLockPresenter>(
 
     private fun changeHeaders(subtitle: String, error: Boolean) {
         if (!binding.subtitleAction.text.equals(subtitle)) binding.subtitleAction.text = subtitle
-        binding.subtitleAction.setTextColor(if (error) resources.getColor(R.color.error) else resources.getColor(R.color.body_1_87))
+        binding.subtitleAction.setTextColor(
+            if (error) resources.getColor(R.color.error) else resources.getColor(
+                R.color.body_1_87
+            )
+        )
     }
 
     private fun closeScreen(success: Boolean) {
