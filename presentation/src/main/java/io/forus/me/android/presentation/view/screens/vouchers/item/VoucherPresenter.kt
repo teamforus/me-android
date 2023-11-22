@@ -30,17 +30,20 @@ class VoucherPresenter constructor(private val loadVoucherUseCase: LoadVoucherUs
 
     override fun initialModelSingle(): Single<Voucher> {
         voucherSubject = ReplaySubject.create<Voucher>()
-        if (voucher != null) {
-            voucherSubject.onNext(voucher)
-            voucherSubject.onComplete()
-        } else {
+       // if (voucher != null) {
+       //     Log.d("Presenter1","initialModelSingle voucher != null")
+       //     voucherSubject.onNext(voucher)
+       //     voucherSubject.onComplete()
+       // } else
+       // {
             loadVoucherUseCase.execute(LoadVoucherObserver(),
                     LoadVoucherUseCase.Params.forVoucher(address))
-        }
+       // }
         return voucherSubject.singleOrError()
     }
 
     override fun refreshModelSingle(): Single<Voucher> {
+        Log.d("Presenter1","refreshModelSingle")
         voucherSubject = ReplaySubject.create<Voucher>()
         loadVoucherUseCase.execute(LoadVoucherObserver(), LoadVoucherUseCase.Params.forVoucher(address))
 
@@ -50,6 +53,7 @@ class VoucherPresenter constructor(private val loadVoucherUseCase: LoadVoucherUs
     override fun VoucherModel.changeInitialModel(i: Voucher): VoucherModel = copy(item = i)
 
     override fun bindIntents() {
+
 
         val observable = Observable.merge(
 
@@ -128,7 +132,6 @@ class VoucherPresenter constructor(private val loadVoucherUseCase: LoadVoucherUs
     }
 
     override fun stateReducer(vs: LRViewState<VoucherModel>, change: PartialChange): LRViewState<VoucherModel> {
-
         if (change !is VoucherPartialChanges) return super.stateReducer(vs, change)
 
         return when (change) {
