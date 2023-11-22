@@ -317,11 +317,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
 
 
         vs.model.item?.let { voucher ->
-            Log.d(
-                "my",
-                "render 01  voucher address= ${voucher.address}  voucherIdentyAddress = ${voucher.identyAddress}"
-            )
-
+          
             setToolbarTitle(resources.getString(if (voucher.isProduct) R.string.vouchers_item_product else R.string.vouchers_item))
             if (voucher.fundType == FundType.subsidies.name) {
                 adapter.isActionsVoucher = true
