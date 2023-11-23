@@ -19,8 +19,7 @@ class FCMHandler(private val accountRepository: AccountRepository, private val s
 
             FirebaseMessaging.getInstance().token.addOnSuccessListener { token ->
                 if (!token.isNullOrEmpty()) {
-                    Log.d(Companion.TAG, "Retrieve new token successful, token: $token")
-                    // Do whatever you want with your token
+                    Log.d(TAG, "Retrieve new token successful, token: $token")
                     if (settings.getFCMToken() != token) {
                         registerFCMToken(token)
                             .subscribeOn(Schedulers.io())
@@ -30,7 +29,7 @@ class FCMHandler(private val accountRepository: AccountRepository, private val s
                             .subscribe()
                     }
                 } else {
-                    Log.w(Companion.TAG, "Token is null or empty")
+                    Log.w(TAG, "Token is null or empty")
                 }
             }
 

@@ -6,16 +6,11 @@ buildscript {
 
 }
 
-
 apply plugin: 'com.android.library'
-
 apply plugin: 'org.greenrobot.greendao'
-
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
-
-apply plugin: 'kotlin-android-extensions'
-
+apply plugin: 'kotlin-parcelize'
 
 
 android {
@@ -32,38 +27,31 @@ android {
 
   }
 
-  dexOptions {
-    javaMaxHeapSize "4g"
-  }
-
-
   compileOptions {
-    sourceCompatibility JavaVersion.VERSION_1_8
-    targetCompatibility JavaVersion.VERSION_1_8
+    sourceCompatibility JavaVersion.VERSION_17
+    targetCompatibility JavaVersion.VERSION_17
     coreLibraryDesugaringEnabled true
   }
+    packagingOptions {
+        resources {
+            excludes += ['LICENSE.txt', 'META-INF/DEPENDENCIES', 'META-INF/ASL2.0', 'META-INF/NOTICE', 'META-INF/LICENSE']
+        }
+    }
 
-  packagingOptions {
-    exclude 'LICENSE.txt'
-    exclude 'META-INF/DEPENDENCIES'
-    exclude 'META-INF/ASL2.0'
-    exclude 'META-INF/NOTICE'
-    exclude 'META-INF/LICENSE'
-  }
 
-  lintOptions {
-    quiet true
-    abortOnError false
-    ignoreWarnings true
-    disable 'InvalidPackage'  // Some libraries have issues with this
-    disable 'OldTargetApi'    // Due to Robolectric that modifies the manifest when running tests
-  }
-  kapt {
+    kapt {
     generateStubs = true
     arguments {
       arg("room.schemaLocation", "$projectDir/schemas".toString())
     }
   }
+    namespace 'io.forus.me.android.data'
+    lint {
+        abortOnError false
+        disable 'InvalidPackage', 'OldTargetApi'
+        ignoreWarnings true
+        quiet true
+    }
 
 }
 
@@ -88,23 +76,19 @@ dependencies {
   implementation dataDependencies.multiDex
   implementation dataDependencies.web3j
   implementation dataDependencies.retrofithttpInspector
-  implementation dataDependencies.retrofithttp
-  implementation dataDependencies.retrofithttpConverter
-  implementation dataDependencies.retrofitRx
+  implementation "com.squareup.retrofit2:retrofit:2.9.0"
+  implementation "com.squareup.retrofit2:converter-gson:2.9.0"
+  implementation "com.squareup.retrofit2:adapter-rxjava2:2.9.0"
   implementation dataDependencies.greendao
   implementation dataDependencies.annimon
 
-  implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.5.0'
-  coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
+  coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.3'
 
   kapt dataDependencies.archCompiler
-
 
   // LiveData
   implementation dataDependencies.liveDataExt
   kapt dataDependencies.liveDataCompiler
-
-
 
   androidTestImplementation 'androidx.test:runner:1.1.0'
   androidTestImplementation 'androidx.test:rules:1.1.0'

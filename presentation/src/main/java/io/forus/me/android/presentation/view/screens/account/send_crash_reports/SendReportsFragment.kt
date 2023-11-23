@@ -2,11 +2,13 @@ package io.forus.me.android.presentation.view.screens.account.send_crash_reports
 
 import android.os.Bundle
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import io.forus.me.android.domain.exception.RetrofitExceptionMapper
+import androidx.core.view.isVisible
 import io.forus.me.android.presentation.R
+import io.forus.me.android.presentation.databinding.FragmentSendReportsBinding
 import io.forus.me.android.presentation.helpers.SharedPref
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.base.lr.LRViewState
@@ -14,14 +16,14 @@ import io.forus.me.android.presentation.view.base.lr.LoadRefreshPanel
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.fragment_send_reports.*
+//import kotlinx.android.synthetic.main.fragment_send_reports.*
 
 
 /**
  * Created by maestrovs on 22.04.2020.
  */
-class SendReportsFragment : ToolbarLRFragment<SendReportsModel, SendReportsView, SendReportsPresenter>(), SendReportsView  {
-
+class SendReportsFragment :
+    ToolbarLRFragment<SendReportsModel, SendReportsView, SendReportsPresenter>(), SendReportsView {
 
 
     companion object {
@@ -37,8 +39,6 @@ class SendReportsFragment : ToolbarLRFragment<SendReportsModel, SendReportsView,
     private var token: String = ""
 
 
-
-
     override val toolbarTitle: String
         get() = ""
 
@@ -46,7 +46,7 @@ class SendReportsFragment : ToolbarLRFragment<SendReportsModel, SendReportsView,
         get() = true
 
 
-    override fun viewForSnackbar(): View = root
+    override fun viewForSnackbar(): View = binding.root
 
     override fun loadRefreshPanel() = object : LoadRefreshPanel {
         override fun retryClicks(): Observable<Any> = Observable.never()
@@ -62,24 +62,31 @@ class SendReportsFragment : ToolbarLRFragment<SendReportsModel, SendReportsView,
     override fun switchSendCrashReports(): Observable<Boolean> = switchSendCrashReports
 
 
+    private lateinit var binding: FragmentSendReportsBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
-            = inflater.inflate(R.layout.fragment_send_reports, container, false).also {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentSendReportsBinding.inflate(inflater)
 
         val bundle = this.arguments
         if (bundle != null) {
             token = bundle.getString(TOKEN_EXTRA, "")
         }
 
-        val display = activity!!.getWindowManager().getDefaultDisplay()
+        val display = requireActivity().getWindowManager().getDefaultDisplay()
         val outMetrics = DisplayMetrics()
         display.getMetrics(outMetrics)
         val density = resources.displayMetrics.density
         val dpHeight = outMetrics.heightPixels / density
         val dpWidth = outMetrics.widthPixels / density
-        return if (dpWidth <= 320 || dpHeight < 522)
-            inflater.inflate(R.layout.fragment_send_reports_nokia1, container, false)
-        else inflater.inflate(R.layout.fragment_send_reports, container, false)
+        //return if (dpWidth <= 320 || dpHeight < 522)
+        //    inflater.inflate(R.layout.fragment_send_reports_nokia1, container, false)
+        //else inflater.inflate(R.layout.fragment_send_reports, container, false)
+
+        return binding.root
 
     }
 
@@ -93,25 +100,26 @@ class SendReportsFragment : ToolbarLRFragment<SendReportsModel, SendReportsView,
     }
 
     override fun createPresenter() = SendReportsPresenter(
-            Injection.instance.accountRepository
+        Injection.instance.accountRepository
     )
-
 
 
     override fun render(vs: LRViewState<SendReportsModel>) {
         super.render(vs)
+        Log.d("Popupp","Popupp render>>>")
+        binding.enableSendCrashLog.setChecked(vs.model.sendCrashReportsEnabled)
+        binding.enableSendCrashLog.setOnClickListener {
 
-        enable_send_crash_log.setChecked(vs.model.sendCrashReportsEnabled)
-        enable_send_crash_log.setOnClickListener {
-
-            if(enable_send_crash_log.isChecked){
-                SharedPref.init(context!!)
-                SharedPref.write(SharedPref.OPTION_SEND_CRASH_REPORT,true)
+            if (binding.enableSendCrashLog.isChecked) {
+                SharedPref.init(requireContext())
+                SharedPref.write(SharedPref.OPTION_SEND_CRASH_REPORT, true)
             }
             switchSendCrashReports.onNext(!vs.model.sendCrashReportsEnabled)
         }
 
-        nextStep.setOnClickListener { closeScreen(token) }
+        binding.nextStep.setOnClickListener {
+            Log.d("Popupp","Popupp NEXT>>>")
+            closeScreen(token) }
 
     }
 

@@ -20,9 +20,6 @@ import io.forus.me.android.data.net.MeServiceFactory
 import io.forus.me.android.presentation.api_config.ApiConfig
 import io.forus.me.android.presentation.internal.Injection
 
-
-//import com.squareup.leakcanary.LeakCanary
-
 /**
  * Android Main Application
  */
@@ -142,17 +139,7 @@ class AndroidApplication : Application() {
             maxDownloadRetryTimeMillis = 2000
         }
 
-        /*FirebaseInstanceId.getInstance().instanceId
-                .addOnCompleteListener(OnCompleteListener { task ->
-                    if (!task.isSuccessful) {
-                        return@OnCompleteListener
-                    }
 
-                    // Get new Instance ID token
-                    val token = task.result?.token
-                    Log.d("PUSH", token ?: "null")
-                    token?.let { sendId(it) }
-                })*/
     }
 
 }

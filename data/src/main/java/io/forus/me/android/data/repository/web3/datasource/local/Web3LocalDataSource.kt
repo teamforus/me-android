@@ -3,7 +3,7 @@ package io.forus.me.android.data.repository.web3.datasource.local
 import android.content.Context
 import io.forus.me.android.data.repository.web3.datasource.Web3DataSource
 import io.reactivex.Observable
-import org.spongycastle.util.encoders.Hex
+import org.bouncycastle.util.encoders.Hex
 import org.web3j.crypto.Credentials
 import java.io.File
 import java.util.*
