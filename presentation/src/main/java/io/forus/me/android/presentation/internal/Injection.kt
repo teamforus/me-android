@@ -2,7 +2,7 @@ package io.forus.me.android.presentation.internal
 
 import android.content.Context
 import android.util.Log
-import com.google.firebase.auth.FirebaseAuth
+//import com.google.firebase.auth.FirebaseAuth
 import io.forus.me.android.data.net.records.RecordsService
 import io.forus.me.android.data.net.sign.SignService
 import io.forus.me.android.data.entity.database.DaoSession

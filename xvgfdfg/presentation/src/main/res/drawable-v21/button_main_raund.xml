@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android" android:color="@color/rippleColor">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/colorAccent"/>
+            <stroke android:color="@color/colorAccent" android:width="2dp" />
+            <!--corners allow us to make the ic_close corners button-->
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+</ripple>

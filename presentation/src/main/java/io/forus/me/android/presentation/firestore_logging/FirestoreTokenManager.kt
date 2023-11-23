@@ -24,9 +24,8 @@ class FirestoreTokenManager constructor(
 
 
     public fun authorizeFirestore(onComplete: (()->(Unit))?) {
-        //Log.d(TAG,"${BuildConfig.SERVER_API_KEY}")
-        getServerApiKey()?.let {
-            getFirestoreToken(it, onComplete)
+        getServerApiKey()?.let { serverApiKey ->
+            getFirestoreToken(serverApiKey, onComplete)
         } ?: kotlin.run {
             Log.e(
                 TAG,
@@ -40,15 +39,15 @@ class FirestoreTokenManager constructor(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                { firestoreToken -> // onNext
+                { firestoreToken ->
                     Log.d(TAG, "Firestore token: $firestoreToken")
                     firestoreToken?.let {
                         registerFirestoreUser(firestoreToken, onComplete)
                     }
                 },
-                { error -> // onError
+                { error ->
+                    Log.d(TAG, "Firestore token: $error")
                     error.printStackTrace()
-                    // можна додати більш вивчену обробку помилок тут
                 }
             )
 

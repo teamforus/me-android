@@ -24,8 +24,6 @@ class RecordsPresenter constructor(private val recordCategoryId: Long, private v
 
     override fun bindIntents() {
 
-        // var observable = loadRefreshPartialChanges()
-
         val observable = Observable.merge(
 
                 loadRefreshPartialChanges(),
@@ -89,13 +87,5 @@ class RecordsPresenter constructor(private val recordCategoryId: Long, private v
             is RecordsPartialChanges.RequestError -> vs.copy(
                     model = vs.model.copy(requestError = change.error))
         }
-
-        /*return when (change) {
-
-            else -> {
-                super.stateReducer(vs, change)
-            }
-        }*/
-
     }
 }

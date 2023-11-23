@@ -31,7 +31,6 @@ class ThrowableErrorDialog(private val error: Throwable, private val context: Co
             }
         }
 
-       // message = error
     }
 
 

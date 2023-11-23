@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.jakewharton.rxbinding2.view.RxView
 import io.forus.me.android.presentation.R
+import io.forus.me.android.presentation.databinding.FragmentPinlockBinding
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.base.lr.LRFragment
 import io.forus.me.android.presentation.view.base.lr.LRViewState
@@ -15,7 +16,6 @@ import io.forus.me.android.presentation.view.screens.account.account.dialogs.Log
 import io.forus.me.android.presentation.view.screens.lock.PinLockActivity
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.fragment_pinlock.*
 
 class PinLockFragment : LRFragment<PinLockModel, PinLockView, PinLockPresenter>(), PinLockView {
 
@@ -23,7 +23,7 @@ class PinLockFragment : LRFragment<PinLockModel, PinLockView, PinLockPresenter>(
         fun newIntent(): PinLockFragment = PinLockFragment()
     }
 
-    override fun viewForSnackbar(): View = root
+    override fun viewForSnackbar(): View = binding.root
 
     override fun loadRefreshPanel() = object : LoadRefreshPanel {
         override fun retryClicks(): Observable<Any> = Observable.never()
@@ -44,20 +44,27 @@ class PinLockFragment : LRFragment<PinLockModel, PinLockView, PinLockPresenter>(
     private val logoutBtn = PublishSubject.create<Unit>()
     override fun logout(): Observable<Unit> = logoutBtn
 
-    override fun exit(): Observable<Unit> = RxView.clicks(btn_exit).map { Unit }
+    override fun exit(): Observable<Unit> = RxView.clicks(binding.btnExit).map { Unit }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        return inflater.inflate(R.layout.fragment_pinlock, container, false)
+    private lateinit var binding: FragmentPinlockBinding
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentPinlockBinding.inflate(inflater)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        logout_button.setOnClickListener {
+        binding.logoutButton.setOnClickListener {
             showConfirmLogoutDialog()
         }
 
-        pin_lock_view.attachIndicatorDots(indicator_dots)
-        pin_lock_view.setPinLockListener(object : PinLockListener {
+        binding.pinLockView.attachIndicatorDots(binding.indicatorDots)
+        binding.pinLockView.setPinLockListener(object : PinLockListener {
             override fun onComplete(pin: String?) {
                 if (pin != null) pinOnComplete.onNext(pin)
             }
@@ -72,11 +79,11 @@ class PinLockFragment : LRFragment<PinLockModel, PinLockView, PinLockPresenter>(
     }
 
     private fun showConfirmLogoutDialog() {
-        LogoutDialog(context!!) { logoutBtn.onNext(Unit) }.show();
+        LogoutDialog(requireContext()) { logoutBtn.onNext(Unit) }.show();
     }
 
     override fun createPresenter() = PinLockPresenter(
-            Injection.instance.accountRepository
+        Injection.instance.accountRepository
     )
 
     override fun render(vs: LRViewState<PinLockModel>) {
@@ -88,27 +95,44 @@ class PinLockFragment : LRFragment<PinLockModel, PinLockView, PinLockPresenter>(
             activity?.finish()
         }
 
-        progressBar.visibility = if (vs.loading || vs.model.state == PinLockModel.State.CHECKING) View.VISIBLE else View.INVISIBLE
-        pin_lock_view.visibility = when (vs.model.state) {
+        binding.progressBar.visibility =
+            if (vs.loading || vs.model.state == PinLockModel.State.CHECKING) View.VISIBLE else View.INVISIBLE
+        binding.pinLockView.visibility = when (vs.model.state) {
             PinLockModel.State.CHECKING, PinLockModel.State.SUCCESS -> View.INVISIBLE
             else -> View.VISIBLE
         }
-        indicator_dots.visibility = when (vs.model.state) {
+        binding.indicatorDots.visibility = when (vs.model.state) {
             PinLockModel.State.CHECKING, PinLockModel.State.SUCCESS -> View.INVISIBLE
             else -> View.VISIBLE
         }
 
         when (vs.model.state) {
-            PinLockModel.State.CONFIRM -> changeHeaders(resources.getString(R.string.passcode_subtitle_pinlock_confirm), false)
-            PinLockModel.State.CHECKING -> changeHeaders(resources.getString(R.string.passcode_subtitle_pinlock_checking), false)
-            PinLockModel.State.WRONG_PIN -> changeHeaders(resources.getString(R.string.passcode_subtitle_pinlock_error), true)
+            PinLockModel.State.CONFIRM -> changeHeaders(
+                resources.getString(R.string.passcode_subtitle_pinlock_confirm),
+                false
+            )
+
+            PinLockModel.State.CHECKING -> changeHeaders(
+                resources.getString(R.string.passcode_subtitle_pinlock_checking),
+                false
+            )
+
+            PinLockModel.State.WRONG_PIN -> changeHeaders(
+                resources.getString(R.string.passcode_subtitle_pinlock_error),
+                true
+            )
+
+            else -> {}
         }
 
         if (vs.model.state != vs.model.prevState) when (vs.model.state) {
             PinLockModel.State.WRONG_PIN -> {
-                pin_lock_view.resetPinLockView()
-                pin_lock_view.setErrorAnimation()
+                binding.pinLockView.resetPinLockView()
+                binding.pinLockView.setErrorAnimation()
             }
+
+            PinLockModel.State.CONFIRM, PinLockModel.State.CHECKING,
+            PinLockModel.State.SUCCESS -> {}
         }
 
         if (vs.closeScreen) {
@@ -117,8 +141,12 @@ class PinLockFragment : LRFragment<PinLockModel, PinLockView, PinLockPresenter>(
     }
 
     private fun changeHeaders(subtitle: String, error: Boolean) {
-        if (!subtitle_action.text.equals(subtitle)) subtitle_action.text = subtitle
-        subtitle_action.setTextColor(if (error) resources.getColor(R.color.error) else resources.getColor(R.color.body_1_87))
+        if (!binding.subtitleAction.text.equals(subtitle)) binding.subtitleAction.text = subtitle
+        binding.subtitleAction.setTextColor(
+            if (error) resources.getColor(R.color.error) else resources.getColor(
+                R.color.body_1_87
+            )
+        )
     }
 
     private fun closeScreen(success: Boolean) {
