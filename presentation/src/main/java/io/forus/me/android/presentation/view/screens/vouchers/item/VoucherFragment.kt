@@ -546,7 +546,9 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
     }
 
 
-    override fun onMapReady(googleMap: GoogleMap?) {
+
+
+    override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
         val uiSettings = map?.uiSettings
         uiSettings?.isIndoorLevelPickerEnabled = false
