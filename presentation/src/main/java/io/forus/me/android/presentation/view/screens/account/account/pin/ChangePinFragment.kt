@@ -1,6 +1,7 @@
 package io.forus.me.android.presentation.view.screens.account.account.pin
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -177,7 +178,11 @@ class ChangePinFragment : ToolbarLRFragment<ChangePinModel, ChangePinView, Chang
         }
 
         if (vs.closeScreen) {
-            closeScreen()
+
+            val usePin  = (vs.model.state == ChangePinModel.State.CHANGING_PIN)&&
+                    (vs.model.prevState == ChangePinModel.State.CONFIRM_NEW_PIN)
+
+            closeScreen(usePin)
         }
     }
 
@@ -191,8 +196,11 @@ class ChangePinFragment : ToolbarLRFragment<ChangePinModel, ChangePinView, Chang
         )
     }
 
-    private fun closeScreen() {
-        activity?.setResult(Activity.RESULT_OK)
+    private fun closeScreen(isPinEnable: Boolean) {
+
+        val resultIntent = Intent()
+        resultIntent.putExtra("isPinEnabled", isPinEnable) // Встановлення параметра isPinEnable
+        activity?.setResult(Activity.RESULT_OK, resultIntent)
         activity?.finish()
     }
 }
