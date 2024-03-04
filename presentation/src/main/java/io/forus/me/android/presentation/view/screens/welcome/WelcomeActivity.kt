@@ -31,7 +31,6 @@ class WelcomeActivity : BaseActivity() {
         val viewPager: ViewPager2 = findViewById(R.id.view_pager)
         viewPager.adapter = adapter
 
-        Log.d("MDSASDADS", "${viewPager.itemDecorationCount}   ${adapter.itemCount}")
         val dotsIndicator = findViewById<me.relex.circleindicator.CircleIndicator3>(R.id.indicator)
         dotsIndicator.setViewPager(viewPager)
 
