@@ -96,7 +96,13 @@ class MainActivity : BaseActivity() {
      */
     private fun navigateToWelcomeScreen() {
 
-        this.navigator.navigateToWelcomeScreen(this, goToLogin = true)
+        val notShowAgain = SharedPref.read(SharedPref.WELCOME_NOT_SHOW_AGAIN, false)
+        if(notShowAgain){
+            this.navigator.navigateToLoginSignUp(this)
+        }else{
+            this.navigator.navigateToWelcomeScreen(this, goToLogin = true)
+        }
+
         finish()
     }
 
