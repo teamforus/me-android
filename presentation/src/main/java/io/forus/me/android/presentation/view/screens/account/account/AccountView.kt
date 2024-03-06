@@ -18,4 +18,6 @@ interface AccountView : LRView<AccountModel> {
     fun switchStartFromScanner(): io.reactivex.Observable<Boolean>
 
     fun switchSendCrashReports(): io.reactivex.Observable<Boolean>
+
+    fun refreshDataIntent(): io.reactivex.Observable<Unit>
 }

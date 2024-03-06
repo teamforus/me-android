@@ -6,6 +6,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import android.view.LayoutInflater
@@ -58,7 +59,6 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
     var optionPincodeIsEnable = true
     var preSavedOptionSendCrashLogIsEnable = false
 
-    private var _pinCodeSwitchState =  MutableLiveData<Boolean?>()
 
     private var isFingerprintHardwareAvailable = false
 
@@ -88,6 +88,9 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
 
     private val switchSendCrashReports = PublishSubject.create<Boolean>()
     override fun switchSendCrashReports(): Observable<Boolean> = switchSendCrashReports
+
+    private val refreshTrigger = PublishSubject.create<Unit>()
+    override fun refreshDataIntent(): Observable<Unit> = refreshTrigger
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentAccountDetailsBinding.inflate(inflater)
@@ -184,12 +187,7 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
 
         binding.enablePinlock.setChecked(vs.model.pinlockEnabled)
 
-        _pinCodeSwitchState.observe(viewLifecycleOwner){isEnable ->
-            isEnable?.let {
-                binding.enablePinlock.setChecked(it)
-            }
 
-        }
 
         binding.enablePinlock.setOnClickListener {
             if (optionPincodeIsEnable) {
@@ -241,11 +239,10 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_CHANGE_PIN && resultCode == Activity.RESULT_OK) {
-            val isPinEnabled = data?.getBooleanExtra("isPinEnabled", false) ?: false
-            _pinCodeSwitchState.postValue(isPinEnabled)
-            updateModel()
 
-
+            Handler(Looper.getMainLooper()).postDelayed({
+                refreshTrigger.onNext(Unit)
+            }, 500)
         }
     }
 

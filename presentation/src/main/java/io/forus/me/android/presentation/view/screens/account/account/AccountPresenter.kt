@@ -1,5 +1,6 @@
 package io.forus.me.android.presentation.view.screens.account.account
 
+import android.util.Log
 import io.forus.me.android.domain.repository.account.AccountRepository
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.base.lr.LRPartialChange
@@ -105,7 +106,21 @@ class AccountPresenter constructor(private val accountRepository: AccountReposit
                                     .onErrorReturn {
                                         LRPartialChange.LoadingError(it)
                                     }
-                        }
+                        },
+
+                intent { it.refreshDataIntent() }
+                    .switchMap {
+                        initialModelSingle()
+                            .toObservable()
+                            .subscribeOn(Schedulers.io())
+                            .map<LRPartialChange> { LRPartialChange.InitialModelLoaded(it) }
+                            .onErrorReturn { throwable ->
+                                throwable.printStackTrace()
+                                LRPartialChange.LoadingError(throwable)
+                            }
+                            .startWith(LRPartialChange.LoadingStarted)
+                    }
+
         )
 
 
