@@ -19,33 +19,34 @@ import java.util.*
 import io.forus.me.android.domain.models.vouchers.Voucher as VoucherDomain
 
 
-class VoucherPresenter constructor(private val loadVoucherUseCase: LoadVoucherUseCase,
-                                   private val sendEmailUseCase: SendEmailUseCase,
-                                   private val voucherDataMapper: VoucherDataMapper,
-                                   private val address: String,
-                                   private val voucher: Voucher? = null,
-                                   private val accountRepository: AccountRepository) : LRPresenter<Voucher, VoucherModel, VoucherView>() {
+class VoucherPresenter constructor(
+    private val loadVoucherUseCase: LoadVoucherUseCase,
+    private val sendEmailUseCase: SendEmailUseCase,
+    private val voucherDataMapper: VoucherDataMapper,
+    private val address: String,
+    private val voucher: Voucher? = null,
+    private val accountRepository: AccountRepository
+) : LRPresenter<Voucher, VoucherModel, VoucherView>() {
 
     private lateinit var voucherSubject: Subject<Voucher>
 
     override fun initialModelSingle(): Single<Voucher> {
         voucherSubject = ReplaySubject.create<Voucher>()
-       // if (voucher != null) {
-       //     Log.d("Presenter1","initialModelSingle voucher != null")
-       //     voucherSubject.onNext(voucher)
-       //     voucherSubject.onComplete()
-       // } else
-       // {
-            loadVoucherUseCase.execute(LoadVoucherObserver(),
-                    LoadVoucherUseCase.Params.forVoucher(address))
-       // }
+
+        loadVoucherUseCase.execute(
+            LoadVoucherObserver(),
+            LoadVoucherUseCase.Params.forVoucher(address)
+        )
+
         return voucherSubject.singleOrError()
     }
 
     override fun refreshModelSingle(): Single<Voucher> {
-        Log.d("Presenter1","refreshModelSingle")
         voucherSubject = ReplaySubject.create<Voucher>()
-        loadVoucherUseCase.execute(LoadVoucherObserver(), LoadVoucherUseCase.Params.forVoucher(address))
+        loadVoucherUseCase.execute(
+            LoadVoucherObserver(),
+            LoadVoucherUseCase.Params.forVoucher(address)
+        )
 
         return voucherSubject.singleOrError()
     }
@@ -57,7 +58,7 @@ class VoucherPresenter constructor(private val loadVoucherUseCase: LoadVoucherUs
 
         val observable = Observable.merge(
 
-                Arrays.asList(
+            Arrays.asList(
                 loadRefreshPartialChanges(),
 
                 intent(VoucherView::sendEmail).map {
@@ -77,8 +78,8 @@ class VoucherPresenter constructor(private val loadVoucherUseCase: LoadVoucherUs
 
                             override fun onNext(t: Boolean) {
 
-                                    observable.onNext(VoucherPartialChanges.SendEmailSuccess(Unit))
-                                    voucherSubject.onComplete()
+                                observable.onNext(VoucherPartialChanges.SendEmailSuccess(Unit))
+                                voucherSubject.onComplete()
 
                             }
 
@@ -99,39 +100,42 @@ class VoucherPresenter constructor(private val loadVoucherUseCase: LoadVoucherUs
                 },
 
 
-                intent (VoucherView::getShortToken )
-                        .switchMap {
-                            accountRepository.getShortToken()
-                                    .subscribeOn(io.reactivex.schedulers.Schedulers.io())
-                                    .observeOn(AndroidSchedulers.mainThread())
-                                    .map<PartialChange> {
-                                        VoucherPartialChanges.GetShortToken(it)
-                                    }
-
-                        }
-                )
-
+                intent(VoucherView::getShortToken)
+                    .switchMap {
+                        accountRepository.getShortToken()
+                            .subscribeOn(io.reactivex.schedulers.Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .map<PartialChange> {
+                                VoucherPartialChanges.GetShortToken(it)
+                            }
+                    }
+            )
         )
 
 
         val initialViewState = LRViewState(
-                false,
-                null,
-                false,
-                false,
-                null,
-                false,
-                VoucherModel(),
-                false)
+            false,
+            null,
+            false,
+            false,
+            null,
+            false,
+            VoucherModel(),
+            false
+        )
 
 
         subscribeViewState(
-                observable.scan(initialViewState, this::stateReducer)
-                        .observeOn(AndroidSchedulers.mainThread()),
-                VoucherView::render)
+            observable.scan(initialViewState, this::stateReducer)
+                .observeOn(AndroidSchedulers.mainThread()),
+            VoucherView::render
+        )
     }
 
-    override fun stateReducer(vs: LRViewState<VoucherModel>, change: PartialChange): LRViewState<VoucherModel> {
+    override fun stateReducer(
+        vs: LRViewState<VoucherModel>,
+        change: PartialChange
+    ): LRViewState<VoucherModel> {
         if (change !is VoucherPartialChanges) return super.stateReducer(vs, change)
 
         return when (change) {

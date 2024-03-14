@@ -1,15 +1,11 @@
 package io.forus.me.android.presentation.view.screens.dashboard
 
-import android.util.Log
 import io.forus.me.android.domain.interactor.CheckLoginUseCase
 import io.forus.me.android.domain.interactor.DefaultObserver
 import io.forus.me.android.domain.interactor.LoadAccountUseCase
 import io.forus.me.android.domain.interactor.UseCase
 import io.forus.me.android.domain.models.account.Account
 import io.forus.me.android.domain.repository.account.AccountRepository
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 
 
 class DashboardPresenter(private var view: DashboardContract.View?,

@@ -39,7 +39,7 @@ class NewPinFragment : ToolbarLRFragment<NewPinModel, NewPinView, NewPinPresente
     override val showAccount: Boolean
         get() = false
 
-    //private lateinit var accessToken: String
+
 
     override fun viewForSnackbar(): View = binding.root
 
@@ -65,14 +65,7 @@ class NewPinFragment : ToolbarLRFragment<NewPinModel, NewPinView, NewPinPresente
     private lateinit var binding: FragmentAccountSetPinBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-       /* val bundle = this.arguments
-        if (bundle != null) {
-            bundle.getString(ACCESS_TOKEN_EXTRA)?.let {
-                accessToken = it
-            }?: kotlin.run {
-                Log.e("","ACCESS_TOKEN_EXTRA is null")
-            }
-        }*/
+
         
         binding = FragmentAccountSetPinBinding.inflate(inflater)
         

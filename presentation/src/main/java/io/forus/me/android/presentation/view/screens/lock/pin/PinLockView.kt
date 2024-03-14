@@ -1,6 +1,5 @@
 package io.forus.me.android.presentation.view.screens.lock.pin
 
-import android.widget.Button
 import io.forus.me.android.presentation.view.base.lr.LRView
 import io.reactivex.Observable
 

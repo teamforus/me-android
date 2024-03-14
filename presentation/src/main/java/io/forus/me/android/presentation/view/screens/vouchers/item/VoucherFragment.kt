@@ -154,9 +154,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
     ): View {
         binding = FragmentVoucherBinding.inflate(inflater)
 
-        Log.d("MyPresenter", "onCreateView()")
-        // voucher = arguments?.getParcelable(VOUCHER_EXTRA)
-        // address = arguments?.getString(VOUCHER_ADDRESS_EXTRA, "") ?: ""
+
         voucher = viewModel.voucher.value
         address = viewModel.address.value ?: ""
 
