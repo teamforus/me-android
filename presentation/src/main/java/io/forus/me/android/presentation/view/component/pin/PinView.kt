@@ -92,7 +92,6 @@ class PinView : FrameLayout {
 
         lparams.setMargins(Converter.convertDpToPixel(7f, context), 0, Converter.convertDpToPixel(7f, context), 0)
 
-        //      lparams.gravity = Gravity.CENTER_VERTICAL
 
         val tv = io.forus.me.android.presentation.view.component.text.TextView(context)
         tv.layoutParams = lparams

@@ -162,7 +162,7 @@ class MainActivity : BaseActivity() {
 
                 SharedPref.write(SharedPref.OPTION_NEED_APP_UPDATE, true)
                 try {
-                    //Toast.makeText(this@MainActivity, "initInAppUpdate success", Toast.LENGTH_SHORT).show()
+
                     updateApp(appUpdateInfo)
 
                 } catch (e: IntentSender.SendIntentException) {
@@ -182,13 +182,9 @@ class MainActivity : BaseActivity() {
     @Throws(IntentSender.SendIntentException::class)
     private fun updateApp(appUpdateInfo: AppUpdateInfo) {
         appUpdateManager!!.startUpdateFlowForResult(
-                // Pass the intent that is returned by 'getAppUpdateInfo()'.
                 appUpdateInfo,
-                // Or 'AppUpdateType.FLEXIBLE' for flexible updates.
                 AppUpdateType.IMMEDIATE,
-                // The current activity making the update request.
                 this,
-                // Include a request code to later monitor this update request.
                 MY_REQUEST_CODE)
 
     }
@@ -207,7 +203,6 @@ class MainActivity : BaseActivity() {
 
     private fun processInAppUpdateError(error: String) {
 
-        //Toast.makeText(this@MainActivity, "initInAppUpdate error $error", Toast.LENGTH_LONG).show() TODO
 
     }
 

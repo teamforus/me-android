@@ -110,7 +110,7 @@ class RecordDetailsFragment :
                 deleteRecord.onNext(recordId)
             }.show();
 
-            //activity!!.finish()
+
         }
 
 

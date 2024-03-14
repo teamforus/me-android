@@ -33,9 +33,6 @@ class ConfirmRegistrationFragment :  ToolbarLRFragment<ConfirmRegistrationModel,
         }
     }
 
-  //  private var token: String = ""
-
-
 
     private var instructionsAlreadyShown: Boolean = false
 
@@ -68,9 +65,7 @@ class ConfirmRegistrationFragment :  ToolbarLRFragment<ConfirmRegistrationModel,
         binding = FragmentConfirmRegistrationBinding.inflate(inflater)
 
         val bundle = this.arguments
-        // if (bundle != null) {
-        //     token = bundle.getString(TOKEN_EXTRA, "")
-        //  }
+
 
         return binding.root
     }

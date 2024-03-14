@@ -70,7 +70,6 @@ class Button : androidx.appcompat.widget.AppCompatButton {
         setTextSize(TypedValue.COMPLEX_UNIT_DIP, customTextSize)
         val fontType = FontType.Bold
 
-       // typeface = FontCache.getTypeface(fontType.getFontPath(), context)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             this.typeface = ResourcesCompat.getFont(context, R.font.google_sans_medium)
         }

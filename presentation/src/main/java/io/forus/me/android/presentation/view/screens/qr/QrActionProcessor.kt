@@ -108,13 +108,11 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
     private var retrofitExceptionMapper: RetrofitExceptionMapper = Injection.instance.retrofitExceptionMapper
 
     fun scanVoucher(address: String, isDemoVoucher: Boolean? = false) {
-        Log.d("forusQR", "allowReactivate....")
         scanner.allowReactivate()
         if (isDemoVoucher != null && isDemoVoucher) {
             navigator.navigateToVoucherProvider(scanner, address, true)
             scanner.finish()
         } else {
-            Log.d("forusQR", "allowReactivate.... 1")
             vouchersRepository.getVoucherAsProvider(address)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -160,7 +158,7 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
                                         val message = if (newRecordError.message == null) "" else newRecordError.message
                                         ScanVoucherBaseErrorDialog(message, scanner, reactivateDecoding).show()
                                     }
-                                } catch (e: Exception) {
+                                } catch (_: Exception) {
                                 }
                             }
 
@@ -249,7 +247,6 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
         val validators = validation.organizationsAvailable
         if (validators != null && validators.size > 0) {
             ValidatorsListDialog(scanner, validators!!) {
-                //selectOrganization.onNext(it)
                 ApproveValidationDialog(scanner,
                         validation,
                         {
@@ -265,7 +262,6 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
                                     .subscribe()
                         },
                         {
-                            //scanner.allowReactivate()
                             scanner.finish()
                             recordsRepository.declineValidation(validation.uuid!!)
                                     .subscribeOn(Schedulers.io())

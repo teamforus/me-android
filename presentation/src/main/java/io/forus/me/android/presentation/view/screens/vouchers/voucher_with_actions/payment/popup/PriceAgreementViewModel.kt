@@ -29,7 +29,6 @@ class PriceAgreementViewModel(application: Application) : AndroidViewModel(appli
 
     val totalPrice = MutableLiveData<String>()
 
-    //val discountByProviderName = MutableLiveData<String>()
     val discountByProviderPrice = MutableLiveData<String>()
 
     val contributionBySponsorName = MutableLiveData<String>()

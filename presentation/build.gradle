@@ -177,9 +177,9 @@ dependencies {
     implementation presentationDependencies.supportLib
     implementation presentationDependencies.dagger
     implementation presentationDependencies.greendao
-    implementation presentationDependencies.recyclerView
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation presentationDependencies.supportDesign
-    implementation presentationDependencies.appCompat
+    implementation "androidx.appcompat:appcompat:$appcompatVersion"
     implementation presentationDependencies.customTabsIntent
     implementation presentationDependencies.multiDex
     implementation presentationDependencies.qrGet
@@ -198,7 +198,7 @@ dependencies {
     implementation presentationDependencies.rxAndroid
     implementation presentationDependencies.ahbottomnavigation
     implementation presentationDependencies.cardView
-    implementation presentationDependencies.glide
+    implementation "com.github.bumptech.glide:glide:4.16.0"
     implementation presentationDependencies.circleIndicator
     implementation presentationDependencies.materialDialogs
     implementation presentationDependencies.fingerprint

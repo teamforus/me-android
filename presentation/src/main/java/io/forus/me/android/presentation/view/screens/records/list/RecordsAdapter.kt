@@ -43,7 +43,6 @@ class RecordsAdapter : RecyclerView.Adapter<RecordsVH>() {
         val item = records[position]
         holder.bind(item ){
 
-           // holder.render(records[position])
         }
     }
 
