@@ -166,7 +166,7 @@
     <string name="new_record_choose_validators_text">Selecteer de beoordelaar, die deze nieuwe eigenschap moet beoordelen.</string>
     <string name="new_record_value_text">Invoerveld</string>
     <string name="new_record_next_step">VOLGENDE</string>
-    <string name="new_record_submit">BEVESTIG</string>
+    <string name="new_record_submit">BEVESTIGEN</string>
     <string name="record_created_successfully">Eigenschap is aangemaakt!</string>
     <string name="choose_type">Kies type</string>
     <string name="choose_type_description">Wat voor type eigenschap wil je aanmaken?</string>
@@ -287,10 +287,10 @@
     <string name="voucher_expired">Verlopen</string>
     <string name="voucher_deactivated">Gestopt</string>
     <string name="voucher_email_to_me">E-mail naar mij</string>
-    <string name="voucher_request">BEVESTIG</string>
+    <string name="voucher_request">BEVESTIGEN</string>
     <string name="send_voucher_email_dialog_title">Stuur het tegoed  naar je e-mailadres?</string>
     <string name="send_feedback_email_dialog_title">Heb je vragen of opmerkingen? Neem contact op!</string>
-    <string name="send_voucher_email_dialog_positive_button">Bevestig</string>
+    <string name="send_voucher_email_dialog_positive_button">Bevestigen</string>
     <string name="send_voucher_email_dialog_cancel_button">Annuleer</string>
     <string name="shopkeeper_address_text">Adres</string>
     <string name="shopkeeper_phone_text">Telefoonnummer</string>
