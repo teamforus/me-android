@@ -154,9 +154,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
     ): View {
         binding = FragmentVoucherBinding.inflate(inflater)
 
-        Log.d("MyPresenter", "onCreateView()")
-        // voucher = arguments?.getParcelable(VOUCHER_EXTRA)
-        // address = arguments?.getString(VOUCHER_ADDRESS_EXTRA, "") ?: ""
+
         voucher = viewModel.voucher.value
         address = viewModel.address.value ?: ""
 
@@ -546,7 +544,9 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
     }
 
 
-    override fun onMapReady(googleMap: GoogleMap?) {
+
+
+    override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
         val uiSettings = map?.uiSettings
         uiSettings?.isIndoorLevelPickerEnabled = false

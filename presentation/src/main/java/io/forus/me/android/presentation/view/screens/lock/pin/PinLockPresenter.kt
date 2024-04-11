@@ -39,7 +39,7 @@ class PinLockPresenter constructor(private val accountRepository: AccountReposit
                             accountRepository.exitIdentity()
                                     .subscribeOn(Schedulers.io())
                                     .observeOn(AndroidSchedulers.mainThread())
-                                    .flatMap<PartialChange> {
+                                    .flatMap {
                                         Injection.instance.fcmHandler.clearFCMToken()
                                                 .subscribeOn(Schedulers.io())
                                                 .observeOn(AndroidSchedulers.mainThread())

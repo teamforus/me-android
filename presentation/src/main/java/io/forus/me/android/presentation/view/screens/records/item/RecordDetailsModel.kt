@@ -14,8 +14,6 @@ data class RecordDetailsModel(
 )
 {
     fun changeStatus(validatorId: Long) : RecordDetailsModel {
-        //val item = validators.find { it.id == validatorId }
-        //item?.status = ValidatorViewModel.Status.pending
         return copy()
     }
 }

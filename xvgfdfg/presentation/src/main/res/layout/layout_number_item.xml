@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Button xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/button"
-    android:layout_width="54dp"
-    android:layout_height="54dp"
-    android:background="?attr/selectableItemBackgroundBorderless"
-    android:fontFamily="@font/google_sans_medium"
-    android:textColor="@color/textColor"
-    android:textSize="34sp" />

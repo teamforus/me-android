@@ -51,6 +51,8 @@
     <string name="welcome_restore_account">I already have a profile</string>
     <string name="welcome_set_up_your_identity">Set up your identity</string>
 
+    <string name="welcome_not_show_again">Not show again</string>
+
     <!-- Restore identity -->
     <string name="restore_login">Log in</string>
     <string name="restore_login_via_de_qr_code">login via qr-code</string>

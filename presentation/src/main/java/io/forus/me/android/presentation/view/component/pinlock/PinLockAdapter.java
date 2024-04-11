@@ -98,8 +98,7 @@ public class PinLockAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 if (mCustomizationOptionsBundle.getDeleteButtonDrawable() != null) {
                     holder.mButtonImage.setImageDrawable(mCustomizationOptionsBundle.getDeleteButtonDrawable());
                 }
-//                holder.mButtonImage.setColorFilter(mCustomizationOptionsBundle.getTextColor(),
-//                        PorterDuff.Mode.SRC_ATOP);
+
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                         mCustomizationOptionsBundle.getDeleteButtonSize(),
                         mCustomizationOptionsBundle.getDeleteButtonSize());

@@ -106,10 +106,6 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
     override fun registerNewAccount() = registerActionNewAccount
 
 
-    /*override fun validateEmail(): Observable<String> {
-        TODO("Not yet implemented")
-    }*/
-
     private val validateEmail = PublishSubject.create<String>()
     override fun validateEmail() = validateEmail
 
@@ -177,8 +173,7 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
         restore!!.isEnabled = vs.model.sendingRestoreByEmail != true
 
         pair_device!!.isEnabled = vs.model.sendingRestoreByEmail != true
-        // email_description.visibility = if(vs.model.sendingRestoreByEmailSuccess == true) View.VISIBLE else View.INVISIBLE
-        email!!.isEditable = vs.model.sendingRestoreByEmail != true //!(vs.model.sendingRestoreByEmailSuccess == true)
+        email!!.isEditable = vs.model.sendingRestoreByEmail != true
 
         if (vs.model.sendingRestoreByEmailSuccess == true && !instructionsAlreadyShown  && clickLoginUserAction) {
 
@@ -304,7 +299,7 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
         }
     }
 
-    fun processError(error: Throwable){
+    private fun processError(error: Throwable){
 
         if (error is io.forus.me.android.data.exception.RetrofitException && error.kind == RetrofitException.Kind.NETWORK) {
             NoInternetDialog(requireContext()) { }.show()
