@@ -61,7 +61,6 @@ class TextView : AppCompatTextView {
                 else -> this.typeface = ResourcesCompat.getFont(context, R.font.google_sans_regular)
             }
         }
-       // this.typeface = FontCache.getTypeface(type.getFontPath(), context)
 
 
     }

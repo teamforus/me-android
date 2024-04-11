@@ -11,7 +11,6 @@ import android.view.animation.OvershootInterpolator
 import android.widget.ImageView
 import android.widget.TextView
 import io.forus.me.android.presentation.R
-//import kotlinx.android.synthetic.main.view_snackbar_update_app.view.*
 
 
 class UpdateAppSnackbarView @JvmOverloads constructor(

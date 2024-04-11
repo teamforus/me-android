@@ -14,6 +14,8 @@ class UriToIntentMapper(private val mContext: Context, private val navigator: Na
 
         if (uri == null) throw IllegalArgumentException("Uri cannot be null")
 
+        Log.d("forus", "UriToIntentMapper=$uri")
+
         val scheme = uri.scheme!!.toLowerCase()
 
         if ("meapp" == scheme) {

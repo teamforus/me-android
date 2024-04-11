@@ -6,10 +6,13 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
+import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.MutableLiveData
 import io.forus.me.android.domain.models.qr.QrCode
 import io.forus.me.android.presentation.BuildConfig
 import io.forus.me.android.presentation.R
@@ -24,7 +27,6 @@ import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.forus.me.android.presentation.view.screens.about.AboutMeFragment
 import io.forus.me.android.presentation.view.screens.account.account.dialogs.LogoutDialog
 import io.forus.me.android.presentation.view.screens.dashboard.DashboardActivity
-import io.forus.me.android.presentation.view.screens.qr.dialogs.RestoreIdentityDialog
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 
@@ -86,6 +88,9 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
 
     private val switchSendCrashReports = PublishSubject.create<Boolean>()
     override fun switchSendCrashReports(): Observable<Boolean> = switchSendCrashReports
+
+    private val refreshTrigger = PublishSubject.create<Unit>()
+    override fun refreshDataIntent(): Observable<Unit> = refreshTrigger
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentAccountDetailsBinding.inflate(inflater)
@@ -178,7 +183,12 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
         binding.avatar.setImageDrawable(resources.getDrawable(R.drawable.ic_me_logo))
 
         binding.changeDigits.visibility = if (vs.model.pinlockEnabled) View.VISIBLE else View.GONE
+
+
         binding.enablePinlock.setChecked(vs.model.pinlockEnabled)
+
+
+
         binding.enablePinlock.setOnClickListener {
             if (optionPincodeIsEnable) {
 
@@ -229,8 +239,15 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_CHANGE_PIN && resultCode == Activity.RESULT_OK) {
-            updateModel()
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                refreshTrigger.onNext(Unit)
+            }, 500)
         }
     }
+
+
+
+
 }
 

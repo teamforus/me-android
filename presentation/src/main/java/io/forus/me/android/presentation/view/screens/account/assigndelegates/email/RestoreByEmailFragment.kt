@@ -107,7 +107,6 @@ class RestoreByEmailFragment : ToolbarLRFragment<RestoreByEmailModel, RestoreByE
         }
 
         binding.email.setTextChangedListener(listener)
-        //email_repeat.setTextChangedListener(listener)
 
         binding.restore.setOnClickListener {
             binding.email.showError = true

@@ -14,7 +14,6 @@ class RecordCategoriesPresenter constructor(val recordsRepository: RecordsReposi
 
     override fun initialModelSingle(): Single<List<io.forus.me.android.domain.models.records.RecordCategory>> = Single.fromObservable(
             recordsRepository.getCategoriesWithRecordCount()
-            //recordsRepository.getRecords()
     )
 
     override fun RecordCategoriesModel.changeInitialModel(i: List<io.forus.me.android.domain.models.records.RecordCategory>): RecordCategoriesModel = copy(items = i)

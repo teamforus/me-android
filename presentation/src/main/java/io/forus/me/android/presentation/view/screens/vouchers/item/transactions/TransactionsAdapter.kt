@@ -36,18 +36,7 @@ class TransactionsAdapter : RecyclerView.Adapter<TransactionsVH>() {
 
     var clickListener: ((Transaction) -> Unit)? = null
 
-    /*override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = TransactionsVH(parent).apply {
-        itemView.root.setOnClickListener {
-            transactions.getOrNull(adapterPosition)?.let {transactions->
-                clickListener?.invoke(transactions)
-            }
-        }
-    }
 
-    override fun onBindViewHolder(holder: TransactionsVH, position: Int) {
-        holder.isActionsVoucher = isActionsVoucher
-        holder.render(transactions[position])
-    }*/
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransactionsVH {
         val binding = ItemVoucherTranscationsListBinding.inflate(

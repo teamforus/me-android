@@ -10,7 +10,6 @@ class ErrorDialog(private val context: Context, private val title: String, priva
             .title(title)
             .customView(R.layout.view_about_me, false)
             .positiveText(context.resources.getString(R.string.me_ok))
-            //.onPositive(callback)
             .build()
 
 

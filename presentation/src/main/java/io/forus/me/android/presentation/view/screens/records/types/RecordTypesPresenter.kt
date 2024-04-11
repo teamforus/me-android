@@ -52,14 +52,4 @@ class RecordTypesPresenter constructor(val recordsRepository: RecordsRepository)
 
     }
 
-
-
-
-
-
-
-
-
-
-
 }

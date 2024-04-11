@@ -9,16 +9,10 @@ class ValidationViewModel{
         header, validator
     }
 
-    /*enum class Status {
-        none, pending, approved, declined
-    }*/
-
 
     var type: Type
 
     var sectionName: String? = null
-
-   // var id: Long? = null
 
     var name: String? = null
 
@@ -26,7 +20,6 @@ class ValidationViewModel{
 
 
 
-   // var status: Status = Status.none
 
     constructor(sectionName: String){
         this.type = Type.header
@@ -37,7 +30,6 @@ class ValidationViewModel{
 
     constructor(simpleValidation: io.forus.me.android.domain.models.records.Validation){
         this.type = Type.validator
-       // this.id = simpleValidator.id
         if(simpleValidation.organization != null) {
             this.name = simpleValidation.organization!!.name!!
         }else{

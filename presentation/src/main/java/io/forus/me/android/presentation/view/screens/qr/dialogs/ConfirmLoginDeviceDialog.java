@@ -103,12 +103,9 @@ public class ConfirmLoginDeviceDialog extends DialogFragment {
 
 
         if (submitClickListener != null) {
-            submitButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (submitClickListener != null) {
-                        submitClickListener.confirm(ConfirmLoginDeviceDialog.this);
-                    }
+            submitButton.setOnClickListener(view13 -> {
+                if (submitClickListener != null) {
+                    submitClickListener.confirm(ConfirmLoginDeviceDialog.this);
                 }
             });
         }

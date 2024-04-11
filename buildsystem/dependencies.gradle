@@ -25,7 +25,7 @@ ext {
   arrowVersion = '1.0.0'
   circleIndicatorVersion = '1.2.2@aar'
   materialDialogs = '0.9.6.0'
-  gooleMapsVersion = '16.0.0'
+  gooleMapsVersion = '18.2.0'
   playCoreVersion = '1.7.2'
   nav_version = '1.0.0'
 

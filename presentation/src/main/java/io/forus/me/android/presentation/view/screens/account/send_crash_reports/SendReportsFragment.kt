@@ -16,7 +16,6 @@ import io.forus.me.android.presentation.view.base.lr.LoadRefreshPanel
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-//import kotlinx.android.synthetic.main.fragment_send_reports.*
 
 
 /**

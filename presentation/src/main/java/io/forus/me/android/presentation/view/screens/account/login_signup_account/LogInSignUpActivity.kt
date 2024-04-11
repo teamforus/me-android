@@ -47,7 +47,8 @@ class LogInSignUpActivity : CommonActivity(), MViewModelProvider<LoginSignUpView
                 LogInSignUpFragment.newIntent(token)
             } else LogInSignUpFragment()
             val fragmentContainer = findViewById<FrameLayout>(R.id.fragmentContainer)
-            fragmentContainer.setLayoutParams(RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT));
+            fragmentContainer.layoutParams =
+                RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT)
 
             addFragment(R.id.fragmentContainer, fragment)
         }

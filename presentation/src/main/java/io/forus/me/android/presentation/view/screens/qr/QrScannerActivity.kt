@@ -1,7 +1,6 @@
 package io.forus.me.android.presentation.view.screens.qr
 
-//import com.dlazaro66.qrcodereaderview.QRCodeReaderView
-//import com.google.zxing.integration.android.IntentIntegrator
+
 import android.Manifest
 import android.content.Context
 import android.content.Intent
@@ -28,7 +27,7 @@ import java.util.concurrent.atomic.AtomicBoolean
 
 
 class QrScannerActivity : FragmentActivity(),
-    QRCodeReaderView.OnQRCodeReadListener /*, QRCodeReaderView.OnQRCodeReadListener*/ {
+    QRCodeReaderView.OnQRCodeReadListener  {
 
 
     private val MY_PERMISSION_REQUEST_CAMERA = 0
@@ -77,8 +76,7 @@ class QrScannerActivity : FragmentActivity(),
         binding = ActivityQrDecoderBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //progressLn = findViewById(R.id.progressLn)
-        //progressLn?.visibility = View.GONE
+
 
     }
 
@@ -157,7 +155,6 @@ class QrScannerActivity : FragmentActivity(),
                 }
                 qrCodeReaderView!!.startCamera()
                 setScannerLayoutVisiblity(true)
-               // progressLn?.visibility = View.GONE
             }
             is QrDecoderResult.DemoVoucher -> qrActionProcessor.scanVoucher(result.testToken, true)
         }
@@ -200,7 +197,6 @@ class QrScannerActivity : FragmentActivity(),
         }
     }
 
-    // var integrator : IntentIntegrator? = null
 
     private  var qrContent: View? = null
 
@@ -209,7 +205,6 @@ class QrScannerActivity : FragmentActivity(),
         qrContent =
             layoutInflater.inflate(R.layout.activity_qr_decoder_content, binding.mainLayout, true)
 
-        //qrCodeReaderView = content.findViewById(R.id.qrdecoderview)
         pointsOverlayView = qrContent?.findViewById(R.id.points_overlay_view)
 
         qrCodeReaderView = qrContent?.findViewById(R.id.qrCodeReaderView);
@@ -277,7 +272,7 @@ class QrScannerActivity : FragmentActivity(),
 
     override fun onQRCodeRead(text: String?, points: Array<out PointF>?) {
         Log.d("forusQR", "Result = $text")
-       // finish()
+
         if (text != null) {
             decodeScanResult(text)
         }

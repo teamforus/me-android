@@ -5,9 +5,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.CompoundButton
 import androidx.viewpager2.widget.ViewPager2
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.databinding.ActivityWelcomeBinding
+import io.forus.me.android.presentation.helpers.SharedPref
 import io.forus.me.android.presentation.view.activity.BaseActivity
 import io.forus.me.android.presentation.view.screens.welcome.adapter.SectionPagerAdapter
 //import kotlinx.android.synthetic.main.activity_welcome.*
@@ -23,6 +25,8 @@ class WelcomeActivity : BaseActivity() {
         binding = ActivityWelcomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        SharedPref.init(this)
+
         if (savedInstanceState == null) {
             mustGoToLogin = intent.getBooleanExtra(GO_TO_LOGIN, false)
         }
@@ -31,7 +35,6 @@ class WelcomeActivity : BaseActivity() {
         val viewPager: ViewPager2 = findViewById(R.id.view_pager)
         viewPager.adapter = adapter
 
-        Log.d("MDSASDADS", "${viewPager.itemDecorationCount}   ${adapter.itemCount}")
         val dotsIndicator = findViewById<me.relex.circleindicator.CircleIndicator3>(R.id.indicator)
         dotsIndicator.setViewPager(viewPager)
 
@@ -67,6 +70,16 @@ class WelcomeActivity : BaseActivity() {
             exitWelcome()
         }
 
+        binding.cbCheckBox.isChecked = SharedPref.read(SharedPref.WELCOME_NOT_SHOW_AGAIN, false)
+        binding.cbCheckBox.visibility = View.GONE
+
+        binding.cbCheckBox.setOnCheckedChangeListener { _, isChecked ->
+            SharedPref.write(
+                SharedPref.WELCOME_NOT_SHOW_AGAIN,
+                isChecked
+            )
+        }
+
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
@@ -87,12 +100,34 @@ class WelcomeActivity : BaseActivity() {
                             .alpha(1.0f)
                             .start()
                     }
-                } else {
+                }  else  if (position == 4) {
+                    if(mustGoToLogin) {
+                        binding.cbCheckBox.apply {
+                            visibility = View.VISIBLE
+                            alpha = 0.0f
+                            animate()
+                                .setDuration(200)
+                                .alpha(1.0f)
+                                .start()
+                        }
+                    }else{
+                        binding.cbCheckBox.visibility = View.GONE
+                    }
+                }
+                else {
                     binding.btSkipTutorial.animate()
                         .setDuration(200)
                         .alpha(0.0f)
                         .withEndAction {
                             binding.btSkipTutorial.visibility = View.GONE
+                        }
+                        .start()
+
+                    binding.cbCheckBox.animate()
+                        .setDuration(200)
+                        .alpha(0.0f)
+                        .withEndAction {
+                            binding.cbCheckBox.visibility = View.GONE
                         }
                         .start()
                 }
