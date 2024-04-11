@@ -9,6 +9,5 @@ data class PairDeviceModel(
         val item: RequestDelegatesPinModel? = null,
         val isPinConfirmed: Boolean = false
 
-        //val item: RequestDelegatesQrModel? = null,
-        //val isQrConfirmed: Boolean = false
+
 )

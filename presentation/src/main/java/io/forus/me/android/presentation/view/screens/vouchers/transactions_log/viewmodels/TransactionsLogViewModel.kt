@@ -68,7 +68,7 @@ class TransactionsLogViewModel : ViewModel() {
     }
 
 
-    val perPage: Int = 20
+    val perPage: Int = 40
 
     fun getTransactions(page: Int) {
         progress.postValue(true)

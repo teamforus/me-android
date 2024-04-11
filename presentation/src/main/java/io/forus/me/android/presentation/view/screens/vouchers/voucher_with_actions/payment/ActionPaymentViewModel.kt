@@ -81,42 +81,10 @@ class ActionPaymentViewModel(application: Application) : AndroidViewModel(applic
 
     private fun refreshUI() {
 
-        val resources = getApplication<Application>().resources
-
-        /*
-        val priceValue: String = if (product!!.noPrice) {
-            if (product!!.noPriceType == NoPriceType.free.name) {
-                resources.getString(R.string.free)
-            } else {
-                NumberFormat.getCurrencyInstance(Locale("nl", "NL"))
-                        .format(product!!.priceUser)
-            }
-        } else {
-            NumberFormat.getCurrencyInstance(Locale("nl", "NL"))
-                    .format(product!!.priceUser)
-        }
-
-
-
-        productPrice.postValue(priceValue)
-
-         */
-
-        //productName.postValue(product!!.name)
 
         productName.value = product!!.name
-        // @{model.productName}
-
-
-
         orgName.postValue(product!!.companyName)
 
-        /* val url = item.photoURL
-         if (url != null && url.isNotEmpty()) {
-             Glide.with(context).load(url)
-                     .diskCacheStrategy(DiskCacheStrategy.ALL)
-                     .into(icon)
-         }*/
 
     }
 
@@ -130,12 +98,10 @@ class ActionPaymentViewModel(application: Application) : AndroidViewModel(applic
                 .map {
                     progress.postValue(false)
                     successPayment.postValue(true)
-                    //commitButtonEnable.postValue(true)
                 }
                 .onErrorReturn {
                     progress.postValue(false)
                     errorPayment.postValue(it)
-                    //commitButtonEnable.postValue(true)
                 }
                 .subscribe()
     }

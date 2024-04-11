@@ -46,8 +46,6 @@ class ActionsViewModel : ViewModel() {
     init {
 
 
-        //foo bar
-
         voucher.value = null
 
         productsListIsEmpty.value = false

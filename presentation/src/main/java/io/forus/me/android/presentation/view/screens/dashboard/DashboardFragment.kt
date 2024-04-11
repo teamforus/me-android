@@ -33,7 +33,6 @@ class DashboardFragment : Fragment() {
     private lateinit var binding: FragmentDashboardBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        //return inflater.inflate(R.layout.fragment_dashboard, container, false)
 
         binding = FragmentDashboardBinding.inflate(inflater)
         return binding.root
@@ -57,7 +56,6 @@ class DashboardFragment : Fragment() {
             }
         })
 
-        //    binding.bottomNavigation.setOnTabSelectedListener { position, wasSelected -> showTab(position, wasSelected) }
         binding.bottomNavigation.setOnNavigationPositionListener { }
         binding.bottomNavigation.accentColor =
                 (activity as? CommonActivity)?.getCustomColor(R.color.colorAccent) ?: 0
@@ -71,12 +69,10 @@ class DashboardFragment : Fragment() {
             val fragments = ArrayList<Fragment?>()
             val titles = ArrayList<String>()
 
-            //fragments.add(PropertyFragment.newInstance())
             fragments.add(VouchersFragment.newIntent())
             titles.add("")
             fragments.add(Fragment())
             titles.add("")
-            //fragments.add(RecordsFragment())
             fragments.add(AccountFragment())
             titles.add("")
 

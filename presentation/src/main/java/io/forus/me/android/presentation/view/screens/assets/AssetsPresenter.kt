@@ -24,12 +24,8 @@ class AssetsPresenter constructor(val assetsRepository: AssetsRepository) : LRPr
 
     override fun bindIntents() {
 
-//        var observable = Observable.merge(
-//
-//                loadRefreshPartialChanges()
-//        );
 
-        var observable = loadRefreshPartialChanges()
+        val observable = loadRefreshPartialChanges()
 
 
         val initialViewState = LRViewState(
@@ -47,9 +43,7 @@ class AssetsPresenter constructor(val assetsRepository: AssetsRepository) : LRPr
                         .observeOn(AndroidSchedulers.mainThread()),
                 AssetsView::render)
 
-//        val observable = loadRefreshPartialChanges()
-//        val initialViewState = LRViewState(false, null, false, false, null, MapModel("", "" ))
-//        subscribeViewState(observable.scan(initialViewState, this::stateReducer).observeOn(AndroidSchedulers.mainThread()),MapView::render)
+
     }
 
     override fun stateReducer(viewState: LRViewState<AssetsModel>, change: PartialChange): LRViewState<AssetsModel> {

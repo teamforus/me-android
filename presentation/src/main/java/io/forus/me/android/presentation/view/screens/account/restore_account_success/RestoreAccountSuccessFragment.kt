@@ -49,7 +49,7 @@ class RestoreAccountSuccessFragment : ToolbarLRFragment<RestoreAccountSuccessMod
     private var instructionsAlreadyShown: Boolean = false
 
     override val toolbarTitle: String
-        get() = ""//getString(R.string.restore_login)
+        get() = ""
 
     override val allowBack: Boolean
         get() = false

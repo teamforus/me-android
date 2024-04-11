@@ -110,7 +110,6 @@ class DashboardActivity() : CommonActivity(), DashboardContract.View,
 
     override fun logout() {
         fcmHandler.clearFCMToken()
-        //navigator.navigateToWelcomeScreen(this)
         navigator.navigateToLoginSignUp(this)
         finish()
     }

@@ -79,9 +79,9 @@ class AmountTextInputEditText : TextInputEditText {
 
                 if (dotCount > 1 || commaCount > 1) {
                     setText(
-                        text.removeSuffix(".") // або text.removeSuffix(",")
+                        text.removeSuffix(".")
                             .removeSuffix(",")
-                    ) // або text.removeSuffix("."))
+                    )
                     setSelection(this@AmountTextInputEditText.text?.length ?: 0)
                 } else {
                     if (text.startsWith("."))

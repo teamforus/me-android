@@ -60,17 +60,12 @@ class PairDeviceFragment : ToolbarLRFragment<PairDeviceModel, PairDeviceView, Pa
 
 
         val qrFragment = RestoreByQRFragment()
-            //val bundle = Bundle()
-            //bundle.putString(KEY_MSG_1, "Заменили на первый фрагмент")
-            //myFragment1.setArguments(bundle)
 
             val fragmentTransaction = requireFragmentManager()
                     .beginTransaction()
             fragmentTransaction.replace(R.id.container_qr_fr, qrFragment,
                     null)
             fragmentTransaction.commit()
-
-        //profile_button.setBackgroundColor(ContextCompat.getColor(context!!, R.color.error_email))
 
         binding.pinView.setPinBackground(ContextCompat.getColor(context!!, R.color.pinBackground))
     }
