@@ -108,7 +108,6 @@ class ProductReservationPresenter constructor(val vouchersRepository: VouchersRe
     override fun ProductReservationModel.changeInitialModel(i: List<Voucher>): ProductReservationModel {
         val vouchers: MutableList<Voucher> = mutableListOf()
         vouchers.addAll(i.filter { voucher -> !(voucher.isProduct && voucher.isUsed) })
-        //vouchers.addAll(i.filter { voucher ->  (voucher.isProduct && voucher.isUsed)})
         return copy(items = vouchers)
     }
 
@@ -134,9 +133,7 @@ class ProductReservationPresenter constructor(val vouchersRepository: VouchersRe
 
     }
 
-    /*private fun subscribeViewState(observeOn: Observable<LRViewState<VouchersModel>>?, kFunction2: KFunction2<ProductReservationView, LRViewState<ProductReservationModel>, Unit>) {
 
-    }*/
 
     override fun stateReducer(viewState: LRViewState<ProductReservationModel>, change: PartialChange): LRViewState<ProductReservationModel> {
 

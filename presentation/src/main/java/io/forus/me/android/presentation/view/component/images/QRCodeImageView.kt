@@ -40,15 +40,6 @@ class QRCodeImageView : AutoLoadImageView {
     private fun getQrBitmap(text:String, size:Int, onColor: Int = Color.BLACK, offColor:Int = Color.WHITE): Bitmap {
 
 
-
-
-
-       /* var bitmap = QRCode.from(text)
-                //.withHint(EncodeHintType.MARGIN, 0)
-                .withColor(onColor, offColor)
-                //.withErrorCorrection(ErrorCorrectionLevel.H)
-                .withSize(size, size).bitmap()*/
-
         var bitmap = FQRCode.generateFromVector( context,text,
                 R.drawable.ic_ic_forus_logo_backgr_w, size )
 

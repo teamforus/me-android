@@ -14,6 +14,7 @@ object SharedPref {
     public val OPTION_API_TYPE = "OPTION_API_TYPE"
     public val OPTION_CUSTOM_API_URL = "OPTION_CUSTOM_API_URL"
     public val OPTION_SHOW_TOOLTIP_ADD_RECORD = "OPTION_SHOW_TOOLTIP_ADD_RECORD"
+    public val WELCOME_NOT_SHOW_AGAIN = "WELCOME_NOT_SHOW_AGAIN"
 
     fun init(context: Context) {
         if (mSharedPref == null)

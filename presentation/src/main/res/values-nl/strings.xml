@@ -49,6 +49,8 @@
     <string name="welcome_restore_account">Ik heb een account</string>
     <string name="welcome_set_up_your_identity">Stel je account in</string>
 
+    <string name="welcome_not_show_again">Niet meer tonen</string>
+
     <!-- Restore identity -->
     <string name="restore_login">Inloggen</string>
     <string name="restore_login_via_de_qr_code">login via de qr-code</string>
@@ -57,7 +59,7 @@
     <string name="restore_inloggen_via_qr">Ander apparaat toevoegen</string>
     <string name="restore_auth_code">Koppelcode</string>
     <string name="restore_auth_code_description">Log in op de webshop, klik op je account en klik op autoriseer apparaat en vul deze code in.</string>
-    <string name="restore_inloggen_by_email">Bevestig</string>
+    <string name="restore_inloggen_by_email">Bevestigen</string>
     <string name="restore_email_description">Vul je e-mailadres in om inloggegevens te ontvangen</string>
     <string name="restore_pincode_description">Vul deze pincode in de webshop in, waar je al bent ingelogd.</string>
     <string name="restore_email_instructions">Er is een e-mail verstuurd naar je e-mailadres waarmee je opnieuw kunt inloggen.</string>
@@ -166,7 +168,7 @@
     <string name="new_record_choose_validators_text">Selecteer de beoordelaar, die deze nieuwe eigenschap moet beoordelen.</string>
     <string name="new_record_value_text">Invoerveld</string>
     <string name="new_record_next_step">VOLGENDE</string>
-    <string name="new_record_submit">BEVESTIG</string>
+    <string name="new_record_submit">BEVESTIGEN</string>
     <string name="record_created_successfully">Eigenschap is aangemaakt!</string>
     <string name="choose_type">Kies type</string>
     <string name="choose_type_description">Wat voor type eigenschap wil je aanmaken?</string>
@@ -287,10 +289,10 @@
     <string name="voucher_expired">Verlopen</string>
     <string name="voucher_deactivated">Gestopt</string>
     <string name="voucher_email_to_me">E-mail naar mij</string>
-    <string name="voucher_request">BEVESTIG</string>
+    <string name="voucher_request">BEVESTIGEN</string>
     <string name="send_voucher_email_dialog_title">Stuur het tegoed  naar je e-mailadres?</string>
     <string name="send_feedback_email_dialog_title">Heb je vragen of opmerkingen? Neem contact op!</string>
-    <string name="send_voucher_email_dialog_positive_button">Bevestig</string>
+    <string name="send_voucher_email_dialog_positive_button">Bevestigen</string>
     <string name="send_voucher_email_dialog_cancel_button">Annuleer</string>
     <string name="shopkeeper_address_text">Adres</string>
     <string name="shopkeeper_phone_text">Telefoonnummer</string>

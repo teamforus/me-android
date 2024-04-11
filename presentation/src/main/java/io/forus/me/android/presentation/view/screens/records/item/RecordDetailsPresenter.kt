@@ -22,7 +22,6 @@ class RecordDetailsPresenter constructor(private val context: Context, private v
 
 
     override fun initialModelSingle(): Single<RecordDetailsModel> = Single.fromObservable(
-            //recordsRepository.getCategoriesWithRecordCount()
             recordsRepository.getRecord(recordId).map {
 
 
@@ -73,15 +72,7 @@ class RecordDetailsPresenter constructor(private val context: Context, private v
                             .onErrorReturn {
                                 RecordDetailsPartialChanges.DeleteRecordError(it)
                             }
-                    //.startWith(RecordDetailsPartialChanges.RequestValidationStart(validatorId))
                 }
-
-                /*,
-
-                intent(RecordDetailsView::editRecord).switchMap {
-
-                }*/
-
         )
 
         val initialViewState = LRViewState(

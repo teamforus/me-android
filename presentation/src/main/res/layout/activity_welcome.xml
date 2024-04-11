@@ -48,6 +48,21 @@
         android:textFontWeight="500"
         />
 
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/cbCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="44dp"
+        android:text="@string/welcome_not_show_again"
+        android:textColor="#757575"
+        app:backgroundTint="@null"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="100dp"
+        android:textSize="16sp"
+        android:textFontWeight="500"
+        android:buttonTint="@color/checkbox_selector"
+        />
+
 
 
     <com.google.android.material.card.MaterialCardView

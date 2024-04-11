@@ -74,12 +74,6 @@ public class AutoLoadImageView extends AppCompatImageView {
   public void setImageUrl(final String imageUrl) {
     this.imageUrl = imageUrl;
     ImageLoader.load(getContext(), imageUrl, this);
-//    AutoLoadImageView.this.loadImagePlaceHolder();
-//    if (this.imageUrl != null) {
-//      this.loadImageFromUrl(this.imageUrl);
-//    } else {
-//      this.loadImagePlaceHolder();
-//    }
   }
 
   /**

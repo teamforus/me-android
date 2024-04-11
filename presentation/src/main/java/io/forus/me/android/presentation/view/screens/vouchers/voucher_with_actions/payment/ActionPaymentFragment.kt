@@ -30,14 +30,14 @@ class ActionPaymentFragment : BaseFragment() {
         const val VOUCHER_ADDRESS_EXTRA = "VOUCHER_ADDRESS_EXTRA"
 
 
+        fun newIntent(product: ProductSerializable, voucherAddress: String): ActionPaymentFragment =
+            ActionPaymentFragment().also {
+                val bundle = Bundle()
+                bundle.putSerializable(ACTION_PRODUCT_EXTRA, product)
+                bundle.putString(VOUCHER_ADDRESS_EXTRA, voucherAddress)
 
-        fun newIntent(product: ProductSerializable, voucherAddress: String): ActionPaymentFragment = ActionPaymentFragment().also {
-            val bundle = Bundle()
-            bundle.putSerializable(ACTION_PRODUCT_EXTRA, product)
-            bundle.putString(VOUCHER_ADDRESS_EXTRA, voucherAddress)
-
-            it.arguments = bundle
-        }
+                it.arguments = bundle
+            }
     }
 
 
@@ -48,112 +48,115 @@ class ActionPaymentFragment : BaseFragment() {
     var voucherAddress: String? = null
     var product: ProductSerializable? = null
 
-    //var fundName: String? = null
-
-
-    /* override fun getLayoutID(): Int {
-         return R.layout.fragment_action_payment
-     }*/
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val url = product!!.photoURL
         if (url != null && url.isNotEmpty()) {
-            Glide.with(context).load(url)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(binding.ivActionIcon)
+            Glide.with(requireContext()).load(url)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(binding.ivActionIcon)
         }
 
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? 
-    {
-       // return super.onCreateView(inflater, container, savedInstanceState).also {
-            val bundle = this.arguments
-            if (bundle != null) {
-                voucherAddress = bundle.getString(VOUCHER_ADDRESS_EXTRA, "")
-                product = bundle.getSerializable(ACTION_PRODUCT_EXTRA) as ProductSerializable
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+
+        val bundle = this.arguments
+        if (bundle != null) {
+            voucherAddress = bundle.getString(VOUCHER_ADDRESS_EXTRA, "")
+            product = bundle.getSerializable(ACTION_PRODUCT_EXTRA) as ProductSerializable
 
 
+        }
+
+        mainViewModel = ViewModelProviders.of(this).get(ActionPaymentViewModel::class.java)
+
+        product.let {
+            mainViewModel.setProduct(it!!)
+            mainViewModel.voucherAddress = voucherAddress
+        }
+
+
+        binding = FragmentActionPaymentBinding.inflate(inflater)
+
+        val view: View = binding.getRoot()
+        binding.model = mainViewModel
+
+        mainViewModel.confirmPayment.observe(requireActivity(), Observer {
+            if (!it!!) return@Observer
+
+            if (product!!.priceUser > BigDecimal.ZERO) {
+                showConfirmDialog()
+            } else {
+                binding.btnMake.active = false
+                binding.btnMake.isEnabled = false
+                binding.progress.visibility = View.VISIBLE
+                mainViewModel.makeTransaction()
             }
+        })
 
-            mainViewModel = ViewModelProviders.of(this).get(ActionPaymentViewModel::class.java)
-
-            product.let {
-                mainViewModel.setProduct(it!!)
-                mainViewModel.voucherAddress = voucherAddress
+        mainViewModel.successPayment.observe(requireActivity(), Observer {
+            if (!it!!) return@Observer
+            FullscreenDialog.display(
+                fragmentManager,
+                getString(R.string.vouchers_apply_success),
+                getString(R.string.vouchers_transaction_duration_of_payout),
+                getString(R.string.me_ok)
+            ) {
+                requireActivity().finish()
             }
+        })
 
-
-            binding = FragmentActionPaymentBinding.inflate(inflater)
-        //DataBindingUtil.inflate(
-                  //  inflater, R.layout.fragment_action_payment, container, false)
-            val view: View = binding.getRoot()
-            binding.model = mainViewModel
-
-            mainViewModel.confirmPayment.observe(requireActivity(), Observer {
-                if (!it!!) return@Observer
-
-                if(product!!.priceUser > BigDecimal.ZERO) {
-                    showConfirmDialog()
-                }else{
-                    binding.btnMake.active = false
-                    binding.btnMake.isEnabled = false
-                    binding.progress.visibility = View.VISIBLE
-                    mainViewModel.makeTransaction()
-                }
-            })
-
-            mainViewModel.successPayment.observe(requireActivity(), Observer {
-                if (!it!!) return@Observer
-                FullscreenDialog.display(fragmentManager, getString(R.string.vouchers_apply_success), getString(R.string.vouchers_transaction_duration_of_payout), getString(R.string.me_ok)) {
-                    requireActivity().finish()
-                }
-            })
-
-            mainViewModel.errorPayment.observe(requireActivity(), Observer {
-                binding.progress.visibility = View.GONE
-                binding.btnMake.active = true
-                binding.btnMake.isEnabled = true
-                if (it != null) {
-                    ThrowableErrorDialog(it, requireActivity(), object : DialogInterface.OnDismissListener, () -> Unit {
+        mainViewModel.errorPayment.observe(requireActivity(), Observer {
+            binding.progress.visibility = View.GONE
+            binding.btnMake.active = true
+            binding.btnMake.isEnabled = true
+            if (it != null) {
+                ThrowableErrorDialog(
+                    it,
+                    requireActivity(),
+                    object : DialogInterface.OnDismissListener, () -> Unit {
                         override fun invoke() {
                         }
 
                         override fun onDismiss(p0: DialogInterface?) {
                         }
                     }).show()
-                }
-            })
+            }
+        })
 
-            mainViewModel.showPriceAgreement.observe(requireActivity(), Observer {
-                if (!it!!) return@Observer
-                Log.d("forus", "Click price agreement")
-
-
-                //(requireActivity() as ActionPaymentActivity).addPopupFragment(fragment, "")
-
-                // activity.replaceFragment(R.id.fragmentPanelContainer, fragment)
-                //showPopupQRFragment(QrCode(QrCode.Type.P2P_IDENTITY, vs.model.account.address).toJson())
-                // }.show()
-            })
-
-            val fragment = PriceAgreementFragment.newIntent(product!!)
-
-            val transaction: FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
+        mainViewModel.showPriceAgreement.observe(requireActivity(), Observer {
+            if (!it!!) return@Observer
+            Log.d("forus", "Click price agreement")
 
 
-            transaction.replace(R.id.fragmentPanelContainer, fragment)
-           // transaction.addToBackStack(null)
-            transaction.commit()
+            //(requireActivity() as ActionPaymentActivity).addPopupFragment(fragment, "")
+
+            // activity.replaceFragment(R.id.fragmentPanelContainer, fragment)
+            //showPopupQRFragment(QrCode(QrCode.Type.P2P_IDENTITY, vs.model.account.address).toJson())
+            // }.show()
+        })
+
+        val fragment = PriceAgreementFragment.newIntent(product!!)
+
+        val transaction: FragmentTransaction =
+            requireActivity().supportFragmentManager.beginTransaction()
 
 
-            return view
-       // }
+        transaction.replace(R.id.fragmentPanelContainer, fragment)
+
+        transaction.commit()
+
+
+        return view
+
     }
-
-
 
 
     fun showConfirmDialog() {

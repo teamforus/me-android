@@ -1,6 +1,7 @@
 package io.forus.me.android.presentation.view.screens.vouchers.transactions_log
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -110,6 +111,7 @@ class TransactionsFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         binding.recycler.adapter = transactionsAdapter
 
         mainViewModel.transactionsLiveData.observe(viewLifecycleOwner, Observer {
+            this@TransactionsFragment.isLoading = false
             if (it != null) {
                 canWork = true
                 if (mustReplaceTransactionsList) transactionsAdapter!!.clearAll()
@@ -177,7 +179,6 @@ class TransactionsFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         this@TransactionsFragment.currentPage += 1
 
     }
-
 
 
 }

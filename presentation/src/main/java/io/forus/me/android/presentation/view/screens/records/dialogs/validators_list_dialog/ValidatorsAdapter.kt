@@ -21,8 +21,6 @@ class ValidatorsAdapter(var items: List<io.forus.me.android.domain.models.record
         private val tv_organization_name = itemView.findViewById<io.forus.me.android.presentation.view.component.text.TextView>(R.id.tv_organization_name)
         fun bind(item: io.forus.me.android.domain.models.records.ValidatorOrganization) {
             tv_organization_name.text = item.name
-           // if (item.logo?.isBlank() != true)
-           //     iv_organization_icon.setImageUrl(item.logo)
             itemView.setOnClickListener {
                 if (adapterPosition != RecyclerView.NO_POSITION) callback.onItemClicked(items[adapterPosition])
             }

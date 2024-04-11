@@ -15,9 +15,7 @@ import io.forus.me.android.presentation.interfaces.FragmentListener
 
 import io.forus.me.android.presentation.navigation.Navigator
 
-//import kotlinx.android.synthetic.main.toolbar_view.*
 
-//import io.forus.me.android.presentation.internal.di.HasComponent;
 
 /**
  * Base [android.app.Fragment] class for every fragment in this application.
@@ -70,9 +68,7 @@ abstract class BaseFragment : Fragment(), FragmentListener {
 
 
     private fun setActionBarActivity(_activity: AppCompatActivity) {
-//
-//                final Drawable upArrow = getResources().getDrawable(R.drawable.);
-//                upArrow.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP);
+
 
         _activity.setSupportActionBar(toolbar)
         FragmentHelper.setHomeIconToolbar(_activity, toolbar, profile_button, allowBack)
@@ -138,11 +134,5 @@ abstract class BaseFragment : Fragment(), FragmentListener {
     protected open fun getLayoutID(): Int {
         return 0
     }
-    //  /**
-    //   * Gets a component for dependency injection by its validator.
-    //   */
-    //  @SuppressWarnings("unchecked")
-    //  protected <C> C getComponent(Class<C> componentType) {
-    //    return componentType.cast(((HasComponent<C>) getActivity()).getComponent());
-    //  }
+
 }

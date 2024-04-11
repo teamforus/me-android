@@ -44,8 +44,6 @@ class CommonCard : CardView {
         }
 
         this.setCardBackgroundColor(ContextCompat.getColor(context,R.color.card_background))
-//        this.cardElevation = Converter.convertDpToPixel(13f, context).toFloat()
-//        this.useCompatPadding = true
     }
 
 

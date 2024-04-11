@@ -41,7 +41,6 @@ class RecordCategoriesAdapter(private val clickListener: ((RecordCategory) -> Un
         val item = items[position]
         holder.bind(item,lastSelectedPosition){ recordCategory: RecordCategory, position: Int ->
             lastSelectedPosition = position
-            //notifyDataSetChanged()
             clickListener?.invoke(recordCategory)
         }
     }
