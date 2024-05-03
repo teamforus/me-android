@@ -3,8 +3,10 @@ package io.forus.me.android.presentation.view.screens.lock
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.view.activity.CommonActivity
+import io.forus.me.android.presentation.view.screens.dashboard.DashboardActivity
 import io.forus.me.android.presentation.view.screens.lock.fingerprint.FingerprintFragment
 import io.forus.me.android.presentation.view.screens.lock.pin.PinLockFragment
 
@@ -23,7 +25,7 @@ class PinLockActivity : CommonActivity() {
         }
     }
 
-    private lateinit var navigationIntent: Intent
+    private var navigationIntent: Intent? = null
 
     override val viewID: Int
         get() = R.layout.activity_toolbar
@@ -54,8 +56,15 @@ class PinLockActivity : CommonActivity() {
         replaceFragment(R.id.fragmentContainer, fragment)
     }
 
+
+
     fun unlockSuccess(){
-        this.startActivity(navigationIntent)
+        navigationIntent?.let {
+            this.startActivity(navigationIntent)
+        }?:run{
+            this.startActivity(DashboardActivity.getCallingIntent(this))
+        }
+
         finish()
     }
 }
