@@ -94,6 +94,17 @@
                                     android:visibility="gone"
                                     />
 
+                                <io.forus.me.android.presentation.view.component.text.TextView
+                                    android:id="@+id/tv_price"
+                                    style="@style/Headline6"
+                                    android:layout_marginTop="4dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:lines="1"
+                                    android:maxLines="1"
+                                    android:ellipsize="end"
+                                    tools:text="€ 13.80" />
+
                             </LinearLayout>
 
                             <io.forus.me.android.presentation.view.component.images.AutoLoadImageView
