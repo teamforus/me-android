@@ -43,7 +43,7 @@
                         app:cardBackgroundColor="@color/brightBackground"
                         app:cardElevation="@dimen/card_elevation_small"
                         android:layout_width="match_parent"
-                        android:layout_height="100dp">
+                        android:layout_height="110dp">
 
                         <RelativeLayout
                             android:layout_width="match_parent"
@@ -54,7 +54,7 @@
                                 android:layout_marginEnd="140dp"
                                 android:orientation="vertical"
                                 android:layout_width="match_parent"
-                                android:layout_height="100dp"
+                                android:layout_height="110dp"
                                 android:paddingStart="16dp">
 
                                 <io.forus.me.android.presentation.view.component.text.TextView
