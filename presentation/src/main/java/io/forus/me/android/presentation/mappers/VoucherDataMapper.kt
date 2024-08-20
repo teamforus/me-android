@@ -36,7 +36,8 @@ class VoucherDataMapper(private val currencyDataMapper: CurrencyDataMapper,
                     deactivated ?: false,
                     expired ?: false,
                     expireDate ?: "",
-                    officeDataMapper.transform(offices) as List<Office>
+                    officeDataMapper.transform(offices) as List<Office>,
+                amount_visible ?: false
             )
         }
     }

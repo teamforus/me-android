@@ -47,7 +47,9 @@ class ProviderPresenter constructor(private val vouchersRepository: VouchersRepo
                                     transaction?.amount ?: 0f.toBigDecimal(),
                                     transaction.createdAt,
                                     Transaction.Type.valueOf(transaction.type.name), null)
-                        },  null, it.voucher.deactivated  ?: false, it.voucher.expired  ?: false,"", officesList),
+                        },  null, it.voucher.deactivated  ?: false, it.voucher.expired  ?: false,"", officesList,
+                    it.voucher.amount_visible?:false
+                    ),
 
                         it.allowedOrganizations.map { organization ->
                             Organization(organization.id,
@@ -129,7 +131,8 @@ class ProviderPresenter constructor(private val vouchersRepository: VouchersRepo
                                     transaction?.amount ?: 0f.toBigDecimal(),
                                     transaction.createdAt,
                                     Transaction.Type.valueOf(transaction.type.name), product)
-                        }, null, it.voucher.deactivated ?: false, it.voucher.expired ?: false,"", officesList),
+                        }, null, it.voucher.deactivated ?: false, it.voucher.expired ?: false,"", officesList,
+                    it.voucher.amount_visible?:false),
 
                         it.allowedOrganizations.map { organization ->
                             Organization(organization.id,

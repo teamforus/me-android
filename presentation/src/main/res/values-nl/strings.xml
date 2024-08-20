@@ -18,7 +18,7 @@
     <!-- Dashboard -->
     <string name="dashboard_property">Tegoeden</string>
     <string name="dashboard_qr">QR</string>
-    <string name="dashboard_records">Eigenschappen</string>
+    <string name="dashboard_records">Persoonsgegevens</string>
     <string name="dashboard_vouchers">Tegoeden</string>
     <string name="dashboard_currency">Tokens</string>
     <string name="dashboard_assets">Bezit</string>
@@ -156,50 +156,50 @@
 
 
     <!-- New record screen -->
-    <string name="new_record_title">Nieuwe eigenschap</string>
+    <string name="new_record_title">Nieuwe persoonsgegeven</string>
     <string name="new_record_title_choose_category">Kies categorie</string>
     <string name="new_record_title_choose_type">Kies Type</string>
     <string name="new_record_title_choose_text">Tekst</string>
     <string name="new_record_title_choose_validators">Beoordelaars</string>
-    <string name="new_record_choose_the_category_text">Selecteer de categorie waaronder de nieuwe eigenschap moet worden toegevoegd</string>
-    <string name="new_record_choose_the_type_text">Selecteer het type waaronder de nieuwe eigenschap moet worden toegevoegd</string>
-    <string name="new_record_choose_the_value_text">Voer de inhoud van de eigenschap in</string>
+    <string name="new_record_choose_the_category_text">Selecteer de categorie waaronder de nieuwe persoonsgegeven moet worden toegevoegd</string>
+    <string name="new_record_choose_the_type_text">Selecteer het type waaronder de nieuwe persoonsgegeven moet worden toegevoegd</string>
+    <string name="new_record_choose_the_value_text">Voer de inhoud van de persoonsgegeven in</string>
     <string name="new_record_value_hint">…</string>
-    <string name="new_record_choose_validators_text">Selecteer de beoordelaar, die deze nieuwe eigenschap moet beoordelen.</string>
+    <string name="new_record_choose_validators_text">Selecteer de beoordelaar, die deze nieuwe persoonsgegeven moet beoordelen.</string>
     <string name="new_record_value_text">Invoerveld</string>
     <string name="new_record_next_step">VOLGENDE</string>
     <string name="new_record_submit">BEVESTIGEN</string>
-    <string name="record_created_successfully">Eigenschap is aangemaakt!</string>
+    <string name="record_created_successfully">Persoonsgegeven is aangemaakt!</string>
     <string name="choose_type">Kies type</string>
-    <string name="choose_type_description">Wat voor type eigenschap wil je aanmaken?</string>
-    <string name="new_record">Nieuwe eigenschap</string>
-    <string name="tooltip_create_record">Tik hier om een nieuwe\n eigenschap aan te maken</string>
+    <string name="choose_type_description">Wat voor type persoonsgegeven wil je aanmaken?</string>
+    <string name="new_record">Nieuw persoonsgegeven</string>
+    <string name="tooltip_create_record">Tik hier om een nieuw persoonsgegeven aan te maken</string>
 
     <!-- Record details screen -->
-    <string name="record_details_title">Eigenschap details</string>
+    <string name="record_details_title">Persoonsgegeven details</string>
     <string name="record_details_title_validators">Beoordelaar</string>
     <string name="record_details_button_show_qr">Bekijk QR-CODE</string>
     <string name="record_details_scan_deze_qr">Scan deze QR-Code</string>
-    <string name="record_details_validation_title">Jouw eigenschap in de vorm van een QR-code</string>
-    <string name="record_details_validation_subtitle">Dit is je eigenschap in de vorm van een QR-code.\nLaat de beoordelaar deze QR-code scannen om een beoordeling te ontvangen.</string>
+    <string name="record_details_validation_title">Jouw persoonsgegeven in de vorm van een QR-code</string>
+    <string name="record_details_validation_subtitle">Dit is je persoonsgegeven in de vorm van een QR-code.\nLaat de beoordelaar deze QR-code scannen om een beoordeling te ontvangen.</string>
     <string name="record_details_validation_request_error">Fout tijdens het verzenden van de validatieaanvraag</string>
     <string name="record_details_validation_approved">Aanvraag goedgekeurd</string>
     <string name="record_details_validation_declined">Aanvraag geweigerd</string>
     <string name="choose_validator">Kies beoordelaar</string>
     <string name="validations">Beoordelingen</string>
-    <string name="validations_empty">Deze eigenschap heeft geen beoordelingen</string>
+    <string name="validations_empty">Dit persoonsgegeven heeft geen beoordelingen</string>
 
-    <string name="dialog_record_edit_title">Wil je deze eigenschap bewerken?</string>
-    <string name="dialog_record_archive_title">Wil je deze eigenschap archiveren?</string>
+    <string name="dialog_record_edit_title">Wil je dit persoonsgegeven bewerken?</string>
+    <string name="dialog_record_archive_title">Wil je dit persoonsgegeven archiveren?</string>
 
-    <string name="dialog_record_edit_description">Alle beoordelingen worden verwijderd. Je dient opnieuw beoordelingen aan te vragen voor de nieuwe eigenschap.</string>
+    <string name="dialog_record_edit_description">Alle beoordelingen worden verwijderd. Je dient opnieuw beoordelingen aan te vragen voor het nieuwe persoonsgegeven.</string>
     <string name="dialog_record_archive_description">Alle beoordelingen worden verwijderd.</string>
 
     <string name="dialog_button_cancel">ANNULEER</string>
     <string name="dialog_button_edit">BEWERK</string>
     <string name="dialog_button_archive">VERWIJDER</string>
 
-    <string name="tab_records">Mijn eigenschappen</string>
+    <string name="tab_records">Mijn persoonsgegevens</string>
     <string name="tab_archives">Archief</string>
 
 
@@ -240,11 +240,11 @@
     <string name="qr_identity_restored">Je bent succesvol ingelogd</string>
     <string name="qr_identity_expired">Validatietoken is verlopen</string>
     <string name="qr_voucher_scanned">Tegoed gescand</string>
-    <string name="qr_voucher_access_denied"> Je bent niet gerechtigd of de tegoed is al gebruikt</string>
-    <string name="qr_voucher_empty">De tegoed is op! Geen transacties kunnen gedaan worden.</string>
+    <string name="qr_voucher_access_denied"> Je bent niet gerechtigd of het tegoed is al gebruikt</string>
+    <string name="qr_voucher_empty">Het tegoed is op! Geen transacties kunnen gedaan worden.</string>
     <string name="qr_unknown_type">Onbekende QR-code</string>
     <string name="qr_unexpected_error">Onverwachte fout</string>
-    <string name="qr_popup_approve_validation_title">Eigenschap validatie</string>
+    <string name="qr_popup_approve_validation_title">Persoonsgegeven validatie</string>
     <string name="qr_popup_approve_type">type</string>
     <string name="qr_popup_approve_value">inhoud</string>
     <string name="qr_popup_approve_validation_positive">Accepteren</string>
@@ -271,7 +271,7 @@
     <string name="vouchers_amount_invalid">Ongeldige hoeveelheid</string>
     <string name="vouchers_pay_title">Bevestig transactie</string>
     <string name="vouchers_pay_question">Is het bedrag van €%1$s correct?</string>
-    <string name="vouchers_pay_question_extra">Onvoldoende budget op de tegoed. Vraag de klant of hij een bedrag van €%1$s wilt bijbetalen.</string>
+    <string name="vouchers_pay_question_extra">Onvoldoende budget op het tegoed. Vraag de klant of hij een bedrag van €%1$s wilt bijbetalen.</string>
     <string name="vouchers_apply_question">Weet je zeker dat je deze transactie wilt bevestigen?</string>
     <string name="voucher_is_used">GEBRUIKT</string>
     <string name="vouchers_apply_success">Betaling geslaagd!</string>

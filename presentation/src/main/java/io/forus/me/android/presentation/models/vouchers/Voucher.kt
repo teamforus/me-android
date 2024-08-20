@@ -6,47 +6,53 @@ import io.forus.me.android.presentation.models.currency.Currency
 import java.math.BigDecimal
 import java.util.*
 
-class Voucher(var isProduct: Boolean,
-              var isUsed: Boolean,
-              var address: String?,
-              var identyAddress: String?,
-              var name: String?,
-              var organizationName: String?,
-              var fundName: String?,
-              var fundType: String?,
-              var fundWebShopUrl: String?,
-              var description: String?,
-              var createdAt: Date?,
-              var currency: Currency?,
-              var amount: BigDecimal?,
-              var logo: String?,
-              var transactions: List<Transaction>,
-              val product: Product? = null,
-              val deactivated: Boolean = false,
-              val expired: Boolean = false,
-              val expireDate: String?,
-              val offices: List<Office>  ) : Parcelable {
+class Voucher(
+    var isProduct: Boolean,
+    var isUsed: Boolean,
+    var address: String?,
+    var identyAddress: String?,
+    var name: String?,
+    var organizationName: String?,
+    var fundName: String?,
+    var fundType: String?,
+    var fundWebShopUrl: String?,
+    var description: String?,
+    var createdAt: Date?,
+    var currency: Currency?,
+    var amount: BigDecimal?,
+    var logo: String?,
+    var transactions: List<Transaction>,
+    val product: Product? = null,
+    val deactivated: Boolean = false,
+    val expired: Boolean = false,
+    val expireDate: String?,
+    val offices: List<Office>,
+    var amount_visible: Boolean = false
+) : Parcelable {
     constructor(parcel: Parcel) : this(
-            parcel.readByte() != 0.toByte(),
-            parcel.readByte() != 0.toByte(),
-            parcel.readString() ?: "",
-            parcel.readString() ?: "",
-            parcel.readString() ?: "",
-            parcel.readString() ?: "",
-            parcel.readString() ?: "",
-            parcel.readString()?: "",
-            parcel.readString()?: "",
-            parcel.readString()?: "",
-            Date(parcel.readLong()),
-            parcel.readParcelable(Currency::class.java.classLoader) ?: Currency(),
-            BigDecimal.valueOf(parcel.readDouble()),
-            parcel.readString() ?: "",
-            parcel.createTypedArrayList(Transaction)?: listOf<Transaction>(),
-            parcel.readParcelable(Product::class.java.classLoader),
-            parcel.readByte() != 0.toByte(),
-            parcel.readByte() != 0.toByte(),
-            parcel.readString() ?: "",
-            parcel.createTypedArrayList(Office)?: listOf<Office>())
+        parcel.readByte() != 0.toByte(),
+        parcel.readByte() != 0.toByte(),
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        Date(parcel.readLong()),
+        parcel.readParcelable(Currency::class.java.classLoader) ?: Currency(),
+        BigDecimal.valueOf(parcel.readDouble()),
+        parcel.readString() ?: "",
+        parcel.createTypedArrayList(Transaction) ?: listOf<Transaction>(),
+        parcel.readParcelable(Product::class.java.classLoader),
+        parcel.readByte() != 0.toByte(),
+        parcel.readByte() != 0.toByte(),
+        parcel.readString() ?: "",
+        parcel.createTypedArrayList(Office) ?: listOf<Office>(),
+        parcel.readByte() != 0.toByte()
+
+    )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeByte(if (isProduct) 1 else 0)
@@ -67,6 +73,7 @@ class Voucher(var isProduct: Boolean,
         parcel.writeByte(if (expired) 1 else 0)
         parcel.writeString(expireDate)
         parcel.writeTypedList(offices)
+        parcel.writeByte(if (amount_visible) 1 else 0)
     }
 
     override fun describeContents(): Int {
