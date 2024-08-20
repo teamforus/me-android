@@ -74,12 +74,17 @@ public class Voucher {
     @SerializedName("offices")
     private List<Office> offices;
 
+
+    @SerializedName("amount_visible")
+    private boolean amount_visible;
+
     public Voucher() { }
 
     public Voucher(Long fundId, String identityAddress, String address, Date createdAt, String createdAtLocale,
                    boolean expired, String expireAtLocale, Long timestamp, Type type, Product product, BigDecimal amount,
                    Fund fund, List<Transaction> transactions, List<Organization> allowedOrganizations, List<ProductCategory> allowedProductCategories,
-                   List<Product> allowedProducts, List<Voucher> childVouchers, List<Office> offices) {
+                   List<Product> allowedProducts, List<Voucher> childVouchers, List<Office> offices,
+                   boolean amount_visible) {
         this.fundId = fundId;
         this.identityAddress = identityAddress;
         this.address = address;
@@ -98,6 +103,7 @@ public class Voucher {
         this.allowedProducts = allowedProducts;
         this.childVouchers = childVouchers;
         this.offices = offices;
+        this.amount_visible = amount_visible;
     }
 
     public Long getFundId() {
@@ -254,5 +260,13 @@ public class Voucher {
 
     public void setUsed(boolean used) {
         this.used = used;
+    }
+
+    public void setAmountVisible(boolean amount_visible){
+        this.amount_visible = amount_visible;
+    }
+
+    public boolean getAmountVisible(){
+        return amount_visible;
     }
 }

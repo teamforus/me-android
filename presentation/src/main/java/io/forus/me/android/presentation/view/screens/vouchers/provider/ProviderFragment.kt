@@ -15,6 +15,7 @@ import io.forus.me.android.domain.exception.RetrofitException
 import io.forus.me.android.domain.exception.RetrofitExceptionMapper
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.databinding.FragmentVoucherProviderBinding
+import io.forus.me.android.presentation.helpers.format
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.models.vouchers.Organization
 import io.forus.me.android.presentation.view.base.MViewModelProvider
@@ -177,6 +178,12 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
         binding.tvName.text = vs.model.item?.voucher?.name
         binding.tvOrganization.text = vs.model.item?.voucher?.organizationName
         binding.ivIcon.setImageUrl(vs.model.item?.voucher?.logo)
+
+        binding.tvPrice.visibility = if (vs.model.item?.voucher?.amount_visible == true) View.VISIBLE else View.GONE
+        vs.model.item?.voucher?.amount?.let{ amount ->
+            binding.tvPrice.text = "€ ${amount.toFloat().format(2)}"
+        }
+
 
 
         if (isDemoVoucher != null && isDemoVoucher!!) {
