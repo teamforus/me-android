@@ -8,7 +8,7 @@ ext {
  
   androidBuildToolsVersion = "33.0.0"
   androidMinSdkVersion = 24
-  androidTargetSdkVersion = 33
+  androidTargetSdkVersion = 34
   androidCompileSdkVersion = 34
 
 
@@ -26,7 +26,6 @@ ext {
   circleIndicatorVersion = '1.2.2@aar'
   materialDialogs = '0.9.6.0'
   gooleMapsVersion = '18.2.0'
-  playCoreVersion = '1.7.2'
   nav_version = '1.0.0'
 
   //Testing
@@ -102,7 +101,6 @@ ext {
         //  firebaseCore:       "com.google.firebase:firebase-core:${rootProject.firebaseCoreVersion}",
           //firebaseMessaging:       "com.google.firebase:firebase-messaging:${rootProject.firebaseCloudMessageVersion}",
           googleMaps:         "com.google.android.gms:play-services-maps:${rootProject.gooleMapsVersion}",
-          playCore:           "com.google.android.play:core:${rootProject.playCoreVersion}",
           navigationFragment: 'androidx.navigation:navigation-fragment-ktx:2.4.1',
           navigationUI: 'androidx.navigation:navigation-ui-ktx:2.4.1'
 
