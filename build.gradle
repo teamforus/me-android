@@ -40,7 +40,7 @@ allprojects {
     jcenter()
   }
   ext {
-    androidVersionCode = 49
+    androidVersionCode = 63
     androidVersionName = "0.5.2"
     androidBuildNumber = 1
     testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
