@@ -1,13 +1,12 @@
 package io.forus.me.android.presentation.view.screens.lock.fingerprint
 
-import android.hardware.fingerprint.FingerprintManager
+//import android.hardware.fingerprint.FingerprintManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.jakewharton.rxbinding2.view.RxView
-import com.multidots.fingerprintauth.FingerPrintAuthCallback
-import com.multidots.fingerprintauth.FingerPrintAuthHelper
+
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.databinding.FragmentFingerprintBinding
 import io.forus.me.android.presentation.internal.Injection
@@ -36,7 +35,7 @@ class FingerprintFragment :
     override val toolbarTitle: String
         get() = resources.getString(R.string.lock_fingerprint_title)
 
-    private lateinit var mFingerPrintAuthHelper: FingerPrintAuthHelper
+   // private lateinit var mFingerPrintAuthHelper: FingerPrintAuthHelper
 
     override fun viewForSnackbar(): View = binding.root
 
@@ -79,7 +78,7 @@ class FingerprintFragment :
         val errorBelowMarshmallow =
             resources.getString(R.string.lock_fingerprint_error_below_marshmallow)
 
-        mFingerPrintAuthHelper =
+       /* mFingerPrintAuthHelper =
             FingerPrintAuthHelper.getHelper(requireContext(), object : FingerPrintAuthCallback {
                 override fun onNoFingerPrintHardwareFound() {
                     authFail.onNext(errorHwNotFound)
@@ -100,17 +99,17 @@ class FingerprintFragment :
                 override fun onAuthSuccess(cryptoObject: FingerprintManager.CryptoObject?) {
                     authSuccess.onNext(Unit)
                 }
-            })
+            })*/
     }
 
     override fun onResume() {
         super.onResume()
-        mFingerPrintAuthHelper.startAuth()
+      ///  mFingerPrintAuthHelper.startAuth()
     }
 
     override fun onPause() {
         super.onPause()
-        mFingerPrintAuthHelper.stopAuth()
+      ///  mFingerPrintAuthHelper.stopAuth()
     }
 
     override fun createPresenter() = FingerprintPresenter(

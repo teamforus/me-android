@@ -8,7 +8,7 @@ buildscript {
   }
   repositories {
     google()
-    jcenter()
+
     mavenCentral()
     maven { url "https://jitpack.io" }
     maven { url 'https://maven.fabric.io/public' }
@@ -29,15 +29,15 @@ buildscript {
 
 allprojects {
   repositories {
-    google()
-    maven {
-      url "https://maven.google.com"
-    }
-    mavenCentral()
-    maven { url "https://jitpack.io" }
-    maven { url 'https://maven.fabric.io/public' }
-    maven { url "https://dl.bintray.com/drummer-aidan/maven/" }
-    jcenter()
+    //google()
+   // maven {
+   //   url "https://maven.google.com"
+   // }
+   // mavenCentral()
+   // maven { url "https://jitpack.io" }
+   // maven { url 'https://maven.fabric.io/public' }
+  //  maven { url "https://dl.bintray.com/drummer-aidan/maven/" }
+
   }
   ext {
     androidVersionCode = 63

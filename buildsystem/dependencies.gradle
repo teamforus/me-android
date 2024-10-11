@@ -1,6 +1,6 @@
 allprojects {
   repositories {
-    jcenter()
+
   }
 }
 
@@ -22,7 +22,6 @@ ext {
   gsonVersion = '2.10.1'
   okHttpVersion = '2.7.5'
   androidAnnotationsVersion = '21.0.3'
-  arrowVersion = '1.0.0'
   circleIndicatorVersion = '1.2.2@aar'
   materialDialogs = '0.9.6.0'
   gooleMapsVersion = '18.2.0'
@@ -51,14 +50,13 @@ ext {
   ahbottomNavigationVersion= '2.2.0'
   slidingUpPanelVersion='3.3.1'
   glideVersion='3.7.0'
-  fingerprintAuthVersion='1.0.1'
+
   //firebaseCoreVersion='20.0.0'
  // firebaseCloudMessageVersion='23.2.1'
 
 
   //Development
   leakCanaryVersion = '2.12'
-  qrReaderVersion='2.0.3@aar'
   animoVersion= '1.2.2'
   fabric='2.9.5@aar'
 
@@ -74,7 +72,7 @@ ext {
           supportLib: 'androidx.legacy:legacy-support-v4:1.0.0',
           recyclerView: 'androidx.recyclerview:recyclerview:1.0.0',
           cardView: 'androidx.cardview:cardview:1.0.0',
-          appCompat: 'androidx.appcompat:appcompat:1.0.0',
+          appCompat: 'androidx.appcompat:appcompat:1.6.0',
           customTabsIntent: 'androidx.browser:browser:1.0.0',
           supportDesign: 'com.google.android.material:material:1.5.0',
           multiDex: 'androidx.multidex:multidex:2.0.0',
@@ -94,9 +92,8 @@ ext {
           glideProcessor:     "com.github.bumptech.glide:compiler:$rootProject.glideVersion",
 
           circleIndicator:    "me.relex:circleindicator:$rootProject.circleIndicatorVersion",
-          qrReader:           "com.dlazaro66.qrcodereaderview:qrcodereaderview:${rootProject.qrReaderVersion}",
           materialDialogs:    "com.afollestad.material-dialogs:core:${rootProject.materialDialogs}",
-          fingerprint:        "com.multidots:fingerprint-auth:${rootProject.fingerprintAuthVersion}",
+
           fabric:             "com.crashlytics.sdk.android:crashlytics:${rootProject.fabric}",
         //  firebaseCore:       "com.google.firebase:firebase-core:${rootProject.firebaseCoreVersion}",
           //firebaseMessaging:       "com.google.firebase:firebase-messaging:${rootProject.firebaseCloudMessageVersion}",
@@ -121,7 +118,6 @@ ext {
       javaxAnnotation:    "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
       javaxInject:        "javax.inject:javax.inject:${javaxInjectVersion}",
       rxJava:             "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
-      arrow:              "com.fernandocejas:arrow:${arrowVersion}",
       gson:               "com.google.code.gson:gson:${gsonVersion}"
   ]
 
@@ -140,7 +136,7 @@ ext {
       rxAndroid:          "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
       javaxAnnotation:    "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
       javaxInject:        "javax.inject:javax.inject:${javaxInjectVersion}",
-      androidAnnotations: 'androidx.annotation:annotation:1.0.0',
+      androidAnnotations: 'androidx.annotation:annotation:1.8.2',
       archRuntime: 'androidx.room:room-runtime:2.0.0',
       archCompiler: 'androidx.room:room-compiler:2.0.0',
       liveDataExt: 'androidx.lifecycle:lifecycle-extensions:2.0.0',
