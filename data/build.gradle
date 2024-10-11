@@ -30,7 +30,6 @@ android {
   compileOptions {
     sourceCompatibility JavaVersion.VERSION_17
     targetCompatibility JavaVersion.VERSION_17
-    coreLibraryDesugaringEnabled true
   }
     packagingOptions {
         resources {
@@ -81,8 +80,11 @@ dependencies {
   implementation "com.squareup.retrofit2:adapter-rxjava2:2.9.0"
   implementation dataDependencies.greendao
   implementation dataDependencies.annimon
+ // implementation dataDependencies.androidAnnotations
+  implementation("androidx.annotation:annotation:1.8.2")
 
-  coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.3'
+
+  implementation("com.android.tools:desugar_jdk_libs:1.0.0")
 
   kapt dataDependencies.archCompiler
 
