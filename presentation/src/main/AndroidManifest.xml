@@ -27,11 +27,7 @@
             android:name="org.apache.http.legacy"
             android:required="false" />
 
-        <activity
-            android:name="com.squareup.leakcanary.internal.DisplayLeakActivity"
-            android:exported="false">
-            <!-- intent-filter, if there is one -->
-        </activity>
+
 
         <activity
             android:name=".view.screens.vouchers.voucher_with_actions.payment.ActionPaymentActivity"
