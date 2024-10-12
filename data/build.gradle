@@ -1,8 +1,8 @@
 buildscript {
-  repositories {
-    google()
-    mavenCentral()
-  }
+    repositories {
+        google()
+        mavenCentral()
+    }
 
 }
 
@@ -15,21 +15,21 @@ apply plugin: 'kotlin-parcelize'
 
 android {
 
-  def globalConfiguration = rootProject.extensions.getByName("ext")
+    def globalConfiguration = rootProject.extensions.getByName("ext")
 
-  compileSdkVersion globalConfiguration.getAt("androidCompileSdkVersion")
+    compileSdkVersion globalConfiguration.getAt("androidCompileSdkVersion")
 
-  defaultConfig {
-    minSdkVersion globalConfiguration.getAt("androidMinSdkVersion")
-    targetSdkVersion globalConfiguration.getAt("androidTargetSdkVersion")
-    multiDexEnabled true
+    defaultConfig {
+        minSdkVersion globalConfiguration.getAt("androidMinSdkVersion")
+        targetSdkVersion globalConfiguration.getAt("androidTargetSdkVersion")
+        multiDexEnabled true
 
-  }
+    }
 
-  compileOptions {
-    sourceCompatibility JavaVersion.VERSION_17
-    targetCompatibility JavaVersion.VERSION_17
-  }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
     packagingOptions {
         resources {
             excludes += ['LICENSE.txt', 'META-INF/DEPENDENCIES', 'META-INF/ASL2.0', 'META-INF/NOTICE', 'META-INF/LICENSE']
@@ -38,11 +38,11 @@ android {
 
 
     kapt {
-    generateStubs = true
-    arguments {
-      arg("room.schemaLocation", "$projectDir/schemas".toString())
+        generateStubs = true
+        arguments {
+            arg("room.schemaLocation", "$projectDir/schemas".toString())
+        }
     }
-  }
     namespace 'io.forus.me.android.data'
     lint {
         abortOnError false
@@ -50,52 +50,52 @@ android {
         ignoreWarnings true
         quiet true
     }
-  buildFeatures {
-    buildConfig true
-  }
+    buildFeatures {
+        buildConfig true
+    }
 
 }
 
 
 greendao {
-  schemaVersion 1
+    schemaVersion 1
 }
 
 dependencies {
-  def dataDependencies = rootProject.ext.dataDependencies
-  def testDependencies = rootProject.ext.dataTestDependencies
+    def dataDependencies = rootProject.ext.dataDependencies
+    def testDependencies = rootProject.ext.dataTestDependencies
 
-  implementation project(':domain')
-  compileOnly dataDependencies.javaxAnnotation
-  implementation dataDependencies.javaxInject
-  implementation dataDependencies.okHttp
-  implementation dataDependencies.gson
-  implementation dataDependencies.rxJava
-  implementation dataDependencies.rxAndroid
-  implementation dataDependencies.androidAnnotations
-  implementation dataDependencies.archRuntime
-  implementation dataDependencies.multiDex
-  implementation dataDependencies.web3j
-  implementation dataDependencies.retrofithttpInspector
-  implementation "com.squareup.retrofit2:retrofit:2.9.0"
-  implementation "com.squareup.retrofit2:converter-gson:2.9.0"
-  implementation "com.squareup.retrofit2:adapter-rxjava2:2.9.0"
-  implementation dataDependencies.greendao
-  implementation dataDependencies.annimon
- // implementation dataDependencies.androidAnnotations
-  implementation("androidx.annotation:annotation:1.8.2")
+    implementation project(':domain')
+    compileOnly dataDependencies.javaxAnnotation
+    implementation dataDependencies.javaxInject
+    implementation dataDependencies.okHttp
+    implementation dataDependencies.gson
+    implementation dataDependencies.rxJava
+    implementation dataDependencies.rxAndroid
+    implementation dataDependencies.androidAnnotations
+    implementation dataDependencies.archRuntime
+    implementation dataDependencies.multiDex
+    implementation dataDependencies.web3j
+    implementation dataDependencies.retrofithttpInspector
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    implementation "com.squareup.retrofit2:converter-gson:2.9.0"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:2.9.0"
+    implementation dataDependencies.greendao
+    implementation dataDependencies.annimon
+    // implementation dataDependencies.androidAnnotations
+    implementation("androidx.annotation:annotation:1.8.2")
 
 
-  implementation("com.android.tools:desugar_jdk_libs:1.0.0")
+    implementation("com.android.tools:desugar_jdk_libs:1.0.0")
 
-  kapt dataDependencies.archCompiler
+    kapt dataDependencies.archCompiler
 
-  // LiveData
-  implementation dataDependencies.liveDataExt
-  kapt dataDependencies.liveDataCompiler
+    // LiveData
+    implementation dataDependencies.liveDataExt
+    kapt dataDependencies.liveDataCompiler
 
-  androidTestImplementation 'androidx.test:runner:1.6.1'
-  androidTestImplementation 'androidx.test:rules:1.6.1'
-  androidTestImplementation 'androidx.test.ext:junit:1.2.1'
-  androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    androidTestImplementation 'androidx.test:runner:1.6.1'
+    androidTestImplementation 'androidx.test:rules:1.6.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 }
