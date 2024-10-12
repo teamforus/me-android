@@ -58,7 +58,7 @@ ext {
   //Development
   leakCanaryVersion = '2.12'
   animoVersion= '1.2.2'
-  fabric='2.9.5@aar'
+
 
 
   presentationDependencies = [
@@ -94,7 +94,6 @@ ext {
           circleIndicator:    "me.relex:circleindicator:$rootProject.circleIndicatorVersion",
           materialDialogs:    "com.afollestad.material-dialogs:core:${rootProject.materialDialogs}",
 
-          fabric:             "com.crashlytics.sdk.android:crashlytics:${rootProject.fabric}",
         //  firebaseCore:       "com.google.firebase:firebase-core:${rootProject.firebaseCoreVersion}",
           //firebaseMessaging:       "com.google.firebase:firebase-messaging:${rootProject.firebaseCloudMessageVersion}",
           googleMaps:         "com.google.android.gms:play-services-maps:${rootProject.gooleMapsVersion}",

@@ -4,7 +4,6 @@ plugins {
     id('kotlin-kapt')
     id ('kotlin-parcelize')
     id('org.greenrobot.greendao')
-    id('io.fabric')
     id('com.google.gms.google-services')
 }
 
@@ -47,9 +46,7 @@ android {
         buildConfigField "String", "SERVER_API_KEY", secretsPropertiesFile.exists() ? "\"${secretsProperties['SERVER_API_KEY']}\"" : "\"fff\""
     }
 
-    dexOptions {
-        javaMaxHeapSize "4g"
-    }
+
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
@@ -129,6 +126,7 @@ android {
     }
     buildFeatures {
         viewBinding true
+        buildConfig true
     }
     namespace 'io.forus.me.android.presentation'
     lint {
@@ -222,9 +220,7 @@ dependencies {
 
 
 
-    implementation(presentationDependencies.fabric) {
-        transitive = true
-    }
+
 
     compileOnly presentationDependencies.javaxAnnotation
 

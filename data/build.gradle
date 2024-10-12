@@ -14,7 +14,6 @@ apply plugin: 'kotlin-parcelize'
 
 
 android {
-  defaultPublishConfig "debug"
 
   def globalConfiguration = rootProject.extensions.getByName("ext")
 
@@ -51,6 +50,9 @@ android {
         ignoreWarnings true
         quiet true
     }
+  buildFeatures {
+    buildConfig true
+  }
 
 }
 
