@@ -1,12 +1,15 @@
 package io.forus.me.android.presentation.view.screens.lock.fingerprint
 
 //import android.hardware.fingerprint.FingerprintManager
+
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import com.jakewharton.rxbinding2.view.RxView
-
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.databinding.FragmentFingerprintBinding
 import io.forus.me.android.presentation.internal.Injection
@@ -16,9 +19,15 @@ import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.forus.me.android.presentation.view.screens.lock.PinLockActivity
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
+import kotlinx.coroutines.launch
+
 
 class FingerprintFragment :
     ToolbarLRFragment<FingerprintModel, FingerprintView, FingerprintPresenter>(), FingerprintView {
+
+    private val promptManager by lazy {
+        BiometricPromptManager(requireActivity())
+    }
 
     companion object {
         fun newIntent(): FingerprintFragment = FingerprintFragment()
@@ -78,39 +87,50 @@ class FingerprintFragment :
         val errorBelowMarshmallow =
             resources.getString(R.string.lock_fingerprint_error_below_marshmallow)
 
-       /* mFingerPrintAuthHelper =
-            FingerPrintAuthHelper.getHelper(requireContext(), object : FingerPrintAuthCallback {
-                override fun onNoFingerPrintHardwareFound() {
-                    authFail.onNext(errorHwNotFound)
+        lifecycleScope.launch {
+            promptManager.promptResults.collect { result ->
+                when(result) {
+                    is BiometricPromptManager.BiometricResult.AuthenticationError -> {
+                        result.error
+                    }
+                    BiometricPromptManager.BiometricResult.AuthenticationFailed -> {
+                        authFail.onNext(errorAuthFail)
+                    }
+                    BiometricPromptManager.BiometricResult.AuthenticationNotSet -> {
+                        authFail.onNext(errorNoFingerprints)
+                    }
+                    BiometricPromptManager.BiometricResult.AuthenticationSuccess -> {
+                        authSuccess.onNext(Unit)
+                    }
+                    BiometricPromptManager.BiometricResult.FeatureUnavailable -> {
+                        authFail.onNext(errorHwNotFound)
+                    }
+                    BiometricPromptManager.BiometricResult.HardwareUnavailable -> {
+                        authFail.onNext(errorHwNotFound)
+                    }
                 }
-
-                override fun onAuthFailed(errorCode: Int, errorMessage: String?) {
-                    authFail.onNext(errorAuthFail)
-                }
-
-                override fun onNoFingerPrintRegistered() {
-                    authFail.onNext(errorNoFingerprints)
-                }
-
-                override fun onBelowMarshmallow() {
-                    authFail.onNext(errorBelowMarshmallow)
-                }
-
-                override fun onAuthSuccess(cryptoObject: FingerprintManager.CryptoObject?) {
-                    authSuccess.onNext(Unit)
-                }
-            })*/
+            }
+        }
     }
+
+
+
+
+
 
     override fun onResume() {
         super.onResume()
-      ///  mFingerPrintAuthHelper.startAuth()
+        val uiHandler = Handler(Looper.getMainLooper())
+        uiHandler.post {
+            promptManager.showBiometricPrompt(
+                title = resources.getString(R.string.lock_fingerprint_title),
+                description = resources.getString(R.string.lock_fingerprint_subtitle),
+            )
+        }
     }
 
-    override fun onPause() {
-        super.onPause()
-      ///  mFingerPrintAuthHelper.stopAuth()
-    }
+
+
 
     override fun createPresenter() = FingerprintPresenter(
         Injection.instance.accountRepository
