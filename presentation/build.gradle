@@ -4,7 +4,6 @@ plugins {
     id('kotlin-kapt')
     id ('kotlin-parcelize')
     id('org.greenrobot.greendao')
-    id('io.fabric')
     id('com.google.gms.google-services')
 }
 
@@ -47,14 +46,11 @@ android {
         buildConfigField "String", "SERVER_API_KEY", secretsPropertiesFile.exists() ? "\"${secretsProperties['SERVER_API_KEY']}\"" : "\"fff\""
     }
 
-    dexOptions {
-        javaMaxHeapSize "4g"
-    }
+
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
-        coreLibraryDesugaringEnabled true
     }
 
     kotlinOptions {
@@ -130,6 +126,7 @@ android {
     }
     buildFeatures {
         viewBinding true
+        buildConfig true
     }
     namespace 'io.forus.me.android.presentation'
     lint {
@@ -201,7 +198,6 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:4.16.0"
     implementation presentationDependencies.circleIndicator
     implementation presentationDependencies.materialDialogs
-    implementation presentationDependencies.fingerprint
     implementation presentationDependencies.googleMaps
 
     implementation presentationDependencies.navigationFragment
@@ -219,11 +215,12 @@ dependencies {
     implementation("com.google.android.play:app-update:2.1.0")
     implementation("com.google.android.play:app-update-ktx:2.1.0")
 
+    implementation("androidx.annotation:annotation:1.8.2")
 
 
-    implementation(presentationDependencies.fabric) {
-        transitive = true
-    }
+
+
+
 
     compileOnly presentationDependencies.javaxAnnotation
 
@@ -247,12 +244,16 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
     implementation 'com.google.code.gson:gson:2.10.1'
 
-    implementation ('com.dlazaro66.qrcodereaderview:qrcodereaderview:2.0.3@aar'){
-        transitive = true
-    }
+    //implementation ('com.dlazaro66.qrcodereaderview:qrcodereaderview:2.0.3@aar'){
+    //    transitive = true
+   // }
+
+    implementation 'com.github.dlazaro66:QRCodeReaderView:2.0.3'
 
     implementation 'com.google.android.material:material:1.10.0'
-    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
+
+    implementation("com.android.tools:desugar_jdk_libs:1.0.0")
+
     implementation(platform("com.google.firebase:firebase-bom:32.2.2"))
     implementation 'com.google.firebase:firebase-firestore-ktx'
     implementation 'com.google.firebase:firebase-storage-ktx'
@@ -262,7 +263,13 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore-ktx:24.8.1'
     implementation 'com.google.firebase:firebase-storage-ktx:20.2.1'
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
-    implementation 'com.pacioianu.david:ink-page-indicator:1.3.0'
     implementation 'me.relex:circleindicator:2.1.6'
 
+    implementation("androidx.biometric:biometric:1.1.0")
+
+}
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+    kotlinOptions {
+        languageVersion = "1.9"
+    }
 }
