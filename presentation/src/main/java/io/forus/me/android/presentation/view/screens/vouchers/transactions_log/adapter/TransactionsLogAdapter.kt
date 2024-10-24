@@ -10,6 +10,7 @@ import android.widget.TextView
 import io.forus.me.android.domain.models.vouchers.ProductAction
 import io.forus.me.android.domain.models.vouchers.Transaction
 import io.forus.me.android.presentation.R
+import io.forus.me.android.presentation.view.screens.vouchers.transactions_log.utils.transactionsDateFormat
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -22,7 +23,7 @@ class TransactionsLogAdapter(val context: Context, var items: ArrayList<Transact
     private val ITEM = 1
     private var isLoadingAdded = false
 
-    val dateFormat = SimpleDateFormat("d MMMM, HH:mm", Locale.getDefault())
+    val dateFormat = SimpleDateFormat(transactionsDateFormat, Locale.getDefault())
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
             = MainHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_transactions_list, parent, false))

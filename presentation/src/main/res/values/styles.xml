@@ -416,4 +416,12 @@
         <item name="android:background">@drawable/bg_bottom_sheet</item>
     </style>
 
+    <style name="AppBottomSheetDialogThemeGray" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppBottomSheetGray</item>
+    </style>
+
+    <style name="AppBottomSheetGray" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/bg_bottom_sheet_gray</item>
+    </style>
+
 </resources>
