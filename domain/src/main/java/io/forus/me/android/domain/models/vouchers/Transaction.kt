@@ -14,6 +14,8 @@ class Transaction {
 
     var amount: BigDecimal?
 
+    var amount_extra_cash: BigDecimal?
+
     var createdAt: Date?
 
     var type: Type = Type.Payed
@@ -24,12 +26,13 @@ class Transaction {
 
     var fund: Fund?
 
-    constructor(id: String, organization: Organization?, currency: Currency?, amount: BigDecimal?, createdAt: Date?,
+    constructor(id: String, organization: Organization?, currency: Currency?, amount: BigDecimal?,amount_extra_cash: BigDecimal?, createdAt: Date?,
                 product: Product?, state: String?, fund: Fund?) {
         this.id = id
         this.organization = organization
         this.currency = currency
         this.amount = amount
+        this.amount_extra_cash = amount_extra_cash
         this.createdAt = createdAt
         this.type = type
         this.product = product

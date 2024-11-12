@@ -4,7 +4,6 @@ import io.forus.me.android.data.entity.vouchers.request.MakeActionTransaction
 import io.forus.me.android.data.entity.vouchers.request.MakeDemoTransaction
 import io.forus.me.android.data.entity.vouchers.request.MakeTransaction
 import io.forus.me.android.data.repository.vouchers.datasource.VouchersDataSource
-import io.forus.me.android.data.repository.vouchers.datasource.mockTransactionsList
 import io.forus.me.android.domain.models.currency.Currency
 import io.forus.me.android.domain.models.vouchers.*
 import io.reactivex.Observable
@@ -132,7 +131,7 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) :
                             ?: "",
                         it.organization?.email
                             ?: ""
-                    ), euro, it.amount, it.createdAt, _product, it.state,
+                    ), euro, it.amount, it.amount_extra_cash, it.createdAt, _product, it.state,
                     fund
                 )
             })
@@ -182,7 +181,7 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) :
                         organization?.phone ?: "",
                         organization?.email
                             ?: ""
-                    ), euro, childVoucher.amount, childVoucher.createdAt, _product, null, null
+                    ), euro, childVoucher.amount, 0f.toBigDecimal(), childVoucher.createdAt, _product, null, null
                 )
             })
         }
@@ -430,6 +429,7 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) :
 
         return Transaction(
             transaction.id.toString(), organization, null, transaction.amount,
+            transaction.amount_extra_cash,
             transaction.createdAt, product, transaction.state, fund
         )
 
@@ -447,7 +447,7 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) :
         val organizationsList = mutableListOf<Organization>()
         organizationsList.add(organization)
         val transaction = Transaction(
-            "0", organization, currency, 0f.toBigDecimal(), date, null,
+            "0", organization, currency, 0f.toBigDecimal(), 0f.toBigDecimal(), date, null,
             null, null
         )
         val transactionList = mutableListOf<Transaction>()
@@ -524,12 +524,13 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) :
     override fun makeTransaction(
         address: String,
         amount: BigDecimal,
+        amountExtraCash: BigDecimal,
         note: String,
         organizationId: Long
     ): Observable<Boolean> {
         return vouchersDataSource.makeTransaction(
             address,
-            MakeTransaction(amount, note, organizationId)
+            MakeTransaction(amount, amountExtraCash, note, organizationId)
         ).map { true }
     }
 
