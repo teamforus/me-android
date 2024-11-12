@@ -9,6 +9,9 @@ public class MakeTransaction {
     @SerializedName("amount")
     private BigDecimal amount;
 
+    @SerializedName("amount_extra_cash")
+    private BigDecimal amount_extra_cash;
+
     @SerializedName("note")
     private String note;
 
@@ -18,10 +21,11 @@ public class MakeTransaction {
     public MakeTransaction() {
     }
 
-    public MakeTransaction(BigDecimal amount, String note, Long organizationId) {
+    public MakeTransaction(BigDecimal amount, BigDecimal amountExtraCash, String note, Long organizationId) {
         this.amount = amount;
         this.note = note;
         this.organizationId = organizationId;
+        this.amount_extra_cash = amountExtraCash;
     }
 
     public String getNote() {
@@ -46,5 +50,9 @@ public class MakeTransaction {
 
     public void setOrganizationId(Long organizationId) {
         this.organizationId = organizationId;
+    }
+
+    public BigDecimal getAmount_extra_cash() {
+        return amount_extra_cash;
     }
 }

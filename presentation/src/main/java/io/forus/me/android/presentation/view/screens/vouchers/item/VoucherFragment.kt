@@ -40,6 +40,7 @@ import io.forus.me.android.presentation.view.component.images.AutoLoadImageView
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.forus.me.android.presentation.view.screens.dashboard.DashboardActivity
 import io.forus.me.android.presentation.view.screens.vouchers.VoucherViewModel
+import io.forus.me.android.presentation.view.screens.vouchers.dialogs.ConfirmExtraPaymentDialog
 import io.forus.me.android.presentation.view.screens.vouchers.dialogs.FullscreenDialog
 import io.forus.me.android.presentation.view.screens.vouchers.item.offices_adapter.OfficesAdapter
 import io.forus.me.android.presentation.view.screens.vouchers.item.transactions.TransactionsAdapter
@@ -487,14 +488,25 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
             if (vs.model.shortToken != null) {
                 if (canShowInfo) {
 
-                    val url: String =
+                   /* val url: String =
                         if (voucher?.fundWebShopUrl?.isNotEmpty()!! && vs.model.shortToken.isNotEmpty()) {
                             voucher?.fundWebShopUrl + "auth-link?token=" + vs.model.shortToken + "&target=voucher-" + voucher?.address
                         } else {
                             "https://forus.io/"
                         }
 
-                    openVoucherInfo(url)
+                    openVoucherInfo(url)*/
+
+
+
+                       /* val bottomSheetFragment = ConfirmExtraPaymentDialog({ extraAmount ->
+
+                        }, {
+
+                        })*/
+                       // bottomSheetFragment.show(requireFragmentManager(), "BottomSheetDialog")
+
+
                     canShowInfo = false
                 }
             }

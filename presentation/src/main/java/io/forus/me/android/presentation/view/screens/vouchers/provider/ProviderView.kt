@@ -11,7 +11,7 @@ interface ProviderView : LRView<ProviderModel> {
 
     fun selectNote(): Observable<String>
 
-    fun charge(): Observable<BigDecimal>
+    fun charge(): Observable<Pair<BigDecimal, BigDecimal>>
 
     fun selectOrganization(): Observable<Organization>
 
