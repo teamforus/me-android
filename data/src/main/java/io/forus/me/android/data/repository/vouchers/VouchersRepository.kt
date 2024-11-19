@@ -3,6 +3,7 @@ package io.forus.me.android.data.repository.vouchers
 import io.forus.me.android.data.entity.vouchers.request.MakeActionTransaction
 import io.forus.me.android.data.entity.vouchers.request.MakeDemoTransaction
 import io.forus.me.android.data.entity.vouchers.request.MakeTransaction
+import io.forus.me.android.data.entity.vouchers.request.MakeTransactionWithExtraCashAmount
 import io.forus.me.android.data.repository.vouchers.datasource.VouchersDataSource
 import io.forus.me.android.domain.models.currency.Currency
 import io.forus.me.android.domain.models.vouchers.*
@@ -528,10 +529,20 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) :
         note: String,
         organizationId: Long
     ): Observable<Boolean> {
-        return vouchersDataSource.makeTransaction(
-            address,
-            MakeTransaction(amount, amountExtraCash, note, organizationId)
-        ).map { true }
+        return if(amountExtraCash > 0.toBigDecimal()){ //Make transaction with extra cash amount
+            vouchersDataSource.makeTransactionWithExtraCashAmount(
+                address,
+                MakeTransactionWithExtraCashAmount(amount, amountExtraCash, note, organizationId)
+            ).map { true }
+        }else { //Make transaction without extra cash amount
+            vouchersDataSource.makeTransaction(
+                address,
+                MakeTransaction(
+                    amount,
+                    note, organizationId
+                )
+            ).map { true }
+        }
     }
 
     override fun makeActionTransaction(

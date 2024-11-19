@@ -418,8 +418,13 @@
 
     <string name="alert_balance_credit_more">This voucher only covers part of the total amount. The holder of the voucher must pay the remaining balance. If you forget to collect this amount, there could be an underpayment. Please confirm you understand by entering the extra amount that needs to be paid. If you have questions, call us at <b>+31 (0)85 004 33 87.</b></string>
 
-    <string name="alert_balance" translatable="false">Typ het bij te betalen bedrag</string>
-    <string name="more_info_button" translatable="false">Meer informatie</string>
+    <string name="alert_balance">Enter the amount that needs to be paid extra</string>
+    <string name="more_info_button">More information</string>
+
+    <string name="attention">Attention</string>
+    <string name="check_extra_amount">The entered amount does not match the extra amount to be paid above.</string>
+
+    <string name="decline">Decline</string>
 
 
 </resources>
