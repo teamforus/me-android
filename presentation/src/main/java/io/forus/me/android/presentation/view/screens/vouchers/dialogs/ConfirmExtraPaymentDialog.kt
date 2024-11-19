@@ -14,13 +14,19 @@ import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.helpers.format
 
 
-class ConfirmExtraPaymentDialog(val extraAmount: Float,var onConfirm: (Float) -> Unit, var onCancel: () -> Unit) : BottomSheetDialogFragment() {
+class ConfirmExtraPaymentDialog(
+    val extraAmount: Float,
+    var onConfirm: (Float) -> Unit,
+    var onCancel: () -> Unit
+) : BottomSheetDialogFragment() {
 
     var btClose: View? = null
     var moreInfoButtonContainer: View? = null
     var extraInfoTextView: View? = null
     var icMoreInfo: ImageView? = null
     var extraAmountTV: TextView? = null
+    var textInputLayout: com.google.android.material.textfield.TextInputLayout? = null
+    var extraAmountInput: com.google.android.material.textfield.TextInputEditText? = null
     var cancel: View? = null
     var submit: View? = null
 
@@ -33,7 +39,9 @@ class ConfirmExtraPaymentDialog(val extraAmount: Float,var onConfirm: (Float) ->
         btClose = root.findViewById(R.id.btClose)
         moreInfoButtonContainer = root.findViewById(R.id.moreInfoButtonContainer)
         extraInfoTextView = root.findViewById(R.id.extraInfoText)
+        extraAmountInput = root.findViewById(R.id.extraAmountInput)
         icMoreInfo = root.findViewById(R.id.icMoreInfo)
+        textInputLayout = root.findViewById(R.id.name_text_input)
         extraAmountTV = root.findViewById(R.id.extraAmount)
         cancel = root.findViewById(R.id.cancel)
         submit = root.findViewById(R.id.submit)
@@ -64,9 +72,20 @@ class ConfirmExtraPaymentDialog(val extraAmount: Float,var onConfirm: (Float) ->
             dismiss()
         }
         submit?.setOnClickListener {
-            val extraAmount = extraAmountTV?.text.toString().toFloatOrNull() ?: 0f
-            onConfirm(extraAmount)
-            dismiss()
+            try {
+                val inputExtraAmount = extraAmountInput?.text.toString().toFloatOrNull() ?: 0f
+
+                if (inputExtraAmount != extraAmount) {
+                    textInputLayout?.error = getString(R.string.check_extra_amount)
+                } else {
+                    textInputLayout?.error = null
+                    onConfirm(extraAmount)
+                    dismiss()
+                }
+            } catch (e: Exception) {
+                textInputLayout?.error = getString(R.string.check_extra_amount)
+            }
+
         }
 
         extraAmountTV?.text = "€ ${extraAmount.format(2)}"

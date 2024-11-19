@@ -488,24 +488,14 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
             if (vs.model.shortToken != null) {
                 if (canShowInfo) {
 
-                   /* val url: String =
+                    val url: String =
                         if (voucher?.fundWebShopUrl?.isNotEmpty()!! && vs.model.shortToken.isNotEmpty()) {
                             voucher?.fundWebShopUrl + "auth-link?token=" + vs.model.shortToken + "&target=voucher-" + voucher?.address
                         } else {
                             "https://forus.io/"
                         }
 
-                    openVoucherInfo(url)*/
-
-
-
-                       /* val bottomSheetFragment = ConfirmExtraPaymentDialog({ extraAmount ->
-
-                        }, {
-
-                        })*/
-                       // bottomSheetFragment.show(requireFragmentManager(), "BottomSheetDialog")
-
+                    openVoucherInfo(url)
 
                     canShowInfo = false
                 }

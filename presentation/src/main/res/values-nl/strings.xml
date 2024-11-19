@@ -376,7 +376,14 @@
 
     <string name="waiting">Wachten...</string>
 
-    <string name="alert_balance_credit">Er is onvoldoende saldo op het tegoed. Vraag de deelnemer om een bijbetaling van:</string>
+    <string name="alert_balance_credit">Er is onvoldoende saldo op het tegoed. Vraag de houder van dit tegoed om een bijbetaling van:</string>
     <string name="alert_balance_credit_more">Slechts een deel van het bedrag kan worden betaald met dit tegoed. Het resterende bedrag moet door de houder van dit tegoed zelf worden bijbetaald. Wanneer u vergeet dit te vragen, kan het zijn dat er te weinig wordt betaald. Bevestig dat u dit begrijpt door het bedrag dat moet worden bijbetaald in te vullen. Bij vragen kunt u ons bereiken via <b>+31 (0)85 004 33 87.</b></string>
+
+    <string name="alert_balance">Typ het bij te betalen bedrag</string>
+    <string name="more_info_button">Meer informatie</string>
+    <string name="attention">Let Op</string>
+    <string name="check_extra_amount">Het ingevoerde bedrag komt niet overeen met het te betalen bedrag hierboven.</string>
+
+    <string name="decline">Afwijzen</string>
 
 </resources>

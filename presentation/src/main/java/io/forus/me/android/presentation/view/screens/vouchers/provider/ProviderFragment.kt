@@ -286,7 +286,7 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
         } else
             if (isProduct) {
                 ApplyDialog(requireContext()) {
-                    charge.onNext(Pair(BigDecimal.ZERO, BigDecimal.ZERO))//BigDecimal.ZERO)
+                    charge.onNext(Pair(BigDecimal.ZERO, BigDecimal.ZERO))
                 }.show()
             } else {
 
@@ -294,9 +294,6 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
 
                 val chargeAmount = if (amount <= balance) amount else balance
                 val extra = if (amount <= balance) BigDecimal.ZERO else amount.minus(balance)
-                /*ChargeDialog(requireContext(), chargeAmount, extra) {
-                    charge.onNext(chargeAmount)
-                }.show()*/
 
                 Log.d("ChargeDialog", "ChargeDialog chargeAmount: $chargeAmount  extra = $extra")
 
