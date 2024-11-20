@@ -168,16 +168,16 @@
         </com.google.android.material.card.MaterialCardView>
 
 
-        <TextView
+        <io.forus.me.android.presentation.view.component.text.TextView
             android:id="@+id/alertTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="34dp"
             android:text="@string/alert_balance"
-            android:textColor="#28292B"
+            tools:textColor="#28292B"
             android:textSize="13sp"
-            android:visibility="gone"
+            android:visibility="visible"
             tools:visibility="visible"
 
             />
@@ -189,6 +189,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/container"
             android:layout_marginHorizontal="20dp"
+            app:errorTextColor="#DB1E0B"
             android:gravity="top|left">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -197,13 +198,13 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/google_sans_regular"
                 android:gravity="top|left"
-                android:hint="€ 0,00"
                 android:inputType="numberDecimal"
                 android:importantForAccessibility="yes"
                 android:lines="1"
                 android:maxLines="1"
                 android:minLines="1"
-                android:padding="16dp"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
                 android:scrollbars="vertical" />
         </com.google.android.material.textfield.TextInputLayout>
 
