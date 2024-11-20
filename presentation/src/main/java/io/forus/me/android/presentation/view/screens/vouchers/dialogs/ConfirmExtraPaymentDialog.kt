@@ -1,12 +1,15 @@
 package io.forus.me.android.presentation.view.screens.vouchers.dialogs
 
 import android.app.Dialog
+import android.content.res.ColorStateList
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -25,6 +28,7 @@ class ConfirmExtraPaymentDialog(
     var extraInfoTextView: View? = null
     var icMoreInfo: ImageView? = null
     var extraAmountTV: TextView? = null
+    var alertTitleTV : TextView? = null
     var textInputLayout: com.google.android.material.textfield.TextInputLayout? = null
     var extraAmountInput: com.google.android.material.textfield.TextInputEditText? = null
     var cancel: View? = null
@@ -45,6 +49,7 @@ class ConfirmExtraPaymentDialog(
         extraAmountTV = root.findViewById(R.id.extraAmount)
         cancel = root.findViewById(R.id.cancel)
         submit = root.findViewById(R.id.submit)
+        alertTitleTV = root.findViewById(R.id.alertTitle)
         return root
     }
 
@@ -60,7 +65,19 @@ class ConfirmExtraPaymentDialog(
             behavior.isFitToContents = true
         }
 
-        //
+        extraAmountInput?.hint = "€ 0,00"
+        alertTitleTV?.setTextColor(ContextCompat.getColor(requireContext(), R.color.textColor))
+        extraAmountInput?.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                alertTitleTV?.setTextColor(ContextCompat.getColor(requireContext(), R.color.forus_blue))
+                extraAmountInput?.hint = ""
+            } else {
+                if (extraAmountInput?.text.isNullOrEmpty()) {
+                    alertTitleTV?.setTextColor(ContextCompat.getColor(requireContext(), R.color.textColor))
+                    extraAmountInput?.hint = "€ 0,00"
+                }
+            }
+        }
 
 
         btClose?.setOnClickListener {
@@ -101,6 +118,8 @@ class ConfirmExtraPaymentDialog(
             }
 
         }
+
+
     }
 
     /* override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

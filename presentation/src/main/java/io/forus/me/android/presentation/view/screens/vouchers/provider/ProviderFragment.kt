@@ -295,7 +295,6 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
                 val chargeAmount = if (amount <= balance) amount else balance
                 val extra = if (amount <= balance) BigDecimal.ZERO else amount.minus(balance)
 
-                Log.d("ChargeDialog", "ChargeDialog chargeAmount: $chargeAmount  extra = $extra")
 
                 if(needExtra)
                 {
