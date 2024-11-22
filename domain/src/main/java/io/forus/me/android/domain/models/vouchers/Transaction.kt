@@ -26,8 +26,10 @@ class Transaction {
 
     var fund: Fund?
 
+    var note : String?
+
     constructor(id: String, organization: Organization?, currency: Currency?, amount: BigDecimal?,amount_extra_cash: BigDecimal?, createdAt: Date?,
-                product: Product?, state: String?, fund: Fund?) {
+                product: Product?, state: String?, fund: Fund?, note: String?) {
         this.id = id
         this.organization = organization
         this.currency = currency
@@ -38,6 +40,7 @@ class Transaction {
         this.product = product
         this.state = state
         this.fund = fund
+        this.note = note
     }
 
 

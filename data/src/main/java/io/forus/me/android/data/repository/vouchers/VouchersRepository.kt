@@ -133,7 +133,7 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) :
                         it.organization?.email
                             ?: ""
                     ), euro, it.amount, it.amount_extra_cash, it.createdAt, _product, it.state,
-                    fund
+                    fund, it.note
                 )
             })
         }
@@ -182,7 +182,7 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) :
                         organization?.phone ?: "",
                         organization?.email
                             ?: ""
-                    ), euro, childVoucher.amount, 0f.toBigDecimal(), childVoucher.createdAt, _product, null, null
+                    ), euro, childVoucher.amount, 0f.toBigDecimal(), childVoucher.createdAt, _product, null, null, null
                 )
             })
         }
@@ -431,7 +431,7 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) :
         return Transaction(
             transaction.id.toString(), organization, null, transaction.amount,
             transaction.amount_extra_cash,
-            transaction.createdAt, product, transaction.state, fund
+            transaction.createdAt, product, transaction.state, fund, transaction.note
         )
 
     }
@@ -449,7 +449,7 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) :
         organizationsList.add(organization)
         val transaction = Transaction(
             "0", organization, currency, 0f.toBigDecimal(), 0f.toBigDecimal(), date, null,
-            null, null
+            null, null, ""
         )
         val transactionList = mutableListOf<Transaction>()
         transactionList.add(transaction)
