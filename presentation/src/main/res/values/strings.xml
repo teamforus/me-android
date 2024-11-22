@@ -425,6 +425,13 @@
     <string name="check_extra_amount">The entered amount does not match the extra amount to be paid above.</string>
 
     <string name="decline">Decline</string>
+    <string name="submit2">Submit</string>
 
+    <string name="date_and_time">Date and time</string>
+
+
+    <string name="requested_extra_payment">Requested extra payment of</string>
+    <string name="transaction_note">Note</string>
+    <string name="transaction_paid">Paid</string>
 
 </resources>

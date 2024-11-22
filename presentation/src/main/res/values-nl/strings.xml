@@ -385,5 +385,14 @@
     <string name="check_extra_amount">Het ingevoerde bedrag komt niet overeen met het te betalen bedrag hierboven.</string>
 
     <string name="decline">Afwijzen</string>
+    <string name="submit2">Verzenden</string>
+
+    <string name="date_and_time">Datum en tijd</string>
+
+
+    <string name="requested_extra_payment">Gevraagd om bijbetaling van</string>
+    <string name="transaction_note">Notitie</string>
+    <string name="transaction_paid">Betaald</string>
+
 
 </resources>

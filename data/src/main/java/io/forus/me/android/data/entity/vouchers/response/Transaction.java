@@ -50,12 +50,15 @@ public class Transaction {
     @SerializedName("state")
     private String state;
 
+    @SerializedName("note")
+    private String note;
+
 
     public Transaction() { }
 
     public Transaction(Long id, Long organizationId, Long productId, BigDecimal amount, BigDecimal amount_extra_cash,
                        String address, Date createdAt, Date updatedAt, String date, Long timestamp,
-                       Organization organization, Product product, Fund fund, String state) {
+                       Organization organization, Product product, Fund fund, String state, String note) {
         this.id = id;
         this.organizationId = organizationId;
         this.productId = productId;
@@ -70,6 +73,7 @@ public class Transaction {
         this.product = product;
         this.fund = fund;
         this.state = state;
+        this.note = note;
     }
 
     public Long getId() {
@@ -179,4 +183,18 @@ public class Transaction {
     public BigDecimal getAmount_extra_cash() {
         return amount_extra_cash;
     }
+
+
+    public void setAmount_extra_cash(BigDecimal amount_extra_cash) {
+        this.amount_extra_cash = amount_extra_cash;
+   }
+
+    public void  setNote(String note) {
+        this.note = note;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
 }
