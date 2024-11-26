@@ -6,6 +6,7 @@ import android.content.res.ColorStateList
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +25,7 @@ import io.forus.me.android.presentation.view.component.editors.AmountTextInputEd
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.forus.me.android.presentation.view.screens.qr.dialogs.ScanVoucherBaseErrorDialog
 import io.forus.me.android.presentation.view.screens.vouchers.VoucherViewModel
+import io.forus.me.android.presentation.view.screens.vouchers.dialogs.ConfirmExtraPaymentDialog
 import io.forus.me.android.presentation.view.screens.vouchers.dialogs.SuccessDialogActivity
 import io.forus.me.android.presentation.view.screens.vouchers.provider.categories.CategoriesAdapter
 import io.forus.me.android.presentation.view.screens.vouchers.provider.dialogs.ApplyDialog
@@ -89,8 +91,11 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
     private val selectOrganization = PublishSubject.create<Organization>()
     override fun selectOrganization(): Observable<Organization> = selectOrganization
 
-    private val charge = PublishSubject.create<BigDecimal>()
-    override fun charge(): Observable<BigDecimal> = charge
+        //private val charge = PublishSubject.create<BigDecimal>()
+    //override fun charge(): Observable<BigDecimal> = charge
+
+    private val charge = PublishSubject.create<Pair<BigDecimal, BigDecimal>>()
+    override fun charge(): Observable<Pair<BigDecimal, BigDecimal>> = charge
 
     private val demoCharge = PublishSubject.create<BigDecimal>()
     override fun demoCharge(): Observable<BigDecimal> = demoCharge
@@ -281,14 +286,34 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
         } else
             if (isProduct) {
                 ApplyDialog(requireContext()) {
-                    charge.onNext(BigDecimal.ZERO)
+                    charge.onNext(Pair(BigDecimal.ZERO, BigDecimal.ZERO))
                 }.show()
             } else {
+
+                val needExtra = amount > balance
+
                 val chargeAmount = if (amount <= balance) amount else balance
                 val extra = if (amount <= balance) BigDecimal.ZERO else amount.minus(balance)
-                ChargeDialog(requireContext(), chargeAmount, extra) {
-                    charge.onNext(chargeAmount)
-                }.show()
+
+
+                if(needExtra)
+                {
+                    val bottomSheetFragment = ConfirmExtraPaymentDialog(extraAmount = extra.toFloat(),
+                        { extraAmount ->
+                            charge.onNext(Pair(chargeAmount, extraAmount.toBigDecimal()))
+                        }, {
+
+                        })
+                    bottomSheetFragment.show(requireFragmentManager(), "BottomSheetDialog")
+                }
+                else
+                {
+                    //charge.onNext(chargeAmount)
+                    ChargeDialog(requireContext(), chargeAmount, 0.toBigDecimal() /*extra*/) {
+                        charge.onNext(Pair(chargeAmount, 0.toBigDecimal()))
+                    }.show()
+                }
+
             }
     }
 

@@ -23,7 +23,7 @@ interface VouchersRepository {
 
     fun getTransactionsLogAsProvider(from: String, page: Int, perPage: Int): Observable<List<Transaction>>
 
-    fun makeTransaction(address: String, amount: BigDecimal, note: String, organizationId: Long): Observable<Boolean>
+    fun makeTransaction(address: String, amount: BigDecimal, amountExtraCash: BigDecimal, note: String, organizationId: Long): Observable<Boolean>
 
     fun makeActionTransaction(address: String,  note: String, productId: Long): Observable<Boolean>
 

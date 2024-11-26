@@ -3,6 +3,7 @@ package io.forus.me.android.data.net.vouchers
 import io.forus.me.android.data.entity.vouchers.request.MakeActionTransaction
 import io.forus.me.android.data.entity.vouchers.request.MakeDemoTransaction
 import io.forus.me.android.data.entity.vouchers.request.MakeTransaction
+import io.forus.me.android.data.entity.vouchers.request.MakeTransactionWithExtraCashAmount
 import io.forus.me.android.data.entity.vouchers.response.*
 import io.reactivex.Observable
 import okhttp3.ResponseBody
@@ -43,6 +44,9 @@ interface VouchersService {
 
     @POST("api/v1/platform/vouchers/{address}/transactions")
     fun makeTransaction(@Path("address") address: String, @Body makeTransaction: MakeTransaction): Observable<CreatedTransaction>
+
+    @POST("api/v1/platform/vouchers/{address}/transactions")
+    fun makeTransactionWithExtraCashAmount(@Path("address") address: String, @Body makeTransaction: MakeTransactionWithExtraCashAmount): Observable<CreatedTransaction>
 
     @POST("api/v1/platform/provider/vouchers/{address}/transactions")
     fun makeActionTransaction(@Path("address") address: String, @Body makeTransaction: MakeActionTransaction): Observable<CreatedTransaction>

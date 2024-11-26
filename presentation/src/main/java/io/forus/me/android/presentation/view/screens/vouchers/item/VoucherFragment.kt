@@ -40,6 +40,7 @@ import io.forus.me.android.presentation.view.component.images.AutoLoadImageView
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.forus.me.android.presentation.view.screens.dashboard.DashboardActivity
 import io.forus.me.android.presentation.view.screens.vouchers.VoucherViewModel
+import io.forus.me.android.presentation.view.screens.vouchers.dialogs.ConfirmExtraPaymentDialog
 import io.forus.me.android.presentation.view.screens.vouchers.dialogs.FullscreenDialog
 import io.forus.me.android.presentation.view.screens.vouchers.item.offices_adapter.OfficesAdapter
 import io.forus.me.android.presentation.view.screens.vouchers.item.transactions.TransactionsAdapter
@@ -495,6 +496,7 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
                         }
 
                     openVoucherInfo(url)
+
                     canShowInfo = false
                 }
             }
