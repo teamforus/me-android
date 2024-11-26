@@ -179,18 +179,24 @@ class ProviderPresenter constructor(private val vouchersRepository: VouchersRepo
 
                         intent { it.charge() }
                                 .switchMap {amount ->
-                                    vouchersRepository.makeTransaction(address, amount, note, organizationId)
+                                    vouchersRepository.makeTransaction(
+                                        address,
+                                        amount.first,
+                                        amount.second,
+                                        note,
+                                        organizationId
+                                    )
                                             .subscribeOn(Schedulers.io())
                                             .observeOn(AndroidSchedulers.mainThread())
                                             .map<PartialChange> {
                                                 firestoreTokenManager.writeTransaction(
-                                                    address, amount, note, organizationId, true, null
+                                                    address, amount.first, note, organizationId, true, null
                                                 )
                                                 ProviderPartialChanges.MakeTransactionEnd()
                                             }
                                             .onErrorReturn { throwable ->
                                                 firestoreTokenManager.writeTransaction(
-                                                    address, amount, note, organizationId, false,
+                                                    address, amount.first, note, organizationId, false,
                                                     throwable.localizedMessage
                                                 )
                                                 ProviderPartialChanges.MakeTransactionError(throwable)
