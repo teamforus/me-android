@@ -1,25 +1,15 @@
 package io.forus.me.android.presentation.view.screens.vouchers.transactions_log
 
+//import kotlinx.android.synthetic.main.activity_toolbar_sliding_panel.*
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.Spanned
-import android.text.style.ForegroundColorSpan
-import android.text.style.RelativeSizeSpan
-import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import io.forus.me.android.domain.models.vouchers.Transaction
 import io.forus.me.android.presentation.R
-import io.forus.me.android.presentation.view.MeBottomSheetDialogFragment
 import io.forus.me.android.presentation.view.activity.CommonActivity
-import io.forus.me.android.presentation.view.component.CustomTypefaceSpan
-import io.forus.me.android.presentation.view.screens.vouchers.transactions_log.details.TransactionDetailsFragment
-//import kotlinx.android.synthetic.main.activity_toolbar_sliding_panel.*
-import java.text.NumberFormat
+import io.forus.me.android.presentation.view.screens.vouchers.transactions_log.details.TransactionDetailsPopupDialog
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Locale
 
 
 class TransactionsActivity : CommonActivity() {
@@ -51,9 +41,12 @@ class TransactionsActivity : CommonActivity() {
         }
     }
 
-    fun showPopupTransactionDetailsFragment(item: Transaction) {
+    fun showPopupTransactionDetailsFragment(transaction: Transaction) {
 
-        val typeface =
+        val transactionDetailsPopupDialog = TransactionDetailsPopupDialog(transaction)
+        transactionDetailsPopupDialog.show(this.supportFragmentManager, "TransactionDetailsPopupDialog")
+
+       /* val typeface =
             ResourcesCompat.getFont(this@TransactionsActivity, R.font.fgoogle_sans_regular);
 
         val titleStr = "   " + getString(R.string.date_title)
@@ -101,7 +94,7 @@ class TransactionsActivity : CommonActivity() {
                 NumberFormat.getCurrencyInstance(Locale("nl", "NL"))
                     .format(item.amount), state
             ), spannable.toString())
-        meBottomSheet.show(supportFragmentManager, meBottomSheet.tag)
+        meBottomSheet.show(supportFragmentManager, meBottomSheet.tag)*/
 
     }
 }

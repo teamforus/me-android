@@ -8,14 +8,12 @@ import android.os.Bundle
 import android.os.StrictMode
 import androidx.multidex.MultiDex
 import android.util.Log
-import com.crashlytics.android.Crashlytics
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException
 import com.google.android.gms.common.GooglePlayServicesRepairableException
 import com.google.android.gms.security.ProviderInstaller
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings
 import com.google.firebase.storage.FirebaseStorage
-import io.fabric.sdk.android.Fabric
 import io.forus.me.android.data.net.MeServiceFactory
 import io.forus.me.android.presentation.api_config.ApiConfig
 import io.forus.me.android.presentation.internal.Injection
@@ -39,8 +37,7 @@ class AndroidApplication : Application() {
         this.initRetrofit()
         this.initDb()
 
-        if (!BuildConfig.DEBUG)
-            this.initFabric()
+
 
         this.initPortraitOrientation()
         this.initFirebase()
@@ -70,9 +67,7 @@ class AndroidApplication : Application() {
         Injection.instance.accountRepository.registerFCMToken(token)
     }
 
-    private fun initFabric() {
-        Fabric.with(this, Crashlytics())
-    }
+
 
     private fun initRetrofit() {
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()

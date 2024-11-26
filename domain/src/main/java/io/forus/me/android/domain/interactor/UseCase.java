@@ -15,7 +15,8 @@
  */
 package io.forus.me.android.domain.interactor;
 
-import com.fernandocejas.arrow.checks.Preconditions;
+
+import java.util.Objects;
 
 import io.forus.me.android.domain.executor.PostExecutionThread;
 import io.forus.me.android.domain.executor.ThreadExecutor;
@@ -58,7 +59,7 @@ public abstract class UseCase<T, Params> {
    * @param params Parameters (Optional) used to build/execute this use case.
    */
   public void execute(DisposableObserver<T> observer, Params params) {
-    Preconditions.checkNotNull(observer);
+    Objects.requireNonNull(observer, "Observer cannot be null");
     final Observable<T> observable = this.buildUseCaseObservable(params)
         .subscribeOn(Schedulers.from(threadExecutor))
         .observeOn(postExecutionThread.getScheduler());
@@ -78,8 +79,8 @@ public abstract class UseCase<T, Params> {
    * Dispose from current {@link CompositeDisposable}.
    */
   private void addDisposable(Disposable disposable) {
-    Preconditions.checkNotNull(disposable);
-    Preconditions.checkNotNull(disposables);
+    Objects.requireNonNull(disposable, "Disposable cannot be null");
+    Objects.requireNonNull(disposables, "CompositeDisposable cannot be null");
     disposables.add(disposable);
   }
 }

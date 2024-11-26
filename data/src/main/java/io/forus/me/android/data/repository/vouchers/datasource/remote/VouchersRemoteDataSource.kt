@@ -4,6 +4,7 @@ import android.util.Log
 import io.forus.me.android.data.entity.vouchers.request.MakeActionTransaction
 import io.forus.me.android.data.entity.vouchers.request.MakeDemoTransaction
 import io.forus.me.android.data.entity.vouchers.request.MakeTransaction
+import io.forus.me.android.data.entity.vouchers.request.MakeTransactionWithExtraCashAmount
 import io.forus.me.android.data.entity.vouchers.response.DemoTransaction
 import io.forus.me.android.data.entity.vouchers.response.ProductAction
 import io.forus.me.android.data.entity.vouchers.response.Transaction
@@ -45,6 +46,13 @@ class VouchersRemoteDataSource(f: () -> VouchersService): VouchersDataSource, Re
 
     override fun makeTransaction(address: String, makeTransaction: MakeTransaction): Observable<Transaction> {
         return service.makeTransaction(address, makeTransaction).map { it.data }
+    }
+
+    override fun makeTransactionWithExtraCashAmount(
+        address: String,
+        makeTransaction: MakeTransactionWithExtraCashAmount
+    ): Observable<Transaction> {
+        return service.makeTransactionWithExtraCashAmount(address, makeTransaction).map { it.data }
     }
 
     override fun makeActionTransaction(address: String, makeTransaction: MakeActionTransaction): Observable<Transaction> {
