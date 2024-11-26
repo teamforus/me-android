@@ -1,138 +1,252 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    android:paddingBottom="20dp"
+    android:orientation="vertical"
+    app:layout_behavior="@string/bottom_sheet_behavior">
 
 
-    <LinearLayout
+    <ImageView
+        android:id="@+id/btClose"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/ic_close"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="#070707" />
+
+    <io.forus.me.android.presentation.view.component.text.TextView
+        android:id="@+id/titleTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/google_sans_medium"
+        android:gravity="center"
+        android:letterSpacing="0.01"
+        android:text="@string/date_and_time"
+        android:textColor="#848484"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <io.forus.me.android.presentation.view.component.text.TextView
+        android:id="@+id/dateTimeTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/google_sans_medium"
+        android:gravity="center"
+        android:letterSpacing="0.01"
+        android:text="01/01/2000, 14:08"
+        android:textColor="#28292B"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titleTV" />
+
+
+    <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="38dp"
         android:orientation="vertical"
-        android:padding="@dimen/activity_horizontal_margin"
-        android:visibility="visible">
+        app:layout_constraintTop_toBottomOf="@id/dateTimeTV">
 
-
-        <TextView
-            android:id="@+id/amountTV"
-            android:layout_width="wrap_content"
-            android:layout_height="43dp"
-            android:layout_gravity="center_horizontal"
-            android:fontFamily="@font/google_sans_regular"
-            android:gravity="center_horizontal"
-            android:letterSpacing="0.01"
-            android:textColor="@color/colorAccent"
-            android:textSize="34.15sp"
-            tools:text="+1000" />
-
-        <TextView
-            android:id="@+id/statusTV"
-            android:layout_width="wrap_content"
-            android:layout_height="16dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="0dp"
-            android:gravity="center_horizontal"
-            android:letterSpacing="0.03"
-            android:textColor="@color/colorAccent"
-            android:fontFamily="@font/google_sans_regular"
-            android:textSize="12.05sp"
-            tools:text="pending" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:layout_marginTop="16dp"
-            android:background="@color/secondary200"
-            android:gravity="start"
             android:orientation="vertical"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
             android:visibility="visible">
 
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="44dp"
-                android:layout_marginTop="18dp"
-                android:fontFamily="@font/google_sans_regular"
-                android:gravity="center_horizontal"
-                android:text="@string/transaction_details"
-                android:textColor="@color/textColor"
-                android:textSize="17sp" />
 
             <TextView
+                android:id="@+id/amountTV"
                 android:layout_width="wrap_content"
-                android:layout_height="15dp"
+                android:layout_height="43dp"
+                android:layout_gravity="center_horizontal"
+                android:fontFamily="@font/google_sans_regular"
+                android:gravity="center_horizontal"
+                android:letterSpacing="0.01"
+                android:textColor="@color/colorAccent"
+                android:textSize="34.15sp"
+                tools:text="+1000" />
+
+            <TextView
+                android:id="@+id/statusTV"
+                android:layout_width="wrap_content"
+                android:layout_height="16dp"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="0dp"
                 android:fontFamily="@font/google_sans_regular"
-                android:text="ID"
-                android:textColor="#8793A0"
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/idTV"
-                android:layout_width="wrap_content"
-                android:layout_height="21dp"
-                android:layout_marginTop="3dp"
-                android:fontFamily="@font/google_sans_regular"
                 android:gravity="center_horizontal"
-                android:textColor="@color/textColor"
-                android:textSize="15sp"
-                tools:text="+1000" />
+                android:letterSpacing="0.03"
+                android:textColor="@color/colorAccent"
+                android:textSize="12.05sp"
+                tools:text="pending" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="15dp"
-                android:layout_marginTop="14dp"
-                android:fontFamily="@font/google_sans_regular"
-                android:text="@string/fund_title"
-                android:textColor="#8793A0"
-                android:textSize="12sp" />
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.Material3.CardView.Outlined"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginTop="22.dp"
+                android:theme="@style/Theme.Material3.DayNight"
+                app:cardBackgroundColor="#F4F4F4"
+                app:cardCornerRadius="5dp"
+                app:strokeColor="#F4F4F4"
+                app:strokeWidth="1dp">
 
-            <TextView
-                android:id="@+id/fundTV"
-                android:layout_width="wrap_content"
-                android:layout_height="21dp"
-                android:layout_marginTop="3dp"
-                android:fontFamily="@font/google_sans_regular"
-                android:gravity="center_horizontal"
-                android:textColor="@color/textColor"
-                android:textSize="15sp"
-                tools:text="+1000" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="15dp"
-                android:layout_marginTop="12dp"
-                android:fontFamily="@font/google_sans_regular"
-                android:text="@string/provider_title"
-                android:textColor="#8793A0"
-                android:textSize="12sp"
-                android:visibility="visible"
-                />
+                android:gravity="start"
+                android:orientation="vertical"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:visibility="visible">
 
-            <TextView
-                android:id="@+id/providerTV"
-                android:layout_width="wrap_content"
-                android:layout_height="21dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginBottom="10dp"
-                android:fontFamily="@font/google_sans_regular"
-                android:gravity="center_horizontal"
-                android:textColor="@color/textColor"
-                android:textSize="15sp"
-                tools:text="+1000"
-                android:visibility="visible"
-                />
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="44dp"
+                    android:layout_marginTop="18dp"
+                    android:fontFamily="@font/google_sans_regular"
+                    android:gravity="center_horizontal"
+                    android:text="@string/transaction_details"
+                    android:textColor="@color/textColorPopup"
+                    android:textSize="24sp" />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:fontFamily="@font/google_sans_regular"
+                    android:text="ID"
+                    android:textColor="#535561"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/idTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="11dp"
+                    android:fontFamily="@font/google_sans_regular"
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/textColorPopup"
+                    android:textSize="15sp"
+                    tools:text="+1000" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:layout_marginTop="22dp"
+                    android:fontFamily="@font/google_sans_regular"
+                    android:text="@string/fund_title"
+                    android:textColor="#535561"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/fundTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="11dp"
+                    android:fontFamily="@font/google_sans_regular"
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/textColorPopup"
+                    android:textSize="15sp"
+                    tools:text="+1000" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="22dp"
+                    android:fontFamily="@font/google_sans_regular"
+                    android:text="@string/provider_title"
+                    android:textColor="#535561"
+                    android:textSize="12sp"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/providerTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="11dp"
+                    android:fontFamily="@font/google_sans_regular"
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/textColorPopup"
+                    android:textSize="15sp"
+                    android:visibility="visible"
+                    tools:text="+1000" />
+
+                <TextView
+                    android:id="@+id/extraAmoutTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="22dp"
+                    android:fontFamily="@font/google_sans_regular"
+                    android:text="@string/requested_extra_payment"
+                    android:textColor="#535561"
+                    android:textSize="12sp"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/extraAmoutValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="11dp"
+                    android:fontFamily="@font/google_sans_regular"
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/textColorPopup"
+                    android:textSize="15sp"
+                    android:visibility="visible"
+                    tools:text="€22" />
+
+                <TextView
+                    android:id="@+id/noteTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="22dp"
+                    android:fontFamily="@font/google_sans_regular"
+                    android:text="@string/transaction_note"
+                    android:textColor="#535561"
+                    android:textSize="12sp"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/noteValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="11dp"
+                    android:layout_marginBottom="22dp"
+                    android:fontFamily="@font/google_sans_regular"
+                    android:textColor="@color/textColorPopup"
+                    android:textSize="15sp"
+                    android:visibility="visible"
+                    tools:text="Note lorem ip sum dolor sit amet  Suites  Suites  Suites  Suites  Suites  Suites  Suites  Suites" />
+
+
+
+            </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
 
-    </LinearLayout>
 
-
-</ScrollView>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

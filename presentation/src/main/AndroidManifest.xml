@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.USE_FINGERPRINT" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.USE_BIOMETRIC" />
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -27,11 +28,7 @@
             android:name="org.apache.http.legacy"
             android:required="false" />
 
-        <activity
-            android:name="com.squareup.leakcanary.internal.DisplayLeakActivity"
-            android:exported="false">
-            <!-- intent-filter, if there is one -->
-        </activity>
+
 
         <activity
             android:name=".view.screens.vouchers.voucher_with_actions.payment.ActionPaymentActivity"
