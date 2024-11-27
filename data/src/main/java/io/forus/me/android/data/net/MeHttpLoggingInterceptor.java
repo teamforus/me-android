@@ -154,9 +154,11 @@ public class MeHttpLoggingInterceptor  implements Interceptor {
         if (logHeaders) {
             Headers headers = response.headers();
             for (int i = 0, count = headers.size(); i < count; i++) {
-                if(canLog(headers.name(i))&&canLog(headers.value(i)))
-                logger.log(headers.name(i) + ": " + headers.value(i));
+                if (canLog(headers.name(i)) && canLog(headers.value(i))) {
+                    logger.log(headers.name(i) + ": " + headers.value(i));
+                }
             }
+
 
             if (!logBody || !HttpHeaders.hasBody(response)) {
                 logger.log("<-- END HTTP");

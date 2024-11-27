@@ -19,6 +19,9 @@ public class Transaction {
     @SerializedName("amount")
     private BigDecimal amount;
 
+    @SerializedName("amount_extra_cash")
+    private BigDecimal amount_extra_cash;
+
     @SerializedName("address")
     private String address;
 
@@ -47,15 +50,20 @@ public class Transaction {
     @SerializedName("state")
     private String state;
 
+    @SerializedName("note")
+    private String note;
+
 
     public Transaction() { }
 
-    public Transaction(Long id, Long organizationId, Long productId, BigDecimal amount, String address, Date createdAt, Date updatedAt, String date, Long timestamp,
-                       Organization organization, Product product, Fund fund, String state) {
+    public Transaction(Long id, Long organizationId, Long productId, BigDecimal amount, BigDecimal amount_extra_cash,
+                       String address, Date createdAt, Date updatedAt, String date, Long timestamp,
+                       Organization organization, Product product, Fund fund, String state, String note) {
         this.id = id;
         this.organizationId = organizationId;
         this.productId = productId;
         this.amount = amount;
+        this.amount_extra_cash = amount_extra_cash;
         this.address = address;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -65,6 +73,7 @@ public class Transaction {
         this.product = product;
         this.fund = fund;
         this.state = state;
+        this.note = note;
     }
 
     public Long getId() {
@@ -170,4 +179,22 @@ public class Transaction {
     public void setState(String state) {
         this.state = state;
     }
+
+    public BigDecimal getAmount_extra_cash() {
+        return amount_extra_cash;
+    }
+
+
+    public void setAmount_extra_cash(BigDecimal amount_extra_cash) {
+        this.amount_extra_cash = amount_extra_cash;
+   }
+
+    public void  setNote(String note) {
+        this.note = note;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
 }

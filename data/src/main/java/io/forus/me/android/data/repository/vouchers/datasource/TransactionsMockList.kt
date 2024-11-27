@@ -28,5 +28,5 @@ fun mockTransactionsList(page: Int, perPage: Int): List<Transaction> {
         val createdAt = Date()
         val state = "Active"
 
-        return Transaction(id.toString(), organization, currency, amount, createdAt, null, state, null)
+        return Transaction(id.toString(), organization, currency, amount, 0f.toBigDecimal(), createdAt, null, state, null, null)
     }
