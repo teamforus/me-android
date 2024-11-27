@@ -1,7 +1,6 @@
 package io.forus.me.android.presentation.helpers
 
 
-
 import android.annotation.TargetApi
 import android.app.Activity
 import android.app.KeyguardManager
@@ -22,7 +21,8 @@ class SystemServices(private val context: Context) {
         fun hasMarshmallow() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
     }
 
-    private val keyguardManager: KeyguardManager = context.getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
+    private val keyguardManager: KeyguardManager =
+        context.getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
 
     /**
      * There is a nice [FingerprintManagerCompat] class that makes all dirty work for us, but as always, shit happens.
@@ -33,15 +33,17 @@ class SystemServices(private val context: Context) {
 
     init {
         if (hasMarshmallow()) {
-            fingerprintManager = context.getSystemService(Context.FINGERPRINT_SERVICE) as FingerprintManager?
+            fingerprintManager =
+                context.getSystemService(Context.FINGERPRINT_SERVICE) as FingerprintManager?
         }
     }
 
 
-    fun isFingerprintHardwareAvailable() = fingerprintManager?.isHardwareDetected ?: false
+    fun isFingerprintHardwareAvailable(): Boolean {
+        return fingerprintManager?.isHardwareDetected ?: false && (Build.VERSION.SDK_INT >= 28)
+    }
 
     fun hasEnrolledFingerprints() = fingerprintManager?.hasEnrolledFingerprints() ?: false
-
 
 
 }

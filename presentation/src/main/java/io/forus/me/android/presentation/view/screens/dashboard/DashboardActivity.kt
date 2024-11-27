@@ -11,8 +11,6 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.crashlytics.android.Crashlytics
-import io.fabric.sdk.android.Fabric
 import io.forus.me.android.data.executor.JobExecutor
 import io.forus.me.android.domain.interactor.CheckLoginUseCase
 import io.forus.me.android.domain.interactor.CheckSendCrashReportsEnabled
@@ -103,9 +101,9 @@ class DashboardActivity() : CommonActivity(), DashboardContract.View,
     }
 
     override fun addUserId(id: String) {
-        if (Fabric.isInitialized()) {
-            Crashlytics.setUserIdentifier(id)
-        }
+      //  if (Fabric.isInitialized()) {
+         //   Crashlytics.setUserIdentifier(id)
+      //  }
     }
 
     override fun logout() {
