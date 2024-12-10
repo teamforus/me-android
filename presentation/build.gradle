@@ -54,7 +54,7 @@ android {
     }
 
     kotlinOptions {
-        languageVersion = "1.4"
+        languageVersion = "1.9"
         jvmTarget = '17'
     }
     packagingOptions {
