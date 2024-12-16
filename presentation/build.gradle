@@ -5,6 +5,7 @@ plugins {
     id ('kotlin-parcelize')
     id('org.greenrobot.greendao')
     id('com.google.gms.google-services')
+    id ('androidx.navigation.safeargs')
 }
 
 def secretsPropertiesFile = rootProject.file("secrets.properties")
