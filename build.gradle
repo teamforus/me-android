@@ -4,7 +4,7 @@ apply from: 'buildsystem/dependencies.gradle'
 buildscript {
 
   ext {
-    kotlin_version = '1.9.0'
+    kotlin_version = '1.9.21'
   }
   repositories {
     google()
@@ -13,7 +13,7 @@ buildscript {
     maven { url "https://jitpack.io" }
   }
   dependencies {
-    classpath 'com.android.tools.build:gradle:8.5.0'
+    classpath 'com.android.tools.build:gradle:8.7.1'
     classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
     classpath 'org.greenrobot:greendao-gradle-plugin:3.3.1'
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
@@ -23,6 +23,9 @@ buildscript {
     classpath('com.google.guava:guava:30.1.1-jre')
 
     classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.7'
+
+
+    classpath('androidx.navigation:navigation-safe-args-gradle-plugin:2.8.4')
 
   }
 }
