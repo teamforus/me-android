@@ -9,6 +9,7 @@ import androidx.annotation.Nullable
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import io.forus.me.android.domain.models.vouchers.Transaction
@@ -16,6 +17,7 @@ import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.databinding.ActivityTransactionsLogBinding
 import io.forus.me.android.presentation.helpers.PaginationScrollListener
 import io.forus.me.android.presentation.view.screens.vouchers.transactions_log.adapter.TransactionsLogAdapter
+import io.forus.me.android.presentation.view.screens.vouchers.transactions_log.details.TransactionDetailsPopupDialog
 import io.forus.me.android.presentation.view.screens.vouchers.transactions_log.viewmodels.TransactionsLogViewModel
 import java.util.*
 
@@ -63,8 +65,8 @@ class TransactionsFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
     override fun onCreateView(
         inflater: LayoutInflater,
-        @Nullable container: ViewGroup?,
-        @Nullable savedInstanceState: Bundle?
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
 
         binding = ActivityTransactionsLogBinding.inflate(inflater)
@@ -91,16 +93,18 @@ class TransactionsFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         info_button?.visibility = View.INVISIBLE
         profile_button?.setImageResource(R.drawable.ic_back)
         toolbar_title?.text = getString(R.string.transactions_title)
-        profile_button?.setOnClickListener { requireActivity().finish() }
+        profile_button?.setOnClickListener {
+            //requireActivity().finish()
+
+            findNavController().popBackStack()
+        }
 
         transactionsAdapter = TransactionsLogAdapter(
             requireContext(),
             arrayListOf(),
             object : TransactionsLogAdapter.Callback {
                 override fun onItemClicked(item: Transaction) {
-
-                    (activity as? TransactionsActivity)?.showPopupTransactionDetailsFragment(item)
-
+                    showPopupTransactionDetailsFragment(item)
                 }
             })
 
@@ -165,6 +169,14 @@ class TransactionsFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
         mainViewModel.getTransactions(this@TransactionsFragment.currentPage)
         this@TransactionsFragment.currentPage += 1
+
+    }
+
+    fun showPopupTransactionDetailsFragment(transaction: Transaction) {
+
+        val transactionDetailsPopupDialog = TransactionDetailsPopupDialog(transaction)
+        transactionDetailsPopupDialog.show(requireActivity().supportFragmentManager, "TransactionDetailsPopupDialog")
+
 
     }
 

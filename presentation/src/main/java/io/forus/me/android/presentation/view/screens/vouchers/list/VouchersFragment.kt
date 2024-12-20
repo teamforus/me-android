@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.databinding.FragmentVouchersRecyclerBinding
@@ -18,7 +19,6 @@ import io.forus.me.android.presentation.view.component.images.AutoLoadImageView
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.forus.me.android.presentation.view.screens.vouchers.VoucherViewModel
 import io.forus.me.android.presentation.view.screens.vouchers.item.VoucherFragment
-import io.forus.me.android.presentation.view.screens.vouchers.transactions_log.TransactionsActivity
 
 
 /**
@@ -79,7 +79,7 @@ class VouchersFragment : ToolbarLRFragment<VouchersModel, VouchersView, Vouchers
             viewModel.setVoucher(voucher)
             viewModel.setAddress(voucher.address?:"")
 
-            (activity as? BaseActivity)?.replaceFragment(VoucherFragment.newInstance(voucher, position), sharedViews)
+            findNavController().navigate(R.id.action_vouchersFragment_to_voucherFragment)
         }
         binding.recycler.layoutManager =
             LinearLayoutManager(context)
@@ -87,7 +87,8 @@ class VouchersFragment : ToolbarLRFragment<VouchersModel, VouchersView, Vouchers
 
         info_button?.setImageResource(R.drawable.ic_transactions)
         info_button?.setOnClickListener {
-            startActivity(TransactionsActivity.getCallingIntent(requireContext()))
+          //  startActivity(TransactionsActivity.getCallingIntent(requireContext()))
+            findNavController().navigate(R.id.action_voucherFragment_to_transactionsFragment)
         }
 
     }

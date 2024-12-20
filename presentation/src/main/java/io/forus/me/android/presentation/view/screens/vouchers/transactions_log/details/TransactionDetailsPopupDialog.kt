@@ -1,6 +1,7 @@
 package io.forus.me.android.presentation.view.screens.vouchers.transactions_log.details
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -65,7 +66,11 @@ class TransactionDetailsPopupDialog(
 
 
         closeIV.setOnClickListener {
-            dismiss()
+            try {
+                dismiss()
+            } catch (e: IllegalStateException) {
+                Log.e("TransactionDetailsPopupDialog", "Error while dismissing TransactionDetailsPopupDialog: ${e.message}")
+            }
         }
 
         dateTimeTV.text = transaction.createdAt.formatToDisplay()
@@ -73,11 +78,11 @@ class TransactionDetailsPopupDialog(
             .format(transaction.amount)
 
         val status =
-        when (transaction.state) {
-            "success" -> getString(R.string.transaction_paid)
-            "pending" -> getString(R.string.status_pending)
-            else -> transaction.state ?: ""
-        }
+            when (transaction.state) {
+                "success" -> getString(R.string.transaction_paid)
+                "pending" -> getString(R.string.status_pending)
+                else -> transaction.state ?: ""
+            }
 
         statusTV.text = status
         idTV.text = transaction.id
@@ -85,11 +90,10 @@ class TransactionDetailsPopupDialog(
         providerTV.text = transaction.organization?.name
         extraAmountTV.text = NumberFormat.getCurrencyInstance(Locale("nl", "NL"))
             .format(transaction.amount_extra_cash)
-        noteTV.text = transaction.note?:""
+        noteTV.text = transaction.note ?: ""
 
 
     }
-
 
 
     override fun getTheme(): Int {
