@@ -77,7 +77,7 @@ class DashboardActivity : AppCompatActivity() {
                     }
                     R.id.dashboard_qr -> {
                         navigateToQrScanner()
-                        true
+                        false
                     }
                     else -> false
                 }
