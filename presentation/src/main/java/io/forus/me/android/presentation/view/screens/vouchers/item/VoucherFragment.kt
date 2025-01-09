@@ -2,7 +2,6 @@ package io.forus.me.android.presentation.view.screens.vouchers.item
 
 import android.content.DialogInterface
 import android.content.Intent
-import android.graphics.BlurMaskFilter
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -30,7 +29,13 @@ import io.forus.me.android.presentation.UIThread
 import io.forus.me.android.presentation.databinding.FragmentVoucherBinding
 import io.forus.me.android.presentation.helpers.format
 import io.forus.me.android.presentation.internal.Injection
-import io.forus.me.android.presentation.mappers.*
+import io.forus.me.android.presentation.mappers.CurrencyDataMapper
+import io.forus.me.android.presentation.mappers.OfficeDataMapper
+import io.forus.me.android.presentation.mappers.OrganizationDataMapper
+import io.forus.me.android.presentation.mappers.ProductDataMapper
+import io.forus.me.android.presentation.mappers.SchedulerDataMapper
+import io.forus.me.android.presentation.mappers.TransactionDataMapper
+import io.forus.me.android.presentation.mappers.VoucherDataMapper
 import io.forus.me.android.presentation.models.vouchers.FundType
 import io.forus.me.android.presentation.models.vouchers.Office
 import io.forus.me.android.presentation.models.vouchers.Voucher
@@ -40,14 +45,13 @@ import io.forus.me.android.presentation.view.component.images.AutoLoadImageView
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.forus.me.android.presentation.view.screens.dashboard.DashboardActivity
 import io.forus.me.android.presentation.view.screens.vouchers.VoucherViewModel
-import io.forus.me.android.presentation.view.screens.vouchers.dialogs.ConfirmExtraPaymentDialog
 import io.forus.me.android.presentation.view.screens.vouchers.dialogs.FullscreenDialog
 import io.forus.me.android.presentation.view.screens.vouchers.item.offices_adapter.OfficesAdapter
 import io.forus.me.android.presentation.view.screens.vouchers.item.transactions.TransactionsAdapter
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Locale
 
 private const val MAP_VIEW_BUNDLE_KEY = "MapViewBundleKey"
 
@@ -143,7 +147,6 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("MyPresenter", "onCreate()")
     }
 
     private lateinit var binding: FragmentVoucherBinding

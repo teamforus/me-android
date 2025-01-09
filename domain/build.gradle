@@ -16,8 +16,6 @@ dependencies {
   def domainDependencies = rootProject.ext.domainDependencies
   def domainTestDependencies = rootProject.ext.domainTestDependencies
 
- // compileOnly domainDependencies.javaxAnnotation
-
   implementation domainDependencies.javaxInject
   implementation domainDependencies.rxJava
   implementation domainDependencies.gson
@@ -29,6 +27,7 @@ dependencies {
 
   implementation "androidx.annotation:annotation:1.6.0"
 }
+
 buildscript {
   repositories {
     mavenCentral()
@@ -36,16 +35,17 @@ buildscript {
   dependencies {
   }
 }
-//repositories {
-//  mavenCentral()
-//}
-compileKotlin {
+
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
   kotlinOptions {
-//    jvmTarget = "1.8"
+    jvmTarget = "17"
+    languageVersion = "1.9"
   }
 }
-compileTestKotlin {
-  kotlinOptions {
-//    jvmTarget = "1.8"
-  }
+
+
+tasks.withType(JavaCompile) {
+  sourceCompatibility = JavaVersion.VERSION_17
+  targetCompatibility = JavaVersion.VERSION_17
 }
