@@ -13,6 +13,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.MutableLiveData
+import androidx.navigation.fragment.findNavController
 import io.forus.me.android.domain.models.qr.QrCode
 import io.forus.me.android.presentation.BuildConfig
 import io.forus.me.android.presentation.R
@@ -101,7 +102,7 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        services = (activity as BaseActivity).systemServices
+        services = (activity as DashboardActivity).systemServices
         isFingerprintHardwareAvailable = services.isFingerprintHardwareAvailable()
 
         binding.changeDigits.setOnClickListener {
@@ -114,7 +115,7 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
         }
 
         binding.aboutMe.setOnClickListener {
-            (activity as? BaseActivity)?.replaceFragment(AboutMeFragment())
+            findNavController().navigate(R.id.action_accountFragment_to_aboutMeFragment)
         }
 
         binding.privacyPolicyCard.setOnClickListener {

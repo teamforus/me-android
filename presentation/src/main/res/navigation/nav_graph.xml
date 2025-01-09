@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/vouchersFragment">
+
+
+    <fragment
+        android:id="@+id/vouchersFragment"
+        android:name="io.forus.me.android.presentation.view.screens.vouchers.list.VouchersFragment"
+        android:label="Vouchers"
+        tools:layout="@layout/fragment_vouchers_recycler" >
+        <action
+            android:id="@+id/action_vouchersFragment_to_voucherFragment"
+            app:destination="@id/voucherFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/wait_anim"
+            app:popEnterAnim="@anim/wait_anim"
+            app:popExitAnim="@anim/slide_in_right"
+            />
+
+        <action
+            android:id="@+id/action_voucherFragment_to_transactionsFragment"
+            app:destination="@id/transactionsFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/wait_anim"
+            app:popEnterAnim="@anim/wait_anim"
+            app:popExitAnim="@anim/slide_in_right"
+            />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/voucherFragment"
+        android:name="io.forus.me.android.presentation.view.screens.vouchers.item.VoucherFragment"
+        android:label="VoucherFragment"
+        tools:layout="@layout/fragment_voucher"
+        >
+    </fragment>
+
+    <fragment
+        android:id="@+id/transactionsFragment"
+        android:name="io.forus.me.android.presentation.view.screens.vouchers.transactions_log.TransactionsFragment"
+        android:label="TransactionsFragment"
+        tools:layout="@layout/activity_transactions_log"
+        />
+
+
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="io.forus.me.android.presentation.view.screens.account.account.AccountFragment"
+        android:label="Account"
+        tools:layout="@layout/fragment_account_details" >
+        <action
+            android:id="@+id/action_accountFragment_to_aboutMeFragment"
+            app:destination="@id/aboutMeFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/wait_anim"
+            app:popEnterAnim="@anim/wait_anim"
+            app:popExitAnim="@anim/slide_in_right"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/aboutMeFragment"
+        android:name="io.forus.me.android.presentation.view.screens.about.AboutMeFragment"
+        android:label="AboutMeFragment"
+        tools:layout="@layout/fragment_about_me"
+        />
+
+
+
+</navigation>

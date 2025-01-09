@@ -1,6 +1,7 @@
 package io.forus.me.android.presentation.view.screens.qr.dialogs
 
 import android.content.Context
+import android.util.Log
 import com.afollestad.materialdialogs.MaterialDialog
 import io.forus.me.android.domain.models.records.Validation
 import io.forus.me.android.presentation.R
@@ -30,6 +31,7 @@ class ApproveValidationDialog(private val context: Context,
     }
 
     fun show(){
+        Log.d("DialogScan","ApproveValidationDialog")
         dialog.show()
     }
 }
