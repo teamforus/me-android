@@ -36,8 +36,8 @@ allprojects {
 
   }
   ext {
-    androidVersionCode = 63
-    androidVersionName = "0.5.2"
+    androidVersionCode = 65
+    androidVersionName = "0.5.4"
     androidBuildNumber = 1
     testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
     testApplicationId = 'io.forus.me.test'
