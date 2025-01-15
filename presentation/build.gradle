@@ -46,9 +46,11 @@ android {
 
         buildConfigField "String", "SERVER_API_KEY", secretsPropertiesFile.exists() ? "\"${secretsProperties['SERVER_API_KEY']}\"" : "\"fff\""
 
+
         manifestPlaceholders = [
                 googleMapsKey: properties.getProperty("GOOGLE_MAPS_API_KEY", "")
         ]
+
     }
 
 
