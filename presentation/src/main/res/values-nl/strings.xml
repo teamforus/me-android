@@ -394,5 +394,7 @@
     <string name="transaction_note">Notitie</string>
     <string name="transaction_paid">Betaald</string>
 
+    <string name="qr_camera_permission_required">Cameratoegang is vereist om QR-codes te scannen.</string>
+    <string name="settings">Instellingen</string>
 
 </resources>
