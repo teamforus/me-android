@@ -434,4 +434,7 @@
     <string name="transaction_note">Note</string>
     <string name="transaction_paid">Paid</string>
 
+    <string name="qr_camera_permission_required">Camera permission is required to scan QR codes.</string>
+    <string name="settings">Settings</string>
+
 </resources>
