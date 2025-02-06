@@ -26,6 +26,7 @@ import io.reactivex.schedulers.Schedulers
 class DashboardActivity : AppCompatActivity() {
 
      val viewModel: VoucherViewModel by viewModels()
+    private val db = Injection.instance.databaseHelper
 
     val systemServices by lazy(LazyThreadSafetyMode.NONE) { SystemServices(this) }
     val navigator by lazy { Navigator() }
@@ -52,9 +53,11 @@ class DashboardActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         val binding = ActivityDashboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
+        db.open("") //Database initialization
 
         val navigationHost =
             supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
@@ -92,6 +95,8 @@ class DashboardActivity : AppCompatActivity() {
             loggingViewModel.authorizeFirestore()
         },100)
     }
+
+
 
     fun navigateToQrScanner() {
         this.navigator.navigateToQrScanner(this)

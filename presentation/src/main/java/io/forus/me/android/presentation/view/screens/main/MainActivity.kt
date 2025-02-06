@@ -31,32 +31,11 @@ class MainActivity : BaseActivity() {
     private val db = Injection.instance.databaseHelper
     private val settings = Injection.instance.settingsDataSource
 
-    var PACKAGE_NAME: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(io.forus.me.android.presentation.R.layout.activity_main)
 
-        PACKAGE_NAME = applicationContext.packageName
-
-        SharedPref.init(this@MainActivity)
-
-
-
-
-        if (!BuildConfig.APPLICATION_ID.equals("io.forus.me")) {
-            val savedApiOption = SharedPref.read(SharedPref.OPTION_API_TYPE,"") ?: ""
-            if (savedApiOption.isNotEmpty()) {
-                val apiType = ApiConfig.stringToApiType(savedApiOption)
-                if (apiType == ApiType.OTHER) {
-                    ApiConfig.changeToCustomApi(SharedPref.read(SharedPref.OPTION_CUSTOM_API_URL, BuildConfig.SERVER_URL))
-                } else {
-                    ApiConfig.changeApi(apiType)
-                }
-            }
-        }
-
-        val isGooglePlayAvailable = checkPlayServices()
 
         //Check inApp update
         h.postDelayed({
@@ -70,7 +49,6 @@ class MainActivity : BaseActivity() {
             } else {
                 navigateToDashboard()
             }
-
 
             settings.getFCMToken()
 
@@ -110,7 +88,7 @@ class MainActivity : BaseActivity() {
      * Goes to the dashboard screen.
      */
     private fun navigateToDashboard() {
-        db.open("")
+
         this.navigator.navigateToDashboard(this)
         finish()
     }
@@ -145,7 +123,7 @@ class MainActivity : BaseActivity() {
 
     val MY_REQUEST_CODE = 2514
 
-    var appUpdateManager: AppUpdateManager? = null
+    private var appUpdateManager: AppUpdateManager? = null
 
     private fun initInAppUpdate() {
 
