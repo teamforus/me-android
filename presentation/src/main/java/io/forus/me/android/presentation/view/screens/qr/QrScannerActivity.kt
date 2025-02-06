@@ -6,8 +6,10 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.PointF
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
+import android.provider.Settings
 import com.google.android.material.snackbar.Snackbar
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.FragmentActivity
@@ -27,7 +29,7 @@ import java.util.concurrent.atomic.AtomicBoolean
 
 
 class QrScannerActivity : FragmentActivity(),
-    QRCodeReaderView.OnQRCodeReadListener  {
+    QRCodeReaderView.OnQRCodeReadListener {
 
 
     private val MY_PERMISSION_REQUEST_CAMERA = 0
@@ -63,11 +65,11 @@ class QrScannerActivity : FragmentActivity(),
 
 
     private var qrCodeReaderView: QRCodeReaderView? = null
-    private var qrDecorateLayout: View?  = null
+    private var qrDecorateLayout: View? = null
     private var progress: ProgressBar? = null
 
     private var progressLn: View? = null
-    
+
     private lateinit var binding: ActivityQrDecoderBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,10 +79,16 @@ class QrScannerActivity : FragmentActivity(),
         setContentView(binding.root)
 
 
-
     }
 
+    override fun onStart() {
+        super.onStart()
+        active = true
+    }
+
+
     override fun onResume() {
+        Log.d("forusQR", "onResume")
         super.onResume()
         overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
@@ -93,28 +101,76 @@ class QrScannerActivity : FragmentActivity(),
                 setScannerLayoutVisiblity(true)
             }
         } else {
+            Log.d("forusQR", "onResume not granted")
             requestCameraPermission()
         }
 
     }
 
-    override fun onPause() {
-        super.onPause()
-        overridePendingTransition(R.anim.slide_in_down, R.anim.slide_out_down);
 
+    private var isPermissionRequested = false
 
+    private fun requestCameraPermission() {
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.CAMERA
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            Log.d("forusQR", "Permission already granted")
+            return
+        }
+
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
+            Snackbar.make(
+                binding.mainLayout, resources.getString(R.string.qr_camera_access_required),
+                Snackbar.LENGTH_INDEFINITE
+            ).setAction("OK") {
+                ActivityCompat.requestPermissions(
+                    this@QrScannerActivity,
+                    arrayOf(Manifest.permission.CAMERA),
+                    MY_PERMISSION_REQUEST_CAMERA
+                )
+            }.show()
+        } else if (!isPermissionRequested) {
+            Log.d("forusQR", "Requesting permission camera")
+            isPermissionRequested = true
+
+            if (!ActivityCompat.shouldShowRequestPermissionRationale(
+                    this,
+                    Manifest.permission.CAMERA
+                )
+            ) {
+                Snackbar.make(
+                    binding.mainLayout,
+                    resources.getString(R.string.qr_camera_permission_not_available),
+                    Snackbar.LENGTH_LONG
+                ).setAction(resources.getString(R.string.settings)) {
+                    val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+                        data = Uri.fromParts("package", packageName, null)
+                    }
+                    startActivity(intent)
+                }.show()
+            } else {
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(Manifest.permission.CAMERA),
+                    MY_PERMISSION_REQUEST_CAMERA
+                )
+            }
+        }else{
+            finish()
+        }
     }
 
     override fun onRequestPermissionsResult(
-        requestCode: Int, permissions: Array<String>,
-        grantResults: IntArray
+        requestCode: Int, permissions: Array<String>, grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode != MY_PERMISSION_REQUEST_CAMERA) {
             return
         }
 
-        if (grantResults.size == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             Snackbar.make(
                 binding.mainLayout,
                 resources.getString(R.string.qr_camera_permission_granted),
@@ -122,14 +178,33 @@ class QrScannerActivity : FragmentActivity(),
             ).show()
             initQRCodeReaderView()
         } else {
+            Log.d("forusQR", "Permission not granted")
 
-            requestCameraPermission()
-
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
+                Snackbar.make(
+                    binding.mainLayout,
+                    resources.getString(R.string.qr_camera_permission_required),
+                    Snackbar.LENGTH_LONG
+                ).setAction("Retry") {
+                    requestCameraPermission()
+                }.show()
+            } else {
+                Snackbar.make(
+                    binding.mainLayout,
+                    resources.getString(R.string.qr_camera_permission_required),
+                    Snackbar.LENGTH_LONG
+                ).setAction(resources.getString(R.string.settings)) {
+                    val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+                        data = Uri.fromParts("package", packageName, null)
+                    }
+                    startActivity(intent)
+                }.show()
+            }
         }
     }
 
 
-    fun decodeScanResult(text: String, callback: (()->(Unit))? = null) {
+    fun decodeScanResult(text: String, callback: (() -> (Unit))? = null) {
 
         qrCodeReaderView!!.stopCamera()
 
@@ -156,15 +231,28 @@ class QrScannerActivity : FragmentActivity(),
                 qrCodeReaderView!!.startCamera()
                 setScannerLayoutVisiblity(true)
             }
+
             is QrDecoderResult.DemoVoucher -> qrActionProcessor.scanVoucher(result.testToken, true)
         }
     }
 
 
-    fun setScannerLayoutVisiblity(visiblity: Boolean){
-        qrCodeReaderView?.visibility = if(visiblity){View.VISIBLE}else{View.GONE}
-        qrDecorateLayout?.visibility = if(visiblity){View.VISIBLE}else{View.GONE}
-        progress?.visibility = if(!visiblity){View.VISIBLE}else{View.GONE}
+    fun setScannerLayoutVisiblity(visiblity: Boolean) {
+        qrCodeReaderView?.visibility = if (visiblity) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
+        qrDecorateLayout?.visibility = if (visiblity) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
+        progress?.visibility = if (!visiblity) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
     }
 
     fun showToastMessage(message: String) {
@@ -172,33 +260,8 @@ class QrScannerActivity : FragmentActivity(),
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
-    private fun requestCameraPermission() {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
-            Snackbar.make(
-                binding.mainLayout, resources.getString(R.string.qr_camera_access_required),
-                Snackbar.LENGTH_INDEFINITE
-            ).setAction("OK") {
-                ActivityCompat.requestPermissions(
-                    this@QrScannerActivity,
-                    arrayOf(Manifest.permission.CAMERA),
-                    MY_PERMISSION_REQUEST_CAMERA
-                )
-            }.show()
-        } else {
-            Snackbar.make(
-                binding.mainLayout, resources.getString(R.string.qr_camera_permission_not_available),
-                Snackbar.LENGTH_SHORT
-            ).show()
-            ActivityCompat.requestPermissions(
-                this,
-                arrayOf(Manifest.permission.CAMERA),
-                MY_PERMISSION_REQUEST_CAMERA
-            )
-        }
-    }
 
-
-    private  var qrContent: View? = null
+    private var qrContent: View? = null
 
     private fun initQRCodeReaderView() {
 
@@ -212,7 +275,11 @@ class QrScannerActivity : FragmentActivity(),
         progress = qrContent?.findViewById(R.id.progress)
         initQRView()
 
-        Snackbar.make(binding.mainLayout, resources.getString(R.string.qr_scan_help), Snackbar.LENGTH_LONG)
+        Snackbar.make(
+            binding.mainLayout,
+            resources.getString(R.string.qr_scan_help),
+            Snackbar.LENGTH_LONG
+        )
             .show()
     }
 
@@ -260,15 +327,6 @@ class QrScannerActivity : FragmentActivity(),
 
     var active = false
 
-    override fun onStart() {
-        super.onStart()
-        active = true
-    }
-
-    override fun onStop() {
-        super.onStop()
-        active = false
-    }
 
     override fun onQRCodeRead(text: String?, points: Array<out PointF>?) {
         Log.d("forusQR", "Result = $text")
@@ -277,5 +335,18 @@ class QrScannerActivity : FragmentActivity(),
             decodeScanResult(text)
         }
     }
+
+    override fun onStop() {
+        super.onStop()
+        active = false
+    }
+
+    override fun onPause() {
+        super.onPause()
+        overridePendingTransition(R.anim.slide_in_down, R.anim.slide_out_down);
+
+
+    }
+
 
 }
