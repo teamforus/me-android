@@ -36,6 +36,23 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(io.forus.me.android.presentation.R.layout.activity_main)
 
+        SharedPref.init(this@MainActivity)
+
+
+
+
+        if (!BuildConfig.APPLICATION_ID.equals("io.forus.me")) {
+            val savedApiOption = SharedPref.read(SharedPref.OPTION_API_TYPE,"") ?: ""
+            if (savedApiOption.isNotEmpty()) {
+                val apiType = ApiConfig.stringToApiType(savedApiOption)
+                if (apiType == ApiType.OTHER) {
+                    ApiConfig.changeToCustomApi(SharedPref.read(SharedPref.OPTION_CUSTOM_API_URL, BuildConfig.SERVER_URL))
+                } else {
+                    ApiConfig.changeApi(apiType)
+                }
+            }
+        }
+
 
         //Check inApp update
         h.postDelayed({
@@ -88,6 +105,8 @@ class MainActivity : BaseActivity() {
      * Goes to the dashboard screen.
      */
     private fun navigateToDashboard() {
+
+        db.open("")
 
         this.navigator.navigateToDashboard(this)
         finish()

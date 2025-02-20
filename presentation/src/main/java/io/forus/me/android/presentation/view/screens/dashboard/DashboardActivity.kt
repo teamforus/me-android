@@ -19,6 +19,7 @@ import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.navigation.Navigator
 import io.forus.me.android.presentation.view.MeBottomSheetDialogFragment
 import io.forus.me.android.presentation.view.fragment.QrFragment
+import io.forus.me.android.presentation.view.screens.main.MainActivity
 import io.forus.me.android.presentation.view.screens.vouchers.VoucherViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -57,7 +58,11 @@ class DashboardActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
-        db.open("") //Database initialization
+        if(!db.isOpen){
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+        }
+
 
         val navigationHost =
             supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
