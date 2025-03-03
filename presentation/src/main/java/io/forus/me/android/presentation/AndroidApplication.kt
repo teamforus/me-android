@@ -16,6 +16,8 @@ import com.google.firebase.firestore.FirebaseFirestoreSettings
 import com.google.firebase.storage.FirebaseStorage
 import io.forus.me.android.data.net.MeServiceFactory
 import io.forus.me.android.presentation.api_config.ApiConfig
+import io.forus.me.android.presentation.api_config.ApiType
+import io.forus.me.android.presentation.helpers.SharedPref
 import io.forus.me.android.presentation.internal.Injection
 
 /**
@@ -43,6 +45,19 @@ class AndroidApplication : Application() {
         this.initFirebase()
 
         this.me = this
+
+        SharedPref.init(this)
+        if (!BuildConfig.APPLICATION_ID.equals("io.forus.me")) {
+            val savedApiOption = SharedPref.read(SharedPref.OPTION_API_TYPE,"") ?: ""
+            if (savedApiOption.isNotEmpty()) {
+                val apiType = ApiConfig.stringToApiType(savedApiOption)
+                if (apiType == ApiType.OTHER) {
+                    ApiConfig.changeToCustomApi(SharedPref.read(SharedPref.OPTION_CUSTOM_API_URL, BuildConfig.SERVER_URL))
+                } else {
+                    ApiConfig.changeApi(apiType)
+                }
+            }
+        }
 
     }
 
