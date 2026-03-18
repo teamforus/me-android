@@ -19,8 +19,14 @@ public class Transaction {
     @SerializedName("amount")
     private BigDecimal amount;
 
+    @SerializedName("amount_locale")
+    private String amount_locale;
+
     @SerializedName("amount_extra_cash")
     private BigDecimal amount_extra_cash;
+
+    @SerializedName("amount_extra_cash_locale")
+    private String amount_extra_cash_locale;
 
     @SerializedName("address")
     private String address;
@@ -56,14 +62,17 @@ public class Transaction {
 
     public Transaction() { }
 
-    public Transaction(Long id, Long organizationId, Long productId, BigDecimal amount, BigDecimal amount_extra_cash,
+    public Transaction(Long id, Long organizationId, Long productId, BigDecimal amount, String amount_locale, BigDecimal amount_extra_cash,
+                       String amount_extra_cash_locale,
                        String address, Date createdAt, Date updatedAt, String date, Long timestamp,
                        Organization organization, Product product, Fund fund, String state, String note) {
         this.id = id;
         this.organizationId = organizationId;
         this.productId = productId;
         this.amount = amount;
+        this.amount_locale = amount_locale;
         this.amount_extra_cash = amount_extra_cash;
+        this.amount_extra_cash_locale = amount_extra_cash_locale;
         this.address = address;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -102,6 +111,10 @@ public class Transaction {
 
     public BigDecimal getAmount() {
         return amount;
+    }
+
+    public String getAmountLocale() {
+        return amount_locale;
     }
 
     public void setAmount(BigDecimal amount) {
@@ -182,6 +195,10 @@ public class Transaction {
 
     public BigDecimal getAmount_extra_cash() {
         return amount_extra_cash;
+    }
+
+    public String getAmountExtraCashLocale() {
+        return amount_extra_cash_locale;
     }
 
 

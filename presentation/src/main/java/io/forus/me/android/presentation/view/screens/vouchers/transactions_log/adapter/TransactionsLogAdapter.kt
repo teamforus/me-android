@@ -1,20 +1,16 @@
 package io.forus.me.android.presentation.view.screens.vouchers.transactions_log.adapter
 
 import android.content.Context
-import androidx.recyclerview.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import io.forus.me.android.domain.models.vouchers.ProductAction
+import androidx.recyclerview.widget.RecyclerView
 import io.forus.me.android.domain.models.vouchers.Transaction
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.view.screens.vouchers.transactions_log.utils.transactionsDateFormat
-import java.text.NumberFormat
 import java.text.SimpleDateFormat
-import java.util.*
-import kotlin.collections.ArrayList
+import java.util.Locale
 
 class TransactionsLogAdapter(val context: Context, var items: ArrayList<Transaction>,
                              val callback: Callback) : RecyclerView.Adapter<TransactionsLogAdapter.MainHolder>() {
@@ -45,12 +41,12 @@ class TransactionsLogAdapter(val context: Context, var items: ArrayList<Transact
 
         fun bind(item: Transaction) {
 
-            val price: Double = (item.amount?.toDouble())?:0.0
+            val hasAmount = !item.amount_locale.isNullOrBlank()
 
             subtitle1.text = item.product?.name
-            subtitle2.text = if(price > 0.0) {
+            subtitle2.text = if (hasAmount) {
                 overline2.visibility = View.VISIBLE
-                NumberFormat.getCurrencyInstance(Locale("nl", "NL")).format(item.amount?.toDouble())
+                item.amount_locale
             } else {
                 overline2.visibility = View.INVISIBLE
                 "" }

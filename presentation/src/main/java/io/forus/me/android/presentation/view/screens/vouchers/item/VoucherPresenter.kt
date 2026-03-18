@@ -1,6 +1,5 @@
 package io.forus.me.android.presentation.view.screens.vouchers.item
 
-import android.util.Log
 import io.forus.me.android.domain.interactor.LoadVoucherUseCase
 import io.forus.me.android.domain.interactor.SendEmailUseCase
 import io.forus.me.android.domain.repository.account.AccountRepository
@@ -15,7 +14,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.subjects.ReplaySubject
 import io.reactivex.subjects.Subject
-import java.util.*
+import java.util.Arrays
 import io.forus.me.android.domain.models.vouchers.Voucher as VoucherDomain
 
 
@@ -157,7 +156,7 @@ class VoucherPresenter constructor(
         }
 
         override fun onError(e: Throwable) {
+            voucherSubject.onError(e)
         }
     }
-
 }

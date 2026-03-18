@@ -9,8 +9,6 @@ import io.forus.me.android.presentation.databinding.ItemVouchersListBinding
 import io.forus.me.android.presentation.models.vouchers.Voucher
 
 class VouchersAdapter : RecyclerView.Adapter<VouchersVH>() {
-
-
     var vouchers: List<Voucher> = emptyList()
         set(value) {
             val old = field
@@ -18,29 +16,31 @@ class VouchersAdapter : RecyclerView.Adapter<VouchersVH>() {
             DiffUtil.calculateDiff(object : DiffUtil.Callback() {
                 override fun getOldListSize() = old.size
                 override fun getNewListSize() = field.size
-                override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) = old[oldItemPosition] == field[newItemPosition]
-                override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) = old[oldItemPosition] == field[newItemPosition]
+                override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) =
+                    old[oldItemPosition] == field[newItemPosition]
+
+                override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) =
+                    old[oldItemPosition] == field[newItemPosition]
             }).dispatchUpdatesTo(this)
             notifyDataSetChanged()
         }
 
-    
+    var clickListener: ((voucher: Voucher, sharedViews: List<View>, position: Int) -> Unit)? = null
+
     init {
         setHasStableIds(true)
     }
 
-    var clickListener: ((voucher: Voucher, sharedViews: List<View>, position: Int) -> Unit)? = null
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VouchersVH {
-        val binding = ItemVouchersListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            ItemVouchersListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return VouchersVH(binding)
     }
 
     override fun onBindViewHolder(holder: VouchersVH, position: Int) {
         val item = vouchers[position]
-        holder.bind(item){ voucher ->
-            clickListener?.invoke(voucher, listOf(),position)
+        holder.bind(item) { voucher ->
+            clickListener?.invoke(voucher, listOf(), position)
         }
     }
 
