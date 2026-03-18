@@ -16,9 +16,7 @@ import java.util.*
 class VouchersRepository(private val vouchersDataSource: VouchersDataSource) :
     io.forus.me.android.domain.repository.vouchers.VouchersRepository {
 
-
     val dateLocaleFormat = SimpleDateFormat("MMM dd, yyyy HH:mm", Locale.US)
-
 
     @Suppress("SENSELESS_COMPARISON")
     private fun voucherIsUsed(voucher: io.forus.me.android.data.entity.vouchers.response.Voucher): Boolean {
@@ -42,24 +40,22 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) :
             if (isProduct) voucher.product.organization.name else voucher.fund.organization.name
 
         var createdAt: Date? = null
-        try {
-            if (voucher.createdAtLocale != null) createdAt =
-                dateLocaleFormat.parse(voucher.createdAtLocale)
-        } catch (e: Exception) {
 
+        try {
+            if (voucher.createdAtLocale != null)
+                createdAt = dateLocaleFormat.parse(voucher.createdAtLocale)
+        } catch (_: Exception) {
         }
 
         if (createdAt == null) {
-            createdAt =
-                if (voucher.createdAt != null) voucher.createdAt
-                else (Date(voucher.timestamp * 1000))
+            createdAt = voucher.createdAt ?: Date(voucher.timestamp * 1000)
         }
 
         val description = if (isProduct) voucher.product.description else null
 
         val product = voucher.product
         val amount = voucher.amount ?: voucher.product.price
-        val euro = Currency("€")
+        val amountLocale = voucher.amountLocale ?: voucher.product?.priceLocale ?: ""
         val productLogoUrl = voucher.product?.photo?.sizes?.large
             ?: (voucher.product?.organization?.logo?.sizes?.large
                 ?: ((voucher.fund?.logo?.sizes?.large
@@ -67,13 +63,10 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) :
                         ?: ""))))
 
         val organizationLogoUrl = voucher.product?.organization?.logo?.sizes?.large ?: ""
-
         val transactions = mutableListOf<Transaction>()
+
         if (voucher.transactions != null) {
-
-
             transactions.addAll(voucher.transactions.map {
-
                 val fund = Fund(
                     it.fund.id, it.fund.name, it.fund.organization?.id, null,
                     Organization(
@@ -88,38 +81,44 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) :
                     )
                 )
 
-                val _product = if (it.product == null) {
-                    null
-                } else {
-
-                    val logo = if (it.product.organization.logo != null) {
-                        it.product.organization.logo.sizes.thumbnail
-                    } else {
+                val voucherProduct =
+                    if (it.product == null) {
                         null
+                    } else {
+                        val logo = if (it.product.organization.logo != null) {
+                            it.product.organization.logo.sizes.thumbnail
+                        } else {
+                            null
+                        }
+
+                        Product(
+                            it.product.id, it.product.organizationId,
+                            it.product.productCategoryId,
+                            it.product.name, it.product.description,
+                            it.product.price, it.product.oldPrice,
+                            it.product.totalAmount, it.product.soldAmount,
+                            ProductCategory(
+                                it.product.productCategory?.id
+                                    ?: it.product.productCategoryId,
+                                it.product.productCategory?.key ?: "",
+                                it.product.productCategory?.name ?: ""
+                            ),
+                            Organization(
+                                it.product.organization.id,
+                                it.product.organization.name,
+                                logo,
+                                it.product.organization.lat,
+                                it.product.organization.lon,
+                                it.product.organization.identityAddress,
+                                it.product.organization.phone,
+                                it.product.organization.email
+                            )
+                        )
                     }
 
-                    Product(
-                        it.product.id, it.product.organizationId,
-                        it.product.productCategoryId,
-                        it.product.name, it.product.description,
-                        it.product.price, it.product.oldPrice,
-                        it.product.totalAmount, it.product.soldAmount,
-                        ProductCategory(
-                            it.product.productCategory.id,
-                            it.product.productCategory.key,
-                            it.product.productCategory.name
-                        ),
-                        Organization(
-                            it.product.organization.id, it.product.organization.name,
-                            logo, it.product.organization.lat,
-                            it.product.organization.lon, it.product.organization.identityAddress,
-                            it.product.organization.phone, it.product.organization.email
-                        )
-                    )
-                }
-
                 Transaction(
-                    it.address, Organization(
+                    it.address,
+                    Organization(
                         it.organization.id,
                         it.organization.name,
                         it.organization?.logo?.sizes?.large
@@ -132,57 +131,78 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) :
                             ?: "",
                         it.organization?.email
                             ?: ""
-                    ), euro, it.amount, it.amount_extra_cash, it.createdAt, _product, it.state,
-                    fund, it.note
+                    ),
+                    it.amount,
+                    it.amountLocale,
+                    it.amount_extra_cash,
+                    it.amountExtraCashLocale,
+                    it.createdAt,
+                    voucherProduct,
+                    it.state,
+                    fund,
+                    it.note
                 )
             })
         }
 
         if (voucher.childVouchers != null) {
             transactions.addAll(voucher.childVouchers.map { childVoucher ->
-
-
                 val organization = childVoucher.product?.organization
-                val _product = if (voucher.product == null) {
-                    null
-                } else {
-                    Product(
-                        voucher.product.id, voucher.product.organizationId,
-                        voucher.product.productCategoryId,
-                        voucher.product.name, voucher.product.description,
-                        voucher.product.price, voucher.product.oldPrice,
-                        voucher.product.totalAmount, voucher.product.soldAmount,
-                        ProductCategory(
-                            voucher.product.productCategory.id,
-                            voucher.product.productCategory.key,
-                            voucher.product.productCategory.name
-                        ),
-                        Organization(
-                            voucher.product.organization.id,
-                            voucher.product.organization.name,
-                            voucher.product.organization.logo.sizes.thumbnail,
-                            voucher.product.organization.lat,
-                            voucher.product.organization.lon,
-                            voucher.product.organization.identityAddress,
-                            voucher.product.organization.phone,
-                            voucher.product.organization.email
+
+                val voucherProduct =
+                    if (voucher.product == null) {
+                        null
+                    } else {
+                        Product(
+                            voucher.product.id,
+                            voucher.product.organizationId,
+                            voucher.product.productCategoryId,
+                            voucher.product.name,
+                            voucher.product.description,
+                            voucher.product.price,
+                            voucher.product.oldPrice,
+                            voucher.product.totalAmount,
+                            voucher.product.soldAmount,
+                            ProductCategory(
+                                voucher.product.productCategory?.id
+                                    ?: voucher.product.productCategoryId,
+                                voucher.product.productCategory?.key ?: "",
+                                voucher.product.productCategory?.name ?: ""
+                            ),
+                            Organization(
+                                voucher.product.organization.id,
+                                voucher.product.organization.name,
+                                voucher.product.organization.logo?.sizes?.thumbnail,
+                                voucher.product.organization.lat,
+                                voucher.product.organization.lon,
+                                voucher.product.organization.identityAddress,
+                                voucher.product.organization.phone,
+                                voucher.product.organization.email
+                            )
                         )
-                    )
-                }
+                    }
+
                 Transaction(
-                    "", Organization(
+                    "",
+                    Organization(
                         childVoucher.product.organizationId,
                         childVoucher.product.name,
                         "",
-                        organization?.lat
-                            ?: 0.0,
+                        organization?.lat ?: 0.0,
                         organization?.lon ?: 0.0,
-                        organization?.identityAddress
-                            ?: "",
+                        organization?.identityAddress ?: "",
                         organization?.phone ?: "",
-                        organization?.email
-                            ?: ""
-                    ), euro, childVoucher.amount, 0f.toBigDecimal(), childVoucher.createdAt, _product, null, null, null
+                        organization?.email ?: ""
+                    ),
+                    childVoucher.amount,
+                    childVoucher.amountLocale,
+                    0f.toBigDecimal(),
+                    null,
+                    childVoucher.createdAt,
+                    voucherProduct,
+                    null,
+                    null,
+                    null
                 )
             })
         }
@@ -191,8 +211,8 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) :
         })
 
         var productMapped: Product? = null
-        product?.let {
 
+        product?.let {
             var organization = Organization(
                 it.organization.id,
                 it.organization.name, organizationLogoUrl, it.organization.lat,
@@ -234,30 +254,26 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) :
 
 
         val offices = mutableListOf<io.forus.me.android.domain.models.vouchers.Office>()
-        if (voucher.offices != null) {
-            voucher.offices.map {
 
+        if (voucher.offices != null) {
+            voucher.offices.forEach { it ->
                 val schedulers = mutableListOf<Schedule>()
+
                 if (it.schedule != null) {
-                    it.schedule.map {
+                    it.schedule.forEach {
                         schedulers.add(
-                            Schedule(
-                                it.id,
-                                it.officeId,
-                                it.weekDay,
-                                it.startTime,
-                                it.endTime
-                            )
+                            Schedule(it.id, it.officeId, it.weekDay, it.startTime, it.endTime)
                         )
                     }
                 }
 
-                var organization = Organization(
+                val organization = Organization(
                     it.organization.id,
                     it.organization.name, organizationLogoUrl, it.organization.lat,
                     it.organization.lon, it.organization.identityAddress ?: "",
                     it.organization.phone ?: "", it.organization.email ?: ""
                 )
+
                 offices.add(
                     Office(
                         it.id,
@@ -277,27 +293,23 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) :
         return Voucher(
             isProduct,
             isUsed,
-            voucher.address
-                ?: "",
+            voucher.address ?: "",
             voucher.identityAddress ?: "",
             name,
             organizationName,
-            voucher.fund?.name
-                ?: "",
-            voucher.fund?.type
-                ?: "",
+            voucher.fund?.name ?: "",
+            voucher.fund?.type ?: "",
             voucher.fund?.webShopUrl ?: "",
             description,
-            createdAt!!,
-            euro,
+            createdAt,
             amount,
+            amountLocale,
             productLogoUrl,
             transactions,
             productMapped,
             voucher.isDeactivated,
             voucher.isExpired,
-            voucher.expireAtLocale
-                ?: "",
+            voucher.expireAtLocale ?: "",
             offices,
             voucher.amountVisible
         )
@@ -324,6 +336,7 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) :
             null
         } else {
             val org = productAction.organization
+
             Organization(
                 org.id,
                 org.name,
@@ -340,6 +353,7 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) :
             null
         } else {
             val org = productAction.sponsor
+
             Organization(
                 org.id,
                 org.name,
@@ -381,10 +395,9 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) :
     }
 
     private fun mapToLogTransaction(transaction: io.forus.me.android.data.entity.vouchers.response.Transaction): Transaction {
-
-
         val fund = Fund(
             transaction.fund.id, transaction.fund.name, transaction.fund.organization?.id, null,
+
             Organization(
                 transaction.organization.id,
                 transaction.organization.name,
@@ -396,7 +409,6 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) :
                 null
             )
         )
-
 
         val organization: Organization? = if (transaction.organization == null) {
             null
@@ -414,41 +426,44 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) :
             )
         }
 
-
-        val product: Product? = if (transaction.product == null) {
-            null
-        } else {
-            val prc = transaction.product
-            Product(
-                prc.id, prc.organizationId, null, prc.name, null, prc.price,
-                null, null, null, null, null
-            )
-        }
-
-
-
+        val product: Product? =
+            if (transaction.product == null) {
+                null
+            } else {
+                val prc = transaction.product
+                Product(
+                    prc.id, prc.organizationId, null, prc.name, null, prc.price,
+                    null, null, null, null, null
+                )
+            }
 
         return Transaction(
-            transaction.id.toString(), organization, null, transaction.amount,
+            transaction.id.toString(),
+            organization,
+            transaction.amount,
+            transaction.amountLocale,
             transaction.amount_extra_cash,
-            transaction.createdAt, product, transaction.state, fund, transaction.note
+            transaction.amountExtraCashLocale,
+            transaction.createdAt,
+            product,
+            transaction.state,
+            fund,
+            transaction.note,
         )
-
     }
-
 
     private fun getFakeVoucherProvider(): VoucherProvider {
         val date = Calendar.getInstance().getTime()
-        val currency = Currency("EUR", "")
 
         val organization = Organization(
             0, "Test bedrijf", "", 0.0, 0.0,
             "", "", ""
         )
+
         val organizationsList = mutableListOf<Organization>()
         organizationsList.add(organization)
         val transaction = Transaction(
-            "0", organization, currency, 0f.toBigDecimal(), 0f.toBigDecimal(), date, null,
+            "0", organization, 0f.toBigDecimal(), "€ 0,-", 0f.toBigDecimal(), "€ 0,-", date, null,
             null, null, ""
         )
         val transactionList = mutableListOf<Transaction>()
@@ -468,7 +483,7 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) :
         val voucher = Voucher(
             false, false, "", "", "Test bedrijf",
             "", "", "", "",
-            "", date, currency, 1000.toBigDecimal(), "",
+            "", date, 1000.toBigDecimal(), "€ 1000,-", "",
             transactionList, product, false, false, "", offices, false
         )
 
@@ -479,7 +494,6 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) :
     override fun getVouchers(): Observable<List<Voucher>> {
         return vouchersDataSource.listAllVouchers().map { it.map { mapToSimple(it) } }
     }
-
 
     override fun getVoucher(address: String): Observable<Voucher> {
         return vouchersDataSource.retrieveVoucher(address).map { mapToSimple(it) }
@@ -529,12 +543,12 @@ class VouchersRepository(private val vouchersDataSource: VouchersDataSource) :
         note: String,
         organizationId: Long
     ): Observable<Boolean> {
-        return if(amountExtraCash > 0.toBigDecimal()){ //Make transaction with extra cash amount
+        return if (amountExtraCash > 0.toBigDecimal()) { //Make transaction with extra cash amount
             vouchersDataSource.makeTransactionWithExtraCashAmount(
                 address,
                 MakeTransactionWithExtraCashAmount(amount, amountExtraCash, note, organizationId)
             ).map { true }
-        }else { //Make transaction without extra cash amount
+        } else { //Make transaction without extra cash amount
             vouchersDataSource.makeTransaction(
                 address,
                 MakeTransaction(

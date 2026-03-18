@@ -53,6 +53,9 @@ public class Voucher {
     @SerializedName("amount")
     private BigDecimal amount;
 
+    @SerializedName("amount_locale")
+    private String amount_locale;
+
     @SerializedName("fund")
     private Fund fund;
 
@@ -78,13 +81,31 @@ public class Voucher {
     @SerializedName("amount_visible")
     private boolean amount_visible;
 
-    public Voucher() { }
+    public Voucher() {
+    }
 
-    public Voucher(Long fundId, String identityAddress, String address, Date createdAt, String createdAtLocale,
-                   boolean expired, String expireAtLocale, Long timestamp, Type type, Product product, BigDecimal amount,
-                   Fund fund, List<Transaction> transactions, List<Organization> allowedOrganizations, List<ProductCategory> allowedProductCategories,
-                   List<Product> allowedProducts, List<Voucher> childVouchers, List<Office> offices,
-                   boolean amount_visible) {
+    public Voucher(
+            Long fundId,
+            String identityAddress,
+            String address,
+            Date createdAt,
+            String createdAtLocale,
+            boolean expired,
+            String expireAtLocale,
+            Long timestamp,
+            Type type,
+            Product product,
+            BigDecimal amount,
+            String amount_locale,
+            Fund fund,
+            List<Transaction> transactions,
+            List<Organization> allowedOrganizations,
+            List<ProductCategory> allowedProductCategories,
+            List<Product> allowedProducts,
+            List<Voucher> childVouchers,
+            List<Office> offices,
+            boolean amount_visible
+    ) {
         this.fundId = fundId;
         this.identityAddress = identityAddress;
         this.address = address;
@@ -96,6 +117,7 @@ public class Voucher {
         this.type = type;
         this.product = product;
         this.amount = amount;
+        this.amount_locale = amount_locale;
         this.fund = fund;
         this.transactions = transactions;
         this.allowedOrganizations = allowedOrganizations;
@@ -181,6 +203,9 @@ public class Voucher {
     public BigDecimal getAmount() {
         return amount;
     }
+    public String getAmountLocale() {
+        return amount_locale;
+    }
 
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
@@ -262,11 +287,11 @@ public class Voucher {
         this.used = used;
     }
 
-    public void setAmountVisible(boolean amount_visible){
+    public void setAmountVisible(boolean amount_visible) {
         this.amount_visible = amount_visible;
     }
 
-    public boolean getAmountVisible(){
+    public boolean getAmountVisible() {
         return amount_visible;
     }
 }

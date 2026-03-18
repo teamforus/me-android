@@ -4,7 +4,6 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.databinding.ItemVouchersListBinding
-import io.forus.me.android.presentation.helpers.format
 import io.forus.me.android.presentation.models.vouchers.FundType
 import io.forus.me.android.presentation.models.vouchers.Voucher
 
@@ -13,8 +12,7 @@ class VouchersVH(private val binding: ItemVouchersListBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
     fun bind(
-        item: Voucher,
-        clickListener: ((Voucher) -> Unit)?
+        item: Voucher, clickListener: ((Voucher) -> Unit)?
     ) {
         binding.apply {
 
@@ -45,13 +43,11 @@ class VouchersVH(private val binding: ItemVouchersListBinding) :
                     usedOrExpiredLb.text = usedOrExpiredLb.context.getString(R.string.voucher_expired)
                 } else if (item.deactivated) {
                     usedOrExpiredLb.visibility = View.VISIBLE
-                    usedOrExpiredLb.text =
-                        usedOrExpiredLb.context.getString(R.string.voucher_deactivated)
+                    usedOrExpiredLb.text = usedOrExpiredLb.context.getString(R.string.voucher_deactivated)
                 } else {
                     usedOrExpiredLb.visibility = View.GONE
-                    value.text = "${item.currency?.name} ${item.amount?.toDouble().format(2)}"
+                    value.text = item.amount_locale ?: ""
                 }
-
             }
 
             value.visibility = if (item.isProduct) {
@@ -62,7 +58,6 @@ class VouchersVH(private val binding: ItemVouchersListBinding) :
             root.setOnClickListener {
                 clickListener?.invoke(item)
             }
-
         }
     }
 }

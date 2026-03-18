@@ -1,13 +1,10 @@
 package io.forus.me.android.presentation.view.screens.vouchers.item.transactions
 
 import androidx.recyclerview.widget.RecyclerView
-import io.forus.me.android.domain.models.validators.SimpleValidator
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.databinding.ItemVoucherTranscationsListBinding
-import io.forus.me.android.presentation.helpers.format
 import io.forus.me.android.presentation.models.vouchers.Transaction
 import io.forus.me.android.presentation.view.screens.vouchers.item.VoucherFragment
-
 
 
 class TransactionsVH(private val binding: ItemVoucherTranscationsListBinding) :
@@ -36,7 +33,11 @@ class TransactionsVH(private val binding: ItemVoucherTranscationsListBinding) :
             } else VoucherFragment.dateFormat.format(item.createdAt)
 
 
-            subtitle2.text = if (isActionsVoucher) "" else "-${item.amount.toFloat().format(2)}"
+            subtitle2.text = if (isActionsVoucher || item.amount_locale.isNullOrBlank()) {
+                ""
+            } else {
+                "- ${item.amount_locale}"
+            }
 
             overline2.text = if (isActionsVoucher) {
                 VoucherFragment.dateFormat.format(item.createdAt)

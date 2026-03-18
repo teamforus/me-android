@@ -2,9 +2,8 @@ package io.forus.me.android.presentation.models.vouchers
 
 import android.os.Parcel
 import android.os.Parcelable
-import io.forus.me.android.presentation.models.currency.Currency
 import java.math.BigDecimal
-import java.util.*
+import java.util.Date
 
 class Voucher(
     var isProduct: Boolean,
@@ -18,8 +17,8 @@ class Voucher(
     var fundWebShopUrl: String?,
     var description: String?,
     var createdAt: Date?,
-    var currency: Currency?,
     var amount: BigDecimal?,
+    var amount_locale: String?,
     var logo: String?,
     var transactions: List<Transaction>,
     val product: Product? = null,
@@ -41,8 +40,8 @@ class Voucher(
         parcel.readString() ?: "",
         parcel.readString() ?: "",
         Date(parcel.readLong()),
-        parcel.readParcelable(Currency::class.java.classLoader) ?: Currency(),
         BigDecimal.valueOf(parcel.readDouble()),
+        parcel.readString(),
         parcel.readString() ?: "",
         parcel.createTypedArrayList(Transaction) ?: listOf<Transaction>(),
         parcel.readParcelable(Product::class.java.classLoader),
@@ -51,7 +50,6 @@ class Voucher(
         parcel.readString() ?: "",
         parcel.createTypedArrayList(Office) ?: listOf<Office>(),
         parcel.readByte() != 0.toByte()
-
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -65,7 +63,9 @@ class Voucher(
         parcel.writeString(fundType)
         parcel.writeString(fundWebShopUrl)
         parcel.writeString(description)
-        parcel.writeParcelable(currency, flags)
+        parcel.writeLong(createdAt?.time ?: 0)
+        parcel.writeDouble(amount?.toDouble() ?: 0.0)
+        parcel.writeString(amount_locale)
         parcel.writeString(logo)
         parcel.writeTypedList(transactions)
         parcel.writeParcelable(product, flags)
@@ -89,6 +89,4 @@ class Voucher(
             return arrayOfNulls(size)
         }
     }
-
-
 }
