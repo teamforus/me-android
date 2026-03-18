@@ -2,9 +2,7 @@ package io.forus.me.android.presentation.view.screens.account.account.dialogs
 
 import android.content.Context
 import com.afollestad.materialdialogs.MaterialDialog
-import io.forus.me.android.domain.models.records.Validation
 import io.forus.me.android.presentation.R
-import io.forus.me.android.presentation.view.component.text.TextView
 
 
 class LogoutDialog(private val context: Context,

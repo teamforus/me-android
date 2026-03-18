@@ -1,6 +1,5 @@
 package io.forus.me.android.domain.models.vouchers
 
-import com.google.gson.annotations.SerializedName
 import java.math.BigDecimal
 
 class Product(var id: Long?,

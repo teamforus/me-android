@@ -1,12 +1,11 @@
 package io.forus.me.android.presentation.view.screens.vouchers.item.offices_adapter
 
 import android.content.Context
-import androidx.viewpager.widget.PagerAdapter
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.viewpager.widget.PagerAdapter
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.models.vouchers.Office
 import io.forus.me.android.presentation.models.vouchers.Schedule

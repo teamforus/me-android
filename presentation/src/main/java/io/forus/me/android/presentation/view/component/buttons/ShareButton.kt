@@ -1,7 +1,6 @@
 package io.forus.me.android.presentation.view.component.buttons
 
 import android.content.Context
-import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -10,6 +9,7 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import io.forus.me.android.presentation.R
+
 //import kotlinx.android.synthetic.main.view_share_button.view.*
 
 

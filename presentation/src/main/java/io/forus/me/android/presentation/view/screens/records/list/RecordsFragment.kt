@@ -3,11 +3,11 @@ package io.forus.me.android.presentation.view.screens.records.list
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import androidx.core.content.ContextCompat
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.databinding.FragmentRecordsRecyclerBinding

@@ -2,7 +2,6 @@ package io.forus.me.android.presentation.view.screens.account.newaccount.confirm
 
 
 import io.forus.me.android.presentation.view.base.lr.PartialChange
-import io.forus.me.android.domain.models.account.RequestDelegatesEmailModel
 
 sealed class ConfirmRegistrationPartialChanges : PartialChange {
 

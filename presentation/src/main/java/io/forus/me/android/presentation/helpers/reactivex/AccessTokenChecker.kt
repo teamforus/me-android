@@ -1,8 +1,7 @@
 package io.forus.me.android.presentation.helpers.reactivex
 
-import android.util.Log
-import io.forus.me.android.data.net.sign.SignService
 import io.forus.me.android.data.net.MeServiceFactory
+import io.forus.me.android.data.net.sign.SignService
 import io.forus.me.android.data.repository.account.datasource.remote.CheckActivationDataSource
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable

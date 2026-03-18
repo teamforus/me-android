@@ -1,7 +1,6 @@
 package io.forus.me.android.presentation.helpers
 
-import java.text.NumberFormat
-import java.util.*
+import java.util.Locale
 
 object NumberUtils {
 

@@ -3,7 +3,6 @@ package io.forus.me.android.presentation.view.screens.qr.dialogs
 import android.content.Context
 import android.os.Build
 import android.util.Log
-import android.widget.ImageView
 import com.afollestad.materialdialogs.MaterialDialog
 import io.forus.me.android.presentation.R
 

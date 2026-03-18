@@ -1,17 +1,11 @@
 package io.forus.me.android.presentation.view.component.card
 
 import android.content.Context
-import android.graphics.Color
 import android.os.Build
 import android.util.AttributeSet
-import android.widget.Button
-import io.forus.me.android.presentation.R
-import androidx.core.content.ContextCompat
-import android.util.TypedValue
 import androidx.cardview.widget.CardView
-import io.forus.me.android.presentation.helpers.Converter
-import io.forus.me.android.presentation.helpers.FontCache
-import io.forus.me.android.presentation.view.component.FontType
+import androidx.core.content.ContextCompat
+import io.forus.me.android.presentation.R
 
 
 class CommonCard : CardView {

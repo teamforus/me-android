@@ -2,17 +2,11 @@ package io.forus.me.android.presentation.helpers
 
 
 import android.annotation.TargetApi
-import android.app.Activity
 import android.app.KeyguardManager
 import android.content.Context
 import android.hardware.fingerprint.FingerprintManager
 import android.os.Build
-import android.os.CancellationSignal
-import android.os.Handler
 import androidx.core.hardware.fingerprint.FingerprintManagerCompat
-import androidx.appcompat.app.AlertDialog
-import io.forus.me.android.presentation.BuildConfig
-import io.forus.me.android.presentation.R
 
 @TargetApi(Build.VERSION_CODES.M)
 class SystemServices(private val context: Context) {

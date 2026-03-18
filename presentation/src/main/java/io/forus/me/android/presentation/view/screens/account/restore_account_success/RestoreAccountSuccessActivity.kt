@@ -4,12 +4,10 @@ package io.forus.me.android.presentation.view.screens.account.restore_account_su
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
 import io.forus.me.android.presentation.R
-
 import io.forus.me.android.presentation.view.activity.CommonActivity
 import io.forus.me.android.presentation.view.base.MViewModelProvider
-import androidx.activity.viewModels
-import io.forus.me.android.presentation.view.screens.account.newaccount.pin.NewPinViewModel
 
 /**
  * Created by maestrovs on 22.04.2020.

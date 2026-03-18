@@ -1,6 +1,5 @@
 package io.forus.me.android.data.repository.vouchers.datasource.remote
 
-import android.util.Log
 import io.forus.me.android.data.entity.vouchers.request.MakeActionTransaction
 import io.forus.me.android.data.entity.vouchers.request.MakeDemoTransaction
 import io.forus.me.android.data.entity.vouchers.request.MakeTransaction

@@ -1,10 +1,15 @@
 package io.forus.me.android.data.repository.records
 
-import io.forus.me.android.data.entity.common.Success
-import io.forus.me.android.data.entity.records.request.UpdateRecord
 import io.forus.me.android.data.entity.records.request.ValidateRecord
 import io.forus.me.android.data.repository.records.datasource.RecordsDataSource
-import io.forus.me.android.domain.models.records.*
+import io.forus.me.android.domain.models.records.CreateRecordResponse
+import io.forus.me.android.domain.models.records.NewRecordCategoryRequest
+import io.forus.me.android.domain.models.records.NewRecordRequest
+import io.forus.me.android.domain.models.records.Record
+import io.forus.me.android.domain.models.records.RecordCategory
+import io.forus.me.android.domain.models.records.RecordType
+import io.forus.me.android.domain.models.records.Validation
+import io.forus.me.android.domain.models.records.ValidatorOrganization
 import io.forus.me.android.domain.models.vouchers.Organization
 import io.reactivex.Observable
 import io.reactivex.Single

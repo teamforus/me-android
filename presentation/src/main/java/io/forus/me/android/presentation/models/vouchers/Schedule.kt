@@ -2,7 +2,6 @@ package io.forus.me.android.presentation.models.vouchers
 
 import android.os.Parcel
 import android.os.Parcelable
-import java.math.BigDecimal
 
 class Schedule(var id: Long = -1L,
                var officeId: Long = -1L,

@@ -1,7 +1,5 @@
 package io.forus.me.android.presentation.view.component
 
-import java.util.stream.Stream
-
 
 enum class FontType(val prefix: String) {
     Bold ("bold"),

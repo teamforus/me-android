@@ -1,9 +1,8 @@
 package io.forus.me.android.presentation.view.activity
 
 import android.os.Bundle
-import androidx.core.content.ContextCompat
 import android.view.MenuItem
-import androidx.lifecycle.ViewModel
+import androidx.core.content.ContextCompat
 
 
 abstract class CommonActivity : BaseActivity() {

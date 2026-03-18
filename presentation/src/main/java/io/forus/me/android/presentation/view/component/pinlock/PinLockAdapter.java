@@ -3,7 +3,6 @@ package io.forus.me.android.presentation.view.component.pinlock;
 import android.content.Context;
 import android.graphics.Rect;
 import android.os.Build;
-import androidx.recyclerview.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -12,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import io.forus.me.android.presentation.R;
 

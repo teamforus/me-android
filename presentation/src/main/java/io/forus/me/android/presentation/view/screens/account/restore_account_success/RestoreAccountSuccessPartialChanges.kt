@@ -2,7 +2,6 @@ package io.forus.me.android.presentation.view.screens.account.restore_account_su
 
 
 import io.forus.me.android.presentation.view.base.lr.PartialChange
-import io.forus.me.android.domain.models.account.RequestDelegatesEmailModel
 
 
 sealed class RestoreAccountSuccessPartialChanges : PartialChange {

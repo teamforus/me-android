@@ -2,14 +2,14 @@ package io.forus.me.android.presentation.view.screens.vouchers.transactions_log.
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import android.util.Log
 import io.forus.me.android.domain.models.vouchers.Transaction
 import io.forus.me.android.domain.repository.vouchers.VouchersRepository
 import io.forus.me.android.presentation.internal.Injection
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Locale
 
 class TransactionsLogViewModel : ViewModel() {
 

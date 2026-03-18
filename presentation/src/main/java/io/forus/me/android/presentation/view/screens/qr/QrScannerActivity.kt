@@ -8,23 +8,21 @@ import android.content.pm.PackageManager
 import android.graphics.PointF
 import android.net.Uri
 import android.os.Bundle
-import android.os.Handler
 import android.provider.Settings
-import com.google.android.material.snackbar.Snackbar
-import androidx.core.app.ActivityCompat
-import androidx.fragment.app.FragmentActivity
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.fragment.app.FragmentActivity
 import com.dlazaro66.qrcodereaderview.QRCodeReaderView
+import com.google.android.material.snackbar.Snackbar
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.databinding.ActivityQrDecoderBinding
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.qr.QrDecoderResult
 import io.forus.me.android.presentation.view.component.qr.PointsOverlayView
-
 import java.util.concurrent.atomic.AtomicBoolean
 
 

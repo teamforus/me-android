@@ -1,9 +1,9 @@
 package io.forus.me.android.presentation.view.screens.wallets
 
 import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import android.view.ViewGroup
 import io.forus.me.android.domain.models.wallets.Wallet
 import io.forus.me.android.presentation.databinding.ItemWalletsBinding
 

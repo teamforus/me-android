@@ -1,11 +1,9 @@
 package io.forus.me.android.presentation.view.screens.vouchers.transactions_log
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.Nullable
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -19,7 +17,8 @@ import io.forus.me.android.presentation.helpers.PaginationScrollListener
 import io.forus.me.android.presentation.view.screens.vouchers.transactions_log.adapter.TransactionsLogAdapter
 import io.forus.me.android.presentation.view.screens.vouchers.transactions_log.details.TransactionDetailsPopupDialog
 import io.forus.me.android.presentation.view.screens.vouchers.transactions_log.viewmodels.TransactionsLogViewModel
-import java.util.*
+import java.util.Calendar
+import java.util.GregorianCalendar
 
 class TransactionsFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 

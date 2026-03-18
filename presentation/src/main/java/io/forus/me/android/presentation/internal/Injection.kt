@@ -1,21 +1,19 @@
 package io.forus.me.android.presentation.internal
 
-import android.content.Context
-import android.util.Log
 //import com.google.firebase.auth.FirebaseAuth
-import io.forus.me.android.data.net.records.RecordsService
-import io.forus.me.android.data.net.sign.SignService
+import android.content.Context
 import io.forus.me.android.data.entity.database.DaoSession
 import io.forus.me.android.data.exception.RetrofitExceptionMapper
 import io.forus.me.android.data.net.MeServiceFactory
 import io.forus.me.android.data.net.common.CommonService
+import io.forus.me.android.data.net.records.RecordsService
+import io.forus.me.android.data.net.sign.SignService
 import io.forus.me.android.data.net.validators.ValidatorsService
 import io.forus.me.android.data.net.vouchers.VouchersService
 import io.forus.me.android.data.repository.account.datasource.local.AccountLocalDataSource
 import io.forus.me.android.data.repository.account.datasource.remote.AccountRemoteDataSource
 import io.forus.me.android.data.repository.account.datasource.remote.CheckActivationDataSource
 import io.forus.me.android.data.repository.common.CommonRepository
-import io.forus.me.android.data.repository.common.datasource.CommonDataSource
 import io.forus.me.android.data.repository.common.datasource.CommonRemoteDataSource
 import io.forus.me.android.data.repository.records.RecordsRepository
 import io.forus.me.android.data.repository.records.datasource.mock.RecordsMockDataSource
@@ -32,14 +30,13 @@ import io.forus.me.android.domain.repository.account.AccountRepository
 import io.forus.me.android.domain.repository.assets.AssetsRepository
 import io.forus.me.android.domain.repository.vouchers.VouchersRepository
 import io.forus.me.android.domain.repository.wallets.WalletsRepository
-import io.forus.me.android.presentation.api_config.ApiConfig
-import io.forus.me.android.presentation.BuildConfig
 import io.forus.me.android.presentation.DatabaseHelper
+import io.forus.me.android.presentation.api_config.ApiConfig
 import io.forus.me.android.presentation.firestore_logging.FirestoreTokenManager
 import io.forus.me.android.presentation.helpers.AppSettings
+import io.forus.me.android.presentation.helpers.fcm.FCMHandler
 import io.forus.me.android.presentation.helpers.reactivex.AccessTokenChecker
 import io.forus.me.android.presentation.qr.QrDecoder
-import io.forus.me.android.presentation.helpers.fcm.FCMHandler
 
 class Injection private constructor() {
 

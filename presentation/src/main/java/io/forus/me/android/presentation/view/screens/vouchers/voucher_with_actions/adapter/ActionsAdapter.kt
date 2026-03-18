@@ -1,17 +1,16 @@
 package io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actions.adapter
 
 import android.content.Context
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import io.forus.me.android.domain.models.vouchers.ProductAction
 import io.forus.me.android.presentation.R
-import kotlin.collections.ArrayList
 
 
 class ActionsAdapter(var items: ArrayList<ProductAction>, val callback: Callback, val context: Context) : RecyclerView.Adapter<ActionsAdapter.MainHolder>() {

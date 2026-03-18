@@ -1,21 +1,20 @@
 package io.forus.me.android.presentation.view.fragment
 
+//import kotlinx.android.synthetic.main.toolbar_view.*
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import com.hannesdorfmann.mosby3.mvi.MviBasePresenter
 import io.forus.me.android.presentation.R
-//import kotlinx.android.synthetic.main.toolbar_view.*
+import io.forus.me.android.presentation.helpers.Converter
 import io.forus.me.android.presentation.view.base.lr.LRFragment
 import io.forus.me.android.presentation.view.base.lr.LRView
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.base.lr.LoadRefreshPanel
-import io.forus.me.android.presentation.helpers.Converter
-import io.reactivex.Observable
 
 abstract class ToolbarLRFragment<M, V : LRView<M>, P : MviBasePresenter<V, LRViewState<M>>> : LRFragment<M, V, P>() {
 

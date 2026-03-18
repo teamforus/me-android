@@ -7,12 +7,10 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
-import androidx.appcompat.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.MutableLiveData
+import androidx.appcompat.app.AlertDialog
 import androidx.navigation.fragment.findNavController
 import io.forus.me.android.domain.models.qr.QrCode
 import io.forus.me.android.presentation.BuildConfig
@@ -22,10 +20,8 @@ import io.forus.me.android.presentation.helpers.SharedPref
 import io.forus.me.android.presentation.helpers.SystemServices
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.models.ChangePinMode
-import io.forus.me.android.presentation.view.activity.BaseActivity
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
-import io.forus.me.android.presentation.view.screens.about.AboutMeFragment
 import io.forus.me.android.presentation.view.screens.account.account.dialogs.LogoutDialog
 import io.forus.me.android.presentation.view.screens.dashboard.DashboardActivity
 import io.reactivex.Observable

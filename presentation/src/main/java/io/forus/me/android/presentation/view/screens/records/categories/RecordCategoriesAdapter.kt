@@ -1,10 +1,8 @@
 package io.forus.me.android.presentation.view.screens.records.categories
 
+import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import android.util.Log
-import android.view.ViewGroup
-import io.forus.me.android.domain.models.records.Record
 import io.forus.me.android.domain.models.records.RecordCategory
 
 class RecordCategoriesAdapter : RecyclerView.Adapter<RecordCategoriesVH>() {

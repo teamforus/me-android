@@ -1,20 +1,16 @@
 package io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actions.payment.popup
 //import io.forus.me.android.data.entity.vouchers.response.Voucher
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.PropertyChangeRegistry
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.helpers.Converter
-import io.forus.me.android.presentation.helpers.Strings
 import io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actions.payment.PriceType
 import io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actions.payment.ProductSerializable
 import java.math.BigDecimal
-import java.text.DecimalFormat
-import java.text.NumberFormat
-import java.util.*
 
 
 class PriceAgreementViewModel(application: Application) : AndroidViewModel(application), Observable {

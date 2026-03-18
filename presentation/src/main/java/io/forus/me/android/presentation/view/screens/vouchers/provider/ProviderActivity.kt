@@ -3,11 +3,11 @@ package io.forus.me.android.presentation.view.screens.vouchers.provider
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.view.activity.CommonActivity
 import io.forus.me.android.presentation.view.base.MViewModelProvider
 import io.forus.me.android.presentation.view.screens.vouchers.VoucherViewModel
-import androidx.activity.viewModels
 
 class ProviderActivity : CommonActivity() , MViewModelProvider<VoucherViewModel> {
 

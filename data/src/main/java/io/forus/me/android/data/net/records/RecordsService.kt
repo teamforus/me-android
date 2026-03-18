@@ -1,10 +1,27 @@
 package io.forus.me.android.data.net.records
 
 import io.forus.me.android.data.entity.common.Success
-import io.forus.me.android.data.entity.records.request.*
-import io.forus.me.android.data.entity.records.response.*
+import io.forus.me.android.data.entity.records.request.CreateCategory
+import io.forus.me.android.data.entity.records.request.CreateRecord
+import io.forus.me.android.data.entity.records.request.CreateValidationToken
+import io.forus.me.android.data.entity.records.request.SortCategories
+import io.forus.me.android.data.entity.records.request.SortRecords
+import io.forus.me.android.data.entity.records.request.UpdateCategory
+import io.forus.me.android.data.entity.records.request.UpdateRecord
+import io.forus.me.android.data.entity.records.request.ValidateRecord
+import io.forus.me.android.data.entity.records.response.Record
+import io.forus.me.android.data.entity.records.response.RecordCategory
+import io.forus.me.android.data.entity.records.response.RecordType
+import io.forus.me.android.data.entity.records.response.Validation
+import io.forus.me.android.data.entity.records.response.ValidationToken
 import io.reactivex.Observable
-import retrofit2.http.*
+import retrofit2.http.Body
+import retrofit2.http.DELETE
+import retrofit2.http.GET
+import retrofit2.http.PATCH
+import retrofit2.http.POST
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 /**
  * Created by pavel on 30.10.17.

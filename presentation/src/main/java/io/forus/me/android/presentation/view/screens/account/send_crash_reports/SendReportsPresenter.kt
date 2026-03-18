@@ -1,12 +1,10 @@
 package io.forus.me.android.presentation.view.screens.account.send_crash_reports
 
-import android.util.Log
 import io.forus.me.android.domain.repository.account.AccountRepository
 import io.forus.me.android.presentation.view.base.lr.LRPartialChange
 import io.forus.me.android.presentation.view.base.lr.LRPresenter
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.base.lr.PartialChange
-import io.forus.me.android.presentation.view.screens.account.account.AccountPartialChanges
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers

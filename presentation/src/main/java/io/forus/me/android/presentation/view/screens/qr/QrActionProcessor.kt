@@ -1,8 +1,6 @@
 package io.forus.me.android.presentation.view.screens.qr
 
 import android.content.DialogInterface
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import io.forus.me.android.data.repository.settings.SettingsDataSource
 import io.forus.me.android.domain.exception.RetrofitException
@@ -16,8 +14,11 @@ import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.models.vouchers.FundType
 import io.forus.me.android.presentation.navigation.Navigator
 import io.forus.me.android.presentation.view.base.NoInternetDialog
-import io.forus.me.android.presentation.view.screens.qr.dialogs.*
-import io.forus.me.android.presentation.view.screens.records.create_record.dialog.CreateRecordSuccessDialog
+import io.forus.me.android.presentation.view.screens.qr.dialogs.ApproveValidationDialog
+import io.forus.me.android.presentation.view.screens.qr.dialogs.ConfirmLoginDeviceDialog
+import io.forus.me.android.presentation.view.screens.qr.dialogs.ScanVoucherBaseErrorDialog
+import io.forus.me.android.presentation.view.screens.qr.dialogs.ScanVoucherEmptyDialog
+import io.forus.me.android.presentation.view.screens.qr.dialogs.ScanVoucherNotEligibleDialog
 import io.forus.me.android.presentation.view.screens.records.dialogs.validators_list_dialog.ValidatorsListDialog
 import io.forus.me.android.presentation.view.screens.vouchers.provider.ProviderActivity
 import io.reactivex.android.schedulers.AndroidSchedulers

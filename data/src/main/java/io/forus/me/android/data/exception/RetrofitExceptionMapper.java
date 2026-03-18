@@ -1,7 +1,5 @@
 package io.forus.me.android.data.exception;
 
-import android.util.Log;
-
 import java.io.IOException;
 
 import io.forus.me.android.data.entity.common.ApiError;

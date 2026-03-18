@@ -3,8 +3,8 @@ package io.forus.me.android.presentation.navigation
 import android.content.Context
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
-import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import io.forus.me.android.domain.models.records.Record
 import io.forus.me.android.domain.models.records.RecordCategory
 import io.forus.me.android.domain.models.wallets.Wallet
@@ -12,10 +12,10 @@ import io.forus.me.android.presentation.models.ChangePinMode
 import io.forus.me.android.presentation.models.vouchers.Voucher
 import io.forus.me.android.presentation.view.screens.account.account.AccountActivity
 import io.forus.me.android.presentation.view.screens.account.account.check_email.CheckEmailActivity
-import io.forus.me.android.presentation.view.screens.account.login_signup_account.LogInSignUpActivity
 import io.forus.me.android.presentation.view.screens.account.account.pin.ChangePinActivity
 import io.forus.me.android.presentation.view.screens.account.assigndelegates.AssignDelegatesAccountActivity
 import io.forus.me.android.presentation.view.screens.account.assigndelegates.email.RestoreByEmailActivity
+import io.forus.me.android.presentation.view.screens.account.login_signup_account.LogInSignUpActivity
 import io.forus.me.android.presentation.view.screens.account.newaccount.NewAccountActivity
 import io.forus.me.android.presentation.view.screens.account.newaccount.confirmRegistration.ConfirmRegistrationActivity
 import io.forus.me.android.presentation.view.screens.account.newaccount.pin.NewPinActivity

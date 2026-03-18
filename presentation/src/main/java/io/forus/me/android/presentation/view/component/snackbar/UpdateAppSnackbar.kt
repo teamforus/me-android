@@ -1,14 +1,13 @@
 package com.example.snackbarexample.customsnackbar.chef
 
-import com.google.android.material.snackbar.BaseTransientBottomBar
-import com.google.android.material.snackbar.Snackbar
-import androidx.core.content.ContextCompat
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
-
+import androidx.core.content.ContextCompat
 import com.example.customsnackbar.extension.findSuitableParent
+import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.google.android.material.snackbar.Snackbar
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.view.component.snackbar.UpdateAppSnackbarView
 

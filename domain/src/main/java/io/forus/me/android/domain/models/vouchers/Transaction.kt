@@ -1,7 +1,7 @@
 package io.forus.me.android.domain.models.vouchers
 
 import java.math.BigDecimal
-import java.util.*
+import java.util.Date
 
 class Transaction {
 

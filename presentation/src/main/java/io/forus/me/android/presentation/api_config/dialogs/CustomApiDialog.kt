@@ -2,9 +2,7 @@ package io.forus.me.android.presentation.api_config.dialogs
 
 import android.content.Context
 import androidx.core.text.HtmlCompat
-import android.text.Html
 import com.afollestad.materialdialogs.MaterialDialog
-import io.forus.me.android.presentation.R
 
 
 class CustomApiDialog(private val context: Context, customApiStr: String,  inputCallback: MaterialDialog.InputCallback,

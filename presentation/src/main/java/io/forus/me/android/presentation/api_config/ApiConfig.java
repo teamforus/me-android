@@ -1,7 +1,6 @@
 package io.forus.me.android.presentation.api_config;
 
 import io.forus.me.android.presentation.BuildConfig;
-import io.forus.me.android.presentation.helpers.SharedPref;
 
 public class ApiConfig {
 

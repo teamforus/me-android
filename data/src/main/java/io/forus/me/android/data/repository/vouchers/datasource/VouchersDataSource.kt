@@ -9,7 +9,6 @@ import io.forus.me.android.data.entity.vouchers.response.ProductAction
 import io.forus.me.android.data.entity.vouchers.response.Transaction
 import io.forus.me.android.data.entity.vouchers.response.Voucher
 import io.reactivex.Observable
-import okhttp3.ResponseBody
 
 interface VouchersDataSource {
 

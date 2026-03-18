@@ -1,14 +1,11 @@
 package io.forus.me.android.presentation.view.component.text
 
 import android.content.Context
-import android.graphics.Typeface
 import android.os.Build
-import androidx.core.content.res.ResourcesCompat
-import androidx.appcompat.widget.AppCompatTextView
 import android.util.AttributeSet
-import android.util.Log
+import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.content.res.ResourcesCompat
 import io.forus.me.android.presentation.R
-import io.forus.me.android.presentation.helpers.FontCache
 import io.forus.me.android.presentation.view.component.FontType
 
 

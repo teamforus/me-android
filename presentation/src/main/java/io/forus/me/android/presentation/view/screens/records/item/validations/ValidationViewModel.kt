@@ -1,8 +1,5 @@
 package io.forus.me.android.presentation.view.screens.records.item.validations
 
-import io.forus.me.android.data.entity.records.response.Validation
-import io.forus.me.android.domain.models.validators.SimpleValidator
-
 class ValidationViewModel{
 
     enum class Type {

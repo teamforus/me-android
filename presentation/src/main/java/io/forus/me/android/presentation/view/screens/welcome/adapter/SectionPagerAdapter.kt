@@ -1,9 +1,13 @@
 package io.forus.me.android.presentation.view.screens.welcome.adapter
 
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import androidx.appcompat.app.AppCompatActivity
-import io.forus.me.android.presentation.view.screens.welcome.pages.*
+import io.forus.me.android.presentation.view.screens.welcome.pages.WelcomeFragment1
+import io.forus.me.android.presentation.view.screens.welcome.pages.WelcomeFragment2
+import io.forus.me.android.presentation.view.screens.welcome.pages.WelcomeFragment3
+import io.forus.me.android.presentation.view.screens.welcome.pages.WelcomeFragment4
+import io.forus.me.android.presentation.view.screens.welcome.pages.WelcomeFragment5
 
 class SectionPagerAdapter(activity: AppCompatActivity): FragmentStateAdapter(activity) {
 

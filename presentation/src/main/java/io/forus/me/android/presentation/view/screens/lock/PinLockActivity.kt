@@ -3,7 +3,6 @@ package io.forus.me.android.presentation.view.screens.lock
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.view.activity.CommonActivity
 import io.forus.me.android.presentation.view.screens.dashboard.DashboardActivity

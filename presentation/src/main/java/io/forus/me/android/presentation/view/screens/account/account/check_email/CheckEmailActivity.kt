@@ -5,14 +5,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.core.text.HtmlCompat
-import android.text.Html
-
-
-import io.forus.me.android.presentation.view.activity.CommonActivity
-
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.databinding.ActivityCheckEmailBinding
 import io.forus.me.android.presentation.helpers.SharedPref
+import io.forus.me.android.presentation.view.activity.CommonActivity
 
 
 /**

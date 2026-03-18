@@ -1,14 +1,12 @@
 package io.forus.me.android.presentation.view.screens.records.newrecord.adapters
 
 import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import android.view.ViewGroup
 import io.forus.me.android.domain.models.records.RecordCategory
 import io.forus.me.android.presentation.databinding.ItemRecordSelectCategoryBinding
-import io.forus.me.android.presentation.databinding.ItemWalletsBinding
 import io.forus.me.android.presentation.view.screens.records.newrecord.viewholders.RecordCategoryVH
-import io.forus.me.android.presentation.view.screens.wallets.WalletsVH
 
 class RecordCategoriesAdapter(private val clickListener: ((RecordCategory) -> Unit)?): RecyclerView.Adapter<RecordCategoryVH>() {
 

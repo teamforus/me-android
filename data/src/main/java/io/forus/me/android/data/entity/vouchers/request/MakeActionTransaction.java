@@ -2,8 +2,6 @@ package io.forus.me.android.data.entity.vouchers.request;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.math.BigDecimal;
-
 public class MakeActionTransaction {
 
 

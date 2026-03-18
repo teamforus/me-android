@@ -1,7 +1,6 @@
 package io.forus.me.android.presentation.view.screens.lock.fingerprint
 
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG
 import androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL

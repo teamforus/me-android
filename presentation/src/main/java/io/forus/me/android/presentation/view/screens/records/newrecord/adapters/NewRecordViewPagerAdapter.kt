@@ -1,8 +1,8 @@
 package io.forus.me.android.presentation.view.screens.records.newrecord.adapters
 
-import androidx.viewpager.widget.PagerAdapter
 import android.view.View
 import android.view.ViewGroup
+import androidx.viewpager.widget.PagerAdapter
 import io.forus.me.android.presentation.R
 
 

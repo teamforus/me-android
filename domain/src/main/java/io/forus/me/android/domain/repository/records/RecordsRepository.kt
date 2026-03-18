@@ -1,7 +1,12 @@
 package io.forus.me.android.domain.repository.records
 
-import com.sun.net.httpserver.Authenticator
-import io.forus.me.android.domain.models.records.*
+import io.forus.me.android.domain.models.records.CreateRecordResponse
+import io.forus.me.android.domain.models.records.NewRecordCategoryRequest
+import io.forus.me.android.domain.models.records.NewRecordRequest
+import io.forus.me.android.domain.models.records.Record
+import io.forus.me.android.domain.models.records.RecordCategory
+import io.forus.me.android.domain.models.records.RecordType
+import io.forus.me.android.domain.models.records.Validation
 import io.reactivex.Observable
 
 interface RecordsRepository {

@@ -1,7 +1,7 @@
 package io.forus.me.android.presentation.view.adapters
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.View
+import androidx.recyclerview.widget.RecyclerView
 
 abstract class RVViewHolder<Item>(itemView: View) : RecyclerView.ViewHolder(itemView) {
 

@@ -1,6 +1,5 @@
 package io.forus.me.android.presentation.view.screens.account.account
 
-import android.util.Log
 import io.forus.me.android.domain.repository.account.AccountRepository
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.base.lr.LRPartialChange
