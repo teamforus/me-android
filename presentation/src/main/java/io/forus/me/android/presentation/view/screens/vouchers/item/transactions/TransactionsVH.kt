@@ -25,11 +25,15 @@ class TransactionsVH(private val binding: ItemVoucherTranscationsListBinding) :
                 }
             } else item.organization?.name
             overline1.text = if (isActionsVoucher) {
-                if (item.product != null ) {
-                    if(item.product!!.organization != null) {
+                if (item.product != null) {
+                    if (item.product!!.organization != null) {
                         item.product!!.organization!!.name
-                    }else{ ""}
-                } else { ""}
+                    } else {
+                        ""
+                    }
+                } else {
+                    ""
+                }
             } else VoucherFragment.dateFormat.format(item.createdAt)
 
 

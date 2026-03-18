@@ -20,9 +20,6 @@ public class ImageLoader {
     }
 
 
-
-
-
     public static void load(Context context, String url, final ImageView imageView) {
 
         if (imageView == null || url == null)
@@ -33,9 +30,6 @@ public class ImageLoader {
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imageView);
     }
-
-
-
 
 
 }

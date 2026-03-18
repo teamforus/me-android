@@ -13,13 +13,15 @@ import com.afollestad.materialdialogs.MaterialDialog
 import io.forus.me.android.presentation.R
 
 
-class ValidatorsListDialog(private val context: Context,
-                           private val organizations: List<io.forus.me.android.domain.models.records.ValidatorOrganization>,
-                           private val selectItemCallback: (io.forus.me.android.domain.models.records.ValidatorOrganization) -> Unit) {
+class ValidatorsListDialog(
+    private val context: Context,
+    private val organizations: List<io.forus.me.android.domain.models.records.ValidatorOrganization>,
+    private val selectItemCallback: (io.forus.me.android.domain.models.records.ValidatorOrganization) -> Unit
+) {
 
     private val dialog: MaterialDialog = MaterialDialog.Builder(context)
-            .customView(R.layout.view_validators_list, true)
-            .build()
+        .customView(R.layout.view_validators_list, true)
+        .build()
 
     init {
 
@@ -42,7 +44,12 @@ class ValidatorsListDialog(private val context: Context,
                 context,
                 LinearLayoutManager.VERTICAL
             )
-        dividerItemDecoration.setDrawable(ContextCompat.getDrawable(context,R.drawable.shape_divider)!!)
+        dividerItemDecoration.setDrawable(
+            ContextCompat.getDrawable(
+                context,
+                R.drawable.shape_divider
+            )!!
+        )
         recycler.addItemDecoration(dividerItemDecoration)
 
         recycler.adapter = mAdapter

@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground"
     android:clickable="true"
     android:focusable="true"
-    android:background="?android:attr/selectableItemBackground"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
+    android:orientation="vertical">
 
 
     <include layout="@layout/settings_title_value_card_title" />
@@ -17,6 +15,6 @@
         android:id="@+id/devider"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="#dadbdd"/>
+        android:background="#dadbdd" />
 
 </LinearLayout>

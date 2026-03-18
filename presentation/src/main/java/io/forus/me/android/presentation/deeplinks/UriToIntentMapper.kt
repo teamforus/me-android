@@ -38,6 +38,7 @@ class UriToIntentMapper(private val mContext: Context, private val navigator: Na
 
 
             }
+
             "identity-confirmation" -> {
                 val bQuery = uri.getQueryParameter("token")
                 bQuery?.let { navigator.navigateToResoreAccountSuccess(mContext, it, true) }

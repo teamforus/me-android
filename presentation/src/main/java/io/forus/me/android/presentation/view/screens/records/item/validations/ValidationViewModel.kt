@@ -1,6 +1,6 @@
 package io.forus.me.android.presentation.view.screens.records.item.validations
 
-class ValidationViewModel{
+class ValidationViewModel {
 
     enum class Type {
         header, validator
@@ -16,20 +16,17 @@ class ValidationViewModel{
     var title: String? = null
 
 
-
-
-    constructor(sectionName: String){
+    constructor(sectionName: String) {
         this.type = Type.header
         this.sectionName = sectionName
     }
 
 
-
-    constructor(simpleValidation: io.forus.me.android.domain.models.records.Validation){
+    constructor(simpleValidation: io.forus.me.android.domain.models.records.Validation) {
         this.type = Type.validator
-        if(simpleValidation.organization != null) {
+        if (simpleValidation.organization != null) {
             this.name = simpleValidation.organization!!.name!!
-        }else{
+        } else {
             this.name = simpleValidation.identityAddress
         }
 

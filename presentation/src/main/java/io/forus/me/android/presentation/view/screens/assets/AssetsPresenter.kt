@@ -9,10 +9,12 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 
 
-class AssetsPresenter constructor(val assetsRepository: AssetsRepository) : LRPresenter<List<Asset>, AssetsModel, AssetsView>() {
+class AssetsPresenter constructor(val assetsRepository: AssetsRepository) :
+    LRPresenter<List<Asset>, AssetsModel, AssetsView>() {
 
 
-    override fun initialModelSingle(): Single<List<Asset>> = Single.fromObservable(assetsRepository.getAssets())
+    override fun initialModelSingle(): Single<List<Asset>> =
+        Single.fromObservable(assetsRepository.getAssets())
             //.delay(1, TimeUnit.SECONDS)
             .map {
                 it
@@ -29,24 +31,29 @@ class AssetsPresenter constructor(val assetsRepository: AssetsRepository) : LRPr
 
 
         val initialViewState = LRViewState(
-                false,
-                null,
-                false,
-                false,
-                null,
-                false,
-                AssetsModel(),
-                false)
+            false,
+            null,
+            false,
+            false,
+            null,
+            false,
+            AssetsModel(),
+            false
+        )
 
         subscribeViewState(
-                observable.scan(initialViewState, this::stateReducer)
-                        .observeOn(AndroidSchedulers.mainThread()),
-                AssetsView::render)
+            observable.scan(initialViewState, this::stateReducer)
+                .observeOn(AndroidSchedulers.mainThread()),
+            AssetsView::render
+        )
 
 
     }
 
-    override fun stateReducer(viewState: LRViewState<AssetsModel>, change: PartialChange): LRViewState<AssetsModel> {
+    override fun stateReducer(
+        viewState: LRViewState<AssetsModel>,
+        change: PartialChange
+    ): LRViewState<AssetsModel> {
 
         if (change !is AssetsPartialChanges) return super.stateReducer(viewState, change)
 
@@ -58,15 +65,6 @@ class AssetsPresenter constructor(val assetsRepository: AssetsRepository) : LRPr
         }
 
     }
-
-
-
-
-
-
-
-
-
 
 
 }

@@ -93,162 +93,173 @@ class ProviderPresenter(
                     },
 
                     it.allowedProductCategories.map { productCategory ->
-                        ProductCategory(productCategory.id, productCategory.key, productCategory.name)
+                        ProductCategory(
+                            productCategory.id,
+                            productCategory.key,
+                            productCategory.name
+                        )
                     })
             })
 
         } else {
-            return Single.fromObservable(vouchersRepository.getVoucherAsProvider(address).map { it ->
-                firestoreTokenManager.writeGetVoucherAsProvider(address, true, null)
+            return Single.fromObservable(
+                vouchersRepository.getVoucherAsProvider(address).map { it ->
+                    firestoreTokenManager.writeGetVoucherAsProvider(address, true, null)
 
-                val officesList = mutableListOf<Office>()
+                    val officesList = mutableListOf<Office>()
 
-                it.voucher.offices.forEach {
-                    val schedulers = mutableListOf<io.forus.me.android.presentation.models.vouchers.Schedule>()
+                    it.voucher.offices.forEach {
+                        val schedulers =
+                            mutableListOf<io.forus.me.android.presentation.models.vouchers.Schedule>()
 
-                    if (it.schedulers != null) {
-                        it.schedulers!!.map {
-                            schedulers.add(
-                                io.forus.me.android.presentation.models.vouchers.Schedule(
-                                    it.id, it.officeId ?: -1L, it.weekDay ?: 0, it.startTime, it.endTime
+                        if (it.schedulers != null) {
+                            it.schedulers!!.map {
+                                schedulers.add(
+                                    io.forus.me.android.presentation.models.vouchers.Schedule(
+                                        it.id,
+                                        it.officeId ?: -1L,
+                                        it.weekDay ?: 0,
+                                        it.startTime,
+                                        it.endTime
+                                    )
                                 )
-                            )
+                            }
                         }
+
+                        val organization = Organization(
+                            it.organization?.id ?: 0,
+                            it.organization?.name ?: "",
+                            it.organization?.logo ?: "",
+                            it.organization?.lat ?: 0.0,
+                            it.organization?.lon ?: 0.0,
+                            it.organization?.address ?: "",
+                            it.organization?.phone ?: "",
+                            it.organization?.email ?: ""
+                        )
+
+                        officesList.add(
+                            Office(
+                                it.id,
+                                it.organizationId,
+                                it.address,
+                                it.phone,
+                                it.lat,
+                                it.lon,
+                                it.photo,
+                                organization,
+                                schedulers
+                            )
+                        )
+
                     }
 
-                    val organization = Organization(
-                        it.organization?.id ?: 0,
-                        it.organization?.name ?: "",
-                        it.organization?.logo ?: "",
-                        it.organization?.lat ?: 0.0,
-                        it.organization?.lon ?: 0.0,
-                        it.organization?.address ?: "",
-                        it.organization?.phone ?: "",
-                        it.organization?.email ?: ""
-                    )
+                    VoucherProvider(
+                        Voucher(
+                            it.voucher.isProduct ?: false,
+                            it.voucher.isUsed ?: false,
+                            it.voucher.address,
+                            it.voucher.identyAddress,
+                            it.voucher.name,
+                            it.voucher.organizationName,
+                            it.voucher.fundName,
+                            it.voucher.fundType,
+                            it.voucher.fundWebShopUrl,
+                            it.voucher.description,
+                            it.voucher.createdAt,
+                            it.voucher.amount,
+                            it.voucher.amount_locale,
+                            it.voucher.logo,
+                            it.voucher.transactions.map { transaction ->
+                                val organization = Organization(
+                                    transaction.organization?.id ?: 0,
+                                    transaction.organization?.name,
+                                    transaction.organization?.logo,
+                                    transaction.organization?.lat,
+                                    transaction.organization?.lon,
+                                    transaction.organization?.address,
+                                    transaction.organization?.phone,
+                                    transaction.organization?.email
+                                )
 
-                    officesList.add(
-                        Office(
-                            it.id,
-                            it.organizationId,
-                            it.address,
-                            it.phone,
-                            it.lat,
-                            it.lon,
-                            it.photo,
-                            organization,
-                            schedulers
-                        )
-                    )
-
-                }
-
-                VoucherProvider(
-                    Voucher(
-                        it.voucher.isProduct ?: false,
-                        it.voucher.isUsed ?: false,
-                        it.voucher.address,
-                        it.voucher.identyAddress,
-                        it.voucher.name,
-                        it.voucher.organizationName,
-                        it.voucher.fundName,
-                        it.voucher.fundType,
-                        it.voucher.fundWebShopUrl,
-                        it.voucher.description,
-                        it.voucher.createdAt,
-                        it.voucher.amount,
-                        it.voucher.amount_locale,
-                        it.voucher.logo,
-                        it.voucher.transactions.map { transaction ->
-                            val organization = Organization(
-                                transaction.organization?.id ?: 0,
-                                transaction.organization?.name,
-                                transaction.organization?.logo,
-                                transaction.organization?.lat,
-                                transaction.organization?.lon,
-                                transaction.organization?.address,
-                                transaction.organization?.phone,
-                                transaction.organization?.email
-                            )
-
-                            val product: io.forus.me.android.presentation.models.vouchers.Product? =
-                                if (transaction.product == null) {
-                                    null
-                                } else {
-                                    io.forus.me.android.presentation.models.vouchers.Product(
-                                        transaction.product?.id ?: -1L,
-                                        transaction.product!!.organizationId!!,
-                                        transaction.product!!.productCategoryId!!,
-                                        transaction.product!!.name,
-                                        transaction.product!!.description,
-                                        transaction.product!!.price!!,
-                                        transaction.product!!.oldPrice!!,
-                                        transaction.product!!.totalAmount!!,
-                                        transaction.product!!.soldAmount!!,
-                                        ProductCategory(
-                                            transaction.product!!.productCategory?.id ?: -1L,
-                                            transaction.product!!.productCategory?.key,
-                                            transaction.product!!.productCategory?.name
-                                        ),
-                                        organization
-                                    )
-                                }
+                                val product: io.forus.me.android.presentation.models.vouchers.Product? =
+                                    if (transaction.product == null) {
+                                        null
+                                    } else {
+                                        io.forus.me.android.presentation.models.vouchers.Product(
+                                            transaction.product?.id ?: -1L,
+                                            transaction.product!!.organizationId!!,
+                                            transaction.product!!.productCategoryId!!,
+                                            transaction.product!!.name,
+                                            transaction.product!!.description,
+                                            transaction.product!!.price!!,
+                                            transaction.product!!.oldPrice!!,
+                                            transaction.product!!.totalAmount!!,
+                                            transaction.product!!.soldAmount!!,
+                                            ProductCategory(
+                                                transaction.product!!.productCategory?.id ?: -1L,
+                                                transaction.product!!.productCategory?.key,
+                                                transaction.product!!.productCategory?.name
+                                            ),
+                                            organization
+                                        )
+                                    }
 
 
 
-                            Transaction(
-                                transaction.id,
-                                organization,
-                                transaction.amount ?: 0f.toBigDecimal(),
-                                transaction.amount_locale,
-                                transaction.amount_extra_cash ?: 0f.toBigDecimal(),
-                                transaction.amount_extra_cash_locale,
-                                transaction.createdAt,
-                                Transaction.Type.valueOf(transaction.type.name),
-                                product
+                                Transaction(
+                                    transaction.id,
+                                    organization,
+                                    transaction.amount ?: 0f.toBigDecimal(),
+                                    transaction.amount_locale,
+                                    transaction.amount_extra_cash ?: 0f.toBigDecimal(),
+                                    transaction.amount_extra_cash_locale,
+                                    transaction.createdAt,
+                                    Transaction.Type.valueOf(transaction.type.name),
+                                    product
+                                )
+                            },
+                            null,
+                            it.voucher.deactivated ?: false,
+                            it.voucher.expired ?: false,
+                            "",
+                            officesList,
+                            it.voucher.amount_visible ?: false
+                        ),
+
+                        it.allowedOrganizations.map { organization ->
+                            Organization(
+                                organization.id,
+                                organization.name,
+                                organization.logo,
+                                organization.lat,
+                                organization.lon,
+                                organization.address,
+                                organization.phone,
+                                organization.email
                             )
                         },
-                        null,
-                        it.voucher.deactivated ?: false,
-                        it.voucher.expired ?: false,
-                        "",
-                        officesList,
-                        it.voucher.amount_visible ?: false
-                    ),
 
-                    it.allowedOrganizations.map { organization ->
-                        Organization(
-                            organization.id,
-                            organization.name,
-                            organization.logo,
-                            organization.lat,
-                            organization.lon,
-                            organization.address,
-                            organization.phone,
-                            organization.email
-                        )
-                    },
-
-                    it.allowedProductCategories.map { productCategory ->
-                        ProductCategory(
-                            productCategory.id, productCategory.key, productCategory.name
-                        )
-                    })
-            })
+                        it.allowedProductCategories.map { productCategory ->
+                            ProductCategory(
+                                productCategory.id, productCategory.key, productCategory.name
+                            )
+                        })
+                })
         }
     }
 
     override fun ProviderModel.changeInitialModel(i: VoucherProvider): ProviderModel {
-        val organization = if (i.allowedOrganizations.isNotEmpty()) i.allowedOrganizations.get(0) else Organization(
-            organizationId,
-            i.voucher.organizationName,
-            "",
-            i.voucher.product?.organization?.lat ?: 0.0,
-            i.voucher.product?.organization?.lon ?: 0.0,
-            i.voucher.product?.organization?.address ?: "",
-            i.voucher.product?.organization?.phone ?: "",
-            i.voucher.product?.organization?.email ?: ""
-        )
+        val organization =
+            if (i.allowedOrganizations.isNotEmpty()) i.allowedOrganizations.get(0) else Organization(
+                organizationId,
+                i.voucher.organizationName,
+                "",
+                i.voucher.product?.organization?.lat ?: 0.0,
+                i.voucher.product?.organization?.lon ?: 0.0,
+                i.voucher.product?.organization?.address ?: "",
+                i.voucher.product?.organization?.phone ?: "",
+                i.voucher.product?.organization?.email ?: ""
+            )
         organizationId = organization.id
         return copy(item = i, selectedOrganization = organization)
     }
@@ -264,19 +275,29 @@ class ProviderPresenter(
                 intent { it.charge() }.switchMap { amount ->
                     vouchersRepository.makeTransaction(
                         address, amount.first, amount.second, note, organizationId
-                    ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).map<PartialChange> {
+                    ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                        .map<PartialChange> {
+                            firestoreTokenManager.writeTransaction(
+                                address, amount.first, note, organizationId, true, null
+                            )
+                            ProviderPartialChanges.MakeTransactionEnd()
+                        }.onErrorReturn { throwable ->
                         firestoreTokenManager.writeTransaction(
-                            address, amount.first, note, organizationId, true, null
-                        )
-                        ProviderPartialChanges.MakeTransactionEnd()
-                    }.onErrorReturn { throwable ->
-                        firestoreTokenManager.writeTransaction(
-                            address, amount.first, note, organizationId, false, throwable.localizedMessage
+                            address,
+                            amount.first,
+                            note,
+                            organizationId,
+                            false,
+                            throwable.localizedMessage
                         )
                         ProviderPartialChanges.MakeTransactionError(throwable)
                     }.startWith(ProviderPartialChanges.MakeTransactionStart())
                 },
-                intent { it.selectOrganization() }.map { ProviderPartialChanges.SelectOrganization(it) },
+                intent { it.selectOrganization() }.map {
+                    ProviderPartialChanges.SelectOrganization(
+                        it
+                    )
+                },
                 intent { it.demoCharge() }.switchMap {
                     vouchersRepository.makeDemoTransaction(address).subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread()).map<PartialChange> {
@@ -288,10 +309,12 @@ class ProviderPresenter(
         )
 
 
-        val initialViewState = LRViewState(false, null, false, false, null, false, ProviderModel(), false)
+        val initialViewState =
+            LRViewState(false, null, false, false, null, false, ProviderModel(), false)
 
         subscribeViewState(
-            observable.scan(initialViewState, this::stateReducer).observeOn(AndroidSchedulers.mainThread()),
+            observable.scan(initialViewState, this::stateReducer)
+                .observeOn(AndroidSchedulers.mainThread()),
             ProviderView::render
         )
     }
@@ -310,11 +333,15 @@ class ProviderPresenter(
             )
 
             is ProviderPartialChanges.MakeTransactionStart -> vs.copy(
-                model = vs.model.copy(sendingMakeTransaction = true, makeTransactionError = null), loading = true
+                model = vs.model.copy(sendingMakeTransaction = true, makeTransactionError = null),
+                loading = true
             )
 
             is ProviderPartialChanges.MakeTransactionError -> vs.copy(
-                model = vs.model.copy(sendingMakeTransaction = false, makeTransactionError = change.error)
+                model = vs.model.copy(
+                    sendingMakeTransaction = false,
+                    makeTransactionError = change.error
+                )
             )
 
             is ProviderPartialChanges.SetAmount -> vs.copy(
@@ -323,12 +350,22 @@ class ProviderPresenter(
 
             is ProviderPartialChanges.SetNote -> {
                 note = change.note
-                vs.copy(model = vs.model.copy(selectedNote = change.note, makeTransactionError = null))
+                vs.copy(
+                    model = vs.model.copy(
+                        selectedNote = change.note,
+                        makeTransactionError = null
+                    )
+                )
             }
 
             is ProviderPartialChanges.SelectOrganization -> {
                 organizationId = change.organization.id
-                vs.copy(model = vs.model.copy(selectedOrganization = change.organization, makeTransactionError = null))
+                vs.copy(
+                    model = vs.model.copy(
+                        selectedOrganization = change.organization,
+                        makeTransactionError = null
+                    )
+                )
             }
         }
     }

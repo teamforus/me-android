@@ -40,7 +40,8 @@ public class PointsOverlayView extends View {
         invalidate();
     }
 
-    @Override public void draw(Canvas canvas) {
+    @Override
+    public void draw(Canvas canvas) {
         super.draw(canvas);
         if (points != null) {
             for (PointF pointF : points) {

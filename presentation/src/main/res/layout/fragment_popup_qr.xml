@@ -8,25 +8,23 @@
     android:padding="@dimen/activity_horizontal_margin">
 
 
-
     <LinearLayout
         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="@dimen/activity_horizontal_margin">
-  
 
 
         <io.forus.me.android.presentation.view.component.images.QRCodeImageView
             android:id="@+id/qrImage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:maxWidth="350dp"
-            android:maxHeight="350dp"
-            android:adjustViewBounds="true"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
+            android:adjustViewBounds="true"
+            android:maxWidth="350dp"
+            android:maxHeight="350dp"
             app:offColor="@android:color/white"
             app:onColor="@android:color/black" />
 

@@ -8,9 +8,9 @@
     android:background="@drawable/border"
     android:clickable="true"
     android:focusable="true"
-    android:orientation="horizontal"
+    android:foreground="?selectableItemBackground"
     android:gravity="center_vertical"
-    android:foreground="?selectableItemBackground">
+    android:orientation="horizontal">
 
     <ImageView
         android:id="@+id/iv_icon"
@@ -23,11 +23,11 @@
         style="@style/ShareButtonBody"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="16dp"
-        android:paddingTop="16dp"
         android:gravity="center_vertical"
-        android:textSize="15sp"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
         android:textColor="@color/body_1_87"
+        android:textSize="15sp"
         tools:text="Email to me" />
 
 </LinearLayout>

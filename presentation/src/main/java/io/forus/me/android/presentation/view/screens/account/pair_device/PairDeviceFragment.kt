@@ -19,7 +19,8 @@ import io.reactivex.Observable
 /**
  * Fragment User PairDevice Screen.
  */
-class PairDeviceFragment : ToolbarLRFragment<PairDeviceModel, PairDeviceView, PairDevicePresenter>(), PairDeviceView {
+class PairDeviceFragment :
+    ToolbarLRFragment<PairDeviceModel, PairDeviceView, PairDevicePresenter>(), PairDeviceView {
 
     val disposableHolder = DisposableHolder()
 
@@ -43,28 +44,32 @@ class PairDeviceFragment : ToolbarLRFragment<PairDeviceModel, PairDeviceView, Pa
 
         }
     }
-    
+
     private lateinit var binding: FragmentAccountPairDeviceBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
-    {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentAccountPairDeviceBinding.inflate(inflater)
         return binding.root
-    }        
-    
+    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
 
-
         val qrFragment = RestoreByQRFragment()
 
-            val fragmentTransaction = requireFragmentManager()
-                    .beginTransaction()
-            fragmentTransaction.replace(R.id.container_qr_fr, qrFragment,
-                    null)
-            fragmentTransaction.commit()
+        val fragmentTransaction = requireFragmentManager()
+            .beginTransaction()
+        fragmentTransaction.replace(
+            R.id.container_qr_fr, qrFragment,
+            null
+        )
+        fragmentTransaction.commit()
 
         binding.pinView.setPinBackground(ContextCompat.getColor(context!!, R.color.pinBackground))
     }
@@ -75,9 +80,9 @@ class PairDeviceFragment : ToolbarLRFragment<PairDeviceModel, PairDeviceView, Pa
     }
 
     override fun createPresenter() = PairDevicePresenter(
-            disposableHolder,
-            Injection.instance.accessTokenChecker,
-            Injection.instance.accountRepository
+        disposableHolder,
+        Injection.instance.accessTokenChecker,
+        Injection.instance.accountRepository
     )
 
     override fun render(vs: LRViewState<PairDeviceModel>) {
@@ -86,12 +91,11 @@ class PairDeviceFragment : ToolbarLRFragment<PairDeviceModel, PairDeviceView, Pa
         if (vs.model.item != null) {
             binding.pinView.setPin(vs.model.item.authCode)
             binding.pinView.visibility = View.VISIBLE
-        }
-        else
+        } else
             binding.pinView.visibility = View.INVISIBLE
 
 
-        if(vs.closeScreen && vs.model.isPinConfirmed == true && vs.model.item?.accessToken != null){
+        if (vs.closeScreen && vs.model.isPinConfirmed == true && vs.model.item?.accessToken != null) {
             closeScreen(vs.model.item.accessToken)
         }
     }

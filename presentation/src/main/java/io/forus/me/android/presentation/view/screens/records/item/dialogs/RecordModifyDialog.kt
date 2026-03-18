@@ -8,7 +8,11 @@ import android.widget.TextView
 import io.forus.me.android.presentation.R
 
 
-class RecordModifyDialog(private val context: Activity, val action: Action,  private val edit: () -> Unit) {
+class RecordModifyDialog(
+    private val context: Activity,
+    val action: Action,
+    private val edit: () -> Unit
+) {
 
     private var dialog: AlertDialog
 
@@ -21,7 +25,7 @@ class RecordModifyDialog(private val context: Activity, val action: Action,  pri
         val cancel_bt = dialogView.findViewById<TextView>(R.id.cancel_bt)
         cancel_bt.setOnClickListener { dismiss() }
         val ok_bt = dialogView.findViewById<TextView>(R.id.ok_bt)
-        ok_bt.setOnClickListener{
+        ok_bt.setOnClickListener {
             edit.invoke()
             dismiss()
         }
@@ -31,8 +35,8 @@ class RecordModifyDialog(private val context: Activity, val action: Action,  pri
             Action.DELETE -> context.getString(R.string.dialog_button_archive)
         }
 
-        val description  = dialogView.findViewById<TextView>(R.id.description)
-        description.text  = when (action) {
+        val description = dialogView.findViewById<TextView>(R.id.description)
+        description.text = when (action) {
             Action.EDIT -> context.getString(R.string.dialog_record_edit_description)
             Action.DELETE -> context.getString(R.string.dialog_record_archive_description)
         }
@@ -52,7 +56,6 @@ class RecordModifyDialog(private val context: Activity, val action: Action,  pri
     fun dismiss() {
         dialog.dismiss()
     }
-
 
 
     public enum class Action {

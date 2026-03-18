@@ -16,7 +16,9 @@ import io.reactivex.Observable
 /**
  * Fragment Assign Delegates Screen.
  */
-class AssignDelegatesAccountFragment : ToolbarLRFragment<AssignDelegatesAccountModel, AssignDelegatesView, AssignDelegatesPresenter>(), AssignDelegatesView{
+class AssignDelegatesAccountFragment :
+    ToolbarLRFragment<AssignDelegatesAccountModel, AssignDelegatesView, AssignDelegatesPresenter>(),
+    AssignDelegatesView {
 
     val disposableHolder = DisposableHolder()
 
@@ -37,15 +39,17 @@ class AssignDelegatesAccountFragment : ToolbarLRFragment<AssignDelegatesAccountM
 
         }
     }
-    
+
     private lateinit var binding: FragmentAccountAssignDelegatesBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
-    {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentAccountAssignDelegatesBinding.inflate(inflater)
         return binding.root
     }
-           
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -66,9 +70,9 @@ class AssignDelegatesAccountFragment : ToolbarLRFragment<AssignDelegatesAccountM
     }
 
     override fun createPresenter() = AssignDelegatesPresenter(
-            disposableHolder,
-            Injection.instance.accessTokenChecker,
-            Injection.instance.accountRepository
+        disposableHolder,
+        Injection.instance.accessTokenChecker,
+        Injection.instance.accountRepository
     )
 
     override fun render(vs: LRViewState<AssignDelegatesAccountModel>) {
@@ -77,12 +81,11 @@ class AssignDelegatesAccountFragment : ToolbarLRFragment<AssignDelegatesAccountM
         if (vs.model.item != null) {
             binding.pinView.setPin(vs.model.item.authCode)
             binding.pinView.visibility = View.VISIBLE
-        }
-        else
+        } else
             binding.pinView.visibility = View.INVISIBLE
 
 
-        if(vs.closeScreen && vs.model.isPinConfirmed == true && vs.model.item?.accessToken != null){
+        if (vs.closeScreen && vs.model.isPinConfirmed == true && vs.model.item?.accessToken != null) {
             closeScreen(vs.model.item.accessToken)
         }
     }

@@ -27,7 +27,8 @@ import io.reactivex.Observable
  * Child view of [LRPanelImpl] added as child in XML layout is added as 3rd child (model layer) to [LR_ViewAnimator].
  * (see [LRPanelImpl.onFinishInflate]).
  */
-class LRPanelImpl @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : SwipeRefreshLayout(context, attrs), LoadRefreshPanel {
+class LRPanelImpl @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) :
+    SwipeRefreshLayout(context, attrs), LoadRefreshPanel {
 
     companion object {
         private const val LAYER_LOADING = 0
@@ -69,7 +70,7 @@ class LRPanelImpl @JvmOverloads constructor(context: Context, attrs: AttributeSe
             LR_ViewAnimator.showIfNotYet(LAYER_LOADING)
         } else if (vs.loadingError != null) {
 
-            Log.d("networkError","LRPanelImpl networkError "+vs.loadingError!!::class)
+            Log.d("networkError", "LRPanelImpl networkError " + vs.loadingError!!::class)
             if (vs.loadingError is RetrofitException && vs.loadingError.kind == io.forus.me.android.domain.exception.RetrofitException.Kind.NETWORK) {
                 if (context != null) NoInternetDialog(context!!, {}).show();
             }

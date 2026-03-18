@@ -14,7 +14,9 @@ import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 
 //import kotlinx.android.synthetic.main.fragment_wallet_details.*
 
-class WalletDetailsFragment : ToolbarLRFragment<WalletDetailsModel, WalletDetailsView, WalletDetailsPresenter>(), WalletDetailsView{
+class WalletDetailsFragment :
+    ToolbarLRFragment<WalletDetailsModel, WalletDetailsView, WalletDetailsPresenter>(),
+    WalletDetailsView {
 
     companion object {
         private val WALLET_ID_EXTRA = "WALLET_ID_EXTRA"
@@ -37,13 +39,17 @@ class WalletDetailsFragment : ToolbarLRFragment<WalletDetailsModel, WalletDetail
         get() = true
 
     override fun loadRefreshPanel(): LoadRefreshPanel = binding.lrPanel
-    
+
     private lateinit var binding: FragmentWalletDetailsBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
 
         binding = FragmentWalletDetailsBinding.inflate(inflater)
-        
+
         val bundle = this.arguments
         if (bundle != null) {
             walletId = bundle.getLong(WALLET_ID_EXTRA)
@@ -52,16 +58,21 @@ class WalletDetailsFragment : ToolbarLRFragment<WalletDetailsModel, WalletDetail
     }
 
     override fun createPresenter() = WalletDetailsPresenter(
-            walletId,
-            Injection.instance.walletsRepository
+        walletId,
+        Injection.instance.walletsRepository
     )
 
     override fun render(vs: LRViewState<WalletDetailsModel>) {
         super.render(vs)
 
         val item = vs.model.item
-        binding.tvBalanceCrypto.text = if(item != null) ""+item.balance.format(5)+" "+item.currency?.name else ""
-        binding.tvBalanceFiat.text = resources.getString(R.string.wallet_balance_fiat, (item?.balance?.times(244.60)).format(2), (item?.balance?.times(281.60)).format(2))
+        binding.tvBalanceCrypto.text =
+            if (item != null) "" + item.balance.format(5) + " " + item.currency?.name else ""
+        binding.tvBalanceFiat.text = resources.getString(
+            R.string.wallet_balance_fiat,
+            (item?.balance?.times(244.60)).format(2),
+            (item?.balance?.times(281.60)).format(2)
+        )
         binding.ivLogo.setImageUrl(item?.logoUrl)
     }
 }

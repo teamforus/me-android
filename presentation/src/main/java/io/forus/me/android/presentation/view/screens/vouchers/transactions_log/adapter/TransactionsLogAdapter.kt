@@ -12,8 +12,10 @@ import io.forus.me.android.presentation.view.screens.vouchers.transactions_log.u
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-class TransactionsLogAdapter(val context: Context, var items: ArrayList<Transaction>,
-                             val callback: Callback) : RecyclerView.Adapter<TransactionsLogAdapter.MainHolder>() {
+class TransactionsLogAdapter(
+    val context: Context, var items: ArrayList<Transaction>,
+    val callback: Callback
+) : RecyclerView.Adapter<TransactionsLogAdapter.MainHolder>() {
 
     private val LOADING = 0
     private val ITEM = 1
@@ -21,8 +23,9 @@ class TransactionsLogAdapter(val context: Context, var items: ArrayList<Transact
 
     val dateFormat = SimpleDateFormat(transactionsDateFormat, Locale.getDefault())
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
-            = MainHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_transactions_list, parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = MainHolder(
+        LayoutInflater.from(parent.context).inflate(R.layout.item_transactions_list, parent, false)
+    )
 
     override fun getItemCount() = items.size
 
@@ -49,12 +52,13 @@ class TransactionsLogAdapter(val context: Context, var items: ArrayList<Transact
                 item.amount_locale
             } else {
                 overline2.visibility = View.INVISIBLE
-                "" }
+                ""
+            }
             overline1.text = dateFormat.format(item.createdAt)
-            when(item.state){
+            when (item.state) {
                 "success" -> overline2.text = context.getString(R.string.status_success)
                 "pending" -> overline2.text = context.getString(R.string.status_pending)
-                else ->  overline2.text = "++"
+                else -> overline2.text = "++"
             }
             root.setOnClickListener { callback.onItemClicked(item) }
 

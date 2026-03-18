@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root"
-    android:background="@color/colorPrimary"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -16,111 +15,111 @@
             android:layout_height="wrap_content">
 
             <LinearLayout
-                android:orientation="vertical"
-                android:paddingBottom="0dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="0dp">
 
-                <include layout="@layout/toolbar_view"/>
+                <include layout="@layout/toolbar_view" />
 
 
                 <io.forus.me.android.presentation.view.component.text.TextView
                     android:id="@+id/subtitle_action"
-                    android:layout_gravity="center_horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:textColor="@color/body_1_87"
-                    android:lineSpacingExtra="6sp"
+                    android:layout_gravity="center_horizontal"
                     android:gravity="center_horizontal"
-                    android:text="@string/new_account_subtitle"/>
+                    android:lineSpacingExtra="6sp"
+                    android:text="@string/new_account_subtitle"
+                    android:textColor="@color/body_1_87"
+                    android:textSize="14sp" />
 
                 <View
-                    android:background="@color/secondary200"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"/>
+                    android:background="@color/secondary200" />
 
 
                 <LinearLayout
-                    android:orientation="vertical"
-                    android:padding="@dimen/activity_horizontal_margin"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/activity_horizontal_margin">
 
                     <LinearLayout
-                        android:focusable="true"
-                        android:focusableInTouchMode="true"
                         android:layout_width="0px"
-                        android:layout_height="0px"/>
+                        android:layout_height="0px"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true" />
 
                     <io.forus.me.android.presentation.view.component.editors.EditText
                         android:id="@+id/email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textEmailAddress"
                         app:hint="@string/new_account_field_email"
                         app:required="true"
-                        app:validationRegex="email"
                         app:validationError="@string/me_validation_error_email_is_invalid"
-                        android:inputType="textEmailAddress"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        app:validationRegex="email" />
 
                     <io.forus.me.android.presentation.view.component.editors.EditText
                         android:id="@+id/email_repeat"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
+                        android:inputType="textEmailAddress"
                         app:hint="@string/new_account_field_email_repeat"
                         app:required="true"
-                        app:validationRegex="email"
                         app:validationError="@string/me_validation_error_email_is_invalid"
-                        android:inputType="textEmailAddress"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        app:validationRegex="email" />
 
                     <io.forus.me.android.presentation.view.component.editors.EditText
                         android:id="@+id/firstName"
-                        android:layout_marginTop="5dp"
-                        app:hint="@string/new_account_field_first_name"
-                        android:inputType="textPersonName|textCapWords"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:inputType="textPersonName|textCapWords"
+                        app:hint="@string/new_account_field_first_name" />
 
 
                     <io.forus.me.android.presentation.view.component.editors.EditText
                         android:id="@+id/lastName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        app:hint="@string/new_account_field_last_name"
                         android:inputType="textPersonName|textCapWords"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        app:hint="@string/new_account_field_last_name" />
 
 
                     <io.forus.me.android.presentation.view.component.editors.EditText
-                        android:visibility="gone"
                         android:id="@+id/bsn"
-                        android:layout_marginTop="5dp"
-                        app:hint="@string/new_account_field_bsn"
-                        android:inputType="text"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:inputType="text"
+                        android:visibility="gone"
+                        app:hint="@string/new_account_field_bsn" />
 
 
                     <io.forus.me.android.presentation.view.component.editors.EditText
-                        android:visibility="gone"
                         android:id="@+id/phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="10dp"
-                        app:hint="@string/new_account_field_phone"
                         android:inputType="phone"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:visibility="gone"
+                        app:hint="@string/new_account_field_phone" />
 
                     <io.forus.me.android.presentation.view.component.buttons.Button
                         android:id="@+id/register"
-                        android:text="@string/welcome_create_account"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="16dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:text="@string/welcome_create_account" />
 
                 </LinearLayout>
 
@@ -130,28 +129,28 @@
         </ScrollView>
 
         <!--<RelativeLayout-->
-            <!--android:id="@+id/rl_register"-->
-            <!--android:layout_marginLeft="16dp"-->
-            <!--android:layout_marginRight="16dp"-->
-            <!--android:layout_alignParentBottom="true"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content">-->
+        <!--android:id="@+id/rl_register"-->
+        <!--android:layout_marginLeft="16dp"-->
+        <!--android:layout_marginRight="16dp"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content">-->
 
-            <!--<io.forus.me.android.presentation.view.component.buttons.Button-->
-                <!--android:id="@+id/register"-->
-                <!--android:text="@string/welcome_create_account"-->
-                <!--android:layout_marginBottom="16dp"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content" />-->
+        <!--<io.forus.me.android.presentation.view.component.buttons.Button-->
+        <!--android:id="@+id/register"-->
+        <!--android:text="@string/welcome_create_account"-->
+        <!--android:layout_marginBottom="16dp"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content" />-->
 
         <!--</RelativeLayout>-->
 
         <ProgressBar
             android:id="@+id/progressBar"
-            android:layout_centerVertical="true"
             style="?android:attr/progressBarStyle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true" />
 
     </RelativeLayout>
 

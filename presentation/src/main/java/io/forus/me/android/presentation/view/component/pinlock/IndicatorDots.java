@@ -77,8 +77,8 @@ public class IndicatorDots extends LinearLayout {
         }
     }
 
-    public void setErrorAnimation(Context context){
-        for (int i = 0; i<getChildCount(); i++) {
+    public void setErrorAnimation(Context context) {
+        for (int i = 0; i < getChildCount(); i++) {
             View dot = getChildAt(i);
             Animation shake = AnimationUtils.loadAnimation(context, R.anim.shake_animation);
             dot.startAnimation(shake);

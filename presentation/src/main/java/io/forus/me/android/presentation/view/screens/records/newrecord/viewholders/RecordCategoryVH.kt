@@ -9,7 +9,11 @@ import io.forus.me.android.presentation.databinding.ItemRecordSelectCategoryBind
 class RecordCategoryVH(private val binding: ItemRecordSelectCategoryBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(item: RecordCategory, lastSelectedPosition: Int, clickListener: ((RecordCategory, Int) -> Unit)?) {
+    fun bind(
+        item: RecordCategory,
+        lastSelectedPosition: Int,
+        clickListener: ((RecordCategory, Int) -> Unit)?
+    ) {
         binding.apply {
             bg.setBackgroundResource(if (lastSelectedPosition == adapterPosition) R.color.rippleColor else R.color.alabaster)
             tvName.text = item.name

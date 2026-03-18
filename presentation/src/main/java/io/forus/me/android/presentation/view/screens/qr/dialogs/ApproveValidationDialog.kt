@@ -8,21 +8,23 @@ import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.view.component.text.TextView
 
 
-class ApproveValidationDialog(private val context: Context,
-                              private val validation: Validation,
-                              private val positiveCallback: () -> Unit,
-                              private val negativeCallback: () -> Unit,
-                              private val cancelListener: () -> Unit){
+class ApproveValidationDialog(
+    private val context: Context,
+    private val validation: Validation,
+    private val positiveCallback: () -> Unit,
+    private val negativeCallback: () -> Unit,
+    private val cancelListener: () -> Unit
+) {
 
     private val dialog: MaterialDialog = MaterialDialog.Builder(context)
-            .title(context.resources.getString(R.string.qr_popup_approve_validation_title))
-            .customView(R.layout.view_approve_validation, false)
-            .positiveText(context.resources.getString(R.string.qr_popup_approve_validation_positive))
-            .negativeText(context.resources.getString(R.string.qr_popup_approve_validation_negative))
-            .onPositive { dialog, which -> positiveCallback.invoke() }
-            .onNegative { dialog, which -> negativeCallback.invoke() }
-            .cancelListener { cancelListener.invoke() }
-            .build()
+        .title(context.resources.getString(R.string.qr_popup_approve_validation_title))
+        .customView(R.layout.view_approve_validation, false)
+        .positiveText(context.resources.getString(R.string.qr_popup_approve_validation_positive))
+        .negativeText(context.resources.getString(R.string.qr_popup_approve_validation_negative))
+        .onPositive { dialog, which -> positiveCallback.invoke() }
+        .onNegative { dialog, which -> negativeCallback.invoke() }
+        .cancelListener { cancelListener.invoke() }
+        .build()
 
     init {
         val view = dialog.customView
@@ -30,8 +32,8 @@ class ApproveValidationDialog(private val context: Context,
         view?.findViewById<TextView>(R.id.value)?.text = validation.value
     }
 
-    fun show(){
-        Log.d("DialogScan","ApproveValidationDialog")
+    fun show() {
+        Log.d("DialogScan", "ApproveValidationDialog")
         dialog.show()
     }
 }

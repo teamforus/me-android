@@ -12,7 +12,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 
-class FCMHandler(private val accountRepository: AccountRepository, private val settings: SettingsDataSource) {
+class FCMHandler(
+    private val accountRepository: AccountRepository,
+    private val settings: SettingsDataSource
+) {
 
     fun checkFCMToken(activity: Activity): Observable<Unit> {
         return Observable.fromPublisher<Unit> { publisher ->
@@ -38,26 +41,24 @@ class FCMHandler(private val accountRepository: AccountRepository, private val s
 
     fun registerFCMToken(token: String): Observable<Unit> {
         return accountRepository.registerFCMToken(token)
-                .map {
-                    Log.d("FCM_TOKEN_REGISTERED", token)
-                    settings.setFCMToken(token)
-                    Unit
-                }
-                .onErrorReturn {
-                    Log.e("FCM_TOKEN_REGISTER_ERR", it.message, it)
-                }
-    }
-
-    fun clearFCMToken()= Observable.fromCallable {
-            FirebaseMessaging.getInstance().deleteToken().addOnSuccessListener {
-                Log.d("FCM_TOKEN_CLEAR", "OK")
+            .map {
+                Log.d("FCM_TOKEN_REGISTERED", token)
+                settings.setFCMToken(token)
                 Unit
             }
-        }.doOnError {
-            Log.e("FCM_TOKEN_CLEAR_THROWS", it.message?:"")
+            .onErrorReturn {
+                Log.e("FCM_TOKEN_REGISTER_ERR", it.message, it)
+            }
+    }
+
+    fun clearFCMToken() = Observable.fromCallable {
+        FirebaseMessaging.getInstance().deleteToken().addOnSuccessListener {
+            Log.d("FCM_TOKEN_CLEAR", "OK")
+            Unit
         }
-
-
+    }.doOnError {
+        Log.e("FCM_TOKEN_CLEAR_THROWS", it.message ?: "")
+    }
 
 
     companion object {

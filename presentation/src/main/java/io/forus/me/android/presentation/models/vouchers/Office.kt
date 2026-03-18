@@ -4,25 +4,28 @@ import android.os.Parcel
 import android.os.Parcelable
 
 
-class Office(var id: Long = -1L,
-             var organizationId: Long? = -1L,
-             var address: String? = "",
-             var phone: String? = "",
-             var lat: Double? = 0.0,
-             var lon: Double? = 0.0,
-             var photo: String? = "",
-             var organization: Organization?,
-             var schedulers: List<Schedule>) : Parcelable {
+class Office(
+    var id: Long = -1L,
+    var organizationId: Long? = -1L,
+    var address: String? = "",
+    var phone: String? = "",
+    var lat: Double? = 0.0,
+    var lon: Double? = 0.0,
+    var photo: String? = "",
+    var organization: Organization?,
+    var schedulers: List<Schedule>
+) : Parcelable {
     constructor(parcel: Parcel) : this(
-            parcel.readLong(),
-            parcel.readLong(),
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readDouble(),
-            parcel.readDouble(),
-            parcel.readString(),
-            parcel.readParcelable(Organization::class.java.classLoader) ?: Organization(),
-            parcel.createTypedArrayList(Schedule)?: listOf<Schedule>()) {
+        parcel.readLong(),
+        parcel.readLong(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readDouble(),
+        parcel.readDouble(),
+        parcel.readString(),
+        parcel.readParcelable(Organization::class.java.classLoader) ?: Organization(),
+        parcel.createTypedArrayList(Schedule) ?: listOf<Schedule>()
+    ) {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {

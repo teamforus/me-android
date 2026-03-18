@@ -16,7 +16,11 @@ class PinLockActivity : CommonActivity() {
         private val LOCK_INTENT_EXTRA = "LOCK_INTENT_EXTRA"
         private val USE_FINGERPRINT = "USE_FINGERPRINT"
 
-        fun getCallingIntent(context: Context, navigationIntent: Intent, useFingerprint: Boolean): Intent {
+        fun getCallingIntent(
+            context: Context,
+            navigationIntent: Intent,
+            useFingerprint: Boolean
+        ): Intent {
             val intent = Intent(context, PinLockActivity::class.java)
             intent.putExtra(LOCK_INTENT_EXTRA, navigationIntent)
             intent.putExtra(USE_FINGERPRINT, useFingerprint)
@@ -36,31 +40,29 @@ class PinLockActivity : CommonActivity() {
 
             navigationIntent = intent.getParcelableExtra(LOCK_INTENT_EXTRA)!!
             val useFingerprint = intent.getBooleanExtra(USE_FINGERPRINT, false)
-            if(useFingerprint){
+            if (useFingerprint) {
                 useFingerprint()
-            }
-            else{
+            } else {
                 usePinlock()
             }
         }
     }
 
-    fun useFingerprint(){
+    fun useFingerprint() {
         val fragment = FingerprintFragment.newIntent()
         replaceFragment(R.id.fragmentContainer, fragment)
     }
 
-    fun usePinlock(){
+    fun usePinlock() {
         val fragment = PinLockFragment.newIntent()
         replaceFragment(R.id.fragmentContainer, fragment)
     }
 
 
-
-    fun unlockSuccess(){
+    fun unlockSuccess() {
         navigationIntent?.let {
             this.startActivity(navigationIntent)
-        }?:run{
+        } ?: run {
             this.startActivity(DashboardActivity.getCallingIntent(this))
         }
 

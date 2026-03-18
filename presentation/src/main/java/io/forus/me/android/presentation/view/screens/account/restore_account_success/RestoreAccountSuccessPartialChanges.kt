@@ -8,9 +8,11 @@ sealed class RestoreAccountSuccessPartialChanges : PartialChange {
 
     class RestoreByEmailRequestStart : RestoreAccountSuccessPartialChanges()
 
-    data class RestoreByEmailRequestEnd(val accessToken: String?) : RestoreAccountSuccessPartialChanges()
+    data class RestoreByEmailRequestEnd(val accessToken: String?) :
+        RestoreAccountSuccessPartialChanges()
 
-    data class RestoreByEmailRequestError(val error: Throwable) : RestoreAccountSuccessPartialChanges()
+    data class RestoreByEmailRequestError(val error: Throwable) :
+        RestoreAccountSuccessPartialChanges()
 
     data class ExchangeTokenResult(val accessToken: String?) : RestoreAccountSuccessPartialChanges()
 

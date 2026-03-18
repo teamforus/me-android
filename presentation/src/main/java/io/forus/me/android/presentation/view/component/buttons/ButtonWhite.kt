@@ -12,10 +12,10 @@ import io.forus.me.android.presentation.helpers.Converter
 
 class ButtonWhite : androidx.appcompat.widget.AppCompatButton {
 
-    private var reverse : Boolean = false
+    private var reverse: Boolean = false
     private var customTextSize: Float = 16f
 
-    var active : Boolean = true
+    var active: Boolean = true
         set(value) {
             field = value
             initFont()
@@ -30,19 +30,22 @@ class ButtonWhite : androidx.appcompat.widget.AppCompatButton {
         initNonStyle(context, attrs)
     }
 
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
+    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
+        context,
+        attrs,
+        defStyleAttr
+    ) {
         init(context, attrs)
     }
 
-    private fun initNonStyle(context: Context,  attrs: AttributeSet?) {
+    private fun initNonStyle(context: Context, attrs: AttributeSet?) {
 
 
         init(context, attrs)
     }
 
 
-
-    private fun init(context: Context,  attrs: AttributeSet?) {
+    private fun init(context: Context, attrs: AttributeSet?) {
         this.minimumHeight = Converter.convertDpToPixel(55f, context)
 
 
@@ -64,16 +67,24 @@ class ButtonWhite : androidx.appcompat.widget.AppCompatButton {
         initBackground()
     }
 
-    private fun initFont(){
-        setTextColor(if (!active) ContextCompat.getColor(context, R.color.body_1_38) else (if (reverse) ContextCompat.getColor(context, R.color.colorAccent) else ContextCompat.getColor(context,R.color.colorAccent)))
+    private fun initFont() {
+        setTextColor(
+            if (!active) ContextCompat.getColor(
+                context,
+                R.color.body_1_38
+            ) else (if (reverse) ContextCompat.getColor(
+                context,
+                R.color.colorAccent
+            ) else ContextCompat.getColor(context, R.color.colorAccent))
+        )
         setTextSize(TypedValue.COMPLEX_UNIT_DIP, customTextSize)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             this.typeface = ResourcesCompat.getFont(context, R.font.google_sans_medium)
         }
     }
 
-    private fun initBackground(){
-        setBackgroundResource(if (!reverse && active)  R.drawable.button_main_raund_white else R.drawable.button_main_raund_reverse)
+    private fun initBackground() {
+        setBackgroundResource(if (!reverse && active) R.drawable.button_main_raund_white else R.drawable.button_main_raund_reverse)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             this.stateListAnimator = null
         }

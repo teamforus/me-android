@@ -15,7 +15,6 @@ class TextView : AppCompatTextView {
     var type: FontType = FontType.Regular
 
 
-
     constructor(context: Context) : super(context) {
         initUI(context, null)
     }
@@ -25,7 +24,11 @@ class TextView : AppCompatTextView {
 
     }
 
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
+        context,
+        attrs,
+        defStyleAttr
+    ) {
         initUI(context, attrs)
     }
 
@@ -45,24 +48,23 @@ class TextView : AppCompatTextView {
     }
 
 
-
-
-
     private fun initType(context: Context) {
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             when (type) {
-                FontType.Medium, FontType.Bold -> this.typeface = ResourcesCompat.getFont(context, R.font.google_sans_medium)
-                FontType.Regular -> this.typeface = ResourcesCompat.getFont(context, R.font.google_sans_regular)
+                FontType.Medium, FontType.Bold -> this.typeface =
+                    ResourcesCompat.getFont(context, R.font.google_sans_medium)
+
+                FontType.Regular -> this.typeface =
+                    ResourcesCompat.getFont(context, R.font.google_sans_regular)
+
                 else -> this.typeface = ResourcesCompat.getFont(context, R.font.google_sans_regular)
             }
         }
 
 
     }
-
-
 
 
 }

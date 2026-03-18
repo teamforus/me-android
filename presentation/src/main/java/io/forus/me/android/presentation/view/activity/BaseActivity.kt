@@ -26,15 +26,17 @@ abstract class BaseActivity : AppCompatActivity() {
     protected fun addFragment(containerViewId: Int, fragment: Fragment) {
 
         supportFragmentManager
-                .beginTransaction()
-                .add(containerViewId, fragment)
-                .commit()
+            .beginTransaction()
+            .add(containerViewId, fragment)
+            .commit()
     }
 
-    protected fun addFragment(containerViewId: Int, fragment: Fragment,
-                              sharedViews: List<Pair<String, View>>) {
+    protected fun addFragment(
+        containerViewId: Int, fragment: Fragment,
+        sharedViews: List<Pair<String, View>>
+    ) {
         val transaction = supportFragmentManager
-                .beginTransaction()
+            .beginTransaction()
 
         fragment.sharedElementEnterTransition = Explode()
         fragment.enterTransition = Fade()
@@ -47,33 +49,37 @@ abstract class BaseActivity : AppCompatActivity() {
         }
 
         transaction
-                .add(containerViewId, fragment)
-                .commit()
+            .add(containerViewId, fragment)
+            .commit()
     }
 
     protected fun replaceFragment(containerViewId: Int, fragment: Fragment) {
         supportFragmentManager
-                .beginTransaction()
-                .replace(containerViewId, fragment)
-                .commit()
+            .beginTransaction()
+            .replace(containerViewId, fragment)
+            .commit()
     }
 
-    open fun replaceFragment(fragment: Fragment,
-                             sharedViews: List<View> = emptyList()) {
+    open fun replaceFragment(
+        fragment: Fragment,
+        sharedViews: List<View> = emptyList()
+    ) {
     }
 
 
-    fun replaceFragment(containerViewId: Int, fragment: Fragment,
-                        sharedViews: List<View>, addToBackStack: Boolean) {
+    fun replaceFragment(
+        containerViewId: Int, fragment: Fragment,
+        sharedViews: List<View>, addToBackStack: Boolean
+    ) {
         val transaction = supportFragmentManager
-                .beginTransaction()
+            .beginTransaction()
 
         if (addToBackStack)
             transaction.addToBackStack(null)
 
         transaction
-                .replace(containerViewId, fragment)
-                .commit()
+            .replace(containerViewId, fragment)
+            .commit()
     }
 
     protected fun removeFragment(containerViewId: Int) {
@@ -81,9 +87,9 @@ abstract class BaseActivity : AppCompatActivity() {
         val fragment = supportFragmentManager.findFragmentById(containerViewId)
         if (fragment != null) {
             supportFragmentManager
-                    .beginTransaction()
-                    .remove(fragment)
-                    .commit()
+                .beginTransaction()
+                .remove(fragment)
+                .commit()
         }
     }
 
@@ -91,7 +97,8 @@ abstract class BaseActivity : AppCompatActivity() {
         try {
             val view = currentFocus
             if (view != null) {
-                val inputManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                val inputManager =
+                    getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 inputManager.hideSoftInputFromWindow(view.windowToken, 0)
             }
         } catch (e: Exception) {
@@ -99,7 +106,6 @@ abstract class BaseActivity : AppCompatActivity() {
         }
 
     }
-
 
 
 }

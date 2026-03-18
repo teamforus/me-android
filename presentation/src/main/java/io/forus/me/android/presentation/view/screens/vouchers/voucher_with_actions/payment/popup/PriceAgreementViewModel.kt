@@ -13,7 +13,8 @@ import io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actio
 import java.math.BigDecimal
 
 
-class PriceAgreementViewModel(application: Application) : AndroidViewModel(application), Observable {
+class PriceAgreementViewModel(application: Application) : AndroidViewModel(application),
+    Observable {
 
 
     private var product: ProductSerializable? = null
@@ -84,68 +85,75 @@ class PriceAgreementViewModel(application: Application) : AndroidViewModel(appli
         totalPriceVisiblity.value = product!!.priceType == PriceType.regular.name
 
         discountProviderVisiblity.value =
-                product!!.priceType == PriceType.discount_percentage.name ||
-                        product!!.priceType == PriceType.discount_fixed.name
+            product!!.priceType == PriceType.discount_percentage.name ||
+                    product!!.priceType == PriceType.discount_fixed.name
 
         contributionSponsorVisiblity.value =
                 //(!(product!!.priceType == PriceType.discount_percentage.name ||
-                       // product!!.priceType == PriceType.free.name)) &&
-                        ( product!!.sponsorSubsidy != null &&
-                                product!!.sponsorSubsidy > BigDecimal.ZERO)
+                // product!!.priceType == PriceType.free.name)) &&
+            (product!!.sponsorSubsidy != null &&
+                    product!!.sponsorSubsidy > BigDecimal.ZERO)
 
         totalAmountVisiblity.value = product!!.priceType == PriceType.regular.name
 
         priceAgreementVisiblity.value = totalPriceVisiblity.value!! ||
-                discountProviderVisiblity.value!!  || contributionSponsorVisiblity.value!! ||
+                discountProviderVisiblity.value!! || contributionSponsorVisiblity.value!! ||
                 totalAmountVisiblity.value!!
 
 
-        if(product!!.priceType == PriceType.regular.name ){
+        if (product!!.priceType == PriceType.regular.name) {
 
-            if(product!!.price == product!!.sponsorSubsidy){
+            if (product!!.price == product!!.sponsorSubsidy) {
                 headTitle.value = ""
                 headPrice.value = resources.getString(R.string.free)
 
-            }else{
+            } else {
                 headTitle.value = resources.getString(R.string.price_agreement_client_price)
                 headPrice.value = Converter.convertBigDecimalToStringNL(product!!.priceUser)
             }
 
-            if(product!!.price != null){
+            if (product!!.price != null) {
                 totalPrice.value = Converter.convertBigDecimalToStringNL(product!!.price)
             }
 
         }
-        if(product!!.priceType == PriceType.free.name){
+        if (product!!.priceType == PriceType.free.name) {
             headTitle.value = ""
             headPrice.value = resources.getString(R.string.free)
         }
 
-         userPrice.value = headPrice.value
+        userPrice.value = headPrice.value
 
 
-        if(product!!.priceType == PriceType.discount_percentage.name ){
-            discountByProviderPrice.value = Converter.convertBigDecimalToDiscountString(product!!.priceDiscount)
-            if(product!!.sponsorSubsidy != null&&
-                    product!!.sponsorSubsidy > BigDecimal.ZERO){
-                contributionBySponsorPrice.value = Converter.convertBigDecimalToStringNL(product!!.sponsorSubsidy)
+        if (product!!.priceType == PriceType.discount_percentage.name) {
+            discountByProviderPrice.value =
+                Converter.convertBigDecimalToDiscountString(product!!.priceDiscount)
+            if (product!!.sponsorSubsidy != null &&
+                product!!.sponsorSubsidy > BigDecimal.ZERO
+            ) {
+                contributionBySponsorPrice.value =
+                    Converter.convertBigDecimalToStringNL(product!!.sponsorSubsidy)
             }
         }
 
-        if(product!!.priceType == PriceType.discount_fixed.name
-                || product!!.priceType == PriceType.regular.name){
-            if(product!!.priceDiscount != null &&
-                    product!!.priceDiscount > BigDecimal.ZERO ) {
-                discountByProviderPrice.value = Converter.convertBigDecimalToStringNL(product!!.priceDiscount)
+        if (product!!.priceType == PriceType.discount_fixed.name
+            || product!!.priceType == PriceType.regular.name
+        ) {
+            if (product!!.priceDiscount != null &&
+                product!!.priceDiscount > BigDecimal.ZERO
+            ) {
+                discountByProviderPrice.value =
+                    Converter.convertBigDecimalToStringNL(product!!.priceDiscount)
             }
 
 
-            if(product!!.sponsorSubsidy != null &&
-                    product!!.sponsorSubsidy > BigDecimal.ZERO){
+            if (product!!.sponsorSubsidy != null &&
+                product!!.sponsorSubsidy > BigDecimal.ZERO
+            ) {
 
 
-                contributionBySponsorPrice.value =Converter.convertBigDecimalToStringNL(product!!.sponsorSubsidy)
-
+                contributionBySponsorPrice.value =
+                    Converter.convertBigDecimalToStringNL(product!!.sponsorSubsidy)
 
 
             }
@@ -153,8 +161,10 @@ class PriceAgreementViewModel(application: Application) : AndroidViewModel(appli
 
 
 
-        contributionBySponsorName.value = resources.getString(R.string.price_agreement_sponsor_pays_you,
-                product!!.sponsorName)
+        contributionBySponsorName.value = resources.getString(
+            R.string.price_agreement_sponsor_pays_you,
+            product!!.sponsorName
+        )
 
 
     }

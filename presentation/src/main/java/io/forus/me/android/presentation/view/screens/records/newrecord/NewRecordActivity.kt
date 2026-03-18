@@ -15,19 +15,17 @@ class NewRecordActivity : CommonActivity() {
     companion object {
 
 
-
-        fun getCallingIntent(context: Context ): Intent {
+        fun getCallingIntent(context: Context): Intent {
             val intent = Intent(context, NewRecordActivity::class.java)
             return intent
         }
     }
 
-    lateinit var fragment : NewRecordFragment
+    lateinit var fragment: NewRecordFragment
 
 
     override val viewID: Int
         get() = R.layout.activity_toolbar
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,7 +41,7 @@ class NewRecordActivity : CommonActivity() {
     }
 
     override fun onBackPressed() {
-        if(fragment.onBackPressed())
+        if (fragment.onBackPressed())
             super.onBackPressed()
     }
 }

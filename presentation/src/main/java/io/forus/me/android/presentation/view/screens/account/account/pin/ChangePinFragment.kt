@@ -78,7 +78,7 @@ class ChangePinFragment : ToolbarLRFragment<ChangePinModel, ChangePinView, Chang
                 mode = ChangePinMode.valueOf(it)
             }
         }
-        
+
         return binding.root
     }
 
@@ -127,36 +127,43 @@ class ChangePinFragment : ToolbarLRFragment<ChangePinModel, ChangePinView, Chang
                 resources.getString(R.string.passcode_subtitle_confirm),
                 false
             )
+
             ChangePinModel.State.CHECKING_OLD_PIN -> changeHeaders(
                 resources.getString(R.string.passcode_subtitle_pinlock_checking),
                 "",
                 false
             )
+
             ChangePinModel.State.WRONG_OLD_PIN -> changeHeaders(
                 resources.getString(R.string.passcode_subtitle_pinlock_confirm),
                 resources.getString(R.string.passcode_subtitle_pinlock_error),
                 true
             )
+
             ChangePinModel.State.CREATE_NEW_PIN -> changeHeaders(
                 resources.getString(R.string.passcode_title_create),
                 resources.getString(R.string.passcode_subtitle_create),
                 false
             )
+
             ChangePinModel.State.CONFIRM_NEW_PIN -> changeHeaders(
                 resources.getString(R.string.passcode_title_new_confirm),
                 resources.getString(R.string.passcode_subtitle_new_confirm),
                 false
             )
+
             ChangePinModel.State.PASS_NOT_MATCH -> changeHeaders(
                 resources.getString(R.string.passcode_title_create),
                 resources.getString(R.string.passcode_subtitle_create_not_match),
                 true
             )
+
             ChangePinModel.State.CHANGING_PIN -> changeHeaders(
                 resources.getString(R.string.passcode_title_create_identity_wait),
                 resources.getString(R.string.passcode_changing),
                 false
             )
+
             ChangePinModel.State.CHANGE_PIN_ERROR -> changeHeaders(
                 "",
                 resources.getString(R.string.passcode_subtitle_change_error),
@@ -168,17 +175,19 @@ class ChangePinFragment : ToolbarLRFragment<ChangePinModel, ChangePinView, Chang
             ChangePinModel.State.CREATE_NEW_PIN -> {
                 if (vs.model.prevState != ChangePinModel.State.PASS_NOT_MATCH) binding.pinLockView.resetPinLockView()
             }
+
             ChangePinModel.State.CONFIRM_NEW_PIN -> binding.pinLockView.resetPinLockView()
             ChangePinModel.State.PASS_NOT_MATCH, ChangePinModel.State.WRONG_OLD_PIN -> {
                 binding.pinLockView.resetPinLockView()
                 binding.pinLockView.setErrorAnimation()
             }
+
             else -> {}
         }
 
         if (vs.closeScreen) {
 
-            val usePin  = (vs.model.state == ChangePinModel.State.CHANGING_PIN)&&
+            val usePin = (vs.model.state == ChangePinModel.State.CHANGING_PIN) &&
                     (vs.model.prevState == ChangePinModel.State.CONFIRM_NEW_PIN)
 
             closeScreen(usePin)

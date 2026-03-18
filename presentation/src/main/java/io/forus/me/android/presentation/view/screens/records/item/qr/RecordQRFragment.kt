@@ -16,7 +16,8 @@ import io.forus.me.android.presentation.view.base.lr.LoadRefreshPanel
 import io.forus.me.android.presentation.view.screens.records.item.RecordDetailsActivity
 import io.reactivex.Observable
 
-class RecordQRFragment : LRFragment<RecordQRModel, RecordQRView, RecordQRPresenter>(), RecordQRView {
+class RecordQRFragment : LRFragment<RecordQRModel, RecordQRView, RecordQRPresenter>(),
+    RecordQRView {
 
     companion object {
         private val RECORD_ID_EXTRA = "RECORD_ID_EXTRA"
@@ -30,9 +31,9 @@ class RecordQRFragment : LRFragment<RecordQRModel, RecordQRView, RecordQRPresent
 
     private var recordId: Long = 0
 
-    var qrText : String = ""
+    var qrText: String = ""
         set(value) {
-            if(field != value){
+            if (field != value) {
                 field = value
                 if (binding.qrImage != null) {
                     binding.qrImage.setQRText(QrCode(QrCode.Type.P2P_RECORD, value).toJson())
@@ -57,14 +58,17 @@ class RecordQRFragment : LRFragment<RecordQRModel, RecordQRView, RecordQRPresent
 
     private lateinit var binding: FragmentPopupQrBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
-    {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentPopupQrBinding.inflate(inflater)
 
-            val bundle = this.arguments
-            if (bundle != null) {
-                recordId = bundle.getLong(RECORD_ID_EXTRA)
-            }
+        val bundle = this.arguments
+        if (bundle != null) {
+            recordId = bundle.getLong(RECORD_ID_EXTRA)
+        }
 
         return binding.root
     }
@@ -75,9 +79,9 @@ class RecordQRFragment : LRFragment<RecordQRModel, RecordQRView, RecordQRPresent
     }
 
     override fun createPresenter() = RecordQRPresenter(
-            recordId,
-            disposableHolder,
-            Injection.instance.recordsRepository
+        recordId,
+        disposableHolder,
+        Injection.instance.recordsRepository
     )
 
 
@@ -88,13 +92,13 @@ class RecordQRFragment : LRFragment<RecordQRModel, RecordQRView, RecordQRPresent
             qrText = vs.model.uuid
         }
 
-        if(vs.closeScreen && vs.model.recordValidatedState != null){
+        if (vs.closeScreen && vs.model.recordValidatedState != null) {
             closeScreen(vs.model.recordValidatedState)
         }
     }
 
     fun closeScreen(state: Validation.State) {
-        showToastMessage(resources.getString(if(state == Validation.State.approved) R.string.record_details_validation_approved else R.string.record_details_validation_declined))
+        showToastMessage(resources.getString(if (state == Validation.State.approved) R.string.record_details_validation_approved else R.string.record_details_validation_declined))
         (activity as? RecordDetailsActivity)?.closeQRFragment()
     }
 }

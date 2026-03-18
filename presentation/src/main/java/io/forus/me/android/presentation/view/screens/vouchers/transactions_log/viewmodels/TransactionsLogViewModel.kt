@@ -19,8 +19,8 @@ class TransactionsLogViewModel : ViewModel() {
 
     var transactionsLiveData: MutableLiveData<MutableList<Transaction>> = MutableLiveData()
 
-    lateinit var dateFormatForDisplay :SimpleDateFormat
-    lateinit var dateFormatForApi :SimpleDateFormat
+    lateinit var dateFormatForDisplay: SimpleDateFormat
+    lateinit var dateFormatForApi: SimpleDateFormat
 
 
     val progress = MutableLiveData<Boolean>()
@@ -35,7 +35,6 @@ class TransactionsLogViewModel : ViewModel() {
     val calendarFrom = MutableLiveData<Calendar>()
     val calendarStringForDisplay = MutableLiveData<String>()
     val calendarStringForApi = MutableLiveData<String>()
-
 
 
     init {
@@ -60,7 +59,7 @@ class TransactionsLogViewModel : ViewModel() {
 
     }
 
-    fun setCalendar(cal: Calendar){
+    fun setCalendar(cal: Calendar) {
 
         calendarFrom.value = cal
         calendarStringForDisplay.value = (dateFormatForDisplay.format(calendarFrom.value!!.time))
@@ -73,19 +72,19 @@ class TransactionsLogViewModel : ViewModel() {
     fun getTransactions(page: Int) {
         progress.postValue(true)
         vouchersRepository.getTransactionsLogAsProvider(calendarStringForApi.value!!, page, perPage)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .map {
-                    progress.postValue(false)
-                    val arr: MutableList<Transaction> = mutableListOf()
-                    arr.addAll(it)
-                    transactionsLiveData.postValue(arr)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .map {
+                progress.postValue(false)
+                val arr: MutableList<Transaction> = mutableListOf()
+                arr.addAll(it)
+                transactionsLiveData.postValue(arr)
 
-                }
-                .onErrorReturn {
-                    progress.postValue(false)
-                }
-                .subscribe()
+            }
+            .onErrorReturn {
+                progress.postValue(false)
+            }
+            .subscribe()
     }
 }
 

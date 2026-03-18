@@ -13,7 +13,10 @@ import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 
 
-class AccountPresenter constructor(private val accountRepository: AccountRepository,sendCrashReportsEnabled: Boolean) : LRPresenter<AccountModel, AccountModel, AccountView>() {
+class AccountPresenter constructor(
+    private val accountRepository: AccountRepository,
+    sendCrashReportsEnabled: Boolean
+) : LRPresenter<AccountModel, AccountModel, AccountView>() {
 
 
     private var sendCrashReportsEnabled = false
@@ -23,24 +26,28 @@ class AccountPresenter constructor(private val accountRepository: AccountReposit
     }
 
     override fun initialModelSingle(): Single<AccountModel> = Single.zip(
-            Single.fromObservable(accountRepository.getAccount()),
-            Single.fromObservable(accountRepository.getSecurityOptions()),
-            BiFunction { account, securityOptions ->
-                if(sendCrashReportsEnabled) {
-                    sendCrashReportsEnabled = false
-                    AccountModel(account,
-                            securityOptions.pinEnabled,
-                            securityOptions.fingerprintEnabled,
-                            securityOptions.startFromScanner,
-                            true)
-                }else{
-                    AccountModel(account,
-                            securityOptions.pinEnabled,
-                            securityOptions.fingerprintEnabled,
-                            securityOptions.startFromScanner,
-                            securityOptions.sendCrashReportsEnabled)
-                }
-            })
+        Single.fromObservable(accountRepository.getAccount()),
+        Single.fromObservable(accountRepository.getSecurityOptions()),
+        BiFunction { account, securityOptions ->
+            if (sendCrashReportsEnabled) {
+                sendCrashReportsEnabled = false
+                AccountModel(
+                    account,
+                    securityOptions.pinEnabled,
+                    securityOptions.fingerprintEnabled,
+                    securityOptions.startFromScanner,
+                    true
+                )
+            } else {
+                AccountModel(
+                    account,
+                    securityOptions.pinEnabled,
+                    securityOptions.fingerprintEnabled,
+                    securityOptions.startFromScanner,
+                    securityOptions.sendCrashReportsEnabled
+                )
+            }
+        })
 
 
     override fun AccountModel.changeInitialModel(i: AccountModel): AccountModel = i.copy()
@@ -49,105 +56,133 @@ class AccountPresenter constructor(private val accountRepository: AccountReposit
     override fun bindIntents() {
 
         val observable = Observable.mergeArray(
-                loadRefreshPartialChanges(),
-                intent { it.logout() }
-                        .switchMap {
-                            accountRepository.exitIdentity()
-                                    .subscribeOn(Schedulers.io())
-                                    .observeOn(AndroidSchedulers.mainThread())
-                                    .flatMap<PartialChange> {
-                                        Injection.instance.fcmHandler.clearFCMToken()
-                                                .subscribeOn(Schedulers.io())
-                                                .observeOn(AndroidSchedulers.mainThread())
-                                                .map<PartialChange> { AccountPartialChanges.NavigateToWelcomeScreen(true) }
-                                                .onErrorReturn { LRPartialChange.LoadingError(it) }
-                                    }
-                                    .onErrorReturn {
-                                        LRPartialChange.LoadingError(it)
-                                    }
-                                    .startWith(LRPartialChange.LoadingStarted)
-                        },
+            loadRefreshPartialChanges(),
+            intent { it.logout() }
+                .switchMap {
+                    accountRepository.exitIdentity()
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .flatMap<PartialChange> {
+                            Injection.instance.fcmHandler.clearFCMToken()
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .map<PartialChange> {
+                                    AccountPartialChanges.NavigateToWelcomeScreen(
+                                        true
+                                    )
+                                }
+                                .onErrorReturn { LRPartialChange.LoadingError(it) }
+                        }
+                        .onErrorReturn {
+                            LRPartialChange.LoadingError(it)
+                        }
+                        .startWith(LRPartialChange.LoadingStarted)
+                },
 
-                intent { it.switchFingerprint() }
-                        .switchMap { newState ->
-                            accountRepository.setFingerprintEnabled(newState)
-                                    .subscribeOn(Schedulers.io())
-                                    .observeOn(AndroidSchedulers.mainThread())
-                                    .map<PartialChange> { success ->
-                                        AccountPartialChanges.FingerprintEnabled(if (success) newState else !newState)
-                                    }
-                                    .onErrorReturn {
-                                        LRPartialChange.LoadingError(it)
-                                    }
-                        },
+            intent { it.switchFingerprint() }
+                .switchMap { newState ->
+                    accountRepository.setFingerprintEnabled(newState)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .map<PartialChange> { success ->
+                            AccountPartialChanges.FingerprintEnabled(if (success) newState else !newState)
+                        }
+                        .onErrorReturn {
+                            LRPartialChange.LoadingError(it)
+                        }
+                },
 
-                intent { it.switchStartFromScanner() }
-                        .switchMap { newState ->
-                            accountRepository.setStartFromScannerEnabled(newState)
-                                    .subscribeOn(Schedulers.io())
-                                    .observeOn(AndroidSchedulers.mainThread())
-                                    .map<PartialChange> { success ->
-                                        AccountPartialChanges.StartFromScannerEnabled(if (success) newState else !newState)
-                                    }
-                                    .onErrorReturn {
-                                        LRPartialChange.LoadingError(it)
-                                    }
-                        },
+            intent { it.switchStartFromScanner() }
+                .switchMap { newState ->
+                    accountRepository.setStartFromScannerEnabled(newState)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .map<PartialChange> { success ->
+                            AccountPartialChanges.StartFromScannerEnabled(if (success) newState else !newState)
+                        }
+                        .onErrorReturn {
+                            LRPartialChange.LoadingError(it)
+                        }
+                },
 
-                intent { it.switchSendCrashReports() }
-                        .switchMap { newState ->
-                            accountRepository.setSendCrashReportsEnabled(newState)
-                                    .subscribeOn(Schedulers.io())
-                                    .observeOn(AndroidSchedulers.mainThread())
-                                    .map<PartialChange> { success ->
-                                        AccountPartialChanges.SendCrashReportsEnabled(if (success) newState else !newState)
-                                    }
-                                    .onErrorReturn {
-                                        LRPartialChange.LoadingError(it)
-                                    }
-                        },
+            intent { it.switchSendCrashReports() }
+                .switchMap { newState ->
+                    accountRepository.setSendCrashReportsEnabled(newState)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .map<PartialChange> { success ->
+                            AccountPartialChanges.SendCrashReportsEnabled(if (success) newState else !newState)
+                        }
+                        .onErrorReturn {
+                            LRPartialChange.LoadingError(it)
+                        }
+                },
 
-                intent { it.refreshDataIntent() }
-                    .switchMap {
-                        initialModelSingle()
-                            .toObservable()
-                            .subscribeOn(Schedulers.io())
-                            .map<LRPartialChange> { LRPartialChange.InitialModelLoaded(it) }
-                            .onErrorReturn { throwable ->
-                                throwable.printStackTrace()
-                                LRPartialChange.LoadingError(throwable)
-                            }
-                            .startWith(LRPartialChange.LoadingStarted)
-                    }
+            intent { it.refreshDataIntent() }
+                .switchMap {
+                    initialModelSingle()
+                        .toObservable()
+                        .subscribeOn(Schedulers.io())
+                        .map<LRPartialChange> { LRPartialChange.InitialModelLoaded(it) }
+                        .onErrorReturn { throwable ->
+                            throwable.printStackTrace()
+                            LRPartialChange.LoadingError(throwable)
+                        }
+                        .startWith(LRPartialChange.LoadingStarted)
+                }
 
         )
 
 
         val initialViewState = LRViewState(
-                false,
-                null,
-                false,
-                false,
-                null,
-                false,
-                AccountModel(),
-                false)
+            false,
+            null,
+            false,
+            false,
+            null,
+            false,
+            AccountModel(),
+            false
+        )
 
         subscribeViewState(
-                observable.scan(initialViewState, this::stateReducer)
-                        .observeOn(AndroidSchedulers.mainThread()),
-                AccountView::render)
+            observable.scan(initialViewState, this::stateReducer)
+                .observeOn(AndroidSchedulers.mainThread()),
+            AccountView::render
+        )
     }
 
-    override fun stateReducer(vs: LRViewState<AccountModel>, change: PartialChange): LRViewState<AccountModel> {
+    override fun stateReducer(
+        vs: LRViewState<AccountModel>,
+        change: PartialChange
+    ): LRViewState<AccountModel> {
 
         if (change !is AccountPartialChanges) return super.stateReducer(vs, change)
 
         return when (change) {
-            is AccountPartialChanges.NavigateToWelcomeScreen -> vs.copy(model = vs.model.copy(navigateToWelcome = true))
-            is AccountPartialChanges.FingerprintEnabled -> vs.copy(model = vs.model.copy(fingerprintEnabled = change.value))
-            is AccountPartialChanges.StartFromScannerEnabled -> vs.copy(model = vs.model.copy(startFromScanner = change.value))
-            is AccountPartialChanges.SendCrashReportsEnabled -> vs.copy(model = vs.model.copy(sendCrashReportsEnabled = change.value))
+            is AccountPartialChanges.NavigateToWelcomeScreen -> vs.copy(
+                model = vs.model.copy(
+                    navigateToWelcome = true
+                )
+            )
+
+            is AccountPartialChanges.FingerprintEnabled -> vs.copy(
+                model = vs.model.copy(
+                    fingerprintEnabled = change.value
+                )
+            )
+
+            is AccountPartialChanges.StartFromScannerEnabled -> vs.copy(
+                model = vs.model.copy(
+                    startFromScanner = change.value
+                )
+            )
+
+            is AccountPartialChanges.SendCrashReportsEnabled -> vs.copy(
+                model = vs.model.copy(
+                    sendCrashReportsEnabled = change.value
+                )
+            )
         }
 
     }

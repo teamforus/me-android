@@ -4,8 +4,8 @@ import io.forus.me.android.domain.models.account.NewAccountRequest
 
 
 data class NewAccountModel(
-        val item: NewAccountRequest = NewAccountRequest(),
-        val sendingRegistration: Boolean = false,
-        val sendingRegistrationError: Throwable? = null,
-        val isSuccess: Boolean? = null
-        )
+    val item: NewAccountRequest = NewAccountRequest(),
+    val sendingRegistration: Boolean = false,
+    val sendingRegistrationError: Throwable? = null,
+    val isSuccess: Boolean? = null
+)

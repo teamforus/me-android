@@ -48,11 +48,16 @@ class AndroidApplication : Application() {
 
         SharedPref.init(this)
         if (!BuildConfig.APPLICATION_ID.equals("io.forus.me")) {
-            val savedApiOption = SharedPref.read(SharedPref.OPTION_API_TYPE,"") ?: ""
+            val savedApiOption = SharedPref.read(SharedPref.OPTION_API_TYPE, "") ?: ""
             if (savedApiOption.isNotEmpty()) {
                 val apiType = ApiConfig.stringToApiType(savedApiOption)
                 if (apiType == ApiType.OTHER) {
-                    ApiConfig.changeToCustomApi(SharedPref.read(SharedPref.OPTION_CUSTOM_API_URL, BuildConfig.SERVER_URL))
+                    ApiConfig.changeToCustomApi(
+                        SharedPref.read(
+                            SharedPref.OPTION_CUSTOM_API_URL,
+                            BuildConfig.SERVER_URL
+                        )
+                    )
                 } else {
                     ApiConfig.changeApi(apiType)
                 }
@@ -81,7 +86,6 @@ class AndroidApplication : Application() {
     private fun sendId(token: String) {
         Injection.instance.accountRepository.registerFCMToken(token)
     }
-
 
 
     private fun initRetrofit() {
@@ -122,7 +126,6 @@ class AndroidApplication : Application() {
             }
 
 
-
             override fun onActivityDestroyed(activity: Activity) {}
         })
     }
@@ -141,7 +144,7 @@ class AndroidApplication : Application() {
                 .build()
         }
         FirebaseFirestore.getInstance().addSnapshotsInSyncListener {
-            Log.d("FirebaseFirestore","FirebaseFirestore addSnapshotsInSyncListener")
+            Log.d("FirebaseFirestore", "FirebaseFirestore addSnapshotsInSyncListener")
         }
 
         FirebaseStorage.getInstance().apply {

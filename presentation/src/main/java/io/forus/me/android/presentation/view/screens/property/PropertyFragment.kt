@@ -1,4 +1,3 @@
-
 package io.forus.me.android.presentation.view.screens.property
 
 import android.os.Bundle
@@ -25,6 +24,7 @@ class PropertyFragment : BaseFragment() {
             return PropertyFragment()
         }
     }
+
     override fun getLayoutID(): Int {
         return R.layout.fragment_property
     }
@@ -65,7 +65,12 @@ class PropertyFragment : BaseFragment() {
         titles.add(getString(R.string.dashboard_vouchers))
 
 
-        val adapter = MainViewPagerAdapter(childFragmentManager, activity?.applicationContext, fragments, titles)
+        val adapter = MainViewPagerAdapter(
+            childFragmentManager,
+            activity?.applicationContext,
+            fragments,
+            titles
+        )
         binding.viewpager.adapter = adapter
         binding.viewpager.offscreenPageLimit = 3
         binding.slidingTabs.setupWithViewPager(binding.viewpager)

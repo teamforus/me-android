@@ -3,17 +3,20 @@ package io.forus.me.android.presentation.models.vouchers
 import android.os.Parcel
 import android.os.Parcelable
 
-class Schedule(var id: Long = -1L,
-               var officeId: Long = -1L,
-               var weekDay: Long = -1L,
-               var startTime: String?,
-               var endTime: String?) : Parcelable {
+class Schedule(
+    var id: Long = -1L,
+    var officeId: Long = -1L,
+    var weekDay: Long = -1L,
+    var startTime: String?,
+    var endTime: String?
+) : Parcelable {
     constructor(parcel: Parcel) : this(
-            parcel.readLong(),
-            parcel.readLong(),
-            parcel.readLong(),
-            parcel.readString(),
-            parcel.readString())
+        parcel.readLong(),
+        parcel.readLong(),
+        parcel.readLong(),
+        parcel.readString(),
+        parcel.readString()
+    )
 
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {

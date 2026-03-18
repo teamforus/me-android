@@ -13,14 +13,24 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.PublishSubject
 
 
-class PairDevicePresenter constructor(private val disposableHolder: DisposableHolder, private val accessTokenChecker: AccessTokenChecker, private val accountRepository: AccountRepository)
-    : LRPresenter<RequestDelegatesPinModel, PairDeviceModel, PairDeviceView>() {
+class PairDevicePresenter constructor(
+    private val disposableHolder: DisposableHolder,
+    private val accessTokenChecker: AccessTokenChecker,
+    private val accountRepository: AccountRepository
+) : LRPresenter<RequestDelegatesPinModel, PairDeviceModel, PairDeviceView>() {
 
-    override fun initialModelSingle(): Single<RequestDelegatesPinModel> = Single.fromObservable(accountRepository.restoreByPinCode())
+    override fun initialModelSingle(): Single<RequestDelegatesPinModel> =
+        Single.fromObservable(accountRepository.restoreByPinCode())
 
-    override fun PairDeviceModel.changeInitialModel(i: RequestDelegatesPinModel): PairDeviceModel = copy(item = i).also {
-        disposableHolder.add(accessTokenChecker.startCheckingActivation(i.accessToken, activationComplete))
-    }
+    override fun PairDeviceModel.changeInitialModel(i: RequestDelegatesPinModel): PairDeviceModel =
+        copy(item = i).also {
+            disposableHolder.add(
+                accessTokenChecker.startCheckingActivation(
+                    i.accessToken,
+                    activationComplete
+                )
+            )
+        }
 
     private val activationComplete = PublishSubject.create<Unit>()
     fun activationComplete(): Observable<Unit> = activationComplete
@@ -29,33 +39,41 @@ class PairDevicePresenter constructor(private val disposableHolder: DisposableHo
 
         val observable = Observable.merge(
 
-                loadRefreshPartialChanges(),
+            loadRefreshPartialChanges(),
 
-                intent { activationComplete() }.map { PairDevicePartialChanges.RestoreIdentity() }
+            intent { activationComplete() }.map { PairDevicePartialChanges.RestoreIdentity() }
         )
 
         val initialViewState = LRViewState(
-                false,
-                null,
-                false,
-                false,
-                null,
-                false,
-                PairDeviceModel(),
-                false)
+            false,
+            null,
+            false,
+            false,
+            null,
+            false,
+            PairDeviceModel(),
+            false
+        )
 
         subscribeViewState(
-                observable.scan(initialViewState, this::stateReducer)
-                        .observeOn(AndroidSchedulers.mainThread()),
-                PairDeviceView::render)
+            observable.scan(initialViewState, this::stateReducer)
+                .observeOn(AndroidSchedulers.mainThread()),
+            PairDeviceView::render
+        )
     }
 
-    override fun stateReducer(vs: LRViewState<PairDeviceModel>, change: PartialChange): LRViewState<PairDeviceModel> {
+    override fun stateReducer(
+        vs: LRViewState<PairDeviceModel>,
+        change: PartialChange
+    ): LRViewState<PairDeviceModel> {
 
         if (change !is PairDevicePartialChanges) return super.stateReducer(vs, change)
 
         return when (change) {
-            is PairDevicePartialChanges.RestoreIdentity -> vs.copy(closeScreen = true, model = vs.model.copy(isPinConfirmed = true))
+            is PairDevicePartialChanges.RestoreIdentity -> vs.copy(
+                closeScreen = true,
+                model = vs.model.copy(isPinConfirmed = true)
+            )
         }
 
     }

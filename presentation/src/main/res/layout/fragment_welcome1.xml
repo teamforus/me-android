@@ -37,13 +37,13 @@
         android:id="@+id/descr"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:gravity="center"
         android:paddingHorizontal="@dimen/welcome_horizontal_padding"
         android:text="@string/welcome_greeting_descr"
         android:textColor="#000"
         android:textFontWeight="400"
         android:textSize="16sp"
-        android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toTopOf="@id/gap" />
 
     <View

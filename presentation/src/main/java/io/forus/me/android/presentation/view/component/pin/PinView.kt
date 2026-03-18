@@ -35,7 +35,11 @@ class PinView : FrameLayout {
         initNonStyle(context, attrs)
     }
 
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
+    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
+        context,
+        attrs,
+        defStyleAttr
+    ) {
         init(context, attrs)
     }
 
@@ -86,15 +90,24 @@ class PinView : FrameLayout {
 
     private fun addTextView(showdot: Boolean) {
         val lparams = LinearLayout.LayoutParams(
-                FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT)
+            FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT
+        )
 
-        lparams.setMargins(Converter.convertDpToPixel(7f, context), 0, Converter.convertDpToPixel(7f, context), 0)
+        lparams.setMargins(
+            Converter.convertDpToPixel(7f, context),
+            0,
+            Converter.convertDpToPixel(7f, context),
+            0
+        )
 
 
         val tv = io.forus.me.android.presentation.view.component.text.TextView(context)
         tv.layoutParams = lparams
         tv.setTextColor(ContextCompat.getColor(context, R.color.textColor))
-        tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimension(R.dimen.auth_pin_text_size));
+        tv.setTextSize(
+            TypedValue.COMPLEX_UNIT_PX,
+            resources.getDimension(R.dimen.auth_pin_text_size)
+        );
         tv.text = ""
         tv.type = FontType.Medium
         mContainer.addView(tv)
@@ -110,7 +123,10 @@ class PinView : FrameLayout {
         val parent = LinearLayout(context)
 
         parent.gravity = Gravity.CENTER_VERTICAL
-        parent.layoutParams = LinearLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.MATCH_PARENT)
+        parent.layoutParams = LinearLayout.LayoutParams(
+            FrameLayout.LayoutParams.WRAP_CONTENT,
+            FrameLayout.LayoutParams.MATCH_PARENT
+        )
         parent.orientation = LinearLayout.VERTICAL
 
 //children of parent linearlayout

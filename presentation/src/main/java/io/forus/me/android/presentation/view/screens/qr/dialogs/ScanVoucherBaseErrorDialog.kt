@@ -20,7 +20,7 @@ class ScanVoucherBaseErrorDialog(
         //.positiveText(context.resources.getString(R.string.me_ok))
         .dismissListener { dismissListener.invoke() }
         .negativeText(R.string.close)
-        .cancelListener {  dismissListener.invoke()  }
+        .cancelListener { dismissListener.invoke() }
         .build()
 
     init {
@@ -44,7 +44,7 @@ class ScanVoucherBaseErrorDialog(
             }
 
             // Застосовуємо тінт колір
-          //  setColorFilter(context.getColor(R.color.my_tint_color), PorterDuff.Mode.SRC_IN)
+            //  setColorFilter(context.getColor(R.color.my_tint_color), PorterDuff.Mode.SRC_IN)
         }
     }
 

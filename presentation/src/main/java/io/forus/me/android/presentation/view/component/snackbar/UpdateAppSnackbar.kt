@@ -13,12 +13,17 @@ import io.forus.me.android.presentation.view.component.snackbar.UpdateAppSnackba
 
 
 class UpdateAppSnackbar(
-        parent: ViewGroup,
-        content: UpdateAppSnackbarView
+    parent: ViewGroup,
+    content: UpdateAppSnackbarView
 ) : BaseTransientBottomBar<UpdateAppSnackbar>(parent, content, content) {
 
     init {
-        getView().setBackgroundColor(ContextCompat.getColor(view.context, android.R.color.transparent))
+        getView().setBackgroundColor(
+            ContextCompat.getColor(
+                view.context,
+                android.R.color.transparent
+            )
+        )
         getView().setPadding(0, 0, 0, 0)
     }
 
@@ -27,13 +32,13 @@ class UpdateAppSnackbar(
         fun make(view: View, updateClickListener: View.OnClickListener?): UpdateAppSnackbar {
 
             val parent = view.findSuitableParent() ?: throw IllegalArgumentException(
-                    "No suitable parent found from the given view. Please provide a valid view."
+                "No suitable parent found from the given view. Please provide a valid view."
             )
 
             val customView = LayoutInflater.from(view.context).inflate(
-                    R.layout.layout_snackbar_update_app,
-                    parent,
-                    false
+                R.layout.layout_snackbar_update_app,
+                parent,
+                false
             ) as UpdateAppSnackbarView
 
             if (updateClickListener != null) {
@@ -41,8 +46,8 @@ class UpdateAppSnackbar(
             }
 
             val updateAppSnackbar = UpdateAppSnackbar(
-                    parent,
-                    customView
+                parent,
+                customView
             )
             updateAppSnackbar.setDuration(Snackbar.LENGTH_INDEFINITE)
 

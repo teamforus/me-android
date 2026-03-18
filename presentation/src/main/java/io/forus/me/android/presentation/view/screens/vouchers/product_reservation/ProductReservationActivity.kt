@@ -31,14 +31,16 @@ class ProductReservationActivity : CommonActivity(), MViewModelProvider<VoucherV
         get() = R.layout.activity_toolbar
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         if (savedInstanceState == null) {
-            val voucherAddress = intent.getStringExtra(VOUCHER_ADDRESS_EXTRA)?:""
+            val voucherAddress = intent.getStringExtra(VOUCHER_ADDRESS_EXTRA) ?: ""
             viewModel.setAddress(voucherAddress)
-            val fragment = ProductReservationFragment.newIntent(voucherAddress, intent.getBooleanExtra(SHOW_PARENT_VOUCHER, false));
+            val fragment = ProductReservationFragment.newIntent(
+                voucherAddress,
+                intent.getBooleanExtra(SHOW_PARENT_VOUCHER, false)
+            );
 
             addFragment(R.id.fragmentContainer, fragment)
         }

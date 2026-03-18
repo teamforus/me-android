@@ -72,15 +72,18 @@ class Injection private constructor() {
         }
 
 
-
-
     val commonRepository: CommonRepository by lazy {
-        return@lazy io.forus.me.android.data.repository.common.CommonRepository(commonRemoteDataSource)
+        return@lazy io.forus.me.android.data.repository.common.CommonRepository(
+            commonRemoteDataSource
+        )
     }
 
 
     private val commonRemoteDataSource: CommonRemoteDataSource by lazy {
-        return@lazy CommonRemoteDataSource{MeServiceFactory.getInstance().createRetrofitService(CommonService::class.java, ApiConfig.SERVER_URL) }
+        return@lazy CommonRemoteDataSource {
+            MeServiceFactory.getInstance()
+                .createRetrofitService(CommonService::class.java, ApiConfig.SERVER_URL)
+        }
     }
 
 
@@ -89,7 +92,13 @@ class Injection private constructor() {
     }
 
     val accountRepository: AccountRepository by lazy {
-        return@lazy io.forus.me.android.data.repository.account.AccountRepository(settingsDataSource, accountLocalDataSource, accountRemoteDataSource, checkActivationDataSource, recordsRepository)
+        return@lazy io.forus.me.android.data.repository.account.AccountRepository(
+            settingsDataSource,
+            accountLocalDataSource,
+            accountRemoteDataSource,
+            checkActivationDataSource,
+            recordsRepository
+        )
     }
 
     val firestoreTokenManager: FirestoreTokenManager by lazy {
@@ -101,7 +110,10 @@ class Injection private constructor() {
     }
 
     private val accountRemoteDataSource: AccountRemoteDataSource by lazy {
-        return@lazy AccountRemoteDataSource { MeServiceFactory.getInstance().createRetrofitService(SignService::class.java, ApiConfig.SERVER_URL) }
+        return@lazy AccountRemoteDataSource {
+            MeServiceFactory.getInstance()
+                .createRetrofitService(SignService::class.java, ApiConfig.SERVER_URL)
+        }
     }
 
     val accountLocalDataSource: AccountLocalDataSource by lazy {
@@ -109,7 +121,10 @@ class Injection private constructor() {
     }
 
     private val checkActivationDataSource: CheckActivationDataSource by lazy {
-        return@lazy CheckActivationDataSource(MeServiceFactory.getInstance().createRetrofitService(SignService::class.java, ApiConfig.SERVER_URL))
+        return@lazy CheckActivationDataSource(
+            MeServiceFactory.getInstance()
+                .createRetrofitService(SignService::class.java, ApiConfig.SERVER_URL)
+        )
     }
 
     private val web3LocalDataSource: Web3DataSource by lazy {
@@ -125,16 +140,23 @@ class Injection private constructor() {
     }
 
     val vouchersDataSource: VouchersDataSource by lazy {
-        return@lazy VouchersRemoteDataSource { MeServiceFactory.getInstance().createRetrofitService(VouchersService::class.java, ApiConfig.SERVER_URL) }
+        return@lazy VouchersRemoteDataSource {
+            MeServiceFactory.getInstance()
+                .createRetrofitService(VouchersService::class.java, ApiConfig.SERVER_URL)
+        }
     }
 
     val vouchersRepository: VouchersRepository by lazy {
-        return@lazy io.forus.me.android.data.repository.vouchers.VouchersRepository(vouchersDataSource)
+        return@lazy io.forus.me.android.data.repository.vouchers.VouchersRepository(
+            vouchersDataSource
+        )
     }
 
 
     val recordsRepository: RecordsRepository by lazy {
-        return@lazy io.forus.me.android.data.repository.records.RecordsRepository(recordRemoteDataSource)
+        return@lazy io.forus.me.android.data.repository.records.RecordsRepository(
+            recordRemoteDataSource
+        )
     }
 
     private val recordsMockDataSource: RecordsMockDataSource by lazy {
@@ -142,7 +164,10 @@ class Injection private constructor() {
     }
 
     private val recordRemoteDataSource: RecordsRemoteDataSource by lazy {
-        return@lazy RecordsRemoteDataSource { MeServiceFactory.getInstance().createRetrofitService(RecordsService::class.java, ApiConfig.SERVER_URL) }
+        return@lazy RecordsRemoteDataSource {
+            MeServiceFactory.getInstance()
+                .createRetrofitService(RecordsService::class.java, ApiConfig.SERVER_URL)
+        }
     }
 
     val retrofitExceptionMapper: RetrofitExceptionMapper by lazy {
@@ -150,7 +175,10 @@ class Injection private constructor() {
     }
 
     private val validatorsRemoteDataSource: ValidatorsRemoteDataSource by lazy {
-        return@lazy ValidatorsRemoteDataSource { MeServiceFactory.getInstance().createRetrofitService(ValidatorsService::class.java, ApiConfig.SERVER_URL) }
+        return@lazy ValidatorsRemoteDataSource {
+            MeServiceFactory.getInstance()
+                .createRetrofitService(ValidatorsService::class.java, ApiConfig.SERVER_URL)
+        }
     }
 
     val validatorsRepository: ValidatorsRepository by lazy {

@@ -8,7 +8,8 @@ import io.forus.me.android.domain.models.validators.SimpleValidator
 import io.forus.me.android.presentation.databinding.ItemRecordSelectValidatorBinding
 import io.forus.me.android.presentation.view.screens.records.newrecord.viewholders.RecordValidatorVH
 
-class RecordValidatorAdapter(private val clickListener: ((SimpleValidator) -> Unit)?): RecyclerView.Adapter<RecordValidatorVH>() {
+class RecordValidatorAdapter(private val clickListener: ((SimpleValidator) -> Unit)?) :
+    RecyclerView.Adapter<RecordValidatorVH>() {
 
     var checkedStatus = BooleanArray(0)
     var items: List<SimpleValidator> = emptyList()
@@ -18,12 +19,15 @@ class RecordValidatorAdapter(private val clickListener: ((SimpleValidator) -> Un
             DiffUtil.calculateDiff(object : DiffUtil.Callback() {
                 override fun getOldListSize() = old.size
                 override fun getNewListSize() = field.size
-                override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) = old[oldItemPosition] == field[newItemPosition]
-                override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) = old[oldItemPosition] == field[newItemPosition]
+                override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) =
+                    old[oldItemPosition] == field[newItemPosition]
+
+                override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) =
+                    old[oldItemPosition] == field[newItemPosition]
             }).dispatchUpdatesTo(this)
             notifyDataSetChanged()
 
-            if(field.size != checkedStatus.size) checkedStatus = BooleanArray(field.size)
+            if (field.size != checkedStatus.size) checkedStatus = BooleanArray(field.size)
         }
 
     init {
@@ -31,13 +35,17 @@ class RecordValidatorAdapter(private val clickListener: ((SimpleValidator) -> Un
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecordValidatorVH {
-        val binding = ItemRecordSelectValidatorBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemRecordSelectValidatorBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
         return RecordValidatorVH(binding)
     }
 
     override fun onBindViewHolder(holder: RecordValidatorVH, position: Int) {
         val item = items[position]
-        holder.bind(item, checkedStatus[position]){ validator: SimpleValidator, position: Int ->
+        holder.bind(item, checkedStatus[position]) { validator: SimpleValidator, position: Int ->
             checkedStatus[position] = !checkedStatus[position]
             clickListener?.invoke(validator)
         }

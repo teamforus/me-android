@@ -8,15 +8,17 @@ import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.models.vouchers.Organization
 
 
-class OrganizationsListDialog(private val context: Context,
-                              private val organizations: List<Organization>,
-                              private val selectItemCallback: (Organization) -> Unit) {
+class OrganizationsListDialog(
+    private val context: Context,
+    private val organizations: List<Organization>,
+    private val selectItemCallback: (Organization) -> Unit
+) {
 
     private val dialog: MaterialDialog = MaterialDialog.Builder(context)
-            .title(context.resources.getString(R.string.voucher_dialog_choose_organization))
-            .customView(R.layout.view_organizations_list, true)
-            .negativeText(context.resources.getString(R.string.me_cancel))
-            .build()
+        .title(context.resources.getString(R.string.voucher_dialog_choose_organization))
+        .customView(R.layout.view_organizations_list, true)
+        .negativeText(context.resources.getString(R.string.me_cancel))
+        .build()
 
     init {
 

@@ -22,8 +22,7 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter {
     private Fragment currentFragment;
 
 
-
-    public MainViewPagerAdapter(FragmentManager fm, Context context, List<Fragment> fragments,List<String> titles) {
+    public MainViewPagerAdapter(FragmentManager fm, Context context, List<Fragment> fragments, List<String> titles) {
         super(fm);
 
 

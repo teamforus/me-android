@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     android:paddingStart="@dimen/activity_horizontal_margin"
-    android:paddingEnd="@dimen/activity_horizontal_margin"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:paddingEnd="@dimen/activity_horizontal_margin">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -14,17 +14,16 @@
 
         <TextView
             android:id="@+id/title"
-            android:paddingTop="18dp"
-            android:paddingBottom="18dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:textColor="@color/body_1_87"
+            android:fontFamily="@font/google_sans_regular"
             android:letterSpacing="0.02"
             android:lineSpacingExtra="6sp"
-            tools:text="Change 4-digit passcode"
-            android:fontFamily="@font/google_sans_regular"
-            />
+            android:paddingTop="18dp"
+            android:paddingBottom="18dp"
+            android:textColor="@color/body_1_87"
+            android:textSize="15sp"
+            tools:text="Change 4-digit passcode" />
 
         <TextView
             android:id="@+id/text"
@@ -32,13 +31,13 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
+            android:fontFamily="@font/google_sans_regular"
             android:letterSpacing="0.02"
             android:lineSpacingExtra="6sp"
             android:paddingTop="18dp"
             android:paddingBottom="18dp"
             android:textColor="@color/body1_60"
             android:textSize="12.1sp"
-            android:fontFamily="@font/google_sans_regular"
             tools:text="1.01.1" />
 
     </RelativeLayout>
@@ -47,7 +46,7 @@
         android:id="@+id/devider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#dadbdd"/>
+        android:background="#dadbdd" />
 
 
 </LinearLayout>

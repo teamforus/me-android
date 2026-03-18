@@ -15,7 +15,12 @@ class SuccessDialogActivity : AppCompatActivity() {
         val DESCRIPTION_EXTRA = "DESCRIPTION_EXTRA"
         val SUBMIT_EXTRA = "SUBMIT_EXTRA"
 
-        fun getCallingIntent(context: Context, title: String, description: String = "", submitButtonText: String? = "OK"): Intent {
+        fun getCallingIntent(
+            context: Context,
+            title: String,
+            description: String = "",
+            submitButtonText: String? = "OK"
+        ): Intent {
             val intent = Intent(context, SuccessDialogActivity::class.java)
             intent.putExtra(TITLE_EXTRA, title)
             intent.putExtra(DESCRIPTION_EXTRA, description)
@@ -37,10 +42,10 @@ class SuccessDialogActivity : AppCompatActivity() {
         binding = DialogFullscreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if(intent != null) {
-            titleTxt = intent.getStringExtra(TITLE_EXTRA)?:""
-            descriptionTxt = intent.getStringExtra(DESCRIPTION_EXTRA)?:""
-            submitButtonText = intent.getStringExtra(SUBMIT_EXTRA)?:""
+        if (intent != null) {
+            titleTxt = intent.getStringExtra(TITLE_EXTRA) ?: ""
+            descriptionTxt = intent.getStringExtra(DESCRIPTION_EXTRA) ?: ""
+            submitButtonText = intent.getStringExtra(SUBMIT_EXTRA) ?: ""
         }
 
 

@@ -38,7 +38,7 @@ class SendReportsActivity : CommonActivity() {
 
         if (savedInstanceState == null) {
             val token = intent.getStringExtra(TOKEN_EXTRA)
-            fragment = if(token != null){
+            fragment = if (token != null) {
                 SendReportsFragment.newIntent(token)
             } else SendReportsFragment()
             addFragment(R.id.fragmentContainer, fragment)

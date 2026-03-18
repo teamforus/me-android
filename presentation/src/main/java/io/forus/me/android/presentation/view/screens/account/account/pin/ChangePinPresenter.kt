@@ -12,14 +12,17 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 
-class ChangePinPresenter constructor(private val mode: ChangePinMode, private val accountRepository: AccountRepository) : LRPresenter<Unit, ChangePinModel, ChangePinView>() {
+class ChangePinPresenter constructor(
+    private val mode: ChangePinMode,
+    private val accountRepository: AccountRepository
+) : LRPresenter<Unit, ChangePinModel, ChangePinView>() {
 
     override fun initialModelSingle(): Single<Unit> = Single.just(Unit)
 
-    override fun ChangePinModel.changeInitialModel(i: Unit): ChangePinModel{
-        val initialState = when(mode){
+    override fun ChangePinModel.changeInitialModel(i: Unit): ChangePinModel {
+        val initialState = when (mode) {
             ChangePinMode.SET_NEW -> ChangePinModel.State.CREATE_NEW_PIN
-            ChangePinMode.REMOVE_OLD, ChangePinMode.CHANGE_OLD  -> ChangePinModel.State.CONFIRM_OLD_PIN
+            ChangePinMode.REMOVE_OLD, ChangePinMode.CHANGE_OLD -> ChangePinModel.State.CONFIRM_OLD_PIN
         }
         return copy(prevState = initialState, state = initialState)
     }
@@ -34,103 +37,151 @@ class ChangePinPresenter constructor(private val mode: ChangePinMode, private va
 
         val observable = Observable.merge(
 
-                loadRefreshPartialChanges(),
+            loadRefreshPartialChanges(),
 
-                Observable.mergeArray(
-                        intent { it.pinOnComplete() }
-                                .map { ChangePinPartialChanges.PinOnComplete(it) },
-                        intent { it.pinOnChange() }
-                                .map { ChangePinPartialChanges.PinOnChange(it) }
-                ),
+            Observable.mergeArray(
+                intent { it.pinOnComplete() }
+                    .map { ChangePinPartialChanges.PinOnComplete(it) },
+                intent { it.pinOnChange() }
+                    .map { ChangePinPartialChanges.PinOnChange(it) }
+            ),
 
-                intent { checkPin() }
-                        .switchMap {
-                            accountRepository.checkPin(it)
-                                    .subscribeOn(Schedulers.io())
-                                    .observeOn(AndroidSchedulers.mainThread())
-                                    .map<PartialChange> {
-                                        if(it) ChangePinPartialChanges.CheckPinSuccess(Unit)
-                                        else ChangePinPartialChanges.CheckPinError(Unit)
-                                    }
-                                    .onErrorReturn {
-                                        ChangePinPartialChanges.CheckPinError(Unit)
-                                    }
-                        },
-
-                intent { changePin() }
-                        .switchMap {
-                            accountRepository.changePin(it.oldPin, it.newPin)
-                                    .subscribeOn(Schedulers.io())
-                                    .observeOn(AndroidSchedulers.mainThread())
-                                    .map<PartialChange> {
-                                        if(it) ChangePinPartialChanges.ChangePinEnd(Unit)
-                                        else ChangePinPartialChanges.ChangePinError(Unit)
-                                    }
-                                    .onErrorReturn {
-                                        ChangePinPartialChanges.ChangePinError(Unit)
-                                    }
+            intent { checkPin() }
+                .switchMap {
+                    accountRepository.checkPin(it)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .map<PartialChange> {
+                            if (it) ChangePinPartialChanges.CheckPinSuccess(Unit)
+                            else ChangePinPartialChanges.CheckPinError(Unit)
                         }
+                        .onErrorReturn {
+                            ChangePinPartialChanges.CheckPinError(Unit)
+                        }
+                },
+
+            intent { changePin() }
+                .switchMap {
+                    accountRepository.changePin(it.oldPin, it.newPin)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .map<PartialChange> {
+                            if (it) ChangePinPartialChanges.ChangePinEnd(Unit)
+                            else ChangePinPartialChanges.ChangePinError(Unit)
+                        }
+                        .onErrorReturn {
+                            ChangePinPartialChanges.ChangePinError(Unit)
+                        }
+                }
         )
 
 
         val initialViewState = LRViewState(
-                false,
-                null,
-                false,
-                false,
-                null,
-                false,
-                ChangePinModel(),
-                false)
+            false,
+            null,
+            false,
+            false,
+            null,
+            false,
+            ChangePinModel(),
+            false
+        )
 
         subscribeViewState(
-                observable.scan(initialViewState, this::stateReducer)
-                        .observeOn(AndroidSchedulers.mainThread()),
-                ChangePinView::render)
+            observable.scan(initialViewState, this::stateReducer)
+                .observeOn(AndroidSchedulers.mainThread()),
+            ChangePinView::render
+        )
 
     }
 
-    override fun stateReducer(vs: LRViewState<ChangePinModel>, change: PartialChange): LRViewState<ChangePinModel> {
+    override fun stateReducer(
+        vs: LRViewState<ChangePinModel>,
+        change: PartialChange
+    ): LRViewState<ChangePinModel> {
 
         if (change !is ChangePinPartialChanges) return super.stateReducer(vs, change)
 
         return when (change) {
             is ChangePinPartialChanges.PinOnComplete -> {
-                when(vs.model.state){
+                when (vs.model.state) {
                     ChangePinModel.State.CONFIRM_OLD_PIN -> {
                         checkPin.onNext(change.passcode)
-                        vs.copy(model = vs.model.changeState(ChangePinModel.State.CHECKING_OLD_PIN, passcodeOld = change.passcode))
+                        vs.copy(
+                            model = vs.model.changeState(
+                                ChangePinModel.State.CHECKING_OLD_PIN,
+                                passcodeOld = change.passcode
+                            )
+                        )
                     }
-                    ChangePinModel.State.CREATE_NEW_PIN -> vs.copy(model = vs.model.changeState(ChangePinModel.State.CONFIRM_NEW_PIN, passcodeNew = change.passcode))
+
+                    ChangePinModel.State.CREATE_NEW_PIN -> vs.copy(
+                        model = vs.model.changeState(
+                            ChangePinModel.State.CONFIRM_NEW_PIN,
+                            passcodeNew = change.passcode
+                        )
+                    )
+
                     ChangePinModel.State.CONFIRM_NEW_PIN -> {
-                        if(vs.model.passcodeNew.equals(change.passcode) && vs.model.valid){
-                            changePin.onNext(ChangePin(vs.model.passcodeOld, vs.model.passcodeNew!!))
+                        if (vs.model.passcodeNew.equals(change.passcode) && vs.model.valid) {
+                            changePin.onNext(
+                                ChangePin(
+                                    vs.model.passcodeOld,
+                                    vs.model.passcodeNew!!
+                                )
+                            )
                             vs.copy(model = vs.model.changeState(ChangePinModel.State.CHANGING_PIN))
-                        }
-                        else{
+                        } else {
                             vs.copy(model = vs.model.changeState(ChangePinModel.State.PASS_NOT_MATCH))
                         }
                     }
-                    else -> { vs.copy(model = vs.model.changeState(vs.model.state))}
+
+                    else -> {
+                        vs.copy(model = vs.model.changeState(vs.model.state))
+                    }
                 }
-            }
-            is ChangePinPartialChanges.PinOnChange -> {
-                when(vs.model.state){
-                    ChangePinModel.State.WRONG_OLD_PIN -> vs.copy(model = vs.model.changeState(ChangePinModel.State.CONFIRM_OLD_PIN))
-                    ChangePinModel.State.PASS_NOT_MATCH -> vs.copy(model = vs.model.changeState(ChangePinModel.State.CREATE_NEW_PIN, passcodeNew = null))
-                    else -> { vs.copy(model = vs.model.changeState())}
-                }
-            }
-            is ChangePinPartialChanges.CheckPinError -> vs.copy(model = vs.model.changeState(ChangePinModel.State.WRONG_OLD_PIN))
-            is ChangePinPartialChanges.CheckPinSuccess -> {
-                if(mode == ChangePinMode.REMOVE_OLD) {
-                    changePin.onNext(ChangePin(vs.model.passcodeOld, ""))
-                    vs.copy(model = vs.model.changeState(ChangePinModel.State.CHANGING_PIN))
-                }
-                else vs.copy(model = vs.model.changeState(ChangePinModel.State.CREATE_NEW_PIN))
             }
 
-            is ChangePinPartialChanges.ChangePinError -> vs.copy(model = vs.model.changeState(ChangePinModel.State.CHANGE_PIN_ERROR))
+            is ChangePinPartialChanges.PinOnChange -> {
+                when (vs.model.state) {
+                    ChangePinModel.State.WRONG_OLD_PIN -> vs.copy(
+                        model = vs.model.changeState(
+                            ChangePinModel.State.CONFIRM_OLD_PIN
+                        )
+                    )
+
+                    ChangePinModel.State.PASS_NOT_MATCH -> vs.copy(
+                        model = vs.model.changeState(
+                            ChangePinModel.State.CREATE_NEW_PIN,
+                            passcodeNew = null
+                        )
+                    )
+
+                    else -> {
+                        vs.copy(model = vs.model.changeState())
+                    }
+                }
+            }
+
+            is ChangePinPartialChanges.CheckPinError -> vs.copy(
+                model = vs.model.changeState(
+                    ChangePinModel.State.WRONG_OLD_PIN
+                )
+            )
+
+            is ChangePinPartialChanges.CheckPinSuccess -> {
+                if (mode == ChangePinMode.REMOVE_OLD) {
+                    changePin.onNext(ChangePin(vs.model.passcodeOld, ""))
+                    vs.copy(model = vs.model.changeState(ChangePinModel.State.CHANGING_PIN))
+                } else vs.copy(model = vs.model.changeState(ChangePinModel.State.CREATE_NEW_PIN))
+            }
+
+            is ChangePinPartialChanges.ChangePinError -> vs.copy(
+                model = vs.model.changeState(
+                    ChangePinModel.State.CHANGE_PIN_ERROR
+                )
+            )
+
             is ChangePinPartialChanges.ChangePinEnd -> vs.copy(closeScreen = true)
         }
     }

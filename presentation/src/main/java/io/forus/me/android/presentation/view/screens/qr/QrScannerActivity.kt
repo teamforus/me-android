@@ -155,7 +155,7 @@ class QrScannerActivity : FragmentActivity(),
                     MY_PERMISSION_REQUEST_CAMERA
                 )
             }
-        }else{
+        } else {
             finish()
         }
     }
@@ -178,7 +178,11 @@ class QrScannerActivity : FragmentActivity(),
         } else {
             Log.d("forusQR", "Permission not granted")
 
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(
+                    this,
+                    Manifest.permission.CAMERA
+                )
+            ) {
                 Snackbar.make(
                     binding.mainLayout,
                     resources.getString(R.string.qr_camera_permission_required),

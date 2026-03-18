@@ -18,7 +18,8 @@ object Strings {
     fun capitalize(str: String): String? {
         if (isNullOrEmpty(str))
             return str
-        return if (str.length == 0) str else str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase()
+        return if (str.length == 0) str else str.substring(0, 1).toUpperCase() + str.substring(1)
+            .toLowerCase()
 
 
     }
@@ -28,11 +29,10 @@ object Strings {
     }
 
 
-
 }
 
 
-fun String?.capitalize() : String {
+fun String?.capitalize(): String {
     if (this == null)
         return ""
 
@@ -40,20 +40,20 @@ fun String?.capitalize() : String {
 }
 
 
-fun String?.toAppFloat() : Float? {
+fun String?.toAppFloat(): Float? {
     if (this == null)
         return null
     return this.toAppFloat()
 }
 
-fun String.toAppFloat() : Float {
+fun String.toAppFloat(): Float {
     val myNumForm = NumberFormat.getInstance(Locale.getDefault())
     val myParsedFrenchNumber = myNumForm.parse(this).toFloat()
     return myParsedFrenchNumber
 }
 
 
-fun String?.toAppDoubleOrNull() : Double {
+fun String?.toAppDoubleOrNull(): Double {
     val myNumForm = NumberFormat.getInstance(Locale.getDefault())
     val myParsedFrenchNumber = myNumForm.parse(this).toFloat().toDouble()
     return myParsedFrenchNumber

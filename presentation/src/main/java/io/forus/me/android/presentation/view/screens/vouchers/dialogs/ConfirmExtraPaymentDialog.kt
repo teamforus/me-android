@@ -25,7 +25,7 @@ class ConfirmExtraPaymentDialog(
     var extraInfoTextView: View? = null
     var icMoreInfo: ImageView? = null
     var extraAmountTV: TextView? = null
-    var alertTitleTV : TextView? = null
+    var alertTitleTV: TextView? = null
     var textInputLayout: com.google.android.material.textfield.TextInputLayout? = null
     var extraAmountInput: com.google.android.material.textfield.TextInputEditText? = null
     var cancel: View? = null
@@ -66,11 +66,21 @@ class ConfirmExtraPaymentDialog(
         alertTitleTV?.setTextColor(ContextCompat.getColor(requireContext(), R.color.textColor))
         extraAmountInput?.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
-                alertTitleTV?.setTextColor(ContextCompat.getColor(requireContext(), R.color.forus_blue))
+                alertTitleTV?.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.forus_blue
+                    )
+                )
                 extraAmountInput?.hint = ""
             } else {
                 if (extraAmountInput?.text.isNullOrEmpty()) {
-                    alertTitleTV?.setTextColor(ContextCompat.getColor(requireContext(), R.color.textColor))
+                    alertTitleTV?.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.textColor
+                        )
+                    )
                     extraAmountInput?.hint = "€ 0,00"
                 }
             }

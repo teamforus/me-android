@@ -4,14 +4,13 @@ import io.forus.me.android.domain.models.records.Record
 import io.forus.me.android.presentation.view.screens.records.item.validations.ValidationViewModel
 
 data class RecordDetailsModel(
-        val item: Record? = null,
-        val validations: List<ValidationViewModel> = emptyList(),
-        val requestValidationError: Throwable? = null,
-        val recordDeleteSuccess: Boolean? = false,
-        val recordDeleteError: Throwable? = null
-)
-{
-    fun changeStatus(validatorId: Long) : RecordDetailsModel {
+    val item: Record? = null,
+    val validations: List<ValidationViewModel> = emptyList(),
+    val requestValidationError: Throwable? = null,
+    val recordDeleteSuccess: Boolean? = false,
+    val recordDeleteError: Throwable? = null
+) {
+    fun changeStatus(validatorId: Long): RecordDetailsModel {
         return copy()
     }
 }

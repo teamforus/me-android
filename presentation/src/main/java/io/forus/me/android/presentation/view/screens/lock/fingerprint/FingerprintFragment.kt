@@ -44,7 +44,7 @@ class FingerprintFragment :
     override val toolbarTitle: String
         get() = resources.getString(R.string.lock_fingerprint_title)
 
-   // private lateinit var mFingerPrintAuthHelper: FingerPrintAuthHelper
+    // private lateinit var mFingerPrintAuthHelper: FingerPrintAuthHelper
 
     override fun viewForSnackbar(): View = binding.root
 
@@ -89,22 +89,27 @@ class FingerprintFragment :
 
         lifecycleScope.launch {
             promptManager.promptResults.collect { result ->
-                when(result) {
+                when (result) {
                     is BiometricPromptManager.BiometricResult.AuthenticationError -> {
                         result.error
                     }
+
                     BiometricPromptManager.BiometricResult.AuthenticationFailed -> {
                         authFail.onNext(errorAuthFail)
                     }
+
                     BiometricPromptManager.BiometricResult.AuthenticationNotSet -> {
                         authFail.onNext(errorNoFingerprints)
                     }
+
                     BiometricPromptManager.BiometricResult.AuthenticationSuccess -> {
                         authSuccess.onNext(Unit)
                     }
+
                     BiometricPromptManager.BiometricResult.FeatureUnavailable -> {
                         authFail.onNext(errorHwNotFound)
                     }
+
                     BiometricPromptManager.BiometricResult.HardwareUnavailable -> {
                         authFail.onNext(errorHwNotFound)
                     }
@@ -112,10 +117,6 @@ class FingerprintFragment :
             }
         }
     }
-
-
-
-
 
 
     override fun onResume() {
@@ -128,8 +129,6 @@ class FingerprintFragment :
             )
         }
     }
-
-
 
 
     override fun createPresenter() = FingerprintPresenter(

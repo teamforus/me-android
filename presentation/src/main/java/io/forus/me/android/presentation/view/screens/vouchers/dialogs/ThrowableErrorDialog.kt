@@ -8,11 +8,14 @@ import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.internal.Injection
 
 
-class ThrowableErrorDialog(private val error: Throwable, private val context: Context,
-                           private val dismissListener: () -> Unit){
+class ThrowableErrorDialog(
+    private val error: Throwable, private val context: Context,
+    private val dismissListener: () -> Unit
+) {
 
     private var message = ""
-    private var retrofitExceptionMapper: RetrofitExceptionMapper = Injection.instance.retrofitExceptionMapper
+    private var retrofitExceptionMapper: RetrofitExceptionMapper =
+        Injection.instance.retrofitExceptionMapper
 
     init {
         if (error is RetrofitException) {
@@ -35,14 +38,14 @@ class ThrowableErrorDialog(private val error: Throwable, private val context: Co
 
 
     private val dialog: MaterialDialog = MaterialDialog.Builder(context)
-            .title(R.string.qr_popup_error)
-            .content(message)
-            .icon(context.resources.getDrawable(R.drawable.ic_close))
-            .positiveText(context.resources.getString(R.string.me_ok))
-            .dismissListener { dismissListener.invoke() }
-            .build()
+        .title(R.string.qr_popup_error)
+        .content(message)
+        .icon(context.resources.getDrawable(R.drawable.ic_close))
+        .positiveText(context.resources.getString(R.string.me_ok))
+        .dismissListener { dismissListener.invoke() }
+        .build()
 
-    fun show(){
+    fun show() {
         dialog.show()
     }
 

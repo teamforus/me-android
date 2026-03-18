@@ -35,7 +35,7 @@ fun View.expandView() {
 }
 
 
-fun  View.collapseView() {
+fun View.collapseView() {
     val initialHeight = measuredHeight
 
     val animator = ValueAnimator.ofInt(initialHeight, 0)

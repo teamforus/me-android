@@ -1,4 +1,5 @@
 package io.forus.me.android.presentation.view
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +9,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.databinding.FragmentBottomSheetBinding
 
-class MeBottomSheetDialogFragment(private val fragment: Fragment, private  val title: String) : BottomSheetDialogFragment() {
+class MeBottomSheetDialogFragment(private val fragment: Fragment, private val title: String) :
+    BottomSheetDialogFragment() {
 
     private lateinit var binding: FragmentBottomSheetBinding
 

@@ -4,9 +4,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 
-class RVListAdapter<Item, VH: RVViewHolder<Item>>(
-        private val createVH: (ViewGroup) -> VH,
-        private val clickListener: ((Item) -> Unit)?
+class RVListAdapter<Item, VH : RVViewHolder<Item>>(
+    private val createVH: (ViewGroup) -> VH,
+    private val clickListener: ((Item) -> Unit)?
 ) : RecyclerView.Adapter<VH>() {
 
     var items: List<Item> = emptyList()
@@ -16,8 +16,11 @@ class RVListAdapter<Item, VH: RVViewHolder<Item>>(
             DiffUtil.calculateDiff(object : DiffUtil.Callback() {
                 override fun getOldListSize() = old.size
                 override fun getNewListSize() = field.size
-                override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) = old[oldItemPosition] == field[newItemPosition]
-                override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) = old[oldItemPosition] == field[newItemPosition]
+                override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) =
+                    old[oldItemPosition] == field[newItemPosition]
+
+                override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) =
+                    old[oldItemPosition] == field[newItemPosition]
             }).dispatchUpdatesTo(this)
             notifyDataSetChanged()
         }
@@ -35,6 +38,7 @@ class RVListAdapter<Item, VH: RVViewHolder<Item>>(
 
         holder.render(items[position])
     }
+
     override fun getItemCount() = items.size
     override fun getItemId(position: Int) = position.toLong()
 }

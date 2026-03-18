@@ -103,7 +103,7 @@ class SendReportsFragment :
 
     override fun render(vs: LRViewState<SendReportsModel>) {
         super.render(vs)
-        Log.d("Popupp","Popupp render>>>")
+        Log.d("Popupp", "Popupp render>>>")
         binding.enableSendCrashLog.setChecked(vs.model.sendCrashReportsEnabled)
         binding.enableSendCrashLog.setOnClickListener {
 
@@ -115,8 +115,9 @@ class SendReportsFragment :
         }
 
         binding.nextStep.setOnClickListener {
-            Log.d("Popupp","Popupp NEXT>>>")
-            closeScreen(token) }
+            Log.d("Popupp", "Popupp NEXT>>>")
+            closeScreen(token)
+        }
 
     }
 

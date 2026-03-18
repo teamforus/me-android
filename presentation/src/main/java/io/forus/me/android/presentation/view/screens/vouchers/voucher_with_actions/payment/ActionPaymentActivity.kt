@@ -25,7 +25,11 @@ class ActionPaymentActivity : BaseActivity() {
         const val VOUCHER_ADDRESS_EXTRA = "VOUCHER_ADDRESS_EXTRA"
 
 
-        fun getCallingIntent(context: Context, product: ProductSerializable, voucherAddress: String): Intent {
+        fun getCallingIntent(
+            context: Context,
+            product: ProductSerializable,
+            voucherAddress: String
+        ): Intent {
             val intent = Intent(context, ActionPaymentActivity::class.java)
             val bundle = Bundle()
             bundle.putSerializable(ACTION_PRODUCT_EXTRA, product)
@@ -57,19 +61,28 @@ class ActionPaymentActivity : BaseActivity() {
         val intent = this.intent
         intent.extras.let {
             product = it?.getSerializable(ACTION_PRODUCT_EXTRA) as ProductSerializable
-            voucherAddress = intent.getSerializableExtra(ActionsActivity.VOUCHER_ADDRESS_EXTRA) as String
+            voucherAddress =
+                intent.getSerializableExtra(ActionsActivity.VOUCHER_ADDRESS_EXTRA) as String
 
         }
 
         product.let {
-            replaceFragment(R.id.dashboard_content, ActionPaymentFragment.newIntent(product!!, voucherAddress!!
-            ))
+            replaceFragment(
+                R.id.dashboard_content, ActionPaymentFragment.newIntent(
+                    product!!, voucherAddress!!
+                )
+            )
 
         }
 
 
         toolbar_title?.text = getString(R.string.payment)
-        profile_button?.setImageDrawable(ContextCompat.getDrawable(this@ActionPaymentActivity, R.drawable.ic_back))
+        profile_button?.setImageDrawable(
+            ContextCompat.getDrawable(
+                this@ActionPaymentActivity,
+                R.drawable.ic_back
+            )
+        )
         profile_button?.setOnClickListener {
             finish()
         }
@@ -80,7 +93,6 @@ class ActionPaymentActivity : BaseActivity() {
     override fun replaceFragment(fragment: Fragment, sharedViews: List<View>) {
         super.replaceFragment(R.id.dashboard_top_content, fragment, sharedViews, true)
     }
-
 
 
 }

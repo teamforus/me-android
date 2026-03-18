@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp">
+        android:layout_marginRight="16dp"
+        android:orientation="vertical">
 
         <io.forus.me.android.presentation.view.component.text.TextView
-            android:text="@string/new_record_choose_the_value_text"
             style="@style/Body2Small"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="17dp" />
+            android:layout_marginBottom="17dp"
+            android:text="@string/new_record_choose_the_value_text" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:baselineAligned="false">
+            android:baselineAligned="false"
+            android:orientation="horizontal">
 
             <include
                 android:id="@+id/hat_item_category_2"
@@ -35,8 +35,7 @@
 
             <LinearLayout
                 android:layout_width="38dp"
-                android:layout_height="match_parent">
-            </LinearLayout>
+                android:layout_height="match_parent"></LinearLayout>
 
             <include
                 android:id="@+id/hat_item_type_2"
@@ -48,29 +47,28 @@
         </LinearLayout>
 
         <io.forus.me.android.presentation.view.component.text.TextView
-            android:text="@string/new_record_value_text"
-            android:textSize="12.1sp"
-            android:textColor="@color/body_1_87"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="45dp"/>
+            android:layout_marginTop="45dp"
+            android:text="@string/new_record_value_text"
+            android:textColor="@color/body_1_87"
+            android:textSize="12.1sp" />
 
         <EditText
             android:id="@+id/value"
-            android:background="@color/alabaster"
             android:layout_width="match_parent"
             android:layout_height="184dp"
-            android:padding="16dp"
-            android:hint="@string/new_record_value_hint"
-            android:textSize="16.1sp"
-            android:lineSpacingExtra="7.9sp"
-            android:gravity="top"
+            android:background="@color/alabaster"
             android:fontFamily="@font/google_sans_regular"
-            android:inputType="textMultiLine" />
+            android:gravity="top"
+            android:hint="@string/new_record_value_hint"
+            android:inputType="textMultiLine"
+            android:lineSpacingExtra="7.9sp"
+            android:padding="16dp"
+            android:textSize="16.1sp" />
 
     </LinearLayout>
-
 
 
 </RelativeLayout>

@@ -29,7 +29,8 @@ import io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actio
 class ActionsActivity : AppCompatActivity() {
 
     private var toolbar_title: TextView? = null
-    private var profile_button: io.forus.me.android.presentation.view.component.images.AutoLoadImageView? = null
+    private var profile_button: io.forus.me.android.presentation.view.component.images.AutoLoadImageView? =
+        null
 
 
     companion object {
@@ -155,7 +156,8 @@ class ActionsActivity : AppCompatActivity() {
         binding.recycler.layoutManager = linearLayoutManager
         binding.recycler.adapter = transactionsAdapter
 
-        binding.recycler.addOnScrollListener(object : PaginationScrollListener(linearLayoutManager) {
+        binding.recycler.addOnScrollListener(object :
+            PaginationScrollListener(linearLayoutManager) {
             override fun isLastPage(): Boolean {
                 return this@ActionsActivity.isLastPage
             }
@@ -196,25 +198,26 @@ class ActionsActivity : AppCompatActivity() {
 
         binding.organizationsSpinner.adapter = adapter
         binding.organizationsSpinner.setSelection(0, false);
-        binding.organizationsSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(p0: AdapterView<*>?) {}
+        binding.organizationsSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(p0: AdapterView<*>?) {}
 
-            override fun onItemSelected(p0: AdapterView<*>?, view: View?, p2: Int, p3: Long) {
+                override fun onItemSelected(p0: AdapterView<*>?, view: View?, p2: Int, p3: Long) {
 
-                if (canWork) {
-                    canWork = false
-                    val tv = view as androidx.appcompat.widget.AppCompatTextView
-                    val orgName = tv.text.toString()
+                    if (canWork) {
+                        canWork = false
+                        val tv = view as androidx.appcompat.widget.AppCompatTextView
+                        val orgName = tv.text.toString()
 
-                    val id = mainViewModel.selectedOrgIdByName(orgName)
-                    transactionsAdapter!!.clearAll()
-                    currentPage = 1
-                    mainViewModel.getVoucherActionGoods(currentPage)
-                    this@ActionsActivity.currentPage += 1;
+                        val id = mainViewModel.selectedOrgIdByName(orgName)
+                        transactionsAdapter!!.clearAll()
+                        currentPage = 1
+                        mainViewModel.getVoucherActionGoods(currentPage)
+                        this@ActionsActivity.currentPage += 1;
 
+                    }
                 }
-            }
 
-        }
+            }
     }
 }

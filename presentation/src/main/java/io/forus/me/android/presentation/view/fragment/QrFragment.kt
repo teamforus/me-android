@@ -8,7 +8,6 @@ import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.databinding.FragmentPopupQrBinding
 
 
-
 class QrFragment : BaseFragment() {
 
 

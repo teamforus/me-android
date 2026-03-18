@@ -18,8 +18,11 @@ class CategoriesAdapter : RecyclerView.Adapter<CategoryVH>() {
             DiffUtil.calculateDiff(object : DiffUtil.Callback() {
                 override fun getOldListSize() = old.size
                 override fun getNewListSize() = field.size
-                override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) = old[oldItemPosition] == field[newItemPosition]
-                override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) = old[oldItemPosition] == field[newItemPosition]
+                override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) =
+                    old[oldItemPosition] == field[newItemPosition]
+
+                override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) =
+                    old[oldItemPosition] == field[newItemPosition]
             }).dispatchUpdatesTo(this)
             notifyDataSetChanged()
         }
@@ -30,7 +33,8 @@ class CategoriesAdapter : RecyclerView.Adapter<CategoryVH>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryVH {
-        val binding = ItemProductCategoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            ItemProductCategoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return CategoryVH(binding)
     }
 
@@ -38,6 +42,7 @@ class CategoriesAdapter : RecyclerView.Adapter<CategoryVH>() {
         val item = items[position]
         holder.bind(item)
     }
+
     override fun getItemCount() = items.size
     override fun getItemId(position: Int) = position.toLong()
 }

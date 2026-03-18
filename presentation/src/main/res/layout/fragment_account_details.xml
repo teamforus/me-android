@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
 
@@ -9,12 +8,12 @@
     android:layout_height="match_parent">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:background="@color/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="57dp">
+        android:layout_marginBottom="57dp"
+        android:background="@color/colorPrimary">
 
-        <include layout="@layout/toolbar_view"/>
+        <include layout="@layout/toolbar_view" />
 
         <io.forus.me.android.presentation.view.base.lr.LRPanelImpl
             android:id="@+id/lr_panel"
@@ -178,21 +177,21 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:valuecard_text=""
-                        app:valuecard_title="@string/profile_about_me"/>
+                        app:valuecard_title="@string/profile_about_me" />
 
                     <io.forus.me.android.presentation.view.component.card.SettingsCard
                         android:id="@+id/bt_app_explanation"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:valuecard_text=""
-                        app:valuecard_title="@string/app_explanation"/>
+                        app:valuecard_title="@string/app_explanation" />
 
                     <io.forus.me.android.presentation.view.component.card.SettingsCard
                         android:id="@+id/privacy_policy_card"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:valuecard_title="@string/profile_privacy_policy"
-                        app:valuecard_text="@string/profile_privacy_policy_url" />
+                        app:valuecard_text="@string/profile_privacy_policy_url"
+                        app:valuecard_title="@string/profile_privacy_policy" />
 
                     <io.forus.me.android.presentation.view.component.card.SettingsCard
                         android:id="@+id/support_email"
@@ -220,12 +219,12 @@
 
     <io.forus.me.android.presentation.view.component.buttons.QrButton
         android:id="@+id/btn_qr"
-        android:visibility="gone"
-        android:text="@string/profile_button_show_qr"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="58dp" />
+        android:layout_marginBottom="58dp"
+        android:text="@string/profile_button_show_qr"
+        android:visibility="gone" />
 
 </RelativeLayout>

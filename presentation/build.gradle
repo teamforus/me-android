@@ -2,10 +2,10 @@ plugins {
     id('com.android.application')
     id('kotlin-android')
     id('kotlin-kapt')
-    id ('kotlin-parcelize')
+    id('kotlin-parcelize')
     id('org.greenrobot.greendao')
     id('com.google.gms.google-services')
-    id ('androidx.navigation.safeargs')
+    id('androidx.navigation.safeargs')
 }
 
 def secretsPropertiesFile = rootProject.file("secrets.properties")
@@ -52,7 +52,6 @@ android {
         ]
 
     }
-
 
 
     compileOptions {
@@ -192,7 +191,7 @@ dependencies {
     implementation "com.hannesdorfmann.mosby3:mvi:3.1.1"
     implementation "com.hannesdorfmann.mosby3:viewstate:3.1.1"
 
-   // implementation 'com.github.sockeqwe:mosby:345efbb0c0'
+    // implementation 'com.github.sockeqwe:mosby:345efbb0c0'
 
 
     implementation "com.jakewharton.rxbinding2:rxbinding:2.2.0"
@@ -225,10 +224,6 @@ dependencies {
     implementation("androidx.annotation:annotation:1.8.2")
 
 
-
-
-
-
     compileOnly presentationDependencies.javaxAnnotation
 
     androidTestImplementation presentationTestDependencies.mockito
@@ -253,7 +248,7 @@ dependencies {
 
     //implementation ('com.dlazaro66.qrcodereaderview:qrcodereaderview:2.0.3@aar'){
     //    transitive = true
-   // }
+    // }
 
     implementation 'com.github.dlazaro66:QRCodeReaderView:2.0.3'
 

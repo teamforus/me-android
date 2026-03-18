@@ -55,15 +55,15 @@ class ValidationAdapter(private val clickListener: ((ValidationViewModel) -> Uni
                 LayoutInflater.from(parent.context), parent, false
             )
             ValidationVH(binding)
-            }
         }
+    }
 
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is ValidationVH) {
             val item = items[position]
-            holder.bind(item){ item: ValidationViewModel ->
-                    clickListener?.invoke(item)
+            holder.bind(item) { item: ValidationViewModel ->
+                clickListener?.invoke(item)
             }
 
         } else if (holder is ValidationHeaderVH) {

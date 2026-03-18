@@ -8,7 +8,7 @@ import io.reactivex.Observable
  */
 
 
-interface RecordsView : LRView<RecordsModel>{
+interface RecordsView : LRView<RecordsModel> {
     fun records(): Observable<Long>
     fun archives(): Observable<Long>
 }

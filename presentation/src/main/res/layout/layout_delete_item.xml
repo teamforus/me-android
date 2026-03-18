@@ -12,8 +12,8 @@
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:clickable="true"
-        android:gravity="center"
-        android:focusable="true">
+        android:focusable="true"
+        android:gravity="center">
 
         <ImageView
             android:id="@+id/buttonImage"
@@ -23,7 +23,6 @@
             android:clickable="false"
             android:focusable="false"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_close"
-            />
+            android:src="@drawable/ic_close" />
     </LinearLayout>
 </LinearLayout>

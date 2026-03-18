@@ -175,9 +175,9 @@
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="34dp"
             android:text="@string/alert_balance"
-            tools:textColor="#28292B"
             android:textSize="13sp"
             android:visibility="visible"
+            tools:textColor="#28292B"
             tools:visibility="visible"
 
             />
@@ -189,8 +189,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/container"
             android:layout_marginHorizontal="20dp"
-            app:errorTextColor="#DB1E0B"
-            android:gravity="top|left">
+            android:gravity="top|left"
+            app:errorTextColor="#DB1E0B">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/extraAmountInput"
@@ -198,8 +198,8 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/google_sans_regular"
                 android:gravity="top|left"
-                android:inputType="numberDecimal"
                 android:importantForAccessibility="yes"
+                android:inputType="numberDecimal"
                 android:lines="1"
                 android:maxLines="1"
                 android:minLines="1"

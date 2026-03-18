@@ -10,7 +10,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 
-class FingerprintPresenter constructor(val accountRepository: AccountRepository) : LRPresenter<Unit, FingerprintModel, FingerprintView>() {
+class FingerprintPresenter constructor(val accountRepository: AccountRepository) :
+    LRPresenter<Unit, FingerprintModel, FingerprintView>() {
 
     override fun initialModelSingle(): Single<Unit> = Single.just(Unit)
 
@@ -23,54 +24,72 @@ class FingerprintPresenter constructor(val accountRepository: AccountRepository)
 
         val observable = Observable.merge(
 
-                loadRefreshPartialChanges(),
+            loadRefreshPartialChanges(),
 
-                intent { it.exit() }
-                        .map { FingerprintPartialChanges.Exit(it) },
+            intent { it.exit() }
+                .map { FingerprintPartialChanges.Exit(it) },
 
-                intent { it.authFail() }
-                        .map { FingerprintPartialChanges.UnlockFail(it) },
+            intent { it.authFail() }
+                .map { FingerprintPartialChanges.UnlockFail(it) },
 
-                intent { it.authSuccess() }
-                        .switchMap {
-                            accountRepository.unlockByFingerprint()
-                                    .subscribeOn(Schedulers.io())
-                                    .observeOn(AndroidSchedulers.mainThread())
-                                    .map <FingerprintPartialChanges> {
-                                        FingerprintPartialChanges.UnlockSuccess(Unit)
-                                    }
-                                    .onErrorReturn {
-                                        FingerprintPartialChanges.UnlockFail(it.toString())
-                                    }
+            intent { it.authSuccess() }
+                .switchMap {
+                    accountRepository.unlockByFingerprint()
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .map<FingerprintPartialChanges> {
+                            FingerprintPartialChanges.UnlockSuccess(Unit)
                         }
+                        .onErrorReturn {
+                            FingerprintPartialChanges.UnlockFail(it.toString())
+                        }
+                }
         )
 
 
         val initialViewState = LRViewState(
-                false,
-                null,
-                false,
-                false,
-                null,
-                false,
-                FingerprintModel(),
-                false)
+            false,
+            null,
+            false,
+            false,
+            null,
+            false,
+            FingerprintModel(),
+            false
+        )
 
         subscribeViewState(
-                observable.scan(initialViewState, this::stateReducer)
-                        .observeOn(AndroidSchedulers.mainThread()),
-                FingerprintView::render)
+            observable.scan(initialViewState, this::stateReducer)
+                .observeOn(AndroidSchedulers.mainThread()),
+            FingerprintView::render
+        )
 
     }
 
-    override fun stateReducer(vs: LRViewState<FingerprintModel>, change: PartialChange): LRViewState<FingerprintModel> {
+    override fun stateReducer(
+        vs: LRViewState<FingerprintModel>,
+        change: PartialChange
+    ): LRViewState<FingerprintModel> {
 
         if (change !is FingerprintPartialChanges) return super.stateReducer(vs, change)
 
         return when (change) {
-            is FingerprintPartialChanges.Exit -> vs.copy(closeScreen = true, model = vs.model.copy(usePin = true))
-            is FingerprintPartialChanges.UnlockFail -> vs.copy(model = vs.model.copy(unlockFail = true, unlockFailMessage = change.reason))
-            is FingerprintPartialChanges.UnlockSuccess -> vs.copy(closeScreen = true, model = vs.model.copy(unlockSuccess = true))
+            is FingerprintPartialChanges.Exit -> vs.copy(
+                closeScreen = true,
+                model = vs.model.copy(usePin = true)
+            )
+
+            is FingerprintPartialChanges.UnlockFail -> vs.copy(
+                model = vs.model.copy(
+                    unlockFail = true,
+                    unlockFailMessage = change.reason
+                )
+            )
+
+            is FingerprintPartialChanges.UnlockSuccess -> vs.copy(
+                closeScreen = true,
+                model = vs.model.copy(unlockSuccess = true)
+            )
         }
     }
 }

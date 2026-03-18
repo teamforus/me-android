@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import io.forus.me.android.presentation.helpers.Converter
 
 
-class FDividerItemDecoration : RecyclerView.ItemDecoration  {
+class FDividerItemDecoration : RecyclerView.ItemDecoration {
 
     private val ATTRS = intArrayOf(android.R.attr.listDivider)
 
@@ -23,7 +23,6 @@ class FDividerItemDecoration : RecyclerView.ItemDecoration  {
         divider = styledAttributes.getDrawable(0)
         styledAttributes.recycle()
     }
-
 
 
     constructor(context: Context, resId: Int) {

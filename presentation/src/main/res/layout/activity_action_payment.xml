@@ -4,34 +4,27 @@
     android:layout_height="match_parent">
 
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+        <include
+            android:id="@+id/title0"
+            layout="@layout/toolbar_view" />
 
-
-
-        <RelativeLayout
+        <FrameLayout
+            android:id="@+id/dashboard_content"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <include
-                android:id="@+id/title0"
-                layout="@layout/toolbar_view" />
-
-            <FrameLayout
-                android:id="@+id/dashboard_content"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/title0"
-                />
+            android:layout_height="match_parent"
+            android:layout_below="@+id/title0" />
 
 
-            <FrameLayout
-                android:id="@+id/dashboard_top_content"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+        <FrameLayout
+            android:id="@+id/dashboard_top_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
-        </RelativeLayout>
-
-
+    </RelativeLayout>
 
 
 </RelativeLayout>

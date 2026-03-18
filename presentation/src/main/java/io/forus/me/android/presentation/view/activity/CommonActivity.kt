@@ -24,7 +24,6 @@ abstract class CommonActivity : BaseActivity() {
     }
 
 
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {

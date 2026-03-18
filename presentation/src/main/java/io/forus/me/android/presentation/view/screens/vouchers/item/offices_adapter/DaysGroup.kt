@@ -31,20 +31,28 @@ class DaysGroup {
             group.isEmpty() -> {
                 ""
             }
+
             group.size == 1 -> {
                 val day = group.first()
-                getDayOfWeekName(ctx, day.weekDay.toInt()) + ": " + day.startTime + " - " + day.endTime
+                getDayOfWeekName(
+                    ctx,
+                    day.weekDay.toInt()
+                ) + ": " + day.startTime + " - " + day.endTime
             }
+
             else -> {
                 val firstDay = group.first()
                 val lastDay = group.last()
-                (getDayOfWeekName(ctx, firstDay.weekDay.toInt()) + " - " + getDayOfWeekName(ctx, lastDay.weekDay.toInt()) + ": "
+                (getDayOfWeekName(ctx, firstDay.weekDay.toInt()) + " - " + getDayOfWeekName(
+                    ctx,
+                    lastDay.weekDay.toInt()
+                ) + ": "
                         + firstDay.startTime + " - " + firstDay.endTime)
             }
         }
     }
 
-    fun isEmptyGroup():Boolean{
+    fun isEmptyGroup(): Boolean {
         return group.isEmpty()
     }
 

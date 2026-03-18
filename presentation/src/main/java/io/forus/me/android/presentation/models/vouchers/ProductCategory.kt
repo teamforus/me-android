@@ -5,9 +5,10 @@ import android.os.Parcelable
 
 class ProductCategory(var id: Long, var key: String?, var name: String?) : Parcelable {
     constructor(parcel: Parcel) : this(
-            parcel.readLong(),
-            parcel.readString() ?: "",
-            parcel.readString() ?: "")
+        parcel.readLong(),
+        parcel.readString() ?: "",
+        parcel.readString() ?: ""
+    )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeLong(id)

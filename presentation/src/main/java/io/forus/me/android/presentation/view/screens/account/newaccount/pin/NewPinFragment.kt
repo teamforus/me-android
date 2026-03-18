@@ -17,11 +17,11 @@ import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 
-class NewPinFragment : ToolbarLRFragment<NewPinModel, NewPinView, NewPinPresenter>(), NewPinView ,
+class NewPinFragment : ToolbarLRFragment<NewPinModel, NewPinView, NewPinPresenter>(), NewPinView,
     MViewModelProvider<NewPinViewModel> {
 
 
-     override val viewModel by lazy {
+    override val viewModel by lazy {
         ViewModelProvider(requireActivity())[NewPinViewModel::class.java].apply { }
     }
 
@@ -38,7 +38,6 @@ class NewPinFragment : ToolbarLRFragment<NewPinModel, NewPinView, NewPinPresente
 
     override val showAccount: Boolean
         get() = false
-
 
 
     override fun viewForSnackbar(): View = binding.root
@@ -61,14 +60,18 @@ class NewPinFragment : ToolbarLRFragment<NewPinModel, NewPinView, NewPinPresente
 
     private val skip = PublishSubject.create<Unit>()
     override fun skip(): Observable<Unit> = skip
-    
+
     private lateinit var binding: FragmentAccountSetPinBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
 
-        
+
         binding = FragmentAccountSetPinBinding.inflate(inflater)
-        
+
         return binding.root
     }
 
@@ -76,9 +79,9 @@ class NewPinFragment : ToolbarLRFragment<NewPinModel, NewPinView, NewPinPresente
         super.onViewCreated(view, savedInstanceState)
         skip.onNext(Unit)
         binding.pinLockView.attachIndicatorDots(binding.indicatorDots)
-        binding.pinLockView.setPinLockListener(object: PinLockListener{
+        binding.pinLockView.setPinLockListener(object : PinLockListener {
             override fun onComplete(pin: String?) {
-                if(pin != null) pinOnComplete.onNext(pin)
+                if (pin != null) pinOnComplete.onNext(pin)
             }
 
             override fun onEmpty() {
@@ -86,7 +89,7 @@ class NewPinFragment : ToolbarLRFragment<NewPinModel, NewPinView, NewPinPresente
             }
 
             override fun onPinChange(pinLength: Int, intermediatePin: String?) {
-                if(intermediatePin != null) pinOnChange.onNext(intermediatePin)
+                if (intermediatePin != null) pinOnChange.onNext(intermediatePin)
             }
 
         })
@@ -94,37 +97,69 @@ class NewPinFragment : ToolbarLRFragment<NewPinModel, NewPinView, NewPinPresente
         binding.btnExit.setOnClickListener { skip.onNext(Unit) }
     }
 
-    override fun createPresenter():NewPinPresenter {
-        val accessToken = viewModel.accessToken.value?:""
-        Log.d("PresenterR","createPresenter   accessToken = ${accessToken}")
-         return NewPinPresenter(
+    override fun createPresenter(): NewPinPresenter {
+        val accessToken = viewModel.accessToken.value ?: ""
+        Log.d("PresenterR", "createPresenter   accessToken = ${accessToken}")
+        return NewPinPresenter(
             Injection.instance.accountRepository,
-             accessToken
+            accessToken
         )
     }
 
     override fun render(vs: LRViewState<NewPinModel>) {
         super.render(vs)
 
-        binding.progressBar.visibility = if (vs.loading || vs.model.state == NewPinModel.State.CREATING_IDENTITY) View.VISIBLE else View.INVISIBLE
-        binding.pinLockView.visibility = when (vs.model.state) { NewPinModel.State.CREATING_IDENTITY, NewPinModel.State.CREATING_IDENTITY_ERROR -> View.INVISIBLE else  -> View.VISIBLE}
-        binding.indicatorDots.visibility = when (vs.model.state) { NewPinModel.State.CREATING_IDENTITY, NewPinModel.State.CREATING_IDENTITY_ERROR -> View.INVISIBLE else  -> View.VISIBLE}
-        binding.btnExit.visibility = if(vs.model.skipEnabled) View.VISIBLE else View.INVISIBLE
+        binding.progressBar.visibility =
+            if (vs.loading || vs.model.state == NewPinModel.State.CREATING_IDENTITY) View.VISIBLE else View.INVISIBLE
+        binding.pinLockView.visibility = when (vs.model.state) {
+            NewPinModel.State.CREATING_IDENTITY, NewPinModel.State.CREATING_IDENTITY_ERROR -> View.INVISIBLE
+            else -> View.VISIBLE
+        }
+        binding.indicatorDots.visibility = when (vs.model.state) {
+            NewPinModel.State.CREATING_IDENTITY, NewPinModel.State.CREATING_IDENTITY_ERROR -> View.INVISIBLE
+            else -> View.VISIBLE
+        }
+        binding.btnExit.visibility = if (vs.model.skipEnabled) View.VISIBLE else View.INVISIBLE
 
-        when(vs.model.state){
-            NewPinModel.State.CREATE -> changeHeaders(resources.getString(R.string.passcode_title_create), resources.getString(R.string.passcode_subtitle_create), false)
-            NewPinModel.State.CONFIRM -> changeHeaders(resources.getString(R.string.passcode_title_confirm), resources.getString(R.string.passcode_subtitle_create), false)
-            NewPinModel.State.PASS_NOT_MATCH -> changeHeaders(resources.getString(R.string.passcode_title_create), resources.getString(R.string.passcode_subtitle_create_not_match), true)
-            NewPinModel.State.CREATING_IDENTITY -> changeHeaders(resources.getString(R.string.passcode_title_create_identity_wait), resources.getString(R.string.passcode_subtitle_create_identity), false)
-            NewPinModel.State.CREATING_IDENTITY_ERROR -> changeHeaders(resources.getString(R.string.passcode_subtitle_change_error), vs.model.createIdentityError?.message ?: "", true)
+        when (vs.model.state) {
+            NewPinModel.State.CREATE -> changeHeaders(
+                resources.getString(R.string.passcode_title_create),
+                resources.getString(R.string.passcode_subtitle_create),
+                false
+            )
+
+            NewPinModel.State.CONFIRM -> changeHeaders(
+                resources.getString(R.string.passcode_title_confirm),
+                resources.getString(R.string.passcode_subtitle_create),
+                false
+            )
+
+            NewPinModel.State.PASS_NOT_MATCH -> changeHeaders(
+                resources.getString(R.string.passcode_title_create),
+                resources.getString(R.string.passcode_subtitle_create_not_match),
+                true
+            )
+
+            NewPinModel.State.CREATING_IDENTITY -> changeHeaders(
+                resources.getString(R.string.passcode_title_create_identity_wait),
+                resources.getString(R.string.passcode_subtitle_create_identity),
+                false
+            )
+
+            NewPinModel.State.CREATING_IDENTITY_ERROR -> changeHeaders(
+                resources.getString(R.string.passcode_subtitle_change_error),
+                vs.model.createIdentityError?.message ?: "",
+                true
+            )
         }
 
-        if(vs.model.state != vs.model.prevState) when(vs.model.state){
+        if (vs.model.state != vs.model.prevState) when (vs.model.state) {
             NewPinModel.State.CONFIRM -> binding.pinLockView.resetPinLockView()
             NewPinModel.State.PASS_NOT_MATCH -> {
                 binding.pinLockView.resetPinLockView()
                 binding.pinLockView.setErrorAnimation()
             }
+
             else -> {}
         }
 
@@ -133,10 +168,14 @@ class NewPinFragment : ToolbarLRFragment<NewPinModel, NewPinView, NewPinPresente
         }
     }
 
-    private fun changeHeaders(title: String, subtitle: String, error: Boolean){
+    private fun changeHeaders(title: String, subtitle: String, error: Boolean) {
         setToolbarTitle(title)
-        if(binding.subtitleAction.text != subtitle) binding.subtitleAction.text = subtitle
-        binding.subtitleAction.setTextColor(if(error) resources.getColor(R.color.error) else resources.getColor(R.color.body_1_87))
+        if (binding.subtitleAction.text != subtitle) binding.subtitleAction.text = subtitle
+        binding.subtitleAction.setTextColor(
+            if (error) resources.getColor(R.color.error) else resources.getColor(
+                R.color.body_1_87
+            )
+        )
     }
 
     private fun closeScreen() {

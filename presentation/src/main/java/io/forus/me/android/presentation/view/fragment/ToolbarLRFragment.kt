@@ -16,16 +16,19 @@ import io.forus.me.android.presentation.view.base.lr.LRView
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.base.lr.LoadRefreshPanel
 
-abstract class ToolbarLRFragment<M, V : LRView<M>, P : MviBasePresenter<V, LRViewState<M>>> : LRFragment<M, V, P>() {
+abstract class ToolbarLRFragment<M, V : LRView<M>, P : MviBasePresenter<V, LRViewState<M>>> :
+    LRFragment<M, V, P>() {
 
 
     protected var toolbar: Toolbar? = null
-      //  get() = toolbar_view
+    //  get() = toolbar_view
 
     var toolbar_title: TextView? = null
 
-    var profile_button: io.forus.me.android.presentation.view.component.images.AutoLoadImageView? = null
-    open var info_button:  io.forus.me.android.presentation.view.component.images.AutoLoadImageView? = null
+    var profile_button: io.forus.me.android.presentation.view.component.images.AutoLoadImageView? =
+        null
+    open var info_button: io.forus.me.android.presentation.view.component.images.AutoLoadImageView? =
+        null
 
 
     open val showAccount: Boolean
@@ -47,7 +50,7 @@ abstract class ToolbarLRFragment<M, V : LRView<M>, P : MviBasePresenter<V, LRVie
         get() = ToolbarType.Regular
 
 
-    protected fun setToolbarTitle(title: String){
+    protected fun setToolbarTitle(title: String) {
         toolbar_title?.text = title
 
     }
@@ -61,9 +64,13 @@ abstract class ToolbarLRFragment<M, V : LRView<M>, P : MviBasePresenter<V, LRVie
         initUI()
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val result =  super.onCreateView(inflater, container, savedInstanceState)
-        return  result
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val result = super.onCreateView(inflater, container, savedInstanceState)
+        return result
 
     }
 
@@ -71,24 +78,26 @@ abstract class ToolbarLRFragment<M, V : LRView<M>, P : MviBasePresenter<V, LRVie
 
 
         setToolbarTitle(toolbarTitle)
-        if (toolbarType == ToolbarType.Small){
-            toolbar_title?.setPadding(toolbar_title?.paddingLeft?:0,
+        if (toolbarType == ToolbarType.Small) {
+            toolbar_title?.setPadding(
+                toolbar_title?.paddingLeft ?: 0,
                 Converter.convertDpToPixel(
-                    5f, requireActivity().applicationContext), toolbar_title?.paddingRight?:0, 0)
+                    5f, requireActivity().applicationContext
+                ), toolbar_title?.paddingRight ?: 0, 0
+            )
         }
 
 
         val castActivity = requireActivity()
-        when (castActivity){
+        when (castActivity) {
             is AppCompatActivity -> setActionBarActivity(castActivity)
 
         }
 
 
-
     }
 
-    private fun setActionBarActivity( _activity: AppCompatActivity){
+    private fun setActionBarActivity(_activity: AppCompatActivity) {
         _activity.setSupportActionBar(toolbar)
         FragmentHelper.setHomeIconToolbar(_activity, toolbar, profile_button, allowBack)
 
@@ -96,7 +105,7 @@ abstract class ToolbarLRFragment<M, V : LRView<M>, P : MviBasePresenter<V, LRVie
             profile_button?.visibility = View.INVISIBLE
         else profile_button?.visibility = View.VISIBLE
 
-        info_button?.visibility = if(showInfo) View.VISIBLE else View.INVISIBLE
+        info_button?.visibility = if (showInfo) View.VISIBLE else View.INVISIBLE
 
     }
 

@@ -63,7 +63,8 @@ abstract class LRFragment<M, V : LRView<M>, P : MviBasePresenter<V, LRViewState<
             //401 Unauthorized
             if (vs.refreshingError.message != null && vs.refreshingError.message!!.contains("401 ")) {
                 if (context != null) {
-                    SessionExpiredDialog(requireContext(),
+                    SessionExpiredDialog(
+                        requireContext(),
                         MaterialDialog.SingleButtonCallback { dialog, which ->
                             navigator.navigateToLoginSignUp(activity)
                             activity?.finish()
@@ -81,7 +82,6 @@ abstract class LRFragment<M, V : LRView<M>, P : MviBasePresenter<V, LRViewState<
                     }
             }
         }
-
 
 
     }

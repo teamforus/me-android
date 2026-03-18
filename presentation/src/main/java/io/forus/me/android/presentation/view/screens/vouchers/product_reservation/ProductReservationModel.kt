@@ -3,5 +3,5 @@ package io.forus.me.android.presentation.view.screens.vouchers.product_reservati
 import io.forus.me.android.presentation.models.vouchers.Voucher
 
 data class ProductReservationModel(
-        val items: List<Voucher> = emptyList()
+    val items: List<Voucher> = emptyList()
 )

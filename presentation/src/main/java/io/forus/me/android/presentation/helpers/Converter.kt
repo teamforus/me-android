@@ -37,7 +37,7 @@ object Converter {
 
     fun convertBigDecimalToStringNL(currency: BigDecimal): String {
         var out = NumberFormat.getCurrencyInstance(Locale("nl", "NL"))
-                .format(currency)
+            .format(currency)
         out = out.replace(".00", ",-")
         out = out.replace(",00", ",-")
         return out
@@ -46,11 +46,11 @@ object Converter {
     fun convertBigDecimalToDiscountString(discount: BigDecimal): String {
 
         var out = discount.toPlainString()// = NumberFormat.getCurrencyInstance(Locale("nl", "NL"))
-                //.format(discount)
-        if((discount.toDouble() - discount.toDouble().roundToInt()) == 0.0){
+        //.format(discount)
+        if ((discount.toDouble() - discount.toDouble().roundToInt()) == 0.0) {
             out = out.replace(".00", "%")
             out = out.replace(",00", "%")
-        }else{
+        } else {
             out += "%"
         }
 

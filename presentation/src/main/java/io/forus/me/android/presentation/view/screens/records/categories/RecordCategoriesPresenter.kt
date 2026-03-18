@@ -8,14 +8,17 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 
 
-class RecordCategoriesPresenter constructor(val recordsRepository: RecordsRepository) : LRPresenter<List<io.forus.me.android.domain.models.records.RecordCategory>, RecordCategoriesModel, RecordCategoriesView>() {
+class RecordCategoriesPresenter constructor(val recordsRepository: RecordsRepository) :
+    LRPresenter<List<io.forus.me.android.domain.models.records.RecordCategory>, RecordCategoriesModel, RecordCategoriesView>() {
 
 
-    override fun initialModelSingle(): Single<List<io.forus.me.android.domain.models.records.RecordCategory>> = Single.fromObservable(
+    override fun initialModelSingle(): Single<List<io.forus.me.android.domain.models.records.RecordCategory>> =
+        Single.fromObservable(
             recordsRepository.getCategoriesWithRecordCount()
-    )
+        )
 
-    override fun RecordCategoriesModel.changeInitialModel(i: List<io.forus.me.android.domain.models.records.RecordCategory>): RecordCategoriesModel = copy(items = i)
+    override fun RecordCategoriesModel.changeInitialModel(i: List<io.forus.me.android.domain.models.records.RecordCategory>): RecordCategoriesModel =
+        copy(items = i)
 
 
     override fun bindIntents() {
@@ -23,22 +26,27 @@ class RecordCategoriesPresenter constructor(val recordsRepository: RecordsReposi
 
 
         val initialViewState = LRViewState(
-                false,
-                null,
-                false,
-                false,
-                null,
-                false,
-                RecordCategoriesModel(),
-                false)
+            false,
+            null,
+            false,
+            false,
+            null,
+            false,
+            RecordCategoriesModel(),
+            false
+        )
 
         subscribeViewState(
-                observable.scan(initialViewState, this::stateReducer)
-                        .observeOn(AndroidSchedulers.mainThread()),
-                RecordCategoriesView::render)
+            observable.scan(initialViewState, this::stateReducer)
+                .observeOn(AndroidSchedulers.mainThread()),
+            RecordCategoriesView::render
+        )
     }
 
-    override fun stateReducer(viewState: LRViewState<RecordCategoriesModel>, change: PartialChange): LRViewState<RecordCategoriesModel> {
+    override fun stateReducer(
+        viewState: LRViewState<RecordCategoriesModel>,
+        change: PartialChange
+    ): LRViewState<RecordCategoriesModel> {
 
         if (change !is RecordCategoriesPartialChanges) return super.stateReducer(viewState, change)
 
@@ -50,15 +58,6 @@ class RecordCategoriesPresenter constructor(val recordsRepository: RecordsReposi
         }
 
     }
-
-
-
-
-
-
-
-
-
 
 
 }

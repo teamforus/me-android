@@ -13,14 +13,19 @@ import io.forus.me.android.domain.models.vouchers.ProductAction
 import io.forus.me.android.presentation.R
 
 
-class ActionsAdapter(var items: ArrayList<ProductAction>, val callback: Callback, val context: Context) : RecyclerView.Adapter<ActionsAdapter.MainHolder>() {
+class ActionsAdapter(
+    var items: ArrayList<ProductAction>,
+    val callback: Callback,
+    val context: Context
+) : RecyclerView.Adapter<ActionsAdapter.MainHolder>() {
 
 
     private val LOADING = 0
     private val ITEM = 1
     private var isLoadingAdded = false
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = MainHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_action, parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+        MainHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_action, parent, false))
 
     override fun getItemCount() = items.size
 
@@ -40,12 +45,11 @@ class ActionsAdapter(var items: ArrayList<ProductAction>, val callback: Callback
             priceTV.text = item.priceUserLocale
 
 
-
             val url = item.photoURL
             if (url != null && url.isNotEmpty()) {
                 Glide.with(context).load(url)
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .into(icon)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(icon)
             }
 
             itemView.setOnClickListener {

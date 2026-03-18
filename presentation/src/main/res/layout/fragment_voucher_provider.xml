@@ -1,118 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
 
     android:id="@+id/root"
-    android:background="@color/colorPrimary"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include layout="@layout/toolbar_view"/>
+        <include layout="@layout/toolbar_view" />
 
         <io.forus.me.android.presentation.view.base.lr.LRPanelImpl
             android:id="@+id/lr_panel"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <androidx.core.widget.NestedScrollView
-                xmlns:app="http://schemas.android.com/apk/res-auto"
+            <androidx.core.widget.NestedScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools"
-                android:orientation="vertical"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
                 <LinearLayout
-                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
                     <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="110dp"
                         android:layout_marginLeft="10dp"
+                        android:layout_marginTop="8dp"
                         android:layout_marginRight="10dp"
                         android:layout_marginBottom="8dp"
-                        android:layout_marginTop="8dp"
-                        app:cardCornerRadius="@dimen/card_radius"
                         app:cardBackgroundColor="@color/brightBackground"
-                        app:cardElevation="@dimen/card_elevation_small"
-                        android:layout_width="match_parent"
-                        android:layout_height="110dp">
+                        app:cardCornerRadius="@dimen/card_radius"
+                        app:cardElevation="@dimen/card_elevation_small">
 
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
 
                             <LinearLayout
-                                android:layout_marginRight="140dp"
-                                android:layout_marginEnd="140dp"
-                                android:orientation="vertical"
                                 android:layout_width="match_parent"
                                 android:layout_height="110dp"
+                                android:layout_marginEnd="140dp"
+                                android:layout_marginRight="140dp"
+                                android:orientation="vertical"
                                 android:paddingStart="16dp">
 
                                 <io.forus.me.android.presentation.view.component.text.TextView
                                     android:id="@+id/tv_name"
                                     style="@style/CardTitle4"
-                                    app:type="medium"
-                                    android:layout_marginTop="15dp"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:layout_marginTop="15dp"
+                                    android:ellipsize="end"
                                     android:lines="1"
                                     android:maxLines="1"
-                                    android:ellipsize="end"
+                                    app:type="medium"
                                     tools:text="Bike" />
 
                                 <io.forus.me.android.presentation.view.component.text.TextView
                                     android:id="@+id/tv_organization"
                                     style="@style/BackToCaption"
-                                    android:layout_marginTop="4dp"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:layout_marginTop="4dp"
+                                    android:ellipsize="end"
                                     android:lines="1"
                                     android:maxLines="1"
-                                    android:ellipsize="end"
                                     tools:text="Initflow" />
 
                                 <io.forus.me.android.presentation.view.component.text.TextView
                                     android:id="@+id/tv_fund"
                                     style="@style/Subtitle"
-                                    app:type="medium"
-                                    android:layout_marginTop="4dp"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:layout_marginTop="4dp"
+                                    android:ellipsize="end"
                                     android:lines="1"
                                     android:maxLines="1"
-                                    android:ellipsize="end"
-                                    tools:text="Kindpakket"
                                     android:visibility="gone"
-                                    />
+                                    app:type="medium"
+                                    tools:text="Kindpakket" />
 
                                 <io.forus.me.android.presentation.view.component.text.TextView
                                     android:id="@+id/tv_price"
                                     style="@style/Headline6"
-                                    android:layout_marginTop="4dp"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:layout_marginTop="4dp"
+                                    android:ellipsize="end"
                                     android:lines="1"
                                     android:maxLines="1"
-                                    android:ellipsize="end"
                                     tools:text="€ 13.80" />
 
                             </LinearLayout>
 
                             <io.forus.me.android.presentation.view.component.images.AutoLoadImageView
                                 android:id="@+id/iv_icon"
-                                android:layout_alignParentTop="true"
-                                android:layout_alignParentEnd="true"
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
+                                android:layout_alignParentTop="true"
+                                android:layout_alignParentEnd="true"
                                 android:layout_marginLeft="17dp"
                                 android:layout_marginTop="17dp"
                                 android:layout_marginRight="17dp"
@@ -121,15 +118,15 @@
 
                             <io.forus.me.android.presentation.view.component.text.TextView
                                 android:id="@+id/used"
-                                android:visibility="gone"
+                                style="@style/UsedVoucher"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginRight="17dp"
                                 android:layout_below="@+id/iv_icon"
                                 android:layout_alignParentEnd="true"
-                                style="@style/UsedVoucher"
-                                app:type="regular"
-                                android:text="@string/voucher_is_used" />
+                                android:layout_marginRight="17dp"
+                                android:text="@string/voucher_is_used"
+                                android:visibility="gone"
+                                app:type="regular" />
 
                         </RelativeLayout>
 
@@ -141,16 +138,15 @@
                         android:layout_height="5dp"
                         android:layout_marginTop="12dp"
                         android:layout_marginBottom="0dp"
-                        android:background="@drawable/shape_shadow_gradient"
                         android:alpha="0.8"
-                        />
+                        android:background="@drawable/shape_shadow_gradient" />
 
                     <LinearLayout
-                        android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                        android:layout_marginRight="@dimen/activity_horizontal_margin">
+                        android:layout_marginRight="@dimen/activity_horizontal_margin"
+                        android:orientation="vertical">
 
                         <include layout="@layout/view_organization" />
 
@@ -166,49 +162,47 @@
                                 android:id="@+id/amountInputText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                app:validationError="@string/me_validation_error_decimal"
                                 android:fontFamily="@font/google_sans_regular"
-                                />
+                                app:validationError="@string/me_validation_error_decimal" />
 
                         </com.google.android.material.textfield.TextInputLayout>
 
 
-
                         <io.forus.me.android.presentation.view.component.editors.EditTextOutlined
                             android:id="@+id/note"
-                            android:layout_marginTop="16dp"
-                            app:hint="@string/vouchers_note"
-                            app:validationRegex="none"
-                            android:inputType="textMultiLine"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:inputType="textMultiLine"
+                            app:hint="@string/vouchers_note"
+                            app:validationRegex="none" />
 
                         <io.forus.me.android.presentation.view.component.text.TextView
-                            android:visibility="gone"
                             style="@style/Headline6"
-                            android:layout_marginTop="5dp"
-                            app:type="medium"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/vouchers_product_categories" />
+                            android:layout_marginTop="5dp"
+                            android:text="@string/vouchers_product_categories"
+                            android:visibility="gone"
+                            app:type="medium" />
 
                         <androidx.recyclerview.widget.RecyclerView
-                            android:visibility="gone"
                             android:id="@+id/rv_categories"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:layout_marginBottom="52dp"/>
+                            android:layout_marginBottom="52dp"
+                            android:visibility="gone" />
 
                     </LinearLayout>
 
                     <RelativeLayout
                         android:id="@+id/rl_make"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginTop="16dp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginRight="16dp">
 
                         <io.forus.me.android.presentation.view.component.buttons.Button
                             android:id="@+id/btn_make"

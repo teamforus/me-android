@@ -19,14 +19,10 @@ import io.forus.me.android.presentation.R;
 public class CreateRecordSuccessDialog extends DialogFragment {
 
     View rootView;
-
+    String positiveButtonText = "OK";
+    SubmitClickListener submitClickListener;
     private String recordType = "";
     private String recordName = "";
-    String positiveButtonText= "OK";
-
-    SubmitClickListener submitClickListener;
-
-
 
     public static CreateRecordSuccessDialog display(FragmentManager fragmentManager, String recordType, String recordNameTV, SubmitClickListener submitClickListener) {
         CreateRecordSuccessDialog fullscreenDialog = new CreateRecordSuccessDialog();

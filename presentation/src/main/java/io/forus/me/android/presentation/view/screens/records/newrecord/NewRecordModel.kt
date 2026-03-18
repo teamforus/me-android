@@ -8,18 +8,18 @@ import io.forus.me.android.presentation.models.ValidationResult
 import io.forus.me.android.presentation.view.screens.records.newrecord.NewRecordView.Companion.NUM_PAGES
 
 data class NewRecordModel(
-        val item: NewRecordRequest = NewRecordRequest(),
-        val currentStep: Int = 0,
-        val sendingCreateRecord: Boolean = false,
-        val sendingCreateRecordError: Throwable? = null,
-        val types: List<RecordType> = emptyList(),
-        val categories: List<RecordCategory> = emptyList(),
-        val validators: List<SimpleValidator> = emptyList()
+    val item: NewRecordRequest = NewRecordRequest(),
+    val currentStep: Int = 0,
+    val sendingCreateRecord: Boolean = false,
+    val sendingCreateRecordError: Throwable? = null,
+    val types: List<RecordType> = emptyList(),
+    val categories: List<RecordCategory> = emptyList(),
+    val validators: List<SimpleValidator> = emptyList()
 ) {
 
     val isFinalStep: Boolean
         get() {
-            return if(validators.isNotEmpty()) (currentStep >= NUM_PAGES - 1) else (currentStep >= NUM_PAGES - 2)
+            return if (validators.isNotEmpty()) (currentStep >= NUM_PAGES - 1) else (currentStep >= NUM_PAGES - 2)
         }
 
     val buttonIsActive: Boolean
@@ -33,20 +33,19 @@ data class NewRecordModel(
             return active
         }
 
-    val  validationResult: ValidationResult
+    val validationResult: ValidationResult
         get() {
             var valid = false
             var error = ""
             when {
-                sendingCreateRecord -> error =  ("Request in progress")
+                sendingCreateRecord -> error = ("Request in progress")
                 item.category == null -> error = ("Please select category")
-                item.recordType == null -> error =  ("Please select validator")
-                item.value.isEmpty() -> error =  ("Value is not valid")
+                item.recordType == null -> error = ("Please select validator")
+                item.value.isEmpty() -> error = ("Value is not valid")
                 else -> valid = true
             }
             return ValidationResult(valid, error)
         }
-
 
 
 }

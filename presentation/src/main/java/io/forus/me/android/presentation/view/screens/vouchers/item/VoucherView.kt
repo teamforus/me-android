@@ -7,7 +7,7 @@ import io.forus.me.android.presentation.view.base.lr.LRView
  */
 
 
-interface VoucherView : LRView<VoucherModel>{
+interface VoucherView : LRView<VoucherModel> {
 
     fun sendEmail(): io.reactivex.Observable<Unit>
 

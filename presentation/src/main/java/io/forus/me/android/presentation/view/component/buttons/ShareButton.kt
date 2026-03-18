@@ -21,9 +21,9 @@ class ShareButton : FrameLayout {
 
     var color: Int? = null
 
-    private lateinit var  mRootView : View
+    private lateinit var mRootView: View
 
-    private lateinit var  mContainer : LinearLayout
+    private lateinit var mContainer: LinearLayout
 
 
     constructor(context: Context) : super(context) {
@@ -34,16 +34,20 @@ class ShareButton : FrameLayout {
         initNonStyle(context, attrs)
     }
 
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
+    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
+        context,
+        attrs,
+        defStyleAttr
+    ) {
         init(context, attrs)
     }
 
-    private fun initNonStyle(context: Context,  attrs: AttributeSet?) {
+    private fun initNonStyle(context: Context, attrs: AttributeSet?) {
 
         init(context, attrs)
     }
 
-    private fun init(context: Context,  attrs: AttributeSet?) {
+    private fun init(context: Context, attrs: AttributeSet?) {
 
         val inflater = LayoutInflater.from(context)
         mRootView = inflater.inflate(R.layout.view_share_button, this)
@@ -70,14 +74,15 @@ class ShareButton : FrameLayout {
                 this.color = color
         }
 
-        val imageView : ImageView = mContainer.findViewById(R.id.iv_icon)
-        if(icon != null) {
+        val imageView: ImageView = mContainer.findViewById(R.id.iv_icon)
+        if (icon != null) {
             imageView.setImageDrawable(icon)
-            if(color != null){
+            if (color != null) {
                 imageView.setColorFilter(color!!)
             }
         }
-        val textView : io.forus.me.android.presentation.view.component.text.TextView = mContainer.findViewById(R.id.tv_text)
+        val textView: io.forus.me.android.presentation.view.component.text.TextView =
+            mContainer.findViewById(R.id.tv_text)
         textView.text = text
 
         ta.recycle()

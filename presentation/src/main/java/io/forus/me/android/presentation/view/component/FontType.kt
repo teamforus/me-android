@@ -2,7 +2,7 @@ package io.forus.me.android.presentation.view.component
 
 
 enum class FontType(val prefix: String) {
-    Bold ("bold"),
+    Bold("bold"),
     BoldItalic("bolditalic"),
     Italic("italic"),
     Medium("medium"),
@@ -10,7 +10,7 @@ enum class FontType(val prefix: String) {
     Regular("regular");
 
 
-    fun getFontPath(): String{
+    fun getFontPath(): String {
         val prefix = "googlesans_"
 
         if (this == FontType.Bold)
@@ -38,9 +38,9 @@ enum class FontType(val prefix: String) {
 
     companion object {
 
-        fun getFromString(value: String, default: FontType) : FontType {
+        fun getFromString(value: String, default: FontType): FontType {
             val items = FontType.values()
-            for ( item in items) {
+            for (item in items) {
                 if (item.prefix == value)
                     return item
             }

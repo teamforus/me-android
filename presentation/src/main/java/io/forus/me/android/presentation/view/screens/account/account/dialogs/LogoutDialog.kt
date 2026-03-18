@@ -5,29 +5,31 @@ import com.afollestad.materialdialogs.MaterialDialog
 import io.forus.me.android.presentation.R
 
 
-class LogoutDialog(private val context: Context,
-                   private val positiveCallback: () -> Unit){
+class LogoutDialog(
+    private val context: Context,
+    private val positiveCallback: () -> Unit
+) {
 
     private val dialog: MaterialDialog = MaterialDialog.Builder(context)
-            .title(context.resources.getString(R.string.profile_logout_dialog_title))
-            .content(R.string.profile_logout_dialog_content)
-            .positiveText(context.resources.getString(R.string.profile_logout))
-            .negativeText(context.resources.getString(R.string.cancel))
-            .onPositive { dialog, which -> positiveCallback.invoke() }
-            .onNegative{ dialog, which -> dismiss() }
-            .cancelListener { dismiss() }
-            .build()
+        .title(context.resources.getString(R.string.profile_logout_dialog_title))
+        .content(R.string.profile_logout_dialog_content)
+        .positiveText(context.resources.getString(R.string.profile_logout))
+        .negativeText(context.resources.getString(R.string.cancel))
+        .onPositive { dialog, which -> positiveCallback.invoke() }
+        .onNegative { dialog, which -> dismiss() }
+        .cancelListener { dismiss() }
+        .build()
 
     init {
         val view = dialog.customView
 
     }
 
-    fun show(){
+    fun show() {
         dialog.show()
     }
 
-    fun dismiss(){
+    fun dismiss() {
         dialog.dismiss()
     }
 

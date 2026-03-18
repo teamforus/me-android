@@ -15,12 +15,13 @@ class LoggingViewModelFactory(private val firestoreTokenManager: FirestoreTokenM
     }
 }
 
-class LoggingViewModel constructor(private val firestoreTokenManager: FirestoreTokenManager) : ViewModel() {
+class LoggingViewModel constructor(private val firestoreTokenManager: FirestoreTokenManager) :
+    ViewModel() {
 
 
-    fun authorizeFirestore(){
-        firestoreTokenManager.authorizeFirestore{
-            Log.d("FirestoreLogger","Firestore success authorized!")
+    fun authorizeFirestore() {
+        firestoreTokenManager.authorizeFirestore {
+            Log.d("FirestoreLogger", "Firestore success authorized!")
         }
     }
 

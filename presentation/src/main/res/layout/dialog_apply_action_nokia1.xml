@@ -5,18 +5,17 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:paddingLeft="20dp"
-    android:paddingRight="20dp"
-    >
+    android:paddingRight="20dp">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="26dp"
+        android:fontFamily="@font/google_sans_medium"
         android:gravity="center"
         android:letterSpacing="0.01"
         android:text="@string/confirm_payment"
         android:textColor="#28292B"
-        android:fontFamily="@font/google_sans_medium"
         android:textSize="20sp" />
 
     <TextView
@@ -24,9 +23,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="21dp"
+        android:fontFamily="@font/google_sans_regular"
         android:gravity="center"
         android:textColor="#28292B"
-        android:fontFamily="@font/google_sans_regular"
         android:textSize="16sp"
         tools:text="title" />
 
@@ -36,12 +35,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
+        android:fontFamily="@font/google_sans_regular"
         android:gravity="center"
         android:textColor="@color/colorAccent"
-        android:fontFamily="@font/google_sans_regular"
         android:textSize="28sp"
         tools:text="amount" />
-
 
 
     <TextView
@@ -49,11 +47,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="7dp"
-        android:gravity="center"
-        android:textColor="#28292B"
-        android:letterSpacing="0.01"
-        android:textSize="16sp"
         android:fontFamily="@font/google_sans_regular"
+        android:gravity="center"
+        android:letterSpacing="0.01"
+        android:textColor="#28292B"
+        android:textSize="16sp"
         tools:text="bottom" />
 
     <LinearLayout
@@ -72,15 +70,15 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center"
-            android:padding="4dp"
             android:clickable="true"
             android:focusable="true"
             android:fontFamily="@font/google_sans_medium"
-            android:textAllCaps="true"
+            android:gravity="center"
             android:letterSpacing="0.01"
-            android:textSize="14sp"
-            android:text="@string/cancel" />
+            android:padding="4dp"
+            android:text="@string/cancel"
+            android:textAllCaps="true"
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/submit"
@@ -88,15 +86,15 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center"
-            android:padding="4dp"
             android:clickable="true"
             android:focusable="true"
             android:fontFamily="@font/google_sans_medium"
+            android:gravity="center"
             android:letterSpacing="0.01"
+            android:padding="4dp"
+            android:text="@string/submit"
             android:textAllCaps="true"
-            android:textSize="14sp"
-            android:text="@string/submit" />
+            android:textSize="14sp" />
 
 
     </LinearLayout>

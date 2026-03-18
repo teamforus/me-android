@@ -18,7 +18,9 @@ import io.forus.me.android.presentation.view.screens.vouchers.list.VouchersAdapt
 import io.forus.me.android.presentation.view.screens.vouchers.provider.ProviderActivity
 
 
-class ProductReservationFragment : ToolbarLRFragment<ProductReservationModel, ProductReservationView, ProductReservationPresenter>(), ProductReservationView,
+class ProductReservationFragment :
+    ToolbarLRFragment<ProductReservationModel, ProductReservationView, ProductReservationPresenter>(),
+    ProductReservationView,
     MViewModelProvider<VoucherViewModel> {
 
     override val viewModel by lazy {
@@ -29,17 +31,17 @@ class ProductReservationFragment : ToolbarLRFragment<ProductReservationModel, Pr
     private var showParentVoucher: Boolean = false
 
 
-
     companion object {
         private const val VOUCHER_ADDRESS_EXTRA = "VOUCHER_ADDRESS_EXTRA"
         private const val SHOW_PARENT_VOUCHER = "SHOW_PARENT_VOUCHER"
 
-        fun newIntent(id: String, showParentVoucher: Boolean): ProductReservationFragment = ProductReservationFragment().also {
-            val bundle = Bundle()
-            bundle.putSerializable(VOUCHER_ADDRESS_EXTRA, id)
-            bundle.putSerializable(SHOW_PARENT_VOUCHER, showParentVoucher)
-            it.arguments = bundle
-        }
+        fun newIntent(id: String, showParentVoucher: Boolean): ProductReservationFragment =
+            ProductReservationFragment().also {
+                val bundle = Bundle()
+                bundle.putSerializable(VOUCHER_ADDRESS_EXTRA, id)
+                bundle.putSerializable(SHOW_PARENT_VOUCHER, showParentVoucher)
+                it.arguments = bundle
+            }
     }
 
     private lateinit var adapter: VouchersAdapter
@@ -60,12 +62,19 @@ class ProductReservationFragment : ToolbarLRFragment<ProductReservationModel, Pr
 
     private lateinit var binding: FragmentReservationVouchersRecyclerBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
-    {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentReservationVouchersRecyclerBinding.inflate(inflater)
 
-        address = if (arguments == null) "" else requireArguments().getString(VOUCHER_ADDRESS_EXTRA, "")
-        showParentVoucher = if (arguments == null) false else requireArguments().getBoolean(SHOW_PARENT_VOUCHER, false)
+        address =
+            if (arguments == null) "" else requireArguments().getString(VOUCHER_ADDRESS_EXTRA, "")
+        showParentVoucher = if (arguments == null) false else requireArguments().getBoolean(
+            SHOW_PARENT_VOUCHER,
+            false
+        )
 
         adapter = VouchersAdapter()
 
@@ -76,8 +85,9 @@ class ProductReservationFragment : ToolbarLRFragment<ProductReservationModel, Pr
         super.onViewCreated(view, savedInstanceState)
 
         adapter.clickListener = { voucher: Voucher, _: List<View>, _: Int ->
-            if(context != null ) {
-                val intentToLaunch = ProviderActivity.getCallingIntent(requireContext(), voucher.address!!)
+            if (context != null) {
+                val intentToLaunch =
+                    ProviderActivity.getCallingIntent(requireContext(), voucher.address!!)
                 requireContext().startActivity(intentToLaunch)
             }
         }
@@ -92,7 +102,7 @@ class ProductReservationFragment : ToolbarLRFragment<ProductReservationModel, Pr
                     navigator.navigateToVoucherProvider(context, address)
                 }
             }
-        }else{
+        } else {
             binding.parentVoucherBt.visibility = View.GONE
         }
 
@@ -100,7 +110,7 @@ class ProductReservationFragment : ToolbarLRFragment<ProductReservationModel, Pr
 
 
     override fun createPresenter() = ProductReservationPresenter(
-            Injection.instance.vouchersRepository , viewModel.address.value?:"",
+        Injection.instance.vouchersRepository, viewModel.address.value ?: "",
         Injection.instance.firestoreTokenManager
     )
 
@@ -114,11 +124,12 @@ class ProductReservationFragment : ToolbarLRFragment<ProductReservationModel, Pr
     override fun render(vs: LRViewState<ProductReservationModel>) {
         super.render(vs)
 
-        binding.tvNoVouchers.visibility = if (!vs.loading && vs.loadingError == null && vs.model.items.isEmpty()) View.VISIBLE else View.INVISIBLE
+        binding.tvNoVouchers.visibility =
+            if (!vs.loading && vs.loadingError == null && vs.model.items.isEmpty()) View.VISIBLE else View.INVISIBLE
 
         adapter.vouchers = vs.model.items
 
-        if(vs.closeScreen) closeScreen()
+        if (vs.closeScreen) closeScreen()
     }
 
     private fun closeScreen() {

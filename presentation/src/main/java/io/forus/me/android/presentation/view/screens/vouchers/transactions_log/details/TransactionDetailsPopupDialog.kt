@@ -67,7 +67,10 @@ class TransactionDetailsPopupDialog(
             try {
                 dismiss()
             } catch (e: IllegalStateException) {
-                Log.e("TransactionDetailsPopupDialog", "Error while dismissing TransactionDetailsPopupDialog: ${e.message}")
+                Log.e(
+                    "TransactionDetailsPopupDialog",
+                    "Error while dismissing TransactionDetailsPopupDialog: ${e.message}"
+                )
             }
         }
 

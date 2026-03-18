@@ -27,10 +27,10 @@ public class ProductSerializable implements Serializable {
     public ProductSerializable(long id, String name, String companyName,
                                long companyId,
                                BigDecimal price, BigDecimal priceUser,
-                               String priceType,  BigDecimal priceDiscount,
-                               String priceLocale,String priceUserLocale,
+                               String priceType, BigDecimal priceDiscount,
+                               String priceLocale, String priceUserLocale,
                                BigDecimal sponsorSubsidy, String sponsorName,
-                                String photoURL) {
+                               String photoURL) {
         this.id = id;
         this.name = name;
         this.price = price;

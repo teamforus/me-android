@@ -38,9 +38,9 @@
                         android:layout_marginStart="30dp"
                         android:layout_marginTop="0dp"
                         android:layout_marginEnd="30dp"
+                        android:fontFamily="@font/google_sans_medium"
                         android:gravity="center_horizontal|top"
                         android:text="@string/restore_account_head"
-                        android:fontFamily="@font/google_sans_medium"
                         android:textColor="@color/textColor"
                         android:textSize="32sp" />
 
@@ -68,11 +68,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:layout_marginStart="30dp"
             android:layout_marginTop="19dp"
+            android:layout_marginEnd="30dp"
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp"
             android:src="@drawable/ic_success_restore_png" />
 
         <ProgressBar
@@ -96,8 +96,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginBottom="16dp"
-                android:text="@string/next_step"
-                 />
+                android:text="@string/next_step" />
 
             <io.forus.me.android.presentation.view.component.buttons.ButtonWhite
                 android:id="@+id/returnToRegistration"

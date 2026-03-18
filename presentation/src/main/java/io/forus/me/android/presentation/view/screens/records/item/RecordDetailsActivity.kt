@@ -36,14 +36,15 @@ class RecordDetailsActivity : CommonActivity() {
 
     }
 
-    fun showPopupQRFragment(recordId: Long){
+    fun showPopupQRFragment(recordId: Long) {
 
         val meBottomSheet = MeBottomSheetDialogFragment.newInstance(
-            RecordQRFragment.newIntent(recordId), "QR code")
+            RecordQRFragment.newIntent(recordId), "QR code"
+        )
         meBottomSheet.show(supportFragmentManager, meBottomSheet.tag)
     }
 
-    fun closeQRFragment(){
+    fun closeQRFragment() {
         fragment.updateModel()
     }
 }

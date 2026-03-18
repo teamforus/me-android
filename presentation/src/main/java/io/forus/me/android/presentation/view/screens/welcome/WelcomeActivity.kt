@@ -16,7 +16,7 @@ import io.forus.me.android.presentation.view.screens.welcome.adapter.SectionPage
 class WelcomeActivity : BaseActivity() {
 
     private var mustGoToLogin = false
-    
+
     private lateinit var binding: ActivityWelcomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,7 +41,7 @@ class WelcomeActivity : BaseActivity() {
         binding.backBt.setOnClickListener {
             if (viewPager.currentItem == 0) {
                 exitWelcome()
-            }else{
+            } else {
                 val nextItem = viewPager.currentItem - 1
                 if (nextItem >= 0) {
                     viewPager.currentItem = nextItem
@@ -99,8 +99,8 @@ class WelcomeActivity : BaseActivity() {
                             .alpha(1.0f)
                             .start()
                     }
-                }  else  if (position == 4) {
-                    if(mustGoToLogin) {
+                } else if (position == 4) {
+                    if (mustGoToLogin) {
                         binding.cbCheckBox.apply {
                             visibility = View.VISIBLE
                             alpha = 0.0f
@@ -109,11 +109,10 @@ class WelcomeActivity : BaseActivity() {
                                 .alpha(1.0f)
                                 .start()
                         }
-                    }else{
+                    } else {
                         binding.cbCheckBox.visibility = View.GONE
                     }
-                }
-                else {
+                } else {
                     binding.btSkipTutorial.animate()
                         .setDuration(200)
                         .alpha(0.0f)
@@ -140,6 +139,7 @@ class WelcomeActivity : BaseActivity() {
                                 .alpha(0.0f)
                                 .withEndAction { visibility = View.GONE }
                                 .start()
+
                             1 -> {
                                 visibility = View.VISIBLE
                                 alpha = 0.0f

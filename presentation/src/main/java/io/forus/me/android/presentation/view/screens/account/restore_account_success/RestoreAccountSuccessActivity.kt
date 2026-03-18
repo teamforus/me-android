@@ -12,7 +12,8 @@ import io.forus.me.android.presentation.view.base.MViewModelProvider
 /**
  * Created by maestrovs on 22.04.2020.
  */
-class RestoreAccountSuccessActivity : CommonActivity(), MViewModelProvider<RestoreAccountSuccessViewModel> {
+class RestoreAccountSuccessActivity : CommonActivity(),
+    MViewModelProvider<RestoreAccountSuccessViewModel> {
 
     override val viewModel: RestoreAccountSuccessViewModel by viewModels()
 
@@ -46,9 +47,9 @@ class RestoreAccountSuccessActivity : CommonActivity(), MViewModelProvider<Resto
 
             viewModel.setIsExchangeToken(isExchangeToken)
 
-            fragment = if(token != null){
+            fragment = if (token != null) {
                 viewModel.setToken(token)
-                RestoreAccountSuccessFragment.newIntent(token,isExchangeToken)
+                RestoreAccountSuccessFragment.newIntent(token, isExchangeToken)
             } else RestoreAccountSuccessFragment()
             addFragment(R.id.fragmentContainer, fragment)
         }
@@ -56,8 +57,8 @@ class RestoreAccountSuccessActivity : CommonActivity(), MViewModelProvider<Resto
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
-        intent.getStringExtra(TOKEN_EXTRA)?.let{
-    fragment.exchangeToken(it)
-}
+        intent.getStringExtra(TOKEN_EXTRA)?.let {
+            fragment.exchangeToken(it)
+        }
     }
 }

@@ -61,8 +61,10 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
     private var isDemoVoucher: Boolean? = false
     private lateinit var categoriesAdapter: CategoriesAdapter
 
-    private var tv_organization_name: io.forus.me.android.presentation.view.component.text.TextView? = null
-    private var iv_organization_icon: io.forus.me.android.presentation.view.component.images.AutoLoadImageView? = null
+    private var tv_organization_name: io.forus.me.android.presentation.view.component.text.TextView? =
+        null
+    private var iv_organization_icon: io.forus.me.android.presentation.view.component.images.AutoLoadImageView? =
+        null
     private var containerOrg: View? = null
 
     override val toolbarTitle: String
@@ -89,7 +91,7 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
     private val selectOrganization = PublishSubject.create<Organization>()
     override fun selectOrganization(): Observable<Organization> = selectOrganization
 
-        //private val charge = PublishSubject.create<BigDecimal>()
+    //private val charge = PublishSubject.create<BigDecimal>()
     //override fun charge(): Observable<BigDecimal> = charge
 
     private val charge = PublishSubject.create<Pair<BigDecimal, BigDecimal>>()
@@ -104,8 +106,7 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View
-    {
+    ): View {
         binding = FragmentVoucherProviderBinding.inflate(inflater)
 
         address =
@@ -182,7 +183,8 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
         binding.tvOrganization.text = vs.model.item?.voucher?.organizationName
         binding.ivIcon.setImageUrl(vs.model.item?.voucher?.logo)
 
-        binding.tvPrice.visibility = if (vs.model.item?.voucher?.amount_visible == true) View.VISIBLE else View.GONE
+        binding.tvPrice.visibility =
+            if (vs.model.item?.voucher?.amount_visible == true) View.VISIBLE else View.GONE
         binding.tvPrice.text = vs.model.item?.voucher?.amount_locale ?: ""
 
         if (isDemoVoucher != null && isDemoVoucher!!) {
@@ -290,18 +292,17 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
                 val extra = if (amount <= balance) BigDecimal.ZERO else amount.minus(balance)
 
 
-                if(needExtra)
-                {
-                    val bottomSheetFragment = ConfirmExtraPaymentDialog(extraAmount = extra.toFloat(),
-                        { extraAmount ->
-                            charge.onNext(Pair(chargeAmount, extraAmount.toBigDecimal()))
-                        }, {
+                if (needExtra) {
+                    val bottomSheetFragment =
+                        ConfirmExtraPaymentDialog(
+                            extraAmount = extra.toFloat(),
+                            { extraAmount ->
+                                charge.onNext(Pair(chargeAmount, extraAmount.toBigDecimal()))
+                            }, {
 
-                        })
+                            })
                     bottomSheetFragment.show(requireFragmentManager(), "BottomSheetDialog")
-                }
-                else
-                {
+                } else {
                     //charge.onNext(chargeAmount)
                     ChargeDialog(requireContext(), chargeAmount, 0.toBigDecimal() /*extra*/) {
                         charge.onNext(Pair(chargeAmount, 0.toBigDecimal()))

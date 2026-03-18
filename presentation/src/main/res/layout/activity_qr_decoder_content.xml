@@ -13,10 +13,7 @@
         android:id="@+id/qrCodeReaderView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible"
-        />
-
-
+        android:visibility="visible" />
 
 
     <RelativeLayout
@@ -38,32 +35,32 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@id/qr_frame"
-            android:background="#55000000"/>
+            android:background="#55000000" />
 
         <FrameLayout
             android:id="@+id/qr_shadow_bottom"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/qr_frame"
-            android:background="#55000000"/>
+            android:background="#55000000" />
 
         <FrameLayout
             android:id="@+id/qr_shadow_left"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_toStartOf="@id/qr_frame"
-            android:layout_below="@id/qr_shadow_top"
             android:layout_above="@id/qr_shadow_bottom"
-            android:background="#55000000"/>
+            android:layout_below="@id/qr_shadow_top"
+            android:layout_toStartOf="@id/qr_frame"
+            android:background="#55000000" />
 
         <FrameLayout
             android:id="@+id/qr_shadow_right"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_toEndOf="@id/qr_frame"
-            android:layout_below="@id/qr_shadow_top"
             android:layout_above="@id/qr_shadow_bottom"
-            android:background="#55000000"/>
+            android:layout_below="@id/qr_shadow_top"
+            android:layout_toEndOf="@id/qr_frame"
+            android:background="#55000000" />
 
     </RelativeLayout>
 
@@ -73,17 +70,17 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:gravity="center"
-        android:padding="16dp"
-        android:textColor="#ffffff"
-        android:textSize="34.1sp"
         android:letterSpacing="0.01"
-        android:text="Scan QR-code"/>
+        android:padding="16dp"
+        android:text="Scan QR-code"
+        android:textColor="#ffffff"
+        android:textSize="34.1sp" />
 
     <io.forus.me.android.presentation.view.component.qr.PointsOverlayView
         android:id="@+id/points_overlay_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
 
     <ProgressBar
@@ -91,8 +88,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:visibility="gone"
-        />
+        android:visibility="gone" />
 
 
 </RelativeLayout>

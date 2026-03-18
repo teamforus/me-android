@@ -15,8 +15,8 @@ class SelectedCategoryVH(root: View) {
         iv_icon = root.findViewById(R.id.iv_icon)
     }
 
-    fun render(item:  RecordCategory) {
+    fun render(item: RecordCategory) {
         tv_name.text = item.name
-        if(item.logo.isNotEmpty()) iv_icon.setImageUrl(item.logo)
+        if (item.logo.isNotEmpty()) iv_icon.setImageUrl(item.logo)
     }
 }

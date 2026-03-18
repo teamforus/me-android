@@ -6,9 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="56dp"
     android:background="?attr/selectableItemBackground"
-    android:orientation="horizontal"
     android:clickable="true"
     android:focusable="true"
+    android:orientation="horizontal"
 
     >
 
@@ -34,10 +34,9 @@
         android:layout_gravity="center_vertical"
         android:layout_marginTop="3dp"
         android:layout_marginEnd="16dp"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
         android:clickable="false"
-        />
+        android:focusable="false"
+        android:focusableInTouchMode="false" />
 
 
 </RelativeLayout>

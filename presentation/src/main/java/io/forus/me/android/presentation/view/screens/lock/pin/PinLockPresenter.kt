@@ -12,7 +12,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 
-class PinLockPresenter constructor(private val accountRepository: AccountRepository) : LRPresenter<Unit, PinLockModel, PinLockView>() {
+class PinLockPresenter constructor(private val accountRepository: AccountRepository) :
+    LRPresenter<Unit, PinLockModel, PinLockView>() {
 
     override fun initialModelSingle(): Single<Unit> = Single.just(Unit)
 
@@ -25,78 +26,83 @@ class PinLockPresenter constructor(private val accountRepository: AccountReposit
 
         val observable = Observable.mergeArray(
 
-                loadRefreshPartialChanges(),
+            loadRefreshPartialChanges(),
 
-                Observable.mergeArray(
-                        intent { it.pinOnComplete() }
-                                .map { PinLockPartialChanges.PinOnComplete(it) },
-                        intent { it.pinOnChange() }
-                                .map { PinLockPartialChanges.PinOnChange(it) }
-                ),
+            Observable.mergeArray(
+                intent { it.pinOnComplete() }
+                    .map { PinLockPartialChanges.PinOnComplete(it) },
+                intent { it.pinOnChange() }
+                    .map { PinLockPartialChanges.PinOnChange(it) }
+            ),
 
-                intent { it.exit() }
-                        .switchMap {
-                            accountRepository.exitIdentity()
-                                    .subscribeOn(Schedulers.io())
-                                    .observeOn(AndroidSchedulers.mainThread())
-                                    .flatMap {
-                                        Injection.instance.fcmHandler.clearFCMToken()
-                                                .subscribeOn(Schedulers.io())
-                                                .observeOn(AndroidSchedulers.mainThread())
-                                                .map<PartialChange> { PinLockPartialChanges.Exit(Unit) }
-                                                .onErrorReturn { LRPartialChange.LoadingError(it) }
-                                    }
-                                    .onErrorReturn {
-                                        LRPartialChange.LoadingError(it)
-                                    }
-                        },
-
-                intent { checkPin() }
-                        .switchMap {
-                            accountRepository.unlockIdentity(it)
-                                    .subscribeOn(Schedulers.io())
-                                    .observeOn(AndroidSchedulers.mainThread())
-                                    .map<PartialChange> {
-                                        if (it) PinLockPartialChanges.CheckPinSuccess(Unit)
-                                        else PinLockPartialChanges.CheckPinError(Unit)
-                                    }
-                                    .onErrorReturn {
-                                        PinLockPartialChanges.CheckPinError(Unit)
-                                    }
-                        },
-                intent { it.logout() }
-                        .switchMap {
-                            accountRepository
-                                    .exitIdentity()
-                                    .subscribeOn(Schedulers.io())
-                                    .observeOn(AndroidSchedulers.mainThread())
-                                    .single(false)
-                                    .map {
-                                        PinLockPartialChanges.ExitIdentity(Unit)
-                                    }
-                                    .toObservable()
+            intent { it.exit() }
+                .switchMap {
+                    accountRepository.exitIdentity()
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .flatMap {
+                            Injection.instance.fcmHandler.clearFCMToken()
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .map<PartialChange> { PinLockPartialChanges.Exit(Unit) }
+                                .onErrorReturn { LRPartialChange.LoadingError(it) }
                         }
+                        .onErrorReturn {
+                            LRPartialChange.LoadingError(it)
+                        }
+                },
+
+            intent { checkPin() }
+                .switchMap {
+                    accountRepository.unlockIdentity(it)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .map<PartialChange> {
+                            if (it) PinLockPartialChanges.CheckPinSuccess(Unit)
+                            else PinLockPartialChanges.CheckPinError(Unit)
+                        }
+                        .onErrorReturn {
+                            PinLockPartialChanges.CheckPinError(Unit)
+                        }
+                },
+            intent { it.logout() }
+                .switchMap {
+                    accountRepository
+                        .exitIdentity()
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .single(false)
+                        .map {
+                            PinLockPartialChanges.ExitIdentity(Unit)
+                        }
+                        .toObservable()
+                }
         )
 
 
         val initialViewState = LRViewState(
-                false,
-                null,
-                false,
-                false,
-                null,
-                false,
-                PinLockModel(),
-                false)
+            false,
+            null,
+            false,
+            false,
+            null,
+            false,
+            PinLockModel(),
+            false
+        )
 
         subscribeViewState(
-                observable.scan(initialViewState, this::stateReducer)
-                        .observeOn(AndroidSchedulers.mainThread()),
-                PinLockView::render)
+            observable.scan(initialViewState, this::stateReducer)
+                .observeOn(AndroidSchedulers.mainThread()),
+            PinLockView::render
+        )
 
     }
 
-    override fun stateReducer(vs: LRViewState<PinLockModel>, change: PartialChange): LRViewState<PinLockModel> {
+    override fun stateReducer(
+        vs: LRViewState<PinLockModel>,
+        change: PartialChange
+    ): LRViewState<PinLockModel> {
 
         if (change !is PinLockPartialChanges) return super.stateReducer(vs, change)
 
@@ -107,22 +113,38 @@ class PinLockPresenter constructor(private val accountRepository: AccountReposit
                         checkPin.onNext(change.passcode)
                         vs.copy(model = vs.model.changeState(PinLockModel.State.CHECKING))
                     }
+
                     else -> {
                         vs.copy(model = vs.model.changeState(vs.model.state))
                     }
                 }
             }
+
             is PinLockPartialChanges.PinOnChange -> {
                 when (vs.model.state) {
-                    PinLockModel.State.WRONG_PIN -> vs.copy(model = vs.model.changeState(PinLockModel.State.CONFIRM))
+                    PinLockModel.State.WRONG_PIN -> vs.copy(
+                        model = vs.model.changeState(
+                            PinLockModel.State.CONFIRM
+                        )
+                    )
+
                     else -> {
                         vs.copy(model = vs.model.changeState())
                     }
                 }
             }
 
-            is PinLockPartialChanges.CheckPinError -> vs.copy(model = vs.model.changeState(PinLockModel.State.WRONG_PIN))
-            is PinLockPartialChanges.CheckPinSuccess -> vs.copy(closeScreen = true, model = vs.model.changeState(PinLockModel.State.SUCCESS))
+            is PinLockPartialChanges.CheckPinError -> vs.copy(
+                model = vs.model.changeState(
+                    PinLockModel.State.WRONG_PIN
+                )
+            )
+
+            is PinLockPartialChanges.CheckPinSuccess -> vs.copy(
+                closeScreen = true,
+                model = vs.model.changeState(PinLockModel.State.SUCCESS)
+            )
+
             is PinLockPartialChanges.Exit -> vs.copy(closeScreen = true)
             is PinLockPartialChanges.ExitIdentity -> vs.copy(exitIdentity = true)
         }

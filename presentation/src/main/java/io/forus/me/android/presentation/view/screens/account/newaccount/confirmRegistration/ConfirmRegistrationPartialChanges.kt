@@ -9,7 +9,8 @@ sealed class ConfirmRegistrationPartialChanges : PartialChange {
 
     class RestoreByEmailRequestEnd : ConfirmRegistrationPartialChanges()
 
-    data class RestoreByEmailRequestError(val error: Throwable) : ConfirmRegistrationPartialChanges()
+    data class RestoreByEmailRequestError(val error: Throwable) :
+        ConfirmRegistrationPartialChanges()
 
     data class ExchangeTokenResult(val accessToken: String?) : ConfirmRegistrationPartialChanges()
 

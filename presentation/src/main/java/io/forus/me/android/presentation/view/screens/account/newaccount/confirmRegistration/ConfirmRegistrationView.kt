@@ -6,6 +6,5 @@ import io.forus.me.android.presentation.view.base.lr.LRView
 interface ConfirmRegistrationView : LRView<ConfirmRegistrationModel> {
 
 
-
     fun exchangeToken(): io.reactivex.Observable<String>
 }

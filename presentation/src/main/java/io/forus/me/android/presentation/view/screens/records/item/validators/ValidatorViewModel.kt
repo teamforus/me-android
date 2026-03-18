@@ -2,7 +2,7 @@ package io.forus.me.android.presentation.view.screens.records.item.validators
 
 import io.forus.me.android.domain.models.validators.SimpleValidator
 
-class ValidatorViewModel{
+class ValidatorViewModel {
 
     enum class Type {
         header, validator, p2p
@@ -27,12 +27,18 @@ class ValidatorViewModel{
 
     var status: Status = Status.none
 
-    constructor(sectionName: String){
+    constructor(sectionName: String) {
         this.type = Type.header
         this.sectionName = sectionName
     }
 
-    constructor(id: Long, name: String, title: String, imageUrl: String, status: Status = Status.approved) {
+    constructor(
+        id: Long,
+        name: String,
+        title: String,
+        imageUrl: String,
+        status: Status = Status.approved
+    ) {
         this.type = Type.p2p
         this.id = id
         this.name = name
@@ -41,7 +47,7 @@ class ValidatorViewModel{
         this.status = status
     }
 
-    constructor(simpleValidator: SimpleValidator){
+    constructor(simpleValidator: SimpleValidator) {
         this.type = Type.validator
         this.id = simpleValidator.id
         this.name = simpleValidator.name

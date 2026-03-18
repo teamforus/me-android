@@ -14,9 +14,8 @@ class ProviderViewModelFactory(private val firestoreTokenManager: FirestoreToken
     }
 }
 
-class ProviderViewModel constructor(private val firestoreTokenManager: FirestoreTokenManager) : ViewModel() {
-
-
+class ProviderViewModel constructor(private val firestoreTokenManager: FirestoreTokenManager) :
+    ViewModel() {
 
 
 }

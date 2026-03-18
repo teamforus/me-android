@@ -40,7 +40,8 @@ import io.reactivex.subjects.PublishSubject
 /**
  * Fragment User Account Screen.
  */
-class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView, LogInSignUpPresenter>(), LogInSignUpView,
+class LogInSignUpFragment :
+    ToolbarLRFragment<LogInSignUpModel, LogInSignUpView, LogInSignUpPresenter>(), LogInSignUpView,
     MViewModelProvider<LoginSignUpViewModel> {
 
 
@@ -66,7 +67,7 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
     var pair_device: io.forus.me.android.presentation.view.component.buttons.Button? = null
     var devOptionsBt: io.forus.me.android.presentation.view.component.buttons.ButtonWhite? = null
 
-  //  private var token: String = ""
+    //  private var token: String = ""
 
     private val viewIsValid: Boolean
         get() {
@@ -113,8 +114,11 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
     override fun validateEmail() = validateEmail
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
-    {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
 
         val display = requireActivity().windowManager.defaultDisplay
         val outMetrics = DisplayMetrics()
@@ -160,14 +164,13 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
     }
 
     override fun createPresenter() = LogInSignUpPresenter(
-            viewModel.token.value?:"",
-            Injection.instance.accountRepository
+        viewModel.token.value ?: "",
+        Injection.instance.accountRepository
     )
 
 
-
-    private var retrofitExceptionMapper: RetrofitExceptionMapper = Injection.instance.retrofitExceptionMapper
-
+    private var retrofitExceptionMapper: RetrofitExceptionMapper =
+        Injection.instance.retrofitExceptionMapper
 
 
     override fun render(vs: LRViewState<LogInSignUpModel>) {
@@ -178,7 +181,7 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
         pair_device!!.isEnabled = vs.model.sendingRestoreByEmail != true
         email!!.isEditable = vs.model.sendingRestoreByEmail != true
 
-        if (vs.model.sendingRestoreByEmailSuccess == true && !instructionsAlreadyShown  && clickLoginUserAction) {
+        if (vs.model.sendingRestoreByEmailSuccess == true && !instructionsAlreadyShown && clickLoginUserAction) {
 
             clickLoginUserAction = false
 
@@ -210,9 +213,11 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
                     restoreAction.onNext(email!!.getText())
 
                 } else {
-                    registerActionNewAccount.onNext(NewAccountRequest(
+                    registerActionNewAccount.onNext(
+                        NewAccountRequest(
                             email = email!!.getText()
-                    ))
+                        )
+                    )
                 }
 
             } else {
@@ -249,60 +254,83 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
 
             val defaultApi = "https://api.forus.io/"
             var storedOtherApiStr = SharedPref.read(SharedPref.OPTION_CUSTOM_API_URL, defaultApi)
-                    ?: defaultApi
+                ?: defaultApi
 
             devOptionsBt!!.setOnClickListener {
-                ChooseApiDialog(requireContext(), MaterialDialog.ListCallback { dialog, itemView, position, text ->
+                ChooseApiDialog(
+                    requireContext(),
+                    MaterialDialog.ListCallback { dialog, itemView, position, text ->
 
-                    val newApiType = ApiConfig.stringToApiType(text.toString())
-                    devOptionsBt!!.text = newApiType.name
+                        val newApiType = ApiConfig.stringToApiType(text.toString())
+                        devOptionsBt!!.text = newApiType.name
 
-                    if (newApiType == ApiType.OTHER) {
+                        if (newApiType == ApiType.OTHER) {
 
-                        CustomApiDialog(requireContext(), storedOtherApiStr, MaterialDialog.InputCallback { _, input ->
+                            CustomApiDialog(
+                                requireContext(),
+                                storedOtherApiStr,
+                                MaterialDialog.InputCallback { _, input ->
 
-                            val customApiStr = input.toString()
-                            storedOtherApiStr = customApiStr
+                                    val customApiStr = input.toString()
+                                    storedOtherApiStr = customApiStr
 
-                            CheckApiPresenter(requireContext()).checkApi(customApiStr,
-                                    { result ->
-                                        run {
-                                            if (result) {
-                                                TestApiSuccessDialog(requireContext(), customApiStr) {
-                                                    SaveApiAndRestartDialog(requireContext()) {
-                                                        SharedPref.write(SharedPref.OPTION_CUSTOM_API_URL, customApiStr)
-                                                        SharedPref.write(SharedPref.OPTION_API_TYPE, newApiType.name)
-                                                        ApiConfig.changeToCustomApi(customApiStr)
-                                                        Utils.instance.restartApp(requireContext())
+                                    CheckApiPresenter(requireContext()).checkApi(
+                                        customApiStr,
+                                        { result ->
+                                            run {
+                                                if (result) {
+                                                    TestApiSuccessDialog(
+                                                        requireContext(),
+                                                        customApiStr
+                                                    ) {
+                                                        SaveApiAndRestartDialog(requireContext()) {
+                                                            SharedPref.write(
+                                                                SharedPref.OPTION_CUSTOM_API_URL,
+                                                                customApiStr
+                                                            )
+                                                            SharedPref.write(
+                                                                SharedPref.OPTION_API_TYPE,
+                                                                newApiType.name
+                                                            )
+                                                            ApiConfig.changeToCustomApi(customApiStr)
+                                                            Utils.instance.restartApp(requireContext())
+                                                        }.show()
                                                     }.show()
-                                                }.show()
-                                            } else {
-                                                TestApiErrorDialog(requireContext(), "", {}).show()
+                                                } else {
+                                                    TestApiErrorDialog(
+                                                        requireContext(),
+                                                        "",
+                                                        {}).show()
+                                                }
+                                            }
+                                        },
+                                        { throwable ->
+                                            run {
+                                                TestApiErrorDialog(
+                                                    requireContext(),
+                                                    throwable.localizedMessage,
+                                                    {}).show()
                                             }
                                         }
-                                    },
-                                    { throwable ->
-                                        run {
-                                            TestApiErrorDialog(requireContext(), throwable.localizedMessage, {}).show()
-                                        }
-                                    }
-                            )
+                                    )
 
-                        }, {}, {}).show()
-                    } else {
-                        SaveApiAndRestartDialog(requireContext()) {
-                            SharedPref.write(SharedPref.OPTION_API_TYPE, newApiType.name)
-                            ApiConfig.changeApi(newApiType)
-                            Utils.instance.restartApp(requireContext())
-                        }.show()
-                    }
+                                },
+                                {},
+                                {}).show()
+                        } else {
+                            SaveApiAndRestartDialog(requireContext()) {
+                                SharedPref.write(SharedPref.OPTION_API_TYPE, newApiType.name)
+                                ApiConfig.changeApi(newApiType)
+                                Utils.instance.restartApp(requireContext())
+                            }.show()
+                        }
 
-                }) { }.show()
+                    }) { }.show()
             }
         }
     }
 
-    private fun processError(error: Throwable){
+    private fun processError(error: Throwable) {
 
         if (error is io.forus.me.android.data.exception.RetrofitException && error.kind == RetrofitException.Kind.NETWORK) {
             NoInternetDialog(requireContext()) { }.show()
@@ -312,22 +340,27 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
                     when (error.responseCode) {
 
                         403 -> {
-                            val newRecordError : BaseApiError = retrofitExceptionMapper.mapToBaseApiError(error)
-                            val title = if (newRecordError.message == null) "" else newRecordError.message
-                            ErrorDialog(requireContext(),title,"").show()
+                            val newRecordError: BaseApiError =
+                                retrofitExceptionMapper.mapToBaseApiError(error)
+                            val title =
+                                if (newRecordError.message == null) "" else newRecordError.message
+                            ErrorDialog(requireContext(), title, "").show()
                         }
+
                         422 -> {
                             val newRecordError = retrofitExceptionMapper.mapToApiError(error)
-                            val title = if (newRecordError.message == null) "" else newRecordError.message
-                            val message = if (newRecordError.message == null) "" else newRecordError.emailFormatted
-                            ErrorDialog(requireContext(),title,message).show()
+                            val title =
+                                if (newRecordError.message == null) "" else newRecordError.message
+                            val message =
+                                if (newRecordError.message == null) "" else newRecordError.emailFormatted
+                            ErrorDialog(requireContext(), title, message).show()
                         }
                     }
                 } catch (e: Exception) {
-                    Log.d("forus","processError $e")
+                    Log.d("forus", "processError $e")
                 }
-            }else{
-                if(clickLoginUserAction) {
+            } else {
+                if (clickLoginUserAction) {
                     clickLoginUserAction = false
                     navigator.navigateToCheckEmail(requireContext())
                 }

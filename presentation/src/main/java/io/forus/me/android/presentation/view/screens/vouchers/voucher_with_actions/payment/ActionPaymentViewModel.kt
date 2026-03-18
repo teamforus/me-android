@@ -33,8 +33,8 @@ class ActionPaymentViewModel(application: Application) : AndroidViewModel(applic
     val successPayment = MutableLiveData<Boolean>()
     val errorPayment = MutableLiveData<Throwable?>()
 
-    val commitButtonEnable  = MutableLiveData<Boolean>()
-    val commitButtonAlpha  = MutableLiveData<Float>()
+    val commitButtonEnable = MutableLiveData<Boolean>()
+    val commitButtonAlpha = MutableLiveData<Float>()
 
     val progress = MutableLiveData<Boolean>()
 
@@ -69,8 +69,6 @@ class ActionPaymentViewModel(application: Application) : AndroidViewModel(applic
     }
 
 
-
-
     private fun refreshUI() {
 
 
@@ -84,18 +82,18 @@ class ActionPaymentViewModel(application: Application) : AndroidViewModel(applic
 
         progress.postValue(true)
         commitButtonEnable.postValue(false)
-        vouchersRepository.makeActionTransaction(voucherAddress!!, note.value ?: "",  product!!.id)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .map {
-                    progress.postValue(false)
-                    successPayment.postValue(true)
-                }
-                .onErrorReturn {
-                    progress.postValue(false)
-                    errorPayment.postValue(it)
-                }
-                .subscribe()
+        vouchersRepository.makeActionTransaction(voucherAddress!!, note.value ?: "", product!!.id)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .map {
+                progress.postValue(false)
+                successPayment.postValue(true)
+            }
+            .onErrorReturn {
+                progress.postValue(false)
+                errorPayment.postValue(it)
+            }
+            .subscribe()
     }
 
 
@@ -110,9 +108,15 @@ class ActionPaymentViewModel(application: Application) : AndroidViewModel(applic
     }
 
 
-    fun setCommitButtonEnable(enable:Boolean){
+    fun setCommitButtonEnable(enable: Boolean) {
         commitButtonEnable.value = enable
-        commitButtonAlpha.postValue(if(enable){1.0f}else{0.6f})
+        commitButtonAlpha.postValue(
+            if (enable) {
+                1.0f
+            } else {
+                0.6f
+            }
+        )
     }
 
     /**

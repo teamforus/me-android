@@ -1,4 +1,5 @@
 package io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actions.model
+
 import android.view.View
 import android.widget.AdapterView
 import androidx.lifecycle.MutableLiveData
@@ -66,9 +67,9 @@ class ActionsViewModel : ViewModel() {
 
 
     fun onSelectItem(parent: AdapterView<*>?, view: View?, pos: Int, id: Long) {
-        if(init){
+        if (init) {
             init = false
-        }else {
+        } else {
 
             val tv = view as androidx.appcompat.widget.AppCompatTextView
 
@@ -78,11 +79,11 @@ class ActionsViewModel : ViewModel() {
         }
 
     }
-    
-     fun selectedOrgIdByName(name: String) : Long?{
-        if(voucher.value == null) return null
-        for(org in voucher.value!!.allowedOrganizations){
-            if(org.name == name){
+
+    fun selectedOrgIdByName(name: String): Long? {
+        if (voucher.value == null) return null
+        for (org in voucher.value!!.allowedOrganizations) {
+            if (org.name == name) {
                 organizationId = org.id
                 return org.id
             }
@@ -92,56 +93,62 @@ class ActionsViewModel : ViewModel() {
 
     public fun getVoucherDetails() {
 
-        vouchersRepository.getVoucherAsProvider(voucherAddress?:"")
+        vouchersRepository.getVoucherAsProvider(voucherAddress ?: "")
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .map {
+
+                firestoreTokenManager.writeGetVoucherAsProvider(
+                    voucherAddress ?: "null", true, null
+                )
+
+                actionName.postValue(it.voucher.name ?: "")
+                organizationId = it.allowedOrganizations[0].id
+                fundName.postValue(it.voucher.organizationName ?: "")
+
+                voucher.postValue(it)
+            }
+            .onErrorReturn {
+                firestoreTokenManager.writeGetVoucherAsProvider(
+                    voucherAddress ?: "null", false, it.localizedMessage
+                )
+            }
+            .subscribe()
+    }
+
+    public fun getVoucherActionGoods(page: Int) {
+        if (organizationId != null) {
+            vouchersRepository.getVoucherProductsActionsAsProvider(
+                voucherAddress!!,
+                organizationId!!,
+                page,
+                perPage
+            )
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map {
+                    val arr: MutableList<ProductAction> = mutableListOf()
+                    arr.addAll(it)
+                    productActionsLiveData.postValue(arr)
+                    init = true
 
-                    firestoreTokenManager.writeGetVoucherAsProvider(
-                        voucherAddress?:"null", true, null)
 
-                    actionName.postValue(it.voucher.name?:"")
-                    organizationId = it.allowedOrganizations[0].id
-                    fundName.postValue(it.voucher.organizationName?:"")
+                    if (productActionsLiveData.value != null) {
+                        if (productActionsLiveData.value!!.isEmpty()) {
+                            productsListIsEmpty.postValue(true)
+                        } else {
+                            productsListIsEmpty.postValue(false)
 
-                    voucher.postValue(it)
+                        }
+                    } else {
+                        productsListIsEmpty.postValue(true)
+                    }
+
                 }
                 .onErrorReturn {
-                    firestoreTokenManager.writeGetVoucherAsProvider(
-                        voucherAddress?:"null", false, it.localizedMessage
-                    )
+
                 }
                 .subscribe()
-    }
-
-    public fun getVoucherActionGoods( page: Int) {
-        if (organizationId != null) {
-            vouchersRepository.getVoucherProductsActionsAsProvider(voucherAddress!!, organizationId!!, page, perPage)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .map {
-                        val arr: MutableList<ProductAction> = mutableListOf()
-                        arr.addAll(it)
-                        productActionsLiveData.postValue(arr)
-                        init = true
-
-
-                        if(productActionsLiveData.value != null) {
-                            if (productActionsLiveData.value!!.isEmpty()) {
-                                productsListIsEmpty.postValue(true)
-                            } else {
-                                productsListIsEmpty.postValue(false)
-
-                            }
-                        }else {
-                            productsListIsEmpty.postValue(true)
-                        }
-
-                    }
-                    .onErrorReturn {
-
-                    }
-                    .subscribe()
         }
     }
 
