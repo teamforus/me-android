@@ -5,8 +5,8 @@ import io.forus.me.android.domain.models.account.RequestDelegatesPinModel
 data class PairDeviceModel(
 
 
-        val item: RequestDelegatesPinModel? = null,
-        val isPinConfirmed: Boolean = false
+    val item: RequestDelegatesPinModel? = null,
+    val isPinConfirmed: Boolean = false
 
 
 )

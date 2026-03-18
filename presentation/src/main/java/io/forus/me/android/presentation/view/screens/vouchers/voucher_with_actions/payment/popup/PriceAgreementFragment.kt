@@ -23,12 +23,14 @@ class PriceAgreementFragment : BaseFragment() {
 
         const val ACTION_PRODUCT_EXTRA = "ACTION_PRODUCT_EXTRA"
 
-        fun newIntent(product: ProductSerializable): PriceAgreementFragment = PriceAgreementFragment().also {
-            val bundle = Bundle()
-            bundle.putSerializable(ACTION_PRODUCT_EXTRA, product)
-            it.arguments = bundle
-        }
+        fun newIntent(product: ProductSerializable): PriceAgreementFragment =
+            PriceAgreementFragment().also {
+                val bundle = Bundle()
+                bundle.putSerializable(ACTION_PRODUCT_EXTRA, product)
+                it.arguments = bundle
+            }
     }
+
     override fun getLayoutID(): Int {
         return R.layout.fragment_price_agreement
     }
@@ -36,11 +38,16 @@ class PriceAgreementFragment : BaseFragment() {
 
     var product: ProductSerializable? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return super.onCreateView(inflater, container, savedInstanceState).also{
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return super.onCreateView(inflater, container, savedInstanceState).also {
             val bundle = this.arguments
             if (bundle != null) {
-                product = bundle.getSerializable(ActionPaymentFragment.ACTION_PRODUCT_EXTRA)  as ProductSerializable
+                product =
+                    bundle.getSerializable(ActionPaymentFragment.ACTION_PRODUCT_EXTRA) as ProductSerializable
             }
             binding = FragmentPriceAgreementBinding.inflate(inflater)
 

@@ -35,7 +35,8 @@ class AppSettings(private val context: Context) : SettingsDataSource {
         publicKey = store.public
     }
 
-    private var sPref: SharedPreferences = context.getSharedPreferences(SETTINGS_FILENAME, MODE_PRIVATE)
+    private var sPref: SharedPreferences =
+        context.getSharedPreferences(SETTINGS_FILENAME, MODE_PRIVATE)
 
     override fun clear() {
         sPref.edit().clear().commit()
@@ -62,7 +63,7 @@ class AppSettings(private val context: Context) : SettingsDataSource {
 
     override fun getPin(): String {
         val pin = sPref.getString(PINCODE_ENCRYPTED, "")
-        return if (pin != "") cipher.decrypt(pin?:"", privateKey) else ""
+        return if (pin != "") cipher.decrypt(pin ?: "", privateKey) else ""
     }
 
     override fun setFCMToken(token: String): Boolean {

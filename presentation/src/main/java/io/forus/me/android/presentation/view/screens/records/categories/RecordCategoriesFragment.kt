@@ -14,7 +14,9 @@ import io.forus.me.android.presentation.view.component.dividers.FDividerItemDeco
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 
 
-class RecordCategoriesFragment : ToolbarLRFragment<RecordCategoriesModel, RecordCategoriesView, RecordCategoriesPresenter>(), RecordCategoriesView {
+class RecordCategoriesFragment :
+    ToolbarLRFragment<RecordCategoriesModel, RecordCategoriesView, RecordCategoriesPresenter>(),
+    RecordCategoriesView {
 
     companion object {
         fun newIntent(): RecordCategoriesFragment {
@@ -42,8 +44,7 @@ class RecordCategoriesFragment : ToolbarLRFragment<RecordCategoriesModel, Record
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View
-    {
+    ): View {
         binding = FragmentRecordCategoriesBinding.inflate(layoutInflater)
 
         adapter = RecordCategoriesAdapter()
@@ -72,7 +73,10 @@ class RecordCategoriesFragment : ToolbarLRFragment<RecordCategoriesModel, Record
         val layoutManager =
             LinearLayoutManager(context)
         binding.recycler.layoutManager = layoutManager
-        val dividerItemDecoration = FDividerItemDecoration(binding.recycler.getContext(), R.drawable.shape_divider_item_record)
+        val dividerItemDecoration = FDividerItemDecoration(
+            binding.recycler.getContext(),
+            R.drawable.shape_divider_item_record
+        )
 
         binding.recycler.addItemDecoration(dividerItemDecoration)
 
@@ -86,7 +90,7 @@ class RecordCategoriesFragment : ToolbarLRFragment<RecordCategoriesModel, Record
     }
 
     override fun createPresenter() = RecordCategoriesPresenter(
-            Injection.instance.recordsRepository
+        Injection.instance.recordsRepository
     )
 
     override fun render(vs: LRViewState<RecordCategoriesModel>) {

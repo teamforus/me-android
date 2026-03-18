@@ -10,7 +10,7 @@ import io.forus.me.android.presentation.helpers.SHA256
 import io.forus.me.android.presentation.internal.Injection
 import java.security.interfaces.RSAKey
 
-class DatabaseHelper(private val context: Context): Database{
+class DatabaseHelper(private val context: Context) : Database {
 
     companion object {
         const val DB_NAME = "main-db"
@@ -30,33 +30,33 @@ class DatabaseHelper(private val context: Context): Database{
     private var daoSession: DaoSession? = null
         set(value) {
             field = value
-            if(Injection.instance.daoSession != daoSession) Injection.instance.daoSession = daoSession
+            if (Injection.instance.daoSession != daoSession) Injection.instance.daoSession =
+                daoSession
         }
 
-    private fun getPassword(pin: String) = (pin+secret).SHA256()
+    private fun getPassword(pin: String) = (pin + secret).SHA256()
 
     override fun refresh() {
         Injection.instance.accessTokenUpdated()
     }
 
-    override fun exists(): Boolean{
+    override fun exists(): Boolean {
         val dbFile = context.getDatabasePath(DB_NAME)
         return dbFile.exists()
     }
 
-    override fun isOpen(): Boolean{
+    override fun isOpen(): Boolean {
         return daoSession != null
     }
 
-    override fun open(pin: String): Boolean{
+    override fun open(pin: String): Boolean {
         return try {
             close()
             val helper = DaoMaster.DevOpenHelper(context, DB_NAME)
             db = helper.getEncryptedWritableDb(getPassword(pin))
             daoSession = DaoMaster(db).newSession()
             true
-        }
-        catch (e: Exception){
+        } catch (e: Exception) {
             false
         }
     }
@@ -67,24 +67,22 @@ class DatabaseHelper(private val context: Context): Database{
             val db = helper.getEncryptedReadableDb(getPassword(pin))
             db?.close()
             true
-        }
-        catch (e: Exception){
+        } catch (e: Exception) {
             false
         }
     }
 
-    override fun close(): Boolean{
+    override fun close(): Boolean {
         db?.close()
         db = null
         daoSession = null
         return true
     }
 
-    override fun delete(): Boolean{
-        return if(exists()){
+    override fun delete(): Boolean {
+        return if (exists()) {
             close()
             context.deleteDatabase(DB_NAME)
-        }
-        else false
+        } else false
     }
 }

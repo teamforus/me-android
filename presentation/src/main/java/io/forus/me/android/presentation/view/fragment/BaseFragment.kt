@@ -100,9 +100,9 @@ abstract class BaseFragment : Fragment(), FragmentListener {
         setToolbarTitle(toolbarTitle)
         if (toolbarType == ToolbarLRFragment.ToolbarType.Small) {
             toolbar_title?.setPadding(
-                toolbar_title?.paddingLeft?:0,
+                toolbar_title?.paddingLeft ?: 0,
                 Converter.convertDpToPixel(5f, requireActivity().applicationContext),
-                toolbar_title?.paddingRight?:0,
+                toolbar_title?.paddingRight ?: 0,
                 0
             )
         }

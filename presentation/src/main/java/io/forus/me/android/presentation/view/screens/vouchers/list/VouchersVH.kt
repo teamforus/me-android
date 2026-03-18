@@ -37,13 +37,16 @@ class VouchersVH(private val binding: ItemVouchersListBinding) :
 
                 if (item.isProduct && item.isUsed) {
                     usedOrExpiredLb.visibility = View.VISIBLE
-                    usedOrExpiredLb.text = usedOrExpiredLb.context.getString(R.string.voucher_is_used)
+                    usedOrExpiredLb.text =
+                        usedOrExpiredLb.context.getString(R.string.voucher_is_used)
                 } else if (item.expired) {
                     usedOrExpiredLb.visibility = View.VISIBLE
-                    usedOrExpiredLb.text = usedOrExpiredLb.context.getString(R.string.voucher_expired)
+                    usedOrExpiredLb.text =
+                        usedOrExpiredLb.context.getString(R.string.voucher_expired)
                 } else if (item.deactivated) {
                     usedOrExpiredLb.visibility = View.VISIBLE
-                    usedOrExpiredLb.text = usedOrExpiredLb.context.getString(R.string.voucher_deactivated)
+                    usedOrExpiredLb.text =
+                        usedOrExpiredLb.context.getString(R.string.voucher_deactivated)
                 } else {
                     usedOrExpiredLb.visibility = View.GONE
                     value.text = item.amount_locale ?: ""

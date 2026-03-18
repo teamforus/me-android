@@ -8,14 +8,17 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 
 
-class RecordTypesPresenter constructor(val recordsRepository: RecordsRepository) : LRPresenter<List<io.forus.me.android.domain.models.records.RecordType>, RecordTypesModel, RecordTypesView>() {
+class RecordTypesPresenter constructor(val recordsRepository: RecordsRepository) :
+    LRPresenter<List<io.forus.me.android.domain.models.records.RecordType>, RecordTypesModel, RecordTypesView>() {
 
 
-    override fun initialModelSingle(): Single<List<io.forus.me.android.domain.models.records.RecordType>> = Single.fromObservable(
-              recordsRepository.getRecordTypes()
-    )
+    override fun initialModelSingle(): Single<List<io.forus.me.android.domain.models.records.RecordType>> =
+        Single.fromObservable(
+            recordsRepository.getRecordTypes()
+        )
 
-    override fun RecordTypesModel.changeInitialModel(i: List<io.forus.me.android.domain.models.records.RecordType>): RecordTypesModel = copy(items = i)
+    override fun RecordTypesModel.changeInitialModel(i: List<io.forus.me.android.domain.models.records.RecordType>): RecordTypesModel =
+        copy(items = i)
 
 
     override fun bindIntents() {
@@ -23,22 +26,27 @@ class RecordTypesPresenter constructor(val recordsRepository: RecordsRepository)
 
 
         val initialViewState = LRViewState(
-                false,
-                null,
-                false,
-                false,
-                null,
-                false,
-                RecordTypesModel(),
-                false)
+            false,
+            null,
+            false,
+            false,
+            null,
+            false,
+            RecordTypesModel(),
+            false
+        )
 
         subscribeViewState(
-                observable.scan(initialViewState, this::stateReducer)
-                        .observeOn(AndroidSchedulers.mainThread()),
-                RecordTypesView::render)
+            observable.scan(initialViewState, this::stateReducer)
+                .observeOn(AndroidSchedulers.mainThread()),
+            RecordTypesView::render
+        )
     }
 
-    override fun stateReducer(viewState: LRViewState<RecordTypesModel>, change: PartialChange): LRViewState<RecordTypesModel> {
+    override fun stateReducer(
+        viewState: LRViewState<RecordTypesModel>,
+        change: PartialChange
+    ): LRViewState<RecordTypesModel> {
 
         if (change !is RecordTypesPartialChanges) return super.stateReducer(viewState, change)
 

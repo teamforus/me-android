@@ -174,7 +174,10 @@ class TransactionsFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     fun showPopupTransactionDetailsFragment(transaction: Transaction) {
 
         val transactionDetailsPopupDialog = TransactionDetailsPopupDialog(transaction)
-        transactionDetailsPopupDialog.show(requireActivity().supportFragmentManager, "TransactionDetailsPopupDialog")
+        transactionDetailsPopupDialog.show(
+            requireActivity().supportFragmentManager,
+            "TransactionDetailsPopupDialog"
+        )
 
 
     }

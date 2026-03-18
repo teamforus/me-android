@@ -56,7 +56,11 @@ open class SettingsCard : FrameLayout {
         init(context)
     }
 
-    constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle) {
+    constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(
+        context,
+        attrs,
+        defStyle
+    ) {
         init(context)
     }
 
@@ -71,24 +75,23 @@ open class SettingsCard : FrameLayout {
         //DUMMY DATA
     }
 
-    open fun prepareItems(){
+    open fun prepareItems() {
         tvTitle = mRootView!!.findViewById(R.id.title)
         tvText = mRootView!!.findViewById(R.id.text)
         vDevider = mRootView!!.findViewById(R.id.devider)
         vConteiner = mRootView!!.findViewById(R.id.container)
-        iIcon =  mRootView!!.findViewById(R.id.icon)
+        iIcon = mRootView!!.findViewById(R.id.icon)
 
 
         initUI()
     }
 
 
-
     internal fun initUI() {
         tvTitle?.text = title
         tvText?.text = text
 
-        if (icon > 0){
+        if (icon > 0) {
             iIcon?.setImageResource(icon)
         }
 
@@ -105,9 +108,6 @@ open class SettingsCard : FrameLayout {
             l?.onClick(it)
         }
     }
-
-
-
 
 
 }

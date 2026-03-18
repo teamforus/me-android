@@ -21,7 +21,6 @@
     <color name="overline6_color">#8793A0</color>
 
 
-
     <color name="IconBase">#ededf4</color>
 
     <color name="pinBackground">#F5F5F5</color>
@@ -69,7 +68,6 @@
     <color name="blue">#315efd</color>
 
     <color name="black_overlay">#66000000</color>
-
 
 
 </resources>

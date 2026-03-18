@@ -8,7 +8,8 @@ import io.forus.me.android.domain.models.records.RecordType
 import io.forus.me.android.presentation.databinding.ItemRecordSelectTypeBinding
 import io.forus.me.android.presentation.view.screens.records.newrecord.viewholders.RecordTypeVH
 
-class RecordTypesAdapter(private val clickListener: ((RecordType) -> Unit)?): RecyclerView.Adapter<RecordTypeVH>() {
+class RecordTypesAdapter(private val clickListener: ((RecordType) -> Unit)?) :
+    RecyclerView.Adapter<RecordTypeVH>() {
 
     private var lastSelectedPosition: Int = -1
 
@@ -19,8 +20,11 @@ class RecordTypesAdapter(private val clickListener: ((RecordType) -> Unit)?): Re
             DiffUtil.calculateDiff(object : DiffUtil.Callback() {
                 override fun getOldListSize() = old.size
                 override fun getNewListSize() = field.size
-                override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) = old[oldItemPosition] == field[newItemPosition]
-                override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) = old[oldItemPosition] == field[newItemPosition]
+                override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) =
+                    old[oldItemPosition] == field[newItemPosition]
+
+                override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) =
+                    old[oldItemPosition] == field[newItemPosition]
             }).dispatchUpdatesTo(this)
             notifyDataSetChanged()
         }
@@ -30,13 +34,14 @@ class RecordTypesAdapter(private val clickListener: ((RecordType) -> Unit)?): Re
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecordTypeVH {
-        val binding = ItemRecordSelectTypeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            ItemRecordSelectTypeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return RecordTypeVH(binding)
     }
 
     override fun onBindViewHolder(holder: RecordTypeVH, position: Int) {
         val item = items[position]
-        holder.bind(item, lastSelectedPosition){ recordType: RecordType, position: Int ->
+        holder.bind(item, lastSelectedPosition) { recordType: RecordType, position: Int ->
             lastSelectedPosition = position
             notifyDataSetChanged()
             clickListener?.invoke(recordType)

@@ -17,13 +17,16 @@ class RecordsAdapter : RecyclerView.Adapter<RecordsVH>() {
             DiffUtil.calculateDiff(object : DiffUtil.Callback() {
                 override fun getOldListSize() = old.size
                 override fun getNewListSize() = field.size
-                override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) = old[oldItemPosition] == field[newItemPosition]
-                override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) = old[oldItemPosition] == field[newItemPosition]
+                override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) =
+                    old[oldItemPosition] == field[newItemPosition]
+
+                override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) =
+                    old[oldItemPosition] == field[newItemPosition]
             }).dispatchUpdatesTo(this)
             notifyDataSetChanged()
         }
 
-    
+
     init {
         setHasStableIds(true)
     }
@@ -38,7 +41,7 @@ class RecordsAdapter : RecyclerView.Adapter<RecordsVH>() {
 
     override fun onBindViewHolder(holder: RecordsVH, position: Int) {
         val item = records[position]
-        holder.bind(item ){
+        holder.bind(item) {
 
         }
     }

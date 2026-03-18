@@ -15,7 +15,8 @@ import io.forus.me.android.presentation.view.base.lr.LRViewState
 /**
  * Fragment Assign Delegates Screen.
  */
-class AssetsFragment : LRFragment<AssetsModel, AssetsView, AssetsPresenter>(), AssetsView, FragmentListener {
+class AssetsFragment : LRFragment<AssetsModel, AssetsView, AssetsPresenter>(), AssetsView,
+    FragmentListener {
 
     companion object {
         fun newIntent(): AssetsFragment {
@@ -33,11 +34,14 @@ class AssetsFragment : LRFragment<AssetsModel, AssetsView, AssetsPresenter>(), A
 
     private lateinit var binding: FragmentRecyclerBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
-    {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentRecyclerBinding.inflate(inflater)
         adapter = AssetsAdapter()
-        return  binding.root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -50,7 +54,7 @@ class AssetsFragment : LRFragment<AssetsModel, AssetsView, AssetsPresenter>(), A
 
 
     override fun createPresenter() = AssetsPresenter(
-            Injection.instance.assetsRepository
+        Injection.instance.assetsRepository
     )
 
 
@@ -59,8 +63,6 @@ class AssetsFragment : LRFragment<AssetsModel, AssetsView, AssetsPresenter>(), A
 
 
         adapter.assets = vs.model.items
-
-
 
 
     }

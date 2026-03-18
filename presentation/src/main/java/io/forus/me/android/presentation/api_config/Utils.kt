@@ -24,7 +24,12 @@ class Utils private constructor() {
     fun restartApp(context: Context) {
         val mStartActivity = Intent(context, MainActivity::class.java)
         val mPendingIntentId = 123456
-        val mPendingIntent = PendingIntent.getActivity(context, mPendingIntentId, mStartActivity, PendingIntent.FLAG_CANCEL_CURRENT)
+        val mPendingIntent = PendingIntent.getActivity(
+            context,
+            mPendingIntentId,
+            mStartActivity,
+            PendingIntent.FLAG_CANCEL_CURRENT
+        )
         val mgr = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent)
         System.exit(0)

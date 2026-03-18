@@ -3,18 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
     android:id="@+id/root"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <io.forus.me.android.presentation.view.component.text.TextView
-        android:layout_margin="@dimen/activity_horizontal_margin"
         android:id="@+id/message"
-        android:textSize="15.1sp"
-        android:textColor="@color/body_1_87"
-        app:type="regular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""/>
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:text=""
+        android:textColor="@color/body_1_87"
+        android:textSize="15.1sp"
+        app:type="regular" />
 
 </RelativeLayout>

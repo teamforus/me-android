@@ -40,7 +40,8 @@ import io.reactivex.subjects.PublishSubject
 /**
  * Fragment New Record Screen.
  */
-class NewRecordFragment : ToolbarLRFragment<NewRecordModel, NewRecordView, NewRecordPresenter>(), NewRecordView  {
+class NewRecordFragment : ToolbarLRFragment<NewRecordModel, NewRecordView, NewRecordPresenter>(),
+    NewRecordView {
 
     companion object {
 
@@ -50,7 +51,7 @@ class NewRecordFragment : ToolbarLRFragment<NewRecordModel, NewRecordView, NewRe
         }
     }
 
-    private lateinit var mRootView : View
+    private lateinit var mRootView: View
 
     private lateinit var recordCategoriesAdapter: RecordCategoriesAdapter
     private lateinit var recordTypesAdapter: RecordTypesAdapter
@@ -68,7 +69,8 @@ class NewRecordFragment : ToolbarLRFragment<NewRecordModel, NewRecordView, NewRe
     private var recyclerValidators: androidx.recyclerview.widget.RecyclerView? = null
     private var value: EditText? = null
 
-    private var retrofitExceptionMapper: RetrofitExceptionMapper = Injection.instance.retrofitExceptionMapper
+    private var retrofitExceptionMapper: RetrofitExceptionMapper =
+        Injection.instance.retrofitExceptionMapper
 
     override val toolbarTitle: String
         get() = getString(R.string.new_record_title_choose_category)
@@ -89,11 +91,10 @@ class NewRecordFragment : ToolbarLRFragment<NewRecordModel, NewRecordView, NewRe
     }
 
     override fun onBackPressed(): Boolean {
-        if (binding.mainViewPager.currentItem > 1){
+        if (binding.mainViewPager.currentItem > 1) {
             previousStep.onNext(true)
             return false
-        }
-        else return true
+        } else return true
     }
 
     private val previousStep = PublishSubject.create<Boolean>()
@@ -118,9 +119,13 @@ class NewRecordFragment : ToolbarLRFragment<NewRecordModel, NewRecordView, NewRe
         it.toString()
     }!!
 
-    private lateinit var binding : FragmentNewRecordBinding 
+    private lateinit var binding: FragmentNewRecordBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
 
         binding = FragmentNewRecordBinding.inflate(inflater)
 
@@ -129,7 +134,7 @@ class NewRecordFragment : ToolbarLRFragment<NewRecordModel, NewRecordView, NewRe
         recordCategoriesAdapter = RecordCategoriesAdapter {
             selectRecordCategory.onNext(it)
         }
-        recordValidatorAdapter = RecordValidatorAdapter  {
+        recordValidatorAdapter = RecordValidatorAdapter {
             selectValidator.onNext(it)
         }
         recordTypesAdapter = RecordTypesAdapter {
@@ -161,9 +166,15 @@ class NewRecordFragment : ToolbarLRFragment<NewRecordModel, NewRecordView, NewRe
         binding.mainViewPager.currentItem = 0
         binding.indicator.setViewPager(binding.mainViewPager)
         newRecordViewPagerAdapter.registerDataSetObserver(binding.indicator.dataSetObserver)
-        binding.mainViewPager.addOnPageChangeListener(object: ViewPager.OnPageChangeListener{
+        binding.mainViewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {}
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
+            }
+
             override fun onPageSelected(position: Int) {
                 changeToolbarTitle(position)
             }
@@ -185,15 +196,16 @@ class NewRecordFragment : ToolbarLRFragment<NewRecordModel, NewRecordView, NewRe
     }
 
     override fun createPresenter() = NewRecordPresenter(
-            Injection.instance.recordsRepository,
-            Injection.instance.validatorsRepository
+        Injection.instance.recordsRepository,
+        Injection.instance.validatorsRepository
     )
 
 
     override fun render(vs: LRViewState<NewRecordModel>) {
         super.render(vs)
 
-        binding.progressBar.visibility = if (vs.loading || vs.model.sendingCreateRecord) View.VISIBLE else View.INVISIBLE
+        binding.progressBar.visibility =
+            if (vs.loading || vs.model.sendingCreateRecord) View.VISIBLE else View.INVISIBLE
 
         recordCategoriesAdapter.items = vs.model.categories
         recordTypesAdapter.items = vs.model.types
@@ -203,31 +215,33 @@ class NewRecordFragment : ToolbarLRFragment<NewRecordModel, NewRecordView, NewRe
             closeScreen()
         }
 
-        binding.indicator.getChildAt(NUM_PAGES - 1)?.visibility = if(vs.model.validators.isEmpty()) View.INVISIBLE else View.VISIBLE
+        binding.indicator.getChildAt(NUM_PAGES - 1)?.visibility =
+            if (vs.model.validators.isEmpty()) View.INVISIBLE else View.VISIBLE
         binding.mainViewPager.currentItem = vs.model.currentStep
         renderButton(vs.model.isFinalStep, vs.model.buttonIsActive)
 
-        when(vs.model.currentStep){
-            1 -> if(vs.model.item.category != null) selectedCategoryVH.render(vs.model.item.category!!)
+        when (vs.model.currentStep) {
+            1 -> if (vs.model.item.category != null) selectedCategoryVH.render(vs.model.item.category!!)
             2 -> {
-                if(vs.model.item.category != null) selectedCategoryVH2.render(vs.model.item.category!!)
-                if(vs.model.item.recordType != null) selectedTypeVH2.render(vs.model.item.recordType!!)
+                if (vs.model.item.category != null) selectedCategoryVH2.render(vs.model.item.category!!)
+                if (vs.model.item.recordType != null) selectedTypeVH2.render(vs.model.item.recordType!!)
             }
+
             3 -> {
-                if(vs.model.item.category != null) selectedCategoryVH3.render(vs.model.item.category!!)
-                if(vs.model.item.recordType != null) selectedTypeVH3.render(vs.model.item.recordType!!)
+                if (vs.model.item.category != null) selectedCategoryVH3.render(vs.model.item.category!!)
+                if (vs.model.item.recordType != null) selectedTypeVH3.render(vs.model.item.recordType!!)
                 selectedTextVH3.render(vs.model.item.value)
             }
         }
 
-        if(vs.model.sendingCreateRecordError != null){
+        if (vs.model.sendingCreateRecordError != null) {
             val error: Throwable = vs.model.sendingCreateRecordError
-            if(error is RetrofitException && error.kind == RetrofitException.Kind.HTTP){
+            if (error is RetrofitException && error.kind == RetrofitException.Kind.HTTP) {
                 try {
                     val newRecordError = retrofitExceptionMapper.mapToNewRecordError(error)
                     showError(newRecordError.message)
+                } catch (e: Exception) {
                 }
-                catch (e: Exception){}
             }
         }
 
@@ -237,8 +251,9 @@ class NewRecordFragment : ToolbarLRFragment<NewRecordModel, NewRecordView, NewRe
         activity?.finish()
     }
 
-    private fun renderButton(isFinalStep: Boolean, buttonIsActive: Boolean){
-        binding.btnNext.text = resources.getString(if (!isFinalStep) R.string.new_record_next_step else R.string.new_record_submit)
+    private fun renderButton(isFinalStep: Boolean, buttonIsActive: Boolean) {
+        binding.btnNext.text =
+            resources.getString(if (!isFinalStep) R.string.new_record_next_step else R.string.new_record_submit)
         binding.btnNext.active = buttonIsActive
 
         binding.btnNext.setOnClickListener {
@@ -246,19 +261,19 @@ class NewRecordFragment : ToolbarLRFragment<NewRecordModel, NewRecordView, NewRe
         }
     }
 
-    private fun showError(text: String){
+    private fun showError(text: String) {
         showToastMessage(text)
     }
 
-    private fun changeToolbarTitle(position: Int){
+    private fun changeToolbarTitle(position: Int) {
         val title =
-                when (position) {
-                    0 -> getString(R.string.new_record_title_choose_category)
-                    1 -> getString(R.string.new_record_title_choose_type)
-                    2 -> getString(R.string.new_record_title_choose_text)
-                    3 -> getString(R.string.new_record_title_choose_validators)
-                    else -> getString(R.string.new_record_title)
-                }
+            when (position) {
+                0 -> getString(R.string.new_record_title_choose_category)
+                1 -> getString(R.string.new_record_title_choose_type)
+                2 -> getString(R.string.new_record_title_choose_text)
+                3 -> getString(R.string.new_record_title_choose_validators)
+                else -> getString(R.string.new_record_title)
+            }
         setToolbarTitle(title)
     }
 }

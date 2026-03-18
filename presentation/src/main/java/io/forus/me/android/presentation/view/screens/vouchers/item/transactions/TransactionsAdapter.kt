@@ -13,7 +13,7 @@ class TransactionsAdapter : RecyclerView.Adapter<TransactionsVH>() {
 
     var transactions: List<Transaction> = emptyList()
         set(value) {
-            Log.d("my","set value transactions ${transactions.size}")
+            Log.d("my", "set value transactions ${transactions.size}")
             val old = field
             field = value
             DiffUtil.calculateDiff(object : DiffUtil.Callback() {
@@ -35,7 +35,6 @@ class TransactionsAdapter : RecyclerView.Adapter<TransactionsVH>() {
     }
 
     var clickListener: ((Transaction) -> Unit)? = null
-
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransactionsVH {

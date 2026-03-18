@@ -3,6 +3,5 @@
     android:padding="10dp"
     android:shape="oval">
     <solid android:color="@color/blue" />
-    <corners
-        android:radius="25dp" />
+    <corners android:radius="25dp" />
 </shape>

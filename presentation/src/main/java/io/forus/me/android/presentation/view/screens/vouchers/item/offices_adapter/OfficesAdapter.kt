@@ -10,7 +10,8 @@ import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.models.vouchers.Office
 import io.forus.me.android.presentation.models.vouchers.Schedule
 
-class OfficesAdapter(private val items: List<Office>, private val context: Context) : PagerAdapter() {
+class OfficesAdapter(private val items: List<Office>, private val context: Context) :
+    PagerAdapter() {
     private var layoutInflater: LayoutInflater? = null
     override fun getCount(): Int {
         return items.size
@@ -20,7 +21,7 @@ class OfficesAdapter(private val items: List<Office>, private val context: Conte
         return view == obj
     }
 
-    var showMapCallback : ShowMapCallback? = null
+    var showMapCallback: ShowMapCallback? = null
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         layoutInflater = LayoutInflater.from(context)
@@ -31,11 +32,10 @@ class OfficesAdapter(private val items: List<Office>, private val context: Conte
         val timeTV: TextView = view.findViewById(R.id.timeTV)
 
 
-
         val office = items[position]
 
         showMapTV.setOnClickListener {
-            if(showMapCallback != null){
+            if (showMapCallback != null) {
                 showMapCallback!!.showMap(office)
             }
         }
@@ -68,21 +68,21 @@ class OfficesAdapter(private val items: List<Office>, private val context: Conte
         for (i in 0 until (schedulers.size)) {
             val gr = schedulers[i]
 
-            if(gr.startTime.isNullOrEmpty() || gr.endTime.isNullOrEmpty()) {
+            if (gr.startTime.isNullOrEmpty() || gr.endTime.isNullOrEmpty()) {
 
-            }else{
+            } else {
 
                 var searchCompatibleGroup = false
 
-                for(group in groups){
+                for (group in groups) {
                     if (group.isDayCompatibleInGroup(gr)) {
                         group.addSchedule(gr)
                         searchCompatibleGroup = true
                     }
                 }
-                if(!searchCompatibleGroup) {
+                if (!searchCompatibleGroup) {
                     val group = DaysGroup()
-                     groups.add(group)
+                    groups.add(group)
                     group.addSchedule(gr)
                 }
             }
@@ -99,24 +99,24 @@ class OfficesAdapter(private val items: List<Office>, private val context: Conte
         for (i in 0 until (schedulers.size)) {
             val gr = schedulers[i]
 
-            if(gr.startTime.isNullOrEmpty() || gr.endTime.isNullOrEmpty()) {
-                if(!group.isEmptyGroup()) {
+            if (gr.startTime.isNullOrEmpty() || gr.endTime.isNullOrEmpty()) {
+                if (!group.isEmptyGroup()) {
                     group = DaysGroup()
                     groups.add(group)
                 }
-            }else{
+            } else {
                 if (group.isDayCompatibleInGroup(gr)) {
                     group.addSchedule(gr)
                 } else {
-                    if(!group.isEmptyGroup()) {
+                    if (!group.isEmptyGroup()) {
                         group = DaysGroup()
                         groups.add(group)
                     }
                     group.addSchedule(gr)
                 }
             }
-            if(i==schedulers.size-1){
-                if(group.isEmptyGroup()){
+            if (i == schedulers.size - 1) {
+                if (group.isEmptyGroup()) {
                     groups.remove(group)
                 }
             }
@@ -130,9 +130,7 @@ class OfficesAdapter(private val items: List<Office>, private val context: Conte
     }
 
 
-
-
-    public interface ShowMapCallback{
+    public interface ShowMapCallback {
         fun showMap(office: Office)
     }
 }

@@ -9,10 +9,12 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 
 
-class WalletsPresenter constructor(val walletsRepository: WalletsRepository) : LRPresenter<List<Wallet>, WalletsModel, WalletsView>() {
+class WalletsPresenter constructor(val walletsRepository: WalletsRepository) :
+    LRPresenter<List<Wallet>, WalletsModel, WalletsView>() {
 
 
-    override fun initialModelSingle(): Single<List<Wallet>> = Single.fromObservable(walletsRepository.getWallets())
+    override fun initialModelSingle(): Single<List<Wallet>> =
+        Single.fromObservable(walletsRepository.getWallets())
             //.delay(1, TimeUnit.SECONDS)
             .map {
                 it
@@ -33,26 +35,31 @@ class WalletsPresenter constructor(val walletsRepository: WalletsRepository) : L
 
 
         val initialViewState = LRViewState(
-                false,
-                null,
-                false,
-                false,
-                null,
-                false,
-                WalletsModel(),
-                false)
+            false,
+            null,
+            false,
+            false,
+            null,
+            false,
+            WalletsModel(),
+            false
+        )
 
         subscribeViewState(
-                observable.scan(initialViewState, this::stateReducer)
-                        .observeOn(AndroidSchedulers.mainThread()),
-                WalletsView::render)
+            observable.scan(initialViewState, this::stateReducer)
+                .observeOn(AndroidSchedulers.mainThread()),
+            WalletsView::render
+        )
 
 //        val observable = loadRefreshPartialChanges()
 //        val initialViewState = LRViewState(false, null, false, false, null, MapModel("", "" ))
 //        subscribeViewState(observable.scan(initialViewState, this::stateReducer).observeOn(AndroidSchedulers.mainThread()),MapView::render)
     }
 
-    override fun stateReducer(viewState: LRViewState<WalletsModel>, change: PartialChange): LRViewState<WalletsModel> {
+    override fun stateReducer(
+        viewState: LRViewState<WalletsModel>,
+        change: PartialChange
+    ): LRViewState<WalletsModel> {
 
         if (change !is WalletsPartialChanges) return super.stateReducer(viewState, change)
 
@@ -64,15 +71,6 @@ class WalletsPresenter constructor(val walletsRepository: WalletsRepository) : L
         }
 
     }
-
-
-
-
-
-
-
-
-
 
 
 }

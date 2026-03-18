@@ -5,26 +5,30 @@ import io.forus.me.android.presentation.models.vouchers.Organization
 import io.forus.me.android.presentation.models.vouchers.Schedule
 import io.forus.me.android.domain.models.vouchers.Office as OfficeDomain
 
-class OfficeDataMapper(val shedullerDataMapper: SchedulerDataMapper) : Mapper<OfficeDomain, Office>() {
+class OfficeDataMapper(val shedullerDataMapper: SchedulerDataMapper) :
+    Mapper<OfficeDomain, Office>() {
 
     override fun transform(domainModel: OfficeDomain) =
-            Office(domainModel.id, domainModel.organizationId, domainModel.address ?: "",
-                    domainModel.phone ?: "", domainModel.lat, domainModel.lon, domainModel.photo,
-                    if (domainModel.organization != null) {
-                        Organization(domainModel.organization!!.id,
-                                domainModel.organization!!.name ?: "",
-                                domainModel.organization!!.logo ?: "",
-                                domainModel.organization!!.lat
-                                        ?: 0f.toDouble(), domainModel.organization!!.lon
-                                ?: 0f.toDouble(),
-                                domainModel.organization!!.address
-                                        ?: "", domainModel.organization!!.phone ?: "",
-                                domainModel.organization!!.email ?: "")
-                    } else {
-                        null
-                    },
+        Office(
+            domainModel.id, domainModel.organizationId, domainModel.address ?: "",
+            domainModel.phone ?: "", domainModel.lat, domainModel.lon, domainModel.photo,
+            if (domainModel.organization != null) {
+                Organization(
+                    domainModel.organization!!.id,
+                    domainModel.organization!!.name ?: "",
+                    domainModel.organization!!.logo ?: "",
+                    domainModel.organization!!.lat
+                        ?: 0f.toDouble(), domainModel.organization!!.lon
+                        ?: 0f.toDouble(),
+                    domainModel.organization!!.address
+                        ?: "", domainModel.organization!!.phone ?: "",
+                    domainModel.organization!!.email ?: ""
+                )
+            } else {
+                null
+            },
 
-                    shedullerDataMapper.transform(domainModel.schedulers) as List<Schedule>
+            shedullerDataMapper.transform(domainModel.schedulers) as List<Schedule>
 
-            )
+        )
 }

@@ -17,8 +17,8 @@ class VoucherActivity : CommonActivity(), MViewModelProvider<VoucherViewModel> {
     override val viewModel: VoucherViewModel by viewModels()
 
     companion object {
-         const val ID_EXTRA = "ID_EXTRA"
-         const val VOUCHER_EXTRA = "VOUCHER_EXTRA"
+        const val ID_EXTRA = "ID_EXTRA"
+        const val VOUCHER_EXTRA = "VOUCHER_EXTRA"
 
         fun getCallingIntent(context: Context, id: String): Intent {
             val intent = Intent(context, VoucherActivity::class.java)
@@ -42,11 +42,11 @@ class VoucherActivity : CommonActivity(), MViewModelProvider<VoucherViewModel> {
         val voucher = intent.getParcelableExtra<Voucher>(VOUCHER_EXTRA)
 
         viewModel.setVoucher(voucher)
-        viewModel.setAddress(voucher?.address?:"")
+        viewModel.setAddress(voucher?.address ?: "")
 
         if (savedInstanceState == null) {
             fragment = when (voucher) {
-                null -> VoucherFragment.newInstance(intent.getStringExtra(ID_EXTRA)?:"")
+                null -> VoucherFragment.newInstance(intent.getStringExtra(ID_EXTRA) ?: "")
                 else -> VoucherFragment.newInstance(voucher)
             }
 

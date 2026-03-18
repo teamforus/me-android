@@ -11,7 +11,10 @@ import io.reactivex.schedulers.Schedulers
 class CheckApiPresenter(val context: Context) {
     fun checkApi(apiString: String, success: (Boolean) -> Unit, error: (Throwable) -> Unit) {
         try {
-            val commonRemoteDataSource = CommonRemoteDataSource { MeServiceFactory.getInstance().createRetrofitService(CommonService::class.java, apiString) }
+            val commonRemoteDataSource = CommonRemoteDataSource {
+                MeServiceFactory.getInstance()
+                    .createRetrofitService(CommonService::class.java, apiString)
+            }
             val commonRepository = CommonRepository(commonRemoteDataSource)
 
             commonRepository.status()

@@ -197,7 +197,12 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
                 )
             }
 
-            (activity as? DashboardActivity)?.showPopupQRFragment(qrEncoded, fundName, title, qrDescription)
+            (activity as? DashboardActivity)?.showPopupQRFragment(
+                qrEncoded,
+                fundName,
+                title,
+                qrDescription
+            )
         }
 
         toolbar?.setNavigationOnClickListener {
@@ -343,7 +348,8 @@ class VoucherFragment : ToolbarLRFragment<VoucherModel, VoucherView,
                         }
                     }
                     val officesCnt = myOffices.size
-                    binding.branchesTV.text = resources.getQuantityString(R.plurals.branches, officesCnt, officesCnt)
+                    binding.branchesTV.text =
+                        resources.getQuantityString(R.plurals.branches, officesCnt, officesCnt)
                     binding.viewPager.adapter = officesAdapter
                     binding.viewPager.setPadding(16, 20, 130, 20)
                     binding.viewPager.setOnPageChangeListener(object :

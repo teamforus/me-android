@@ -42,11 +42,16 @@ class MainActivity : BaseActivity() {
 
 
         if (!BuildConfig.APPLICATION_ID.equals("io.forus.me")) {
-            val savedApiOption = SharedPref.read(SharedPref.OPTION_API_TYPE,"") ?: ""
+            val savedApiOption = SharedPref.read(SharedPref.OPTION_API_TYPE, "") ?: ""
             if (savedApiOption.isNotEmpty()) {
                 val apiType = ApiConfig.stringToApiType(savedApiOption)
                 if (apiType == ApiType.OTHER) {
-                    ApiConfig.changeToCustomApi(SharedPref.read(SharedPref.OPTION_CUSTOM_API_URL, BuildConfig.SERVER_URL))
+                    ApiConfig.changeToCustomApi(
+                        SharedPref.read(
+                            SharedPref.OPTION_CUSTOM_API_URL,
+                            BuildConfig.SERVER_URL
+                        )
+                    )
                 } else {
                     ApiConfig.changeApi(apiType)
                 }
@@ -72,7 +77,7 @@ class MainActivity : BaseActivity() {
 
         } else {
             navigateToWelcomeScreen() //old behavior
-          //  navigateToLogInsignUpScreen() //current behavior
+            //  navigateToLogInsignUpScreen() //current behavior
         }
     }
 
@@ -92,9 +97,9 @@ class MainActivity : BaseActivity() {
     private fun navigateToWelcomeScreen() {
 
         val notShowAgain = SharedPref.read(SharedPref.WELCOME_NOT_SHOW_AGAIN, false)
-        if(notShowAgain){
+        if (notShowAgain) {
             this.navigator.navigateToLoginSignUp(this)
-        }else{
+        } else {
             this.navigator.navigateToWelcomeScreen(this, goToLogin = true)
         }
 
@@ -127,8 +132,10 @@ class MainActivity : BaseActivity() {
         val result = googleAPI.isGooglePlayServicesAvailable(this)
         if (result != ConnectionResult.SUCCESS) {
             if (googleAPI.isUserResolvableError(result)) {
-                googleAPI.getErrorDialog(this, result,
-                    PLAY_SERVICES_RESOLUTION_REQUEST)?.show()
+                googleAPI.getErrorDialog(
+                    this, result,
+                    PLAY_SERVICES_RESOLUTION_REQUEST
+                )?.show()
             }
 
             return false
@@ -154,7 +161,8 @@ class MainActivity : BaseActivity() {
         val appUpdateInfoTask = appUpdateManager!!.appUpdateInfo
         appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
             if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
-                    && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)) {
+                && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)
+            ) {
 
 
                 SharedPref.write(SharedPref.OPTION_NEED_APP_UPDATE, true)
@@ -179,14 +187,13 @@ class MainActivity : BaseActivity() {
     @Throws(IntentSender.SendIntentException::class)
     private fun updateApp(appUpdateInfo: AppUpdateInfo) {
         appUpdateManager!!.startUpdateFlowForResult(
-                appUpdateInfo,
-                AppUpdateType.IMMEDIATE,
-                this,
-                MY_REQUEST_CODE)
+            appUpdateInfo,
+            AppUpdateType.IMMEDIATE,
+            this,
+            MY_REQUEST_CODE
+        )
 
     }
-
-
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

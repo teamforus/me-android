@@ -19,11 +19,12 @@ import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 
 
-
 /**
  * Created by maestrovs on 22.04.2020.
  */
-class RestoreAccountSuccessFragment : ToolbarLRFragment<RestoreAccountSuccessModel, RestoreAccountSuccessView, RestoreAccountSuccessPresenter>(), RestoreAccountSuccessView,
+class RestoreAccountSuccessFragment :
+    ToolbarLRFragment<RestoreAccountSuccessModel, RestoreAccountSuccessView, RestoreAccountSuccessPresenter>(),
+    RestoreAccountSuccessView,
     MViewModelProvider<RestoreAccountSuccessViewModel> {
 
     override val viewModel by lazy {
@@ -34,12 +35,13 @@ class RestoreAccountSuccessFragment : ToolbarLRFragment<RestoreAccountSuccessMod
         private val TOKEN_EXTRA = "TOKEN_EXTRA"
         private val IS_EXCHANGE_TOKEN = "IS_EXCHANGE_TOKEN"
 
-        fun newIntent(token: String, isExchangeToken: Boolean): RestoreAccountSuccessFragment = RestoreAccountSuccessFragment().also {
-            val bundle = Bundle()
-            bundle.putString(TOKEN_EXTRA, token)
-            bundle.putBoolean(IS_EXCHANGE_TOKEN, isExchangeToken)
-            it.arguments = bundle
-        }
+        fun newIntent(token: String, isExchangeToken: Boolean): RestoreAccountSuccessFragment =
+            RestoreAccountSuccessFragment().also {
+                val bundle = Bundle()
+                bundle.putString(TOKEN_EXTRA, token)
+                bundle.putBoolean(IS_EXCHANGE_TOKEN, isExchangeToken)
+                it.arguments = bundle
+            }
     }
 
     private var token: String = ""
@@ -77,9 +79,12 @@ class RestoreAccountSuccessFragment : ToolbarLRFragment<RestoreAccountSuccessMod
     override fun exchangeToken() = exchangeToken
 
     private lateinit var binding: FragmentAccountRestoreSuccessBinding
-    
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
-    {
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentAccountRestoreSuccessBinding.inflate(inflater)
         return binding.root
     }
@@ -87,18 +92,19 @@ class RestoreAccountSuccessFragment : ToolbarLRFragment<RestoreAccountSuccessMod
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        token = viewModel.token.value?:""
-        isExchangeToken = viewModel.isExchangeToken.value?:true
-        
+        token = viewModel.token.value ?: ""
+        isExchangeToken = viewModel.isExchangeToken.value ?: true
+
     }
 
     override fun createPresenter() = RestoreAccountSuccessPresenter(
-            viewModel.token.value?:"",
-            Injection.instance.accountRepository,
-        viewModel.isExchangeToken.value?:true
+        viewModel.token.value ?: "",
+        Injection.instance.accountRepository,
+        viewModel.isExchangeToken.value ?: true
     )
 
-    private var retrofitExceptionMapper: RetrofitExceptionMapper = Injection.instance.retrofitExceptionMapper
+    private var retrofitExceptionMapper: RetrofitExceptionMapper =
+        Injection.instance.retrofitExceptionMapper
 
 
     override fun render(vs: LRViewState<RestoreAccountSuccessModel>) {
@@ -109,7 +115,8 @@ class RestoreAccountSuccessFragment : ToolbarLRFragment<RestoreAccountSuccessMod
             binding.returnToRegistration.visibility = View.GONE
 
 
-            binding.progress.visibility = if (vs.model.sendingRestoreByEmail == true) View.VISIBLE else View.INVISIBLE
+            binding.progress.visibility =
+                if (vs.model.sendingRestoreByEmail == true) View.VISIBLE else View.INVISIBLE
 
             if (vs.model.sendingRestoreByEmailSuccess == true && !instructionsAlreadyShown) {
 
@@ -145,7 +152,8 @@ class RestoreAccountSuccessFragment : ToolbarLRFragment<RestoreAccountSuccessMod
 
                         try {
                             val newRecordError = retrofitExceptionMapper.mapToBaseApiError(error)
-                            message = if (newRecordError.message == null) "" else newRecordError.message
+                            message =
+                                if (newRecordError.message == null) "" else newRecordError.message
 
                         } catch (e: Exception) {
                         }

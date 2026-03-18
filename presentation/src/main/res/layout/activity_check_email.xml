@@ -21,7 +21,6 @@
         app:layout_constraintTop_toBottomOf="@id/descrLayout" />
 
 
-
     <RelativeLayout
         android:id="@+id/titleLayout"
         android:layout_width="match_parent"
@@ -43,50 +42,43 @@
         android:id="@+id/descrLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        app:layout_constraintTop_toBottomOf="@id/titleLayout"
         android:elevation="8dp"
-        >
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/titleLayout">
 
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="30dp"
-        android:gravity="center_horizontal|top"
-        android:text="@string/check_your_email"
-        android:textColor="@color/textColor"
-        android:fontFamily="@font/google_sans_medium"
-        android:textSize="32sp"
-        />
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="30dp"
+            android:fontFamily="@font/google_sans_medium"
+            android:gravity="center_horizontal|top"
+            android:text="@string/check_your_email"
+            android:textColor="@color/textColor"
+            android:textSize="32sp" />
 
-    <TextView
-        android:id="@+id/description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="12dp"
-        android:gravity="center_horizontal|top"
-        android:lineSpacingExtra="0sp"
-        android:textColor="@color/textColor"
-        android:fontFamily="@font/google_sans_regular"
-        android:textSize="16sp"
-        tools:text="Check your email" />
-
-
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="20dp"
+            android:fontFamily="@font/google_sans_regular"
+            android:gravity="center_horizontal|top"
+            android:lineSpacingExtra="0sp"
+            android:textColor="@color/textColor"
+            android:textSize="16sp"
+            tools:text="Check your email" />
 
 
     </LinearLayout>
-
-
-
 
 
     <RelativeLayout

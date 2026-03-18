@@ -17,7 +17,7 @@ class RecordsActivity : CommonActivity() {
 
         fun getCallingIntent(context: Context, recordCategory: RecordCategory?): Intent {
             val intent = Intent(context, RecordsActivity::class.java)
-            if(recordCategory!=null) {
+            if (recordCategory != null) {
                 intent.putExtra(CATEGORY_ID_EXTRA, recordCategory.id)
                 intent.putExtra(CATEGORY_NAME_EXTRA, recordCategory.name)
             }
@@ -25,12 +25,11 @@ class RecordsActivity : CommonActivity() {
         }
     }
 
-    lateinit var fragment : RecordsFragment
+    lateinit var fragment: RecordsFragment
 
 
     override val viewID: Int
         get() = R.layout.activity_toolbar
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

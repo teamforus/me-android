@@ -16,7 +16,9 @@ import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 
 
-class ConfirmRegistrationFragment :  ToolbarLRFragment<ConfirmRegistrationModel, ConfirmRegistrationView, ConfirmRegistrationPresenter>(), ConfirmRegistrationView,
+class ConfirmRegistrationFragment :
+    ToolbarLRFragment<ConfirmRegistrationModel, ConfirmRegistrationView, ConfirmRegistrationPresenter>(),
+    ConfirmRegistrationView,
     MViewModelProvider<ConfirmRegistrationViewModel> {
 
     override val viewModel by lazy {
@@ -26,11 +28,12 @@ class ConfirmRegistrationFragment :  ToolbarLRFragment<ConfirmRegistrationModel,
     companion object {
         private val TOKEN_EXTRA = "TOKEN_EXTRA"
 
-        fun newIntent(token: String): ConfirmRegistrationFragment = ConfirmRegistrationFragment().also {
-            val bundle = Bundle()
-            bundle.putString(TOKEN_EXTRA, token)
-            it.arguments = bundle
-        }
+        fun newIntent(token: String): ConfirmRegistrationFragment =
+            ConfirmRegistrationFragment().also {
+                val bundle = Bundle()
+                bundle.putString(TOKEN_EXTRA, token)
+                it.arguments = bundle
+            }
     }
 
 
@@ -60,8 +63,11 @@ class ConfirmRegistrationFragment :  ToolbarLRFragment<ConfirmRegistrationModel,
     private val exchangeToken = PublishSubject.create<String>()
     override fun exchangeToken() = exchangeToken
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
-    {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentConfirmRegistrationBinding.inflate(inflater)
 
         val bundle = this.arguments
@@ -82,8 +88,8 @@ class ConfirmRegistrationFragment :  ToolbarLRFragment<ConfirmRegistrationModel,
     }
 
     override fun createPresenter() = ConfirmRegistrationPresenter(
-            viewModel.token.value?:"",
-            Injection.instance.accountRepository
+        viewModel.token.value ?: "",
+        Injection.instance.accountRepository
     )
 
 
@@ -92,7 +98,7 @@ class ConfirmRegistrationFragment :  ToolbarLRFragment<ConfirmRegistrationModel,
 
 
 
-        if(vs.model.exchangeTokenError != null){
+        if (vs.model.exchangeTokenError != null) {
             showToastMessage(resources.getString(R.string.restore_email_invalid_link))
         }
 

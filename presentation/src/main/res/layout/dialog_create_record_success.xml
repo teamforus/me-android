@@ -32,44 +32,37 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            >
+            android:layout_marginTop="12dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="17dp"
                 android:layout_centerVertical="true"
+                android:layout_marginStart="17dp"
                 android:layout_marginEnd="16dp"
-                android:text="@string/new_record_title"
-                android:textColor="#2E3542"
-                android:scaleType="center"
-                android:textSize="12sp"
-                android:lineSpacingExtra="1sp"
-                android:translationY="-0.5sp"
-                android:gravity="top"
-                android:textAllCaps="true"
-                android:letterSpacing="0.09"
                 android:fontFamily="@font/google_sans_medium"
-                />
-
+                android:gravity="top"
+                android:letterSpacing="0.09"
+                android:lineSpacingExtra="1sp"
+                android:scaleType="center"
+                android:text="@string/new_record_title"
+                android:textAllCaps="true"
+                android:textColor="#2E3542"
+                android:textSize="12sp"
+                android:translationY="-0.5sp" />
 
 
             <ImageView
                 android:id="@+id/closeBt"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:src="@drawable/ic_close"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:scaleType="center"
-                android:visibility="invisible"
-                />
+                android:src="@drawable/ic_close"
+                android:visibility="invisible" />
 
         </RelativeLayout>
-
-
-
 
 
         <TextView
@@ -78,14 +71,11 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="72dp"
             android:layout_marginEnd="16dp"
+            android:fontFamily="@font/google_sans_medium"
             android:gravity="center_horizontal|top"
             android:text="@string/record_created_successfully"
             android:textColor="@color/textColor"
-            android:textSize="30sp"
-            android:fontFamily="@font/google_sans_medium"
-            />
-
-
+            android:textSize="30sp" />
 
 
         <ImageView
@@ -104,12 +94,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/shape_round_view"
-            android:orientation="vertical"
             android:layout_above="@+id/submitButton"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:layout_marginBottom="14dp">
+            android:layout_marginBottom="14dp"
+            android:background="@drawable/shape_round_view"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/recordTypeTV"
@@ -118,10 +108,10 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                tools:text="Record Type"
-                android:textColor="#8D9299"
                 android:fontFamily="@font/google_sans_regular"
-                android:textSize="12sp" />
+                android:textColor="#8D9299"
+                android:textSize="12sp"
+                tools:text="Record Type" />
 
             <TextView
                 android:id="@+id/recordNameTV"
@@ -131,10 +121,10 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
-                tools:text="Record name"
-                android:textColor="@color/darkGrey_Text_1"
                 android:fontFamily="@font/google_sans_medium"
-                android:textSize="20.1sp" />
+                android:textColor="@color/darkGrey_Text_1"
+                android:textSize="20.1sp"
+                tools:text="Record name" />
 
         </LinearLayout>
 

@@ -4,10 +4,10 @@ import io.forus.me.android.domain.models.account.Account
 
 
 data class AccountModel(
-        val account: Account? = null,
-        val pinlockEnabled: Boolean = false,
-        val fingerprintEnabled: Boolean = false,
-        val startFromScanner: Boolean = false,
-        val sendCrashReportsEnabled: Boolean = false,
-        val navigateToWelcome: Boolean = false
-        )
+    val account: Account? = null,
+    val pinlockEnabled: Boolean = false,
+    val fingerprintEnabled: Boolean = false,
+    val startFromScanner: Boolean = false,
+    val sendCrashReportsEnabled: Boolean = false,
+    val navigateToWelcome: Boolean = false
+)

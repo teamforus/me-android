@@ -411,7 +411,7 @@ public class PinLockView extends RecyclerView {
     }
 
 
-    public void setErrorAnimation(){
+    public void setErrorAnimation() {
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override

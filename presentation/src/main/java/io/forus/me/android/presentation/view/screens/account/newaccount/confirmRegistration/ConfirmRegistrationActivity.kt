@@ -9,7 +9,8 @@ import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.view.activity.CommonActivity
 import io.forus.me.android.presentation.view.base.MViewModelProvider
 
-class ConfirmRegistrationActivity : CommonActivity(), MViewModelProvider<ConfirmRegistrationViewModel> {
+class ConfirmRegistrationActivity : CommonActivity(),
+    MViewModelProvider<ConfirmRegistrationViewModel> {
 
     override val viewModel: ConfirmRegistrationViewModel by viewModels()
 
@@ -37,7 +38,7 @@ class ConfirmRegistrationActivity : CommonActivity(), MViewModelProvider<Confirm
 
         if (savedInstanceState == null) {
             val token = intent.getStringExtra(TOKEN_EXTRA)
-            fragment = if(token != null){
+            fragment = if (token != null) {
                 viewModel.setToken(token)
                 ConfirmRegistrationFragment.newIntent(token)
             } else ConfirmRegistrationFragment()
@@ -47,8 +48,8 @@ class ConfirmRegistrationActivity : CommonActivity(), MViewModelProvider<Confirm
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
-        intent.getStringExtra(TOKEN_EXTRA)?.let{
-    fragment.exchangeToken(it)
-}
+        intent.getStringExtra(TOKEN_EXTRA)?.let {
+            fragment.exchangeToken(it)
+        }
     }
 }

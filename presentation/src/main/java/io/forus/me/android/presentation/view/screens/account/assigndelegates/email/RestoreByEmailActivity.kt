@@ -41,7 +41,7 @@ class RestoreByEmailActivity : CommonActivity(), MViewModelProvider<RestoreByEma
         if (savedInstanceState == null) {
             val token = intent.getStringExtra(TOKEN_EXTRA)
 
-            fragment = if(token != null){
+            fragment = if (token != null) {
                 viewModel.setToken(token)
                 RestoreByEmailFragment.newIntent(token)
             } else RestoreByEmailFragment()

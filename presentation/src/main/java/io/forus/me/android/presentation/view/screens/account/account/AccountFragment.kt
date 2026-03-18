@@ -31,12 +31,13 @@ import io.reactivex.subjects.PublishSubject
 /**
  * Fragment User Account Screen.
  */
-class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPresenter>(), AccountView {
+class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPresenter>(),
+    AccountView {
 
     companion object {
         private const val REQUEST_CHANGE_PIN = 10001
     }
-    
+
     private lateinit var binding: FragmentAccountDetailsBinding
 
     override val allowBack: Boolean
@@ -62,15 +63,15 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
     private lateinit var services: SystemServices
     private val sendSupportEmailDialogBuilder: AlertDialog.Builder by lazy(LazyThreadSafetyMode.NONE) {
         AlertDialog.Builder(requireContext())
-                .setTitle(R.string.send_feedback_email_dialog_title)
-                .setNegativeButton(R.string.send_voucher_email_dialog_cancel_button) { dialogInterface, _ -> dialogInterface.dismiss() }
-                .setPositiveButton(R.string.send_voucher_email_dialog_positive_button) { dialogInterface: DialogInterface, _ ->
-                    dialogInterface.dismiss()
-                    val intent = Intent(Intent.ACTION_SENDTO)
-                    intent.data = Uri.parse("mailto:${binding.supportEmail.text}")
+            .setTitle(R.string.send_feedback_email_dialog_title)
+            .setNegativeButton(R.string.send_voucher_email_dialog_cancel_button) { dialogInterface, _ -> dialogInterface.dismiss() }
+            .setPositiveButton(R.string.send_voucher_email_dialog_positive_button) { dialogInterface: DialogInterface, _ ->
+                dialogInterface.dismiss()
+                val intent = Intent(Intent.ACTION_SENDTO)
+                intent.data = Uri.parse("mailto:${binding.supportEmail.text}")
 
-                    startActivity(Intent.createChooser(intent, getString(R.string.send_email_title)))
-                }
+                startActivity(Intent.createChooser(intent, getString(R.string.send_email_title)))
+            }
 
     }
 
@@ -89,7 +90,11 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
     private val refreshTrigger = PublishSubject.create<Unit>()
     override fun refreshDataIntent(): Observable<Unit> = refreshTrigger
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentAccountDetailsBinding.inflate(inflater)
         return binding.root
     }
@@ -115,8 +120,10 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
         }
 
         binding.privacyPolicyCard.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, 
-                Uri.parse(requireContext().getString(R.string.profile_privacy_policy_url)))
+            val intent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse(requireContext().getString(R.string.profile_privacy_policy_url))
+            )
             requireContext().startActivity(intent)
         }
 
@@ -129,37 +136,38 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
         }
 
         binding.btAppExplanation.setOnClickListener {
-            navigator.navigateToWelcomeScreen(requireContext(),false)
+            navigator.navigateToWelcomeScreen(requireContext(), false)
         }
 
         optionPincodeIsEnable = true
 
         SharedPref.init(requireContext())
-        preSavedOptionSendCrashLogIsEnable = SharedPref.read(SharedPref.OPTION_SEND_CRASH_REPORT, false)
+        preSavedOptionSendCrashLogIsEnable =
+            SharedPref.read(SharedPref.OPTION_SEND_CRASH_REPORT, false)
 
-        if(preSavedOptionSendCrashLogIsEnable){
-            h.postDelayed(object : Runnable{
+        if (preSavedOptionSendCrashLogIsEnable) {
+            h.postDelayed(object : Runnable {
                 override fun run() {
                     optionPincodeIsEnable = true
                     binding.enableSendCrashLog.setChecked(true)
                     preSavedOptionSendCrashLogIsEnable = false
-                    SharedPref.write(SharedPref.OPTION_SEND_CRASH_REPORT,false)
+                    SharedPref.write(SharedPref.OPTION_SEND_CRASH_REPORT, false)
                     switchSendCrashReports.onNext(true)
                 }
-            },600)
-
+            }, 600)
 
 
         }
     }
 
-    override fun createPresenter():AccountPresenter {
+    override fun createPresenter(): AccountPresenter {
 
         SharedPref.init(requireContext())
-        preSavedOptionSendCrashLogIsEnable = SharedPref.read(SharedPref.OPTION_SEND_CRASH_REPORT, false)
-        val sendReport =  preSavedOptionSendCrashLogIsEnable
+        preSavedOptionSendCrashLogIsEnable =
+            SharedPref.read(SharedPref.OPTION_SEND_CRASH_REPORT, false)
+        val sendReport = preSavedOptionSendCrashLogIsEnable
         return AccountPresenter(
-                Injection.instance.accountRepository, sendReport
+            Injection.instance.accountRepository, sendReport
         )
     }
 
@@ -167,7 +175,6 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
     private fun showConfirmLogoutDialog() {
         LogoutDialog(requireContext()) { logout.onNext(true) }.show();
     }
-
 
 
     override fun render(vs: LRViewState<AccountModel>) {
@@ -196,11 +203,16 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
                         optionPincodeIsEnable = true
                     }
                 }, 1000)
-                navigator.navigateToChangePin(this, if (vs.model.pinlockEnabled) ChangePinMode.REMOVE_OLD else ChangePinMode.SET_NEW, REQUEST_CHANGE_PIN)
+                navigator.navigateToChangePin(
+                    this,
+                    if (vs.model.pinlockEnabled) ChangePinMode.REMOVE_OLD else ChangePinMode.SET_NEW,
+                    REQUEST_CHANGE_PIN
+                )
             }
         }
 
-        binding.enableFingerprint.visibility = if (isFingerprintHardwareAvailable && vs.model.pinlockEnabled) View.VISIBLE else View.GONE
+        binding.enableFingerprint.visibility =
+            if (isFingerprintHardwareAvailable && vs.model.pinlockEnabled) View.VISIBLE else View.GONE
         binding.enableFingerprint.setChecked(vs.model.fingerprintEnabled)
         binding.enableFingerprint.setOnClickListener {
 
@@ -221,7 +233,12 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
 
         if (vs.model.account?.address != null) {
             binding.btnQr.setOnClickListener {
-                (activity as? DashboardActivity)?.showPopupQRFragment(QrCode(QrCode.Type.P2P_IDENTITY, vs.model.account.address).toJson())
+                (activity as? DashboardActivity)?.showPopupQRFragment(
+                    QrCode(
+                        QrCode.Type.P2P_IDENTITY,
+                        vs.model.account.address
+                    ).toJson()
+                )
             }
         }
 
@@ -242,8 +259,6 @@ class AccountFragment : ToolbarLRFragment<AccountModel, AccountView, AccountPres
             }, 500)
         }
     }
-
-
 
 
 }

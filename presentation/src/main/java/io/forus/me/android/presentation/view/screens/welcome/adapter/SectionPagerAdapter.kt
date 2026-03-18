@@ -9,7 +9,7 @@ import io.forus.me.android.presentation.view.screens.welcome.pages.WelcomeFragme
 import io.forus.me.android.presentation.view.screens.welcome.pages.WelcomeFragment4
 import io.forus.me.android.presentation.view.screens.welcome.pages.WelcomeFragment5
 
-class SectionPagerAdapter(activity: AppCompatActivity): FragmentStateAdapter(activity) {
+class SectionPagerAdapter(activity: AppCompatActivity) : FragmentStateAdapter(activity) {
 
     override fun getItemCount(): Int {
         // Returns the number of fragments you want to include in welcome slider

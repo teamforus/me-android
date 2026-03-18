@@ -1,7 +1,6 @@
 package io.forus.me.android.presentation.crypt
 
 
-
 import android.annotation.TargetApi
 import android.content.Context
 import android.os.Build
@@ -24,8 +23,9 @@ class KeyStoreWrapper(private val context: Context) {
     private val keyStore: KeyStore = createAndroidKeyStore()
 
 
-    fun getOrCreateAndroidKeyStoreAsymmetricKeyPair(alias: String): KeyPair = getAndroidKeyStoreAsymmetricKeyPair(alias)
-                ?:  createAndroidKeyStoreAsymmetricKey(alias)
+    fun getOrCreateAndroidKeyStoreAsymmetricKeyPair(alias: String): KeyPair =
+        getAndroidKeyStoreAsymmetricKeyPair(alias)
+            ?: createAndroidKeyStoreAsymmetricKey(alias)
 
 
     fun getAndroidKeyStoreAsymmetricKeyPair(alias: String): KeyPair? {
@@ -60,20 +60,23 @@ class KeyStoreWrapper(private val context: Context) {
         endDate.add(Calendar.YEAR, 20)
 
         val builder = KeyPairGeneratorSpec.Builder(context)
-                .setAlias(alias)
-                .setSerialNumber(BigInteger.ONE)
-                .setSubject(X500Principal("CN=${alias} CA Certificate"))
-                .setStartDate(startDate.time)
-                .setEndDate(endDate.time)
+            .setAlias(alias)
+            .setSerialNumber(BigInteger.ONE)
+            .setSubject(X500Principal("CN=${alias} CA Certificate"))
+            .setStartDate(startDate.time)
+            .setEndDate(endDate.time)
 
         generator.initialize(builder.build())
     }
 
     @TargetApi(Build.VERSION_CODES.M)
     private fun initGeneratorWithKeyGenParameterSpec(generator: KeyPairGenerator, alias: String) {
-        val builder = KeyGenParameterSpec.Builder(alias, KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT)
-                .setBlockModes(KeyProperties.BLOCK_MODE_ECB)
-                .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_RSA_PKCS1)
+        val builder = KeyGenParameterSpec.Builder(
+            alias,
+            KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT
+        )
+            .setBlockModes(KeyProperties.BLOCK_MODE_ECB)
+            .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_RSA_PKCS1)
         generator.initialize(builder.build())
     }
 

@@ -1,4 +1,5 @@
 package io.forus.me.android.presentation.view.component
+
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.text.TextPaint;

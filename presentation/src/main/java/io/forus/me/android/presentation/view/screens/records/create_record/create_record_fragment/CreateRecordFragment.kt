@@ -26,7 +26,11 @@ class CreateRecordFragment : Fragment() {
         val RECORD_TYPE_VALUE_EXTRA = "RECORD_TYPE_VALUE_EXTRA"
         val RECORD_INPUT_FIELD_TYPE_EXTRA = "RECORD_INPUT_FIELD_TYPE_EXTRA"
 
-        fun newIntent( recordTypeName: String, recordValue: String, recordTypeType: String): RecordDetailsFragment = RecordDetailsFragment().also {
+        fun newIntent(
+            recordTypeName: String,
+            recordValue: String,
+            recordTypeType: String
+        ): RecordDetailsFragment = RecordDetailsFragment().also {
             val bundle = Bundle()
 
             bundle.putSerializable(RECORD_TYPE_NAME_EXTRA, recordTypeName)
@@ -40,11 +44,13 @@ class CreateRecordFragment : Fragment() {
     private var recordTypeName: String = ""
     private var recordValue: String = ""
     private var recordInputFieldType: String = ""
-    
+
     private lateinit var binding: FragmentCreateRecordBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
 
         val bundle = this.arguments
@@ -56,7 +62,7 @@ class CreateRecordFragment : Fragment() {
 
         }
         Log.d("forus", "name = $recordTypeName")
-        
+
         binding = FragmentCreateRecordBinding.inflate(inflater)
 
         return binding.root
@@ -74,8 +80,8 @@ class CreateRecordFragment : Fragment() {
 
         binding.recordGroupNameTV.text = recordTypeName
         binding.recordNameEditText.setText(recordValue)
-        if(inputTextListener!=null){
-            if(recordValue.isNotEmpty()){
+        if (inputTextListener != null) {
+            if (recordValue.isNotEmpty()) {
                 inputTextListener!!.onTextInput(recordValue)
             }
         }
@@ -86,10 +92,12 @@ class CreateRecordFragment : Fragment() {
                 binding.recordNameEditText.inputType = InputType.TYPE_CLASS_TEXT
                 //binding.recordNameEditText.imeOptions = EditorInfo.IME_ACTION_DONE
             }
+
             "text" -> {
                 binding.recordNameEditText.maxLines = 1000
                 binding.recordNameEditText.inputType = InputType.TYPE_CLASS_TEXT
             }
+
             "number" -> {
                 binding.recordNameEditText.maxLines = 1
                 binding.recordNameEditText.inputType = InputType.TYPE_CLASS_NUMBER

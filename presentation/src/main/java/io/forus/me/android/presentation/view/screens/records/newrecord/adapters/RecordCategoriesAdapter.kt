@@ -8,7 +8,8 @@ import io.forus.me.android.domain.models.records.RecordCategory
 import io.forus.me.android.presentation.databinding.ItemRecordSelectCategoryBinding
 import io.forus.me.android.presentation.view.screens.records.newrecord.viewholders.RecordCategoryVH
 
-class RecordCategoriesAdapter(private val clickListener: ((RecordCategory) -> Unit)?): RecyclerView.Adapter<RecordCategoryVH>() {
+class RecordCategoriesAdapter(private val clickListener: ((RecordCategory) -> Unit)?) :
+    RecyclerView.Adapter<RecordCategoryVH>() {
 
     private var lastSelectedPosition: Int = -1
 
@@ -19,8 +20,11 @@ class RecordCategoriesAdapter(private val clickListener: ((RecordCategory) -> Un
             DiffUtil.calculateDiff(object : DiffUtil.Callback() {
                 override fun getOldListSize() = old.size
                 override fun getNewListSize() = field.size
-                override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) = old[oldItemPosition] == field[newItemPosition]
-                override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) = old[oldItemPosition] == field[newItemPosition]
+                override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) =
+                    old[oldItemPosition] == field[newItemPosition]
+
+                override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) =
+                    old[oldItemPosition] == field[newItemPosition]
             }).dispatchUpdatesTo(this)
             notifyDataSetChanged()
         }
@@ -31,13 +35,17 @@ class RecordCategoriesAdapter(private val clickListener: ((RecordCategory) -> Un
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecordCategoryVH {
-        val binding = ItemRecordSelectCategoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemRecordSelectCategoryBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
         return RecordCategoryVH(binding)
     }
 
     override fun onBindViewHolder(holder: RecordCategoryVH, position: Int) {
         val item = items[position]
-        holder.bind(item,lastSelectedPosition){ recordCategory: RecordCategory, position: Int ->
+        holder.bind(item, lastSelectedPosition) { recordCategory: RecordCategory, position: Int ->
             lastSelectedPosition = position
             clickListener?.invoke(recordCategory)
         }

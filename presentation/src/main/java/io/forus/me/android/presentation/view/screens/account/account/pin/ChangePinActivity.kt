@@ -24,7 +24,6 @@ class ChangePinActivity : CommonActivity(), MViewModelProvider<ChangePinViewMode
     }
 
 
-
     override val viewID: Int
         get() = R.layout.activity_toolbar
 

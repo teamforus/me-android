@@ -20,13 +20,11 @@ import io.forus.me.android.presentation.R;
 
 public class ConfirmLoginDeviceDialog extends DialogFragment {
 
-    View rootView;
-
-
-
     public SubmitClickListener submitClickListener;
+    View rootView;
+    boolean isSmallScreen = false;
 
-    public static ConfirmLoginDeviceDialog display(FragmentManager fragmentManager,SubmitClickListener submitClickListener) {
+    public static ConfirmLoginDeviceDialog display(FragmentManager fragmentManager, SubmitClickListener submitClickListener) {
         ConfirmLoginDeviceDialog dialog = new ConfirmLoginDeviceDialog();
 
         dialog.submitClickListener = submitClickListener;
@@ -41,8 +39,6 @@ public class ConfirmLoginDeviceDialog extends DialogFragment {
         setStyle(DialogFragment.STYLE_NORMAL, R.style.AppTheme_FullScreenDialog);
     }
 
-     boolean  isSmallScreen = false;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -53,7 +49,7 @@ public class ConfirmLoginDeviceDialog extends DialogFragment {
         float dpHeight = outMetrics.heightPixels / density;
         float dpWidth = outMetrics.widthPixels / density;
 
-        if (dpWidth <= 320 || dpHeight < 522){
+        if (dpWidth <= 320 || dpHeight < 522) {
             isSmallScreen = true;
         }
 
@@ -83,7 +79,7 @@ public class ConfirmLoginDeviceDialog extends DialogFragment {
         io.forus.me.android.presentation.view.component.buttons.Button submitButton = rootView.findViewById(R.id.submitButton);
 
         LinearLayout imageL = rootView.findViewById(R.id.imageL);
-        if(isSmallScreen){
+        if (isSmallScreen) {
             imageL.setVisibility(View.INVISIBLE);
         }
 
@@ -99,8 +95,6 @@ public class ConfirmLoginDeviceDialog extends DialogFragment {
                 submitClickListener.dismiss(ConfirmLoginDeviceDialog.this);
             }
         });
-
-
 
 
         if (submitClickListener != null) {
@@ -122,6 +116,7 @@ public class ConfirmLoginDeviceDialog extends DialogFragment {
 
     public interface SubmitClickListener {
         void confirm(ConfirmLoginDeviceDialog dialog);
+
         void dismiss(ConfirmLoginDeviceDialog dialog);
     }
 

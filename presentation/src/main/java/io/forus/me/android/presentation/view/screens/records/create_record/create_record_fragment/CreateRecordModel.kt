@@ -13,38 +13,44 @@ import io.reactivex.schedulers.Schedulers
 class CreateRecordModel(private val recordRepository: RecordsRepository) {
 
 
-    fun createRecord(request: NewRecordRequest, success: (CreateRecordResponse) -> Unit, error: (Throwable) -> Unit) {
-        Single.fromObservable(recordRepository.newRecord(request!!)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .switchMap<PartialChange> { createRecordResponse ->
-                    success(createRecordResponse)
-                    Observable.just(NewRecordPartialChanges.CreateRecordEnd(createRecordResponse))
-                }
-                .onErrorReturn {
-                    error(it)
-                    NewRecordPartialChanges.CreateRecordError(it)
-                })
-                .subscribe()
+    fun createRecord(
+        request: NewRecordRequest,
+        success: (CreateRecordResponse) -> Unit,
+        error: (Throwable) -> Unit
+    ) {
+        Single.fromObservable(
+            recordRepository.newRecord(request!!)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .switchMap<PartialChange> { createRecordResponse ->
+                success(createRecordResponse)
+                Observable.just(NewRecordPartialChanges.CreateRecordEnd(createRecordResponse))
+            }
+            .onErrorReturn {
+                error(it)
+                NewRecordPartialChanges.CreateRecordError(it)
+            })
+            .subscribe()
     }
 
     fun getRecordTypes(success: (CreateRecordResponse) -> Unit, error: (Throwable) -> Unit) {
         Single.fromObservable(recordRepository.getRecordTypes())
-                .subscribe()
+            .subscribe()
 
     }
 
     fun deleteRecord(id: Long, success: (Boolean) -> Unit, error: (Throwable) -> Unit) {
-        Single.fromObservable(recordRepository.deleteRecord(id)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .switchMap<Boolean> {
-                    success(it)
-                    Observable.just(true)
-                }
-                .onErrorReturn {
-                    error(it)
-                    false
-                }).subscribe()
+        Single.fromObservable(
+            recordRepository.deleteRecord(id)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .switchMap<Boolean> {
+                success(it)
+                Observable.just(true)
+            }
+            .onErrorReturn {
+                error(it)
+                false
+            }).subscribe()
     }
 }

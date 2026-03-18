@@ -10,9 +10,12 @@ import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.helpers.inflate
 
 
-class RecordCategoriesVH(parent: ViewGroup, private val clickListener: ((RecordCategory) -> Unit)?) : RecyclerView.ViewHolder(parent.inflate(R.layout.item_record_categories)) {
+class RecordCategoriesVH(
+    parent: ViewGroup,
+    private val clickListener: ((RecordCategory) -> Unit)?
+) : RecyclerView.ViewHolder(parent.inflate(R.layout.item_record_categories)) {
 
-   private var name: TextView? = null
+    private var name: TextView? = null
     private var selectedCheckBox: CheckBox? = null
     private var root: View? = null
 
@@ -22,7 +25,7 @@ class RecordCategoriesVH(parent: ViewGroup, private val clickListener: ((RecordC
         root = itemView.findViewById(R.id.root)
     }
 
-    fun render(item:  RecordCategory) = with(itemView) {
+    fun render(item: RecordCategory) = with(itemView) {
 
 
         name?.text = item.name

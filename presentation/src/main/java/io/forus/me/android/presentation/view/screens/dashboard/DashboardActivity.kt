@@ -25,7 +25,7 @@ import io.reactivex.schedulers.Schedulers
 
 class DashboardActivity : AppCompatActivity() {
 
-     val viewModel: VoucherViewModel by viewModels()
+    val viewModel: VoucherViewModel by viewModels()
     private val db = Injection.instance.databaseHelper
 
     val systemServices by lazy(LazyThreadSafetyMode.NONE) { SystemServices(this) }
@@ -38,7 +38,6 @@ class DashboardActivity : AppCompatActivity() {
     private val loggingViewModel by lazy {
         ViewModelProvider(this, loggingViewModelFactory).get(LoggingViewModel::class.java)
     }
-
 
 
     private var settings = Injection.instance.settingsDataSource
@@ -57,7 +56,7 @@ class DashboardActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
-        if(!db.isOpen){
+        if (!db.isOpen) {
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
@@ -78,14 +77,17 @@ class DashboardActivity : AppCompatActivity() {
                         navController.navigate(R.id.vouchersFragment)
                         true
                     }
+
                     R.id.dashboard_profile -> {
                         navController.navigate(R.id.accountFragment)
                         true
                     }
+
                     R.id.dashboard_qr -> {
                         navigateToQrScanner()
                         false
                     }
+
                     else -> false
                 }
             }
@@ -97,9 +99,8 @@ class DashboardActivity : AppCompatActivity() {
 
         Handler(Looper.getMainLooper()).postDelayed({
             loggingViewModel.authorizeFirestore()
-        },100)
+        }, 100)
     }
-
 
 
     fun navigateToQrScanner() {
@@ -112,18 +113,26 @@ class DashboardActivity : AppCompatActivity() {
         }
     }
 
-    fun showPopupQRFragment(address: String,qrHead: String? = null, qrSubtitle: String? = null, qrDescription: String? = null) {
+    fun showPopupQRFragment(
+        address: String,
+        qrHead: String? = null,
+        qrSubtitle: String? = null,
+        qrDescription: String? = null
+    ) {
 
         val meBottomSheet = MeBottomSheetDialogFragment.newInstance(
-            QrFragment.newIntent(address, qrHead, qrSubtitle, qrDescription),"QR code")
+            QrFragment.newIntent(address, qrHead, qrSubtitle, qrDescription), "QR code"
+        )
         meBottomSheet.show(supportFragmentManager, meBottomSheet.tag)
     }
 
     private fun checkFCM() {
-        disposableHolder.add(fcmHandler.checkFCMToken(this)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe())
+        disposableHolder.add(
+            fcmHandler.checkFCMToken(this)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe()
+        )
     }
 
     fun logout() {

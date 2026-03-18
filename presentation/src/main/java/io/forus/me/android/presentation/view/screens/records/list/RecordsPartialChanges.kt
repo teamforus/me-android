@@ -7,9 +7,9 @@ import io.forus.me.android.presentation.view.base.lr.PartialChange
 sealed class RecordsPartialChanges : PartialChange {
 
 
-    data class RequestRecordsSuccess(val recordsR: List<Record>): RecordsPartialChanges()
+    data class RequestRecordsSuccess(val recordsR: List<Record>) : RecordsPartialChanges()
 
-    data class RequestArchivesSuccess(val archiveR: List<Record>): RecordsPartialChanges()
+    data class RequestArchivesSuccess(val archiveR: List<Record>) : RecordsPartialChanges()
 
-    data class RequestError(val error: Throwable): RecordsPartialChanges()
+    data class RequestError(val error: Throwable) : RecordsPartialChanges()
 }

@@ -14,11 +14,12 @@ import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.base.lr.LoadRefreshPanel
 import io.reactivex.Observable
 
-class RestoreByQRFragment : LRFragment<RestoreByQRModel, RestoreByQRView, RestoreByQRPresenter>(), RestoreByQRView  {
+class RestoreByQRFragment : LRFragment<RestoreByQRModel, RestoreByQRView, RestoreByQRPresenter>(),
+    RestoreByQRView {
 
-    var qrText : String = ""
+    var qrText: String = ""
         set(value) {
-            if(field != value){
+            if (field != value) {
                 field = value
                 if (binding.qrImage != null) {
                     binding.qrImage.setQRText(QrCode(QrCode.Type.AUTH_TOKEN, value).toJson())
@@ -42,8 +43,11 @@ class RestoreByQRFragment : LRFragment<RestoreByQRModel, RestoreByQRView, Restor
 
     private lateinit var binding: FragmentPopupQrBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
-    {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentPopupQrBinding.inflate(inflater)
         return binding.root
     }
@@ -55,9 +59,9 @@ class RestoreByQRFragment : LRFragment<RestoreByQRModel, RestoreByQRView, Restor
     }
 
     override fun createPresenter() = RestoreByQRPresenter(
-            disposableHolder,
-            Injection.instance.accessTokenChecker,
-            Injection.instance.accountRepository
+        disposableHolder,
+        Injection.instance.accessTokenChecker,
+        Injection.instance.accountRepository
     )
 
 
@@ -70,7 +74,7 @@ class RestoreByQRFragment : LRFragment<RestoreByQRModel, RestoreByQRView, Restor
             qrText = vs.model.item.authToken
         }
 
-        if(vs.closeScreen && vs.model.isQrConfirmed == true && vs.model.item?.accessToken != null){
+        if (vs.closeScreen && vs.model.isQrConfirmed == true && vs.model.item?.accessToken != null) {
             closeScreen(vs.model.item.accessToken)
         }
     }

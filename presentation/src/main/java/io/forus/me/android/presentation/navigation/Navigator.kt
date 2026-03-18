@@ -46,12 +46,16 @@ constructor()//empty
 {
     fun navigateToDashboardPinlocked(context: Context?, useFingerprint: Boolean) {
         if (context != null) {
-            val lockIntent = PinLockActivity.getCallingIntent(context, DashboardActivity.getCallingIntent(context), useFingerprint)
+            val lockIntent = PinLockActivity.getCallingIntent(
+                context,
+                DashboardActivity.getCallingIntent(context),
+                useFingerprint
+            )
             context.startActivity(lockIntent)
         }
     }
 
-    fun navigateToCheckTransactionPin(context: Context?,intent: Intent, useFingerprint: Boolean) {
+    fun navigateToCheckTransactionPin(context: Context?, intent: Intent, useFingerprint: Boolean) {
         if (context != null) {
             val lockIntent = PinLockActivity.getCallingIntent(context, intent, useFingerprint)
             context.startActivity(lockIntent)
@@ -67,10 +71,10 @@ constructor()//empty
     }
 
 
-    fun navigateToWelcomeScreen(context: Context?,goToLogin: Boolean) {
+    fun navigateToWelcomeScreen(context: Context?, goToLogin: Boolean) {
         if (context != null) {
-            val intentToLaunch = WelcomeActivity.getCallingIntent(context,goToLogin)
-            if(goToLogin) {
+            val intentToLaunch = WelcomeActivity.getCallingIntent(context, goToLogin)
+            if (goToLogin) {
                 intentToLaunch.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK)
             }
             context.startActivity(intentToLaunch)
@@ -114,7 +118,7 @@ constructor()//empty
         }
     }
 
-    fun navigateToPinNew(context: Context?, accessToken: String){
+    fun navigateToPinNew(context: Context?, accessToken: String) {
         if (context != null) {
             val intentToLaunch = NewPinActivity.getCallingIntent(context, accessToken)
             context.startActivity(intentToLaunch)
@@ -131,12 +135,10 @@ constructor()//empty
 
     fun navigateToConfirmRegistration(context: Context?, accessToken: String) {
         if (context != null) {
-            val intentToLaunch = ConfirmRegistrationActivity.getCallingIntent(context,accessToken)
+            val intentToLaunch = ConfirmRegistrationActivity.getCallingIntent(context, accessToken)
             context.startActivity(intentToLaunch)
         }
     }
-
-
 
 
     fun navigateToAccountRestoreByEmailExchangeToken(context: Context?, token: String) {
@@ -157,8 +159,6 @@ constructor()//empty
     }
 
 
-
-
     fun navigateToLoginSignUp(context: Context?, token: String) {
         if (context != null) {
             val intentToLaunch = LogInSignUpActivity.getCallingIntent(context, token)
@@ -169,12 +169,12 @@ constructor()//empty
 
     fun navigateToResoreAccountSuccess(context: Context?, token: String, isExchangeToken: Boolean) {
         if (context != null) {
-            val intentToLaunch = RestoreAccountSuccessActivity.getCallingIntent(context, token, isExchangeToken)
+            val intentToLaunch =
+                RestoreAccountSuccessActivity.getCallingIntent(context, token, isExchangeToken)
             intentToLaunch.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             context.startActivity(intentToLaunch)
         }
     }
-
 
 
     fun navigateToWallet(context: Context?, wallet: Wallet) {
@@ -226,18 +226,26 @@ constructor()//empty
         }
     }
 
-    fun navigateToRecordDetailsForResult(context: AppCompatActivity, record: Record, REQUEST_CODE: Int) {
+    fun navigateToRecordDetailsForResult(
+        context: AppCompatActivity,
+        record: Record,
+        REQUEST_CODE: Int
+    ) {
         if (context != null) {
             val intentToLaunch = RecordDetailsActivity.getCallingIntent(context, record)
-            context.startActivityForResult(intentToLaunch,REQUEST_CODE)
+            context.startActivityForResult(intentToLaunch, REQUEST_CODE)
         }
     }
 
 
-
-    fun navigateToVoucherProvider(context: Context?, voucherAddress: String,  isDemoVoucher: Boolean? = false) {
+    fun navigateToVoucherProvider(
+        context: Context?,
+        voucherAddress: String,
+        isDemoVoucher: Boolean? = false
+    ) {
         if (context != null) {
-            val intentToLaunch = ProviderActivity.getCallingIntent(context, voucherAddress,isDemoVoucher)
+            val intentToLaunch =
+                ProviderActivity.getCallingIntent(context, voucherAddress, isDemoVoucher)
             context.startActivity(intentToLaunch)
         }
     }
@@ -249,17 +257,25 @@ constructor()//empty
         }
     }
 
-    fun navigateToProductReservation(context: Context?, voucherAddress: String, showParentVoucher: Boolean) {
+    fun navigateToProductReservation(
+        context: Context?,
+        voucherAddress: String,
+        showParentVoucher: Boolean
+    ) {
         if (context != null) {
-            val intentToLaunch = ProductReservationActivity.getCallingIntent(context, voucherAddress, showParentVoucher)
+            val intentToLaunch = ProductReservationActivity.getCallingIntent(
+                context,
+                voucherAddress,
+                showParentVoucher
+            )
             context.startActivity(intentToLaunch)
         }
     }
 
 
-    fun navigateToChangePin(caller: Fragment, mode: ChangePinMode, requestCode: Int){
+    fun navigateToChangePin(caller: Fragment, mode: ChangePinMode, requestCode: Int) {
         val context = caller.context
-        if(context != null){
+        if (context != null) {
             val intentToLaunch = ChangePinActivity.getCallingIntent(context, mode)
             caller.startActivityForResult(intentToLaunch, requestCode)
         }

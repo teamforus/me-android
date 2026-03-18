@@ -9,9 +9,11 @@ import com.afollestad.materialdialogs.MaterialDialog
 import io.forus.me.android.presentation.R
 
 
-class ApplyActionTransactionDialog(private val context: Activity, private val title: String,
-                                   private val toPayText: String, private val subtitle: String,
-                                   private val positiveCallback: () -> Unit) {
+class ApplyActionTransactionDialog(
+    private val context: Activity, private val title: String,
+    private val toPayText: String, private val subtitle: String,
+    private val positiveCallback: () -> Unit
+) {
 
     var dialog: MaterialDialog? = null
 
@@ -26,7 +28,7 @@ class ApplyActionTransactionDialog(private val context: Activity, private val ti
 
         val viewId = if (dpWidth <= 320 || dpHeight < 522) {
             R.layout.dialog_apply_action_nokia1
-        }else{
+        } else {
             R.layout.dialog_apply_action
         }
 
@@ -34,14 +36,14 @@ class ApplyActionTransactionDialog(private val context: Activity, private val ti
         val titleTV = customLayout.findViewById<TextView>(R.id.title)
         val bottomTV = customLayout.findViewById<TextView>(R.id.bottom)
 
-        val amountTV =  customLayout.findViewById<TextView>(R.id.amount)
+        val amountTV = customLayout.findViewById<TextView>(R.id.amount)
 
 
 
 
-            amountTV.text = toPayText
-            titleTV.text = title
-            bottomTV.text =  subtitle
+        amountTV.text = toPayText
+        titleTV.text = title
+        bottomTV.text = subtitle
 
 
 
@@ -55,8 +57,8 @@ class ApplyActionTransactionDialog(private val context: Activity, private val ti
 
 
         dialog = MaterialDialog.Builder(context)
-                .customView(customLayout, false)
-                .build()
+            .customView(customLayout, false)
+            .build()
         dialog!!.show()
 
     }

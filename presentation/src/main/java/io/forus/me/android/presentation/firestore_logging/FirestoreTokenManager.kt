@@ -12,18 +12,16 @@ import io.reactivex.schedulers.Schedulers
 import java.math.BigDecimal
 
 class FirestoreTokenManager constructor(
-    private val accountRepository: AccountRepository) {
+    private val accountRepository: AccountRepository
+) {
     private val TAG = "FirestoreLogger"
-
 
 
     private fun getServerApiKey() =
         if (BuildConfig.SERVER_API_KEY.isNullOrEmpty()) null else BuildConfig.SERVER_API_KEY
 
 
-
-
-    public fun authorizeFirestore(onComplete: (()->(Unit))?) {
+    public fun authorizeFirestore(onComplete: (() -> (Unit))?) {
         getServerApiKey()?.let { serverApiKey ->
             getFirestoreToken(serverApiKey, onComplete)
         } ?: kotlin.run {
@@ -34,7 +32,7 @@ class FirestoreTokenManager constructor(
         }
     }
 
-    private fun getFirestoreToken(serverApiKey: String,onComplete: (()->(Unit))?) {
+    private fun getFirestoreToken(serverApiKey: String, onComplete: (() -> (Unit))?) {
         accountRepository.getFirestoreToken(serverApiKey)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -55,20 +53,20 @@ class FirestoreTokenManager constructor(
     }
 
 
-    private fun registerFirestoreUser(firestoreToken: String, onComplete: (()->(Unit))?) {
+    private fun registerFirestoreUser(firestoreToken: String, onComplete: (() -> (Unit))?) {
 
         FirebaseAuth.getInstance().signInWithCustomToken(firestoreToken)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val user = FirebaseAuth.getInstance().currentUser
-                     Log.d(TAG,"Firestore user uid: ${user?.uid}")
+                    Log.d(TAG, "Firestore user uid: ${user?.uid}")
                     onComplete?.invoke()
-                }else {
+                } else {
                     Log.w("FirestoreLogger", "signInWithCustomToken:failure", task.exception)
                 }
             }
             .addOnFailureListener {
-                Log.e( TAG, it.localizedMessage)
+                Log.e(TAG, it.localizedMessage)
             }
     }
     //
@@ -79,11 +77,11 @@ class FirestoreTokenManager constructor(
     ) {
 
         if (FirebaseAuth.getInstance().currentUser == null) {
-            authorizeFirestore{
-                logTransaction(address,amount,note,organizationId,success,error)
+            authorizeFirestore {
+                logTransaction(address, amount, note, organizationId, success, error)
             }
-        }else{
-            logTransaction(address,amount,note,organizationId,success,error)
+        } else {
+            logTransaction(address, amount, note, organizationId, success, error)
         }
     }
 
@@ -139,20 +137,20 @@ class FirestoreTokenManager constructor(
     //GetVoucherAsProvider
 
     public fun writeGetVoucherAsProvider(
-        address: String,  success: Boolean, error: String?
+        address: String, success: Boolean, error: String?
     ) {
 
         if (FirebaseAuth.getInstance().currentUser == null) {
-            authorizeFirestore{
-                logGetVoucherAsProvider(address,success,error)
+            authorizeFirestore {
+                logGetVoucherAsProvider(address, success, error)
             }
-        }else{
-            logGetVoucherAsProvider(address,success,error)
+        } else {
+            logGetVoucherAsProvider(address, success, error)
         }
     }
 
     private fun logGetVoucherAsProvider(
-        address: String,  success: Boolean, error: String?
+        address: String, success: Boolean, error: String?
     ) {
 
         val currentUser = FirebaseAuth.getInstance().currentUser
@@ -199,20 +197,20 @@ class FirestoreTokenManager constructor(
     //GetProductVoucherAsProvider
 
     public fun writeGetProductVoucherAsProvider(
-        address: String,  success: Boolean, error: String?
+        address: String, success: Boolean, error: String?
     ) {
 
         if (FirebaseAuth.getInstance().currentUser == null) {
-            authorizeFirestore{
-                logGetProductVoucherAsProvider(address,success,error)
+            authorizeFirestore {
+                logGetProductVoucherAsProvider(address, success, error)
             }
-        }else{
-            logGetProductVoucherAsProvider(address,success,error)
+        } else {
+            logGetProductVoucherAsProvider(address, success, error)
         }
     }
 
     private fun logGetProductVoucherAsProvider(
-        address: String,  success: Boolean, error: String?
+        address: String, success: Boolean, error: String?
     ) {
 
         val currentUser = FirebaseAuth.getInstance().currentUser

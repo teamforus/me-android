@@ -15,8 +15,11 @@ class RecordCategoriesAdapter : RecyclerView.Adapter<RecordCategoriesVH>() {
             DiffUtil.calculateDiff(object : DiffUtil.Callback() {
                 override fun getOldListSize() = old.size
                 override fun getNewListSize() = field.size
-                override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) = old[oldItemPosition] == field[newItemPosition]
-                override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) = old[oldItemPosition] == field[newItemPosition]
+                override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) =
+                    old[oldItemPosition] == field[newItemPosition]
+
+                override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) =
+                    old[oldItemPosition] == field[newItemPosition]
             }).dispatchUpdatesTo(this)
             notifyDataSetChanged()
         }
@@ -28,7 +31,9 @@ class RecordCategoriesAdapter : RecyclerView.Adapter<RecordCategoriesVH>() {
 
     var clickListener: ((RecordCategory) -> Unit)? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = RecordCategoriesVH(parent, clickListener)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+        RecordCategoriesVH(parent, clickListener)
+
     override fun onBindViewHolder(holder: RecordCategoriesVH, position: Int) {
 
         holder.render(items[position])

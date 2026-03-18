@@ -14,9 +14,9 @@ import io.forus.me.android.presentation.R
 
 
 class UpdateAppSnackbarView @JvmOverloads constructor(
-        context: Context,
-        attrs: AttributeSet? = null,
-        defStyleAttr: Int = 0
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr),
     ContentViewCallback {
 

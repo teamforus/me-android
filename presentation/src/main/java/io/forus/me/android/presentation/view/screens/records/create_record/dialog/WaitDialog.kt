@@ -8,10 +8,9 @@ import android.view.WindowManager
 import android.widget.LinearLayout
 import io.forus.me.android.presentation.R
 
-class WaitDialog(private val context: Activity){
+class WaitDialog(private val context: Activity) {
 
-    var  dialog: AlertDialog
-
+    var dialog: AlertDialog
 
 
     init {
@@ -26,7 +25,7 @@ class WaitDialog(private val context: Activity){
         }
     }
 
-    fun show(){
+    fun show() {
         dialog.show()
         val window = dialog.window
         if (window != null) {
@@ -38,8 +37,8 @@ class WaitDialog(private val context: Activity){
         }
     }
 
-    fun dismiss(){
-        if(dialog.isShowing){
+    fun dismiss() {
+        if (dialog.isShowing) {
             dialog.dismiss()
         }
 

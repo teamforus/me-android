@@ -42,13 +42,16 @@ class LogInSignUpActivity : CommonActivity(), MViewModelProvider<LoginSignUpView
 
         if (savedInstanceState == null) {
             val token = intent.getStringExtra(TOKEN_EXTRA)
-            fragment = if(token != null){
+            fragment = if (token != null) {
                 viewModel.setToken(token)
                 LogInSignUpFragment.newIntent(token)
             } else LogInSignUpFragment()
             val fragmentContainer = findViewById<FrameLayout>(R.id.fragmentContainer)
             fragmentContainer.layoutParams =
-                RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT)
+                RelativeLayout.LayoutParams(
+                    RelativeLayout.LayoutParams.MATCH_PARENT,
+                    RelativeLayout.LayoutParams.MATCH_PARENT
+                )
 
             addFragment(R.id.fragmentContainer, fragment)
         }
@@ -56,7 +59,7 @@ class LogInSignUpActivity : CommonActivity(), MViewModelProvider<LoginSignUpView
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
-        intent.getStringExtra(TOKEN_EXTRA)?.let{
+        intent.getStringExtra(TOKEN_EXTRA)?.let {
             fragment.exchangeToken(it)
         }
 

@@ -5,7 +5,7 @@ import android.os.Parcelable
 
 class Currency(var name: String? = "", var logoUrl: String? = "") : Parcelable {
 
-    constructor(parcel: Parcel) : this(parcel.readString()  ?: "", parcel.readString()  ?: "")
+    constructor(parcel: Parcel) : this(parcel.readString() ?: "", parcel.readString() ?: "")
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(name)

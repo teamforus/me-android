@@ -27,9 +27,10 @@ class AssignDelegatesAccountActivity : CommonActivity() {
         }
     }
 
-    fun showPopupQRFragment(){
+    fun showPopupQRFragment() {
         val meBottomSheet = MeBottomSheetDialogFragment.newInstance(
-            RestoreByQRFragment(), resources.getString(R.string.restore_title_qr))
+            RestoreByQRFragment(), resources.getString(R.string.restore_title_qr)
+        )
         meBottomSheet.show(supportFragmentManager, meBottomSheet.tag)
     }
 }

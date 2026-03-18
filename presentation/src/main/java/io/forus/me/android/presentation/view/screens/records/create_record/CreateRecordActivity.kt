@@ -27,7 +27,8 @@ import io.forus.me.android.presentation.view.screens.records.create_record.dialo
 import io.forus.me.android.presentation.view.screens.records.types.RecordTypesFragment
 
 
-class CreateRecordActivity : AppCompatActivity(), RecordTypesFragment.OnItemSelected, CreateRecordFragment.OnInputRecordNameText {
+class CreateRecordActivity : AppCompatActivity(), RecordTypesFragment.OnItemSelected,
+    CreateRecordFragment.OnInputRecordNameText {
 
 
     companion object {
@@ -44,10 +45,11 @@ class CreateRecordActivity : AppCompatActivity(), RecordTypesFragment.OnItemSele
 
     var recordNameText: String? = null
 
-    private var retrofitExceptionMapper: RetrofitExceptionMapper = Injection.instance.retrofitExceptionMapper
+    private var retrofitExceptionMapper: RetrofitExceptionMapper =
+        Injection.instance.retrofitExceptionMapper
 
     var waitDialog: WaitDialog? = null
-    
+
     private lateinit var binding: ActivityCreateCategoryFlowBinding
     private lateinit var navController: NavController
 
@@ -59,11 +61,11 @@ class CreateRecordActivity : AppCompatActivity(), RecordTypesFragment.OnItemSele
         navController = findNavController(R.id.nav_host_fragment)
 
         val navOptions = NavOptions.Builder()
-                .setEnterAnim(R.anim.nav_default_enter_anim)
-                .setExitAnim(R.anim.nav_default_exit_anim)
-                .setPopEnterAnim(R.anim.nav_default_pop_enter_anim)
-                .setPopExitAnim(R.anim.nav_default_pop_exit_anim)
-                .build()
+            .setEnterAnim(R.anim.nav_default_enter_anim)
+            .setExitAnim(R.anim.nav_default_exit_anim)
+            .setPopEnterAnim(R.anim.nav_default_pop_enter_anim)
+            .setPopExitAnim(R.anim.nav_default_pop_exit_anim)
+            .build()
 
         statusNextButton(false)
         statusCurrentStep(step)
@@ -72,7 +74,7 @@ class CreateRecordActivity : AppCompatActivity(), RecordTypesFragment.OnItemSele
             if (step == 1) {
                 val args = Bundle()
                 if (recordType != null) {
-                   // args.putString(RECORD_TYPE_KEY_EXTRA, recordType!!.key)
+                    // args.putString(RECORD_TYPE_KEY_EXTRA, recordType!!.key)
                     args.putString(RECORD_TYPE_NAME_EXTRA, recordType!!.name)
                     args.putString(RECORD_INPUT_FIELD_TYPE_EXTRA, recordType!!.type)
                     navController.navigate(R.id.createRecordFragment, args, navOptions)
@@ -86,13 +88,19 @@ class CreateRecordActivity : AppCompatActivity(), RecordTypesFragment.OnItemSele
                     waitDialog = WaitDialog(this@CreateRecordActivity)
                     waitDialog!!.show()
                     val model = CreateRecordModel(Injection.instance.recordsRepository)
-                    model.createRecord(NewRecordRequest(recordType, null, mutableListOf(), recordNameText!!), { createRecordResponse ->
-                        if(waitDialog!=null)waitDialog!!.dismiss()
-                        showSuccessDialog(recordType!!.name, recordNameText!!)
-                    }, { error ->
-                        if(waitDialog!=null)waitDialog!!.dismiss()
-                        parseError(error)
-                    })
+                    model.createRecord(
+                        NewRecordRequest(
+                            recordType,
+                            null,
+                            mutableListOf(),
+                            recordNameText!!
+                        ), { createRecordResponse ->
+                            if (waitDialog != null) waitDialog!!.dismiss()
+                            showSuccessDialog(recordType!!.name, recordNameText!!)
+                        }, { error ->
+                            if (waitDialog != null) waitDialog!!.dismiss()
+                            parseError(error)
+                        })
                 }
             }
         }
@@ -107,8 +115,10 @@ class CreateRecordActivity : AppCompatActivity(), RecordTypesFragment.OnItemSele
     }
 
     private fun showSuccessDialog(recordType: String, recordName: String) {
-        CreateRecordSuccessDialog.display(supportFragmentManager, recordType,
-                recordName) { finish() }
+        CreateRecordSuccessDialog.display(
+            supportFragmentManager, recordType,
+            recordName
+        ) { finish() }
     }
 
     private fun parseError(error: Throwable) {
@@ -124,11 +134,11 @@ class CreateRecordActivity : AppCompatActivity(), RecordTypesFragment.OnItemSele
                     val detailsError = retrofitExceptionMapper.mapToDetailsApiError(error)
 
 
-                    CreateRecordErrorDialog(this@CreateRecordActivity,detailsError.message,detailsError.errorsString,
-                            MaterialDialog.SingleButtonCallback { _, _ ->
+                    CreateRecordErrorDialog(
+                        this@CreateRecordActivity, detailsError.message, detailsError.errorsString,
+                        MaterialDialog.SingleButtonCallback { _, _ ->
 
-                            } ).show()
-
+                        }).show()
 
 
                 } catch (e: Exception) {
@@ -167,20 +177,41 @@ class CreateRecordActivity : AppCompatActivity(), RecordTypesFragment.OnItemSele
 
     private fun statusNextButton(isActive: Boolean) {
         binding.nextBt.isEnabled = isActive
-        binding.nextBt.background = if (isActive) ContextCompat.getDrawable(this@CreateRecordActivity, R.drawable.button_main_round_blue)
-        else ContextCompat.getDrawable(this@CreateRecordActivity, R.drawable.button_main_raund_reverse)
-        binding.nextBt.setTextColor(if (isActive) ContextCompat.getColor(this@CreateRecordActivity, R.color.colorAccent)
-        else ContextCompat.getColor(this@CreateRecordActivity, R.color.body_1_38))
+        binding.nextBt.background = if (isActive) ContextCompat.getDrawable(
+            this@CreateRecordActivity,
+            R.drawable.button_main_round_blue
+        )
+        else ContextCompat.getDrawable(
+            this@CreateRecordActivity,
+            R.drawable.button_main_raund_reverse
+        )
+        binding.nextBt.setTextColor(
+            if (isActive) ContextCompat.getColor(this@CreateRecordActivity, R.color.colorAccent)
+            else ContextCompat.getColor(this@CreateRecordActivity, R.color.body_1_38)
+        )
     }
 
     private fun statusCurrentStep(step: Int) {
 
-        binding.step1View.background = if (step == 1) ContextCompat.getDrawable(this@CreateRecordActivity, R.drawable.button_main_raund)
-        else ContextCompat.getDrawable(this@CreateRecordActivity, R.drawable.button_main_raund_reverse)
-        binding.step2View.background = if (step == 2) ContextCompat.getDrawable(this@CreateRecordActivity, R.drawable.button_main_raund)
-        else ContextCompat.getDrawable(this@CreateRecordActivity, R.drawable.button_main_raund_reverse)
+        binding.step1View.background = if (step == 1) ContextCompat.getDrawable(
+            this@CreateRecordActivity,
+            R.drawable.button_main_raund
+        )
+        else ContextCompat.getDrawable(
+            this@CreateRecordActivity,
+            R.drawable.button_main_raund_reverse
+        )
+        binding.step2View.background = if (step == 2) ContextCompat.getDrawable(
+            this@CreateRecordActivity,
+            R.drawable.button_main_raund
+        )
+        else ContextCompat.getDrawable(
+            this@CreateRecordActivity,
+            R.drawable.button_main_raund_reverse
+        )
 
-        binding.nextBt.text = if (step == 1) getString(R.string.next_step) else getString(R.string.submit)
+        binding.nextBt.text =
+            if (step == 1) getString(R.string.next_step) else getString(R.string.submit)
 
     }
 

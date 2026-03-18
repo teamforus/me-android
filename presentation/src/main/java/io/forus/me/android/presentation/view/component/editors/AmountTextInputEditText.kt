@@ -128,7 +128,4 @@ class AmountTextInputEditText : TextInputEditText {
     }
 
 
-
-
-
 }

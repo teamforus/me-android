@@ -131,7 +131,8 @@ class PinLockFragment : LRFragment<PinLockModel, PinLockView, PinLockPresenter>(
             }
 
             PinLockModel.State.CONFIRM, PinLockModel.State.CHECKING,
-            PinLockModel.State.SUCCESS -> {}
+            PinLockModel.State.SUCCESS -> {
+            }
         }
 
         if (vs.closeScreen) {

@@ -94,16 +94,15 @@
                 android:layout_height="@dimen/a11y_min_touch_target"
                 android:layout_gravity="center_vertical|end"
                 android:layout_marginEnd="16dp"
+                android:clickable="true"
+                android:focusable="true"
                 android:foreground="?actionBarItemBackground"
                 android:padding="@dimen/spacing_micro"
                 android:src="@drawable/ic_archived_records"
                 android:visibility="gone"
-                android:clickable="true"
-                android:focusable="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                />
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

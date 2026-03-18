@@ -35,7 +35,7 @@ class FFragmentNavigator(
         val shouldSkip = navOptions?.run {
             getPopUpTo() == destination.id && !isPopUpToInclusive()
 
-        }  ?: false
+        } ?: false
 
         return if (shouldSkip) null
         else super.navigate(destination, args, navOptions, navigatorExtras)

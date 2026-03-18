@@ -19,12 +19,10 @@ import io.forus.me.android.presentation.R;
 public class FullscreenDialog extends DialogFragment {
 
     View rootView;
-
+    String positiveButtonText = "OK";
+    SubmitClickListener submitClickListener;
     private String title = "";
     private String description = "";
-    String positiveButtonText= "OK";
-
-    SubmitClickListener submitClickListener;
 
     public static FullscreenDialog display(FragmentManager fragmentManager, String title, String details, String positiveButtonText, SubmitClickListener submitClickListener) {
         FullscreenDialog fullscreenDialog = new FullscreenDialog();

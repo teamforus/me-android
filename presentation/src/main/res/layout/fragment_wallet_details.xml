@@ -4,17 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
 
     android:id="@+id/root"
-    android:background="@color/colorPrimary"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
 
-    <include layout="@layout/toolbar_view"/>
+    <include layout="@layout/toolbar_view" />
 
     <io.forus.me.android.presentation.view.base.lr.LRPanelImpl
         android:id="@+id/lr_panel"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -24,9 +24,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_marginLeft="17dp"
-                android:layout_marginRight="17dp">
+                android:layout_marginRight="17dp"
+                android:orientation="vertical">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -34,14 +34,14 @@
 
                     <io.forus.me.android.presentation.view.component.text.TextView
                         android:id="@+id/tv_balance_crypto"
-                        android:layout_alignParentStart="true"
-                        android:layout_centerVertical="true"
+                        style="@style/Headline4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
                         android:textAllCaps="true"
-                        style="@style/Headline4"
                         app:type="medium"
-                        tools:text="10.987056 ETH"/>
+                        tools:text="10.987056 ETH" />
 
                     <RelativeLayout
                         android:layout_width="40dp"
@@ -52,28 +52,28 @@
 
                         <io.forus.me.android.presentation.view.component.images.AutoLoadImageView
                             android:id="@+id/iv_logo"
-                            android:layout_gravity="center_vertical"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical" />
 
                     </RelativeLayout>
 
                 </RelativeLayout>
 
                 <io.forus.me.android.presentation.view.component.text.TextView
-                    android:layout_marginTop="3dp"
+                    style="@style/Overline2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/Overline2"
-                    app:type="medium"
-                    android:text="@string/wallet_current_balance" />
+                    android:layout_marginTop="3dp"
+                    android:text="@string/wallet_current_balance"
+                    app:type="medium" />
 
                 <io.forus.me.android.presentation.view.component.text.TextView
                     android:id="@+id/tv_balance_fiat"
-                    android:layout_marginTop="8dp"
+                    style="@style/Subtitle2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/Subtitle2"
+                    android:layout_marginTop="8dp"
                     tools:text="~ 1 234,98€;    1 567,5$" />
 
                 <LinearLayout
@@ -85,20 +85,20 @@
                     <Button
                         android:layout_width="152dp"
                         android:layout_height="36dp"
-                        android:layout_weight="1"
                         android:layout_marginRight="11dp"
-                        android:text="@string/wallet_send"
+                        android:layout_weight="1"
+                        android:background="#f1f1f1"
                         android:fontFamily="@font/google_sans_medium"
-                        android:background="#f1f1f1"/>
+                        android:text="@string/wallet_send" />
 
                     <Button
                         android:layout_width="152dp"
                         android:layout_height="36dp"
-                        android:layout_weight="1"
                         android:layout_marginLeft="11dp"
+                        android:layout_weight="1"
+                        android:background="#f1f1f1"
                         android:fontFamily="@font/google_sans_medium"
-                        android:text="@string/wallet_receive"
-                        android:background="#f1f1f1"/>
+                        android:text="@string/wallet_receive" />
 
 
                 </LinearLayout>
@@ -106,19 +106,19 @@
             </LinearLayout>
 
             <View
-                android:background="@color/secondary200"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
                 android:layout_marginTop="18dp"
                 android:layout_marginBottom="32dp"
-                android:layout_width="match_parent"
-                android:layout_height="2dp"/>
+                android:background="@color/secondary200" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:gravity="center"
                 android:layout_marginLeft="17dp"
-                android:layout_marginRight="17dp">
+                android:layout_marginRight="17dp"
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -126,29 +126,29 @@
                     android:layout_marginBottom="25dp">
 
                     <io.forus.me.android.presentation.view.component.text.TextView
+                        style="@style/Headline6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        style="@style/Headline6"
-                        app:type="medium"
-                        android:text="@string/wallet_transactions_title" />
+                        android:text="@string/wallet_transactions_title"
+                        app:type="medium" />
 
                     <io.forus.me.android.presentation.view.component.text.TextView
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
+                        style="@style/Overline2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/Overline2"
-                        android:textColor="@color/forus_blue"
-                        android:text="@string/wallet_transactions_see_all" />
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:text="@string/wallet_transactions_see_all"
+                        android:textColor="@color/forus_blue" />
 
                 </RelativeLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent" />
 
             </LinearLayout>
 

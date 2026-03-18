@@ -25,11 +25,13 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.math.BigDecimal
 
-class QrActionProcessor(private val scanner: QrScannerActivity,
-                        private val recordsRepository: RecordsRepository,
-                        private val accountRepository: AccountRepository,
-                        private val vouchersRepository: VouchersRepository,
-                        private val settingsDataSource: SettingsDataSource) {
+class QrActionProcessor(
+    private val scanner: QrScannerActivity,
+    private val recordsRepository: RecordsRepository,
+    private val accountRepository: AccountRepository,
+    private val vouchersRepository: VouchersRepository,
+    private val settingsDataSource: SettingsDataSource
+) {
 
     private val resources by lazy {
         return@lazy scanner.resources
@@ -50,21 +52,21 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
 
     fun approveValidation(uuid: String) {
         recordsRepository.readValidation(uuid)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .map { validation ->
-                    if (validation.state == Validation.State.pending && validation.uuid != null) {
-                        if (scanner.hasWindowFocus())
-                            showChooseValidatorDialog(validation)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .map { validation ->
+                if (validation.state == Validation.State.pending && validation.uuid != null) {
+                    if (scanner.hasWindowFocus())
+                        showChooseValidatorDialog(validation)
 
-                    } else {
-                        onResultValidationAlreadyDone()
-                    }
+                } else {
+                    onResultValidationAlreadyDone()
                 }
-                .onErrorReturn {
-                    onResultUnexpectedError()
-                }
-                .subscribe()
+            }
+            .onErrorReturn {
+                onResultUnexpectedError()
+            }
+            .subscribe()
     }
 
     fun restoreIdentity(token: String) {
@@ -72,11 +74,12 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
         Log.d("forusQR", "restore identity $token")
 
         val confirmLoginDeviceDialog = ConfirmLoginDeviceDialog()
-        confirmLoginDeviceDialog.submitClickListener = object :ConfirmLoginDeviceDialog.SubmitClickListener{
-            override fun confirm(dialog: ConfirmLoginDeviceDialog?) {
-                confirmLoginDeviceDialog.dismiss()
-                scanner.finish()
-                accountRepository.authorizeToken(token)
+        confirmLoginDeviceDialog.submitClickListener =
+            object : ConfirmLoginDeviceDialog.SubmitClickListener {
+                override fun confirm(dialog: ConfirmLoginDeviceDialog?) {
+                    confirmLoginDeviceDialog.dismiss()
+                    scanner.finish()
+                    accountRepository.authorizeToken(token)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .map {
@@ -91,22 +94,22 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
                         }
                         .subscribe()
 
-            }
+                }
 
-            override fun dismiss(dialog: ConfirmLoginDeviceDialog?) {
-                confirmLoginDeviceDialog.dismiss()
-                scanner.finish()
-            }
+                override fun dismiss(dialog: ConfirmLoginDeviceDialog?) {
+                    confirmLoginDeviceDialog.dismiss()
+                    scanner.finish()
+                }
 
-        }
+            }
         confirmLoginDeviceDialog.show(scanner.supportFragmentManager, "")
-
 
 
     }
 
 
-    private var retrofitExceptionMapper: RetrofitExceptionMapper = Injection.instance.retrofitExceptionMapper
+    private var retrofitExceptionMapper: RetrofitExceptionMapper =
+        Injection.instance.retrofitExceptionMapper
 
     fun scanVoucher(address: String, isDemoVoucher: Boolean? = false) {
         scanner.allowReactivate()
@@ -115,64 +118,70 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
             scanner.finish()
         } else {
             vouchersRepository.getVoucherAsProvider(address)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .map {
-                        if (it.voucher.fundType == FundType.subsidies.name) {
-                            navigator.navigateToActionsVoucherProvider(scanner, it.voucher.address!!)
-                            scanner.finish()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map {
+                    if (it.voucher.fundType == FundType.subsidies.name) {
+                        navigator.navigateToActionsVoucherProvider(scanner, it.voucher.address!!)
+                        scanner.finish()
+                    } else {
+                        if (it.voucher.isProduct != true && it.allowedOrganizations.isEmpty()) {
+                            if (scanner.hasWindowFocus())
+                                ScanVoucherNotEligibleDialog(scanner, reactivateDecoding).show()
+
                         } else {
-                            if (it.voucher.isProduct != true && it.allowedOrganizations.isEmpty()) {
-                                if (scanner.hasWindowFocus())
-                                    ScanVoucherNotEligibleDialog(scanner, reactivateDecoding).show()
+                            val isAvailableScannedVoucher = !(it.voucher.isProduct != true && (
+                                    it.voucher.amount
+                                        ?: 0.toBigDecimal()).compareTo(BigDecimal.ZERO) == 0)
+                            onResultVoucherScanned(address, isAvailableScannedVoucher)
 
-                            } else {
-                                val isAvailableScannedVoucher = !(it.voucher.isProduct != true && (
-                                        it.voucher.amount
-                                                ?: 0.toBigDecimal()).compareTo(BigDecimal.ZERO) == 0)
-                                onResultVoucherScanned(address, isAvailableScannedVoucher)
+                        }
+                    }
+                }
+                .onErrorReturn {
 
+                    var canOnResultVoucherScanned = true
+
+                    Log.e("QR_ACTION", "scan voucher_error", it)
+
+
+                    val error: Throwable = it
+
+                    if (error is io.forus.me.android.data.exception.RetrofitException && error.kind == RetrofitException.Kind.NETWORK) {
+                        NoInternetDialog(scanner, reactivateDecoding).show();
+                    } else {
+
+                        if (error is RetrofitException && error.kind == RetrofitException.Kind.HTTP) {
+
+
+                            try {
+                                val newRecordError =
+                                    retrofitExceptionMapper.mapToBaseApiError(error)
+
+                                if (error.responseCode == 403) {
+                                    canOnResultVoucherScanned = false
+                                    val message =
+                                        if (newRecordError.message == null) "" else newRecordError.message
+                                    ScanVoucherBaseErrorDialog(
+                                        message,
+                                        scanner,
+                                        reactivateDecoding
+                                    ).show()
+                                }
+                            } catch (_: Exception) {
+                            }
+                        }
+
+                        if (canOnResultVoucherScanned) {
+
+                            if (scanner.hasWindowFocus()) {
+                                onResultVoucherScanned(address, false)
                             }
                         }
                     }
-                    .onErrorReturn {
-
-                        var canOnResultVoucherScanned = true
-
-                        Log.e("QR_ACTION", "scan voucher_error", it)
-
-
-                        val error: Throwable = it
-
-                        if (error is io.forus.me.android.data.exception.RetrofitException && error.kind == RetrofitException.Kind.NETWORK) {
-                            NoInternetDialog(scanner, reactivateDecoding).show();
-                        } else {
-
-                            if (error is RetrofitException && error.kind == RetrofitException.Kind.HTTP) {
-
-
-                                try {
-                                    val newRecordError = retrofitExceptionMapper.mapToBaseApiError(error)
-
-                                    if (error.responseCode == 403) {
-                                        canOnResultVoucherScanned = false
-                                        val message = if (newRecordError.message == null) "" else newRecordError.message
-                                        ScanVoucherBaseErrorDialog(message, scanner, reactivateDecoding).show()
-                                    }
-                                } catch (_: Exception) {
-                                }
-                            }
-
-                            if (canOnResultVoucherScanned) {
-
-                                if (scanner.hasWindowFocus()) {
-                                    onResultVoucherScanned(address, false)
-                                }
-                            }
-                        }
-                       scanner.setScannerLayoutVisiblity(true)
-                    }
-                    .subscribe()
+                    scanner.setScannerLayoutVisiblity(true)
+                }
+                .subscribe()
 
         }
     }
@@ -213,11 +222,14 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
             }
         }
 
-        ScanVoucherBaseErrorDialog(errorMessage, scanner, object : DialogInterface.OnDismissListener,
-                () -> Unit {
-            override fun invoke() {}
-            override fun onDismiss(p0: DialogInterface?) {}
-        }).show()
+        ScanVoucherBaseErrorDialog(
+            errorMessage,
+            scanner,
+            object : DialogInterface.OnDismissListener,
+                    () -> Unit {
+                override fun invoke() {}
+                override fun onDismiss(p0: DialogInterface?) {}
+            }).show()
         reactivateDecoding()
         scanner.setScannerLayoutVisiblity(true)
     }
@@ -228,7 +240,11 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
         if (false and settingsDataSource.isPinEnabled()) {
             // Database will be opened later
             val useFingerprint = settingsDataSource.isFingerprintEnabled()
-            navigator.navigateToCheckTransactionPin(scanner, ProviderActivity.getCallingIntent(scanner, address), useFingerprint)
+            navigator.navigateToCheckTransactionPin(
+                scanner,
+                ProviderActivity.getCallingIntent(scanner, address),
+                useFingerprint
+            )
             (android.os.Handler()).postDelayed({
                 reactivateDecoding()
             }, 1000)
@@ -248,35 +264,37 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
         val validators = validation.organizationsAvailable
         if (validators != null && validators.size > 0) {
             ValidatorsListDialog(scanner, validators!!) {
-                ApproveValidationDialog(scanner,
-                        validation,
-                        {
-                            //scanner.allowReactivate()
-                            scanner.finish()
-                            recordsRepository.approveValidation(validation.uuid!!, it.id)
-                                    .subscribeOn(Schedulers.io())
-                                    .observeOn(AndroidSchedulers.mainThread())
-                                    .map { onResultValidationApproved() }
-                                    .onErrorReturn {
-                                        onResultUnexpectedError()
-                                    }
-                                    .subscribe()
-                        },
-                        {
-                            scanner.finish()
-                            recordsRepository.declineValidation(validation.uuid!!)
-                                    .subscribeOn(Schedulers.io())
-                                    .observeOn(AndroidSchedulers.mainThread())
-                                    .map {
-                                        onResultValidationDeclined()
-                                    }
-                                    .onErrorReturn {
-                                        onResultUnexpectedError()
-                                    }
-                                    .subscribe()
-                        },
-                        reactivateDecoding)
-                        .show()
+                ApproveValidationDialog(
+                    scanner,
+                    validation,
+                    {
+                        //scanner.allowReactivate()
+                        scanner.finish()
+                        recordsRepository.approveValidation(validation.uuid!!, it.id)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .map { onResultValidationApproved() }
+                            .onErrorReturn {
+                                onResultUnexpectedError()
+                            }
+                            .subscribe()
+                    },
+                    {
+                        scanner.finish()
+                        recordsRepository.declineValidation(validation.uuid!!)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .map {
+                                onResultValidationDeclined()
+                            }
+                            .onErrorReturn {
+                                onResultUnexpectedError()
+                            }
+                            .subscribe()
+                    },
+                    reactivateDecoding
+                )
+                    .show()
 
             }.show()
         } else {
@@ -290,46 +308,50 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
 
 
         vouchersRepository.getProductVouchersAsProvider(address)//getVoucherAsProvider(address)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .map {
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .map {
 
-                    if (it.size > 0) {
-                        //Show product vouchers list
-                        navigator.navigateToProductReservation(scanner, address, isAvailableScannedVoucher)
+                if (it.size > 0) {
+                    //Show product vouchers list
+                    navigator.navigateToProductReservation(
+                        scanner,
+                        address,
+                        isAvailableScannedVoucher
+                    )
+                    scanner.finish()
+
+                } else {
+
+                    if (isAvailableScannedVoucher) {
+                        //Show voucher
+                        navigator.navigateToVoucherProvider(scanner, address)
                         scanner.finish()
-
                     } else {
-
-                        if (isAvailableScannedVoucher) {
-                            //Show voucher
-                            navigator.navigateToVoucherProvider(scanner, address)
-                            scanner.finish()
-                        } else {
-                            if (scanner.hasWindowFocus())
-                                ScanVoucherEmptyDialog(scanner, reactivateDecoding).show()
-                            scanner.setScannerLayoutVisiblity(true)
-                        }
-
+                        if (scanner.hasWindowFocus())
+                            ScanVoucherEmptyDialog(scanner, reactivateDecoding).show()
+                        scanner.setScannerLayoutVisiblity(true)
                     }
 
                 }
-                .onErrorReturn {
-                    if (scanner.hasWindowFocus()) {
 
-                        if (isAvailableScannedVoucher) {
+            }
+            .onErrorReturn {
+                if (scanner.hasWindowFocus()) {
 
-                            navigator.navigateToVoucherProvider(scanner, address)
-                            scanner.finish()
-                        } else {
-                            //ScanVoucherNotEligibleDialog(scanner, reactivateDecoding).show()
+                    if (isAvailableScannedVoucher) {
 
-                            processScannerError(it)
+                        navigator.navigateToVoucherProvider(scanner, address)
+                        scanner.finish()
+                    } else {
+                        //ScanVoucherNotEligibleDialog(scanner, reactivateDecoding).show()
 
-                        }
+                        processScannerError(it)
+
                     }
                 }
-                .subscribe()
+            }
+            .subscribe()
 
     }
 
@@ -354,12 +376,15 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
             }
         }
 
-        ScanVoucherBaseErrorDialog(errorMessage, scanner, object : DialogInterface.OnDismissListener,
-                () -> Unit {
-            override fun invoke() {}
-            override fun onDismiss(p0: DialogInterface?) {}
-        }).show()
-       scanner.setScannerLayoutVisiblity(true)
+        ScanVoucherBaseErrorDialog(
+            errorMessage,
+            scanner,
+            object : DialogInterface.OnDismissListener,
+                    () -> Unit {
+                override fun invoke() {}
+                override fun onDismiss(p0: DialogInterface?) {}
+            }).show()
+        scanner.setScannerLayoutVisiblity(true)
 
     }
 
@@ -367,7 +392,7 @@ class QrActionProcessor(private val scanner: QrScannerActivity,
     private fun onResultUnexpectedError() {
         showToastMessage(resources.getString(R.string.qr_unexpected_error))
         reactivateDecoding()
-       scanner.setScannerLayoutVisiblity(true)
+        scanner.setScannerLayoutVisiblity(true)
     }
 
 }

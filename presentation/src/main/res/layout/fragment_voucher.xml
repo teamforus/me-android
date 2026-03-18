@@ -15,7 +15,7 @@
         <include layout="@layout/toolbar_view" />
 
         <!--RelativeLayout-->
-<io.forus.me.android.presentation.view.base.lr.LRPanelImpl
+        <io.forus.me.android.presentation.view.base.lr.LRPanelImpl
 
             android:id="@+id/lr_panel"
             android:layout_width="match_parent"
@@ -37,11 +37,11 @@
                         android:id="@+id/voucher_card"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:minHeight="100dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginRight="10dp"
                         android:layout_marginBottom="8dp"
+                        android:minHeight="100dp"
                         android:transitionGroup="true"
                         app:cardBackgroundColor="@color/brightBackground"
                         app:cardCornerRadius="@dimen/card_radius"
@@ -54,12 +54,11 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:minHeight="100dp"
                                 android:layout_marginEnd="114dp"
+                                android:minHeight="100dp"
                                 android:orientation="vertical"
                                 android:paddingStart="16dp"
-                                android:paddingBottom="12dp"
-                                >
+                                android:paddingBottom="12dp">
 
                                 <io.forus.me.android.presentation.view.component.text.TextView
                                     android:id="@+id/name"
@@ -83,8 +82,7 @@
                                 <RelativeLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="4dp"
-                                    >
+                                    android:layout_marginTop="4dp">
 
                                     <io.forus.me.android.presentation.view.component.text.TextView
                                         android:id="@+id/value"
@@ -138,18 +136,17 @@
                         android:layout_marginTop="28dp"
                         android:layout_marginEnd="@dimen/activity_horizontal_margin"
                         android:text="@string/voucher_qr_code_expired"
-                        app:type="medium"
                         android:visibility="gone"
-                        />
+                        app:type="medium" />
 
                     <io.forus.me.android.presentation.view.component.buttons.ShareButtonNoBorders
                         android:id="@+id/btn_email"
                         android:layout_width="match_parent"
                         android:layout_height="56dp"
-                        app:sb_icon="@drawable/ic_baseline_mail_outline_24px"
-                        app:sb_icon_tint="#87000000"
                         android:layout_marginTop="4dp"
                         android:layout_marginBottom="4dp"
+                        app:sb_icon="@drawable/ic_baseline_mail_outline_24px"
+                        app:sb_icon_tint="#87000000"
                         app:sb_text="@string/voucher_email_to_me" />
 
                     <View
@@ -157,8 +154,7 @@
                         android:layout_height="3dp"
                         android:layout_marginTop="0dp"
                         android:layout_marginBottom="3dp"
-                        android:background="@drawable/shape_shadow_gradient"
-                        />
+                        android:background="@drawable/shape_shadow_gradient" />
 
 
                     <io.forus.me.android.presentation.view.component.text.TextView
@@ -259,10 +255,10 @@
                                 android:layout_marginStart="@dimen/activity_horizontal_margin"
                                 android:layout_marginTop="@dimen/activity_horizontal_margin_small"
                                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                                android:fontFamily="@font/google_sans_regular"
                                 android:lineSpacingExtra="5.9sp"
                                 android:text="@string/shopkeeper_address_text"
                                 android:textColor="@color/body1_60"
-                                android:fontFamily="@font/google_sans_regular"
                                 android:textSize="14.1sp" />
 
                             <TextView
@@ -301,10 +297,10 @@
                                         android:layout_marginStart="@dimen/activity_horizontal_margin"
                                         android:layout_marginTop="@dimen/activity_horizontal_margin_small"
                                         android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                                        android:fontFamily="@font/google_sans_regular"
                                         android:lineSpacingExtra="5.9sp"
                                         android:text="@string/shopkeeper_phone_text"
                                         android:textColor="@color/body1_60"
-                                        android:fontFamily="@font/google_sans_regular"
                                         android:textSize="14.1sp" />
 
                                     <TextView
@@ -314,9 +310,9 @@
                                         android:layout_marginStart="@dimen/activity_horizontal_margin"
                                         android:layout_marginTop="@dimen/activity_horizontal_margin_small"
                                         android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                                        android:fontFamily="@font/google_sans_regular"
                                         android:lineSpacingExtra="7.9sp"
                                         android:textColor="@color/body_1_87"
-                                        android:fontFamily="@font/google_sans_regular"
                                         android:textSize="16.1sp"
                                         tools:text="0615261612" />
                                 </LinearLayout>
@@ -340,10 +336,10 @@
                                 android:id="@+id/shopkeeper_email"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/google_sans_regular"
                                 android:lineSpacingExtra="7.9sp"
                                 android:padding="@dimen/activity_horizontal_margin"
                                 android:textColor="#315efd"
-                                android:fontFamily="@font/google_sans_regular"
                                 android:textSize="16.1sp" />
 
 
@@ -351,25 +347,23 @@
                                 android:id="@+id/branchesTV"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:padding="@dimen/activity_horizontal_margin"
-                                android:lineSpacingExtra="2sp"
-                                android:translationY="-1.14sp"
                                 android:gravity="top"
-                                android:textSize="17.07sp"
+                                android:lineSpacingExtra="2sp"
+                                android:padding="@dimen/activity_horizontal_margin"
                                 android:textColor="@color/cardMapTextColor"
-                                tools:text="2 Branches"/>
+                                android:textSize="17.07sp"
+                                android:translationY="-1.14sp"
+                                tools:text="2 Branches" />
 
                             <androidx.viewpager.widget.ViewPager
                                 android:id="@+id/viewPager"
-                                android:overScrollMode="never"
-                                android:clipToPadding="false"
                                 android:layout_width="match_parent"
                                 android:layout_height="180dp"
-                                android:foregroundGravity="left"
                                 android:layout_alignParentBottom="true"
                                 android:layout_gravity="bottom"
-                                >
-                            </androidx.viewpager.widget.ViewPager>
+                                android:clipToPadding="false"
+                                android:foregroundGravity="left"
+                                android:overScrollMode="never"></androidx.viewpager.widget.ViewPager>
 
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
@@ -381,8 +375,7 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="7dp"
                         android:descendantFocusability="blocksDescendants"
-                        tools:listitem="@layout/item_voucher_transcations_list"
-                        />
+                        tools:listitem="@layout/item_voucher_transcations_list" />
 
 
                 </LinearLayout>
@@ -390,9 +383,8 @@
             </androidx.core.widget.NestedScrollView>
 
 
-        <!--/RelativeLayout-->
+            <!--/RelativeLayout-->
         </io.forus.me.android.presentation.view.base.lr.LRPanelImpl>
-
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

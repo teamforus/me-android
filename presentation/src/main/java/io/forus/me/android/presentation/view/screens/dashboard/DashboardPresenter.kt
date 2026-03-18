@@ -8,18 +8,21 @@ import io.forus.me.android.domain.models.account.Account
 import io.forus.me.android.domain.repository.account.AccountRepository
 
 
-class DashboardPresenter(private var view: DashboardContract.View?,
-                         private val checkLoginUseCase: UseCase<Boolean, CheckLoginUseCase.Params>,
-                         private val loadAccountUseCase: UseCase<Account, LoadAccountUseCase.Params>,
-                         private val checkSendCrashReportsEnabledUseCase: UseCase<Boolean, Unit>,
-                         private val exitIdentityUseCase: UseCase<Boolean, Unit>,
-                         private val accountRepository: AccountRepository
+class DashboardPresenter(
+    private var view: DashboardContract.View?,
+    private val checkLoginUseCase: UseCase<Boolean, CheckLoginUseCase.Params>,
+    private val loadAccountUseCase: UseCase<Account, LoadAccountUseCase.Params>,
+    private val checkSendCrashReportsEnabledUseCase: UseCase<Boolean, Unit>,
+    private val exitIdentityUseCase: UseCase<Boolean, Unit>,
+    private val accountRepository: AccountRepository
 ) : DashboardContract.Presenter {
 
 
     override fun onCreate() {
-        checkLoginUseCase.execute(CheckLoginObserver(),
-                CheckLoginUseCase.Params())
+        checkLoginUseCase.execute(
+            CheckLoginObserver(),
+            CheckLoginUseCase.Params()
+        )
     }
 
     override fun onDestroy() {
@@ -61,7 +64,6 @@ class DashboardPresenter(private var view: DashboardContract.View?,
             this@DashboardPresenter.view?.addUserId(account.address)
         }
     }
-
 
 
 }
