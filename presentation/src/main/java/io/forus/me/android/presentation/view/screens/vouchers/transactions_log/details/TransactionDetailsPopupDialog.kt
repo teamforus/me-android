@@ -13,8 +13,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import io.forus.me.android.domain.models.vouchers.Transaction
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.extensions.formatToDisplay
-import java.text.NumberFormat
-import java.util.Locale
 
 
 class TransactionDetailsPopupDialog(
@@ -74,8 +72,7 @@ class TransactionDetailsPopupDialog(
         }
 
         dateTimeTV.text = transaction.createdAt.formatToDisplay()
-        amountTV.text = NumberFormat.getCurrencyInstance(Locale("nl", "NL"))
-            .format(transaction.amount)
+        amountTV.text = transaction.amount_locale ?: ""
 
         val status =
             when (transaction.state) {
@@ -88,13 +85,9 @@ class TransactionDetailsPopupDialog(
         idTV.text = transaction.id
         fundTV.text = transaction.fund?.name
         providerTV.text = transaction.organization?.name
-        extraAmountTV.text = NumberFormat.getCurrencyInstance(Locale("nl", "NL"))
-            .format(transaction.amount_extra_cash)
+        extraAmountTV.text = transaction.amount_extra_cash_locale ?: ""
         noteTV.text = transaction.note ?: ""
-
-
     }
-
 
     override fun getTheme(): Int {
         return R.style.AppBottomSheetDialogTheme
