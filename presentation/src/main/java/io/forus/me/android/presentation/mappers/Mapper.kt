@@ -1,6 +1,6 @@
 package io.forus.me.android.presentation.mappers
 
-import java.util.*
+import java.util.Collections
 
 abstract class Mapper<DomainModel, PresenterModel> {
 

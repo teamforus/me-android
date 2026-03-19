@@ -1,20 +1,18 @@
 package io.forus.me.android.presentation.view.component.pin
 
 import android.content.Context
-import androidx.core.content.ContextCompat
 import android.util.AttributeSet
-import io.forus.me.android.presentation.R
+import android.util.TypedValue
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
-import io.forus.me.android.presentation.helpers.Converter
-import io.forus.me.android.presentation.view.component.images.AutoLoadImageView
-import android.view.Gravity
-import android.widget.*
-import android.widget.RelativeLayout
-import android.R.attr.gravity
-import android.graphics.Color
-import android.util.TypedValue
+import android.widget.FrameLayout
+import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.core.content.ContextCompat
+import io.forus.me.android.presentation.R
+import io.forus.me.android.presentation.helpers.Converter
 import io.forus.me.android.presentation.view.component.FontType
 
 

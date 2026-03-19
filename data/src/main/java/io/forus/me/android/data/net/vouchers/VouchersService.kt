@@ -4,10 +4,21 @@ import io.forus.me.android.data.entity.vouchers.request.MakeActionTransaction
 import io.forus.me.android.data.entity.vouchers.request.MakeDemoTransaction
 import io.forus.me.android.data.entity.vouchers.request.MakeTransaction
 import io.forus.me.android.data.entity.vouchers.request.MakeTransactionWithExtraCashAmount
-import io.forus.me.android.data.entity.vouchers.response.*
+import io.forus.me.android.data.entity.vouchers.response.CreatedTransaction
+import io.forus.me.android.data.entity.vouchers.response.DemoTransaction
+import io.forus.me.android.data.entity.vouchers.response.GetVoucher
+import io.forus.me.android.data.entity.vouchers.response.ListAllProductsActions
+import io.forus.me.android.data.entity.vouchers.response.ListAllTransactions
+import io.forus.me.android.data.entity.vouchers.response.ListAllVouchers
+import io.forus.me.android.data.entity.vouchers.response.Transaction
 import io.reactivex.Observable
 import okhttp3.ResponseBody
-import retrofit2.http.*
+import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.PATCH
+import retrofit2.http.POST
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface VouchersService {
 

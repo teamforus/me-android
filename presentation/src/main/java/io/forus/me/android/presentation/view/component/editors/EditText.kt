@@ -2,9 +2,6 @@ package io.forus.me.android.presentation.view.component.editors
 
 import android.content.Context
 import android.os.Build
-import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
-import androidx.core.content.res.ResourcesCompat
 import android.text.Editable
 import android.text.Html
 import android.text.InputType
@@ -14,6 +11,9 @@ import android.view.LayoutInflater
 import android.view.inputmethod.EditorInfo
 import android.widget.FrameLayout
 import android.widget.RelativeLayout
+import androidx.core.content.res.ResourcesCompat
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.view.component.ValidationRegex
 import java.util.regex.Pattern

@@ -16,6 +16,7 @@
 package io.forus.me.android.data.cache.serializer;
 
 import com.google.gson.Gson;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 

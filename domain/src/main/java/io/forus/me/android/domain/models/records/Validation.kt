@@ -2,7 +2,7 @@ package io.forus.me.android.domain.models.records
 
 import com.google.gson.annotations.SerializedName
 import io.forus.me.android.domain.models.vouchers.Organization
-import java.util.*
+import java.util.Date
 
 class Validation {
 

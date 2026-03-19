@@ -3,13 +3,13 @@ package io.forus.me.android.presentation.view.component.snackbar
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Context
-import androidx.constraintlayout.widget.ConstraintLayout
-import com.google.android.material.snackbar.ContentViewCallback
 import android.util.AttributeSet
 import android.view.View
 import android.view.animation.OvershootInterpolator
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import com.google.android.material.snackbar.ContentViewCallback
 import io.forus.me.android.presentation.R
 
 

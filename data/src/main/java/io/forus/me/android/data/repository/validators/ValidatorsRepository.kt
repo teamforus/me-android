@@ -6,7 +6,6 @@ import io.forus.me.android.domain.repository.validators.ValidatorsRepository
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.SingleSource
-import io.reactivex.functions.Function
 
 class ValidatorsRepository(private val validatorsDataSource: ValidatorsDataSource) : ValidatorsRepository {
 

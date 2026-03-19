@@ -6,8 +6,6 @@ import android.content.Intent
 import android.content.IntentSender
 import android.os.Bundle
 import android.os.Handler
-import io.forus.me.android.presentation.internal.Injection
-import io.forus.me.android.presentation.view.activity.BaseActivity
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.play.core.appupdate.AppUpdateInfo
@@ -19,6 +17,8 @@ import io.forus.me.android.presentation.BuildConfig
 import io.forus.me.android.presentation.api_config.ApiConfig
 import io.forus.me.android.presentation.api_config.ApiType
 import io.forus.me.android.presentation.helpers.SharedPref
+import io.forus.me.android.presentation.internal.Injection
+import io.forus.me.android.presentation.view.activity.BaseActivity
 
 
 /**

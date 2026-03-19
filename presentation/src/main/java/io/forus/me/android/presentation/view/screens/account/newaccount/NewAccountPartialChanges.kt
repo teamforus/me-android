@@ -1,8 +1,8 @@
 package io.forus.me.android.presentation.view.screens.account.newaccount
 
 
-import io.forus.me.android.presentation.view.base.lr.PartialChange
 import io.forus.me.android.domain.models.account.NewAccountRequest
+import io.forus.me.android.presentation.view.base.lr.PartialChange
 
 sealed class NewAccountPartialChanges : PartialChange {
 

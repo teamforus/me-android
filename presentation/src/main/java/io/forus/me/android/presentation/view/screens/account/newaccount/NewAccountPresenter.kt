@@ -1,10 +1,10 @@
 package io.forus.me.android.presentation.view.screens.account.newaccount
 
+import io.forus.me.android.domain.models.account.NewAccountRequest
+import io.forus.me.android.domain.repository.account.AccountRepository
 import io.forus.me.android.presentation.view.base.lr.LRPresenter
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.base.lr.PartialChange
-import io.forus.me.android.domain.models.account.NewAccountRequest
-import io.forus.me.android.domain.repository.account.AccountRepository
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers

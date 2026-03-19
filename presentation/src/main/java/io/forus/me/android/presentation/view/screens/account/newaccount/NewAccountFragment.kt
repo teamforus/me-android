@@ -1,20 +1,19 @@
 package io.forus.me.android.presentation.view.screens.account.newaccount
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import android.text.Editable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import io.forus.me.android.presentation.view.base.lr.LRViewState
-import io.forus.me.android.presentation.view.base.lr.LoadRefreshPanel
+import com.google.android.material.snackbar.Snackbar
 import io.forus.me.android.domain.exception.RetrofitException
 import io.forus.me.android.domain.models.account.NewAccountRequest
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.databinding.FragmentAccountNewBinding
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.activity.BaseActivity
+import io.forus.me.android.presentation.view.base.lr.LRViewState
+import io.forus.me.android.presentation.view.base.lr.LoadRefreshPanel
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject

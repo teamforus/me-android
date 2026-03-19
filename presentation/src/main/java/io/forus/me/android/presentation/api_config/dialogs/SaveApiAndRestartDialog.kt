@@ -3,13 +3,6 @@ package io.forus.me.android.presentation.api_config.dialogs
 import android.content.Context
 import com.afollestad.materialdialogs.MaterialDialog
 import io.forus.me.android.presentation.R
-import java.math.BigDecimal
-import android.app.AlarmManager
-import android.app.PendingIntent
-import android.content.Intent
-import android.util.Log
-import io.forus.me.android.presentation.helpers.SharedPref
-import io.forus.me.android.presentation.view.screens.main.MainActivity
 
 
 class SaveApiAndRestartDialog(private val context: Context,

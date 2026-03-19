@@ -1,7 +1,7 @@
 package io.forus.me.android.data.repository.account.datasource.remote
 
-import io.forus.me.android.data.net.sign.SignService
 import io.forus.me.android.data.entity.sign.response.CheckTokenResult
+import io.forus.me.android.data.net.sign.SignService
 import io.reactivex.Observable
 
 class CheckActivationDataSource(val service: SignService){

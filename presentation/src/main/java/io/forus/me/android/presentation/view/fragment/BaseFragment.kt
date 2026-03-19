@@ -1,20 +1,18 @@
 package io.forus.me.android.presentation.view.fragment
 
-import androidx.fragment.app.Fragment
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.Fragment
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.helpers.Converter
 import io.forus.me.android.presentation.interfaces.FragmentListener
-
 import io.forus.me.android.presentation.navigation.Navigator
-
 
 
 /**

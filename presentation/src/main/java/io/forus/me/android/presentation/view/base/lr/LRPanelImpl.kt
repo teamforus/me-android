@@ -1,13 +1,13 @@
 package io.forus.me.android.presentation.view.base.lr
 
 import android.content.Context
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.ViewAnimator
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
 import com.jakewharton.rxbinding2.view.RxView
 import io.forus.me.android.data.exception.RetrofitException

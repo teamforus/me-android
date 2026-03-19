@@ -7,14 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import io.forus.me.android.presentation.R
-import io.forus.me.android.presentation.databinding.FragmentFingerprintBinding
 import io.forus.me.android.presentation.databinding.FragmentPropertyBinding
 import io.forus.me.android.presentation.view.adapters.MainViewPagerAdapter
 import io.forus.me.android.presentation.view.fragment.BaseFragment
 import io.forus.me.android.presentation.view.screens.assets.AssetsFragment
 import io.forus.me.android.presentation.view.screens.vouchers.list.VouchersFragment
 import io.forus.me.android.presentation.view.screens.wallets.WalletsFragment
-import java.util.*
 
 
 /**

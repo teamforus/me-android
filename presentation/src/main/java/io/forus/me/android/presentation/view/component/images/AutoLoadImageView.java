@@ -9,9 +9,11 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Parcel;
 import android.os.Parcelable;
-import androidx.appcompat.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.util.Log;
+
+import androidx.appcompat.widget.AppCompatImageView;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;

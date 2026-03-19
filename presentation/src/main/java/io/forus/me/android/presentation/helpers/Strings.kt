@@ -1,9 +1,8 @@
 package io.forus.me.android.presentation.helpers
 
-import android.R.attr.x
 import java.security.MessageDigest
 import java.text.NumberFormat
-import java.util.*
+import java.util.Locale
 
 
 /**

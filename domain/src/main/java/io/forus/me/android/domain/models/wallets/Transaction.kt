@@ -1,7 +1,7 @@
 package io.forus.me.android.domain.models.wallets
 
 import io.forus.me.android.domain.models.currency.Currency
-import java.util.*
+import java.util.Date
 
 class Transaction {
 

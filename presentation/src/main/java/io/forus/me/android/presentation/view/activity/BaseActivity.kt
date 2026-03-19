@@ -2,23 +2,12 @@ package io.forus.me.android.presentation.view.activity
 
 
 import android.content.Context
-import android.util.Log
-import androidx.transition.ChangeBounds
-import androidx.transition.ChangeClipBounds
-import androidx.transition.ChangeTransform
-import androidx.transition.Explode
-import androidx.transition.Fade
-import androidx.transition.Slide
-import androidx.transition.Transition
-import androidx.transition.TransitionInflater
-import androidx.transition.TransitionSet
-import androidx.fragment.app.Fragment
-import androidx.core.view.ViewCompat
-import androidx.appcompat.app.AppCompatActivity
-import android.view.Gravity
-import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.transition.Explode
+import androidx.transition.Fade
 import io.forus.me.android.presentation.helpers.SystemServices
 import io.forus.me.android.presentation.navigation.Navigator
 

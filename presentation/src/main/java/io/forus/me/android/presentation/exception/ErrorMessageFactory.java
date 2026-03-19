@@ -16,6 +16,7 @@
 package io.forus.me.android.presentation.exception;
 
 import android.content.Context;
+
 import io.forus.me.android.data.exception.NetworkConnectionException;
 
 /**

@@ -1,7 +1,5 @@
 package io.forus.me.android.data.net;
 
-import android.util.Log;
-
 import java.io.EOFException;
 import java.io.IOException;
 import java.nio.charset.Charset;

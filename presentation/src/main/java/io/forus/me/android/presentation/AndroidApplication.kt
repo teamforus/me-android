@@ -6,8 +6,8 @@ import android.content.Context
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.os.StrictMode
-import androidx.multidex.MultiDex
 import android.util.Log
+import androidx.multidex.MultiDex
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException
 import com.google.android.gms.common.GooglePlayServicesRepairableException
 import com.google.android.gms.security.ProviderInstaller

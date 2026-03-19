@@ -16,13 +16,16 @@
 package io.forus.me.android.data.executor;
 
 import androidx.annotation.NonNull;
-import io.forus.me.android.domain.executor.ThreadExecutor;
+
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
+import io.forus.me.android.domain.executor.ThreadExecutor;
 
 /**
  * Decorated {@link java.util.concurrent.ThreadPoolExecutor}

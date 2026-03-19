@@ -19,8 +19,6 @@ import io.forus.me.android.data.entity.sign.response.FirestoreToken;
 import io.forus.me.android.data.entity.sign.response.IdentityPinResult;
 import io.forus.me.android.data.entity.sign.response.IdentityTokenResult;
 import io.forus.me.android.data.entity.sign.response.ShortTokenResult;
-import io.forus.me.android.data.entity.sign.response.SignUpResult;
-import io.forus.me.android.data.entity.sign.response.ValidateEmailResult;
 import io.forus.me.android.data.repository.account.datasource.AccountDataSource;
 import io.forus.me.android.data.repository.datasource.LocalDataSource;
 import io.forus.me.android.domain.models.account.ValidateEmail;

@@ -1,12 +1,10 @@
 package io.forus.me.android.presentation.view.screens.records.dialogs.validators_list_dialog
 
-import androidx.recyclerview.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import io.forus.me.android.presentation.R
-
 
 
 class ValidatorsAdapter(var items: List<io.forus.me.android.domain.models.records.ValidatorOrganization>, val callback: Callback) : RecyclerView.Adapter<ValidatorsAdapter.MainHolder>() {

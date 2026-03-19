@@ -5,7 +5,14 @@ import io.forus.me.android.data.repository.account.datasource.AccountDataSource
 import io.forus.me.android.data.repository.account.datasource.remote.CheckActivationDataSource
 import io.forus.me.android.data.repository.records.RecordsRepository
 import io.forus.me.android.data.repository.settings.SettingsDataSource
-import io.forus.me.android.domain.models.account.*
+import io.forus.me.android.domain.models.account.Account
+import io.forus.me.android.domain.models.account.Identity
+import io.forus.me.android.domain.models.account.NewAccountRequest
+import io.forus.me.android.domain.models.account.RequestDelegatesEmailModel
+import io.forus.me.android.domain.models.account.RequestDelegatesPinModel
+import io.forus.me.android.domain.models.account.RequestDelegatesQrModel
+import io.forus.me.android.domain.models.account.SecurityOptions
+import io.forus.me.android.domain.models.account.ValidateEmail
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction

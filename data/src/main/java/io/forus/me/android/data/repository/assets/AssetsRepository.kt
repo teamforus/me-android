@@ -2,8 +2,6 @@ package io.forus.me.android.data.repository.assets
 
 import io.forus.me.android.domain.models.assets.Asset
 import io.forus.me.android.domain.models.assets.Type
-import io.forus.me.android.domain.models.currency.Currency
-import io.forus.me.android.domain.models.wallets.Wallet
 import io.reactivex.Observable
 import io.reactivex.Single
 

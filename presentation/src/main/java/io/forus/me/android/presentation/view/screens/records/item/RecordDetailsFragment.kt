@@ -2,17 +2,16 @@ package io.forus.me.android.presentation.view.screens.records.item
 
 import android.app.Activity
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import io.forus.me.android.domain.exception.RetrofitException
 import io.forus.me.android.domain.exception.RetrofitExceptionMapper
-import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.databinding.FragmentRecordDetailBinding
 import io.forus.me.android.presentation.internal.Injection
+import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.forus.me.android.presentation.view.screens.records.create_record.EditRecordActivity
 import io.forus.me.android.presentation.view.screens.records.item.dialogs.DeleteRecordErrorDialog
@@ -20,7 +19,6 @@ import io.forus.me.android.presentation.view.screens.records.item.dialogs.Record
 import io.forus.me.android.presentation.view.screens.records.item.validations.ValidationAdapter
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import java.lang.Exception
 
 class RecordDetailsFragment :
     ToolbarLRFragment<RecordDetailsModel, RecordDetailsView, RecordDetailsPresenter>(),

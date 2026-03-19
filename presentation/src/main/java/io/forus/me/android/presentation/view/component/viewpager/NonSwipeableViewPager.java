@@ -1,9 +1,10 @@
 package io.forus.me.android.presentation.view.component.viewpager;
 
 import android.content.Context;
-import androidx.viewpager.widget.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+
+import androidx.viewpager.widget.ViewPager;
 
 public class NonSwipeableViewPager extends ViewPager {
     

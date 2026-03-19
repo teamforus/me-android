@@ -14,12 +14,16 @@ import io.forus.me.android.domain.exception.RetrofitExceptionMapper
 import io.forus.me.android.domain.models.account.NewAccountRequest
 import io.forus.me.android.domain.models.records.errors.BaseApiError
 import io.forus.me.android.presentation.BuildConfig
+import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.api_config.ApiConfig
 import io.forus.me.android.presentation.api_config.ApiType
-import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.api_config.Utils
 import io.forus.me.android.presentation.api_config.check_api_status.CheckApiPresenter
-import io.forus.me.android.presentation.api_config.dialogs.*
+import io.forus.me.android.presentation.api_config.dialogs.ChooseApiDialog
+import io.forus.me.android.presentation.api_config.dialogs.CustomApiDialog
+import io.forus.me.android.presentation.api_config.dialogs.SaveApiAndRestartDialog
+import io.forus.me.android.presentation.api_config.dialogs.TestApiErrorDialog
+import io.forus.me.android.presentation.api_config.dialogs.TestApiSuccessDialog
 import io.forus.me.android.presentation.databinding.FragmentLoginSignUpBinding
 import io.forus.me.android.presentation.helpers.SharedPref
 import io.forus.me.android.presentation.internal.Injection
@@ -31,7 +35,6 @@ import io.forus.me.android.presentation.view.base.lr.LoadRefreshPanel
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import java.lang.Exception
 
 
 /**

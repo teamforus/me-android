@@ -5,7 +5,7 @@ import io.forus.me.android.domain.models.wallets.Transaction
 import io.forus.me.android.domain.models.wallets.Wallet
 import io.reactivex.Observable
 import io.reactivex.Single
-import java.util.*
+import java.util.Date
 import java.util.concurrent.TimeUnit
 
 class WalletsRepository : io.forus.me.android.domain.repository.wallets.WalletsRepository {

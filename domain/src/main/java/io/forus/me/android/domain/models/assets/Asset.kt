@@ -1,7 +1,5 @@
 package io.forus.me.android.domain.models.assets
 
-import kotlin.math.log
-
 class Asset {
 
     constructor(name: String, description: String, logoUrl: String?, type: Type) {

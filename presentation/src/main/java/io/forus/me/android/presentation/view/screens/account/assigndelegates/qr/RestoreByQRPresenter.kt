@@ -1,12 +1,12 @@
 package io.forus.me.android.presentation.view.screens.account.assigndelegates.qr
 
-import io.forus.me.android.presentation.view.base.lr.LRPresenter
-import io.forus.me.android.presentation.view.base.lr.LRViewState
-import io.forus.me.android.presentation.view.base.lr.PartialChange
 import io.forus.me.android.domain.models.account.RequestDelegatesQrModel
 import io.forus.me.android.domain.repository.account.AccountRepository
 import io.forus.me.android.presentation.helpers.reactivex.AccessTokenChecker
 import io.forus.me.android.presentation.helpers.reactivex.DisposableHolder
+import io.forus.me.android.presentation.view.base.lr.LRPresenter
+import io.forus.me.android.presentation.view.base.lr.LRViewState
+import io.forus.me.android.presentation.view.base.lr.PartialChange
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers

@@ -1,10 +1,9 @@
 package io.forus.me.android.presentation.view.screens.vouchers.provider.dialogs.organizations_dialog
 
-import androidx.recyclerview.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.models.vouchers.Organization
 

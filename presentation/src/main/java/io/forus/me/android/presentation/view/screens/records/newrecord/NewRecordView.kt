@@ -1,9 +1,9 @@
 package io.forus.me.android.presentation.view.screens.records.newrecord
 
-import io.forus.me.android.presentation.view.base.lr.LRView
 import io.forus.me.android.domain.models.records.RecordCategory
 import io.forus.me.android.domain.models.records.RecordType
 import io.forus.me.android.domain.models.validators.SimpleValidator
+import io.forus.me.android.presentation.view.base.lr.LRView
 
 interface NewRecordView : LRView<NewRecordModel> {
     companion object {

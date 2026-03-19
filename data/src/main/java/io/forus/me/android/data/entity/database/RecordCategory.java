@@ -1,8 +1,6 @@
 package io.forus.me.android.data.entity.database;
 
 import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Id;
-import org.greenrobot.greendao.annotation.NotNull;
 import org.greenrobot.greendao.annotation.Generated;
 
 @Entity(indexes = {

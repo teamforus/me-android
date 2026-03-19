@@ -1,12 +1,10 @@
 package io.forus.me.android.presentation.view.screens.records.categories
 
-import androidx.recyclerview.widget.RecyclerView
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
-import android.widget.CompoundButton
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import io.forus.me.android.domain.models.records.RecordCategory
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.helpers.inflate

@@ -1,14 +1,14 @@
 package io.forus.me.android.presentation.view.screens.records.newrecord
 
-import io.forus.me.android.presentation.view.base.lr.LRPresenter
-import io.forus.me.android.presentation.view.base.lr.LRViewState
-import io.forus.me.android.presentation.view.base.lr.PartialChange
 import io.forus.me.android.domain.models.records.NewRecordRequest
 import io.forus.me.android.domain.models.records.RecordCategory
 import io.forus.me.android.domain.models.records.RecordType
 import io.forus.me.android.domain.models.validators.SimpleValidator
 import io.forus.me.android.domain.repository.records.RecordsRepository
 import io.forus.me.android.domain.repository.validators.ValidatorsRepository
+import io.forus.me.android.presentation.view.base.lr.LRPresenter
+import io.forus.me.android.presentation.view.base.lr.LRViewState
+import io.forus.me.android.presentation.view.base.lr.PartialChange
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers

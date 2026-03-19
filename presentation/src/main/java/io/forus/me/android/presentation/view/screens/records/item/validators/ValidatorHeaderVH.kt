@@ -1,7 +1,7 @@
 package io.forus.me.android.presentation.view.screens.records.item.validators
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.helpers.inflate
 

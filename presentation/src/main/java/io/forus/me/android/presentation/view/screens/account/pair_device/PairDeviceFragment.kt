@@ -1,10 +1,10 @@
 package io.forus.me.android.presentation.view.screens.account.pair_device
 
 import android.os.Bundle
-import androidx.core.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.databinding.FragmentAccountPairDeviceBinding
 import io.forus.me.android.presentation.helpers.reactivex.DisposableHolder
@@ -12,9 +12,8 @@ import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.base.lr.LRViewState
 import io.forus.me.android.presentation.view.base.lr.LoadRefreshPanel
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
-import io.reactivex.Observable
 import io.forus.me.android.presentation.view.screens.account.assigndelegates.qr.RestoreByQRFragment
-
+import io.reactivex.Observable
 
 
 /**

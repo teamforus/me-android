@@ -3,15 +3,14 @@ package io.forus.me.android.presentation.view.screens.welcome
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.CompoundButton
 import androidx.viewpager2.widget.ViewPager2
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.databinding.ActivityWelcomeBinding
 import io.forus.me.android.presentation.helpers.SharedPref
 import io.forus.me.android.presentation.view.activity.BaseActivity
 import io.forus.me.android.presentation.view.screens.welcome.adapter.SectionPagerAdapter
+
 //import kotlinx.android.synthetic.main.activity_welcome.*
 
 class WelcomeActivity : BaseActivity() {

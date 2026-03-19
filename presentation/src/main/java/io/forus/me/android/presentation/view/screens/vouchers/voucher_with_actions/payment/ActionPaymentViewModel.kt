@@ -1,24 +1,16 @@
 package io.forus.me.android.presentation.view.screens.vouchers.voucher_with_actions.payment
 //import io.forus.me.android.data.entity.vouchers.response.Voucher
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import android.view.View
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.PropertyChangeRegistry
-import android.util.Log
-import android.view.View
-import io.forus.me.android.domain.models.vouchers.ProductAction
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
 import io.forus.me.android.domain.repository.vouchers.VouchersRepository
-import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.internal.Injection
-import io.forus.me.android.presentation.view.base.lr.PartialChange
-import io.forus.me.android.presentation.view.screens.vouchers.provider.ProviderPartialChanges
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import java.text.NumberFormat
-import java.util.*
 
 
 class ActionPaymentViewModel(application: Application) : AndroidViewModel(application), Observable {

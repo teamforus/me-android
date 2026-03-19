@@ -3,10 +3,9 @@ package io.forus.me.android.presentation.view.screens.account.newaccount.pin
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import androidx.activity.viewModels
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.view.activity.CommonActivity
-import androidx.activity.viewModels
 import io.forus.me.android.presentation.view.base.MViewModelProvider
 
 class NewPinActivity : CommonActivity(), MViewModelProvider<NewPinViewModel> {

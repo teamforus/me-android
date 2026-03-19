@@ -1,18 +1,17 @@
 package io.forus.me.android.presentation.view.screens.account.assigndelegates.qr
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import io.forus.me.android.presentation.view.base.lr.LRFragment
-import io.forus.me.android.presentation.view.base.lr.LRViewState
-import io.forus.me.android.presentation.view.base.lr.LoadRefreshPanel
 import io.forus.me.android.domain.models.qr.QrCode
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.databinding.FragmentPopupQrBinding
-import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.helpers.reactivex.DisposableHolder
+import io.forus.me.android.presentation.internal.Injection
+import io.forus.me.android.presentation.view.base.lr.LRFragment
+import io.forus.me.android.presentation.view.base.lr.LRViewState
+import io.forus.me.android.presentation.view.base.lr.LoadRefreshPanel
 import io.reactivex.Observable
 
 class RestoreByQRFragment : LRFragment<RestoreByQRModel, RestoreByQRView, RestoreByQRPresenter>(), RestoreByQRView  {

@@ -3,12 +3,11 @@ package io.forus.me.android.presentation.view.screens.records.create_record
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.core.content.ContextCompat
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import com.afollestad.materialdialogs.MaterialDialog
 import io.forus.me.android.domain.exception.RetrofitException
 import io.forus.me.android.domain.exception.RetrofitExceptionMapper
@@ -19,14 +18,13 @@ import io.forus.me.android.presentation.databinding.ActivityCreateCategoryFlowBi
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.view.base.NoInternetDialog
 import io.forus.me.android.presentation.view.screens.records.create_record.create_record_fragment.CreateRecordFragment
-import io.forus.me.android.presentation.view.screens.records.create_record.create_record_fragment.CreateRecordFragment.Companion.RECORD_TYPE_NAME_EXTRA
 import io.forus.me.android.presentation.view.screens.records.create_record.create_record_fragment.CreateRecordFragment.Companion.RECORD_INPUT_FIELD_TYPE_EXTRA
+import io.forus.me.android.presentation.view.screens.records.create_record.create_record_fragment.CreateRecordFragment.Companion.RECORD_TYPE_NAME_EXTRA
 import io.forus.me.android.presentation.view.screens.records.create_record.create_record_fragment.CreateRecordModel
 import io.forus.me.android.presentation.view.screens.records.create_record.dialog.CreateRecordErrorDialog
 import io.forus.me.android.presentation.view.screens.records.create_record.dialog.CreateRecordSuccessDialog
 import io.forus.me.android.presentation.view.screens.records.create_record.dialog.WaitDialog
 import io.forus.me.android.presentation.view.screens.records.types.RecordTypesFragment
-import java.lang.Exception
 
 
 class CreateRecordActivity : AppCompatActivity(), RecordTypesFragment.OnItemSelected, CreateRecordFragment.OnInputRecordNameText {

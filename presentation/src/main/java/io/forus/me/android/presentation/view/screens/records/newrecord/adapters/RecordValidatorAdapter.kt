@@ -1,14 +1,12 @@
 package io.forus.me.android.presentation.view.screens.records.newrecord.adapters
 
 import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import android.view.ViewGroup
 import io.forus.me.android.domain.models.validators.SimpleValidator
 import io.forus.me.android.presentation.databinding.ItemRecordSelectValidatorBinding
-import io.forus.me.android.presentation.databinding.ItemWalletsBinding
 import io.forus.me.android.presentation.view.screens.records.newrecord.viewholders.RecordValidatorVH
-import io.forus.me.android.presentation.view.screens.wallets.WalletsVH
 
 class RecordValidatorAdapter(private val clickListener: ((SimpleValidator) -> Unit)?): RecyclerView.Adapter<RecordValidatorVH>() {
 

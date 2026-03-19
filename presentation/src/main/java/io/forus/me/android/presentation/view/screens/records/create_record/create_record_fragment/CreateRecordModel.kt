@@ -1,11 +1,9 @@
 package io.forus.me.android.presentation.view.screens.records.create_record.create_record_fragment
 
-import android.util.Log
 import io.forus.me.android.data.repository.records.RecordsRepository
 import io.forus.me.android.domain.models.records.CreateRecordResponse
 import io.forus.me.android.domain.models.records.NewRecordRequest
 import io.forus.me.android.presentation.view.base.lr.PartialChange
-import io.forus.me.android.presentation.view.screens.records.item.RecordDetailsPartialChanges
 import io.forus.me.android.presentation.view.screens.records.newrecord.NewRecordPartialChanges
 import io.reactivex.Observable
 import io.reactivex.Single

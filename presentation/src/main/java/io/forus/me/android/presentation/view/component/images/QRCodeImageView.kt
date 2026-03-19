@@ -4,9 +4,6 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.util.AttributeSet
-import net.glxn.qrgen.android.QRCode
-import com.google.zxing.EncodeHintType
-import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel
 import io.forus.me.android.presentation.R
 
 class QRCodeImageView : AutoLoadImageView {

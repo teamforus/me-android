@@ -1,8 +1,8 @@
 package io.forus.me.android.presentation.helpers
 
+import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
-import android.app.Activity
 
 
 object SharedPref {

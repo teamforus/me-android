@@ -1,16 +1,19 @@
 package io.forus.me.android.presentation.view.screens.records.newrecord
 
+//import kotlinx.android.synthetic.main.fragment_new_record.*
+//import kotlinx.android.synthetic.main.view_new_record_select_category.*
+//import kotlinx.android.synthetic.main.view_new_record_select_type.*
+//import kotlinx.android.synthetic.main.view_new_record_select_validator.*
+//import kotlinx.android.synthetic.main.view_new_record_select_value.*
 import android.os.Bundle
-import androidx.viewpager.widget.ViewPager
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager.widget.ViewPager
 import com.jakewharton.rxbinding2.widget.RxTextView
-import io.forus.me.android.presentation.view.base.lr.LRViewState
-import io.forus.me.android.presentation.view.base.lr.LoadRefreshPanel
 import io.forus.me.android.domain.exception.RetrofitException
 import io.forus.me.android.domain.exception.RetrofitExceptionMapper
 import io.forus.me.android.domain.models.records.RecordCategory
@@ -19,6 +22,8 @@ import io.forus.me.android.domain.models.validators.SimpleValidator
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.databinding.FragmentNewRecordBinding
 import io.forus.me.android.presentation.internal.Injection
+import io.forus.me.android.presentation.view.base.lr.LRViewState
+import io.forus.me.android.presentation.view.base.lr.LoadRefreshPanel
 import io.forus.me.android.presentation.view.fragment.ToolbarLRFragment
 import io.forus.me.android.presentation.view.screens.records.newrecord.NewRecordView.Companion.NUM_PAGES
 import io.forus.me.android.presentation.view.screens.records.newrecord.adapters.NewRecordViewPagerAdapter
@@ -30,12 +35,6 @@ import io.forus.me.android.presentation.view.screens.records.newrecord.viewholde
 import io.forus.me.android.presentation.view.screens.records.newrecord.viewholders.SelectedTypeVH
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-//import kotlinx.android.synthetic.main.fragment_new_record.*
-//import kotlinx.android.synthetic.main.view_new_record_select_category.*
-//import kotlinx.android.synthetic.main.view_new_record_select_type.*
-//import kotlinx.android.synthetic.main.view_new_record_select_validator.*
-//import kotlinx.android.synthetic.main.view_new_record_select_value.*
-import java.lang.Exception
 
 
 /**

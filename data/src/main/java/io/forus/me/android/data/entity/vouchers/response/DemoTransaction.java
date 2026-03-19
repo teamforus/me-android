@@ -2,7 +2,6 @@ package io.forus.me.android.data.entity.vouchers.response;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 public class DemoTransaction {

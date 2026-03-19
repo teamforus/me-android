@@ -6,9 +6,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.FrameLayout
 import android.widget.RelativeLayout
+import androidx.activity.viewModels
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.view.activity.CommonActivity
-import androidx.activity.viewModels
 import io.forus.me.android.presentation.view.base.MViewModelProvider
 
 /**

@@ -1,6 +1,12 @@
 package io.forus.me.android.domain.repository.account
 
-import io.forus.me.android.domain.models.account.*
+import io.forus.me.android.domain.models.account.Account
+import io.forus.me.android.domain.models.account.Identity
+import io.forus.me.android.domain.models.account.NewAccountRequest
+import io.forus.me.android.domain.models.account.RequestDelegatesEmailModel
+import io.forus.me.android.domain.models.account.RequestDelegatesPinModel
+import io.forus.me.android.domain.models.account.RequestDelegatesQrModel
+import io.forus.me.android.domain.models.account.SecurityOptions
 import io.reactivex.Observable
 
 interface AccountRepository {

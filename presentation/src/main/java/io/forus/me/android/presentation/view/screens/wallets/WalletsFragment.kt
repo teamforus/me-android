@@ -1,17 +1,16 @@
 package io.forus.me.android.presentation.view.screens.wallets
 
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import io.forus.me.android.presentation.view.base.lr.LRFragment
-import io.forus.me.android.presentation.view.base.lr.LRViewState
-
+import androidx.recyclerview.widget.LinearLayoutManager
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.databinding.FragmentRecyclerBinding
 import io.forus.me.android.presentation.interfaces.FragmentListener
 import io.forus.me.android.presentation.internal.Injection
+import io.forus.me.android.presentation.view.base.lr.LRFragment
+import io.forus.me.android.presentation.view.base.lr.LRViewState
 
 /**
  * Fragment Assign Delegates Screen.
