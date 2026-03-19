@@ -23,7 +23,17 @@ class Transaction {
 
     var status: Status
 
-    constructor(id: String, walletId: Long, timestamp: Date, title: String, receiver: String, currency: Currency, value: Double, type: Type, status: Status) {
+    constructor(
+        id: String,
+        walletId: Long,
+        timestamp: Date,
+        title: String,
+        receiver: String,
+        currency: Currency,
+        value: Double,
+        type: Type,
+        status: Status
+    ) {
         this.id = id
         this.walletId = walletId
         this.timestamp = timestamp
@@ -34,7 +44,6 @@ class Transaction {
         this.type = type
         this.status = status
     }
-
 
     enum class Type {
         PAYMENT, INCOME

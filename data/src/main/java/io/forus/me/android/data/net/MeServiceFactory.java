@@ -51,7 +51,6 @@ public class MeServiceFactory {
     }
 
     public <T> T createRetrofitService(final Class<T> clazz, final String endPoint, final String customAccessToken) throws Exception{
-
         okhttp3.OkHttpClient.Builder httpClient = new okhttp3.OkHttpClient.Builder();
 
         MeHttpLoggingInterceptor logging = new MeHttpLoggingInterceptor(HttpLoggingInterceptor.Logger.DEFAULT);
@@ -59,14 +58,8 @@ public class MeServiceFactory {
         logging.setLogAccessToken(false);
         httpClient.addInterceptor(logging);
         httpClient.addInterceptor(chain -> {
-
             Request original = chain.request();
-
-            HttpUrl url = original.url()
-                    .newBuilder()
-                    .build();
-
-
+            HttpUrl url = original.url().newBuilder().build();
 
             String userAgent = getUserAgent();
             Log.d("forus","userAgent="+userAgent);
@@ -134,7 +127,6 @@ public class MeServiceFactory {
             e.printStackTrace();
         }
 
-
         return String.format(Locale.US,
                 "%s/%s (Android %s; %s; %s %s; %s)",
                 appName,
@@ -145,8 +137,4 @@ public class MeServiceFactory {
                 Build.DEVICE,
                 Locale.getDefault().getLanguage());
     }
-
-
-
-
 }

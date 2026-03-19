@@ -1,12 +1,13 @@
 package io.forus.me.android.presentation.view.screens.vouchers.provider
 
+//import kotlinx.android.synthetic.main.fragment_voucher_provider.*
+//import kotlinx.android.synthetic.main.view_organization.*
 import android.content.DialogInterface
 import android.content.DialogInterface.OnDismissListener
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +17,6 @@ import io.forus.me.android.domain.exception.RetrofitException
 import io.forus.me.android.domain.exception.RetrofitExceptionMapper
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.databinding.FragmentVoucherProviderBinding
-import io.forus.me.android.presentation.helpers.format
 import io.forus.me.android.presentation.internal.Injection
 import io.forus.me.android.presentation.models.vouchers.Organization
 import io.forus.me.android.presentation.view.base.MViewModelProvider
@@ -33,8 +33,6 @@ import io.forus.me.android.presentation.view.screens.vouchers.provider.dialogs.C
 import io.forus.me.android.presentation.view.screens.vouchers.provider.dialogs.organizations_dialog.OrganizationsListDialog
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-//import kotlinx.android.synthetic.main.fragment_voucher_provider.*
-//import kotlinx.android.synthetic.main.view_organization.*
 import java.math.BigDecimal
 
 
@@ -185,11 +183,7 @@ class ProviderFragment : ToolbarLRFragment<ProviderModel, ProviderView, Provider
         binding.ivIcon.setImageUrl(vs.model.item?.voucher?.logo)
 
         binding.tvPrice.visibility = if (vs.model.item?.voucher?.amount_visible == true) View.VISIBLE else View.GONE
-        vs.model.item?.voucher?.amount?.let{ amount ->
-            binding.tvPrice.text = "€ ${amount.toFloat().format(2)}"
-        }
-
-
+        binding.tvPrice.text = vs.model.item?.voucher?.amount_locale ?: ""
 
         if (isDemoVoucher != null && isDemoVoucher!!) {
             tv_organization_name?.text =

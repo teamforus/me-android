@@ -1,5 +1,5 @@
 package io.forus.me.android.data.repository.vouchers.datasource
-import io.forus.me.android.domain.models.currency.Currency
+
 import io.forus.me.android.domain.models.vouchers.Transaction
 import java.math.BigDecimal
 import java.util.Date
@@ -23,10 +23,21 @@ fun mockTransactionsList(page: Int, perPage: Int): List<Transaction> {
 
     fun generateMockTransaction(id: Int): Transaction {
         val organization = null
-        val currency = Currency()
         val amount = BigDecimal(id)
         val createdAt = Date()
         val state = "Active"
 
-        return Transaction(id.toString(), organization, currency, amount, 0f.toBigDecimal(), createdAt, null, state, null, null)
+        return Transaction(
+            id.toString(),
+            organization,
+            amount,
+            "€ $id,-",
+            0f.toBigDecimal(),
+            "€ 0,-",
+            createdAt,
+            null,
+            state,
+            null,
+            null,
+        )
     }

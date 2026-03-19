@@ -24,6 +24,9 @@ public class Product {
     @SerializedName("price")
     private BigDecimal price;
 
+    @SerializedName("price_locale")
+    private String price_locale;
+
     @SerializedName("old_price")
     private BigDecimal oldPrice;
 
@@ -44,13 +47,28 @@ public class Product {
 
     public Product() { }
 
-    public Product(long id, long organizationId, long productCategoryId, String name, String description, BigDecimal price, BigDecimal oldPrice, long totalAmount, long soldAmount, Logo photo, ProductCategory productCategory, Organization organization) {
+    public Product(
+            long id,
+            long organizationId,
+            long productCategoryId,
+            String name,
+            String description,
+            BigDecimal price,
+            String price_locale,
+            BigDecimal oldPrice,
+            long totalAmount,
+            long soldAmount,
+            Logo photo,
+            ProductCategory productCategory,
+            Organization organization
+        ) {
         this.id = id;
         this.organizationId = organizationId;
         this.productCategoryId = productCategoryId;
         this.name = name;
         this.description = description;
         this.price = price;
+        this.price_locale = price_locale;
         this.oldPrice = oldPrice;
         this.totalAmount = totalAmount;
         this.soldAmount = soldAmount;
@@ -101,6 +119,9 @@ public class Product {
 
     public BigDecimal getPrice() {
         return price;
+    }
+    public String getPriceLocale() {
+        return price_locale;
     }
 
     public void setPrice(BigDecimal price) {
