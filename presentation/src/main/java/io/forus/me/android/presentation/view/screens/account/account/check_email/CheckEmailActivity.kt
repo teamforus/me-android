@@ -4,15 +4,14 @@ package io.forus.me.android.presentation.view.screens.account.account.check_emai
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
 import androidx.core.text.HtmlCompat
-import android.text.Html
 
 
 import io.forus.me.android.presentation.view.activity.CommonActivity
 
 import io.forus.me.android.presentation.R
 import io.forus.me.android.presentation.databinding.ActivityCheckEmailBinding
-import io.forus.me.android.presentation.helpers.SharedPref
 
 
 /**
@@ -23,9 +22,14 @@ class CheckEmailActivity : CommonActivity() {
 
     companion object {
 
+        private const val EMAIL_EXTRA = "EMAIL_EXTRA"
 
-        fun getCallingIntent(context: Context): Intent {
-            return Intent(context, CheckEmailActivity::class.java)
+        fun getCallingIntent(context: Context, email: String? = null): Intent {
+            return Intent(context, CheckEmailActivity::class.java).also {
+                if (!email.isNullOrBlank()) {
+                    it.putExtra(EMAIL_EXTRA, email)
+                }
+            }
         }
     }
 
@@ -40,11 +44,16 @@ class CheckEmailActivity : CommonActivity() {
         binding = ActivityCheckEmailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        SharedPref.init(this@CheckEmailActivity)
-        val restoreEmail = SharedPref.read(SharedPref.RESTORE_EMAIL, "")
+        val email = intent.getStringExtra(EMAIL_EXTRA)
 
-        val descriptionText = getString(R.string.check_email_description_part1) + " <b><i><font color=\"blue\">" + restoreEmail + "</font></i></b> " + getString(R.string.check_email_description_part2)
-        binding.description.text = HtmlCompat.fromHtml(descriptionText, HtmlCompat.FROM_HTML_MODE_LEGACY);
+        binding.description.text = if (email.isNullOrBlank()) {
+            getString(R.string.check_email_description)
+        } else {
+            HtmlCompat.fromHtml(
+                getString(R.string.check_email_description_with_email, TextUtils.htmlEncode(email)),
+                HtmlCompat.FROM_HTML_MODE_LEGACY
+            )
+        }
 
 
         binding.back.setOnClickListener { finish() }

@@ -33,38 +33,6 @@ class LogInSignUpPresenter constructor(private val token: String, private val ac
 
                 loadRefreshPartialChanges(),
 
-                intent { it.register() }
-                        .switchMap {
-                            accountRepository.restoreByEmail(it)
-                                    .subscribeOn(Schedulers.io())
-                                    .observeOn(AndroidSchedulers.mainThread())
-                                    .map<PartialChange> {
-                                        if(it) LogInSignUpPartialChanges.RestoreByEmailRequestEnd()
-                                        else LogInSignUpPartialChanges.RestoreByEmailRequestError(Exception(it.toString()))
-                                    }
-                                    .onErrorReturn {
-                                        LogInSignUpPartialChanges.RestoreByEmailRequestError(it)
-                                    }
-                                    .startWith(LogInSignUpPartialChanges.RestoreByEmailRequestStart())
-
-                        },
-
-                intent { it.validateEmail() }
-                        .switchMap {
-                            accountRepository.validateEmail(it)
-                                    .subscribeOn(Schedulers.io())
-                                    .observeOn(AndroidSchedulers.mainThread())
-                                    .map<PartialChange> {
-                                         LogInSignUpPartialChanges.ValidateEmailRequest(it)
-                                       // else LogInSignUpPartialChanges.RestoreByEmailRequestError(Exception(it.toString()))
-                                    }
-                                    .onErrorReturn {
-                                        LogInSignUpPartialChanges.ValidateEmailRequestError(it)
-                                    }
-                                    .startWith(LogInSignUpPartialChanges.RestoreByEmailRequestStart())
-
-                        },
-
                 intent { it.exchangeToken() }
                         .flatMap {
                             accountRepository.restoreExchangeToken(it)
@@ -84,14 +52,14 @@ class LogInSignUpPresenter constructor(private val token: String, private val ac
                                     .subscribeOn(Schedulers.io())
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .map<PartialChange> {
-                                        if(it) LogInSignUpPartialChanges.RestoreByEmailRequestEnd()
-                                        else LogInSignUpPartialChanges.RestoreByEmailRequestError(Exception(it.toString()))
+                                        if(it) LogInSignUpPartialChanges.EmailAuthRequestEnd()
+                                        else LogInSignUpPartialChanges.EmailAuthRequestError(Exception(it.toString()))
                                     }
                                     .onErrorReturn {
-                                        LogInSignUpPartialChanges.RestoreByEmailRequestError(it)
+                                        LogInSignUpPartialChanges.EmailAuthRequestError(it)
                                     }
                                     .startWith(
-                                            LogInSignUpPartialChanges.RestoreByEmailRequestStart()
+                                            LogInSignUpPartialChanges.EmailAuthRequestStart()
                                     )
                         }
         )
@@ -118,20 +86,24 @@ class LogInSignUpPresenter constructor(private val token: String, private val ac
         if (change !is LogInSignUpPartialChanges) return super.stateReducer(vs, change)
 
         return when (change) {
-            is LogInSignUpPartialChanges.RestoreByEmailRequestStart -> vs.copy(model = vs.model.copy(sendingRestoreByEmail = true,
-                    sendingRestoreByEmailError = null, validateEmail = null, validateEmailError = null))
-            is LogInSignUpPartialChanges.RestoreByEmailRequestEnd -> vs.copy(model = vs.model.copy(sendingRestoreByEmail = false,
-                    sendingRestoreByEmailSuccess = true, validateEmail = null, validateEmailError = null))
-            is LogInSignUpPartialChanges.RestoreByEmailRequestError -> vs.copy(model = vs.model.copy(sendingRestoreByEmail = false,
-                    sendingRestoreByEmailError = change.error, validateEmail = null, validateEmailError = null))
-            is LogInSignUpPartialChanges.ExchangeTokenResult -> vs.copy(model = vs.model.copy(accessToken = change.accessToken, sendingRestoreByEmail = false,
-                    sendingRestoreByEmailError = null, validateEmail = null, validateEmailError = null))
-            is LogInSignUpPartialChanges.ExchangeTokenError -> vs.copy(model = vs.model.copy(exchangeTokenError = change.error,
-                    validateEmail = null, validateEmailError = null))
-            is LogInSignUpPartialChanges.ValidateEmailRequest -> vs.copy(model = vs.model.copy(validateEmail = change.validateEmail, validateEmailError = null,
-                    sendingRestoreByEmail = false,sendingRestoreByEmailError = null,sendingRestoreByEmailSuccess = false))
-            is LogInSignUpPartialChanges.ValidateEmailRequestError ->  vs.copy(model = vs.model.copy(validateEmailError = change.error, validateEmail = null,
-                    sendingRestoreByEmail = false,sendingRestoreByEmailError = null, sendingRestoreByEmailSuccess = false))
+            is LogInSignUpPartialChanges.EmailAuthRequestStart -> vs.copy(model = vs.model.copy(
+                    sendingEmailAuth = true,
+                    sendingEmailAuthSuccess = false,
+                    emailAuthError = null))
+            is LogInSignUpPartialChanges.EmailAuthRequestEnd -> vs.copy(model = vs.model.copy(
+                    sendingEmailAuth = false,
+                    emailAuthError = null,
+                    sendingEmailAuthSuccess = true))
+            is LogInSignUpPartialChanges.EmailAuthRequestError -> vs.copy(model = vs.model.copy(
+                    sendingEmailAuth = false,
+                    sendingEmailAuthSuccess = false,
+                    emailAuthError = change.error))
+            is LogInSignUpPartialChanges.ExchangeTokenResult -> vs.copy(model = vs.model.copy(
+                    accessToken = change.accessToken,
+                    sendingEmailAuth = false,
+                    emailAuthError = null))
+            is LogInSignUpPartialChanges.ExchangeTokenError -> vs.copy(model = vs.model.copy(
+                    exchangeTokenError = change.error))
         }
     }
 }

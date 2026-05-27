@@ -82,8 +82,6 @@
             android:layout_marginTop="17dp"
             app:hint="@string/new_account_field_email"
             android:fontFamily="@font/google_sans_regular"
-            app:validationRegex="email"
-            app:validationError="@string/me_validation_error_email_is_invalid"
             android:inputType="textEmailAddress"/>
 
         <io.forus.me.android.presentation.view.component.buttons.Button

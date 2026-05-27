@@ -1,7 +1,6 @@
 package io.forus.me.android.data.repository.account.datasource.remote
 
 import android.util.Log
-import com.gigawatt.android.data.net.sign.models.request.EmailValidateRequest
 import com.gigawatt.android.data.net.sign.models.request.SignUp
 import com.google.gson.Gson
 import io.forus.me.android.data.BuildConfig
@@ -11,7 +10,6 @@ import io.forus.me.android.data.entity.sign.response.*
 import io.forus.me.android.data.net.sign.SignService
 import io.forus.me.android.data.repository.account.datasource.AccountDataSource
 import io.forus.me.android.data.repository.datasource.RemoteDataSource
-import io.forus.me.android.domain.models.account.ValidateEmail
 import io.reactivex.Observable
 
 
@@ -71,33 +69,6 @@ class AccountRemoteDataSource(f: () -> SignService) : AccountDataSource,
             val result = it.string();
             result == "{}"
         }
-    }
-
-    override fun restoreByEmail(email: String): Observable<Boolean> {
-        val signUp = RestoreByEmail(email)
-        return service.restoreByEmail(signUp).map {
-            val result = it.string();
-            result == "{}" || result.contains("\"access_token\"") || result.contains("\"success\"")
-        }
-    }
-
-    override fun validateEmail(email: String): Observable<ValidateEmail> {
-        val requestBody = EmailValidateRequest()
-        requestBody.email = email
-
-        /* val observable: Observable<Boolean> = ObservableCreate<Boolean>(object : ObservableOnSubscribe<Boolean?> {
-             override fun subscribe(emitter: ObservableEmitter<Boolean?>) {
-                 true
-             }
-
-         })*/
-        return service.validateEmail(requestBody)
-            .map {
-                io.forus.me.android.domain.models.account.ValidateEmail(
-                    it.email.used,
-                    it.email.valid
-                )
-            }
     }
 
     override fun restoreExchangeToken(token: String): Observable<AccessToken> {

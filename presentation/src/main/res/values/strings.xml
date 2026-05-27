@@ -13,7 +13,6 @@
     <!-- Common -->
     <string name="me_validation_required_asterisk" translatable="false"><![CDATA[ <sup><small>*</small></sup> ]]></string>
     <string name="me_validation_error_not_empty">Field is empty</string>
-    <string name="me_validation_error_email_is_invalid">Email is invalid</string>
     <string name="me_validation_error_decimal">Not a valid number</string>
     <string name="me_ok">OK</string>
     <string name="me_cancel">Cancel</string>
@@ -331,8 +330,8 @@
 
     <!-- Check email -->
     <string name="check_email_has_been_sent_to_you">Check your email</string>
-    <string name="check_email_description_part1">Klik op de link in de email die u heeft ontvangen op</string>
-    <string name="check_email_description_part2">om uw aanmelding af te maken \n</string>
+    <string name="check_email_description">We\'ve sent you an email. Check your inbox to continue.</string>
+    <string name="check_email_description_with_email"><![CDATA[We\'ve sent an email to <b><i><font color="blue">%1$s</font></i></b>. Check your inbox to continue.]]></string>
     <string name="check_your_email">Check your email</string>
 
 

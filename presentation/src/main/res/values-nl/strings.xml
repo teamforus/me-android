@@ -10,7 +10,6 @@
 
     <!-- Common -->
     <string name="me_validation_error_not_empty">Het invoerveld is leeg</string>
-    <string name="me_validation_error_email_is_invalid">Het invoerveld is niet juist ingevoerd.</string>
     <string name="me_validation_error_decimal">Het invoerveld accepteert alleen getallen of decimalen.</string>
     <string name="me_ok">OK</string>
     <string name="me_cancel">ANNULEER</string>
@@ -320,8 +319,8 @@
 
     <!-- Check email -->        
     <string name="check_email_has_been_sent_to_you">Er is een e-mail onderweg!</string>
-    <string name="check_email_description_part1">Er is een e-mail gestuurd naar</string>
-    <string name="check_email_description_part2">.\n Klik op de link in de e-mail om je aan te melden.\n</string>
+    <string name="check_email_description">We hebben je een e-mail gestuurd. Controleer je inbox om verder te gaan.</string>
+    <string name="check_email_description_with_email"><![CDATA[We hebben een e-mail gestuurd naar <b><i><font color="blue">%1$s</font></i></b>. Controleer je inbox om verder te gaan.]]></string>
     <string name="check_your_email">Controleer je e-mail.</string>
 
     <!-- Restore account success -->

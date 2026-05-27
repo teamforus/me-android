@@ -72,8 +72,6 @@
             android:layout_marginTop="17dp"
             android:inputType="textEmailAddress"
             app:hint="@string/new_account_field_email"
-            app:validationError="@string/me_validation_error_email_is_invalid"
-            app:validationRegex="email"
             app:type="regular"
             />
 

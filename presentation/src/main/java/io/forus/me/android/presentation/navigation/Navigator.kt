@@ -82,9 +82,9 @@ constructor()//empty
         }
     }
 
-    fun navigateToCheckEmail(context: Context?) {
+    fun navigateToCheckEmail(context: Context?, email: String? = null) {
         if (context != null) {
-            val intentToLaunch = CheckEmailActivity.getCallingIntent(context)
+            val intentToLaunch = CheckEmailActivity.getCallingIntent(context, email)
             context.startActivity(intentToLaunch)
         }
     }
