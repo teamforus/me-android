@@ -14,12 +14,9 @@ import io.forus.me.android.presentation.view.screens.account.account.AccountActi
 import io.forus.me.android.presentation.view.screens.account.account.check_email.CheckEmailActivity
 import io.forus.me.android.presentation.view.screens.account.login_signup_account.LogInSignUpActivity
 import io.forus.me.android.presentation.view.screens.account.account.pin.ChangePinActivity
-import io.forus.me.android.presentation.view.screens.account.assigndelegates.AssignDelegatesAccountActivity
-import io.forus.me.android.presentation.view.screens.account.assigndelegates.email.RestoreByEmailActivity
-import io.forus.me.android.presentation.view.screens.account.newaccount.NewAccountActivity
-import io.forus.me.android.presentation.view.screens.account.newaccount.confirmRegistration.ConfirmRegistrationActivity
 import io.forus.me.android.presentation.view.screens.account.newaccount.pin.NewPinActivity
 import io.forus.me.android.presentation.view.screens.account.pair_device.PairDeviceActivity
+import io.forus.me.android.presentation.view.screens.account.restore_account_exchange.RestoreAccountExchangeActivity
 import io.forus.me.android.presentation.view.screens.account.restore_account_success.RestoreAccountSuccessActivity
 import io.forus.me.android.presentation.view.screens.account.send_crash_reports.SendReportsActivity
 import io.forus.me.android.presentation.view.screens.dashboard.DashboardActivity
@@ -78,13 +75,6 @@ constructor()//empty
     }
 
 
-    fun navigateToAccountRestore(context: Context?) {
-        if (context != null) {
-            val intentToLaunch = AssignDelegatesAccountActivity.getCallingIntent(context)
-            context.startActivity(intentToLaunch)
-        }
-    }
-
     fun navigateToPairDevice(context: Context?) {
         if (context != null) {
             val intentToLaunch = PairDeviceActivity.getCallingIntent(context)
@@ -107,13 +97,6 @@ constructor()//empty
         }
     }
 
-    fun navigateToAccountNew(context: Context?) {
-        if (context != null) {
-            val intentToLaunch = NewAccountActivity.getCallingIntent(context)
-            context.startActivity(intentToLaunch)
-        }
-    }
-
     fun navigateToPinNew(context: Context?, accessToken: String){
         if (context != null) {
             val intentToLaunch = NewPinActivity.getCallingIntent(context, accessToken)
@@ -121,27 +104,9 @@ constructor()//empty
         }
     }
 
-    fun navigateToAccountRestoreByEmail(context: Context?) {
+    fun navigateToRestoreAccountExchange(context: Context?, token: String) {
         if (context != null) {
-            val intentToLaunch = RestoreByEmailActivity.getCallingIntent(context)
-            context.startActivity(intentToLaunch)
-        }
-    }
-
-
-    fun navigateToConfirmRegistration(context: Context?, accessToken: String) {
-        if (context != null) {
-            val intentToLaunch = ConfirmRegistrationActivity.getCallingIntent(context,accessToken)
-            context.startActivity(intentToLaunch)
-        }
-    }
-
-
-
-
-    fun navigateToAccountRestoreByEmailExchangeToken(context: Context?, token: String) {
-        if (context != null) {
-            val intentToLaunch = RestoreByEmailActivity.getCallingIntent(context, token)
+            val intentToLaunch = RestoreAccountExchangeActivity.getCallingIntent(context, token)
             intentToLaunch.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             context.startActivity(intentToLaunch)
         }

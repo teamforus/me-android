@@ -84,15 +84,13 @@ class LogInSignUpPresenter constructor(private val token: String, private val ac
                                     .subscribeOn(Schedulers.io())
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .map<PartialChange> {
-                                        //NewAccountPartialChanges.RegisterEnd(it)
                                         if(it) LogInSignUpPartialChanges.RestoreByEmailRequestEnd()
                                         else LogInSignUpPartialChanges.RestoreByEmailRequestError(Exception(it.toString()))
                                     }
                                     .onErrorReturn {
-                                        //NewAccountPartialChanges.RegisterError(it)
                                         LogInSignUpPartialChanges.RestoreByEmailRequestError(it)
                                     }
-                                    .startWith(//NewAccountPartialChanges.RegisterStart(it)
+                                    .startWith(
                                             LogInSignUpPartialChanges.RestoreByEmailRequestStart()
                                     )
                         }

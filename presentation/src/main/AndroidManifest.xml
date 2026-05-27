@@ -121,22 +121,12 @@
             tools:replace="android:screenOrientation" />
 
         <activity
-            android:name=".view.screens.account.assigndelegates.email.RestoreByEmailActivity"
+            android:name=".view.screens.account.restore_account_exchange.RestoreAccountExchangeActivity"
             android:exported="false"
             android:label="@string/app_blank_string"
             android:launchMode="singleTop" />
         <activity
             android:name=".view.screens.account.restore_account_success.RestoreAccountSuccessActivity"
-            android:exported="false"
-            android:label="@string/app_blank_string"
-            android:launchMode="singleTop" />
-        <activity
-            android:name=".view.screens.account.newaccount.confirmRegistration.ConfirmRegistrationActivity"
-            android:exported="false"
-            android:label="@string/app_blank_string"
-            android:launchMode="singleTop" />
-        <activity
-            android:name=".view.screens.account.newaccount.NewAccountActivity"
             android:exported="false"
             android:label="@string/app_blank_string"
             android:launchMode="singleTop" />
@@ -165,11 +155,6 @@
             android:exported="false"
             android:label="@string/app_blank_string"
             android:launchMode="singleTask" />
-        <activity
-            android:name=".view.screens.account.assigndelegates.AssignDelegatesAccountActivity"
-            android:exported="false"
-            android:label="@string/app_blank_string"
-            android:launchMode="singleTop" />
         <activity
             android:name=".view.screens.account.pair_device.PairDeviceActivity"
             android:exported="false"
