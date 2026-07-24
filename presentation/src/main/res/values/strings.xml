@@ -13,7 +13,6 @@
     <!-- Common -->
     <string name="me_validation_required_asterisk" translatable="false"><![CDATA[ <sup><small>*</small></sup> ]]></string>
     <string name="me_validation_error_not_empty">Field is empty</string>
-    <string name="me_validation_error_email_is_invalid">Email is invalid</string>
     <string name="me_validation_error_decimal">Not a valid number</string>
     <string name="me_ok">OK</string>
     <string name="me_cancel">Cancel</string>
@@ -57,32 +56,15 @@
     <string name="restore_login">Log in</string>
     <string name="restore_login_via_de_qr_code">login via qr-code</string>
     <string name="restore_scan_deze_qr">Scan this QR-Code with another device you have already registered</string>
-    <string name="restore_inloggen_via_email">Login with email</string>
-    <string name="restore_inloggen_via_qr">Add another device</string>
-    <string name="restore_auth_code">Authorization code</string>
-    <string name="restore_auth_code_description">Log in to the webshop, click on your profile, then authorize device and enter this code.</string>
-    <string name="restore_inloggen_by_email">Restore by email</string>
-    <string name="restore_email_description">Please enter your e-mail address in order to receive your login details.</string>
     <string name="restore_pincode_description">Enter this pincode in your profile</string>
-    <string name="restore_email_instructions">The link was sent to your e-mail. Tap on it, wait for Success message and come back to Me.</string>
-    <string name="restore_email_not_found">Identity not found</string>
     <string name="restore_email_invalid_link">Invalid link</string>
-    <string name="restore_title_qr" translatable="false">QR-Code</string>
     <string name="restore_account_pair">Pair</string>
     <string name="restore_account_login_other_device">Log in with other device</string>
 
 
-    <!-- New account screen -->
+    <!-- Email auth fields -->
     <string name="new_account_field_email">E-mail</string>
     <string name="new_account_field_email_repeat">Repeat e-mail</string>
-    <string name="new_account_field_first_name">Given Name</string>
-    <string name="new_account_field_last_name">Family Name</string>
-    <string name="new_account_field_bsn">BSN</string>
-    <string name="new_account_field_phone">Phone number</string>
-    <string name="new_account_title">New profile</string>
-    <string name="new_account_subtitle">Please provide your e-mail and information below. For registration primary email address is required. </string>
-    <string name="new_account_error_already_in_use">Account already in use</string>
-    <string name="new_account_email_repeat_error">Emails should be the same</string>
 
     <!-- New passcode screen -->
     <string name="passcode_title_create">Enter new pass code</string>
@@ -348,8 +330,8 @@
 
     <!-- Check email -->
     <string name="check_email_has_been_sent_to_you">Check your email</string>
-    <string name="check_email_description_part1">Klik op de link in de email die u heeft ontvangen op</string>
-    <string name="check_email_description_part2">om uw aanmelding af te maken \n</string>
+    <string name="check_email_description">We\'ve sent you an email. Check your inbox to continue.</string>
+    <string name="check_email_description_with_email"><![CDATA[We\'ve sent an email to <b><i><font color="blue">%1$s</font></i></b>. Check your inbox to continue.]]></string>
     <string name="check_your_email">Check your email</string>
 
 
@@ -370,7 +352,6 @@
     <string name="next_step">Next step</string>
     <string name="cancel">Cancel</string>
     <string name="check_email_open_mail_app">Open mail app</string>
-    <string name="registering">Registering...</string>
     <string name="session_has_expired">Your session has expired. You are being logged out.</string>
     <string name="warning">Warning!</string>
     <string name="dialog_no_internet_warning">Warning!</string>

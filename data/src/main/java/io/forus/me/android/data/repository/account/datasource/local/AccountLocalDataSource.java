@@ -20,10 +20,8 @@ import io.forus.me.android.data.entity.sign.response.IdentityPinResult;
 import io.forus.me.android.data.entity.sign.response.IdentityTokenResult;
 import io.forus.me.android.data.entity.sign.response.ShortTokenResult;
 import io.forus.me.android.data.entity.sign.response.SignUpResult;
-import io.forus.me.android.data.entity.sign.response.ValidateEmailResult;
 import io.forus.me.android.data.repository.account.datasource.AccountDataSource;
 import io.forus.me.android.data.repository.datasource.LocalDataSource;
-import io.forus.me.android.domain.models.account.ValidateEmail;
 import io.reactivex.Observable;
 
 public class AccountLocalDataSource implements AccountDataSource, LocalDataSource{
@@ -58,12 +56,6 @@ public class AccountLocalDataSource implements AccountDataSource, LocalDataSourc
         List<Token> tokes = tokenDao.queryBuilder().orderDesc(TokenDao.Properties.Id).limit(1).list();
         return tokes.size() == 0 ? null : tokes.get(0);
 
-    }
-
-    @NotNull
-    @Override
-    public Observable<Boolean> restoreByEmail(@NotNull String email) {
-        return null;
     }
 
     @NotNull
@@ -169,12 +161,6 @@ public class AccountLocalDataSource implements AccountDataSource, LocalDataSourc
     @NotNull
     @Override
     public Observable<ShortTokenResult> getShortToken() {
-        return null;
-    }
-
-    @NotNull
-    @Override
-    public Observable<ValidateEmail> validateEmail(@NotNull String email) {
         return null;
     }
 

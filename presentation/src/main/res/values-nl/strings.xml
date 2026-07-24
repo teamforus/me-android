@@ -10,7 +10,6 @@
 
     <!-- Common -->
     <string name="me_validation_error_not_empty">Het invoerveld is leeg</string>
-    <string name="me_validation_error_email_is_invalid">Het invoerveld is niet juist ingevoerd.</string>
     <string name="me_validation_error_decimal">Het invoerveld accepteert alleen getallen of decimalen.</string>
     <string name="me_ok">OK</string>
     <string name="me_cancel">ANNULEER</string>
@@ -55,30 +54,14 @@
     <string name="restore_login">Inloggen</string>
     <string name="restore_login_via_de_qr_code">login via de qr-code</string>
     <string name="restore_scan_deze_qr">Scan deze QR-Code met een ander apparaat waar je al op ingelogd bent</string>
-    <string name="restore_inloggen_via_email">Inloggen via e-mail</string>
-    <string name="restore_inloggen_via_qr">Ander apparaat toevoegen</string>
-    <string name="restore_auth_code">Koppelcode</string>
-    <string name="restore_auth_code_description">Log in op de webshop, klik op je account en klik op autoriseer apparaat en vul deze code in.</string>
-    <string name="restore_inloggen_by_email">Bevestigen</string>
-    <string name="restore_email_description">Vul je e-mailadres in om inloggegevens te ontvangen</string>
     <string name="restore_pincode_description">Vul deze pincode in de webshop in, waar je al bent ingelogd.</string>
-    <string name="restore_email_instructions">Er is een e-mail verstuurd naar je e-mailadres waarmee je opnieuw kunt inloggen.</string>
-    <string name="restore_email_not_found">Identity niet gevonden</string>
     <string name="restore_email_invalid_link">Ongeldige link</string>
     <string name="restore_account_pair">Koppelen</string>
     <string name="restore_account_login_other_device">Inloggen vanaf een ander apparaat</string>
 
-    <!-- New account screen -->
+    <!-- Email auth fields -->
     <string name="new_account_field_email">E-mail</string>
     <string name="new_account_field_email_repeat">Herhaal e-mail</string>
-    <string name="new_account_field_first_name">Voornaam</string>
-    <string name="new_account_field_last_name">Achternaam</string>
-    <string name="new_account_field_bsn">BSN</string>
-    <string name="new_account_field_phone">Telefoonnummer</string>
-    <string name="new_account_title">Account</string>
-    <string name="new_account_subtitle">Vul onderstaande gegevens in om een account aan te maken</string>
-    <string name="new_account_error_already_in_use">E-mailadres is al in gebruik</string>
-    <string name="new_account_email_repeat_error">E-mails moeten hetzelfde zijn</string>
 
     <!-- New passcode screen -->
     <string name="passcode_title_create">Vul je nieuwe inlogcode in</string>
@@ -336,8 +319,8 @@
 
     <!-- Check email -->        
     <string name="check_email_has_been_sent_to_you">Er is een e-mail onderweg!</string>
-    <string name="check_email_description_part1">Er is een e-mail gestuurd naar</string>
-    <string name="check_email_description_part2">.\n Klik op de link in de e-mail om je aan te melden.\n</string>
+    <string name="check_email_description">We hebben je een e-mail gestuurd. Controleer je inbox om verder te gaan.</string>
+    <string name="check_email_description_with_email"><![CDATA[We hebben een e-mail gestuurd naar <b><i><font color="blue">%1$s</font></i></b>. Controleer je inbox om verder te gaan.]]></string>
     <string name="check_your_email">Controleer je e-mail.</string>
 
     <!-- Restore account success -->
@@ -358,7 +341,6 @@
 
     <string name="cancel">Annuleren</string>
     <string name="check_email_open_mail_app">Open mail app</string>
-    <string name="registering">Registreren&#8230;</string>
     <string name="session_has_expired">Deze sessie is verlopen. Je wordt nu uitgelogd.</string>
     <string name="warning">Let op!</string>
     <string name="dialog_no_internet_warning">Let op!</string>

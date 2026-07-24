@@ -8,11 +8,6 @@ interface AccountRepository {
     fun newUser(model: NewAccountRequest) : Observable<Boolean>
 
 
-    fun restoreByEmail(email: String) : Observable<Boolean>
-
-    fun validateEmail(email: String) : Observable<io.forus.me.android.domain.models.account.ValidateEmail>
-
-
     fun restoreExchangeToken(token: String) : Observable<RequestDelegatesEmailModel>
 
 
