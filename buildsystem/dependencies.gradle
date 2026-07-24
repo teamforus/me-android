@@ -8,8 +8,8 @@ ext {
  
   androidBuildToolsVersion = "33.0.0"
   androidMinSdkVersion = 24
-  androidTargetSdkVersion = 35
-  androidCompileSdkVersion = 35
+  androidTargetSdkVersion = 36
+  androidCompileSdkVersion = 36
 
 
   //Libraries

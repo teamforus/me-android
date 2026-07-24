@@ -1,6 +1,5 @@
 package io.forus.me.android.data.net.sign
 
-import com.gigawatt.android.data.net.sign.models.request.EmailValidateRequest
 import com.gigawatt.android.data.net.sign.models.request.SignUp
 import io.forus.me.android.data.entity.account.Account
 import io.forus.me.android.data.entity.common.Success
@@ -29,12 +28,6 @@ interface SignService {
     @POST("api/v1/identity/proxy/code")
     fun restoreByPinCode() : Observable<IdentityPinResult>
 
-
-    @POST("api/v1/identity/proxy/email")
-    fun restoreByEmail(@Body restore: RestoreByEmail) : Observable<ResponseBody>
-
-   @POST("api/v1/identity/validate/email")
-   fun validateEmail(@Body email: EmailValidateRequest) : Observable<ValidateEmailResult>
 
     @GET("api/v1/identity/proxy/email/exchange/{token}")
     fun restoreExchangeToken(@Path("token") token: String) : Observable<AccessToken>

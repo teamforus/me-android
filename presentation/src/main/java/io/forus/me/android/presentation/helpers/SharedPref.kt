@@ -8,7 +8,6 @@ import android.app.Activity
 object SharedPref {
     private var mSharedPref: SharedPreferences? = null
 
-    public val RESTORE_EMAIL = "RESTORE_EMAIL"
     public val OPTION_SEND_CRASH_REPORT = "SEND_CRASH_REPORT"
     public val OPTION_NEED_APP_UPDATE = "OPTION_NEED_APP_UPDATE"
     public val OPTION_API_TYPE = "OPTION_API_TYPE"
@@ -50,6 +49,5 @@ object SharedPref {
         prefsEditor.putInt(key, value!!).commit()
     }
 }
-
 
 

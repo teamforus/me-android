@@ -15,11 +15,6 @@ interface AccountDataSource {
     fun restoreByQrToken() : Observable<IdentityTokenResult>
 
 
-    fun restoreByEmail(email: String) : Observable<Boolean>
-
-    fun validateEmail(email: String) : Observable<io.forus.me.android.domain.models.account.ValidateEmail>
-
-
     fun restoreExchangeToken(token: String) : Observable<AccessToken>
 
     fun registerExchangeToken(token: String) : Observable<AccessToken>

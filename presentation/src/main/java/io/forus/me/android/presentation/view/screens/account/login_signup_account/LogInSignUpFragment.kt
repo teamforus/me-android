@@ -67,8 +67,7 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
 
     private val viewIsValid: Boolean
         get() {
-            val validation = email!!.validate()
-            return validation
+            return email!!.getText().isNotBlank()
         }
 
     private var instructionsAlreadyShown: Boolean = false
@@ -95,19 +94,12 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
     }
 
 
-    private val restoreAction = PublishSubject.create<String>()
-    override fun register() = restoreAction
-
     private val exchangeToken = PublishSubject.create<String>()
     override fun exchangeToken() = exchangeToken
 
 
     private val registerActionNewAccount = PublishSubject.create<NewAccountRequest>()
     override fun registerNewAccount() = registerActionNewAccount
-
-
-    private val validateEmail = PublishSubject.create<String>()
-    override fun validateEmail() = validateEmail
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
@@ -170,61 +162,36 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
     override fun render(vs: LRViewState<LogInSignUpModel>) {
         super.render(vs)
 
-        restore!!.isEnabled = vs.model.sendingRestoreByEmail != true
+        restore!!.isEnabled = vs.model.sendingEmailAuth != true
 
-        pair_device!!.isEnabled = vs.model.sendingRestoreByEmail != true
-        email!!.isEditable = vs.model.sendingRestoreByEmail != true
+        pair_device!!.isEnabled = vs.model.sendingEmailAuth != true
+        email!!.isEditable = vs.model.sendingEmailAuth != true
 
-        if (vs.model.sendingRestoreByEmailSuccess == true && !instructionsAlreadyShown  && clickLoginUserAction) {
+        if (vs.model.sendingEmailAuthSuccess == true && !instructionsAlreadyShown  && clickLoginUserAction) {
 
             clickLoginUserAction = false
 
-            navigator.navigateToCheckEmail(requireContext())
+            navigator.navigateToCheckEmail(requireContext(), email!!.getText())
         }
 
-        if (vs.model.sendingRestoreByEmail == true) {
+        if (vs.model.sendingEmailAuth == true) {
             (activity as? BaseActivity)?.hideSoftKeyboard()
         }
 
 
 
         restore!!.setOnClickListener {
-            clickLoginUserAction = true
-            validateEmail.onNext(email!!.getText())
-
-        }
-
-        if (vs.model.validateEmail != null) {
-
-            if (vs.model.validateEmail.valid) {
-
-                context?.let { it1 ->
-                    SharedPref.init(it1)
-                    SharedPref.write(SharedPref.RESTORE_EMAIL, email!!.getText())
-                }
-
-                if (vs.model.validateEmail.used) {
-                    restoreAction.onNext(email!!.getText())
-
-                } else {
-                    registerActionNewAccount.onNext(NewAccountRequest(
-                            email = email!!.getText()
-                    ))
-                }
-
-            } else {
-                processError(Throwable("Invalid email"))
+            if (viewIsValid) {
+                clickLoginUserAction = true
+                registerActionNewAccount.onNext(NewAccountRequest(
+                        email = email!!.getText()
+                ))
             }
-
-        }
-
-        if (vs.model.validateEmailError != null) {
-            processError(vs.model.validateEmailError)
         }
 
 
-        if (vs.model.sendingRestoreByEmailError != null) {
-            processError(vs.model.sendingRestoreByEmailError)
+        if (vs.model.emailAuthError != null) {
+            processError(vs.model.emailAuthError)
         }
 
 
@@ -326,7 +293,7 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
             }else{
                 if(clickLoginUserAction) {
                     clickLoginUserAction = false
-                    navigator.navigateToCheckEmail(requireContext())
+                    navigator.navigateToCheckEmail(requireContext(), email!!.getText())
                 }
             }
 
@@ -343,4 +310,3 @@ class LogInSignUpFragment : ToolbarLRFragment<LogInSignUpModel, LogInSignUpView,
         exchangeToken.onNext(token)
     }
 }
-
